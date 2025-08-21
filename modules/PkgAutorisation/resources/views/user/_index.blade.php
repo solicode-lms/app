@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('users.create') }}',
         editUrl: '{{ route('users.edit',  ['user' => ':id']) }}',
+        fieldMetaUrl: '{{ route('users.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('users.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('users.show',  ['user' => ':id']) }}',
         getEntityUrl: '{{ route("users.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('users.store') }}', 

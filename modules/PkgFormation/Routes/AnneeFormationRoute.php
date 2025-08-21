@@ -9,6 +9,13 @@ use Modules\PkgFormation\Controllers\AnneeFormationController;
 // routes for anneeFormation management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
+
+        // Edition inline
+        Route::get('anneeFormations/{id}/field/{field}/meta', [AnneeFormationController::class, 'fieldMeta'])
+            ->name('anneeFormations.field.meta');
+        Route::patch('anneeFormations/{id}/inline', [AnneeFormationController::class, 'patchInline'])
+            ->name('anneeFormations.patchInline');
+
         Route::get('anneeFormations/getData', [AnneeFormationController::class, 'getData'])->name('anneeFormations.getData');
         // ✅ Route JSON
         Route::get('anneeFormations/json/{id}', [AnneeFormationController::class, 'getAnneeFormation'])

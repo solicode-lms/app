@@ -9,6 +9,13 @@ use Modules\PkgAutorisation\Controllers\PermissionController;
 // routes for permission management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
+
+        // Edition inline
+        Route::get('permissions/{id}/field/{field}/meta', [PermissionController::class, 'fieldMeta'])
+            ->name('permissions.field.meta');
+        Route::patch('permissions/{id}/inline', [PermissionController::class, 'patchInline'])
+            ->name('permissions.patchInline');
+
         Route::get('permissions/getData', [PermissionController::class, 'getData'])->name('permissions.getData');
         // ✅ Route JSON
         Route::get('permissions/json/{id}', [PermissionController::class, 'getPermission'])

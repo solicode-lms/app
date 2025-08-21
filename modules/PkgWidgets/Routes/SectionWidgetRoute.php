@@ -9,6 +9,13 @@ use Modules\PkgWidgets\Controllers\SectionWidgetController;
 // routes for sectionWidget management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgWidgets')->group(function () {
+
+        // Edition inline
+        Route::get('sectionWidgets/{id}/field/{field}/meta', [SectionWidgetController::class, 'fieldMeta'])
+            ->name('sectionWidgets.field.meta');
+        Route::patch('sectionWidgets/{id}/inline', [SectionWidgetController::class, 'patchInline'])
+            ->name('sectionWidgets.patchInline');
+
         Route::get('sectionWidgets/getData', [SectionWidgetController::class, 'getData'])->name('sectionWidgets.getData');
         // ✅ Route JSON
         Route::get('sectionWidgets/json/{id}', [SectionWidgetController::class, 'getSectionWidget'])

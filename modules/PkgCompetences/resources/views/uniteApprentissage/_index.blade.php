@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('uniteApprentissages.create') }}',
         editUrl: '{{ route('uniteApprentissages.edit',  ['uniteApprentissage' => ':id']) }}',
+        fieldMetaUrl: '{{ route('uniteApprentissages.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('uniteApprentissages.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('uniteApprentissages.show',  ['uniteApprentissage' => ':id']) }}',
         getEntityUrl: '{{ route("uniteApprentissages.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('uniteApprentissages.store') }}', 

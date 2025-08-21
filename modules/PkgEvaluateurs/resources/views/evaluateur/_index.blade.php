@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('evaluateurs.create') }}',
         editUrl: '{{ route('evaluateurs.edit',  ['evaluateur' => ':id']) }}',
+        fieldMetaUrl: '{{ route('evaluateurs.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('evaluateurs.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('evaluateurs.show',  ['evaluateur' => ':id']) }}',
         getEntityUrl: '{{ route("evaluateurs.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('evaluateurs.store') }}', 

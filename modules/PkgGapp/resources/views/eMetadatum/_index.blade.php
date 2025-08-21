@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('eMetadata.create') }}',
         editUrl: '{{ route('eMetadata.edit',  ['eMetadatum' => ':id']) }}',
+        fieldMetaUrl: '{{ route('eMetadata.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('eMetadata.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('eMetadata.show',  ['eMetadatum' => ':id']) }}',
         getEntityUrl: '{{ route("eMetadata.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('eMetadata.store') }}', 

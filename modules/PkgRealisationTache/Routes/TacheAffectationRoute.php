@@ -9,6 +9,13 @@ use Modules\PkgRealisationTache\Controllers\TacheAffectationController;
 // routes for tacheAffectation management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationTache')->group(function () {
+
+        // Edition inline
+        Route::get('tacheAffectations/{id}/field/{field}/meta', [TacheAffectationController::class, 'fieldMeta'])
+            ->name('tacheAffectations.field.meta');
+        Route::patch('tacheAffectations/{id}/inline', [TacheAffectationController::class, 'patchInline'])
+            ->name('tacheAffectations.patchInline');
+
         Route::get('tacheAffectations/getData', [TacheAffectationController::class, 'getData'])->name('tacheAffectations.getData');
         // ✅ Route JSON
         Route::get('tacheAffectations/json/{id}', [TacheAffectationController::class, 'getTacheAffectation'])

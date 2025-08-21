@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('widgetUtilisateurs.create') }}',
         editUrl: '{{ route('widgetUtilisateurs.edit',  ['widgetUtilisateur' => ':id']) }}',
+        fieldMetaUrl: '{{ route('widgetUtilisateurs.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('widgetUtilisateurs.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('widgetUtilisateurs.show',  ['widgetUtilisateur' => ':id']) }}',
         getEntityUrl: '{{ route("widgetUtilisateurs.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('widgetUtilisateurs.store') }}', 

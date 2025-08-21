@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Gate;
 use Modules\Core\App\Manager\JobManager;
 use Modules\PkgApprentissage\Models\RealisationUa;
 use Modules\Core\Services\BaseService;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Classe RealisationUaService pour gérer la persistance de l'entité RealisationUa.
@@ -315,4 +317,161 @@ class BaseRealisationUaService extends BaseService
         return "done";
     }
 
+    /**
+    * Liste des champs autorisés à l’édition inline
+    */
+    public function getFieldsEditable(): array
+    {
+        return [
+            'unite_apprentissage_id',
+            'etat_realisation_ua_id',
+            'progression_cache',
+            'note_cache'
+        ];
+    }
+
+
+    /**
+     * Construit les métadonnées d’un champ (type, options, validation…)
+     */
+    public function buildFieldMeta(RealisationUa $e, string $field): array
+    {
+        $meta = [
+            'entity'         => 'realisation_ua',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+        ];
+
+        // 🔹 Récupérer toutes les règles définies dans le FormRequest
+        $rules = (new \Modules\PkgApprentissage\App\Requests\RealisationUaRequest())->rules();
+        $validationRules = $rules[$field] ?? [];
+        if (is_string($validationRules)) {
+            $validationRules = explode('|', $validationRules);
+        }
+       switch ($field) {
+            case 'unite_apprentissage_id':
+                 $values = (new \Modules\PkgCompetences\Services\UniteApprentissageService())
+                    ->getAllForSelect($e->uniteApprentissage)
+                    ->map(fn($entity) => [
+                        'value' => (int) $entity->id,
+                        'label' => (string) $entity,
+                    ])
+                    ->toArray();
+
+                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                    'required' => true,
+                    'options'  => [
+                        'source' => 'static',
+                        'values' => $values,
+                    ],
+                ]);
+            case 'etat_realisation_ua_id':
+                 $values = (new \Modules\PkgApprentissage\Services\EtatRealisationUaService())
+                    ->getAllForSelect($e->etatRealisationUa)
+                    ->map(fn($entity) => [
+                        'value' => (int) $entity->id,
+                        'label' => (string) $entity,
+                    ])
+                    ->toArray();
+
+                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                    'required' => true,
+                    'options'  => [
+                        'source' => 'static',
+                        'values' => $values,
+                    ],
+                ]);
+            case 'progression_cache':
+                return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
+
+            case 'note_cache':
+                return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
+
+            default:
+                abort(404, "Champ $field non pris en charge pour l’édition inline.");
+        }
+    }
+
+    /**
+     * Applique un PATCH inline (validation + sauvegarde)
+     */
+    public function applyInlinePatch(RealisationUa $e, array $changes): RealisationUa
+    {
+        $allowed = $this->getFieldsEditable();
+        $filtered = Arr::only($changes, $allowed);
+
+        if (empty($filtered)) {
+            abort(422, 'Aucun champ autorisé.');
+        }
+
+        $rules = [];
+        foreach ($filtered as $field => $value) {
+            $meta = $this->buildFieldMeta($e, $field);
+            $rules[$field] = $meta['validation'] ?? ['nullable'];
+        }
+        Validator::make($filtered, $rules)->validate();
+
+        $e->fill($filtered);
+        $e->save();
+        $e->refresh();
+        return $e;
+    }
+
+    /**
+     * Formatte les valeurs pour l’affichage inline
+     */
+    public function formatDisplayValues(RealisationUa $e, array $fields): array
+    {
+        $out = [];
+
+        foreach ($fields as $field) {
+            switch ($field) {
+                case 'unite_apprentissage_id':
+                    // fallback string simple
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'etat_realisation_ua_id':
+                    // fallback string simple
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'progression_cache':
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgApprentissage::realisationUa.custom.fields.progression_cache', [
+                        'entity' => $e
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'note_cache':
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgApprentissage::realisationUa.custom.fields.note_cache', [
+                        'entity' => $e
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
+                    break;
+
+                default:
+                    // fallback générique si champ non pris en charge
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
+            }
+        }
+        return $out;
+    }
 }

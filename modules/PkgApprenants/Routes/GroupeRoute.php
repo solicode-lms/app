@@ -9,6 +9,13 @@ use Modules\PkgApprenants\Controllers\GroupeController;
 // routes for groupe management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
+
+        // Edition inline
+        Route::get('groupes/{id}/field/{field}/meta', [GroupeController::class, 'fieldMeta'])
+            ->name('groupes.field.meta');
+        Route::patch('groupes/{id}/inline', [GroupeController::class, 'patchInline'])
+            ->name('groupes.patchInline');
+
         Route::get('groupes/getData', [GroupeController::class, 'getData'])->name('groupes.getData');
         // ✅ Route JSON
         Route::get('groupes/json/{id}', [GroupeController::class, 'getGroupe'])

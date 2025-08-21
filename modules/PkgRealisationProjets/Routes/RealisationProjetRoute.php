@@ -9,6 +9,13 @@ use Modules\PkgRealisationProjets\Controllers\RealisationProjetController;
 // routes for realisationProjet management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
+
+        // Edition inline
+        Route::get('realisationProjets/{id}/field/{field}/meta', [RealisationProjetController::class, 'fieldMeta'])
+            ->name('realisationProjets.field.meta');
+        Route::patch('realisationProjets/{id}/inline', [RealisationProjetController::class, 'patchInline'])
+            ->name('realisationProjets.patchInline');
+
         Route::get('realisationProjets/getData', [RealisationProjetController::class, 'getData'])->name('realisationProjets.getData');
         // ✅ Route JSON
         Route::get('realisationProjets/json/{id}', [RealisationProjetController::class, 'getRealisationProjet'])

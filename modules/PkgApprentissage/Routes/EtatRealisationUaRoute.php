@@ -9,6 +9,13 @@ use Modules\PkgApprentissage\Controllers\EtatRealisationUaController;
 // routes for etatRealisationUa management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprentissage')->group(function () {
+
+        // Edition inline
+        Route::get('etatRealisationUas/{id}/field/{field}/meta', [EtatRealisationUaController::class, 'fieldMeta'])
+            ->name('etatRealisationUas.field.meta');
+        Route::patch('etatRealisationUas/{id}/inline', [EtatRealisationUaController::class, 'patchInline'])
+            ->name('etatRealisationUas.patchInline');
+
         Route::get('etatRealisationUas/getData', [EtatRealisationUaController::class, 'getData'])->name('etatRealisationUas.getData');
         // ✅ Route JSON
         Route::get('etatRealisationUas/json/{id}', [EtatRealisationUaController::class, 'getEtatRealisationUa'])

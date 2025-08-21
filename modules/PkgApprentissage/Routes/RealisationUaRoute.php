@@ -9,6 +9,13 @@ use Modules\PkgApprentissage\Controllers\RealisationUaController;
 // routes for realisationUa management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprentissage')->group(function () {
+
+        // Edition inline
+        Route::get('realisationUas/{id}/field/{field}/meta', [RealisationUaController::class, 'fieldMeta'])
+            ->name('realisationUas.field.meta');
+        Route::patch('realisationUas/{id}/inline', [RealisationUaController::class, 'patchInline'])
+            ->name('realisationUas.patchInline');
+
         Route::get('realisationUas/getData', [RealisationUaController::class, 'getData'])->name('realisationUas.getData');
         // ✅ Route JSON
         Route::get('realisationUas/json/{id}', [RealisationUaController::class, 'getRealisationUa'])

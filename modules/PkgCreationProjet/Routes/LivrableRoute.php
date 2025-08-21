@@ -9,6 +9,13 @@ use Modules\PkgCreationProjet\Controllers\LivrableController;
 // routes for livrable management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
+
+        // Edition inline
+        Route::get('livrables/{id}/field/{field}/meta', [LivrableController::class, 'fieldMeta'])
+            ->name('livrables.field.meta');
+        Route::patch('livrables/{id}/inline', [LivrableController::class, 'patchInline'])
+            ->name('livrables.patchInline');
+
         Route::get('livrables/getData', [LivrableController::class, 'getData'])->name('livrables.getData');
         // ✅ Route JSON
         Route::get('livrables/json/{id}', [LivrableController::class, 'getLivrable'])

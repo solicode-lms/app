@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('livrableSessions.create') }}',
         editUrl: '{{ route('livrableSessions.edit',  ['livrableSession' => ':id']) }}',
+        fieldMetaUrl: '{{ route('livrableSessions.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('livrableSessions.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('livrableSessions.show',  ['livrableSession' => ':id']) }}',
         getEntityUrl: '{{ route("livrableSessions.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('livrableSessions.store') }}', 

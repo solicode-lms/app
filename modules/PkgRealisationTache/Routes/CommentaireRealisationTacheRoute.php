@@ -9,6 +9,13 @@ use Modules\PkgRealisationTache\Controllers\CommentaireRealisationTacheControlle
 // routes for commentaireRealisationTache management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationTache')->group(function () {
+
+        // Edition inline
+        Route::get('commentaireRealisationTaches/{id}/field/{field}/meta', [CommentaireRealisationTacheController::class, 'fieldMeta'])
+            ->name('commentaireRealisationTaches.field.meta');
+        Route::patch('commentaireRealisationTaches/{id}/inline', [CommentaireRealisationTacheController::class, 'patchInline'])
+            ->name('commentaireRealisationTaches.patchInline');
+
         Route::get('commentaireRealisationTaches/getData', [CommentaireRealisationTacheController::class, 'getData'])->name('commentaireRealisationTaches.getData');
         // ✅ Route JSON
         Route::get('commentaireRealisationTaches/json/{id}', [CommentaireRealisationTacheController::class, 'getCommentaireRealisationTache'])

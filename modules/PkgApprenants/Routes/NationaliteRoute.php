@@ -9,6 +9,13 @@ use Modules\PkgApprenants\Controllers\NationaliteController;
 // routes for nationalite management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
+
+        // Edition inline
+        Route::get('nationalites/{id}/field/{field}/meta', [NationaliteController::class, 'fieldMeta'])
+            ->name('nationalites.field.meta');
+        Route::patch('nationalites/{id}/inline', [NationaliteController::class, 'patchInline'])
+            ->name('nationalites.patchInline');
+
         Route::get('nationalites/getData', [NationaliteController::class, 'getData'])->name('nationalites.getData');
         // ✅ Route JSON
         Route::get('nationalites/json/{id}', [NationaliteController::class, 'getNationalite'])

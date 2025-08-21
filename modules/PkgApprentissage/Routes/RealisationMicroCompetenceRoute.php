@@ -9,6 +9,13 @@ use Modules\PkgApprentissage\Controllers\RealisationMicroCompetenceController;
 // routes for realisationMicroCompetence management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprentissage')->group(function () {
+
+        // Edition inline
+        Route::get('realisationMicroCompetences/{id}/field/{field}/meta', [RealisationMicroCompetenceController::class, 'fieldMeta'])
+            ->name('realisationMicroCompetences.field.meta');
+        Route::patch('realisationMicroCompetences/{id}/inline', [RealisationMicroCompetenceController::class, 'patchInline'])
+            ->name('realisationMicroCompetences.patchInline');
+
         Route::get('realisationMicroCompetences/getData', [RealisationMicroCompetenceController::class, 'getData'])->name('realisationMicroCompetences.getData');
         // ✅ Route JSON
         Route::get('realisationMicroCompetences/json/{id}', [RealisationMicroCompetenceController::class, 'getRealisationMicroCompetence'])

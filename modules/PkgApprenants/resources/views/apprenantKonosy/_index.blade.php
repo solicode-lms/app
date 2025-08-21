@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('apprenantKonosies.create') }}',
         editUrl: '{{ route('apprenantKonosies.edit',  ['apprenantKonosy' => ':id']) }}',
+        fieldMetaUrl: '{{ route('apprenantKonosies.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('apprenantKonosies.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('apprenantKonosies.show',  ['apprenantKonosy' => ':id']) }}',
         getEntityUrl: '{{ route("apprenantKonosies.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('apprenantKonosies.store') }}', 

@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('eDataFields.create') }}',
         editUrl: '{{ route('eDataFields.edit',  ['eDataField' => ':id']) }}',
+        fieldMetaUrl: '{{ route('eDataFields.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('eDataFields.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('eDataFields.show',  ['eDataField' => ':id']) }}',
         getEntityUrl: '{{ route("eDataFields.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('eDataFields.store') }}', 

@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('permissions.create') }}',
         editUrl: '{{ route('permissions.edit',  ['permission' => ':id']) }}',
+        fieldMetaUrl: '{{ route('permissions.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('permissions.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('permissions.show',  ['permission' => ':id']) }}',
         getEntityUrl: '{{ route("permissions.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('permissions.store') }}', 

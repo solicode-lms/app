@@ -9,6 +9,13 @@ use Modules\PkgNotification\Controllers\NotificationController;
 // routes for notification management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgNotification')->group(function () {
+
+        // Edition inline
+        Route::get('notifications/{id}/field/{field}/meta', [NotificationController::class, 'fieldMeta'])
+            ->name('notifications.field.meta');
+        Route::patch('notifications/{id}/inline', [NotificationController::class, 'patchInline'])
+            ->name('notifications.patchInline');
+
          Route::get('notifications/markAllAsRead', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
         Route::get('notifications/getData', [NotificationController::class, 'getData'])->name('notifications.getData');
         // ✅ Route JSON

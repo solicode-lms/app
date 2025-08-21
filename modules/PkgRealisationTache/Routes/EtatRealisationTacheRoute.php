@@ -9,6 +9,13 @@ use Modules\PkgRealisationTache\Controllers\EtatRealisationTacheController;
 // routes for etatRealisationTache management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationTache')->group(function () {
+
+        // Edition inline
+        Route::get('etatRealisationTaches/{id}/field/{field}/meta', [EtatRealisationTacheController::class, 'fieldMeta'])
+            ->name('etatRealisationTaches.field.meta');
+        Route::patch('etatRealisationTaches/{id}/inline', [EtatRealisationTacheController::class, 'patchInline'])
+            ->name('etatRealisationTaches.patchInline');
+
         Route::get('etatRealisationTaches/getData', [EtatRealisationTacheController::class, 'getData'])->name('etatRealisationTaches.getData');
         // ✅ Route JSON
         Route::get('etatRealisationTaches/json/{id}', [EtatRealisationTacheController::class, 'getEtatRealisationTache'])

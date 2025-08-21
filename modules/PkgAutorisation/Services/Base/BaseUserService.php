@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Gate;
 use Modules\Core\App\Manager\JobManager;
 use Modules\PkgAutorisation\Models\User;
 use Modules\Core\Services\BaseService;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Classe UserService pour gérer la persistance de l'entité User.
@@ -270,4 +272,120 @@ class BaseUserService extends BaseService
         return "done";
     }
 
+    /**
+    * Liste des champs autorisés à l’édition inline
+    */
+    public function getFieldsEditable(): array
+    {
+        return [
+            'name',
+            'email',
+            'roles'
+        ];
+    }
+
+
+    /**
+     * Construit les métadonnées d’un champ (type, options, validation…)
+     */
+    public function buildFieldMeta(User $e, string $field): array
+    {
+        $meta = [
+            'entity'         => 'user',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+        ];
+
+        // 🔹 Récupérer toutes les règles définies dans le FormRequest
+        $rules = (new \Modules\PkgAutorisation\App\Requests\UserRequest())->rules();
+        $validationRules = $rules[$field] ?? [];
+        if (is_string($validationRules)) {
+            $validationRules = explode('|', $validationRules);
+        }
+       switch ($field) {
+            case 'name':
+                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+            case 'email':
+                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+            case 'roles':
+                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+            default:
+                abort(404, "Champ $field non pris en charge pour l’édition inline.");
+        }
+    }
+
+    /**
+     * Applique un PATCH inline (validation + sauvegarde)
+     */
+    public function applyInlinePatch(User $e, array $changes): User
+    {
+        $allowed = $this->getFieldsEditable();
+        $filtered = Arr::only($changes, $allowed);
+
+        if (empty($filtered)) {
+            abort(422, 'Aucun champ autorisé.');
+        }
+
+        $rules = [];
+        foreach ($filtered as $field => $value) {
+            $meta = $this->buildFieldMeta($e, $field);
+            $rules[$field] = $meta['validation'] ?? ['nullable'];
+        }
+        Validator::make($filtered, $rules)->validate();
+
+        $e->fill($filtered);
+        $e->save();
+        $e->refresh();
+        return $e;
+    }
+
+    /**
+     * Formatte les valeurs pour l’affichage inline
+     */
+    public function formatDisplayValues(User $e, array $fields): array
+    {
+        $out = [];
+
+        foreach ($fields as $field) {
+            switch ($field) {
+                case 'name':
+                    // fallback string simple
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'email':
+                    // fallback string simple
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'roles':
+                    // fallback string simple
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+
+                default:
+                    // fallback générique si champ non pris en charge
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
+            }
+        }
+        return $out;
+    }
 }

@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('anneeFormations.create') }}',
         editUrl: '{{ route('anneeFormations.edit',  ['anneeFormation' => ':id']) }}',
+        fieldMetaUrl: '{{ route('anneeFormations.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('anneeFormations.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('anneeFormations.show',  ['anneeFormation' => ':id']) }}',
         getEntityUrl: '{{ route("anneeFormations.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('anneeFormations.store') }}', 

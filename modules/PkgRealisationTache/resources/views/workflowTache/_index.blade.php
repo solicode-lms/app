@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('workflowTaches.create') }}',
         editUrl: '{{ route('workflowTaches.edit',  ['workflowTache' => ':id']) }}',
+        fieldMetaUrl: '{{ route('workflowTaches.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('workflowTaches.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('workflowTaches.show',  ['workflowTache' => ':id']) }}',
         getEntityUrl: '{{ route("workflowTaches.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('workflowTaches.store') }}', 

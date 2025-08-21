@@ -9,6 +9,13 @@ use Modules\PkgFormation\Controllers\SpecialiteController;
 // routes for specialite management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
+
+        // Edition inline
+        Route::get('specialites/{id}/field/{field}/meta', [SpecialiteController::class, 'fieldMeta'])
+            ->name('specialites.field.meta');
+        Route::patch('specialites/{id}/inline', [SpecialiteController::class, 'patchInline'])
+            ->name('specialites.patchInline');
+
         Route::get('specialites/getData', [SpecialiteController::class, 'getData'])->name('specialites.getData');
         // ✅ Route JSON
         Route::get('specialites/json/{id}', [SpecialiteController::class, 'getSpecialite'])

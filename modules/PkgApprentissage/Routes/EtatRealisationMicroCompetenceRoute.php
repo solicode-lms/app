@@ -9,6 +9,13 @@ use Modules\PkgApprentissage\Controllers\EtatRealisationMicroCompetenceControlle
 // routes for etatRealisationMicroCompetence management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprentissage')->group(function () {
+
+        // Edition inline
+        Route::get('etatRealisationMicroCompetences/{id}/field/{field}/meta', [EtatRealisationMicroCompetenceController::class, 'fieldMeta'])
+            ->name('etatRealisationMicroCompetences.field.meta');
+        Route::patch('etatRealisationMicroCompetences/{id}/inline', [EtatRealisationMicroCompetenceController::class, 'patchInline'])
+            ->name('etatRealisationMicroCompetences.patchInline');
+
         Route::get('etatRealisationMicroCompetences/getData', [EtatRealisationMicroCompetenceController::class, 'getData'])->name('etatRealisationMicroCompetences.getData');
         // ✅ Route JSON
         Route::get('etatRealisationMicroCompetences/json/{id}', [EtatRealisationMicroCompetenceController::class, 'getEtatRealisationMicroCompetence'])

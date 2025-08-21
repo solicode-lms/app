@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Gate;
 use Modules\Core\App\Manager\JobManager;
 use Modules\PkgApprentissage\Models\RealisationMicroCompetence;
 use Modules\Core\Services\BaseService;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Classe RealisationMicroCompetenceService pour gérer la persistance de l'entité RealisationMicroCompetence.
@@ -349,4 +351,222 @@ class BaseRealisationMicroCompetenceService extends BaseService
         return "done";
     }
 
+    /**
+    * Liste des champs autorisés à l’édition inline
+    */
+    public function getFieldsEditable(): array
+    {
+        return [
+            'micro_competence_id',
+            'apprenant_id',
+            'note_cache',
+            'progression_cache',
+            'etat_realisation_micro_competence_id',
+            'realisation_competence_id',
+            'lien_livrable'
+        ];
+    }
+
+
+    /**
+     * Construit les métadonnées d’un champ (type, options, validation…)
+     */
+    public function buildFieldMeta(RealisationMicroCompetence $e, string $field): array
+    {
+        $meta = [
+            'entity'         => 'realisation_micro_competence',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+        ];
+
+        // 🔹 Récupérer toutes les règles définies dans le FormRequest
+        $rules = (new \Modules\PkgApprentissage\App\Requests\RealisationMicroCompetenceRequest())->rules();
+        $validationRules = $rules[$field] ?? [];
+        if (is_string($validationRules)) {
+            $validationRules = explode('|', $validationRules);
+        }
+       switch ($field) {
+            case 'micro_competence_id':
+                 $values = (new \Modules\PkgCompetences\Services\MicroCompetenceService())
+                    ->getAllForSelect($e->microCompetence)
+                    ->map(fn($entity) => [
+                        'value' => (int) $entity->id,
+                        'label' => (string) $entity,
+                    ])
+                    ->toArray();
+
+                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                    'required' => true,
+                    'options'  => [
+                        'source' => 'static',
+                        'values' => $values,
+                    ],
+                ]);
+            case 'apprenant_id':
+                 $values = (new \Modules\PkgApprenants\Services\ApprenantService())
+                    ->getAllForSelect($e->apprenant)
+                    ->map(fn($entity) => [
+                        'value' => (int) $entity->id,
+                        'label' => (string) $entity,
+                    ])
+                    ->toArray();
+
+                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                    'required' => true,
+                    'options'  => [
+                        'source' => 'static',
+                        'values' => $values,
+                    ],
+                ]);
+            case 'note_cache':
+                return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
+
+            case 'progression_cache':
+                return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
+
+            case 'etat_realisation_micro_competence_id':
+                 $values = (new \Modules\PkgApprentissage\Services\EtatRealisationMicroCompetenceService())
+                    ->getAllForSelect($e->etatRealisationMicroCompetence)
+                    ->map(fn($entity) => [
+                        'value' => (int) $entity->id,
+                        'label' => (string) $entity,
+                    ])
+                    ->toArray();
+
+                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                    'required' => true,
+                    'options'  => [
+                        'source' => 'static',
+                        'values' => $values,
+                    ],
+                ]);
+            case 'realisation_competence_id':
+                 $values = (new \Modules\PkgApprentissage\Services\RealisationCompetenceService())
+                    ->getAllForSelect($e->realisationCompetence)
+                    ->map(fn($entity) => [
+                        'value' => (int) $entity->id,
+                        'label' => (string) $entity,
+                    ])
+                    ->toArray();
+
+                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                    'required' => true,
+                    'options'  => [
+                        'source' => 'static',
+                        'values' => $values,
+                    ],
+                ]);
+            case 'lien_livrable':
+                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+            default:
+                abort(404, "Champ $field non pris en charge pour l’édition inline.");
+        }
+    }
+
+    /**
+     * Applique un PATCH inline (validation + sauvegarde)
+     */
+    public function applyInlinePatch(RealisationMicroCompetence $e, array $changes): RealisationMicroCompetence
+    {
+        $allowed = $this->getFieldsEditable();
+        $filtered = Arr::only($changes, $allowed);
+
+        if (empty($filtered)) {
+            abort(422, 'Aucun champ autorisé.');
+        }
+
+        $rules = [];
+        foreach ($filtered as $field => $value) {
+            $meta = $this->buildFieldMeta($e, $field);
+            $rules[$field] = $meta['validation'] ?? ['nullable'];
+        }
+        Validator::make($filtered, $rules)->validate();
+
+        $e->fill($filtered);
+        $e->save();
+        $e->refresh();
+        return $e;
+    }
+
+    /**
+     * Formatte les valeurs pour l’affichage inline
+     */
+    public function formatDisplayValues(RealisationMicroCompetence $e, array $fields): array
+    {
+        $out = [];
+
+        foreach ($fields as $field) {
+            switch ($field) {
+                case 'micro_competence_id':
+                    // fallback string simple
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'apprenant_id':
+                    // fallback string simple
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'note_cache':
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgApprentissage::realisationMicroCompetence.custom.fields.note_cache', [
+                        'entity' => $e
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'progression_cache':
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgApprentissage::realisationMicroCompetence.custom.fields.progression_cache', [
+                        'entity' => $e
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'etat_realisation_micro_competence_id':
+                    // fallback string simple
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'realisation_competence_id':
+                    // fallback string simple
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'lien_livrable':
+                    // fallback string simple
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+
+                default:
+                    // fallback générique si champ non pris en charge
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
+            }
+        }
+        return $out;
+    }
 }

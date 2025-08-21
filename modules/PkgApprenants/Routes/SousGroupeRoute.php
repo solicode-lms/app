@@ -9,6 +9,13 @@ use Modules\PkgApprenants\Controllers\SousGroupeController;
 // routes for sousGroupe management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
+
+        // Edition inline
+        Route::get('sousGroupes/{id}/field/{field}/meta', [SousGroupeController::class, 'fieldMeta'])
+            ->name('sousGroupes.field.meta');
+        Route::patch('sousGroupes/{id}/inline', [SousGroupeController::class, 'patchInline'])
+            ->name('sousGroupes.patchInline');
+
         Route::get('sousGroupes/getData', [SousGroupeController::class, 'getData'])->name('sousGroupes.getData');
         // ✅ Route JSON
         Route::get('sousGroupes/json/{id}', [SousGroupeController::class, 'getSousGroupe'])

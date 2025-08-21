@@ -9,6 +9,13 @@ use Modules\PkgGapp\Controllers\EMetadatumController;
 // routes for eMetadatum management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
+
+        // Edition inline
+        Route::get('eMetadata/{id}/field/{field}/meta', [EMetadatumController::class, 'fieldMeta'])
+            ->name('eMetadata.field.meta');
+        Route::patch('eMetadata/{id}/inline', [EMetadatumController::class, 'patchInline'])
+            ->name('eMetadata.patchInline');
+
         Route::get('eMetadata/getData', [EMetadatumController::class, 'getData'])->name('eMetadata.getData');
         // ✅ Route JSON
         Route::get('eMetadata/json/{id}', [EMetadatumController::class, 'getEMetadatum'])

@@ -9,6 +9,13 @@ use Modules\PkgRealisationProjets\Controllers\AffectationProjetController;
 // routes for affectationProjet management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
+
+        // Edition inline
+        Route::get('affectationProjets/{id}/field/{field}/meta', [AffectationProjetController::class, 'fieldMeta'])
+            ->name('affectationProjets.field.meta');
+        Route::patch('affectationProjets/{id}/inline', [AffectationProjetController::class, 'patchInline'])
+            ->name('affectationProjets.patchInline');
+
         Route::get('affectationProjets/getData', [AffectationProjetController::class, 'getData'])->name('affectationProjets.getData');
         // ✅ Route JSON
         Route::get('affectationProjets/json/{id}', [AffectationProjetController::class, 'getAffectationProjet'])

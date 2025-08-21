@@ -9,6 +9,13 @@ use Modules\Core\Controllers\SysControllerController;
 // routes for sysController management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
+
+        // Edition inline
+        Route::get('sysControllers/{id}/field/{field}/meta', [SysControllerController::class, 'fieldMeta'])
+            ->name('sysControllers.field.meta');
+        Route::patch('sysControllers/{id}/inline', [SysControllerController::class, 'patchInline'])
+            ->name('sysControllers.patchInline');
+
         Route::get('sysControllers/getData', [SysControllerController::class, 'getData'])->name('sysControllers.getData');
         // ✅ Route JSON
         Route::get('sysControllers/json/{id}', [SysControllerController::class, 'getSysController'])

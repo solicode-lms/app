@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Gate;
 use Modules\Core\App\Manager\JobManager;
 use Modules\PkgSessions\Models\AlignementUa;
 use Modules\Core\Services\BaseService;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Classe AlignementUaService pour gérer la persistance de l'entité AlignementUa.
@@ -291,4 +293,148 @@ class BaseAlignementUaService extends BaseService
         return "done";
     }
 
+    /**
+    * Liste des champs autorisés à l’édition inline
+    */
+    public function getFieldsEditable(): array
+    {
+        return [
+            'ordre',
+            'unite_apprentissage_id',
+            'session_formation_id'
+        ];
+    }
+
+
+    /**
+     * Construit les métadonnées d’un champ (type, options, validation…)
+     */
+    public function buildFieldMeta(AlignementUa $e, string $field): array
+    {
+        $meta = [
+            'entity'         => 'alignement_ua',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+        ];
+
+        // 🔹 Récupérer toutes les règles définies dans le FormRequest
+        $rules = (new \Modules\PkgSessions\App\Requests\AlignementUaRequest())->rules();
+        $validationRules = $rules[$field] ?? [];
+        if (is_string($validationRules)) {
+            $validationRules = explode('|', $validationRules);
+        }
+       switch ($field) {
+            case 'ordre':
+                return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
+
+            case 'unite_apprentissage_id':
+                 $values = (new \Modules\PkgCompetences\Services\UniteApprentissageService())
+                    ->getAllForSelect($e->uniteApprentissage)
+                    ->map(fn($entity) => [
+                        'value' => (int) $entity->id,
+                        'label' => (string) $entity,
+                    ])
+                    ->toArray();
+
+                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                    'required' => true,
+                    'options'  => [
+                        'source' => 'static',
+                        'values' => $values,
+                    ],
+                ]);
+            case 'session_formation_id':
+                 $values = (new \Modules\PkgSessions\Services\SessionFormationService())
+                    ->getAllForSelect($e->sessionFormation)
+                    ->map(fn($entity) => [
+                        'value' => (int) $entity->id,
+                        'label' => (string) $entity,
+                    ])
+                    ->toArray();
+
+                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                    'required' => true,
+                    'options'  => [
+                        'source' => 'static',
+                        'values' => $values,
+                    ],
+                ]);
+            default:
+                abort(404, "Champ $field non pris en charge pour l’édition inline.");
+        }
+    }
+
+    /**
+     * Applique un PATCH inline (validation + sauvegarde)
+     */
+    public function applyInlinePatch(AlignementUa $e, array $changes): AlignementUa
+    {
+        $allowed = $this->getFieldsEditable();
+        $filtered = Arr::only($changes, $allowed);
+
+        if (empty($filtered)) {
+            abort(422, 'Aucun champ autorisé.');
+        }
+
+        $rules = [];
+        foreach ($filtered as $field => $value) {
+            $meta = $this->buildFieldMeta($e, $field);
+            $rules[$field] = $meta['validation'] ?? ['nullable'];
+        }
+        Validator::make($filtered, $rules)->validate();
+
+        $e->fill($filtered);
+        $e->save();
+        $e->refresh();
+        return $e;
+    }
+
+    /**
+     * Formatte les valeurs pour l’affichage inline
+     */
+    public function formatDisplayValues(AlignementUa $e, array $fields): array
+    {
+        $out = [];
+
+        foreach ($fields as $field) {
+            switch ($field) {
+                case 'ordre':
+                    $html = view('Core::fields_by_type.integer', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'unite_apprentissage_id':
+                    // fallback string simple
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'session_formation_id':
+                    // fallback string simple
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+
+                default:
+                    // fallback générique si champ non pris en charge
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
+            }
+        }
+        return $out;
+    }
 }

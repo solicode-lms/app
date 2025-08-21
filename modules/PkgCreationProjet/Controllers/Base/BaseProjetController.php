@@ -550,4 +550,57 @@ class BaseProjetController extends AdminController
                 )
         );
     }
+
+    /**
+     * Retourne les métadonnées d’un champ (type, options, validation, etag…)
+     *  @DynamicPermissionIgnore
+     */
+    public function fieldMeta(int $id, string $field)
+    {
+        // $this->authorizeAction('update');
+        $itemProjet = Projet::findOrFail($id);
+
+
+        $data = $this->service->buildFieldMeta($itemProjet, $field);
+        return response()->json(
+            $data
+        );
+    }
+
+    /**
+     * PATCH inline d’une cellule avec gestion de l’ETag
+     * @DynamicPermissionIgnore
+     */
+    public function patchInline(Request $request, int $id)
+    {
+
+        $this->authorizeAction('update');
+        $itemProjet = Projet::findOrFail($id);
+
+
+        // Vérification ETag
+        $ifMatch = $request->header('If-Match');
+        $etag = $this->service->etag($itemProjet);
+        if ($ifMatch && $ifMatch !== $etag) {
+            return response()->json(['error' => 'conflict'], 409);
+        }
+
+        // Appliquer le patch
+        $changes = $request->input('changes', []);
+        $updated = $this->service->applyInlinePatch($itemProjet, $changes);
+
+        return response()->json(
+            array_merge(
+                [
+                    "ok"        => true,
+                    "entity_id" => $updated->id,
+                    "display"   => $this->service->formatDisplayValues($updated, array_keys($changes)),
+                    "etag"      => $this->service->etag($updated),
+                ],
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+            )
+        );
+    }
+
+   
 }

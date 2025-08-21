@@ -9,6 +9,13 @@ use Modules\PkgFormation\Controllers\FormateurController;
 // routes for formateur management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
+
+        // Edition inline
+        Route::get('formateurs/{id}/field/{field}/meta', [FormateurController::class, 'fieldMeta'])
+            ->name('formateurs.field.meta');
+        Route::patch('formateurs/{id}/inline', [FormateurController::class, 'patchInline'])
+            ->name('formateurs.patchInline');
+
         Route::get('formateurs/getData', [FormateurController::class, 'getData'])->name('formateurs.getData');
         // ✅ Route JSON
         Route::get('formateurs/json/{id}', [FormateurController::class, 'getFormateur'])

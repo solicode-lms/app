@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Gate;
 use Modules\Core\App\Manager\JobManager;
 use Modules\PkgSessions\Models\SessionFormation;
 use Modules\Core\Services\BaseService;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Classe SessionFormationService pour gérer la persistance de l'entité SessionFormation.
@@ -314,4 +316,132 @@ class BaseSessionFormationService extends BaseService
         return "done";
     }
 
+    /**
+    * Liste des champs autorisés à l’édition inline
+    */
+    public function getFieldsEditable(): array
+    {
+        return [
+            'ordre',
+            'titre',
+            'objectifs_pedagogique',
+            'AlignementUa'
+        ];
+    }
+
+
+    /**
+     * Construit les métadonnées d’un champ (type, options, validation…)
+     */
+    public function buildFieldMeta(SessionFormation $e, string $field): array
+    {
+        $meta = [
+            'entity'         => 'session_formation',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+        ];
+
+        // 🔹 Récupérer toutes les règles définies dans le FormRequest
+        $rules = (new \Modules\PkgSessions\App\Requests\SessionFormationRequest())->rules();
+        $validationRules = $rules[$field] ?? [];
+        if (is_string($validationRules)) {
+            $validationRules = explode('|', $validationRules);
+        }
+       switch ($field) {
+            case 'ordre':
+                return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
+
+            case 'titre':
+                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+            case 'objectifs_pedagogique':
+                return $this->computeFieldMeta($e, $field, $meta, 'text', $validationRules);
+
+            case 'AlignementUa':
+                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+            default:
+                abort(404, "Champ $field non pris en charge pour l’édition inline.");
+        }
+    }
+
+    /**
+     * Applique un PATCH inline (validation + sauvegarde)
+     */
+    public function applyInlinePatch(SessionFormation $e, array $changes): SessionFormation
+    {
+        $allowed = $this->getFieldsEditable();
+        $filtered = Arr::only($changes, $allowed);
+
+        if (empty($filtered)) {
+            abort(422, 'Aucun champ autorisé.');
+        }
+
+        $rules = [];
+        foreach ($filtered as $field => $value) {
+            $meta = $this->buildFieldMeta($e, $field);
+            $rules[$field] = $meta['validation'] ?? ['nullable'];
+        }
+        Validator::make($filtered, $rules)->validate();
+
+        $e->fill($filtered);
+        $e->save();
+        $e->refresh();
+        return $e;
+    }
+
+    /**
+     * Formatte les valeurs pour l’affichage inline
+     */
+    public function formatDisplayValues(SessionFormation $e, array $fields): array
+    {
+        $out = [];
+
+        foreach ($fields as $field) {
+            switch ($field) {
+                case 'ordre':
+                    $html = view('Core::fields_by_type.integer', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'titre':
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgSessions::sessionFormation.custom.fields.titre', [
+                        'entity' => $e
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'objectifs_pedagogique':
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgSessions::sessionFormation.custom.fields.objectifs_pedagogique', [
+                        'entity' => $e
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'AlignementUa':
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgSessions::sessionFormation.custom.fields.alignementUas', [
+                        'entity' => $e
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
+                    break;
+
+                default:
+                    // fallback générique si champ non pris en charge
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
+            }
+        }
+        return $out;
+    }
 }

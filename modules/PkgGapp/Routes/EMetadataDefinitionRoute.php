@@ -9,6 +9,13 @@ use Modules\PkgGapp\Controllers\EMetadataDefinitionController;
 // routes for eMetadataDefinition management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
+
+        // Edition inline
+        Route::get('eMetadataDefinitions/{id}/field/{field}/meta', [EMetadataDefinitionController::class, 'fieldMeta'])
+            ->name('eMetadataDefinitions.field.meta');
+        Route::patch('eMetadataDefinitions/{id}/inline', [EMetadataDefinitionController::class, 'patchInline'])
+            ->name('eMetadataDefinitions.patchInline');
+
         Route::get('eMetadataDefinitions/getData', [EMetadataDefinitionController::class, 'getData'])->name('eMetadataDefinitions.getData');
         // ✅ Route JSON
         Route::get('eMetadataDefinitions/json/{id}', [EMetadataDefinitionController::class, 'getEMetadataDefinition'])

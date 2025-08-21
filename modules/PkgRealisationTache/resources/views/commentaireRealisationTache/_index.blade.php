@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('commentaireRealisationTaches.create') }}',
         editUrl: '{{ route('commentaireRealisationTaches.edit',  ['commentaireRealisationTache' => ':id']) }}',
+        fieldMetaUrl: '{{ route('commentaireRealisationTaches.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('commentaireRealisationTaches.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('commentaireRealisationTaches.show',  ['commentaireRealisationTache' => ':id']) }}',
         getEntityUrl: '{{ route("commentaireRealisationTaches.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('commentaireRealisationTaches.store') }}', 

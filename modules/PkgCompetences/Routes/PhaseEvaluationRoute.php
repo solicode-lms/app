@@ -9,6 +9,13 @@ use Modules\PkgCompetences\Controllers\PhaseEvaluationController;
 // routes for phaseEvaluation management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
+
+        // Edition inline
+        Route::get('phaseEvaluations/{id}/field/{field}/meta', [PhaseEvaluationController::class, 'fieldMeta'])
+            ->name('phaseEvaluations.field.meta');
+        Route::patch('phaseEvaluations/{id}/inline', [PhaseEvaluationController::class, 'patchInline'])
+            ->name('phaseEvaluations.patchInline');
+
         Route::get('phaseEvaluations/getData', [PhaseEvaluationController::class, 'getData'])->name('phaseEvaluations.getData');
         // ✅ Route JSON
         Route::get('phaseEvaluations/json/{id}', [PhaseEvaluationController::class, 'getPhaseEvaluation'])

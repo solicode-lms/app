@@ -9,6 +9,13 @@ use Modules\PkgEvaluateurs\Controllers\EvaluationRealisationTacheController;
 // routes for evaluationRealisationTache management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgEvaluateurs')->group(function () {
+
+        // Edition inline
+        Route::get('evaluationRealisationTaches/{id}/field/{field}/meta', [EvaluationRealisationTacheController::class, 'fieldMeta'])
+            ->name('evaluationRealisationTaches.field.meta');
+        Route::patch('evaluationRealisationTaches/{id}/inline', [EvaluationRealisationTacheController::class, 'patchInline'])
+            ->name('evaluationRealisationTaches.patchInline');
+
         Route::get('evaluationRealisationTaches/getData', [EvaluationRealisationTacheController::class, 'getData'])->name('evaluationRealisationTaches.getData');
         // ✅ Route JSON
         Route::get('evaluationRealisationTaches/json/{id}', [EvaluationRealisationTacheController::class, 'getEvaluationRealisationTache'])

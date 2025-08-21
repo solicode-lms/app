@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('apprenants.create') }}',
         editUrl: '{{ route('apprenants.edit',  ['apprenant' => ':id']) }}',
+        fieldMetaUrl: '{{ route('apprenants.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('apprenants.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('apprenants.show',  ['apprenant' => ':id']) }}',
         getEntityUrl: '{{ route("apprenants.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('apprenants.store') }}', 

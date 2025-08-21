@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('etatRealisationTaches.create') }}',
         editUrl: '{{ route('etatRealisationTaches.edit',  ['etatRealisationTache' => ':id']) }}',
+        fieldMetaUrl: '{{ route('etatRealisationTaches.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('etatRealisationTaches.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('etatRealisationTaches.show',  ['etatRealisationTache' => ':id']) }}',
         getEntityUrl: '{{ route("etatRealisationTaches.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('etatRealisationTaches.store') }}', 

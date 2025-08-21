@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('eModels.create') }}',
         editUrl: '{{ route('eModels.edit',  ['eModel' => ':id']) }}',
+        fieldMetaUrl: '{{ route('eModels.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('eModels.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('eModels.show',  ['eModel' => ':id']) }}',
         getEntityUrl: '{{ route("eModels.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('eModels.store') }}', 

@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('ePackages.create') }}',
         editUrl: '{{ route('ePackages.edit',  ['ePackage' => ':id']) }}',
+        fieldMetaUrl: '{{ route('ePackages.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('ePackages.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('ePackages.show',  ['ePackage' => ':id']) }}',
         getEntityUrl: '{{ route("ePackages.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('ePackages.store') }}', 

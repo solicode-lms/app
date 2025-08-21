@@ -9,6 +9,13 @@ use Modules\PkgGapp\Controllers\EDataFieldController;
 // routes for eDataField management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
+
+        // Edition inline
+        Route::get('eDataFields/{id}/field/{field}/meta', [EDataFieldController::class, 'fieldMeta'])
+            ->name('eDataFields.field.meta');
+        Route::patch('eDataFields/{id}/inline', [EDataFieldController::class, 'patchInline'])
+            ->name('eDataFields.patchInline');
+
         Route::get('eDataFields/getData', [EDataFieldController::class, 'getData'])->name('eDataFields.getData');
         // ✅ Route JSON
         Route::get('eDataFields/json/{id}', [EDataFieldController::class, 'getEDataField'])

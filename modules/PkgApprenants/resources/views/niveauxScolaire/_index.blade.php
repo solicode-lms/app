@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('niveauxScolaires.create') }}',
         editUrl: '{{ route('niveauxScolaires.edit',  ['niveauxScolaire' => ':id']) }}',
+        fieldMetaUrl: '{{ route('niveauxScolaires.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('niveauxScolaires.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('niveauxScolaires.show',  ['niveauxScolaire' => ':id']) }}',
         getEntityUrl: '{{ route("niveauxScolaires.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('niveauxScolaires.store') }}', 

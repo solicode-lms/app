@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('sectionWidgets.create') }}',
         editUrl: '{{ route('sectionWidgets.edit',  ['sectionWidget' => ':id']) }}',
+        fieldMetaUrl: '{{ route('sectionWidgets.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('sectionWidgets.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('sectionWidgets.show',  ['sectionWidget' => ':id']) }}',
         getEntityUrl: '{{ route("sectionWidgets.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('sectionWidgets.store') }}', 

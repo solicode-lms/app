@@ -9,6 +9,13 @@ use Modules\PkgEvaluateurs\Controllers\EtatEvaluationProjetController;
 // routes for etatEvaluationProjet management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgEvaluateurs')->group(function () {
+
+        // Edition inline
+        Route::get('etatEvaluationProjets/{id}/field/{field}/meta', [EtatEvaluationProjetController::class, 'fieldMeta'])
+            ->name('etatEvaluationProjets.field.meta');
+        Route::patch('etatEvaluationProjets/{id}/inline', [EtatEvaluationProjetController::class, 'patchInline'])
+            ->name('etatEvaluationProjets.patchInline');
+
         Route::get('etatEvaluationProjets/getData', [EtatEvaluationProjetController::class, 'getData'])->name('etatEvaluationProjets.getData');
         // ✅ Route JSON
         Route::get('etatEvaluationProjets/json/{id}', [EtatEvaluationProjetController::class, 'getEtatEvaluationProjet'])

@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('filieres.create') }}',
         editUrl: '{{ route('filieres.edit',  ['filiere' => ':id']) }}',
+        fieldMetaUrl: '{{ route('filieres.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('filieres.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('filieres.show',  ['filiere' => ':id']) }}',
         getEntityUrl: '{{ route("filieres.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('filieres.store') }}', 

@@ -9,6 +9,13 @@ use Modules\PkgApprentissage\Controllers\RealisationUaProjetController;
 // routes for realisationUaProjet management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprentissage')->group(function () {
+
+        // Edition inline
+        Route::get('realisationUaProjets/{id}/field/{field}/meta', [RealisationUaProjetController::class, 'fieldMeta'])
+            ->name('realisationUaProjets.field.meta');
+        Route::patch('realisationUaProjets/{id}/inline', [RealisationUaProjetController::class, 'patchInline'])
+            ->name('realisationUaProjets.patchInline');
+
         Route::get('realisationUaProjets/getData', [RealisationUaProjetController::class, 'getData'])->name('realisationUaProjets.getData');
         // ✅ Route JSON
         Route::get('realisationUaProjets/json/{id}', [RealisationUaProjetController::class, 'getRealisationUaProjet'])

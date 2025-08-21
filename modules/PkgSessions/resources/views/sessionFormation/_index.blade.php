@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('sessionFormations.create') }}',
         editUrl: '{{ route('sessionFormations.edit',  ['sessionFormation' => ':id']) }}',
+        fieldMetaUrl: '{{ route('sessionFormations.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('sessionFormations.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('sessionFormations.show',  ['sessionFormation' => ':id']) }}',
         getEntityUrl: '{{ route("sessionFormations.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('sessionFormations.store') }}', 

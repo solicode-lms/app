@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('alignementUas.create') }}',
         editUrl: '{{ route('alignementUas.edit',  ['alignementUa' => ':id']) }}',
+        fieldMetaUrl: '{{ route('alignementUas.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('alignementUas.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('alignementUas.show',  ['alignementUa' => ':id']) }}',
         getEntityUrl: '{{ route("alignementUas.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('alignementUas.store') }}', 

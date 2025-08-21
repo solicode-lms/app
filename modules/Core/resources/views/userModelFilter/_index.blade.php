@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('userModelFilters.create') }}',
         editUrl: '{{ route('userModelFilters.edit',  ['userModelFilter' => ':id']) }}',
+        fieldMetaUrl: '{{ route('userModelFilters.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('userModelFilters.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('userModelFilters.show',  ['userModelFilter' => ':id']) }}',
         getEntityUrl: '{{ route("userModelFilters.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('userModelFilters.store') }}', 

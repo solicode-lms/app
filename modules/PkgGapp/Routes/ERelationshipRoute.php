@@ -9,6 +9,13 @@ use Modules\PkgGapp\Controllers\ERelationshipController;
 // routes for eRelationship management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
+
+        // Edition inline
+        Route::get('eRelationships/{id}/field/{field}/meta', [ERelationshipController::class, 'fieldMeta'])
+            ->name('eRelationships.field.meta');
+        Route::patch('eRelationships/{id}/inline', [ERelationshipController::class, 'patchInline'])
+            ->name('eRelationships.patchInline');
+
         Route::get('eRelationships/getData', [ERelationshipController::class, 'getData'])->name('eRelationships.getData');
         // ✅ Route JSON
         Route::get('eRelationships/json/{id}', [ERelationshipController::class, 'getERelationship'])

@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('sysControllers.create') }}',
         editUrl: '{{ route('sysControllers.edit',  ['sysController' => ':id']) }}',
+        fieldMetaUrl: '{{ route('sysControllers.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('sysControllers.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('sysControllers.show',  ['sysController' => ':id']) }}',
         getEntityUrl: '{{ route("sysControllers.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('sysControllers.store') }}', 

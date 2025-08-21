@@ -9,6 +9,13 @@ use Modules\PkgApprentissage\Controllers\RealisationModuleController;
 // routes for realisationModule management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprentissage')->group(function () {
+
+        // Edition inline
+        Route::get('realisationModules/{id}/field/{field}/meta', [RealisationModuleController::class, 'fieldMeta'])
+            ->name('realisationModules.field.meta');
+        Route::patch('realisationModules/{id}/inline', [RealisationModuleController::class, 'patchInline'])
+            ->name('realisationModules.patchInline');
+
         Route::get('realisationModules/getData', [RealisationModuleController::class, 'getData'])->name('realisationModules.getData');
         // ✅ Route JSON
         Route::get('realisationModules/json/{id}', [RealisationModuleController::class, 'getRealisationModule'])

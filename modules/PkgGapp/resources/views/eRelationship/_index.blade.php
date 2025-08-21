@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('eRelationships.create') }}',
         editUrl: '{{ route('eRelationships.edit',  ['eRelationship' => ':id']) }}',
+        fieldMetaUrl: '{{ route('eRelationships.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('eRelationships.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('eRelationships.show',  ['eRelationship' => ':id']) }}',
         getEntityUrl: '{{ route("eRelationships.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('eRelationships.store') }}', 

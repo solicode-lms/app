@@ -9,6 +9,13 @@ use Modules\Core\Controllers\FeatureController;
 // routes for feature management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
+
+        // Edition inline
+        Route::get('features/{id}/field/{field}/meta', [FeatureController::class, 'fieldMeta'])
+            ->name('features.field.meta');
+        Route::patch('features/{id}/inline', [FeatureController::class, 'patchInline'])
+            ->name('features.patchInline');
+
         Route::get('features/getData', [FeatureController::class, 'getData'])->name('features.getData');
         // ✅ Route JSON
         Route::get('features/json/{id}', [FeatureController::class, 'getFeature'])

@@ -9,6 +9,13 @@ use Modules\PkgCompetences\Controllers\MicroCompetenceController;
 // routes for microCompetence management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
+
+        // Edition inline
+        Route::get('microCompetences/{id}/field/{field}/meta', [MicroCompetenceController::class, 'fieldMeta'])
+            ->name('microCompetences.field.meta');
+        Route::patch('microCompetences/{id}/inline', [MicroCompetenceController::class, 'patchInline'])
+            ->name('microCompetences.patchInline');
+
         Route::get('microCompetences/getData', [MicroCompetenceController::class, 'getData'])->name('microCompetences.getData');
         // ✅ Route JSON
         Route::get('microCompetences/json/{id}', [MicroCompetenceController::class, 'getMicroCompetence'])

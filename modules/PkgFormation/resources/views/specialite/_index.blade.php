@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('specialites.create') }}',
         editUrl: '{{ route('specialites.edit',  ['specialite' => ':id']) }}',
+        fieldMetaUrl: '{{ route('specialites.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('specialites.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('specialites.show',  ['specialite' => ':id']) }}',
         getEntityUrl: '{{ route("specialites.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('specialites.store') }}', 

@@ -9,6 +9,13 @@ use Modules\PkgSessions\Controllers\SessionFormationController;
 // routes for sessionFormation management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgSessions')->group(function () {
+
+        // Edition inline
+        Route::get('sessionFormations/{id}/field/{field}/meta', [SessionFormationController::class, 'fieldMeta'])
+            ->name('sessionFormations.field.meta');
+        Route::patch('sessionFormations/{id}/inline', [SessionFormationController::class, 'patchInline'])
+            ->name('sessionFormations.patchInline');
+
         Route::get('sessionFormations/getData', [SessionFormationController::class, 'getData'])->name('sessionFormations.getData');
         // ✅ Route JSON
         Route::get('sessionFormations/json/{id}', [SessionFormationController::class, 'getSessionFormation'])

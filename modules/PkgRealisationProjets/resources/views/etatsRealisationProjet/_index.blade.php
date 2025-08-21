@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('etatsRealisationProjets.create') }}',
         editUrl: '{{ route('etatsRealisationProjets.edit',  ['etatsRealisationProjet' => ':id']) }}',
+        fieldMetaUrl: '{{ route('etatsRealisationProjets.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('etatsRealisationProjets.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('etatsRealisationProjets.show',  ['etatsRealisationProjet' => ':id']) }}',
         getEntityUrl: '{{ route("etatsRealisationProjets.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('etatsRealisationProjets.store') }}', 

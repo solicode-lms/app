@@ -9,6 +9,13 @@ use Modules\PkgAutorisation\Controllers\RoleController;
 // routes for role management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
+
+        // Edition inline
+        Route::get('roles/{id}/field/{field}/meta', [RoleController::class, 'fieldMeta'])
+            ->name('roles.field.meta');
+        Route::patch('roles/{id}/inline', [RoleController::class, 'patchInline'])
+            ->name('roles.patchInline');
+
         Route::get('roles/getData', [RoleController::class, 'getData'])->name('roles.getData');
         // ✅ Route JSON
         Route::get('roles/json/{id}', [RoleController::class, 'getRole'])

@@ -9,6 +9,13 @@ use Modules\PkgSessions\Controllers\AlignementUaController;
 // routes for alignementUa management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgSessions')->group(function () {
+
+        // Edition inline
+        Route::get('alignementUas/{id}/field/{field}/meta', [AlignementUaController::class, 'fieldMeta'])
+            ->name('alignementUas.field.meta');
+        Route::patch('alignementUas/{id}/inline', [AlignementUaController::class, 'patchInline'])
+            ->name('alignementUas.patchInline');
+
         Route::get('alignementUas/getData', [AlignementUaController::class, 'getData'])->name('alignementUas.getData');
         // ✅ Route JSON
         Route::get('alignementUas/json/{id}', [AlignementUaController::class, 'getAlignementUa'])

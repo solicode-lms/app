@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('phaseEvaluations.create') }}',
         editUrl: '{{ route('phaseEvaluations.edit',  ['phaseEvaluation' => ':id']) }}',
+        fieldMetaUrl: '{{ route('phaseEvaluations.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('phaseEvaluations.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('phaseEvaluations.show',  ['phaseEvaluation' => ':id']) }}',
         getEntityUrl: '{{ route("phaseEvaluations.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('phaseEvaluations.store') }}', 

@@ -9,6 +9,13 @@ use Modules\PkgSessions\Controllers\LivrableSessionController;
 // routes for livrableSession management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgSessions')->group(function () {
+
+        // Edition inline
+        Route::get('livrableSessions/{id}/field/{field}/meta', [LivrableSessionController::class, 'fieldMeta'])
+            ->name('livrableSessions.field.meta');
+        Route::patch('livrableSessions/{id}/inline', [LivrableSessionController::class, 'patchInline'])
+            ->name('livrableSessions.patchInline');
+
         Route::get('livrableSessions/getData', [LivrableSessionController::class, 'getData'])->name('livrableSessions.getData');
         // ✅ Route JSON
         Route::get('livrableSessions/json/{id}', [LivrableSessionController::class, 'getLivrableSession'])

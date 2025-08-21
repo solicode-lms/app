@@ -9,6 +9,13 @@ use Modules\PkgWidgets\Controllers\WidgetTypeController;
 // routes for widgetType management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgWidgets')->group(function () {
+
+        // Edition inline
+        Route::get('widgetTypes/{id}/field/{field}/meta', [WidgetTypeController::class, 'fieldMeta'])
+            ->name('widgetTypes.field.meta');
+        Route::patch('widgetTypes/{id}/inline', [WidgetTypeController::class, 'patchInline'])
+            ->name('widgetTypes.patchInline');
+
         Route::get('widgetTypes/getData', [WidgetTypeController::class, 'getData'])->name('widgetTypes.getData');
         // ✅ Route JSON
         Route::get('widgetTypes/json/{id}', [WidgetTypeController::class, 'getWidgetType'])

@@ -9,6 +9,13 @@ use Modules\PkgCompetences\Controllers\CritereEvaluationController;
 // routes for critereEvaluation management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
+
+        // Edition inline
+        Route::get('critereEvaluations/{id}/field/{field}/meta', [CritereEvaluationController::class, 'fieldMeta'])
+            ->name('critereEvaluations.field.meta');
+        Route::patch('critereEvaluations/{id}/inline', [CritereEvaluationController::class, 'patchInline'])
+            ->name('critereEvaluations.patchInline');
+
         Route::get('critereEvaluations/getData', [CritereEvaluationController::class, 'getData'])->name('critereEvaluations.getData');
         // ✅ Route JSON
         Route::get('critereEvaluations/json/{id}', [CritereEvaluationController::class, 'getCritereEvaluation'])

@@ -9,6 +9,13 @@ use Modules\PkgWidgets\Controllers\WidgetOperationController;
 // routes for widgetOperation management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgWidgets')->group(function () {
+
+        // Edition inline
+        Route::get('widgetOperations/{id}/field/{field}/meta', [WidgetOperationController::class, 'fieldMeta'])
+            ->name('widgetOperations.field.meta');
+        Route::patch('widgetOperations/{id}/inline', [WidgetOperationController::class, 'patchInline'])
+            ->name('widgetOperations.patchInline');
+
         Route::get('widgetOperations/getData', [WidgetOperationController::class, 'getData'])->name('widgetOperations.getData');
         // ✅ Route JSON
         Route::get('widgetOperations/json/{id}', [WidgetOperationController::class, 'getWidgetOperation'])

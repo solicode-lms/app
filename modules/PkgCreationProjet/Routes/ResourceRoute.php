@@ -9,6 +9,13 @@ use Modules\PkgCreationProjet\Controllers\ResourceController;
 // routes for resource management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
+
+        // Edition inline
+        Route::get('resources/{id}/field/{field}/meta', [ResourceController::class, 'fieldMeta'])
+            ->name('resources.field.meta');
+        Route::patch('resources/{id}/inline', [ResourceController::class, 'patchInline'])
+            ->name('resources.patchInline');
+
         Route::get('resources/getData', [ResourceController::class, 'getData'])->name('resources.getData');
         // ✅ Route JSON
         Route::get('resources/json/{id}', [ResourceController::class, 'getResource'])

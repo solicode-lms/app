@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('mobilisationUas.create') }}',
         editUrl: '{{ route('mobilisationUas.edit',  ['mobilisationUa' => ':id']) }}',
+        fieldMetaUrl: '{{ route('mobilisationUas.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('mobilisationUas.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('mobilisationUas.show',  ['mobilisationUa' => ':id']) }}',
         getEntityUrl: '{{ route("mobilisationUas.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('mobilisationUas.store') }}', 

@@ -9,6 +9,13 @@ use Modules\PkgAutorisation\Controllers\ProfileController;
 // routes for profile management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
+
+        // Edition inline
+        Route::get('profiles/{id}/field/{field}/meta', [ProfileController::class, 'fieldMeta'])
+            ->name('profiles.field.meta');
+        Route::patch('profiles/{id}/inline', [ProfileController::class, 'patchInline'])
+            ->name('profiles.patchInline');
+
         Route::get('profiles/getData', [ProfileController::class, 'getData'])->name('profiles.getData');
         // ✅ Route JSON
         Route::get('profiles/json/{id}', [ProfileController::class, 'getProfile'])

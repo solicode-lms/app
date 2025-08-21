@@ -9,6 +9,13 @@ use Modules\PkgGapp\Controllers\EPackageController;
 // routes for ePackage management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
+
+        // Edition inline
+        Route::get('ePackages/{id}/field/{field}/meta', [EPackageController::class, 'fieldMeta'])
+            ->name('ePackages.field.meta');
+        Route::patch('ePackages/{id}/inline', [EPackageController::class, 'patchInline'])
+            ->name('ePackages.patchInline');
+
         Route::get('ePackages/getData', [EPackageController::class, 'getData'])->name('ePackages.getData');
         // ✅ Route JSON
         Route::get('ePackages/json/{id}', [EPackageController::class, 'getEPackage'])

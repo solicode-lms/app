@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('groupes.create') }}',
         editUrl: '{{ route('groupes.edit',  ['groupe' => ':id']) }}',
+        fieldMetaUrl: '{{ route('groupes.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('groupes.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('groupes.show',  ['groupe' => ':id']) }}',
         getEntityUrl: '{{ route("groupes.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('groupes.store') }}', 

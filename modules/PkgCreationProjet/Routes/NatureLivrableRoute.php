@@ -9,6 +9,13 @@ use Modules\PkgCreationProjet\Controllers\NatureLivrableController;
 // routes for natureLivrable management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
+
+        // Edition inline
+        Route::get('natureLivrables/{id}/field/{field}/meta', [NatureLivrableController::class, 'fieldMeta'])
+            ->name('natureLivrables.field.meta');
+        Route::patch('natureLivrables/{id}/inline', [NatureLivrableController::class, 'patchInline'])
+            ->name('natureLivrables.patchInline');
+
         Route::get('natureLivrables/getData', [NatureLivrableController::class, 'getData'])->name('natureLivrables.getData');
         // ✅ Route JSON
         Route::get('natureLivrables/json/{id}', [NatureLivrableController::class, 'getNatureLivrable'])

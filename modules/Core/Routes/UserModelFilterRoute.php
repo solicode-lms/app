@@ -9,6 +9,13 @@ use Modules\Core\Controllers\UserModelFilterController;
 // routes for userModelFilter management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
+
+        // Edition inline
+        Route::get('userModelFilters/{id}/field/{field}/meta', [UserModelFilterController::class, 'fieldMeta'])
+            ->name('userModelFilters.field.meta');
+        Route::patch('userModelFilters/{id}/inline', [UserModelFilterController::class, 'patchInline'])
+            ->name('userModelFilters.patchInline');
+
         Route::get('userModelFilters/getData', [UserModelFilterController::class, 'getData'])->name('userModelFilters.getData');
         // ✅ Route JSON
         Route::get('userModelFilters/json/{id}', [UserModelFilterController::class, 'getUserModelFilter'])

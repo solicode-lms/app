@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('critereEvaluations.create') }}',
         editUrl: '{{ route('critereEvaluations.edit',  ['critereEvaluation' => ':id']) }}',
+        fieldMetaUrl: '{{ route('critereEvaluations.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('critereEvaluations.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('critereEvaluations.show',  ['critereEvaluation' => ':id']) }}',
         getEntityUrl: '{{ route("critereEvaluations.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('critereEvaluations.store') }}', 

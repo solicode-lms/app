@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('livrables.create') }}',
         editUrl: '{{ route('livrables.edit',  ['livrable' => ':id']) }}',
+        fieldMetaUrl: '{{ route('livrables.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('livrables.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('livrables.show',  ['livrable' => ':id']) }}',
         getEntityUrl: '{{ route("livrables.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('livrables.store') }}', 

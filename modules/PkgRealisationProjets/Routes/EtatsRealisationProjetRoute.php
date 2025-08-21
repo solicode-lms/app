@@ -9,6 +9,13 @@ use Modules\PkgRealisationProjets\Controllers\EtatsRealisationProjetController;
 // routes for etatsRealisationProjet management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
+
+        // Edition inline
+        Route::get('etatsRealisationProjets/{id}/field/{field}/meta', [EtatsRealisationProjetController::class, 'fieldMeta'])
+            ->name('etatsRealisationProjets.field.meta');
+        Route::patch('etatsRealisationProjets/{id}/inline', [EtatsRealisationProjetController::class, 'patchInline'])
+            ->name('etatsRealisationProjets.patchInline');
+
         Route::get('etatsRealisationProjets/getData', [EtatsRealisationProjetController::class, 'getData'])->name('etatsRealisationProjets.getData');
         // ✅ Route JSON
         Route::get('etatsRealisationProjets/json/{id}', [EtatsRealisationProjetController::class, 'getEtatsRealisationProjet'])

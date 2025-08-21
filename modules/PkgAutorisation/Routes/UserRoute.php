@@ -9,6 +9,13 @@ use Modules\PkgAutorisation\Controllers\UserController;
 // routes for user management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
+
+        // Edition inline
+        Route::get('users/{id}/field/{field}/meta', [UserController::class, 'fieldMeta'])
+            ->name('users.field.meta');
+        Route::patch('users/{id}/inline', [UserController::class, 'patchInline'])
+            ->name('users.patchInline');
+
         Route::get('users/getData', [UserController::class, 'getData'])->name('users.getData');
         // ✅ Route JSON
         Route::get('users/json/{id}', [UserController::class, 'getUser'])

@@ -9,6 +9,13 @@ use Modules\PkgWidgets\Controllers\WidgetUtilisateurController;
 // routes for widgetUtilisateur management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgWidgets')->group(function () {
+
+        // Edition inline
+        Route::get('widgetUtilisateurs/{id}/field/{field}/meta', [WidgetUtilisateurController::class, 'fieldMeta'])
+            ->name('widgetUtilisateurs.field.meta');
+        Route::patch('widgetUtilisateurs/{id}/inline', [WidgetUtilisateurController::class, 'patchInline'])
+            ->name('widgetUtilisateurs.patchInline');
+
         Route::get('widgetUtilisateurs/getData', [WidgetUtilisateurController::class, 'getData'])->name('widgetUtilisateurs.getData');
         // ✅ Route JSON
         Route::get('widgetUtilisateurs/json/{id}', [WidgetUtilisateurController::class, 'getWidgetUtilisateur'])

@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('sysModules.create') }}',
         editUrl: '{{ route('sysModules.edit',  ['sysModule' => ':id']) }}',
+        fieldMetaUrl: '{{ route('sysModules.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('sysModules.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('sysModules.show',  ['sysModule' => ':id']) }}',
         getEntityUrl: '{{ route("sysModules.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('sysModules.store') }}', 

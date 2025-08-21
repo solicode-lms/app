@@ -9,6 +9,13 @@ use Modules\PkgCreationTache\Controllers\TacheController;
 // routes for tache management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationTache')->group(function () {
+
+        // Edition inline
+        Route::get('taches/{id}/field/{field}/meta', [TacheController::class, 'fieldMeta'])
+            ->name('taches.field.meta');
+        Route::patch('taches/{id}/inline', [TacheController::class, 'patchInline'])
+            ->name('taches.patchInline');
+
         Route::get('taches/getData', [TacheController::class, 'getData'])->name('taches.getData');
         // ✅ Route JSON
         Route::get('taches/json/{id}', [TacheController::class, 'getTache'])

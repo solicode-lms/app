@@ -9,6 +9,13 @@ use Modules\Core\Controllers\FeatureDomainController;
 // routes for featureDomain management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
+
+        // Edition inline
+        Route::get('featureDomains/{id}/field/{field}/meta', [FeatureDomainController::class, 'fieldMeta'])
+            ->name('featureDomains.field.meta');
+        Route::patch('featureDomains/{id}/inline', [FeatureDomainController::class, 'patchInline'])
+            ->name('featureDomains.patchInline');
+
         Route::get('featureDomains/getData', [FeatureDomainController::class, 'getData'])->name('featureDomains.getData');
         // ✅ Route JSON
         Route::get('featureDomains/json/{id}', [FeatureDomainController::class, 'getFeatureDomain'])

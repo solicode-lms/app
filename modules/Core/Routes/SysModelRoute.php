@@ -9,6 +9,13 @@ use Modules\Core\Controllers\SysModelController;
 // routes for sysModel management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
+
+        // Edition inline
+        Route::get('sysModels/{id}/field/{field}/meta', [SysModelController::class, 'fieldMeta'])
+            ->name('sysModels.field.meta');
+        Route::patch('sysModels/{id}/inline', [SysModelController::class, 'patchInline'])
+            ->name('sysModels.patchInline');
+
         Route::get('sysModels/getData', [SysModelController::class, 'getData'])->name('sysModels.getData');
         // ✅ Route JSON
         Route::get('sysModels/json/{id}', [SysModelController::class, 'getSysModel'])

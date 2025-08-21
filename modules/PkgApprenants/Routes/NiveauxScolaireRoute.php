@@ -9,6 +9,13 @@ use Modules\PkgApprenants\Controllers\NiveauxScolaireController;
 // routes for niveauxScolaire management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
+
+        // Edition inline
+        Route::get('niveauxScolaires/{id}/field/{field}/meta', [NiveauxScolaireController::class, 'fieldMeta'])
+            ->name('niveauxScolaires.field.meta');
+        Route::patch('niveauxScolaires/{id}/inline', [NiveauxScolaireController::class, 'patchInline'])
+            ->name('niveauxScolaires.patchInline');
+
         Route::get('niveauxScolaires/getData', [NiveauxScolaireController::class, 'getData'])->name('niveauxScolaires.getData');
         // ✅ Route JSON
         Route::get('niveauxScolaires/json/{id}', [NiveauxScolaireController::class, 'getNiveauxScolaire'])

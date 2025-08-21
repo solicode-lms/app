@@ -9,6 +9,13 @@ use Modules\PkgRealisationTache\Controllers\HistoriqueRealisationTacheController
 // routes for historiqueRealisationTache management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationTache')->group(function () {
+
+        // Edition inline
+        Route::get('historiqueRealisationTaches/{id}/field/{field}/meta', [HistoriqueRealisationTacheController::class, 'fieldMeta'])
+            ->name('historiqueRealisationTaches.field.meta');
+        Route::patch('historiqueRealisationTaches/{id}/inline', [HistoriqueRealisationTacheController::class, 'patchInline'])
+            ->name('historiqueRealisationTaches.patchInline');
+
         Route::get('historiqueRealisationTaches/getData', [HistoriqueRealisationTacheController::class, 'getData'])->name('historiqueRealisationTaches.getData');
         // ✅ Route JSON
         Route::get('historiqueRealisationTaches/json/{id}', [HistoriqueRealisationTacheController::class, 'getHistoriqueRealisationTache'])

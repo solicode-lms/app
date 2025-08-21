@@ -9,6 +9,13 @@ use Modules\PkgWidgets\Controllers\WidgetController;
 // routes for widget management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgWidgets')->group(function () {
+
+        // Edition inline
+        Route::get('widgets/{id}/field/{field}/meta', [WidgetController::class, 'fieldMeta'])
+            ->name('widgets.field.meta');
+        Route::patch('widgets/{id}/inline', [WidgetController::class, 'patchInline'])
+            ->name('widgets.patchInline');
+
         Route::get('widgets/getData', [WidgetController::class, 'getData'])->name('widgets.getData');
         // ✅ Route JSON
         Route::get('widgets/json/{id}', [WidgetController::class, 'getWidget'])

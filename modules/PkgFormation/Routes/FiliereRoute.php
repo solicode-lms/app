@@ -9,6 +9,13 @@ use Modules\PkgFormation\Controllers\FiliereController;
 // routes for filiere management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
+
+        // Edition inline
+        Route::get('filieres/{id}/field/{field}/meta', [FiliereController::class, 'fieldMeta'])
+            ->name('filieres.field.meta');
+        Route::patch('filieres/{id}/inline', [FiliereController::class, 'patchInline'])
+            ->name('filieres.patchInline');
+
         Route::get('filieres/getData', [FiliereController::class, 'getData'])->name('filieres.getData');
         // ✅ Route JSON
         Route::get('filieres/json/{id}', [FiliereController::class, 'getFiliere'])

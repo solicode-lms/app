@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('sysColors.create') }}',
         editUrl: '{{ route('sysColors.edit',  ['sysColor' => ':id']) }}',
+        fieldMetaUrl: '{{ route('sysColors.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('sysColors.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('sysColors.show',  ['sysColor' => ':id']) }}',
         getEntityUrl: '{{ route("sysColors.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('sysColors.store') }}', 

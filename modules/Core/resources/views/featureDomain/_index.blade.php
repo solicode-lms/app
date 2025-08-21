@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('featureDomains.create') }}',
         editUrl: '{{ route('featureDomains.edit',  ['featureDomain' => ':id']) }}',
+        fieldMetaUrl: '{{ route('featureDomains.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('featureDomains.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('featureDomains.show',  ['featureDomain' => ':id']) }}',
         getEntityUrl: '{{ route("featureDomains.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('featureDomains.store') }}', 

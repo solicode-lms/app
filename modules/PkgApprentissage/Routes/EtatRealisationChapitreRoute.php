@@ -9,6 +9,13 @@ use Modules\PkgApprentissage\Controllers\EtatRealisationChapitreController;
 // routes for etatRealisationChapitre management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprentissage')->group(function () {
+
+        // Edition inline
+        Route::get('etatRealisationChapitres/{id}/field/{field}/meta', [EtatRealisationChapitreController::class, 'fieldMeta'])
+            ->name('etatRealisationChapitres.field.meta');
+        Route::patch('etatRealisationChapitres/{id}/inline', [EtatRealisationChapitreController::class, 'patchInline'])
+            ->name('etatRealisationChapitres.patchInline');
+
         Route::get('etatRealisationChapitres/getData', [EtatRealisationChapitreController::class, 'getData'])->name('etatRealisationChapitres.getData');
         // ✅ Route JSON
         Route::get('etatRealisationChapitres/json/{id}', [EtatRealisationChapitreController::class, 'getEtatRealisationChapitre'])

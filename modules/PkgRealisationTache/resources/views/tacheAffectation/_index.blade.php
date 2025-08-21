@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('tacheAffectations.create') }}',
         editUrl: '{{ route('tacheAffectations.edit',  ['tacheAffectation' => ':id']) }}',
+        fieldMetaUrl: '{{ route('tacheAffectations.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('tacheAffectations.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('tacheAffectations.show',  ['tacheAffectation' => ':id']) }}',
         getEntityUrl: '{{ route("tacheAffectations.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('tacheAffectations.store') }}', 

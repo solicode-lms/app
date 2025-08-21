@@ -9,6 +9,13 @@ use Modules\PkgCreationProjet\Controllers\ProjetController;
 // routes for projet management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
+
+        // Edition inline
+        Route::get('projets/{id}/field/{field}/meta', [ProjetController::class, 'fieldMeta'])
+            ->name('projets.field.meta');
+        Route::patch('projets/{id}/inline', [ProjetController::class, 'patchInline'])
+            ->name('projets.patchInline');
+
         Route::get('projets/getData', [ProjetController::class, 'getData'])->name('projets.getData');
         // ✅ Route JSON
         Route::get('projets/json/{id}', [ProjetController::class, 'getProjet'])

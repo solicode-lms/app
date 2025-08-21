@@ -9,6 +9,13 @@ use Modules\PkgRealisationProjets\Controllers\LivrablesRealisationController;
 // routes for livrablesRealisation management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
+
+        // Edition inline
+        Route::get('livrablesRealisations/{id}/field/{field}/meta', [LivrablesRealisationController::class, 'fieldMeta'])
+            ->name('livrablesRealisations.field.meta');
+        Route::patch('livrablesRealisations/{id}/inline', [LivrablesRealisationController::class, 'patchInline'])
+            ->name('livrablesRealisations.patchInline');
+
         Route::get('livrablesRealisations/getData', [LivrablesRealisationController::class, 'getData'])->name('livrablesRealisations.getData');
         // ✅ Route JSON
         Route::get('livrablesRealisations/json/{id}', [LivrablesRealisationController::class, 'getLivrablesRealisation'])

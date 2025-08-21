@@ -9,6 +9,13 @@ use Modules\PkgFormation\Controllers\ModuleController;
 // routes for module management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
+
+        // Edition inline
+        Route::get('modules/{id}/field/{field}/meta', [ModuleController::class, 'fieldMeta'])
+            ->name('modules.field.meta');
+        Route::patch('modules/{id}/inline', [ModuleController::class, 'patchInline'])
+            ->name('modules.patchInline');
+
         Route::get('modules/getData', [ModuleController::class, 'getData'])->name('modules.getData');
         // ✅ Route JSON
         Route::get('modules/json/{id}', [ModuleController::class, 'getModule'])

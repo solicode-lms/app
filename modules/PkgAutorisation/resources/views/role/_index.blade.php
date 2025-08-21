@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('roles.create') }}',
         editUrl: '{{ route('roles.edit',  ['role' => ':id']) }}',
+        fieldMetaUrl: '{{ route('roles.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('roles.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('roles.show',  ['role' => ':id']) }}',
         getEntityUrl: '{{ route("roles.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('roles.store') }}', 

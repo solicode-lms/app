@@ -9,6 +9,13 @@ use Modules\PkgApprenants\Controllers\ApprenantController;
 // routes for apprenant management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
+
+        // Edition inline
+        Route::get('apprenants/{id}/field/{field}/meta', [ApprenantController::class, 'fieldMeta'])
+            ->name('apprenants.field.meta');
+        Route::patch('apprenants/{id}/inline', [ApprenantController::class, 'patchInline'])
+            ->name('apprenants.patchInline');
+
         Route::get('apprenants/getData', [ApprenantController::class, 'getData'])->name('apprenants.getData');
         // ✅ Route JSON
         Route::get('apprenants/json/{id}', [ApprenantController::class, 'getApprenant'])

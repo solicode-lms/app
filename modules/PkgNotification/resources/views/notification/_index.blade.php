@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('notifications.create') }}',
         editUrl: '{{ route('notifications.edit',  ['notification' => ':id']) }}',
+        fieldMetaUrl: '{{ route('notifications.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('notifications.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('notifications.show',  ['notification' => ':id']) }}',
         getEntityUrl: '{{ route("notifications.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('notifications.store') }}', 

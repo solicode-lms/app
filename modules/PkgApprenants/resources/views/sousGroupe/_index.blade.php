@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('sousGroupes.create') }}',
         editUrl: '{{ route('sousGroupes.edit',  ['sousGroupe' => ':id']) }}',
+        fieldMetaUrl: '{{ route('sousGroupes.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('sousGroupes.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('sousGroupes.show',  ['sousGroupe' => ':id']) }}',
         getEntityUrl: '{{ route("sousGroupes.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('sousGroupes.store') }}', 

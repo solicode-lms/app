@@ -9,6 +9,13 @@ use Modules\PkgEvaluateurs\Controllers\EvaluationRealisationProjetController;
 // routes for evaluationRealisationProjet management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgEvaluateurs')->group(function () {
+
+        // Edition inline
+        Route::get('evaluationRealisationProjets/{id}/field/{field}/meta', [EvaluationRealisationProjetController::class, 'fieldMeta'])
+            ->name('evaluationRealisationProjets.field.meta');
+        Route::patch('evaluationRealisationProjets/{id}/inline', [EvaluationRealisationProjetController::class, 'patchInline'])
+            ->name('evaluationRealisationProjets.patchInline');
+
         Route::get('evaluationRealisationProjets/getData', [EvaluationRealisationProjetController::class, 'getData'])->name('evaluationRealisationProjets.getData');
         // ✅ Route JSON
         Route::get('evaluationRealisationProjets/json/{id}', [EvaluationRealisationProjetController::class, 'getEvaluationRealisationProjet'])

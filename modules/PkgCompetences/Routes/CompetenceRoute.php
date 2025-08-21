@@ -9,6 +9,13 @@ use Modules\PkgCompetences\Controllers\CompetenceController;
 // routes for competence management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
+
+        // Edition inline
+        Route::get('competences/{id}/field/{field}/meta', [CompetenceController::class, 'fieldMeta'])
+            ->name('competences.field.meta');
+        Route::patch('competences/{id}/inline', [CompetenceController::class, 'patchInline'])
+            ->name('competences.patchInline');
+
         Route::get('competences/getData', [CompetenceController::class, 'getData'])->name('competences.getData');
         // ✅ Route JSON
         Route::get('competences/json/{id}', [CompetenceController::class, 'getCompetence'])

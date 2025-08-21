@@ -9,6 +9,13 @@ use Modules\PkgGapp\Controllers\EModelController;
 // routes for eModel management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
+
+        // Edition inline
+        Route::get('eModels/{id}/field/{field}/meta', [EModelController::class, 'fieldMeta'])
+            ->name('eModels.field.meta');
+        Route::patch('eModels/{id}/inline', [EModelController::class, 'patchInline'])
+            ->name('eModels.patchInline');
+
         Route::get('eModels/getData', [EModelController::class, 'getData'])->name('eModels.getData');
         // ✅ Route JSON
         Route::get('eModels/json/{id}', [EModelController::class, 'getEModel'])

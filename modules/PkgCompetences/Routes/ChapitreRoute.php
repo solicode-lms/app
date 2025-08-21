@@ -9,6 +9,13 @@ use Modules\PkgCompetences\Controllers\ChapitreController;
 // routes for chapitre management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
+
+        // Edition inline
+        Route::get('chapitres/{id}/field/{field}/meta', [ChapitreController::class, 'fieldMeta'])
+            ->name('chapitres.field.meta');
+        Route::patch('chapitres/{id}/inline', [ChapitreController::class, 'patchInline'])
+            ->name('chapitres.patchInline');
+
         Route::get('chapitres/getData', [ChapitreController::class, 'getData'])->name('chapitres.getData');
         // ✅ Route JSON
         Route::get('chapitres/json/{id}', [ChapitreController::class, 'getChapitre'])

@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('formateurs.create') }}',
         editUrl: '{{ route('formateurs.edit',  ['formateur' => ':id']) }}',
+        fieldMetaUrl: '{{ route('formateurs.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('formateurs.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('formateurs.show',  ['formateur' => ':id']) }}',
         getEntityUrl: '{{ route("formateurs.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('formateurs.store') }}', 

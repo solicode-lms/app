@@ -9,6 +9,13 @@ use Modules\PkgApprentissage\Controllers\RealisationCompetenceController;
 // routes for realisationCompetence management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprentissage')->group(function () {
+
+        // Edition inline
+        Route::get('realisationCompetences/{id}/field/{field}/meta', [RealisationCompetenceController::class, 'fieldMeta'])
+            ->name('realisationCompetences.field.meta');
+        Route::patch('realisationCompetences/{id}/inline', [RealisationCompetenceController::class, 'patchInline'])
+            ->name('realisationCompetences.patchInline');
+
         Route::get('realisationCompetences/getData', [RealisationCompetenceController::class, 'getData'])->name('realisationCompetences.getData');
         // ✅ Route JSON
         Route::get('realisationCompetences/json/{id}', [RealisationCompetenceController::class, 'getRealisationCompetence'])

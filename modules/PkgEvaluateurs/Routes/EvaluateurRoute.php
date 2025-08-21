@@ -9,6 +9,13 @@ use Modules\PkgEvaluateurs\Controllers\EvaluateurController;
 // routes for evaluateur management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgEvaluateurs')->group(function () {
+
+        // Edition inline
+        Route::get('evaluateurs/{id}/field/{field}/meta', [EvaluateurController::class, 'fieldMeta'])
+            ->name('evaluateurs.field.meta');
+        Route::patch('evaluateurs/{id}/inline', [EvaluateurController::class, 'patchInline'])
+            ->name('evaluateurs.patchInline');
+
         Route::get('evaluateurs/getData', [EvaluateurController::class, 'getData'])->name('evaluateurs.getData');
         // ✅ Route JSON
         Route::get('evaluateurs/json/{id}', [EvaluateurController::class, 'getEvaluateur'])

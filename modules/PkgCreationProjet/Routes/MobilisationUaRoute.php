@@ -9,6 +9,13 @@ use Modules\PkgCreationProjet\Controllers\MobilisationUaController;
 // routes for mobilisationUa management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
+
+        // Edition inline
+        Route::get('mobilisationUas/{id}/field/{field}/meta', [MobilisationUaController::class, 'fieldMeta'])
+            ->name('mobilisationUas.field.meta');
+        Route::patch('mobilisationUas/{id}/inline', [MobilisationUaController::class, 'patchInline'])
+            ->name('mobilisationUas.patchInline');
+
         Route::get('mobilisationUas/getData', [MobilisationUaController::class, 'getData'])->name('mobilisationUas.getData');
         // ✅ Route JSON
         Route::get('mobilisationUas/json/{id}', [MobilisationUaController::class, 'getMobilisationUa'])

@@ -438,4 +438,57 @@ class BaseSysModelController extends AdminController
                 )
         );
     }
+
+    /**
+     * Retourne les métadonnées d’un champ (type, options, validation, etag…)
+     *  @DynamicPermissionIgnore
+     */
+    public function fieldMeta(int $id, string $field)
+    {
+        // $this->authorizeAction('update');
+        $itemSysModel = SysModel::findOrFail($id);
+
+
+        $data = $this->service->buildFieldMeta($itemSysModel, $field);
+        return response()->json(
+            $data
+        );
+    }
+
+    /**
+     * PATCH inline d’une cellule avec gestion de l’ETag
+     * @DynamicPermissionIgnore
+     */
+    public function patchInline(Request $request, int $id)
+    {
+
+        $this->authorizeAction('update');
+        $itemSysModel = SysModel::findOrFail($id);
+
+
+        // Vérification ETag
+        $ifMatch = $request->header('If-Match');
+        $etag = $this->service->etag($itemSysModel);
+        if ($ifMatch && $ifMatch !== $etag) {
+            return response()->json(['error' => 'conflict'], 409);
+        }
+
+        // Appliquer le patch
+        $changes = $request->input('changes', []);
+        $updated = $this->service->applyInlinePatch($itemSysModel, $changes);
+
+        return response()->json(
+            array_merge(
+                [
+                    "ok"        => true,
+                    "entity_id" => $updated->id,
+                    "display"   => $this->service->formatDisplayValues($updated, array_keys($changes)),
+                    "etag"      => $this->service->etag($updated),
+                ],
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+            )
+        );
+    }
+
+   
 }

@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('natureLivrables.create') }}',
         editUrl: '{{ route('natureLivrables.edit',  ['natureLivrable' => ':id']) }}',
+        fieldMetaUrl: '{{ route('natureLivrables.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('natureLivrables.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('natureLivrables.show',  ['natureLivrable' => ':id']) }}',
         getEntityUrl: '{{ route("natureLivrables.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('natureLivrables.store') }}', 

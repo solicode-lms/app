@@ -426,4 +426,57 @@ class BaseNiveauxScolaireController extends AdminController
                 )
         );
     }
+
+    /**
+     * Retourne les métadonnées d’un champ (type, options, validation, etag…)
+     *  @DynamicPermissionIgnore
+     */
+    public function fieldMeta(int $id, string $field)
+    {
+        // $this->authorizeAction('update');
+        $itemNiveauxScolaire = NiveauxScolaire::findOrFail($id);
+
+
+        $data = $this->service->buildFieldMeta($itemNiveauxScolaire, $field);
+        return response()->json(
+            $data
+        );
+    }
+
+    /**
+     * PATCH inline d’une cellule avec gestion de l’ETag
+     * @DynamicPermissionIgnore
+     */
+    public function patchInline(Request $request, int $id)
+    {
+
+        $this->authorizeAction('update');
+        $itemNiveauxScolaire = NiveauxScolaire::findOrFail($id);
+
+
+        // Vérification ETag
+        $ifMatch = $request->header('If-Match');
+        $etag = $this->service->etag($itemNiveauxScolaire);
+        if ($ifMatch && $ifMatch !== $etag) {
+            return response()->json(['error' => 'conflict'], 409);
+        }
+
+        // Appliquer le patch
+        $changes = $request->input('changes', []);
+        $updated = $this->service->applyInlinePatch($itemNiveauxScolaire, $changes);
+
+        return response()->json(
+            array_merge(
+                [
+                    "ok"        => true,
+                    "entity_id" => $updated->id,
+                    "display"   => $this->service->formatDisplayValues($updated, array_keys($changes)),
+                    "etag"      => $this->service->etag($updated),
+                ],
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+            )
+        );
+    }
+
+   
 }

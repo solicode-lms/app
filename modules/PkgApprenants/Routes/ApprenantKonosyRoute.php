@@ -9,6 +9,13 @@ use Modules\PkgApprenants\Controllers\ApprenantKonosyController;
 // routes for apprenantKonosy management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
+
+        // Edition inline
+        Route::get('apprenantKonosies/{id}/field/{field}/meta', [ApprenantKonosyController::class, 'fieldMeta'])
+            ->name('apprenantKonosies.field.meta');
+        Route::patch('apprenantKonosies/{id}/inline', [ApprenantKonosyController::class, 'patchInline'])
+            ->name('apprenantKonosies.patchInline');
+
         Route::get('apprenantKonosies/getData', [ApprenantKonosyController::class, 'getData'])->name('apprenantKonosies.getData');
         // ✅ Route JSON
         Route::get('apprenantKonosies/json/{id}', [ApprenantKonosyController::class, 'getApprenantKonosy'])

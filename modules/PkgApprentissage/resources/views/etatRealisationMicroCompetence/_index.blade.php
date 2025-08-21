@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('etatRealisationMicroCompetences.create') }}',
         editUrl: '{{ route('etatRealisationMicroCompetences.edit',  ['etatRealisationMicroCompetence' => ':id']) }}',
+        fieldMetaUrl: '{{ route('etatRealisationMicroCompetences.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('etatRealisationMicroCompetences.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('etatRealisationMicroCompetences.show',  ['etatRealisationMicroCompetence' => ':id']) }}',
         getEntityUrl: '{{ route("etatRealisationMicroCompetences.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('etatRealisationMicroCompetences.store') }}', 

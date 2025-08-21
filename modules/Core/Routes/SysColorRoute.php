@@ -9,6 +9,13 @@ use Modules\Core\Controllers\SysColorController;
 // routes for sysColor management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
+
+        // Edition inline
+        Route::get('sysColors/{id}/field/{field}/meta', [SysColorController::class, 'fieldMeta'])
+            ->name('sysColors.field.meta');
+        Route::patch('sysColors/{id}/inline', [SysColorController::class, 'patchInline'])
+            ->name('sysColors.patchInline');
+
         Route::get('sysColors/getData', [SysColorController::class, 'getData'])->name('sysColors.getData');
         // ✅ Route JSON
         Route::get('sysColors/json/{id}', [SysColorController::class, 'getSysColor'])

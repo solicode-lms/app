@@ -20,6 +20,8 @@
         getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('nationalites.create') }}',
         editUrl: '{{ route('nationalites.edit',  ['nationalite' => ':id']) }}',
+        fieldMetaUrl: '{{ route('nationalites.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('nationalites.patchInline',  ['id' => ':id']) }}',
         showUrl: '{{ route('nationalites.show',  ['nationalite' => ':id']) }}',
         getEntityUrl: '{{ route("nationalites.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('nationalites.store') }}', 

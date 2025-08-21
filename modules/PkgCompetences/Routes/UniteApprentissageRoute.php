@@ -9,6 +9,13 @@ use Modules\PkgCompetences\Controllers\UniteApprentissageController;
 // routes for uniteApprentissage management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
+
+        // Edition inline
+        Route::get('uniteApprentissages/{id}/field/{field}/meta', [UniteApprentissageController::class, 'fieldMeta'])
+            ->name('uniteApprentissages.field.meta');
+        Route::patch('uniteApprentissages/{id}/inline', [UniteApprentissageController::class, 'patchInline'])
+            ->name('uniteApprentissages.patchInline');
+
         Route::get('uniteApprentissages/getData', [UniteApprentissageController::class, 'getData'])->name('uniteApprentissages.getData');
         // ✅ Route JSON
         Route::get('uniteApprentissages/json/{id}', [UniteApprentissageController::class, 'getUniteApprentissage'])

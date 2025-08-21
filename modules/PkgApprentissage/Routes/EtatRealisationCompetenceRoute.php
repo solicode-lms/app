@@ -9,6 +9,13 @@ use Modules\PkgApprentissage\Controllers\EtatRealisationCompetenceController;
 // routes for etatRealisationCompetence management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprentissage')->group(function () {
+
+        // Edition inline
+        Route::get('etatRealisationCompetences/{id}/field/{field}/meta', [EtatRealisationCompetenceController::class, 'fieldMeta'])
+            ->name('etatRealisationCompetences.field.meta');
+        Route::patch('etatRealisationCompetences/{id}/inline', [EtatRealisationCompetenceController::class, 'patchInline'])
+            ->name('etatRealisationCompetences.patchInline');
+
         Route::get('etatRealisationCompetences/getData', [EtatRealisationCompetenceController::class, 'getData'])->name('etatRealisationCompetences.getData');
         // ✅ Route JSON
         Route::get('etatRealisationCompetences/json/{id}', [EtatRealisationCompetenceController::class, 'getEtatRealisationCompetence'])
