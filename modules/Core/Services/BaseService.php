@@ -27,7 +27,7 @@ use Modules\Core\Services\Traits\{
     HandleThrowableTrait,
     JobTrait
 };
-
+use Modules\PkgRealisationTache\Models\RealisationTache;
 
 /**
  * Classe abstraite BaseService qui fournit une implémentation de base
@@ -233,6 +233,8 @@ abstract class BaseService implements ServiceInterface
         
     }
 
+    // Inline Edit
+
     /**
      * Génère un ETag basé sur updated_at
      */
@@ -242,6 +244,32 @@ abstract class BaseService implements ServiceInterface
         return  $this->modelName . '-' . $entity->id . '-' . $ver . '"';
     }
 
+    /**
+     * Méthode générique qui calcule la meta en fonction du type et des paramètres.
+     *
+     * @param  RealisationTache $e
+     * @param  string           $field
+     * @param  array            $baseMeta
+     * @param  string           $type
+     * @param  array            $validationRules
+     * @param  array            $extra
+     * @return array
+     */
+    protected function computeFieldMeta(RealisationTache $e, string $field, array $baseMeta, string $type, array $validationRules, array $extra = []): array
+    {
+        // 🔹 Calcul automatique de la valeur en fonction du type
+        $value = match ($type) {
+            'date'    => optional($e->$field)->format('Y-m-d'),
+            'boolean' => (bool) $e->$field,
+            default   => $e->$field,
+        };
+
+        return array_merge($baseMeta, [
+            'type'       => $type,
+            'validation' => $validationRules,
+            'value'      => $value,
+        ], $extra);
+    }
 
 
 }

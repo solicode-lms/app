@@ -8,6 +8,7 @@ namespace Modules\PkgRealisationTache\Services\Base;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 use Modules\Core\App\Manager\JobManager;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\Core\Services\BaseService;
@@ -386,105 +387,52 @@ class BaseRealisationTacheService extends BaseService
     public function buildFieldMeta(RealisationTache $e, string $field): array
     {
         $meta = [
-            'entity' => 'realisation_tache',
-            'id'     => $e->id,
-            'field'  => $field,
-            'writable' => in_array($field, $this->getFieldsEditable()),
-            'etag'   => $this->etag($e),
+            'entity'         => 'realisation_tache',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
             'schema_version' => 'v1',
         ];
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
-        $rules = app(RealisationTacheRequest::class)->rules();
+        $rules = (new RealisationTacheRequest())->rules();
         $validationRules = $rules[$field] ?? [];
-
+        if (is_string($validationRules)) {
+            $validationRules = explode('|', $validationRules);
+        }
         switch ($field) {
             case 'etat_realisation_tache_id':
-
-
-                $options = app(EtatRealisationTacheService::class)
-                    ->getAllForSelect($e->etatRealisationTache); 
-                $values = $options->map(fn($entity, $id) => [
+                $values = app(EtatRealisationTacheService::class)
+                    ->getAllForSelect($e->etatRealisationTache)
+                    ->map(fn($entity) => [
                     'value' => (int) $entity->id,
                     'label' => (string) $entity,
-                ])->values();
-
-                $meta += [
-                    'type' => 'select',
+                    ]);
+                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
                     'required' => true,
-                    'options' => [ 'source' => 'static','values' => $values],
-                    'validation' => $validationRules,
-                    'value' => $e->etat_realisation_tache_id,
-                ];
-                break;
-
+                    'options'  => [
+                        'source' => 'static',
+                        'values' => $values,
+                    ],
+                ]);
             case 'dateDebut':
             case 'dateFin':
-                $meta += [
-                    'type' => 'date',
-                    'validation' => $validationRules,
-                    'value' => optional($e->$field)->format('Y-m-d'),
-                ];
-                break;
-
+                return $this->computeFieldMeta($e, $field, $meta, 'date', $validationRules);
             case 'note':
-                $meta += [
-                    'type' => 'number',
-                    'validation' => $validationRules,
-                    'value' => $e->note,
-                ];
-                break;
+                return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
 
             case 'is_live_coding':
-                $meta += [
-                    'type' => 'boolean',
-                    'validation' => $validationRules,
-                    'value' => (bool) $e->is_live_coding,
-                ];
-                break;
+                return $this->computeFieldMeta($e, $field, $meta, 'boolean', $validationRules);
 
             case 'remarques_formateur':
             case 'remarques_apprenant':
             case 'remarque_evaluateur':
-                $meta += [
-                    'type' => 'text',
-                    'validation' => $validationRules,
-                    'value' => $e->$field,
-                ];
-                break;
+                return $this->computeFieldMeta($e, $field, $meta, 'text', $validationRules);
 
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
         }
-
-        return $meta;
-    }
-
-    /**
-     * Méthode générique qui calcule la meta en fonction du type et des paramètres.
-     *
-     * @param  RealisationTache $e
-     * @param  string           $field
-     * @param  array            $baseMeta
-     * @param  string           $type
-     * @param  array            $validationRules
-     * @param  array            $extra
-     * @return array
-     */
-    protected function computeFieldMeta(RealisationTache $e, string $field, array $baseMeta, string $type, array $validationRules, array $extra = []): array
-    {
-        // 🔹 Calcul automatique de la valeur en fonction du type
-        $value = match ($type) {
-            'date'    => optional($e->$field)->format('Y-m-d'),
-            'boolean' => (bool) $e->$field,
-            default   => $e->$field,
-        };
-
-        return array_merge($baseMeta, [
-            'type'       => $type,
-            'validation' => $validationRules,
-            'value'      => $value,
-        ], $extra);
     }
 
     /**
@@ -504,8 +452,7 @@ class BaseRealisationTacheService extends BaseService
             $meta = $this->buildFieldMeta($e, $field);
             $rules[$field] = $meta['validation'] ?? ['nullable'];
         }
-
-        // Validator::make($filtered, $rules)->validate();
+        Validator::make($filtered, $rules)->validate();
 
         $e->fill($filtered);
         $e->save();
@@ -518,51 +465,78 @@ class BaseRealisationTacheService extends BaseService
      */
     public function formatDisplayValues(RealisationTache $e, array $fields): array
     {
-      
         $out = [];
+
         foreach ($fields as $field) {
             switch ($field) {
                 case 'etat_realisation_tache_id':
-                    // $label = optional($e->etatRealisationTache)->libelle ?? '—';
-                    // $code  = optional($e->etatRealisationTache->workflowTache)->code;
-                    // $palette = ['TODO' => 'secondary', 'DOING' => 'warning', 'APPROVED' => 'success'];
-                    // $out[$field] = [
-                    //     'text'  => $label,
-                    //     'badge' => $palette[$code] ?? 'secondary',
-                    // ];
-                     // ⚡ Utiliser un Blade partial pour produire le HTML final
+                    // Cas d'un affichage custom
                     $html = view('PkgRealisationTache::realisationTache.custom.fields.etatRealisationTache', [
-                        'entity' => $e
+                        'entity' => $e,
+                        'column' => $field,
                     ])->render();
 
-                $out[$field] = [
-                    'html' => $html, // rendu complet du partial
-                ];
+                    $out[$field] = ['html' => $html];
                     break;
 
                 case 'dateDebut':
+                    $html = view('Core::fields_by_type.date', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
+                    break;
+
                 case 'dateFin':
-                    $out[$field] = ['text' => optional($e->$field)->format('Y-m-d') ?? '—'];
+                    $html = view('Core::fields_by_type.date', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
                     break;
 
                 case 'note':
-                    $out[$field] = ['text' => $e->note !== null ? $e->note . '/20' : '—'];
+                    $html = view('Core::fields_by_type.integer', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->with(['nature' => 'note'])->render();
+
+                    $out[$field] = ['html' => $html];
                     break;
 
                 case 'is_live_coding':
-                    $out[$field] = ['text' => $e->is_live_coding ? 'Oui' : 'Non'];
+                    $html = view('Core::fields_by_type.boolean', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
                     break;
 
                 case 'remarques_formateur':
                 case 'remarques_apprenant':
                 case 'remarque_evaluateur':
-                    $out[$field] = ['text' => (string) $e->$field ?? '—'];
+                    $html = view('Core::fields_by_type.text', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
                     break;
 
                 default:
-                    $out[$field] = ['text' => (string) data_get($e, $field, '—')];
+                    // fallback string simple
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
             }
         }
+
         return $out;
     }
 

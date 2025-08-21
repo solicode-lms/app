@@ -38,8 +38,9 @@ class RealisationTacheController extends BaseRealisationTacheController
         $key = 'scope.etatRealisationTache.formateur_id';
         $this->viewState->set($key, $value);
 
+        $data = $this->service->buildFieldMeta($itemRealisationTache, $field);
         return response()->json(
-            $this->service->buildFieldMeta($itemRealisationTache, $field)
+            $data
         );
     }
 

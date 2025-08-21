@@ -128,6 +128,7 @@ export class CellOrchestrator extends CrudAction {
         } catch (err) {
             AjaxErrorHandler.handleError(err, "Impossible d'activer l’édition.");
             console.error("Erreur activation cellule:", err);
+             this.loader.hide();
         }
     }
 

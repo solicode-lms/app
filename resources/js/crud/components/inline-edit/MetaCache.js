@@ -1,5 +1,6 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
+import { Exception } from "sass";
 import { Action } from "../../actions/Action";
 import { AjaxErrorHandler } from "../AjaxErrorHandler";
 
@@ -47,30 +48,32 @@ export class MetaCache extends Action {
      /**
      * Récupère une meta (cache ou API) avec gestion d’erreur via AjaxErrorHandler.
      */
-    async getMeta(entityType, id, field) {
+   async getMeta(entityType, id, field) {
         const cached = this.get(entityType, id, field);
         if (cached) return cached;
 
-        try {
-            const res = await fetch(
-                `/admin/PkgRealisationTache/realisationTaches/${id}/field/${field}/meta`
-            );
-
-            if (!res.ok) {
-                // ⚠️ Erreur HTTP (404, 500, etc.)
-                AjaxErrorHandler.handleError(res, "Erreur lors de la récupération des métadonnées.");
-                throw new Error(`Erreur HTTP ${res.status} lors de la récupération des métadonnées`);
-            }
-
-            const meta = await res.json();
-            this.set(entityType, id, field, meta);
-            return meta;
-
-        } catch (error) {
-            // ⚠️ Gestion des exceptions JS (ex: perte connexion)
-            AjaxErrorHandler.handleError(error, "Erreur réseau lors de la récupération des métadonnées.");
-            throw error;
-        }
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: `/admin/PkgRealisationTache/realisationTaches/${id}/field/${field}/meta`,
+                method: 'GET',
+                dataType: 'json'
+            })
+            .done((meta) => {
+                this.set(entityType, id, field, meta);
+                resolve(meta);
+            })
+            .fail((jqXHR, textStatus, errorThrown) => {
+                if (jqXHR.status) {
+                    // ⚠️ Erreur HTTP (404, 500, etc.)
+                    //AjaxErrorHandler.handleError(jqXHR, "Erreur lors de la récupération des métadonnées.");
+                   reject(jqXHR);
+                } else {
+                    // ⚠️ Erreur réseau (ex: pas de connexion)
+                    //AjaxErrorHandler.handleError(errorThrown, "Erreur réseau lors de la récupération des métadonnées.");
+                     reject(jqXHR);
+                }
+            });
+        });
     }
 }
 
