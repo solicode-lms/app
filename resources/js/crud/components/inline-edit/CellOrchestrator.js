@@ -21,10 +21,18 @@ export class CellOrchestrator extends CrudAction {
         this.tableUI = tableUI;
         this.active = null; // cellule en cours d’édition
         this.editor = null; // éditeur monté
+        this.isEditing = false; // 🔹 flag booléen fiable
 
         this.metaCache = new MetaCache(config);
         // Loader lié à la table
         this.loader = new LoadingIndicator(this.config.tableSelector);
+
+         // Timer de debounce global
+        this.debounceTimer = null;
+    }
+
+    setIsEditing(value) {
+        this.isEditing = value;
     }
 
     init() {
@@ -42,7 +50,10 @@ export class CellOrchestrator extends CrudAction {
 
         // Double-clic sur cellule → activer l’éditeur
         EventUtil.bindEvent('dblclick',tableSelector , e => {
-
+            
+            if (this.active != null) 
+                return;
+           
             clearTimeout(clickTimer); // annule le click différé
 
             const td = e.target.closest(".editable-cell");
@@ -79,16 +90,16 @@ export class CellOrchestrator extends CrudAction {
                 e.preventDefault();
                 // Tab = horizontal, Shift+Tab = arrière
                 const next = this.findAdjacentCell(this.active, !e.shiftKey, false);
-                if (next) this.activateCell(next);
-                this.active = next;
+                if (next) this.activateCell(next,true);
+               
             }
 
             if (e.key === "Enter") {
                 e.preventDefault();
                 // Enter = vertical, Shift+Enter = monter
                 const next = this.findAdjacentCell(this.active, !e.shiftKey, true);
-                if (next) this.activateCell(next);
-                this.active = next;
+                if (next) this.activateCell(next,true);
+                
             }
 
 
@@ -104,10 +115,10 @@ export class CellOrchestrator extends CrudAction {
         });
     }
 
-    async activateCell(td) {
+    async activateCell(td, fromNavigation = false) {
         // Annuler l’éditeur actif précédent
         if (this.active && this.active !== td) {
-            this.cancelEdit();
+            this.cancelEdit(fromNavigation); // 🔹 passe le flag
         }
 
         const id = td.dataset.id;
@@ -130,6 +141,8 @@ export class CellOrchestrator extends CrudAction {
             const value = meta.value ?? td.textContent;
 
             this.active = td;
+            this.setIsEditing(true); // ✅ on entre en édition
+
             this.editor.mount(td, {
                 meta,
                 value,
@@ -149,75 +162,95 @@ export class CellOrchestrator extends CrudAction {
         const field = td.dataset.field;
         const oldContent = td.dataset.original ?? td.innerHTML;
 
-        td.classList.add("updating");
-        this.loader.showNomBloquante("Mise à jour en cours...");
+        // 🔹 Nettoyer ancien timer si nouvelle frappe
+        clearTimeout(this.debounceTimer);
 
-        let patchInlineUrl = this.getUrlWithId(this.config.patchInlineUrl, id);
-        // patchInlineUrl = `/admin/PkgRealisationTache/realisationTaches/${id}/inline`;
-        patchInlineUrl = this.appendParamsToUrl(patchInlineUrl, this.viewStateService.getContextParams());
+        this.debounceTimer = setTimeout(() => {
 
-        $.ajax({
-            url: patchInlineUrl,
-            method: "PATCH",
-            headers: {
-                "If-Match": meta.etag,
-                "X-CSRF-TOKEN": this.config.csrfToken
-            },
-            contentType: "application/json",
-            data: JSON.stringify({ changes: { [field]: newValue } }),
-        })
-            .done((data) => {
+        
 
+            td.classList.add("updating");
+            this.loader.showNomBloquante("Mise à jour en cours...");
 
-                // Affichage de message de progression de traitement
-                const traitement_token = data?.traitement_token;
-                if (traitement_token) {
-                    this.pollTraitementStatus(traitement_token, () => {
-                       ;
-                    });
-                }else{
-                    
-                }
+            let patchInlineUrl = this.getUrlWithId(this.config.patchInlineUrl, id);
+            // patchInlineUrl = `/admin/PkgRealisationTache/realisationTaches/${id}/inline`;
+            patchInlineUrl = this.appendParamsToUrl(patchInlineUrl, this.viewStateService.getContextParams());
 
-
-                // ✅ Mettre à jour le rendu
-                td.innerHTML = data.display[field]?.html ?? newValue;
-                td.classList.remove("updating");
-
-                // ✅ Mettre à jour le cache meta
-                meta.etag = data.etag;
-                meta.value = newValue;
-                this.metaCache.set("realisationTache", id, field, meta);
-
-                NotificationHandler.showSuccess("Valeur mise à jour avec succès.");
+            $.ajax({
+                url: patchInlineUrl,
+                method: "PATCH",
+                headers: {
+                    "If-Match": meta.etag,
+                    "X-CSRF-TOKEN": this.config.csrfToken
+                },
+                contentType: "application/json",
+                data: JSON.stringify({ changes: { [field]: newValue } }),
             })
-            .fail((xhr) => {
-                td.innerHTML = oldContent; // rollback
-                td.classList.remove("updating");
+                .done((data) => {
 
-                // Si conflit ETag
-                if (xhr.status === 409) {
-                    NotificationHandler.showError("⚠️ Conflit de version. Rechargez la ligne.");
-                    return;
-                }
 
-                // Utiliser ton gestionnaire global
-                AjaxErrorHandler.handleError(xhr, "Erreur lors de la mise à jour.");
-            })
-            .always(() => {
-                this.loader.hide();
-                this.active = null;
-                this.editor = null;
-            });
+                    // Affichage de message de progression de traitement
+                    const traitement_token = data?.traitement_token;
+                    if (traitement_token) {
+                        this.pollTraitementStatus(traitement_token, () => {
+                        ;
+                        });
+                    }else{
+                        
+                    }
+
+
+                    // ✅ Mettre à jour le rendu
+                    td.innerHTML = data.display[field]?.html ?? newValue;
+                    td.classList.remove("updating");
+
+                    // ✅ Mettre à jour le cache meta
+                    meta.etag = data.etag;
+                    meta.value = newValue;
+                    this.metaCache.set("realisationTache", id, field, meta);
+
+                    NotificationHandler.showSuccess("Valeur mise à jour avec succès.");
+                })
+                .fail((xhr) => {
+                    td.innerHTML = oldContent; // rollback
+                    td.classList.remove("updating");
+
+                    // Si conflit ETag
+                    if (xhr.status === 409) {
+                        NotificationHandler.showError("⚠️ Conflit de version. Rechargez la ligne.");
+                        return;
+                    }
+
+                    // Utiliser ton gestionnaire global
+                    AjaxErrorHandler.handleError(xhr, "Erreur lors de la mise à jour.");
+                })
+                .always(() => {
+                    this.loader.hide();
+                    this.active = null;
+                    this.editor = null;
+                    // ✅ Ne remettre à false que si aucune cellule n'est réactivée
+                    // if (!this.active) {
+                    //     this.setIsEditing(false);
+                    // }
+                });
+
+           }, 500);// délai debounce
     }
 
-    cancelEdit() {
-        if (!this.active || !this.editor) return;
-        // rollback contenu
+    cancelEdit(fromNavigation = false) {
+        if (!this.active || !this.editor) {
+            if (!fromNavigation) this.setIsEditing(false); // seulement si ce n’est pas une nav
+            return;
+        }
+
         this.active.innerHTML = this.active.dataset.original || this.active.textContent;
         this.editor.destroy();
         this.active = null;
         this.editor = null;
+
+        if (!fromNavigation) {
+            this.setIsEditing(false); // ✅ on sort seulement si ce n’est pas navigation
+        }
     }
 
   /**
