@@ -9,6 +9,13 @@ use Modules\PkgApprentissage\Controllers\RealisationUaPrototypeController;
 // routes for realisationUaPrototype management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprentissage')->group(function () {
+
+        // Edition inline
+        Route::get('realisationUaPrototypes/{id}/field/{field}/meta', [RealisationUaPrototypeController::class, 'fieldMeta'])
+            ->name('realisationUaPrototypes.field.meta');
+        Route::patch('realisationUaPrototypes/{id}/inline', [RealisationUaPrototypeController::class, 'patchInline'])
+            ->name('realisationUaPrototypes.patchInline');
+
         Route::get('realisationUaPrototypes/getData', [RealisationUaPrototypeController::class, 'getData'])->name('realisationUaPrototypes.getData');
         // ✅ Route JSON
         Route::get('realisationUaPrototypes/json/{id}', [RealisationUaPrototypeController::class, 'getRealisationUaPrototype'])

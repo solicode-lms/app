@@ -255,7 +255,7 @@ abstract class BaseService implements ServiceInterface
      * @param  array            $extra
      * @return array
      */
-    protected function computeFieldMeta(RealisationTache $e, string $field, array $baseMeta, string $type, array $validationRules, array $extra = []): array
+    protected function computeFieldMeta($e, string $field, array $baseMeta, string $type, array $validationRules, array $extra = []): array
     {
         // 🔹 Calcul automatique de la valeur en fonction du type
         $value = match ($type) {

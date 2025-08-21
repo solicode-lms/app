@@ -14,5 +14,6 @@ export default class EventUtil {
             // délégation
             $(document).off(eventType, selector).on(eventType, selector, callback);
         }
+
     }
 }
