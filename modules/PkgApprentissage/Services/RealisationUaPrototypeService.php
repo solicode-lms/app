@@ -13,6 +13,15 @@ use Modules\PkgApprentissage\Services\Base\BaseRealisationUaPrototypeService;
 class RealisationUaPrototypeService extends BaseRealisationUaPrototypeService
 {
 
+    public function defaultSort($query)
+    {
+        return $query
+            ->join('realisation_uas', 'realisation_ua_prototypes.realisation_ua_id', '=', 'realisation_uas.id')
+            ->join('unite_apprentissages', 'realisation_uas.unite_apprentissage_id', '=', 'unite_apprentissages.id')
+            ->orderBy('unite_apprentissages.ordre', 'asc')
+            ->select('realisation_ua_prototypes.*');
+    }
+
     /**
      * Job déclenché après mise à jour d'un RealisationUaPrototype.
      *

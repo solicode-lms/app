@@ -6,6 +6,7 @@ import { LoadingIndicator } from "../LoadingIndicator";
 import { NotificationHandler } from "../NotificationHandler";
 import { fieldRegistry } from "./FieldRegistry";
 import { MetaCache } from "./MetaCache";
+import { LoadListAction } from './../../actions/LoadListAction';
 
 /**
  * CellOrchestrator
@@ -49,19 +50,24 @@ export class CellOrchestrator extends CrudAction {
     bindTable(tableSelector) {
         let clickTimer = null;
 
+        const selector = `${tableSelector} .editable-cell`;
+
         // Double-clic sur cellule → activer l’éditeur
         EventUtil.bindEvent("dblclick", tableSelector, e => {
-            if (this.active != null) return;
-            clearTimeout(clickTimer);
-
             const td = e.target.closest(".editable-cell");
             if (!td) return;
+
+            // ✅ Autoriser le dblclick si c’est une nouvelle cellule
+            if (this.active && this.active === td) return;
+
+            clearTimeout(clickTimer);
             this.activateCell(td);
         });
 
         // Clic hors table → annuler édition
         EventUtil.bindEvent("click", document, e => {
-            if (!this.active) return;
+            if (!this.active) 
+                return;
 
             if (e.detail === 1) {
                 clickTimer = setTimeout(() => {
@@ -87,6 +93,14 @@ export class CellOrchestrator extends CrudAction {
             //     const next = this.findAdjacentCell(this.active, !e.shiftKey, true);
             //     if (next) this.activateCell(next, true);
             // }
+        });
+
+         // survol
+        EventUtil.bindEvent('mouseenter', selector, e => {
+            $(e.currentTarget).css({ cursor: 'cell' });
+        });
+        EventUtil.bindEvent('mouseleave', selector, e => {
+            $(e.currentTarget).css({ cursor: '' });
         });
     }
 
@@ -192,7 +206,8 @@ export class CellOrchestrator extends CrudAction {
                     // ✅ Attendre 200ms avant de terminer l’édition
                     setTimeout(() => {
                         this.editCount = Math.max(0, this.editCount - 1);
-                    }, 20000);
+                        this.tableUI.loadListAction.loadEntities();
+                    }, 3000);
 
                 });
         }, 500);
