@@ -9,7 +9,7 @@ use Modules\PkgRealisationTache\Controllers\RealisationTacheController;
 // routes for realisationTache management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationTache')->group(function () {
-        
+
         // Edition inline
         Route::get('realisationTaches/{id}/field/{field}/meta', [RealisationTacheController::class, 'fieldMeta'])
             ->name('realisationTaches.field.meta');
@@ -43,8 +43,6 @@ Route::middleware('auth')->group(function () {
         Route::post('realisationTaches/update-attributes', [RealisationTacheController::class, 'updateAttributes'])->name('realisationTaches.updateAttributes');
 
     
-       
-
 
     });
 });
