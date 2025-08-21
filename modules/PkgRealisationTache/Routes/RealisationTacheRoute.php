@@ -10,10 +10,9 @@ use Modules\PkgRealisationTache\Controllers\RealisationTacheController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationTache')->group(function () {
         
-        
+        // Edition inline
         Route::get('realisationTaches/{id}/field/{field}/meta', [RealisationTacheController::class, 'fieldMeta'])
             ->name('realisationTaches.field.meta');
-
         Route::patch('realisationTaches/{id}/inline', [RealisationTacheController::class, 'patchInline'])
             ->name('realisationTaches.patchInline');
 
