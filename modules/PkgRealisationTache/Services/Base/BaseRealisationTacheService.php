@@ -5,15 +5,13 @@
 
 namespace Modules\PkgRealisationTache\Services\Base;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Validator;
 use Modules\Core\App\Manager\JobManager;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\Core\Services\BaseService;
-use Modules\PkgRealisationTache\App\Requests\RealisationTacheRequest;
-use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Classe RealisationTacheService pour gérer la persistance de l'entité RealisationTache.
@@ -362,21 +360,15 @@ class BaseRealisationTacheService extends BaseService
         return "done";
     }
 
-
     /**
-     * Liste des champs autorisés à l’édition inline
-     */
+    * Liste des champs autorisés à l’édition inline
+    */
     public function getFieldsEditable(): array
     {
         return [
+            'tache_id',
             'etat_realisation_tache_id',
-            'dateDebut',
-            'dateFin',
-            'note',
-            'is_live_coding',
-            'remarques_formateur',
-            'remarques_apprenant',
-            'remarque_evaluateur',
+            'nombre_livrables'
         ];
     }
 
@@ -396,19 +388,21 @@ class BaseRealisationTacheService extends BaseService
         ];
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
-        $rules = (new RealisationTacheRequest())->rules();
+        $rules = (new \Modules\PkgRealisationTache\App\Requests\RealisationTacheRequest())->rules();
         $validationRules = $rules[$field] ?? [];
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
-        switch ($field) {
-            case 'etat_realisation_tache_id':
-                $values = app(EtatRealisationTacheService::class)
-                    ->getAllForSelect($e->etatRealisationTache)
+       switch ($field) {
+            case 'tache_id':
+                 $values = (new \Modules\PkgCreationTache\Services\TacheService())
+                    ->getAllForSelect($e->tache)
                     ->map(fn($entity) => [
-                    'value' => (int) $entity->id,
-                    'label' => (string) $entity,
-                    ]);
+                        'value' => (int) $entity->id,
+                        'label' => (string) $entity,
+                    ])
+                    ->toArray();
+
                 return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
                     'required' => true,
                     'options'  => [
@@ -416,19 +410,24 @@ class BaseRealisationTacheService extends BaseService
                         'values' => $values,
                     ],
                 ]);
-            case 'dateDebut':
-            case 'dateFin':
-                return $this->computeFieldMeta($e, $field, $meta, 'date', $validationRules);
-            case 'note':
+            case 'etat_realisation_tache_id':
+                 $values = (new \Modules\PkgRealisationTache\Services\EtatRealisationTacheService())
+                    ->getAllForSelect($e->etatRealisationTache)
+                    ->map(fn($entity) => [
+                        'value' => (int) $entity->id,
+                        'label' => (string) $entity,
+                    ])
+                    ->toArray();
+
+                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                    'required' => true,
+                    'options'  => [
+                        'source' => 'static',
+                        'values' => $values,
+                    ],
+                ]);
+            case 'nombre_livrables':
                 return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
-
-            case 'is_live_coding':
-                return $this->computeFieldMeta($e, $field, $meta, 'boolean', $validationRules);
-
-            case 'remarques_formateur':
-            case 'remarques_apprenant':
-            case 'remarque_evaluateur':
-                return $this->computeFieldMeta($e, $field, $meta, 'text', $validationRules);
 
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
@@ -469,65 +468,33 @@ class BaseRealisationTacheService extends BaseService
 
         foreach ($fields as $field) {
             switch ($field) {
+                case 'tache_id':
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgRealisationTache::realisationTache.custom.fields.tache', [
+                        'entity' => $e
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
+                    break;
                 case 'etat_realisation_tache_id':
-                    // Cas d'un affichage custom
+                    // Vue custom définie pour ce champ
                     $html = view('PkgRealisationTache::realisationTache.custom.fields.etatRealisationTache', [
-                        'entity' => $e,
-                        'column' => $field,
+                        'entity' => $e
                     ])->render();
 
                     $out[$field] = ['html' => $html];
                     break;
-
-                case 'dateDebut':
-                    $html = view('Core::fields_by_type.date', [
-                        'entity' => $e,
-                        'column' => $field,
-                    ])->render();
-
-                    $out[$field] = ['html' => $html];
-                    break;
-
-                case 'dateFin':
-                    $html = view('Core::fields_by_type.date', [
-                        'entity' => $e,
-                        'column' => $field,
-                    ])->render();
-
-                    $out[$field] = ['html' => $html];
-                    break;
-
-                case 'note':
-                    $html = view('Core::fields_by_type.integer', [
-                        'entity' => $e,
-                        'column' => $field,
-                    ])->with(['nature' => 'note'])->render();
-
-                    $out[$field] = ['html' => $html];
-                    break;
-
-                case 'is_live_coding':
-                    $html = view('Core::fields_by_type.boolean', [
-                        'entity' => $e,
-                        'column' => $field,
-                    ])->render();
-
-                    $out[$field] = ['html' => $html];
-                    break;
-
-                case 'remarques_formateur':
-                case 'remarques_apprenant':
-                case 'remarque_evaluateur':
-                    $html = view('Core::fields_by_type.text', [
-                        'entity' => $e,
-                        'column' => $field,
+                case 'nombre_livrables':
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgRealisationTache::realisationTache.custom.fields.nombre_livrables', [
+                        'entity' => $e
                     ])->render();
 
                     $out[$field] = ['html' => $html];
                     break;
 
                 default:
-                    // fallback string simple
+                    // fallback générique si champ non pris en charge
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
@@ -536,9 +503,6 @@ class BaseRealisationTacheService extends BaseService
                     $out[$field] = ['html' => $html];
             }
         }
-
         return $out;
     }
-
-
 }
