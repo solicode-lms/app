@@ -174,3 +174,28 @@ fieldRegistry.register('select', (props) => {
         focus() { select?.focus(); }
     };
 });
+
+/** String input (alias text) */
+fieldRegistry.register('string', (props) => {
+    let input;
+    return {
+        mount(container, { value, onCommit, onCancel, autoFocus }) {
+            input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'form-control form-control-sm';
+            input.value = value ?? '';
+
+            input.addEventListener('keydown', e => {
+                if (e.key === 'Escape') onCancel();
+                if (e.key === 'Enter') onCommit(input.value);
+            });
+            input.addEventListener('blur', () => onCommit(input.value));
+
+            container.innerHTML = '';
+            container.appendChild(input);
+            if (autoFocus) input.focus();
+        },
+        destroy() { input = null; },
+        focus() { input?.focus(); }
+    };
+});

@@ -391,26 +391,26 @@ class BaseCompetenceService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'code':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.select', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
                 case 'mini_code':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.select', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
                 case 'nom':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.select', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
