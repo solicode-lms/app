@@ -397,6 +397,7 @@ class BaseHistoriqueRealisationTacheService extends BaseService
                     $html = view('Core::fields_by_type.text', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'html'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
@@ -408,18 +409,24 @@ class BaseHistoriqueRealisationTacheService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'user_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'user'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'updated_at':
                     $html = view('Core::fields_by_type.date', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;

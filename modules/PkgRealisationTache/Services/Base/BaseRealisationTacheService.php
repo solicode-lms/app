@@ -476,6 +476,7 @@ class BaseRealisationTacheService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'etat_realisation_tache_id':
                     // Vue custom définie pour ce champ
                     $html = view('PkgRealisationTache::realisationTache.custom.fields.etatRealisationTache', [
@@ -484,6 +485,7 @@ class BaseRealisationTacheService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'nombre_livrables':
                     // Vue custom définie pour ce champ
                     $html = view('PkgRealisationTache::realisationTache.custom.fields.nombre_livrables', [
@@ -492,6 +494,7 @@ class BaseRealisationTacheService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
 
                 default:
                     // fallback générique si champ non pris en charge

@@ -404,6 +404,7 @@ class BaseSessionFormationService extends BaseService
                     $html = view('Core::fields_by_type.integer', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'ordre'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
@@ -415,6 +416,7 @@ class BaseSessionFormationService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'objectifs_pedagogique':
                     // Vue custom définie pour ce champ
                     $html = view('PkgSessions::sessionFormation.custom.fields.objectifs_pedagogique', [
@@ -423,6 +425,7 @@ class BaseSessionFormationService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'AlignementUa':
                     // Vue custom définie pour ce champ
                     $html = view('PkgSessions::sessionFormation.custom.fields.alignementUas', [
@@ -431,6 +434,7 @@ class BaseSessionFormationService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
 
                 default:
                     // fallback générique si champ non pris en charge

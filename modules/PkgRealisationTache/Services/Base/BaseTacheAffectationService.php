@@ -402,25 +402,34 @@ class BaseTacheAffectationService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'tache_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'tache'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'affectation_projet_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'affectationProjet'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'pourcentage_realisation_cache':
                     $html = view('Core::fields_by_type.integer', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'progression'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;

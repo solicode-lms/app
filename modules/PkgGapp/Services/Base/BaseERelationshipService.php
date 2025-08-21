@@ -422,37 +422,45 @@ class BaseERelationshipService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'name':
-                    // fallback string simple
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
                 case 'type':
-                    // fallback string simple
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
                 case 'source_e_model_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'sourceEModel'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'target_e_model_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'targetEModel'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
 
                 default:
                     // fallback générique si champ non pris en charge

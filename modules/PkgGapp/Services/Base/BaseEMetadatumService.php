@@ -440,21 +440,29 @@ class BaseEMetadatumService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'e_model_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'eModel'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'e_data_field_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'eDataField'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'e_metadata_definition_id':
                     // Vue custom définie pour ce champ
                     $html = view('PkgGapp::eMetadatum.custom.fields.eMetadataDefinition', [
@@ -463,6 +471,7 @@ class BaseEMetadatumService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
 
                 default:
                     // fallback générique si champ non pris en charge

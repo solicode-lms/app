@@ -375,18 +375,22 @@ class BaseSysControllerService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'sys_module_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'sysModule'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'name':
-                    // fallback string simple
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
@@ -394,6 +398,7 @@ class BaseSysControllerService extends BaseService
                     $html = view('Core::fields_by_type.boolean', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
@@ -402,6 +407,7 @@ class BaseSysControllerService extends BaseService
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;

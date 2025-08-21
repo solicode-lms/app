@@ -384,10 +384,10 @@ class BaseNotificationService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'title':
-                    // fallback string simple
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
@@ -395,6 +395,7 @@ class BaseNotificationService extends BaseService
                     $html = view('Core::fields_by_type.text', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
@@ -402,6 +403,7 @@ class BaseNotificationService extends BaseService
                     $html = view('Core::fields_by_type.date', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'duree'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;

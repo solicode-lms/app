@@ -391,7 +391,7 @@ class BaseCompetenceService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'code':
-                    $html = view('Core::fields_by_type.select', [
+                    $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
                         'nature' => ''
@@ -399,7 +399,7 @@ class BaseCompetenceService extends BaseService
                     $out[$field] = ['html' => $html];
                     break;
                 case 'mini_code':
-                    $html = view('Core::fields_by_type.select', [
+                    $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
                         'nature' => ''
@@ -407,7 +407,7 @@ class BaseCompetenceService extends BaseService
                     $out[$field] = ['html' => $html];
                     break;
                 case 'nom':
-                    $html = view('Core::fields_by_type.select', [
+                    $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
                         'nature' => ''
@@ -415,13 +415,17 @@ class BaseCompetenceService extends BaseService
                     $out[$field] = ['html' => $html];
                     break;
                 case 'module_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'module'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
 
                 default:
                     // fallback générique si champ non pris en charge

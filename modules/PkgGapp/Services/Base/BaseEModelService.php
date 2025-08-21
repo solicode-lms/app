@@ -372,29 +372,33 @@ class BaseEModelService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'icone':
-                    // fallback string simple
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'icone'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
                 case 'name':
-                    // fallback string simple
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
                 case 'e_package_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'ePackage'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
 
                 default:
                     // fallback générique si champ non pris en charge

@@ -473,33 +473,46 @@ class BaseAffectationProjetService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'projet_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'projet'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'groupe_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'groupe'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'sous_groupe_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'sousGroupe'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'date_debut':
                     $html = view('Core::fields_by_type.date', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
@@ -507,6 +520,7 @@ class BaseAffectationProjetService extends BaseService
                     $html = view('Core::fields_by_type.date', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
@@ -515,6 +529,7 @@ class BaseAffectationProjetService extends BaseService
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;

@@ -414,6 +414,7 @@ class BaseEvaluationRealisationTacheService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'note':
                     // Vue custom définie pour ce champ
                     $html = view('PkgEvaluateurs::evaluationRealisationTache.custom.fields.note', [
@@ -422,6 +423,7 @@ class BaseEvaluationRealisationTacheService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'nombre_livrables':
                     // Vue custom définie pour ce champ
                     $html = view('PkgEvaluateurs::evaluationRealisationTache.custom.fields.nombre_livrables', [
@@ -430,6 +432,7 @@ class BaseEvaluationRealisationTacheService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
 
                 default:
                     // fallback générique si champ non pris en charge

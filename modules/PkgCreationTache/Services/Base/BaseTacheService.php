@@ -408,6 +408,7 @@ class BaseTacheService extends BaseService
                     $html = view('Core::fields_by_type.integer', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'ordre'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
@@ -415,6 +416,7 @@ class BaseTacheService extends BaseService
                     $html = view('Core::fields_by_type.integer', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
@@ -426,6 +428,7 @@ class BaseTacheService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'note':
                     // Vue custom définie pour ce champ
                     $html = view('PkgCreationTache::tache.custom.fields.note', [
@@ -434,11 +437,13 @@ class BaseTacheService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'livrables':
                     // fallback string simple
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;

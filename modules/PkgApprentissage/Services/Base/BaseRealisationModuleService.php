@@ -452,6 +452,7 @@ class BaseRealisationModuleService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'progression_cache':
                     // Vue custom définie pour ce champ
                     $html = view('PkgApprentissage::realisationModule.custom.fields.progression_cache', [
@@ -460,14 +461,19 @@ class BaseRealisationModuleService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'etat_realisation_module_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'badge',
+                        'relationName' => 'etatRealisationModule'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'note_cache':
                     // Vue custom définie pour ce champ
                     $html = view('PkgApprentissage::realisationModule.custom.fields.note_cache', [
@@ -476,6 +482,7 @@ class BaseRealisationModuleService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
 
                 default:
                     // fallback générique si champ non pris en charge

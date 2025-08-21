@@ -492,19 +492,24 @@ class BaseRealisationChapitreService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'etat_realisation_chapitre_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'badge',
+                        'relationName' => 'etatRealisationChapitre'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'apprenant':
-                    // fallback string simple
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;

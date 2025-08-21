@@ -383,37 +383,43 @@ class BaseEtatRealisationChapitreService extends BaseService
                     $html = view('Core::fields_by_type.integer', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'ordre'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
                 case 'nom':
-                    // fallback string simple
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
                 case 'code':
-                    // fallback string simple
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
                 case 'sys_color_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'couleur',
+                        'relationName' => 'sysColor'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'is_editable_only_by_formateur':
                     $html = view('Core::fields_by_type.boolean', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;

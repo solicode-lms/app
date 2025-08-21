@@ -379,13 +379,17 @@ class BaseProfileService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'user_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'user'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
 
                 default:
                     // fallback générique si champ non pris en charge

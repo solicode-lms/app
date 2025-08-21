@@ -455,37 +455,49 @@ class BaseEvaluationRealisationProjetService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'realisation_projet_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'realisationProjet'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'nomApprenant':
-                    // fallback string simple
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
                 case 'evaluateur_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'evaluateur'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'etat_evaluation_projet_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'badge',
+                        'relationName' => 'etatEvaluationProjet'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'note':
                     // Vue custom définie pour ce champ
                     $html = view('PkgEvaluateurs::evaluationRealisationProjet.custom.fields.note', [
@@ -494,6 +506,7 @@ class BaseEvaluationRealisationProjetService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
 
                 default:
                     // fallback générique si champ non pris en charge

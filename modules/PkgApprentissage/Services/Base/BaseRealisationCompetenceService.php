@@ -497,29 +497,41 @@ class BaseRealisationCompetenceService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'competence_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'competence'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'realisation_module_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'realisationModule'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'apprenant_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'apprenant'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'progression_cache':
                     // Vue custom définie pour ce champ
                     $html = view('PkgApprentissage::realisationCompetence.custom.fields.progression_cache', [
@@ -528,6 +540,7 @@ class BaseRealisationCompetenceService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'note_cache':
                     // Vue custom définie pour ce champ
                     $html = view('PkgApprentissage::realisationCompetence.custom.fields.note_cache', [
@@ -536,14 +549,19 @@ class BaseRealisationCompetenceService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'etat_realisation_competence_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'badge',
+                        'relationName' => 'etatRealisationCompetence'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
 
                 default:
                     // fallback générique si champ non pris en charge

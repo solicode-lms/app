@@ -430,21 +430,29 @@ class BaseRealisationUaService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'unite_apprentissage_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'uniteApprentissage'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'etat_realisation_ua_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'badge',
+                        'relationName' => 'etatRealisationUa'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'progression_cache':
                     // Vue custom définie pour ce champ
                     $html = view('PkgApprentissage::realisationUa.custom.fields.progression_cache', [
@@ -453,6 +461,7 @@ class BaseRealisationUaService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'note_cache':
                     // Vue custom définie pour ce champ
                     $html = view('PkgApprentissage::realisationUa.custom.fields.note_cache', [
@@ -461,6 +470,7 @@ class BaseRealisationUaService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
 
                 default:
                     // fallback générique si champ non pris en charge

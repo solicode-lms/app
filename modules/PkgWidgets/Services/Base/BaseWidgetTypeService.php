@@ -335,10 +335,10 @@ class BaseWidgetTypeService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'type':
-                    // fallback string simple
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
@@ -346,6 +346,7 @@ class BaseWidgetTypeService extends BaseService
                     $html = view('Core::fields_by_type.text', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;

@@ -425,6 +425,7 @@ class BaseProjetService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'Tache':
                     // Vue custom définie pour ce champ
                     $html = view('PkgCreationProjet::projet.custom.fields.taches', [
@@ -433,11 +434,13 @@ class BaseProjetService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'Livrable':
                     // fallback string simple
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;

@@ -392,13 +392,17 @@ class BaseMobilisationUaService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'unite_apprentissage_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'uniteApprentissage'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'criteres_evaluation_prototype':
                     // Vue custom définie pour ce champ
                     $html = view('PkgCreationProjet::mobilisationUa.custom.fields.criteres_evaluation_prototype', [
@@ -407,6 +411,7 @@ class BaseMobilisationUaService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'criteres_evaluation_projet':
                     // Vue custom définie pour ce champ
                     $html = view('PkgCreationProjet::mobilisationUa.custom.fields.criteres_evaluation_projet', [
@@ -415,6 +420,7 @@ class BaseMobilisationUaService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
 
                 default:
                     // fallback générique si champ non pris en charge

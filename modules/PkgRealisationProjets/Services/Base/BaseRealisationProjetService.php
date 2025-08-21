@@ -470,22 +470,31 @@ class BaseRealisationProjetService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'apprenant_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'apprenant'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'etats_realisation_projet_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'badge',
+                        'relationName' => 'etatsRealisationProjet'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'progression_validation_cache':
                     // Vue custom définie pour ce champ
                     $html = view('PkgRealisationProjets::realisationProjet.custom.fields.progression_validation_cache', [
@@ -494,6 +503,7 @@ class BaseRealisationProjetService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'note_cache':
                     // Vue custom définie pour ce champ
                     $html = view('PkgRealisationProjets::realisationProjet.custom.fields.note_cache', [
@@ -502,6 +512,7 @@ class BaseRealisationProjetService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'LivrablesRealisation':
                     // Vue custom définie pour ce champ
                     $html = view('PkgRealisationProjets::realisationProjet.custom.fields.livrablesRealisations', [
@@ -510,6 +521,7 @@ class BaseRealisationProjetService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
 
                 default:
                     // fallback générique si champ non pris en charge

@@ -331,10 +331,10 @@ class BaseEPackageService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'name':
-                    // fallback string simple
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;

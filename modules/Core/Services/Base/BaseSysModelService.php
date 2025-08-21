@@ -406,34 +406,42 @@ class BaseSysModelService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'name':
-                    // fallback string simple
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
                 case 'sys_module_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'sysModule'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'sys_color_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'couleur',
+                        'relationName' => 'sysColor'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'icone':
-                    // fallback string simple
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'icone'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;

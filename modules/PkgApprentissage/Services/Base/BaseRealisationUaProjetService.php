@@ -399,6 +399,7 @@ class BaseRealisationUaProjetService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'note':
                     // Vue custom définie pour ce champ
                     $html = view('PkgApprentissage::realisationUaProjet.custom.fields.note', [
@@ -407,6 +408,7 @@ class BaseRealisationUaProjetService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'criteres_evaluation':
                     // Vue custom définie pour ce champ
                     $html = view('PkgApprentissage::realisationUaProjet.custom.fields.criteres_evaluation', [
@@ -415,6 +417,7 @@ class BaseRealisationUaProjetService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
 
                 default:
                     // fallback générique si champ non pris en charge
