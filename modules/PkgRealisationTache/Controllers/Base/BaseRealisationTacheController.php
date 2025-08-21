@@ -589,28 +589,30 @@ class BaseRealisationTacheController extends AdminController
         $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
         $key = 'scope.etatRealisationTache.formateur_id';
         $this->viewState->set($key, $value);
- 
+
         // Vérification ETag
         $ifMatch = $request->header('If-Match');
         $etag = $this->service->etag($itemRealisationTache);
         if ($ifMatch && $ifMatch !== $etag) {
             return response()->json(['error' => 'conflict'], 409);
         }
-        
+
         // Appliquer le patch
         $changes = $request->input('changes', []);
         $updated = $this->service->applyInlinePatch($itemRealisationTache, $changes);
 
         return response()->json(
-        array_merge(
-                    [
-                        "ok"        => true,
-                        "entity_id" => $updated->id,
-                        "display"   => $this->service->formatDisplayValues($updated, array_keys($changes)),
-                        "etag"      => $this->service->etag($updated),
-                    ],
-                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
-                )
+            array_merge(
+                [
+                    "ok"        => true,
+                    "entity_id" => $updated->id,
+                    "display"   => $this->service->formatDisplayValues($updated, array_keys($changes)),
+                    "etag"      => $this->service->etag($updated),
+                ],
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+            )
         );
     }
+
+   
 }
