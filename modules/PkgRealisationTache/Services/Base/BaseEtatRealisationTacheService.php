@@ -459,41 +459,54 @@ class BaseEtatRealisationTacheService extends BaseService
                     $html = view('Core::fields_by_type.integer', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'ordre'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
                 case 'nom':
-                    // fallback string simple
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
                 case 'workflow_tache_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'workflowTache'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'sys_color_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => 'couleur',
+                        'relationName' => 'sysColor'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
                 case 'formateur_id':
-                    // fallback string simple
-                    $html = view('Core::fields_by_type.string', [
+                    $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'formateur'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+
+
+
 
                 default:
                     // fallback générique si champ non pris en charge
