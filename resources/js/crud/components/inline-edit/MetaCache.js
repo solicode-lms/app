@@ -1,13 +1,18 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
+import { Action } from "../../actions/Action";
+import { AjaxErrorHandler } from "../AjaxErrorHandler";
+
 /**
  * MetaCache
  * - Clé = (entityType, id, field)
  * - Stockage en mémoire avec TTL
  * - Utilisé par CellOrchestrator pour charger rapidement les metas
  */
-class MetaCache {
-    constructor() {
+export class MetaCache extends Action {
+    constructor(config) {
+        super(config);
+        this.config = config;
         this.cache = new Map(); // clé -> { meta, expire }
         this.ttl = 5 * 60 * 1000; // 5 minutes
     }
@@ -39,27 +44,34 @@ class MetaCache {
         });
     }
 
-    /**
-     * Récupère une meta (cache ou API)
+     /**
+     * Récupère une meta (cache ou API) avec gestion d’erreur via AjaxErrorHandler.
      */
     async getMeta(entityType, id, field) {
         const cached = this.get(entityType, id, field);
         if (cached) return cached;
 
-        // Sinon → requête API
-        const res = await fetch(
-            `/admin/PkgRealisationTache/realisationTaches/${id}/field/${field}/meta`
-        );
+        try {
+            const res = await fetch(
+                `/admin/PkgRealisationTache/realisationTaches/${id}/field/${field}/meta`
+            );
 
-        if (!res.ok) {
-            throw new Error(`Erreur API meta: ${res.status}`);
+            if (!res.ok) {
+                // ⚠️ Erreur HTTP (404, 500, etc.)
+                AjaxErrorHandler.handleError(res, "Erreur lors de la récupération des métadonnées.");
+                throw new Error(`Erreur HTTP ${res.status} lors de la récupération des métadonnées`);
+            }
+
+            const meta = await res.json();
+            this.set(entityType, id, field, meta);
+            return meta;
+
+        } catch (error) {
+            // ⚠️ Gestion des exceptions JS (ex: perte connexion)
+            AjaxErrorHandler.handleError(error, "Erreur réseau lors de la récupération des métadonnées.");
+            throw error;
         }
-
-        const meta = await res.json();
-        this.set(entityType, id, field, meta);
-        return meta;
     }
 }
 
-// Instance unique exportée
-export const metaCache = new MetaCache();
+ 

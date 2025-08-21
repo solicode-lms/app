@@ -233,6 +233,15 @@ abstract class BaseService implements ServiceInterface
         
     }
 
+    /**
+     * Génère un ETag basé sur updated_at
+     */
+    public function etag($entity): string
+    {
+        $ver = optional($entity->updated_at)->timestamp ?? 0;
+        return  $this->modelName . '-' . $entity->id . '-' . $ver . '"';
+    }
+
 
 
 }

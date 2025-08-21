@@ -5,11 +5,14 @@
 
 namespace Modules\PkgRealisationTache\Services\Base;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Modules\Core\App\Manager\JobManager;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\Core\Services\BaseService;
+use Modules\PkgRealisationTache\App\Requests\RealisationTacheRequest;
+use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
 
 /**
  * Classe RealisationTacheService pour gérer la persistance de l'entité RealisationTache.
@@ -357,5 +360,211 @@ class BaseRealisationTacheService extends BaseService
 
         return "done";
     }
+
+
+    /**
+     * Liste des champs autorisés à l’édition inline
+     */
+    public function getFieldsEditable(): array
+    {
+        return [
+            'etat_realisation_tache_id',
+            'dateDebut',
+            'dateFin',
+            'note',
+            'is_live_coding',
+            'remarques_formateur',
+            'remarques_apprenant',
+            'remarque_evaluateur',
+        ];
+    }
+
+
+    /**
+     * Construit les métadonnées d’un champ (type, options, validation…)
+     */
+    public function buildFieldMeta(RealisationTache $e, string $field): array
+    {
+        $meta = [
+            'entity' => 'realisation_tache',
+            'id'     => $e->id,
+            'field'  => $field,
+            'writable' => in_array($field, $this->getFieldsEditable()),
+            'etag'   => $this->etag($e),
+            'schema_version' => 'v1',
+        ];
+
+        // 🔹 Récupérer toutes les règles définies dans le FormRequest
+        $rules = app(RealisationTacheRequest::class)->rules();
+        $validationRules = $rules[$field] ?? [];
+
+        switch ($field) {
+            case 'etat_realisation_tache_id':
+
+
+                $options = app(EtatRealisationTacheService::class)
+                    ->getAllForSelect($e->etatRealisationTache); 
+                $values = $options->map(fn($entity, $id) => [
+                    'value' => (int) $entity->id,
+                    'label' => (string) $entity,
+                ])->values();
+
+                $meta += [
+                    'type' => 'select',
+                    'required' => true,
+                    'options' => [ 'source' => 'static','values' => $values],
+                    'validation' => $validationRules,
+                    'value' => $e->etat_realisation_tache_id,
+                ];
+                break;
+
+            case 'dateDebut':
+            case 'dateFin':
+                $meta += [
+                    'type' => 'date',
+                    'validation' => $validationRules,
+                    'value' => optional($e->$field)->format('Y-m-d'),
+                ];
+                break;
+
+            case 'note':
+                $meta += [
+                    'type' => 'number',
+                    'validation' => $validationRules,
+                    'value' => $e->note,
+                ];
+                break;
+
+            case 'is_live_coding':
+                $meta += [
+                    'type' => 'boolean',
+                    'validation' => $validationRules,
+                    'value' => (bool) $e->is_live_coding,
+                ];
+                break;
+
+            case 'remarques_formateur':
+            case 'remarques_apprenant':
+            case 'remarque_evaluateur':
+                $meta += [
+                    'type' => 'text',
+                    'validation' => $validationRules,
+                    'value' => $e->$field,
+                ];
+                break;
+
+            default:
+                abort(404, "Champ $field non pris en charge pour l’édition inline.");
+        }
+
+        return $meta;
+    }
+
+    /**
+     * Méthode générique qui calcule la meta en fonction du type et des paramètres.
+     *
+     * @param  RealisationTache $e
+     * @param  string           $field
+     * @param  array            $baseMeta
+     * @param  string           $type
+     * @param  array            $validationRules
+     * @param  array            $extra
+     * @return array
+     */
+    protected function computeFieldMeta(RealisationTache $e, string $field, array $baseMeta, string $type, array $validationRules, array $extra = []): array
+    {
+        // 🔹 Calcul automatique de la valeur en fonction du type
+        $value = match ($type) {
+            'date'    => optional($e->$field)->format('Y-m-d'),
+            'boolean' => (bool) $e->$field,
+            default   => $e->$field,
+        };
+
+        return array_merge($baseMeta, [
+            'type'       => $type,
+            'validation' => $validationRules,
+            'value'      => $value,
+        ], $extra);
+    }
+
+    /**
+     * Applique un PATCH inline (validation + sauvegarde)
+     */
+    public function applyInlinePatch(RealisationTache $e, array $changes): RealisationTache
+    {
+        $allowed = $this->getFieldsEditable();
+        $filtered = Arr::only($changes, $allowed);
+
+        if (empty($filtered)) {
+            abort(422, 'Aucun champ autorisé.');
+        }
+
+        $rules = [];
+        foreach ($filtered as $field => $value) {
+            $meta = $this->buildFieldMeta($e, $field);
+            $rules[$field] = $meta['validation'] ?? ['nullable'];
+        }
+
+        // Validator::make($filtered, $rules)->validate();
+
+        $e->fill($filtered);
+        $e->save();
+        $e->refresh();
+        return $e;
+    }
+
+    /**
+     * Formatte les valeurs pour l’affichage inline
+     */
+    public function formatDisplayValues(RealisationTache $e, array $fields): array
+    {
+      
+        $out = [];
+        foreach ($fields as $field) {
+            switch ($field) {
+                case 'etat_realisation_tache_id':
+                    // $label = optional($e->etatRealisationTache)->libelle ?? '—';
+                    // $code  = optional($e->etatRealisationTache->workflowTache)->code;
+                    // $palette = ['TODO' => 'secondary', 'DOING' => 'warning', 'APPROVED' => 'success'];
+                    // $out[$field] = [
+                    //     'text'  => $label,
+                    //     'badge' => $palette[$code] ?? 'secondary',
+                    // ];
+                     // ⚡ Utiliser un Blade partial pour produire le HTML final
+                    $html = view('PkgRealisationTache::realisationTache.custom.fields.etatRealisationTache', [
+                        'entity' => $e
+                    ])->render();
+
+                $out[$field] = [
+                    'html' => $html, // rendu complet du partial
+                ];
+                    break;
+
+                case 'dateDebut':
+                case 'dateFin':
+                    $out[$field] = ['text' => optional($e->$field)->format('Y-m-d') ?? '—'];
+                    break;
+
+                case 'note':
+                    $out[$field] = ['text' => $e->note !== null ? $e->note . '/20' : '—'];
+                    break;
+
+                case 'is_live_coding':
+                    $out[$field] = ['text' => $e->is_live_coding ? 'Oui' : 'Non'];
+                    break;
+
+                case 'remarques_formateur':
+                case 'remarques_apprenant':
+                case 'remarque_evaluateur':
+                    $out[$field] = ['text' => (string) $e->$field ?? '—'];
+                    break;
+
+                default:
+                    $out[$field] = ['text' => (string) data_get($e, $field, '—')];
+            }
+        }
+        return $out;
+    }
+
 
 }

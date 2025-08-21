@@ -6,6 +6,13 @@ export default class EventUtil {
      * @param {Function} callback - Fonction callback exécutée lors de l'événement.
      */
     static bindEvent(eventType, selector, callback) {
-        $(document).off(eventType, selector).on(eventType, selector, callback);
+
+         if (selector === document || selector === window) {
+            // bind direct
+            $(selector).off(eventType).on(eventType, callback);
+        } else {
+            // délégation
+            $(document).off(eventType, selector).on(eventType, selector, callback);
+        }
     }
 }

@@ -30,19 +30,7 @@ class RealisationTacheController extends BaseRealisationTacheController
      */
     public function fieldMeta(int $id, string $field)
     {
-
-        // Bulk edit form traitement 
-
-        $this->authorizeAction('update');
-
-        // ownedByUser
-        if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
-        }
-        if(Auth::user()->hasRole('apprenant')){
-           $this->viewState->set('scope_form.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
-        }
- 
+        // $this->authorizeAction('update');
         $itemRealisationTache = RealisationTache::findOrFail($id);
 
         // scopeDataInEditContext
@@ -62,20 +50,7 @@ class RealisationTacheController extends BaseRealisationTacheController
     public function patchInline(Request $request, int $id)
     {
 
-
-
-        // Bulk edit form traitement 
-
         $this->authorizeAction('update');
-
-        // ownedByUser
-        if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
-        }
-        if(Auth::user()->hasRole('apprenant')){
-           $this->viewState->set('scope_form.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
-        }
- 
         $itemRealisationTache = RealisationTache::findOrFail($id);
 
         // scopeDataInEditContext
@@ -86,11 +61,10 @@ class RealisationTacheController extends BaseRealisationTacheController
         // Vérification ETag
         $ifMatch = $request->header('If-Match');
         $etag = $this->service->etag($itemRealisationTache);
-
         if ($ifMatch && $ifMatch !== $etag) {
             return response()->json(['error' => 'conflict'], 409);
         }
-
+        
         // Appliquer le patch
         $changes = $request->input('changes', []);
         $updated = $this->service->applyInlinePatch($itemRealisationTache, $changes);
@@ -105,7 +79,7 @@ class RealisationTacheController extends BaseRealisationTacheController
                     ],
                     $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
                 )
-    );
+        );
     }
 
     

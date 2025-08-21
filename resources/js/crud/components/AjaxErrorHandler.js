@@ -38,6 +38,10 @@ export class AjaxErrorHandler {
                 } else {
                     message = xhr.responseText; // Utiliser directement le texte brut si pas de message clé
                 }
+            } else if (xhr.statusText) {
+                message = xhr.statusText;
+            } else if (xhr.message) {
+                message = xhr.message;
             }
         } catch (e) {
             // Si la réponse n'est pas du JSON valide, afficher le texte brut
