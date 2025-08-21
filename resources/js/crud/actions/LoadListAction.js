@@ -45,9 +45,10 @@ export class LoadListAction extends BaseAction {
 
 
         // Ne pas loadEntities si une cellule est en edition
-        if(this.tableUI.cellOrchestrator.isEditing || this.tableUI.bulkAction.isSelectingRows  ) return;
+        if(this.tableUI.cellOrchestrator.editCount > 0 || this.tableUI.bulkAction.isSelectingRows  ) 
+            return;
 
-        sif(page === undefined){
+        if(page === undefined){
             page = this.tableUI.indexUI.paginationUI.page;
         }
         const pageString = new URLSearchParams({page : page}).toString();

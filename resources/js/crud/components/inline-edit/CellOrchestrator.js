@@ -9,30 +9,34 @@ import { MetaCache } from "./MetaCache";
 
 /**
  * CellOrchestrator
- * - Gère l’édition inline d’une seule cellule active
+ * - Gère l’édition inline d’une ou plusieurs cellules actives
  * - Navigation Enter / Escape / Tab / Shift+Tab
  * - Optimistic UI avec rollback si erreur
  */
 export class CellOrchestrator extends CrudAction {
 
     constructor(config, tableUI) {
-        super(config,tableUI);
+        super(config, tableUI);
         this.config = config;
         this.tableUI = tableUI;
-        this.active = null; // cellule en cours d’édition
-        this.editor = null; // éditeur monté
-        this.isEditing = false; // 🔹 flag booléen fiable
+
+        this.active = null;   // cellule en cours d’édition
+        this.editor = null;   // éditeur monté
 
         this.metaCache = new MetaCache(config);
-        // Loader lié à la table
         this.loader = new LoadingIndicator(this.config.tableSelector);
 
-         // Timer de debounce global
         this.debounceTimer = null;
+
+        // 🔹 compteur d’édition en cours
+        this.editCount = 0;
     }
 
-    setIsEditing(value) {
-        this.isEditing = value;
+    /**
+     * Getter : savoir si au moins une cellule est en édition
+     */
+    get isEditing() {
+        return this.editCount > 0;
     }
 
     init() {
@@ -43,18 +47,12 @@ export class CellOrchestrator extends CrudAction {
      * Attache les événements uniquement sur un tableau donné
      */
     bindTable(tableSelector) {
-
-
-        // timer global pour différencier click / dblclick
         let clickTimer = null;
 
         // Double-clic sur cellule → activer l’éditeur
-        EventUtil.bindEvent('dblclick',tableSelector , e => {
-            
-            if (this.active != null) 
-                return;
-           
-            clearTimeout(clickTimer); // annule le click différé
+        EventUtil.bindEvent("dblclick", tableSelector, e => {
+            if (this.active != null) return;
+            clearTimeout(clickTimer);
 
             const td = e.target.closest(".editable-cell");
             if (!td) return;
@@ -62,118 +60,93 @@ export class CellOrchestrator extends CrudAction {
         });
 
         // Clic hors table → annuler édition
-        EventUtil.bindEvent('click',document , e => {
+        EventUtil.bindEvent("click", document, e => {
             if (!this.active) return;
 
-            // 🔹 Seulement si c’est un simple clic
             if (e.detail === 1) {
                 clickTimer = setTimeout(() => {
                     if (!this.active.contains(e.target)) {
                         this.cancelEdit();
                     }
-                }, 200); // délai pour distinguer du dblclick
+                }, 500);
             }
         });
 
-        // Gestion clavier dans les inputs
-        EventUtil.bindEvent('keydown', document, (e) => {
+        // Navigation clavier
+        EventUtil.bindEvent("keydown", document, e => {
             if (!this.active) return;
 
-            // init avec editor
-            // if (e.key === "Escape") this.cancelEdit();
+            // if (e.key === "Tab") {
+            //     e.preventDefault();
+            //     const next = this.findAdjacentCell(this.active, !e.shiftKey, false);
+            //     if (next) this.activateCell(next, true);
+            // }
+
             // if (e.key === "Enter") {
             //     e.preventDefault();
-            //     const input = this.active.querySelector("input,select,textarea");
-            //     this.commitChange(this.active, this.active._meta, input?.value);
+            //     const next = this.findAdjacentCell(this.active, !e.shiftKey, true);
+            //     if (next) this.activateCell(next, true);
             // }
-           if (e.key === "Tab") {
-                e.preventDefault();
-                // Tab = horizontal, Shift+Tab = arrière
-                const next = this.findAdjacentCell(this.active, !e.shiftKey, false);
-                if (next) this.activateCell(next,true);
-               
-            }
-
-            if (e.key === "Enter") {
-                e.preventDefault();
-                // Enter = vertical, Shift+Enter = monter
-                const next = this.findAdjacentCell(this.active, !e.shiftKey, true);
-                if (next) this.activateCell(next,true);
-                
-            }
-
-
-            // 2. Pas d’édition active → ouverture via raccourcis
-            // const focusCell = e.target.closest(".editable-cell");
-            // if (!focusCell) return;
-
-            // if (e.key === "Enter" || e.key === "F2") {
-            //     e.preventDefault();
-            //     this.activateCell(focusCell);
-            // }
-
         });
     }
 
+    /**
+     * Activation d’une cellule en édition
+     */
     async activateCell(td, fromNavigation = false) {
-        // Annuler l’éditeur actif précédent
         if (this.active && this.active !== td) {
-            this.cancelEdit(fromNavigation); // 🔹 passe le flag
+            this.cancelEdit(fromNavigation);
         }
 
         const id = td.dataset.id;
         const field = td.dataset.field;
 
         try {
-
             this.loader.showNomBloquante("");
-            // 1. Charger les metas depuis le cache ou API
             const meta = await this.metaCache.getMeta("realisationTache", id, field);
             this.loader.hide();
 
-            // ✅ Sauvegarder le contenu original AVANT de remplacer
             if (!td.dataset.original) {
                 td.dataset.original = td.innerHTML;
             }
 
-            // 2. Créer l’éditeur
             this.editor = fieldRegistry.create(meta.type, {});
             const value = meta.value ?? td.textContent;
 
             this.active = td;
-            this.setIsEditing(true); // ✅ on entre en édition
+
+            // ✅ nouvelle édition → incrémenter compteur
+            this.editCount++;
 
             this.editor.mount(td, {
                 meta,
                 value,
                 autoFocus: true,
-                onCommit: (newValue) => this.commitChange(td, meta, newValue),
+                onCommit: newValue => this.commitChange(td, meta, newValue),
                 onCancel: () => this.cancelEdit(),
             });
         } catch (err) {
             AjaxErrorHandler.handleError(err, "Impossible d'activer l’édition.");
             console.error("Erreur activation cellule:", err);
-             this.loader.hide();
+            this.loader.hide();
         }
     }
 
+    /**
+     * Validation d’une cellule
+     */
     async commitChange(td, meta, newValue) {
         const id = td.dataset.id;
         const field = td.dataset.field;
         const oldContent = td.dataset.original ?? td.innerHTML;
 
-        // 🔹 Nettoyer ancien timer si nouvelle frappe
         clearTimeout(this.debounceTimer);
 
         this.debounceTimer = setTimeout(() => {
-
-        
-
             td.classList.add("updating");
             this.loader.showNomBloquante("Mise à jour en cours...");
 
             let patchInlineUrl = this.getUrlWithId(this.config.patchInlineUrl, id);
-            // patchInlineUrl = `/admin/PkgRealisationTache/realisationTaches/${id}/inline`;
             patchInlineUrl = this.appendParamsToUrl(patchInlineUrl, this.viewStateService.getContextParams());
 
             $.ajax({
@@ -187,24 +160,14 @@ export class CellOrchestrator extends CrudAction {
                 data: JSON.stringify({ changes: { [field]: newValue } }),
             })
                 .done((data) => {
-
-
-                    // Affichage de message de progression de traitement
                     const traitement_token = data?.traitement_token;
                     if (traitement_token) {
-                        this.pollTraitementStatus(traitement_token, () => {
-                        ;
-                        });
-                    }else{
-                        
+                        this.pollTraitementStatus(traitement_token, () => {});
                     }
 
-
-                    // ✅ Mettre à jour le rendu
                     td.innerHTML = data.display[field]?.html ?? newValue;
                     td.classList.remove("updating");
 
-                    // ✅ Mettre à jour le cache meta
                     meta.etag = data.etag;
                     meta.value = newValue;
                     this.metaCache.set("realisationTache", id, field, meta);
@@ -212,34 +175,35 @@ export class CellOrchestrator extends CrudAction {
                     NotificationHandler.showSuccess("Valeur mise à jour avec succès.");
                 })
                 .fail((xhr) => {
-                    td.innerHTML = oldContent; // rollback
+                    td.innerHTML = oldContent;
                     td.classList.remove("updating");
 
-                    // Si conflit ETag
                     if (xhr.status === 409) {
                         NotificationHandler.showError("⚠️ Conflit de version. Rechargez la ligne.");
                         return;
                     }
-
-                    // Utiliser ton gestionnaire global
                     AjaxErrorHandler.handleError(xhr, "Erreur lors de la mise à jour.");
                 })
                 .always(() => {
                     this.loader.hide();
                     this.active = null;
                     this.editor = null;
-                    // ✅ Ne remettre à false que si aucune cellule n'est réactivée
-                    // if (!this.active) {
-                    //     this.setIsEditing(false);
-                    // }
-                });
 
-           }, 500);// délai debounce
+                    // ✅ Attendre 200ms avant de terminer l’édition
+                    setTimeout(() => {
+                        this.editCount = Math.max(0, this.editCount - 1);
+                    }, 20000);
+
+                });
+        }, 500);
     }
 
+    /**
+     * Annulation d’une cellule
+     */
     cancelEdit(fromNavigation = false) {
         if (!this.active || !this.editor) {
-            if (!fromNavigation) this.setIsEditing(false); // seulement si ce n’est pas une nav
+            if (!fromNavigation) this.editCount = Math.max(0, this.editCount - 1);
             return;
         }
 
@@ -249,16 +213,12 @@ export class CellOrchestrator extends CrudAction {
         this.editor = null;
 
         if (!fromNavigation) {
-            this.setIsEditing(false); // ✅ on sort seulement si ce n’est pas navigation
+            this.editCount = Math.max(0, this.editCount - 1);
         }
     }
 
-  /**
-     * Trouve la cellule editable voisine
-     * @param {HTMLTableCellElement} td - cellule courante
-     * @param {boolean} forward - true = avancer (droite ou bas), false = reculer (gauche ou haut)
-     * @param {boolean} vertical - false = horizontal (Tab), true = vertical (Enter)
-     * @returns {HTMLTableCellElement|null}
+    /**
+     * Trouve la cellule voisine
      */
     findAdjacentCell(td, forward = true, vertical = false) {
         if (!td) return null;
@@ -266,7 +226,6 @@ export class CellOrchestrator extends CrudAction {
         if (!row) return null;
 
         if (!vertical) {
-            // --- Navigation horizontale (dans la même ligne)
             const cells = Array.from(row.querySelectorAll(".editable-cell"));
             const idx = cells.indexOf(td);
             if (idx === -1) return null;
@@ -276,7 +235,6 @@ export class CellOrchestrator extends CrudAction {
 
             return cells[nextIdx];
         } else {
-            // --- Navigation verticale (même colonne dans la ligne suivante / précédente)
             const tableBody = row.parentElement;
             if (!tableBody) return null;
 
@@ -296,5 +254,3 @@ export class CellOrchestrator extends CrudAction {
         }
     }
 }
-
- 
