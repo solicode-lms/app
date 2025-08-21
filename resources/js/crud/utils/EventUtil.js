@@ -7,13 +7,16 @@ export default class EventUtil {
      */
     static bindEvent(eventType, selector, callback) {
 
-         if (selector === document || selector === window) {
+        if (selector === document || selector === window) {
             // bind direct
             $(selector).off(eventType).on(eventType, callback);
         } else {
-            // délégation
-            $(document).off(eventType, selector).on(eventType, selector, callback);
+            // sur body, parce que il exist un click du document
+            $("body").off(eventType, selector).on(eventType, selector, callback);
         }
-
     }
+
+    // static bindEvent(eventType, selector, callback) {
+    //    $(document).off(eventType, selector).on(eventType, selector, callback);
+    // }
 }

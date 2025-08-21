@@ -64,12 +64,13 @@ export class EditAction extends CrudAction {
     handleEditEntity() {
         EventUtil.bindEvent('click', `${this.containerSelector} .editEntity`, (e) => {
             e.preventDefault();
+           // e.stopPropagation(); // 🚀 stoppe la propagation vers document
             const id = $(e.currentTarget).data('id'); // Récupérer l'ID de l'entité
             this.editEntity(id);
         });
     }
     
- /**
+        /**
          * Soumet le formulaire de modification via AJAX.
          */
         submitEntity(onSuccess) {

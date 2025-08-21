@@ -53,8 +53,12 @@ export class MetaCache extends Action {
         if (cached) return cached;
 
         return new Promise((resolve, reject) => {
+
+            let fieldMetaUrl = this.config.fieldMetaUrl.replace(':id', id);
+            fieldMetaUrl = fieldMetaUrl.replace(':field', field);
+
             $.ajax({
-                url: `/admin/PkgRealisationTache/realisationTaches/${id}/field/${field}/meta`,
+                url: fieldMetaUrl,
                 method: 'GET',
                 dataType: 'json'
             })

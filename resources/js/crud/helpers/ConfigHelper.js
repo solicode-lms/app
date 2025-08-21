@@ -25,6 +25,10 @@ export default class ConfigHelper {
 
         this.indexUrl = config.indexUrl;
         this.editUrl = config.editUrl;
+
+        this.fieldMetaUrl = config.fieldMetaUrl;
+        this.patchInlineUrl = config.patchInlineUrl;
+
         this.getEntityUrl = config.getEntityUrl;
         this.csrfToken = config.csrfToken;
         this.editTitle = config.edit_title;

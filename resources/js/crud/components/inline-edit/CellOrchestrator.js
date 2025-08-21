@@ -35,20 +35,32 @@ export class CellOrchestrator extends CrudAction {
      * Attache les événements uniquement sur un tableau donné
      */
     bindTable(tableSelector) {
+
+
+        // timer global pour différencier click / dblclick
+        let clickTimer = null;
+
         // Double-clic sur cellule → activer l’éditeur
-        EventUtil.bindEvent('dblclick', tableSelector, e => {
+        EventUtil.bindEvent('dblclick',tableSelector , e => {
+
+            clearTimeout(clickTimer); // annule le click différé
+
             const td = e.target.closest(".editable-cell");
             if (!td) return;
             this.activateCell(td);
         });
 
         // Clic hors table → annuler édition
-        EventUtil.bindEvent('click', document, e => {
+        EventUtil.bindEvent('click',document , e => {
             if (!this.active) return;
 
-            // Si on clique en dehors de la cellule active → annuler
-            if (!this.active.contains(e.target)) {
-                this.cancelEdit();
+            // 🔹 Seulement si c’est un simple clic
+            if (e.detail === 1) {
+                clickTimer = setTimeout(() => {
+                    if (!this.active.contains(e.target)) {
+                        this.cancelEdit();
+                    }
+                }, 200); // délai pour distinguer du dblclick
             }
         });
 
@@ -140,12 +152,12 @@ export class CellOrchestrator extends CrudAction {
         td.classList.add("updating");
         this.loader.showNomBloquante("Mise à jour en cours...");
 
-        let editUrl = this.getUrlWithId(this.config.editUrl, id);
-        editUrl = `/admin/PkgRealisationTache/realisationTaches/${id}/inline`;
-        editUrl = this.appendParamsToUrl(editUrl, this.viewStateService.getContextParams());
+        let patchInlineUrl = this.getUrlWithId(this.config.patchInlineUrl, id);
+        // patchInlineUrl = `/admin/PkgRealisationTache/realisationTaches/${id}/inline`;
+        patchInlineUrl = this.appendParamsToUrl(patchInlineUrl, this.viewStateService.getContextParams());
 
         $.ajax({
-            url: editUrl,
+            url: patchInlineUrl,
             method: "PATCH",
             headers: {
                 "If-Match": meta.etag,
