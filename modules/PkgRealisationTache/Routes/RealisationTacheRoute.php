@@ -16,8 +16,6 @@ Route::middleware('auth')->group(function () {
         Route::patch('realisationTaches/{id}/inline', [RealisationTacheController::class, 'patchInline'])
             ->name('realisationTaches.patchInline');
 
-        
-        
         Route::get('realisationTaches/getData', [RealisationTacheController::class, 'getData'])->name('realisationTaches.getData');
         // ✅ Route JSON
         Route::get('realisationTaches/json/{id}', [RealisationTacheController::class, 'getRealisationTache'])
