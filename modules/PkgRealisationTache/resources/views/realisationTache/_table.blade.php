@@ -23,7 +23,7 @@
                 @endphp
                 <tr id="realisationTache-row-{{$realisationTache->id}}" data-id="{{$realisationTache->id}}">
                     <x-checkbox-row :item="$realisationTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 40%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="tache_id"  data-toggle="tooltip" title="{{ $realisationTache->tache }}" >
+                    <td style="max-width: 40%;" class=" text-truncate" data-type="select" data-id="{{$realisationTache->id}}" data-field="tache_id"  data-toggle="tooltip" title="{{ $realisationTache->tache }}" >
                         @include('PkgRealisationTache::realisationTache.custom.fields.tache', ['entity' => $realisationTache])
                     </td>
                     <td style="max-width: 20%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationTache->id}}" data-field="etat_realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationTache->etatRealisationTache }}" >
