@@ -178,6 +178,12 @@
         "alignement_uas",
         "livrable_sessions"
     ]
+},
+"PkgStatistiques": {
+    "name": "PkgStatistiques",
+    "tables": [
+
+    ]
 }
         
 }
