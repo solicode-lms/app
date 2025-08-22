@@ -2,57 +2,66 @@
 
 namespace Modules\Core\App\Helpers;
 
+use Modules\Core\App\Rules\StepRule;
+
 class ValidationRuleConverter
 {
     /**
      * Convertit les règles Laravel en contraintes HTML5
+     *
+     * @param array $rules   Liste des règles Laravel (ex: ['nullable','numeric','min:0','lte:bareme', new StepRule(0.5)])
+     * @param array $context Contexte avec les valeurs actuelles de l'entité ($e->toArray())
+     * @return array         Attributs HTML5 utilisables côté front
      */
     public static function toHtmlAttributes(array $rules, array $context = []): array
     {
         $attrs = [];
 
         foreach ($rules as $rule) {
+            // 🔹 Cas 1 : règle en string
             if (is_string($rule)) {
-                // min:0
                 if (str_starts_with($rule, 'min:')) {
-                    $attrs['min'] = (float) explode(':', $rule)[1];
+                    $attrs['min'] = (float) explode(':', $rule, 2)[1];
                 }
 
-                // max:10
                 if (str_starts_with($rule, 'max:')) {
-                    $attrs['max'] = (float) explode(':', $rule)[1];
+                    $attrs['max'] = (float) explode(':', $rule, 2)[1];
                 }
 
-                // lte:bareme
                 if (str_starts_with($rule, 'lte:')) {
-                    $field = explode(':', $rule)[1];
-                    if (isset($context[$field])) {
-                        $attrs['max'] = $context[$field]; // 👈 prend la valeur réelle
+                    $field = explode(':', $rule, 2)[1];
+                    if (isset($context[$field]) && is_numeric($context[$field])) {
+                        $attrs['max'] = $context[$field];
                     }
                 }
 
-                // gte:bareme
                 if (str_starts_with($rule, 'gte:')) {
-                    $field = explode(':', $rule)[1];
-                    if (isset($context[$field])) {
+                    $field = explode(':', $rule, 2)[1];
+                    if (isset($context[$field]) && is_numeric($context[$field])) {
                         $attrs['min'] = $context[$field];
                     }
                 }
 
-                // required
                 if ($rule === 'required') {
                     $attrs['required'] = true;
                 }
 
-                // nullable annule required
                 if ($rule === 'nullable') {
                     unset($attrs['required']);
                 }
 
-                // numeric → type=number (déjà géré côté JS)
                 if ($rule === 'numeric') {
-                    $attrs['step'] = 'any';
+                    $attrs['step'] = $attrs['step'] ?? 'any';
                 }
+
+                if (str_starts_with($rule, 'step:')) {
+                    $attrs['step'] = explode(':', $rule, 2)[1];
+                }
+            }
+
+            // 🔹 Cas 2 : règle en objet
+            if ($rule instanceof StepRule) {
+                $attrs['step'] = $rule->step;
             }
         }
 
