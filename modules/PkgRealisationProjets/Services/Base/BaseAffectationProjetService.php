@@ -455,11 +455,11 @@ class BaseAffectationProjetService extends BaseService
             $meta = $this->buildFieldMeta($e, $field);
             $rules[$field] = $meta['validation'] ?? ['nullable'];
         }
-        Validator::make($filtered, $rules)->validate();
-
+        
         $e->fill($filtered);
-        $e->save();
-        $e->refresh();
+        Validator::make($e->toArray(), $rules)->validate();
+        $e = $this->updateOnlyExistanteAttribute($e->id, $filtered);
+
         return $e;
     }
 

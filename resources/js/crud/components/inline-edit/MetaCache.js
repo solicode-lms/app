@@ -49,8 +49,10 @@ export class MetaCache extends Action {
      * Récupère une meta (cache ou API) avec gestion d’erreur via AjaxErrorHandler.
      */
    async getMeta(entityType, id, field) {
-        const cached = this.get(entityType, id, field);
-        if (cached) return cached;
+
+        // Ne pas utiliser le cache à chaque fois il faut demander le meta
+        // const cached = this.get(entityType, id, field);
+        // if (cached) return cached;
 
         return new Promise((resolve, reject) => {
 
