@@ -65,7 +65,7 @@ export class CellOrchestrator extends CrudAction {
         });
 
         // Clic hors table → annuler édition
-        EventUtil.bindEvent("click", document, e => {
+        EventUtil.bindEvent("click", "body", e => {
             if (!this.active) 
                 return;
 
