@@ -12,6 +12,7 @@ use Modules\PkgFormation\Models\Module;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe ModuleService pour gérer la persistance de l'entité Module.
@@ -303,14 +304,7 @@ class BaseModuleService extends BaseService
      */
     public function buildFieldMeta(Module $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'module',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgFormation\App\Requests\ModuleRequest())->rules();
@@ -318,13 +312,27 @@ class BaseModuleService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'module',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'code':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'nom':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'masse_horaire':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'filiere_id':
                  $values = (new \Modules\PkgFormation\Services\FiliereService())
                     ->getAllForSelect($e->filiere)
@@ -334,7 +342,7 @@ class BaseModuleService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -342,7 +350,7 @@ class BaseModuleService extends BaseService
                     ],
                 ]);
             case 'Competence':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
         }

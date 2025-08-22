@@ -12,6 +12,7 @@ use Modules\PkgCreationProjet\Models\Resource;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe ResourceService pour gérer la persistance de l'entité Resource.
@@ -307,14 +308,7 @@ class BaseResourceService extends BaseService
      */
     public function buildFieldMeta(Resource $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'resource',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgCreationProjet\App\Requests\ResourceRequest())->rules();
@@ -322,11 +316,25 @@ class BaseResourceService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'resource',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'nom':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'lien':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
         }

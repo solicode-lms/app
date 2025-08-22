@@ -12,6 +12,7 @@ use Modules\PkgWidgets\Models\WidgetUtilisateur;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe WidgetUtilisateurService pour gérer la persistance de l'entité WidgetUtilisateur.
@@ -341,14 +342,7 @@ class BaseWidgetUtilisateurService extends BaseService
      */
     public function buildFieldMeta(WidgetUtilisateur $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'widget_utilisateur',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgWidgets\App\Requests\WidgetUtilisateurRequest())->rules();
@@ -356,9 +350,23 @@ class BaseWidgetUtilisateurService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'widget_utilisateur',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'ordre':
-                return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'number');
 
             case 'widget_id':
                  $values = (new \Modules\PkgWidgets\Services\WidgetService())
@@ -369,7 +377,7 @@ class BaseWidgetUtilisateurService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -377,11 +385,11 @@ class BaseWidgetUtilisateurService extends BaseService
                     ],
                 ]);
             case 'package':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'type':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'visible':
-                return $this->computeFieldMeta($e, $field, $meta, 'boolean', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'boolean');
 
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");

@@ -12,6 +12,7 @@ use Modules\PkgAutorisation\Models\Profile;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe ProfileService pour gérer la persistance de l'entité Profile.
@@ -307,14 +308,7 @@ class BaseProfileService extends BaseService
      */
     public function buildFieldMeta(Profile $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'profile',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgAutorisation\App\Requests\ProfileRequest())->rules();
@@ -322,6 +316,20 @@ class BaseProfileService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'profile',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'user_id':
                  $values = (new \Modules\PkgAutorisation\Services\UserService())
@@ -332,7 +340,7 @@ class BaseProfileService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',

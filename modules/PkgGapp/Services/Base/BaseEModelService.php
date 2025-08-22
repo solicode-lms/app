@@ -12,6 +12,7 @@ use Modules\PkgGapp\Models\EModel;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe EModelService pour gérer la persistance de l'entité EModel.
@@ -296,14 +297,7 @@ class BaseEModelService extends BaseService
      */
     public function buildFieldMeta(EModel $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'e_model',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgGapp\App\Requests\EModelRequest())->rules();
@@ -311,11 +305,25 @@ class BaseEModelService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'e_model',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'icone':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'name':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'e_package_id':
                  $values = (new \Modules\PkgGapp\Services\EPackageService())
                     ->getAllForSelect($e->ePackage)
@@ -325,7 +333,7 @@ class BaseEModelService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',

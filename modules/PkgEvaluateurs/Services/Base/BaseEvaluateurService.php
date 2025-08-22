@@ -12,6 +12,7 @@ use Modules\PkgEvaluateurs\Models\Evaluateur;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe EvaluateurService pour gérer la persistance de l'entité Evaluateur.
@@ -308,14 +309,7 @@ class BaseEvaluateurService extends BaseService
      */
     public function buildFieldMeta(Evaluateur $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'evaluateur',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgEvaluateurs\App\Requests\EvaluateurRequest())->rules();
@@ -323,13 +317,27 @@ class BaseEvaluateurService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'evaluateur',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'nom':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'prenom':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'organism':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'user_id':
                  $values = (new \Modules\PkgAutorisation\Services\UserService())
                     ->getAllForSelect($e->user)
@@ -339,7 +347,7 @@ class BaseEvaluateurService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',

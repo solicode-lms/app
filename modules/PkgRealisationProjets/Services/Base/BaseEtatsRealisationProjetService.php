@@ -12,6 +12,7 @@ use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe EtatsRealisationProjetService pour gérer la persistance de l'entité EtatsRealisationProjet.
@@ -295,14 +296,7 @@ class BaseEtatsRealisationProjetService extends BaseService
      */
     public function buildFieldMeta(EtatsRealisationProjet $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'etats_realisation_projet',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgRealisationProjets\App\Requests\EtatsRealisationProjetRequest())->rules();
@@ -310,14 +304,28 @@ class BaseEtatsRealisationProjetService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'etats_realisation_projet',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'ordre':
-                return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'number');
 
             case 'titre':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'description':
-                return $this->computeFieldMeta($e, $field, $meta, 'text', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'text');
 
             case 'sys_color_id':
                  $values = (new \Modules\Core\Services\SysColorService())
@@ -328,7 +336,7 @@ class BaseEtatsRealisationProjetService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -336,7 +344,7 @@ class BaseEtatsRealisationProjetService extends BaseService
                     ],
                 ]);
             case 'is_editable_by_formateur':
-                return $this->computeFieldMeta($e, $field, $meta, 'boolean', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'boolean');
 
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");

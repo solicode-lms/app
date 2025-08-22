@@ -12,6 +12,7 @@ use Modules\PkgApprenants\Models\SousGroupe;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe SousGroupeService pour gérer la persistance de l'entité SousGroupe.
@@ -292,14 +293,7 @@ class BaseSousGroupeService extends BaseService
      */
     public function buildFieldMeta(SousGroupe $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'sous_groupe',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgApprenants\App\Requests\SousGroupeRequest())->rules();
@@ -307,9 +301,23 @@ class BaseSousGroupeService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'sous_groupe',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'nom':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'groupe_id':
                  $values = (new \Modules\PkgApprenants\Services\GroupeService())
                     ->getAllForSelect($e->groupe)
@@ -319,7 +327,7 @@ class BaseSousGroupeService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',

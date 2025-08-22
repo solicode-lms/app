@@ -12,6 +12,7 @@ use Modules\PkgNotification\Models\Notification;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe NotificationService pour gérer la persistance de l'entité Notification.
@@ -320,14 +321,7 @@ class BaseNotificationService extends BaseService
      */
     public function buildFieldMeta(Notification $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'notification',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgNotification\App\Requests\NotificationRequest())->rules();
@@ -335,11 +329,25 @@ class BaseNotificationService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'notification',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'title':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'message':
-                return $this->computeFieldMeta($e, $field, $meta, 'text', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'text');
 
             case 'sent_at':
                 return $this->computeFieldMeta($e, $field, $meta, 'date', $validationRules);

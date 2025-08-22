@@ -12,6 +12,7 @@ use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe EtatRealisationTacheService pour gérer la persistance de l'entité EtatRealisationTache.
@@ -347,14 +348,7 @@ class BaseEtatRealisationTacheService extends BaseService
      */
     public function buildFieldMeta(EtatRealisationTache $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'etat_realisation_tache',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgRealisationTache\App\Requests\EtatRealisationTacheRequest())->rules();
@@ -362,12 +356,26 @@ class BaseEtatRealisationTacheService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'etat_realisation_tache',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'ordre':
-                return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'number');
 
             case 'nom':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'workflow_tache_id':
                  $values = (new \Modules\PkgRealisationTache\Services\WorkflowTacheService())
                     ->getAllForSelect($e->workflowTache)
@@ -377,7 +385,7 @@ class BaseEtatRealisationTacheService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -393,7 +401,7 @@ class BaseEtatRealisationTacheService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -409,7 +417,7 @@ class BaseEtatRealisationTacheService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',

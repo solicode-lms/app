@@ -12,6 +12,7 @@ use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe RealisationProjetService pour gérer la persistance de l'entité RealisationProjet.
@@ -351,14 +352,7 @@ class BaseRealisationProjetService extends BaseService
      */
     public function buildFieldMeta(RealisationProjet $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'realisation_projet',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgRealisationProjets\App\Requests\RealisationProjetRequest())->rules();
@@ -366,6 +360,20 @@ class BaseRealisationProjetService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'realisation_projet',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'affectation_projet_id':
                  $values = (new \Modules\PkgRealisationProjets\Services\AffectationProjetService())
@@ -376,7 +384,7 @@ class BaseRealisationProjetService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -392,7 +400,7 @@ class BaseRealisationProjetService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -408,7 +416,7 @@ class BaseRealisationProjetService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -416,13 +424,13 @@ class BaseRealisationProjetService extends BaseService
                     ],
                 ]);
             case 'progression_validation_cache':
-                return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'number');
 
             case 'note_cache':
-                return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'number');
 
             case 'LivrablesRealisation':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
         }

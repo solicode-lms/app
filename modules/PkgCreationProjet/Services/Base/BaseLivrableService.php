@@ -12,6 +12,7 @@ use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe LivrableService pour gérer la persistance de l'entité Livrable.
@@ -325,14 +326,7 @@ class BaseLivrableService extends BaseService
      */
     public function buildFieldMeta(Livrable $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'livrable',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgCreationProjet\App\Requests\LivrableRequest())->rules();
@@ -340,6 +334,20 @@ class BaseLivrableService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'livrable',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'nature_livrable_id':
                  $values = (new \Modules\PkgCreationProjet\Services\NatureLivrableService())
@@ -350,7 +358,7 @@ class BaseLivrableService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -358,7 +366,7 @@ class BaseLivrableService extends BaseService
                     ],
                 ]);
             case 'titre':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
         }

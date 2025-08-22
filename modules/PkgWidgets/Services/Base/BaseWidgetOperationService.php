@@ -12,6 +12,7 @@ use Modules\PkgWidgets\Models\WidgetOperation;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe WidgetOperationService pour gérer la persistance de l'entité WidgetOperation.
@@ -274,14 +275,7 @@ class BaseWidgetOperationService extends BaseService
      */
     public function buildFieldMeta(WidgetOperation $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'widget_operation',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgWidgets\App\Requests\WidgetOperationRequest())->rules();
@@ -289,11 +283,25 @@ class BaseWidgetOperationService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'widget_operation',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'operation':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'description':
-                return $this->computeFieldMeta($e, $field, $meta, 'text', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'text');
 
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");

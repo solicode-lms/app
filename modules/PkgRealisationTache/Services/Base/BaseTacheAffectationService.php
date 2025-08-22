@@ -12,6 +12,7 @@ use Modules\PkgRealisationTache\Models\TacheAffectation;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe TacheAffectationService pour gérer la persistance de l'entité TacheAffectation.
@@ -311,14 +312,7 @@ class BaseTacheAffectationService extends BaseService
      */
     public function buildFieldMeta(TacheAffectation $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'tache_affectation',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgRealisationTache\App\Requests\TacheAffectationRequest())->rules();
@@ -326,6 +320,20 @@ class BaseTacheAffectationService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'tache_affectation',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'tache_id':
                  $values = (new \Modules\PkgCreationTache\Services\TacheService())
@@ -336,7 +344,7 @@ class BaseTacheAffectationService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -352,7 +360,7 @@ class BaseTacheAffectationService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -360,7 +368,7 @@ class BaseTacheAffectationService extends BaseService
                     ],
                 ]);
             case 'pourcentage_realisation_cache':
-                return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'number');
 
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");

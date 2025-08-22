@@ -12,6 +12,7 @@ use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe CommentaireRealisationTacheService pour gérer la persistance de l'entité CommentaireRealisationTache.
@@ -330,14 +331,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
      */
     public function buildFieldMeta(CommentaireRealisationTache $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'commentaire_realisation_tache',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgRealisationTache\App\Requests\CommentaireRealisationTacheRequest())->rules();
@@ -345,9 +339,23 @@ class BaseCommentaireRealisationTacheService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'commentaire_realisation_tache',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'commentaire':
-                return $this->computeFieldMeta($e, $field, $meta, 'text', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'text');
 
             case 'realisation_tache_id':
                  $values = (new \Modules\PkgRealisationTache\Services\RealisationTacheService())
@@ -358,7 +366,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -374,7 +382,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -390,7 +398,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',

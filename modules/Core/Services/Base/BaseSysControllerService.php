@@ -12,6 +12,7 @@ use Modules\Core\Models\SysController;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe SysControllerService pour gérer la persistance de l'entité SysController.
@@ -296,14 +297,7 @@ class BaseSysControllerService extends BaseService
      */
     public function buildFieldMeta(SysController $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'sys_controller',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\Core\App\Requests\SysControllerRequest())->rules();
@@ -311,6 +305,20 @@ class BaseSysControllerService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'sys_controller',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'sys_module_id':
                  $values = (new \Modules\Core\Services\SysModuleService())
@@ -321,7 +329,7 @@ class BaseSysControllerService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -329,12 +337,12 @@ class BaseSysControllerService extends BaseService
                     ],
                 ]);
             case 'name':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'is_active':
-                return $this->computeFieldMeta($e, $field, $meta, 'boolean', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'boolean');
 
             case 'Permission':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
         }

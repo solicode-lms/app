@@ -12,6 +12,7 @@ use Modules\PkgApprentissage\Models\RealisationMicroCompetence;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe RealisationMicroCompetenceService pour gérer la persistance de l'entité RealisationMicroCompetence.
@@ -373,14 +374,7 @@ class BaseRealisationMicroCompetenceService extends BaseService
      */
     public function buildFieldMeta(RealisationMicroCompetence $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'realisation_micro_competence',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgApprentissage\App\Requests\RealisationMicroCompetenceRequest())->rules();
@@ -388,6 +382,20 @@ class BaseRealisationMicroCompetenceService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'realisation_micro_competence',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'micro_competence_id':
                  $values = (new \Modules\PkgCompetences\Services\MicroCompetenceService())
@@ -398,7 +406,7 @@ class BaseRealisationMicroCompetenceService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -414,7 +422,7 @@ class BaseRealisationMicroCompetenceService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -422,10 +430,10 @@ class BaseRealisationMicroCompetenceService extends BaseService
                     ],
                 ]);
             case 'note_cache':
-                return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'number');
 
             case 'progression_cache':
-                return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'number');
 
             case 'etat_realisation_micro_competence_id':
                  $values = (new \Modules\PkgApprentissage\Services\EtatRealisationMicroCompetenceService())
@@ -436,7 +444,7 @@ class BaseRealisationMicroCompetenceService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -452,7 +460,7 @@ class BaseRealisationMicroCompetenceService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -460,7 +468,7 @@ class BaseRealisationMicroCompetenceService extends BaseService
                     ],
                 ]);
             case 'lien_livrable':
-                return $this->computeFieldMeta($e, $field, $meta, 'string', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
         }

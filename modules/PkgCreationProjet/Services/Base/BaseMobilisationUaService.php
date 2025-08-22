@@ -12,6 +12,7 @@ use Modules\PkgCreationProjet\Models\MobilisationUa;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe MobilisationUaService pour gérer la persistance de l'entité MobilisationUa.
@@ -314,14 +315,7 @@ class BaseMobilisationUaService extends BaseService
      */
     public function buildFieldMeta(MobilisationUa $e, string $field): array
     {
-        $meta = [
-            'entity'         => 'mobilisation_ua',
-            'id'             => $e->id,
-            'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
-            'etag'           => $this->etag($e),
-            'schema_version' => 'v1',
-        ];
+
 
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgCreationProjet\App\Requests\MobilisationUaRequest())->rules();
@@ -329,6 +323,20 @@ class BaseMobilisationUaService extends BaseService
         if (is_string($validationRules)) {
             $validationRules = explode('|', $validationRules);
         }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
+        $meta = [
+            'entity'         => 'mobilisation_ua',
+            'id'             => $e->id,
+            'field'          => $field,
+            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'etag'           => $this->etag($e),
+            'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
+        ];
+
        switch ($field) {
             case 'unite_apprentissage_id':
                  $values = (new \Modules\PkgCompetences\Services\UniteApprentissageService())
@@ -339,7 +347,7 @@ class BaseMobilisationUaService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -347,10 +355,10 @@ class BaseMobilisationUaService extends BaseService
                     ],
                 ]);
             case 'criteres_evaluation_prototype':
-                return $this->computeFieldMeta($e, $field, $meta, 'text', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'text');
 
             case 'criteres_evaluation_projet':
-                return $this->computeFieldMeta($e, $field, $meta, 'text', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'text');
 
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
