@@ -315,7 +315,8 @@ class BaseRealisationUaProjetService extends BaseService
      */
     public function buildFieldMeta(RealisationUaProjet $e, string $field): array
     {
-    
+
+
         // 🔹 Récupérer toutes les règles définies dans le FormRequest
         $rules = (new \Modules\PkgApprentissage\App\Requests\RealisationUaProjetRequest())->rules();
         $validationRules = $rules[$field] ?? [];
@@ -335,7 +336,6 @@ class BaseRealisationUaProjetService extends BaseService
             'html_attrs'     => $htmlAttrs,
             'validation'     => $validationRules
         ];
-
 
        switch ($field) {
             case 'realisation_tache_id':
