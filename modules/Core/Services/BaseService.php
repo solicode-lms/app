@@ -255,7 +255,7 @@ abstract class BaseService implements ServiceInterface
      * @param  array            $extra
      * @return array
      */
-    protected function computeFieldMeta($e, string $field, array $baseMeta, string $type, array $validationRules, array $extra = []): array
+    protected function computeFieldMeta($e, string $field, array $baseMeta, string $type,  array $extra = []): array
     {
         // 🔹 Calcul automatique de la valeur en fonction du type
         $value = match ($type) {
@@ -266,7 +266,6 @@ abstract class BaseService implements ServiceInterface
 
         return array_merge($baseMeta, [
             'type'       => $type,
-            'validation' => $validationRules,
             'value'      => $value,
         ], $extra);
     }

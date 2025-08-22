@@ -39,6 +39,18 @@ class FieldRegistry {
 
 export const fieldRegistry = new FieldRegistry();
 
+
+
+function applyHtmlValidation(input, attrs = {}) {
+    Object.entries(attrs).forEach(([attr, val]) => {
+        if (val === true) {
+            input.setAttribute(attr, '');
+        } else if (val !== false && val !== null && val !== undefined) {
+            input.setAttribute(attr, val);
+        }
+    });
+}
+
 //
 // =======================
 // Implémentations basiques
@@ -54,6 +66,9 @@ fieldRegistry.register('text', (props) => {
             input.type = 'text';
             input.className = 'form-control form-control-sm';
             input.value = value ?? '';
+
+            // appliquer les règles de validation HTML5
+            applyHtmlValidation(input, meta.html_attrs || {});
 
             input.addEventListener('keydown', e => {
                 if (e.key === 'Escape') onCancel();
@@ -73,12 +88,16 @@ fieldRegistry.register('text', (props) => {
 /** Number input */
 fieldRegistry.register('number', (props) => {
     let input;
+
     return {
-        mount(container, { value, onCommit, onCancel, autoFocus }) {
+        mount(container, { meta, value, onCommit, onCancel, autoFocus }) {
             input = document.createElement('input');
             input.type = 'number';
             input.className = 'form-control form-control-sm';
             input.value = value ?? '';
+
+            // appliquer les règles de validation HTML5
+            applyHtmlValidation(input, meta.html_attrs || {});
 
             input.addEventListener('keydown', e => {
                 if (e.key === 'Escape') onCancel();
@@ -99,11 +118,14 @@ fieldRegistry.register('number', (props) => {
 fieldRegistry.register('date', (props) => {
     let input;
     return {
-        mount(container, { value, onCommit, onCancel, autoFocus }) {
+        mount(container, { meta,value, onCommit, onCancel, autoFocus }) {
             input = document.createElement('input');
             input.type = 'date';
             input.className = 'form-control form-control-sm';
             input.value = value ?? '';
+
+            // appliquer les règles de validation HTML5
+            applyHtmlValidation(input, meta.html_attrs || {});
 
             input.addEventListener('keydown', e => {
                 if (e.key === 'Escape') onCancel();
@@ -124,10 +146,13 @@ fieldRegistry.register('date', (props) => {
 fieldRegistry.register('boolean', (props) => {
     let input;
     return {
-        mount(container, { value, onCommit, onCancel }) {
+        mount(container, { meta, value, onCommit, onCancel }) {
             input = document.createElement('input');
             input.type = 'checkbox';
             input.checked = !!value;
+
+            // appliquer les règles de validation HTML5
+            applyHtmlValidation(input, meta.html_attrs || {});
 
             input.addEventListener('keydown', e => {
                 if (e.key === 'Escape') onCancel();
@@ -151,6 +176,9 @@ fieldRegistry.register('select', (props) => {
         mount(container, { meta, value, onCommit, onCancel }) {
             select = document.createElement('select');
             select.className = 'form-control form-control-sm';
+
+            // appliquer les règles de validation HTML5
+            applyHtmlValidation(input, meta.html_attrs || {});
 
             (meta.options?.values || []).forEach(opt => {
                 const option = document.createElement('option');
@@ -180,12 +208,16 @@ fieldRegistry.register('string', (props) => {
     let input;
     let committed = false; // flag pour éviter double commit
     return {
-        mount(container, { value, onCommit, onCancel, autoFocus }) {
+        mount(container, {meta, value, onCommit, onCancel, autoFocus }) {
             input = document.createElement('input');
             input.type = 'text';
             input.className = 'form-control form-control-sm';
             input.value = value ?? '';
             committed = false;
+
+
+            // appliquer les règles de validation HTML5
+            applyHtmlValidation(input, meta.html_attrs || {});
 
             input.addEventListener('keydown', e => {
                 if (e.key === 'Escape') {

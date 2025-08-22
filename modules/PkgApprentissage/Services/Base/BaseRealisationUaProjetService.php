@@ -12,6 +12,7 @@ use Modules\PkgApprentissage\Models\RealisationUaProjet;
 use Modules\Core\Services\BaseService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Modules\Core\App\Helpers\ValidationRuleConverter;
 
 /**
  * Classe RealisationUaProjetService pour gérer la persistance de l'entité RealisationUaProjet.
@@ -314,6 +315,16 @@ class BaseRealisationUaProjetService extends BaseService
      */
     public function buildFieldMeta(RealisationUaProjet $e, string $field): array
     {
+    
+        // 🔹 Récupérer toutes les règles définies dans le FormRequest
+        $rules = (new \Modules\PkgApprentissage\App\Requests\RealisationUaProjetRequest())->rules();
+        $validationRules = $rules[$field] ?? [];
+        if (is_string($validationRules)) {
+            $validationRules = explode('|', $validationRules);
+        }
+
+        $htmlAttrs = ValidationRuleConverter::toHtmlAttributes($validationRules, $e->toArray());
+
         $meta = [
             'entity'         => 'realisation_ua_projet',
             'id'             => $e->id,
@@ -321,14 +332,11 @@ class BaseRealisationUaProjetService extends BaseService
             'writable'       => in_array($field, $this->getFieldsEditable()),
             'etag'           => $this->etag($e),
             'schema_version' => 'v1',
+            'html_attrs'     => $htmlAttrs,
+            'validation'     => $validationRules
         ];
 
-        // 🔹 Récupérer toutes les règles définies dans le FormRequest
-        $rules = (new \Modules\PkgApprentissage\App\Requests\RealisationUaProjetRequest())->rules();
-        $validationRules = $rules[$field] ?? [];
-        if (is_string($validationRules)) {
-            $validationRules = explode('|', $validationRules);
-        }
+
        switch ($field) {
             case 'realisation_tache_id':
                  $values = (new \Modules\PkgRealisationTache\Services\RealisationTacheService())
@@ -339,7 +347,7 @@ class BaseRealisationUaProjetService extends BaseService
                     ])
                     ->toArray();
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', $validationRules, [
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
                     'required' => true,
                     'options'  => [
                         'source' => 'static',
@@ -347,10 +355,10 @@ class BaseRealisationUaProjetService extends BaseService
                     ],
                 ]);
             case 'note':
-                return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'number');
 
             case 'criteres_evaluation':
-                return $this->computeFieldMeta($e, $field, $meta, 'number', $validationRules);
+                return $this->computeFieldMeta($e, $field, $meta, 'number');
 
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
