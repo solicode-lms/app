@@ -95,3 +95,34 @@
     border-radius: 0.35rem;
     display: inline-block;
 }
+
+
+
+
+/* Bloc progression élégant */
+
+/* Même couleur que l'état pour la progression */
+.realisation-etat .progress {
+    /* fond de la piste légèrement teinté de la couleur d’état */
+    background-color: color-mix(in srgb, var(--etat-color) 12%, #e5e7eb);
+    border-radius: 0.375rem;
+    overflow: hidden;
+}
+
+/* Les 3 segments (atteint / retard / avance) prennent la même base */
+.realisation-etat .progress-bar.bg-success,
+.realisation-etat .progress-bar.bg-warning,
+.realisation-etat .progress-bar.bg-info {
+    background-color: var(--etat-color) !important;
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0,0,0,.15);
+}
+
+/* (optionnel) donner un léger contraste visuel entre les segments */
+.realisation-etat .progress-bar.bg-warning { opacity: .75; } /* idéal non atteint */
+.realisation-etat .progress-bar.bg-info    { opacity: .9; }  /* avance */
+
+/* (fallback sans color-mix : piste grise propre) */
+@supports not (background-color: color-mix(in srgb, white 50%, black 50%)) {
+    .realisation-etat .progress { background-color: #f3f4f6; }
+}
