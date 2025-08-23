@@ -808,5 +808,41 @@
         "value_float": 0,
         "e_data_field_reference": "RealisationUa_progression_cache",
         "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "RealisationUa_dernier_update_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "RealisationUa_dernier_update",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationUa_dernier_update_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUa_dernier_update",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationUa_dernier_update_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationUa_dernier_update",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationUa_dernier_update_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUa_dernier_update",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationUa_dernier_update_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUa_dernier_update",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationUa_dernier_update_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUa_dernier_update",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

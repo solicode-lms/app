@@ -696,5 +696,41 @@
         "value_float": 0,
         "e_data_field_reference": "RealisationChapitre_etat_realisation_chapitre_id",
         "e_metadata_definition_reference": "metaLabel"
+    },
+    {
+        "reference": "RealisationChapitre_dernier_update_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationChapitre_dernier_update",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationChapitre_dernier_update_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationChapitre_dernier_update",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationChapitre_dernier_update_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationChapitre_dernier_update",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationChapitre_dernier_update_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationChapitre_dernier_update",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationChapitre_dernier_update_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationChapitre_dernier_update",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationChapitre_dernier_update_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationChapitre_dernier_update",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

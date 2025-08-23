@@ -29,6 +29,7 @@ class BaseRealisationChapitreService extends BaseService
         'etat_realisation_chapitre_id',
         'date_debut',
         'date_fin',
+        'dernier_update',
         'realisation_ua_id',
         'realisation_tache_id',
         'commentaire_formateur'

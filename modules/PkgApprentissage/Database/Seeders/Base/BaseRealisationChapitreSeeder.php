@@ -100,6 +100,7 @@ class BaseRealisationChapitreSeeder extends Seeder
                         "etat_realisation_chapitre_id" => $etat_realisation_chapitre_id,
                         "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
+                        "dernier_update" => isset($row["dernier_update"]) && $row["dernier_update"] !== "" ? $row["dernier_update"] : null,
                         "realisation_ua_id" => $realisation_ua_id,
                         "realisation_tache_id" => $realisation_tache_id,
                         "commentaire_formateur" => isset($row["commentaire_formateur"]) && $row["commentaire_formateur"] !== "" ? $row["commentaire_formateur"] : null,

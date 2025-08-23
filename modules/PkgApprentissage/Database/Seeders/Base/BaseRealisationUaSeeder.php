@@ -97,6 +97,7 @@ class BaseRealisationUaSeeder extends Seeder
                         "progression_cache" => isset($row["progression_cache"]) && $row["progression_cache"] !== "" ? $row["progression_cache"] : null,
                         "note_cache" => isset($row["note_cache"]) && $row["note_cache"] !== "" ? $row["note_cache"] : null,
                         "bareme_cache" => isset($row["bareme_cache"]) && $row["bareme_cache"] !== "" ? $row["bareme_cache"] : null,
+                        "dernier_update" => isset($row["dernier_update"]) && $row["dernier_update"] !== "" ? $row["dernier_update"] : null,
                         "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
                         "commentaire_formateur" => isset($row["commentaire_formateur"]) && $row["commentaire_formateur"] !== "" ? $row["commentaire_formateur"] : null,

@@ -33,6 +33,7 @@ class BaseRealisationChapitreRequest extends FormRequest
             'etat_realisation_chapitre_id' => 'nullable',
             'date_debut' => 'nullable',
             'date_fin' => 'nullable',
+            'dernier_update' => 'nullable',
             'realisation_ua_id' => 'required',
             'realisation_tache_id' => 'nullable',
             'commentaire_formateur' => 'nullable|string'
@@ -51,6 +52,7 @@ class BaseRealisationChapitreRequest extends FormRequest
             'etat_realisation_chapitre_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationChapitre.etat_realisation_chapitre_id')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationChapitre.date_debut')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationChapitre.date_fin')]),
+            'dernier_update.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationChapitre.dernier_update')]),
             'realisation_ua_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationChapitre.realisation_ua_id')]),
             'realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationChapitre.realisation_tache_id')]),
             'commentaire_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationChapitre.commentaire_formateur')])

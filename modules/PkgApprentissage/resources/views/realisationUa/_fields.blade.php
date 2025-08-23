@@ -222,6 +222,36 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="dernier_update" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dernier_update" id="bulk_field_dernier_update" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="dernier_update">
+            {{ ucfirst(__('PkgApprentissage::realisationUa.dernier_update')) }}
+            
+          </label>
+                      <input
+                name="dernier_update"
+                type="text"
+                class="form-control datetimepicker"
+                
+                
+                
+                id="dernier_update"
+                placeholder="{{ __('PkgApprentissage::realisationUa.dernier_update') }}"
+                value="{{ $itemRealisationUa ? $itemRealisationUa->dernier_update : old('dernier_update') }}">
+
+          @error('dernier_update')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="date_debut" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">

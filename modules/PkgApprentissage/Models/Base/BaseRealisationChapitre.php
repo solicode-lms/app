@@ -58,7 +58,7 @@ class BaseRealisationChapitre extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'chapitre_id', 'etat_realisation_chapitre_id', 'date_debut', 'date_fin', 'realisation_ua_id', 'realisation_tache_id', 'commentaire_formateur'
+        'chapitre_id', 'etat_realisation_chapitre_id', 'date_debut', 'date_fin', 'dernier_update', 'realisation_ua_id', 'realisation_tache_id', 'commentaire_formateur'
     ];
     public $manyToOne = [
         'Chapitre' => [

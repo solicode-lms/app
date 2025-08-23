@@ -118,5 +118,13 @@
         "description": "Automatically generated package for PkgSessions",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 16,
+        "reference": "PkgStatistiques",
+        "name": "PkgStatistiques",
+        "description": "Automatically generated package for PkgStatistiques",
+        "created_at": null,
+        "updated_at": null
     }
 ]
