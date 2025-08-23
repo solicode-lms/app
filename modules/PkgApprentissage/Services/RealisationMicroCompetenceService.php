@@ -103,6 +103,7 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
             }
         }
 
+        $rmc->dernier_update = now();
         $rmc->saveQuietly();
 
         // 🔹 Calcul progression RealisationCompetence

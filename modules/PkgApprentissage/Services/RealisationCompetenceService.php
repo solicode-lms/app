@@ -54,44 +54,6 @@ class RealisationCompetenceService extends BaseRealisationCompetenceService
         }
     }
 
-    /**
-     * Récupère ou crée une réalisation de compétence pour un apprenant
-     */
-    // public function getOrCreateByApprenant(int $apprenantId, int $competenceId): RealisationCompetence
-    // {
-    //     // 🔍 Recherche si déjà existant
-    //     $realisation = $this->model
-    //         ->where('apprenant_id', $apprenantId)
-    //         ->where('competence_id', $competenceId)
-    //         ->first();
-
-    //     if ($realisation) {
-    //         return $realisation;
-    //     }
-
-    //     // 📌 Charger la compétence pour retrouver le module parent
-    //     $competence = \Modules\PkgCompetences\Models\Competence::with('module')
-    //         ->findOrFail($competenceId);
-
-    //     // 🆕 Récupérer ou créer la réalisation de module associée
-    //     $realisationModuleService = new RealisationModuleService();
-    //     $realisationModule = $realisationModuleService->getOrCreateByApprenant(
-    //         $apprenantId,
-    //         $competence->module_id
-    //     );
-
-    //     // 🎯 État initial
-    //     $etatId = EtatRealisationCompetence::where('code', 'TODO')->first()->id;
-
-    //     // 🏗️ Création avec lien vers realisation_module_id
-    //     return $this->create([
-    //         'apprenant_id' => $apprenantId,
-    //         'competence_id' => $competenceId,
-    //         'realisation_module_id' => $realisationModule->id, // ✅ non nullable
-    //         'etat_realisation_competence_id' => $etatId,
-    //         'date_debut' => now(),
-    //     ]);
-    // }
 
 
     /**
@@ -142,6 +104,7 @@ class RealisationCompetenceService extends BaseRealisationCompetenceService
             }
         }
 
+        $rc->dernier_update = now();
         $rc->saveQuietly();
 
         // 🔹 Calcul progression RealisationModule

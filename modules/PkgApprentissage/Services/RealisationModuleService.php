@@ -131,7 +131,9 @@ class RealisationModuleService extends BaseRealisationModuleService
             }
         }
 
+        $rm->dernier_update = now();
         $rm->saveQuietly();
+       
 
         // 🔜 Ici tu pourras recalculer la progression d'un niveau supérieur (parcours, bloc, etc.)
     }

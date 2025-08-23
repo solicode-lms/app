@@ -19,16 +19,16 @@ trait LecturePedagogieTrait{
         // ✅ Tableau de configuration (lecture pédagogique)
         $grille = [
             'bas' => [
-                'Faible' => "⚠️ En difficulté – retard cumulé et acquis fragiles",
-                'Bonne'  => "🐢 Profil qualitatif lent – doit accélérer le rythme",
+                'Faible' => "En difficulté – retard cumulé et acquis fragiles",
+                'Bonne'  => "Profil qualitatif lent – doit accélérer le rythme",
             ],
             'normal' => [
-                'Faible' => "🔧 À consolider – suit le rythme mais acquis fragiles",
-                'Bonne'  => "✅ Dans le rythme – progression et acquis solides",
+                'Faible' => "À consolider – suit le rythme mais acquis fragiles",
+                'Bonne'  => "Dans le rythme – progression et acquis solides",
             ],
             'avance' => [
-                'Faible' => "⚡ Travail superficiel – avance vite mais fragilité",
-                'Bonne'  => "🌟 Excellence – avance vite et bien, profil autonome",
+                'Faible' => "Travail superficiel – avance vite mais fragilité",
+                'Bonne'  => "Excellence – avance vite et bien, profil autonome",
             ],
         ];
 

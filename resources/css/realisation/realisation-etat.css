@@ -1,5 +1,5 @@
 /* Bloc état */
-.etat-tache {
+.realisation-etat {
     background: #fff;
     border: 1px solid #eaecef;
     border-radius: 0.25rem;
@@ -12,7 +12,7 @@
 }
 
 /* Badge principal */
-.etat-tache .badge-etat {
+.realisation-etat .badge-etat {
     font-size: 0.82rem;
     font-weight: 600;
     padding: 0.3rem 0.65rem;
@@ -29,7 +29,7 @@
 }
 
 /* Meta-infos adaptées au cadre */
-.etat-tache .etat-meta {
+.realisation-etat .etat-meta {
     display: flex;
     align-items: center;
     gap: 0.4rem;
@@ -40,11 +40,11 @@
     white-space: normal;
 }
 
-.etat-tache .etat-meta:last-child {
+.realisation-etat .etat-meta:last-child {
     border-bottom: none; /* pas de bordure pour le dernier élément */
 }
 
-.etat-tache .etat-meta i {
+.realisation-etat .etat-meta i {
     font-size: 0.82rem;
     color: #9ca3af;
 }
@@ -69,4 +69,29 @@
     background-color: #f0f7ff;
     border-color: #bfdbfe;
     color: #1e3a8a;
+}
+
+
+/* Bloc progression élégant */
+.progression-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+}
+
+.progression-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.25rem;
+}
+
+.progression-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #374151; /* gris sobre */
+    background: #f9fafb;
+    padding: 0.1rem 0.5rem;
+    border-radius: 0.35rem;
+    display: inline-block;
 }

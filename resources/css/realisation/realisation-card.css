@@ -71,10 +71,10 @@
     align-items: center;
     gap: 0.2rem;
 }
-.realisation-etat {
+/* .realisation-etat {
     background-color: #e0f2fe;
     color: #0369a1;
-}
+} */
 .realisation-note {
     background-color: #fef3c7;
     color: #92400e;

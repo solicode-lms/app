@@ -178,6 +178,7 @@ class RealisationUaService extends BaseRealisationUaService
             }
         }
 
+        $realisationUa->dernier_update = now();
         $realisationUa->saveQuietly();
 
         // 🔁 Recalcul micro-compétence par agrégation des UAs

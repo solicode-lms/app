@@ -6,7 +6,7 @@
     $showTextThreshold = 12; // largeur min pour afficher texte %
 @endphp
 
-<div>
+<div style="width: 100%">
     <div class="progress progress-sm" style="height: 0.75rem;">
         {{-- ✅ Progression atteinte (réelle jusqu'à l'idéal) --}}
         <div class="progress-bar bg-success" 
