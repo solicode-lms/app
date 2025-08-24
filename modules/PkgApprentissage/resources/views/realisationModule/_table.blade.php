@@ -10,8 +10,7 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="35" field="module_id" modelname="realisationModule" label="{!!ucfirst(__('PkgFormation::module.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="22"  field="progression_cache" modelname="realisationModule" label="{!!ucfirst(__('PkgApprentissage::realisationModule.progression_cache'))!!}" />
-                <x-sortable-column :sortable="true" width="15" field="etat_realisation_module_id" modelname="realisationModule" label="{!!ucfirst(__('PkgApprentissage::realisationModule.etat_realisation_module_id'))!!}" />
+                <x-sortable-column :sortable="true" width="20"  field="progression_cache" modelname="realisationModule" label="{!!ucfirst(__('PkgApprentissage::realisationModule.progression_cache'))!!}" />
                 <x-sortable-column :sortable="true" width="10"  field="note_cache" modelname="realisationModule" label="{!!ucfirst(__('PkgApprentissage::realisationModule.note_cache'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -27,17 +26,8 @@
                     <td style="max-width: 35%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="module_id"  data-toggle="tooltip" title="{{ $realisationModule->module }}" >
                         @include('PkgApprentissage::realisationModule.custom.fields.module', ['entity' => $realisationModule])
                     </td>
-                    <td style="max-width: 22%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="progression_cache"  data-toggle="tooltip" title="{{ $realisationModule->progression_cache }}" >
+                    <td style="max-width: 20%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="progression_cache"  data-toggle="tooltip" title="{{ $realisationModule->progression_cache }}" >
                         @include('PkgApprentissage::realisationModule.custom.fields.progression_cache', ['entity' => $realisationModule])
-                    </td>
-                    <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="etat_realisation_module_id"  data-toggle="tooltip" title="{{ $realisationModule->etatRealisationModule }}" >
-                        @if(!empty($realisationModule->etatRealisationModule))
-                        <x-badge 
-                        :text="$realisationModule->etatRealisationModule" 
-                        :background="$realisationModule->etatRealisationModule->sysColor->hex ?? '#6c757d'" 
-                        />
-                        @endif
-
                     </td>
                     <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="note_cache"  data-toggle="tooltip" title="{{ $realisationModule->note_cache }}" >
                         @include('PkgApprentissage::realisationModule.custom.fields.note_cache', ['entity' => $realisationModule])

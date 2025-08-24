@@ -98,6 +98,24 @@ class BaseUniteApprentissageService extends BaseService
         $this->fieldsFilterable = [];
         
             
+                $filiereService = new \Modules\PkgFormation\Services\FiliereService();
+                $filiereIds = $this->getAvailableFilterValues('MicroCompetence.Competence.Module.filiere_id');
+                $filieres = $filiereService->getByIds($filiereIds);
+
+                $this->fieldsFilterable[] = $this->generateRelationFilter(
+                    __("PkgFormation::filiere.plural"),
+                    'MicroCompetence.Competence.Module.filiere_id', 
+                    \Modules\PkgFormation\Models\Filiere::class,
+                    "id", 
+                    "id",
+                    $filieres,
+                    "[name='micro_competence_id']",
+                    route('microCompetences.getData'),
+                    "competence.module.filiere_id"
+                    
+                );
+            
+            
                 if (!array_key_exists('micro_competence_id', $scopeVariables)) {
 
 
@@ -288,6 +306,7 @@ class BaseUniteApprentissageService extends BaseService
             'ordre',
             'code',
             'nom',
+            'nom_filiere',
             'micro_competence_id',
             'lien',
             'Chapitre'
@@ -329,6 +348,8 @@ class BaseUniteApprentissageService extends BaseService
             case 'code':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'nom':
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
+            case 'nom_filiere':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'micro_competence_id':
                  $values = (new \Modules\PkgCompetences\Services\MicroCompetenceService())
@@ -406,6 +427,14 @@ class BaseUniteApprentissageService extends BaseService
                     $out[$field] = ['html' => $html];
                     break;
                 case 'nom':
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                        'nature' => ''
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'nom_filiere':
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,

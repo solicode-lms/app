@@ -39,6 +39,15 @@ class BaseUniteApprentissage extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
+        // Colonne dynamique : nom_filiere
+        $sql = "SELECT f.nom
+        FROM filieres f
+        JOIN modules m ON m.filiere_id = f.id
+        JOIN competences c ON c.module_id = m.id
+        JOIN micro_competences mc ON mc.competence_id = c.id
+        WHERE mc.id = unite_apprentissages.micro_competence_id
+        LIMIT 1";
+        static::addDynamicAttribute('nom_filiere', $sql);
     }
 
     

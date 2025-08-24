@@ -9,5 +9,6 @@ return [
     'lien' => 'Lien',
     'description' => 'Description',
     'micro_competence_id' => 'Autoformation',
-    'code' => 'Code'
+    'code' => 'Code',
+    'nom_filiere' => 'Filière'
 ];

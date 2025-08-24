@@ -1,0 +1,53 @@
+{
+  "link": {
+    "route_name": "uniteApprentissages.index",
+    "route_params": {
+      "showIndex": "true",
+      "dataSource.uniteApprentissage.code": "uaNonAlignee"
+    }
+  },
+  "limit": 5,
+  "roles": {
+    "admin": {
+      "tableUI": [
+        {
+          "key": "nom",
+          "label": "Nom",
+          "order": 2
+        },
+        {
+          "key": "code",
+          "label": "Code",
+          "order": 1
+        }
+      ]
+    },
+    "formateur": {
+      "tableUI": [
+        {
+          "key": "nom",
+          "label": "Nom",
+          "order": 2
+        },
+        {
+          "key": "code",
+          "label": "Code",
+          "order": 1
+        }
+      ]
+    }
+  },
+  "tableUI": [
+        {
+          "key": "nom",
+          "label": "Nom",
+          "order": 2
+        },
+        {
+          "key": "code",
+          "label": "Code",
+          "order": 1
+        }
+      ],
+  "dataSource": "getUaNonAlignee"
+}

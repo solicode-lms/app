@@ -341,7 +341,6 @@ class BaseRealisationModuleService extends BaseService
         return [
             'module_id',
             'progression_cache',
-            'etat_realisation_module_id',
             'note_cache'
         ];
     }
@@ -394,22 +393,6 @@ class BaseRealisationModuleService extends BaseService
             case 'progression_cache':
                 return $this->computeFieldMeta($e, $field, $meta, 'number');
 
-            case 'etat_realisation_module_id':
-                 $values = (new \Modules\PkgApprentissage\Services\EtatRealisationModuleService())
-                    ->getAllForSelect($e->etatRealisationModule)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
-
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
             case 'note_cache':
                 return $this->computeFieldMeta($e, $field, $meta, 'number');
 
@@ -469,18 +452,6 @@ class BaseRealisationModuleService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
-
-                case 'etat_realisation_module_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => 'badge',
-                        'relationName' => 'etatRealisationModule'
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-
-
 
                 case 'note_cache':
                     // Vue custom définie pour ce champ

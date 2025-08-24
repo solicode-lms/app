@@ -1,0 +1,72 @@
+{
+  "link": {
+    "route_name": "apprenants.index",
+    "route_params": {
+      "showIndex": "true",
+      "dataSource.apprenant.code": "apprenantSansTacheEnCours"
+    }
+  },
+  "limit": 5,
+  "roles": {
+    "admin": {
+      "tableUI": [
+        {
+          "key": "duree",
+          "label": "Durée",
+          "order": 3
+        },
+        {
+          "key": "groupe",
+          "label": "Groupe",
+          "order": 2
+        },
+        {
+          "key": "apprenant",
+          "label": "Apprenant",
+          "order": 1
+        }
+      ]
+    },
+    "apprenant": {
+      "tableUI": [
+        {
+          "key": "duree",
+          "label": "Durée",
+          "order": 2
+        },
+        {
+          "key": "apprenant",
+          "label": "Apprenant",
+          "order": 1
+        }
+      ]
+    },
+    "formateur": {
+      "tableUI": [
+        {
+          "key": "duree",
+          "label": "Durée",
+          "order": 2
+        },
+        {
+          "key": "apprenant",
+          "label": "Apprenant",
+          "order": 1
+        }
+      ]
+    }
+  },
+  "tableUI": [
+    {
+      "key": "duree",
+      "label": "Durée",
+      "order": 2
+    },
+    {
+      "key": "apprenant",
+      "label": "Apprenant",
+      "order": 1
+    }
+  ],
+  "dataSource": "getApprenantSansTacheEnCours"
+}

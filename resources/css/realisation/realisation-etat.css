@@ -1,128 +1,90 @@
-/* Bloc état */
-.realisation-etat {
-    background: #fff;
-    border: 1px solid #eaecef;
-    border-radius: 0.25rem;
-    padding: 0.6rem 0.8rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
-    font-family: 'Inter', 'Segoe UI', sans-serif;
+/* === Realisation-état — Style sobre, sans animation === */
+
+.realisation-etat{
+  --accent: var(--etat-color, #6c757d);
+  --piste: color-mix(in srgb, var(--accent) 10%, #f1f5f9);
+  --stroke: #e5e7eb;
+
+  background: #fff;
+  border: 1px solid var(--stroke);
+  border-radius: 10px;
+  padding: .75rem .9rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  font-family: 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
 }
 
-/* Badge principal */
-.realisation-etat .badge-etat {
-    font-size: 0.82rem;
-    font-weight: 600;
-    padding: 0.3rem 0.65rem;
-    border-radius: 0.5rem;
-    display: inline-flex;
-    align-items: center;
-    max-width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    background-color: #f3f4f6;
-    color: #374151;
-    border: 1px solid #e5e7eb;
+/* Badge état — pastille simple, lisible */
+.realisation-etat .badge-etat{
+  font-size: .82rem;
+  font-weight: 600;
+  padding: .25rem .6rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  /* atténuer le fond pour garder une touche sobre, quel que soit l'état */
+  background: color-mix(in srgb, var(--accent) 12%, #ffffff) !important;
+  color: #111827;
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, #e5e7eb);
 }
 
-/* Meta-infos adaptées au cadre */
-.realisation-etat .etat-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.8rem;
-    color: #4b5563;
-    padding: 0.15rem 0; /* pas de fond, juste l'air autour */
-    border-bottom: 1px solid #f3f4f6; /* séparateur léger */
-    white-space: normal;
+/* Lignes méta — simples, sans arrière-plan décoratif */
+.realisation-etat .etat-meta{
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .83rem;
+  color: #374151;
+  padding: .3rem 0;
+}
+/* séparateur discret uniquement entre lignes successives */
+.realisation-etat .etat-meta + .etat-meta{
+  border-top: 1px solid #f3f4f6;
+  padding-top: .45rem;
+  margin-top: .15rem;
 }
 
-.realisation-etat .etat-meta:last-child {
-    border-bottom: none; /* pas de bordure pour le dernier élément */
+.realisation-etat .etat-meta i{
+  font-size: .85rem;
+  color: #9ca3af;
 }
 
-.realisation-etat .etat-meta i {
-    font-size: 0.82rem;
-    color: #9ca3af;
+/* Progressbar — monochrome alignée sur la couleur d'état */
+.realisation-etat .progress{
+  background-color: var(--piste);
+  border-radius: 8px;
+  overflow: hidden;
 }
+.realisation-etat .progress.progress-sm{ height: .75rem; }
 
-/* États pour badge */
-.badge-etat-success {
-    background-color: #f0fdf4;
-    border-color: #bbf7d0;
-    color: #166534;
-}
-.badge-etat-warning {
-    background-color: #fffbeb;
-    border-color: #fde68a;
-    color: #92400e;
-}
-.badge-etat-danger {
-    background-color: #fff5f5;
-    border-color: #fecaca;
-    color: #991b1b;
-}
-.badge-etat-info {
-    background-color: #f0f7ff;
-    border-color: #bfdbfe;
-    color: #1e3a8a;
-}
-
-
-/* Bloc progression élégant */
-.progression-meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.3rem;
-}
-
-.progression-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 0.25rem;
-}
-
-.progression-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #374151; /* gris sobre */
-    background: #f9fafb;
-    padding: 0.1rem 0.5rem;
-    border-radius: 0.35rem;
-    display: inline-block;
-}
-
-
-
-
-/* Bloc progression élégant */
-
-/* Même couleur que l'état pour la progression */
-.realisation-etat .progress {
-    /* fond de la piste légèrement teinté de la couleur d’état */
-    background-color: color-mix(in srgb, var(--etat-color) 12%, #e5e7eb);
-    border-radius: 0.375rem;
-    overflow: hidden;
-}
-
-/* Les 3 segments (atteint / retard / avance) prennent la même base */
 .realisation-etat .progress-bar.bg-success,
 .realisation-etat .progress-bar.bg-warning,
-.realisation-etat .progress-bar.bg-info {
-    background-color: var(--etat-color) !important;
-    color: #fff;
-    text-shadow: 0 1px 1px rgba(0,0,0,.15);
+.realisation-etat .progress-bar.bg-info{
+  background-color: var(--accent) !important;
+  background-image: none !important;
+  color: #fff;
 }
 
-/* (optionnel) donner un léger contraste visuel entre les segments */
-.realisation-etat .progress-bar.bg-warning { opacity: .75; } /* idéal non atteint */
-.realisation-etat .progress-bar.bg-info    { opacity: .9; }  /* avance */
+/* léger différentiel pour distinguer les segments sans multiplier les couleurs */
+.realisation-etat .progress-bar.bg-warning{ opacity: .85; } /* retard */
+.realisation-etat .progress-bar.bg-info{    opacity: .95; } /* avance */
 
-/* (fallback sans color-mix : piste grise propre) */
-@supports not (background-color: color-mix(in srgb, white 50%, black 50%)) {
-    .realisation-etat .progress { background-color: #f3f4f6; }
+/* Texte complémentaire */
+.realisation-etat .text-muted{ color: #6b7280 !important; font-weight: 500; }
+.realisation-etat strong{ color: #111827; }
+.realisation-etat small{ font-size: .78rem; }
+
+/* Fallback si color-mix non supporté */
+@supports not (background: color-mix(in srgb, #000 50%, #fff 50%)){
+  .realisation-etat .badge-etat{
+    background: #f9fafb !important;
+    border-color: #e5e7eb;
+  }
+  .realisation-etat .progress{ background-color: #f3f4f6; }
 }

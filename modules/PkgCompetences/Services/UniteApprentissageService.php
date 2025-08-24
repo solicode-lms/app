@@ -33,5 +33,21 @@ class UniteApprentissageService extends BaseUniteApprentissageService
                         ->whereColumn('alignement_uas.unite_apprentissage_id', 'unite_apprentissages.id');
                 });
     }
+
+    public function getUaNonAlignee()
+    {
+
+        $query = $this->uniteApprentissageNonAligneeQuery();
+
+        // return $query->get();
+
+        return $query->get()->map(function ($entity) {
+
+            return [
+                'nom' => $entity->nom,
+                'code' => $entity->code
+            ];
+        })->toArray(); // <-- Conversion finale en tableau associatif
+    }
    
 }
