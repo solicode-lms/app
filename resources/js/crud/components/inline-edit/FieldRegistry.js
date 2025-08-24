@@ -178,7 +178,7 @@ fieldRegistry.register('select', (props) => {
             select.className = 'form-control form-control-sm';
 
             // appliquer les règles de validation HTML5
-            applyHtmlValidation(input, meta.html_attrs || {});
+            applyHtmlValidation(select, meta.html_attrs || {});
 
             (meta.options?.values || []).forEach(opt => {
                 const option = document.createElement('option');

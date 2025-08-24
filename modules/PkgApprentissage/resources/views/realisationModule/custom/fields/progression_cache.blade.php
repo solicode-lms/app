@@ -1,8 +1,8 @@
-<div class="realisation-etat"
+<div class="realisation-etat is-compact"
      style="--etat-color: {{ $entity->etatRealisationModule->sysColor->hex ?? '#6c757d' }};">
 
     <x-badge 
-        :text="Str::limit($entity->etatRealisationModule->nom ?? '', 20)" 
+        :text="$entity->etatRealisationModule->nom" 
         :background="$entity->etatRealisationModule->sysColor->hex ?? '#6c757d'" 
         class="badge-etat"
     />
