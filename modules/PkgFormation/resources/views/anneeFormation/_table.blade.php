@@ -23,14 +23,14 @@
                 @endphp
                 <tr id="anneeFormation-row-{{$anneeFormation->id}}" data-id="{{$anneeFormation->id}}">
                     <x-checkbox-row :item="$anneeFormation" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$anneeFormation->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $anneeFormation->titre }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$anneeFormation->id}}" data-field="titre">
                         {{ $anneeFormation->titre }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$anneeFormation->id}}" data-field="date_debut"  data-toggle="tooltip" title="{{ $anneeFormation->date_debut }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$anneeFormation->id}}" data-field="date_debut">
                         <x-deadline-display :value="$anneeFormation->date_debut" />
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$anneeFormation->id}}" data-field="date_fin"  data-toggle="tooltip" title="{{ $anneeFormation->date_fin }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$anneeFormation->id}}" data-field="date_fin">
                         <x-deadline-display :value="$anneeFormation->date_fin" />
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

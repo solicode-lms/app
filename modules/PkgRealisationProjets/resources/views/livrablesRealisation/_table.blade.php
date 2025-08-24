@@ -23,11 +23,11 @@
                 @endphp
                 <tr id="livrablesRealisation-row-{{$livrablesRealisation->id}}" data-id="{{$livrablesRealisation->id}}">
                     <x-checkbox-row :item="$livrablesRealisation" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrablesRealisation->id}}" data-field="livrable_id"  data-toggle="tooltip" title="{{ $livrablesRealisation->livrable }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrablesRealisation->id}}" data-field="livrable_id">
                         {{  $livrablesRealisation->livrable }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrablesRealisation->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $livrablesRealisation->lien }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrablesRealisation->id}}" data-field="lien">
      @if($livrablesRealisation->lien)
     <a href="{{ $livrablesRealisation->lien }}" target="_blank">
         <i class="fas fa-link"></i>
@@ -38,7 +38,7 @@
 
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrablesRealisation->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $livrablesRealisation->titre }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrablesRealisation->id}}" data-field="titre">
                         {{ $livrablesRealisation->titre }}
 
                     </td>

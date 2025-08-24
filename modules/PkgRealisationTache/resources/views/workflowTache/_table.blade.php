@@ -24,21 +24,21 @@
                 @endphp
                 <tr id="workflowTache-row-{{$workflowTache->id}}" data-id="{{$workflowTache->id}}">
                     <x-checkbox-row :item="$workflowTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowTache->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $workflowTache->ordre }}" >
+                    <td style="max-width: 5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowTache->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $workflowTache->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
 
                     </td>
-                    <td style="max-width: 25.666666666666668%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowTache->id}}" data-field="code"  data-toggle="tooltip" title="{{ $workflowTache->code }}" >
+                    <td style="max-width: 25.666666666666668%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowTache->id}}" data-field="code">
                         {{ $workflowTache->code }}
 
                     </td>
-                    <td style="max-width: 25.666666666666668%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowTache->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $workflowTache->titre }}" >
+                    <td style="max-width: 25.666666666666668%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowTache->id}}" data-field="titre">
                         {{ $workflowTache->titre }}
 
                     </td>
-                    <td style="max-width: 25.666666666666668%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowTache->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $workflowTache->sysColor }}" >
+                    <td style="max-width: 25.666666666666668%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowTache->id}}" data-field="sys_color_id">
                         <x-badge 
                         :text="$workflowTache->sysColor->name ?? ''" 
                         :background="$workflowTache->sysColor->hex ?? '#6c757d'" 

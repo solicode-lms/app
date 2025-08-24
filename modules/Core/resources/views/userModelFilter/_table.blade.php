@@ -21,7 +21,7 @@
                 @endphp
                 <tr id="userModelFilter-row-{{$userModelFilter->id}}" data-id="{{$userModelFilter->id}}">
                     <x-checkbox-row :item="$userModelFilter" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 82%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$userModelFilter->id}}" data-field="user_id"  data-toggle="tooltip" title="{{ $userModelFilter->user }}" >
+                    <td style="max-width: 82%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$userModelFilter->id}}" data-field="user_id">
                         {{  $userModelFilter->user }}
 
                     </td>

@@ -11,10 +11,10 @@
   background:#fff;
   border:1px solid var(--stroke);
   border-radius:5px;
-  padding:10px 20px;
+  padding:8px 18px;
   display:flex;
   flex-direction:column;
-  gap:10px;
+  gap: 2px;
   box-shadow:0 1px 0 rgba(17,24,39,.04);
   font-family: 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
   position:relative;
@@ -24,16 +24,19 @@
 .realisation-etat::before{
   content:"";
   position:absolute;
-  left:10px; top:8px; bottom:8px; width:3px;
+  left:10px; top:8px; bottom:8px; width:1px;
   border-radius:12px;
   background: var(--accent);
 }
 
+
+/* Ce Style est appliquer su tous les badge même qui ne sont pas dans realisation-etat card */
+
 /* Badge pilule avec pastille blanche (aligné à --etat-color) */
-.realisation-etat .badge-etat{
+ .badge-etat{
   --badge-accent: var(--badge-accent, var(--accent));
   --badge-fg: var(--badge-fg, #0b1324);
-  --badge-bg: color-mix(in srgb, var(--badge-accent) 14%, #ffffff);
+  --badge-bg: color-mix(in srgb, var(--badge-accent) 100%, #ffffff);
   --badge-stroke: color-mix(in srgb, var(--badge-accent) 28%, #e5e7eb);
 
   display: inline-flex;
@@ -42,14 +45,14 @@
   align-self:flex-start;
 
   padding: .28rem .65rem;
-  border-radius: 9999px;
+
   font-size: .85rem;
   font-weight: 600;
   letter-spacing: .2px;
   line-height: 1.15;
 
   max-width: 100%;
-  white-space: nowrap;
+  white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
 
@@ -59,7 +62,7 @@
 }
 
 /* ◯ Pastille blanche à gauche du badge */
-.realisation-etat .badge-etat::before{
+ .badge-etat::before{
   content: "";
   flex: 0 0 auto;
   width: .62rem;               /* ~10px */
@@ -73,7 +76,7 @@
 .realisation-etat .etat-meta{
   display:flex; align-items:center; gap:.55rem;
   font-size:.92rem; color:#111827;
-  padding:6px 0;
+  padding:3px 0;
   white-space: normal;
 }
 .realisation-etat .etat-meta + .etat-meta{
@@ -110,49 +113,15 @@
 .realisation-etat .progress-bar.bg-warning{ opacity:.85; } /* retard */
 .realisation-etat .progress-bar.bg-info{    opacity:.95; } /* avance */
 
-/* === Preset Compact (ajouter .is-compact sur le wrapper) === */
-.realisation-etat.is-compact{
-  padding: 8px 12px;
-  gap: 6px;
-  border-radius: 4px;
+
+
+/* Avec Progress bar */
+.realisation-etat.with-progress .badge-etat{
+  color: #0b1324 !important;
+  background: #ffffff !important;
 }
-.realisation-etat.is-compact::before{
-  left: 8px;
-  top: 6px;
-  bottom: 6px;
-  width: 2px;
-  border-radius: 8px;
-}
-.realisation-etat.is-compact .badge-etat{
-  padding: .22rem .50rem;
-  font-size: .80rem;
-  gap: .35rem;
-}
-.realisation-etat.is-compact .badge-etat::before{
-  width: .50rem;
-  height: .50rem;
-  border-width: 1.5px;
-}
-.realisation-etat.is-compact .etat-meta{
-  font-size: .85rem;
-  padding: 4px 0;
-}
-.realisation-etat.is-compact .etat-meta + .etat-meta{
-  margin-top: 1px;
-}
-.realisation-etat.is-compact .etat-meta i{
-  font-size: .85rem;
-}
-.realisation-etat.is-compact .progress.progress-sm{
-  height: .55rem;
-}
-.realisation-etat.is-compact .progress{
-  border-radius: 6px;
-}
-.realisation-etat.is-compact .text-muted{
-  font-size: .76rem !important;
-  font-weight: 500;
-}
+
+
 
 /* Fallback si color-mix non supporté */
 @supports not (background: color-mix(in srgb, #000 50%, #fff 50%)){

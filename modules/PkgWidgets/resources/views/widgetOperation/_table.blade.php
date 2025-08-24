@@ -22,11 +22,11 @@
                 @endphp
                 <tr id="widgetOperation-row-{{$widgetOperation->id}}" data-id="{{$widgetOperation->id}}">
                     <x-checkbox-row :item="$widgetOperation" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetOperation->id}}" data-field="operation"  data-toggle="tooltip" title="{{ $widgetOperation->operation }}" >
+                    <td style="max-width: 41%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetOperation->id}}" data-field="operation">
                         {{ $widgetOperation->operation }}
 
                     </td>
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetOperation->id}}" data-field="description"  data-toggle="tooltip" title="{{ $widgetOperation->description }}" >
+                    <td style="max-width: 41%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetOperation->id}}" data-field="description">
                   
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($widgetOperation->description, 30) !!}
                    

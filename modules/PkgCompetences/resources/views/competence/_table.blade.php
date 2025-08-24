@@ -24,19 +24,19 @@
                 @endphp
                 <tr id="competence-row-{{$competence->id}}" data-id="{{$competence->id}}">
                     <x-checkbox-row :item="$competence" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="code"  data-toggle="tooltip" title="{{ $competence->code }}" >
+                    <td style="max-width: 6%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="code">
                         {{ $competence->code }}
 
                     </td>
-                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="mini_code"  data-toggle="tooltip" title="{{ $competence->mini_code }}" >
+                    <td style="max-width: 10%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="mini_code">
                         {{ $competence->mini_code }}
 
                     </td>
-                    <td style="max-width: 33%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $competence->nom }}" >
+                    <td style="max-width: 33%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="nom">
                         {{ $competence->nom }}
 
                     </td>
-                    <td style="max-width: 33%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="module_id"  data-toggle="tooltip" title="{{ $competence->module }}" >
+                    <td style="max-width: 33%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="module_id">
                         {{  $competence->module }}
 
                     </td>

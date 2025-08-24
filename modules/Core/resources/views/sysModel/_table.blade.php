@@ -24,22 +24,22 @@
                 @endphp
                 <tr id="sysModel-row-{{$sysModel->id}}" data-id="{{$sysModel->id}}">
                     <x-checkbox-row :item="$sysModel" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModel->id}}" data-field="name"  data-toggle="tooltip" title="{{ $sysModel->name }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModel->id}}" data-field="name">
                         {{ $sysModel->name }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModel->id}}" data-field="sys_module_id"  data-toggle="tooltip" title="{{ $sysModel->sysModule }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModel->id}}" data-field="sys_module_id">
                         {{  $sysModel->sysModule }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModel->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $sysModel->sysColor }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModel->id}}" data-field="sys_color_id">
                         <x-badge 
                         :text="$sysModel->sysColor->name ?? ''" 
                         :background="$sysModel->sysColor->hex ?? '#6c757d'" 
                         />
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModel->id}}" data-field="icone"  data-toggle="tooltip" title="{{ $sysModel->icone }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModel->id}}" data-field="icone">
                         <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
                             <i class="{{ $sysModel->icone }}" ></i>
                         </div>

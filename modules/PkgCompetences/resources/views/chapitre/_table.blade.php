@@ -25,25 +25,25 @@
                 @endphp
                 <tr id="chapitre-row-{{$chapitre->id}}" data-id="{{$chapitre->id}}">
                     <x-checkbox-row :item="$chapitre" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $chapitre->ordre }}" >
+                    <td style="max-width: 4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $chapitre->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
 
                     </td>
-                    <td style="max-width: 6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="code"  data-toggle="tooltip" title="{{ $chapitre->code }}" >
+                    <td style="max-width: 6%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="code">
                         {{ $chapitre->code }}
 
                     </td>
-                    <td style="max-width: 30%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $chapitre->nom }}" >
+                    <td style="max-width: 30%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="nom">
                         {{ $chapitre->nom }}
 
                     </td>
-                    <td style="max-width: 25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="unite_apprentissage_id"  data-toggle="tooltip" title="{{ $chapitre->uniteApprentissage }}" >
+                    <td style="max-width: 25%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="unite_apprentissage_id">
                         {{  $chapitre->uniteApprentissage }}
 
                     </td>
-                    <td style="max-width: 7%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $chapitre->lien }}" >
+                    <td style="max-width: 7%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="lien">
      @if($chapitre->lien)
     <a href="{{ $chapitre->lien }}" target="_blank">
         <i class="fas fa-link"></i>

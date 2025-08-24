@@ -358,11 +358,8 @@ class BaseRealisationCompetenceService extends BaseService
     {
         return [
             'competence_id',
-            'realisation_module_id',
-            'apprenant_id',
             'progression_cache',
-            'note_cache',
-            'etat_realisation_competence_id'
+            'note_cache'
         ];
     }
 
@@ -411,60 +408,12 @@ class BaseRealisationCompetenceService extends BaseService
                         'values' => $values,
                     ],
                 ]);
-            case 'realisation_module_id':
-                 $values = (new \Modules\PkgApprentissage\Services\RealisationModuleService())
-                    ->getAllForSelect($e->realisationModule)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
-
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
-            case 'apprenant_id':
-                 $values = (new \Modules\PkgApprenants\Services\ApprenantService())
-                    ->getAllForSelect($e->apprenant)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
-
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
             case 'progression_cache':
                 return $this->computeFieldMeta($e, $field, $meta, 'number');
 
             case 'note_cache':
                 return $this->computeFieldMeta($e, $field, $meta, 'number');
 
-            case 'etat_realisation_competence_id':
-                 $values = (new \Modules\PkgApprentissage\Services\EtatRealisationCompetenceService())
-                    ->getAllForSelect($e->etatRealisationCompetence)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
-
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
         }
@@ -505,40 +454,13 @@ class BaseRealisationCompetenceService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'competence_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'competence'
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgApprentissage::realisationCompetence.custom.fields.competence', [
+                        'entity' => $e
                     ])->render();
+
                     $out[$field] = ['html' => $html];
                     break;
-
-
-
-                case 'realisation_module_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'realisationModule'
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-
-
-
-                case 'apprenant_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'apprenant'
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-
-
 
                 case 'progression_cache':
                     // Vue custom définie pour ce champ
@@ -557,18 +479,6 @@ class BaseRealisationCompetenceService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
-
-                case 'etat_realisation_competence_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => 'badge',
-                        'relationName' => 'etatRealisationCompetence'
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-
-
 
 
                 default:

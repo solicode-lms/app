@@ -24,22 +24,22 @@
                 @endphp
                 <tr id="formateur-row-{{$formateur->id}}" data-id="{{$formateur->id}}">
                     <x-checkbox-row :item="$formateur" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formateur->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $formateur->nom }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formateur->id}}" data-field="nom">
                         {{ $formateur->nom }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formateur->id}}" data-field="prenom"  data-toggle="tooltip" title="{{ $formateur->prenom }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formateur->id}}" data-field="prenom">
                         {{ $formateur->prenom }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formateur->id}}" data-field="specialites"  data-toggle="tooltip" title="{{ $formateur->specialites }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formateur->id}}" data-field="specialites">
                         <ul>
                             @foreach ($formateur->specialites as $specialite)
                                 <li @if(strlen($specialite) > 30) data-toggle="tooltip" title="{{$specialite}}"  @endif>@limit($specialite, 30)</li>
                             @endforeach
                         </ul>
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formateur->id}}" data-field="groupes"  data-toggle="tooltip" title="{{ $formateur->groupes }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formateur->id}}" data-field="groupes">
                         <ul>
                             @foreach ($formateur->groupes as $groupe)
                                 <li @if(strlen($groupe) > 30) data-toggle="tooltip" title="{{$groupe}}"  @endif>@limit($groupe, 30)</li>

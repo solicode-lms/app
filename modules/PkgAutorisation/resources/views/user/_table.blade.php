@@ -23,15 +23,15 @@
                 @endphp
                 <tr id="user-row-{{$user->id}}" data-id="{{$user->id}}">
                     <x-checkbox-row :item="$user" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$user->id}}" data-field="name"  data-toggle="tooltip" title="{{ $user->name }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$user->id}}" data-field="name">
                         {{ $user->name }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$user->id}}" data-field="email"  data-toggle="tooltip" title="{{ $user->email }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$user->id}}" data-field="email">
                         {{ $user->email }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$user->id}}" data-field="roles"  data-toggle="tooltip" title="{{ $user->roles }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$user->id}}" data-field="roles">
                         <ul>
                             @foreach ($user->roles as $role)
                                 <li @if(strlen($role) > 30) data-toggle="tooltip" title="{{$role}}"  @endif>@limit($role, 30)</li>

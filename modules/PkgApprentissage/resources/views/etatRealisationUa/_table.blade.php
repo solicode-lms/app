@@ -25,28 +25,28 @@
                 @endphp
                 <tr id="etatRealisationUa-row-{{$etatRealisationUa->id}}" data-id="{{$etatRealisationUa->id}}">
                     <x-checkbox-row :item="$etatRealisationUa" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $etatRealisationUa->ordre }}" >
+                    <td style="max-width: 4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $etatRealisationUa->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
 
                     </td>
-                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $etatRealisationUa->nom }}" >
+                    <td style="max-width: 19.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="nom">
                         {{ $etatRealisationUa->nom }}
 
                     </td>
-                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="code"  data-toggle="tooltip" title="{{ $etatRealisationUa->code }}" >
+                    <td style="max-width: 19.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="code">
                         {{ $etatRealisationUa->code }}
 
                     </td>
-                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatRealisationUa->sysColor }}" >
+                    <td style="max-width: 19.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="sys_color_id">
                         <x-badge 
                         :text="$etatRealisationUa->sysColor->name ?? ''" 
                         :background="$etatRealisationUa->sysColor->hex ?? '#6c757d'" 
                         />
 
                     </td>
-                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="is_editable_only_by_formateur"  data-toggle="tooltip" title="{{ $etatRealisationUa->is_editable_only_by_formateur }}" >
+                    <td style="max-width: 19.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="is_editable_only_by_formateur">
                         <span class="{{ $etatRealisationUa->is_editable_only_by_formateur ? 'text-success' : 'text-danger' }}">
                             {{ $etatRealisationUa->is_editable_only_by_formateur ? 'Oui' : 'Non' }}
                         </span>

@@ -1,9 +1,9 @@
-<div class="realisation-card realisation-module">
+<div class="realisation-card realisation-competence">
     <div class="realisation-header">
         <h3 class="realisation-titre">
-            {{  $entity->module }}
+             {{  $entity->competence }} 
         </h3>
-        <div class="realisation-soustitre"></div>
+        <div class="realisation-soustitre">{{  $entity->competence->module }} </div>
     </div>
     <div class="realisation-infos realisation-lecture">
         {!! $entity->lecture_pedagogique !!}

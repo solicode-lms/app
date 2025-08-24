@@ -24,21 +24,21 @@
                 @endphp
                 <tr id="etatEvaluationProjet-row-{{$etatEvaluationProjet->id}}" data-id="{{$etatEvaluationProjet->id}}">
                     <x-checkbox-row :item="$etatEvaluationProjet" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatEvaluationProjet->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $etatEvaluationProjet->ordre }}" >
+                    <td style="max-width: 4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatEvaluationProjet->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $etatEvaluationProjet->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatEvaluationProjet->id}}" data-field="code"  data-toggle="tooltip" title="{{ $etatEvaluationProjet->code }}" >
+                    <td style="max-width: 26%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatEvaluationProjet->id}}" data-field="code">
                         {{ $etatEvaluationProjet->code }}
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatEvaluationProjet->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $etatEvaluationProjet->titre }}" >
+                    <td style="max-width: 26%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatEvaluationProjet->id}}" data-field="titre">
                         {{ $etatEvaluationProjet->titre }}
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatEvaluationProjet->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatEvaluationProjet->sysColor }}" >
+                    <td style="max-width: 26%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatEvaluationProjet->id}}" data-field="sys_color_id">
                         <x-badge 
                         :text="$etatEvaluationProjet->sysColor->name ?? ''" 
                         :background="$etatEvaluationProjet->sysColor->hex ?? '#6c757d'" 

@@ -26,25 +26,25 @@
                 @endphp
                 <tr id="microCompetence-row-{{$microCompetence->id}}" data-id="{{$microCompetence->id}}">
                     <x-checkbox-row :item="$microCompetence" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $microCompetence->ordre }}" >
+                    <td style="max-width: 4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $microCompetence->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
 
                     </td>
-                    <td style="max-width: 6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="code"  data-toggle="tooltip" title="{{ $microCompetence->code }}" >
+                    <td style="max-width: 6%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="code">
                         {{ $microCompetence->code }}
 
                     </td>
-                    <td style="max-width: 27.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $microCompetence->titre }}" >
+                    <td style="max-width: 27.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="titre">
                         {{ $microCompetence->titre }}
 
                     </td>
-                    <td style="max-width: 11%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $microCompetence->competence }}" >
+                    <td style="max-width: 11%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="competence_id">
                         {{  $microCompetence->competence }}
 
                     </td>
-                    <td style="max-width: 6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $microCompetence->lien }}" >
+                    <td style="max-width: 6%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="lien">
      @if($microCompetence->lien)
     <a href="{{ $microCompetence->lien }}" target="_blank">
         <i class="fas fa-link"></i>
@@ -55,7 +55,7 @@
 
 
                     </td>
-                    <td style="max-width: 27.5%;" class=" text-truncate" data-id="{{$microCompetence->id}}" data-field="UniteApprentissage"  data-toggle="tooltip" title="{{ $microCompetence->uniteApprentissages }}" >
+                    <td style="max-width: 27.5%;white-space: normal;" class=" text-truncate" data-id="{{$microCompetence->id}}" data-field="UniteApprentissage">
                         <ul>
                             @foreach ($microCompetence->uniteApprentissages as $uniteApprentissage)
                                 <li>{{$uniteApprentissage}} </li>

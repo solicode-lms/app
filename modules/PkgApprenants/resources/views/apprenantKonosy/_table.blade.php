@@ -21,7 +21,7 @@
                 @endphp
                 <tr id="apprenantKonosy-row-{{$apprenantKonosy->id}}" data-id="{{$apprenantKonosy->id}}">
                     <x-checkbox-row :item="$apprenantKonosy" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 82%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenantKonosy->id}}" data-field="Nom"  data-toggle="tooltip" title="{{ $apprenantKonosy->Nom }}" >
+                    <td style="max-width: 82%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenantKonosy->id}}" data-field="Nom">
                         {{ $apprenantKonosy->Nom }}
 
                     </td>

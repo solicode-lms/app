@@ -23,17 +23,17 @@
                 @endphp
                 <tr id="alignementUa-row-{{$alignementUa->id}}" data-id="{{$alignementUa->id}}">
                     <x-checkbox-row :item="$alignementUa" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$alignementUa->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $alignementUa->ordre }}" >
+                    <td style="max-width: 4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$alignementUa->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $alignementUa->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
 
                     </td>
-                    <td style="max-width: 39%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$alignementUa->id}}" data-field="unite_apprentissage_id"  data-toggle="tooltip" title="{{ $alignementUa->uniteApprentissage }}" >
+                    <td style="max-width: 39%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$alignementUa->id}}" data-field="unite_apprentissage_id">
                         {{  $alignementUa->uniteApprentissage }}
 
                     </td>
-                    <td style="max-width: 39%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$alignementUa->id}}" data-field="session_formation_id"  data-toggle="tooltip" title="{{ $alignementUa->sessionFormation }}" >
+                    <td style="max-width: 39%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$alignementUa->id}}" data-field="session_formation_id">
                         {{  $alignementUa->sessionFormation }}
 
                     </td>

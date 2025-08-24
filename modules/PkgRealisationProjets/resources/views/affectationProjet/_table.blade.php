@@ -26,25 +26,25 @@
                 @endphp
                 <tr id="affectationProjet-row-{{$affectationProjet->id}}" data-id="{{$affectationProjet->id}}">
                     <x-checkbox-row :item="$affectationProjet" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 13.666666666666666%;" class=" text-truncate" data-id="{{$affectationProjet->id}}" data-field="projet_id"  data-toggle="tooltip" title="{{ $affectationProjet->projet }}" >
+                    <td style="max-width: 13.666666666666666%;white-space: normal;" class=" text-truncate" data-id="{{$affectationProjet->id}}" data-field="projet_id">
                         {{  $affectationProjet->projet }}
 
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class=" text-truncate" data-id="{{$affectationProjet->id}}" data-field="groupe_id"  data-toggle="tooltip" title="{{ $affectationProjet->groupe }}" >
+                    <td style="max-width: 13.666666666666666%;white-space: normal;" class=" text-truncate" data-id="{{$affectationProjet->id}}" data-field="groupe_id">
                         {{  $affectationProjet->groupe }}
 
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="sous_groupe_id"  data-toggle="tooltip" title="{{ $affectationProjet->sousGroupe }}" >
+                    <td style="max-width: 13.666666666666666%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="sous_groupe_id">
                         {{  $affectationProjet->sousGroupe }}
 
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="date_debut"  data-toggle="tooltip" title="{{ $affectationProjet->date_debut }}" >
+                    <td style="max-width: 13.666666666666666%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="date_debut">
                         <x-deadline-display :value="$affectationProjet->date_debut" />
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="date_fin"  data-toggle="tooltip" title="{{ $affectationProjet->date_fin }}" >
+                    <td style="max-width: 13.666666666666666%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="date_fin">
                         <x-deadline-display :value="$affectationProjet->date_fin" />
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class=" text-truncate" data-id="{{$affectationProjet->id}}" data-field="evaluateurs"  data-toggle="tooltip" title="{{ $affectationProjet->evaluateurs }}" >
+                    <td style="max-width: 13.666666666666666%;white-space: normal;" class=" text-truncate" data-id="{{$affectationProjet->id}}" data-field="evaluateurs">
                         <ul>
                             @foreach ($affectationProjet->evaluateurs as $evaluateur)
                                 <li @if(strlen($evaluateur) > 30) data-toggle="tooltip" title="{{$evaluateur}}"  @endif>@limit($evaluateur, 30)</li>

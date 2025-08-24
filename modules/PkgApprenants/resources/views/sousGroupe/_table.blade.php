@@ -22,11 +22,11 @@
                 @endphp
                 <tr id="sousGroupe-row-{{$sousGroupe->id}}" data-id="{{$sousGroupe->id}}">
                     <x-checkbox-row :item="$sousGroupe" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sousGroupe->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $sousGroupe->nom }}" >
+                    <td style="max-width: 41%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sousGroupe->id}}" data-field="nom">
                         {{ $sousGroupe->nom }}
 
                     </td>
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sousGroupe->id}}" data-field="groupe_id"  data-toggle="tooltip" title="{{ $sousGroupe->groupe }}" >
+                    <td style="max-width: 41%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sousGroupe->id}}" data-field="groupe_id">
                         {{  $sousGroupe->groupe }}
 
                     </td>

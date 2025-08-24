@@ -24,19 +24,19 @@
                 @endphp
                 <tr id="sessionFormation-row-{{$sessionFormation->id}}" data-id="{{$sessionFormation->id}}">
                     <x-checkbox-row :item="$sessionFormation" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $sessionFormation->ordre }}" >
+                    <td style="max-width: 4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $sessionFormation->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $sessionFormation->titre }}" >
+                    <td style="max-width: 26%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="titre" >
                         @include('PkgSessions::sessionFormation.custom.fields.titre', ['entity' => $sessionFormation])
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="objectifs_pedagogique"  data-toggle="tooltip" title="{{ $sessionFormation->objectifs_pedagogique }}" >
+                    <td style="max-width: 26%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="objectifs_pedagogique" >
                         @include('PkgSessions::sessionFormation.custom.fields.objectifs_pedagogique', ['entity' => $sessionFormation])
                     </td>
-                    <td style="max-width: 26%;" class=" text-truncate" data-id="{{$sessionFormation->id}}" data-field="AlignementUa"  data-toggle="tooltip" title="{{ $sessionFormation->alignementUas }}" >
+                    <td style="max-width: 26%;white-space: normal;" class=" text-truncate" data-id="{{$sessionFormation->id}}" data-field="AlignementUa" >
                         @include('PkgSessions::sessionFormation.custom.fields.alignementUas', ['entity' => $sessionFormation])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

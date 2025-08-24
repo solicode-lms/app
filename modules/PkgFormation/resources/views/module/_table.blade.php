@@ -25,23 +25,23 @@
                 @endphp
                 <tr id="module-row-{{$module->id}}" data-id="{{$module->id}}">
                     <x-checkbox-row :item="$module" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$module->id}}" data-field="code"  data-toggle="tooltip" title="{{ $module->code }}" >
+                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$module->id}}" data-field="code">
                         {{ $module->code }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$module->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $module->nom }}" >
+                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$module->id}}" data-field="nom">
                         {{ $module->nom }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$module->id}}" data-field="masse_horaire"  data-toggle="tooltip" title="{{ $module->masse_horaire }}" >
+                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$module->id}}" data-field="masse_horaire">
                         {{ $module->masse_horaire }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$module->id}}" data-field="filiere_id"  data-toggle="tooltip" title="{{ $module->filiere }}" >
+                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$module->id}}" data-field="filiere_id">
                         {{  $module->filiere }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$module->id}}" data-field="Competence"  data-toggle="tooltip" title="{{ $module->competences }}" >
+                    <td style="max-width: 16.4%;white-space: normal;" class=" text-truncate" data-id="{{$module->id}}" data-field="Competence">
                         <ul>
                             @foreach ($module->competences as $competence)
                                 <li>{{$competence}} </li>

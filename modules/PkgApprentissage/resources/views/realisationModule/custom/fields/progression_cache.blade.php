@@ -1,4 +1,4 @@
-<div class="realisation-etat is-compact"
+<div class="realisation-etat with-progress"
      style="--etat-color: {{ $entity->etatRealisationModule->sysColor->hex ?? '#6c757d' }};">
 
     <x-badge 
@@ -7,29 +7,41 @@
         class="badge-etat"
     />
 
-    {{-- Progression pédagogique --}}
-    <div class="etat-meta" title="Progression" data-toggle="tooltip">
+    <div class="etat-meta">
         <x-progression-bar 
             :progression="$entity->progression_cache ?? 0" 
             :progression-ideal="$entity->progression_ideal_cache ?? 0"
         />
     </div>
 
+
+    @if($entity->taux_rythme_cache)
+    @php
+    $rythme = $entity->taux_rythme_cache ?? 0;
+    if ($rythme < 20) {
+        $icone = 'fas fa-bed'; // très bas
+    } elseif ($rythme < 40) {
+        $icone = 'fas fa-walking'; // lent
+    } elseif ($rythme < 60) {
+        $icone = 'fas fa-running'; // normal
+    } elseif ($rythme < 80) {
+        $icone = 'fas fa-biking'; // rapide
+    } else {
+        $icone = 'fas fa-rocket'; // très rapide
+    }
+    @endphp
     {{-- Rythme --}}
-    <span class="etat-meta" title="Rythme" data-toggle="tooltip">
-        <i class="far fa-clock"></i>
-        Rythme : {{ $entity->taux_rythme_cache }} %
+    <span class="etat-meta" title="{!! $entity->lecture_pedagogique !!}" data-toggle="tooltip">
+        <i class="{{ $icone }}"></i>
+        Rythme : {{ $rythme }} %
     </span>
+    @endif
 
-    {{-- Lecture pédagogique --}}
-    <div class="etat-meta" title="Lecture pédagogique" data-toggle="tooltip">
-        <i class="fas fa-book-open"></i>
-        {!! $entity->lecture_pedagogique !!}
-    </div>
 
-    {{-- Dernière mise à jour --}}
-    <span class="etat-meta" title="Date de dernière modification" data-toggle="tooltip">
-        <i class="far fa-clock"></i>
-        {{ $entity->dernier_update }}
+    @if($entity->dernier_update)
+    <span class="etat-meta">
+        <i class="fas fa-history"></i>
+        {{  \Carbon\Carbon::parse($entity->dernier_update)?->diffForHumans() }}
     </span>
+    @endif
 </div>

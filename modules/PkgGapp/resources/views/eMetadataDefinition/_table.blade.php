@@ -23,15 +23,15 @@
                 @endphp
                 <tr id="eMetadataDefinition-row-{{$eMetadataDefinition->id}}" data-id="{{$eMetadataDefinition->id}}">
                     <x-checkbox-row :item="$eMetadataDefinition" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="name"  data-toggle="tooltip" title="{{ $eMetadataDefinition->name }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="name">
                         {{ $eMetadataDefinition->name }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="groupe"  data-toggle="tooltip" title="{{ $eMetadataDefinition->groupe }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="groupe">
                         {{ $eMetadataDefinition->groupe }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="description"  data-toggle="tooltip" title="{{ $eMetadataDefinition->description }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="description">
                   
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($eMetadataDefinition->description, 30) !!}
                    

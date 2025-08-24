@@ -24,23 +24,23 @@
                 @endphp
                 <tr id="sectionWidget-row-{{$sectionWidget->id}}" data-id="{{$sectionWidget->id}}">
                     <x-checkbox-row :item="$sectionWidget" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 8%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sectionWidget->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $sectionWidget->ordre }}" >
+                    <td style="max-width: 8%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sectionWidget->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $sectionWidget->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
 
                     </td>
-                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sectionWidget->id}}" data-field="icone"  data-toggle="tooltip" title="{{ $sectionWidget->icone }}" >
+                    <td style="max-width: 10%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sectionWidget->id}}" data-field="icone">
                         <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
                             <i class="{{ $sectionWidget->icone }}" ></i>
                         </div>
 
                     </td>
-                    <td style="max-width: 54%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sectionWidget->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $sectionWidget->titre }}" >
+                    <td style="max-width: 54%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sectionWidget->id}}" data-field="titre">
                         {{ $sectionWidget->titre }}
 
                     </td>
-                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sectionWidget->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $sectionWidget->sysColor }}" >
+                    <td style="max-width: 10%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sectionWidget->id}}" data-field="sys_color_id">
                         <x-badge 
                         :text="$sectionWidget->sysColor->name ?? ''" 
                         :background="$sectionWidget->sysColor->hex ?? '#6c757d'" 

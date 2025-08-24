@@ -25,25 +25,25 @@
                 @endphp
                 <tr id="widgetUtilisateur-row-{{$widgetUtilisateur->id}}" data-id="{{$widgetUtilisateur->id}}">
                     <x-checkbox-row :item="$widgetUtilisateur" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $widgetUtilisateur->ordre }}" >
+                    <td style="max-width: 5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $widgetUtilisateur->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
 
                     </td>
-                    <td style="max-width: 19.25%;" class=" text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="widget_id"  data-toggle="tooltip" title="{{ $widgetUtilisateur->widget }}" >
+                    <td style="max-width: 19.25%;white-space: normal;" class=" text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="widget_id">
                         {{  $widgetUtilisateur->widget }}
 
                     </td>
-                    <td style="max-width: 19.25%;" class=" text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="package"  data-toggle="tooltip" title="{{ $widgetUtilisateur->package }}" >
+                    <td style="max-width: 19.25%;white-space: normal;" class=" text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="package">
                         {{ $widgetUtilisateur->package }}
 
                     </td>
-                    <td style="max-width: 19.25%;" class=" text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="type"  data-toggle="tooltip" title="{{ $widgetUtilisateur->type }}" >
+                    <td style="max-width: 19.25%;white-space: normal;" class=" text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="type">
                         {{ $widgetUtilisateur->type }}
 
                     </td>
-                    <td style="max-width: 19.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="visible"  data-toggle="tooltip" title="{{ $widgetUtilisateur->visible }}" >
+                    <td style="max-width: 19.25%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="visible">
                         <span class="{{ $widgetUtilisateur->visible ? 'text-success' : 'text-danger' }}">
                             {{ $widgetUtilisateur->visible ? 'Oui' : 'Non' }}
                         </span>

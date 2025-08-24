@@ -23,13 +23,13 @@
                 @endphp
                 <tr id="evaluationRealisationTache-row-{{$evaluationRealisationTache->id}}" data-id="{{$evaluationRealisationTache->id}}">
                     <x-checkbox-row :item="$evaluationRealisationTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 50%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $evaluationRealisationTache->realisationTache }}" >
+                    <td style="max-width: 50%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="realisation_tache_id" >
                         @include('PkgEvaluateurs::evaluationRealisationTache.custom.fields.realisationTache', ['entity' => $evaluationRealisationTache])
                     </td>
-                    <td style="max-width: 16%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="note"  data-toggle="tooltip" title="{{ $evaluationRealisationTache->note }}" >
+                    <td style="max-width: 16%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="note" >
                         @include('PkgEvaluateurs::evaluationRealisationTache.custom.fields.note', ['entity' => $evaluationRealisationTache])
                     </td>
-                    <td style="max-width: 16%;" class=" text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="nombre_livrables"  data-toggle="tooltip" title="{{ $evaluationRealisationTache->nombre_livrables }}" >
+                    <td style="max-width: 16%;white-space: normal;" class=" text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="nombre_livrables" >
                         @include('PkgEvaluateurs::evaluationRealisationTache.custom.fields.nombre_livrables', ['entity' => $evaluationRealisationTache])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

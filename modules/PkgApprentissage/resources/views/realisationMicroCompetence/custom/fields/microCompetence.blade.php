@@ -1,7 +1,7 @@
-<div class="realisation-card realisation-module">
+<div class="realisation-card realisation-microCompetence">
     <div class="realisation-header">
         <h3 class="realisation-titre">
-            {{  $entity->module }}
+            <a href="#">{{  $entity->microCompetence }}</a>
         </h3>
         <div class="realisation-soustitre"></div>
     </div>

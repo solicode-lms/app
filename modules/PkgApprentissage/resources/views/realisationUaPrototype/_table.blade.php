@@ -23,13 +23,13 @@
                 @endphp
                 <tr id="realisationUaPrototype-row-{{$realisationUaPrototype->id}}" data-id="{{$realisationUaPrototype->id}}">
                     <x-checkbox-row :item="$realisationUaPrototype" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 40%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationUaPrototype->realisationTache }}" >
+                    <td style="max-width: 40%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="realisation_tache_id" >
                         @include('PkgApprentissage::realisationUaPrototype.custom.fields.realisationTache', ['entity' => $realisationUaPrototype])
                     </td>
-                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="note"  data-toggle="tooltip" title="{{ $realisationUaPrototype->note }}" >
+                    <td style="max-width: 10%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="note" >
                         @include('PkgApprentissage::realisationUaPrototype.custom.fields.note', ['entity' => $realisationUaPrototype])
                     </td>
-                    <td style="max-width: 32%;" class=" text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="criteres_evaluation"  data-toggle="tooltip" title="{{ $realisationUaPrototype->criteres_evaluation }}" >
+                    <td style="max-width: 32%;white-space: normal;" class=" text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="criteres_evaluation" >
                         @include('PkgApprentissage::realisationUaPrototype.custom.fields.criteres_evaluation', ['entity' => $realisationUaPrototype])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

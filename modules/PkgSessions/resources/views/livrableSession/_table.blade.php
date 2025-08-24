@@ -24,21 +24,21 @@
                 @endphp
                 <tr id="livrableSession-row-{{$livrableSession->id}}" data-id="{{$livrableSession->id}}">
                     <x-checkbox-row :item="$livrableSession" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrableSession->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $livrableSession->ordre }}" >
+                    <td style="max-width: 4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrableSession->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $livrableSession->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrableSession->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $livrableSession->titre }}" >
+                    <td style="max-width: 26%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrableSession->id}}" data-field="titre">
                         {{ $livrableSession->titre }}
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrableSession->id}}" data-field="session_formation_id"  data-toggle="tooltip" title="{{ $livrableSession->sessionFormation }}" >
+                    <td style="max-width: 26%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrableSession->id}}" data-field="session_formation_id">
                         {{  $livrableSession->sessionFormation }}
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrableSession->id}}" data-field="nature_livrable_id"  data-toggle="tooltip" title="{{ $livrableSession->natureLivrable }}" >
+                    <td style="max-width: 26%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrableSession->id}}" data-field="nature_livrable_id">
                         {{  $livrableSession->natureLivrable }}
 
                     </td>

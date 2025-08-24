@@ -24,21 +24,21 @@
                 @endphp
                 <tr id="commentaireRealisationTache-row-{{$commentaireRealisationTache->id}}" data-id="{{$commentaireRealisationTache->id}}">
                     <x-checkbox-row :item="$commentaireRealisationTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$commentaireRealisationTache->id}}" data-field="commentaire"  data-toggle="tooltip" title="{{ $commentaireRealisationTache->commentaire }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$commentaireRealisationTache->id}}" data-field="commentaire">
                   
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($commentaireRealisationTache->commentaire, 30) !!}
                    
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$commentaireRealisationTache->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $commentaireRealisationTache->realisationTache }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$commentaireRealisationTache->id}}" data-field="realisation_tache_id">
                         {{  $commentaireRealisationTache->realisationTache }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$commentaireRealisationTache->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $commentaireRealisationTache->formateur }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$commentaireRealisationTache->id}}" data-field="formateur_id">
                         {{  $commentaireRealisationTache->formateur }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$commentaireRealisationTache->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $commentaireRealisationTache->apprenant }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$commentaireRealisationTache->id}}" data-field="apprenant_id">
                         {{  $commentaireRealisationTache->apprenant }}
 
                     </td>

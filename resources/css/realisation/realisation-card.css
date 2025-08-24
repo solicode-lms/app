@@ -1,142 +1,148 @@
-/* ========================= */
-/* 🎯 Carte Réalisation (compacte) */
-/* ========================= */
+/* ================================
+   🎨 Thèmes par type (tokens)
+   - Chaque type définit ses variables
+   ================================ */
 
-.realisation-card {
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.25rem; /* coins plus petits */
-    padding: 0.7rem 0.8rem; /* padding réduit */
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem; /* espace vertical réduit */
-    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-    white-space: normal;
-    word-break: break-word;
-    font-family: 'Inter', 'Segoe UI', sans-serif;
+/* Par défaut (au cas où) */
+.realisation-card{
+  --panel:#ffffff;
+  --stroke:#e5e7eb;
+
+  --ink:#0f172a;           /* texte principal */
+  --muted:#6b7280;         /* texte secondaire */
+
+  --accent:#2563eb;        /* couleur marque (liens, accents) */
+  --accent-strong:#1e40af; /* hover/dark */
+  --accent-soft:#eef2ff;   /* fonds doux / badges */
+  --accent-border:#bfdbfe; /* bordures d'accent */
 }
 
-/* 🎯 Variantes */
-.realisation-module { border-left: 3px solid #2563eb; }
-.realisation-ua { border-left: 3px solid #10b981; }
-.realisation-competence { border-left: 3px solid #9333ea; }
+/* Module – Bleu */
+.realisation-card.realisation-module{
+  --accent:#2563eb;
+  --accent-strong:#1e40af;
+  --accent-soft:#eef2ff;
+  --accent-border:#93c5fd;
+}
 
-/* ========================= */
-/* Header */
-/* ========================= */
-.realisation-header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem; /* espace réduit */
+/* UA – Vert */
+.realisation-card.realisation-ua{
+  --accent:#10b981;
+  --accent-strong:#047857;
+  --accent-soft:#e7f8f1;   /* doux, légèrement bleuté/vert */
+  --accent-border:#a7f3d0;
 }
-.realisation-titre {
-    font-size: 0.95rem; /* plus petit */
-    font-weight: 600;
-    color: #111827;
-    margin: 0;
-    line-height: 1.3;
+
+/* Compétence – Violet */
+.realisation-card.realisation-competence{
+  --accent:#9333ea;
+  --accent-strong:#6b21a8;
+  --accent-soft:#f3e8ff;
+  --accent-border:#d8b4fe;
 }
-.realisation-titre a {
-    color: #2563eb;
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.2s ease;
+
+/* ================================
+   🧩 Carte (structure)
+   ================================ */
+.realisation-card{
+  background: var(--panel);
+  border:1px solid var(--stroke);
+  border-left: 5px solid var(--accent);
+  border-radius:5px;
+  padding:8px 18px;
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  white-space: normal;
+  word-break: break-word;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* ================================
+   🧱 Header (titre + sous-titre)
+   ================================ */
+.realisation-header{
+  display:flex; flex-direction:column; gap:.2rem;
+}
+.realisation-titre{
+  font-size:.96rem; font-weight:700;
+  color: var(--ink); margin:0; line-height:1.3;
+}
+.realisation-titre a{
+  color: var(--accent); text-decoration:none; font-weight:700;
+  border-bottom: 1px solid transparent;
 }
 .realisation-titre a:hover,
-.realisation-titre a:focus {
-    color: #1e40af;
-    outline: none;
+.realisation-titre a:focus{
+  color: var(--accent-strong);
+  border-bottom-color: var(--accent-border);
+  outline:none;
 }
-.realisation-soustitre {
-    font-size: 0.75rem;
-    color: #6b7280;
-}
-
-/* ========================= */
-/* Infos (badges, état, note) */
-/* ========================= */
-.realisation-infos {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem; /* réduit */
-}
-.realisation-badge {
-    background-color: #f3f4f6;
-    color: #374151;
-    font-size: 0.7rem; /* plus petit */
-    padding: 0.15rem 0.4rem; /* compact */
-    border-radius: 999px;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.2rem;
-}
-/* .realisation-etat {
-    background-color: #e0f2fe;
-    color: #0369a1;
-} */
-.realisation-note {
-    background-color: #fef3c7;
-    color: #92400e;
+.realisation-soustitre{
+  font-size:.76rem; color: var(--muted);
 }
 
-/* ========================= */
-/* 📖 Lecture pédagogique (compacte) */
-/* ========================= */
-.realisation-lecture {
-    background: #fff;
-    border-left: 2px solid #2563eb;
-    padding: 0.4rem 0.7rem; /* plus compact */
-    font-size: 0.78rem; /* réduit */
-    line-height: 1.4;
-    color: #374151;
-    white-space: normal;
-    word-break: break-word;
+/* ================================
+   🏷️ Infos (badges, état, note)
+   ================================ */
+.realisation-infos{
+  display:flex; flex-wrap:wrap; gap:.3rem;
 }
-.realisation-lecture p { margin: 0.25rem 0; }
+.realisation-badge{
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  color: var(--ink);
+  font-size:.72rem; padding:.16rem .45rem; border-radius:999px; font-weight:600;
+  display:inline-flex; align-items:center; gap:.25rem;
+}
+
+/* Exemple de badge "note" (reste neutre, pas dépendant du type) */
+.realisation-note{
+  background:#fef3c7; color:#92400e; border:1px solid #fde68a;
+}
+
+/* ================================
+   📖 Lecture pédagogique
+   ================================ */
+.realisation-lecture{
+  background:#fff;
+  border-left: 2px solid var(--accent);
+  padding:.45rem .7rem; font-size:.82rem; line-height:1.45;
+  color:#374151; white-space:normal; word-break:break-word;
+}
+.realisation-lecture p{ margin:.28rem 0; }
 .realisation-lecture ul,
-.realisation-lecture ol {
-    margin: 0.3rem 0 0.3rem 1rem;
-    padding-left: 0.8rem;
-}
-.realisation-lecture li { margin-bottom: 0.15rem; }
+.realisation-lecture ol{ margin:.3rem 0 .3rem 1rem; padding-left:.8rem; }
+.realisation-lecture li{ margin-bottom:.16rem; }
 .realisation-lecture h4,
-.realisation-lecture h5 {
-    margin: 0.4rem 0 0.2rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #1f2937;
-}
-.realisation-lecture blockquote {
-    border-left: 2px solid #9333ea;
-    margin: 0.3rem 0;
-    padding: 0.3rem 0.6rem;
-    font-style: italic;
-    color: #4b5563;
-    background: #fafafa;
-    border-radius: 0.2rem;
-}
-.realisation-lecture a {
-    color: #2563eb;
-    font-weight: 500;
-    text-decoration: none;
-    border-bottom: 1px dotted #93c5fd;
-    transition: color 0.2s ease, border-color 0.2s ease;
-}
-.realisation-lecture a:hover {
-    color: #1e40af;
-    border-color: #2563eb;
+.realisation-lecture h5{
+  margin:.45rem 0 .25rem;
+  font-size:.86rem; font-weight:700; color:#1f2937;
 }
 
-/* ========================= */
-/* Footer */
-/* ========================= */
-.realisation-footer {
-    border-top: 1px solid #f3f4f6;
-    padding-top: 0.4rem; /* réduit */
-    font-size: 0.75rem; /* plus petit */
-    color: #374151;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
+/* Blockquote teintée selon le type */
+.realisation-lecture blockquote{
+  border-left: 2px solid var(--accent-strong);
+  margin:.35rem 0; padding:.35rem .65rem;
+  color:#4b5563; background: var(--accent-soft);
+  border-radius:.2rem; font-style:italic;
+}
+
+/* Liens de la lecture = thème */
+.realisation-lecture a{
+  color: var(--accent); font-weight:600; text-decoration:none;
+  border-bottom: 1px dotted var(--accent-border);
+}
+.realisation-lecture a:hover{
+  color: var(--accent-strong); border-bottom-color: var(--accent);
+}
+
+/* ================================
+   ⏹ Footer
+   ================================ */
+.realisation-footer{
+  border-top:1px solid #f3f4f6;
+  padding-top:.45rem; font-size:.76rem; color:#374151;
+  display:flex; align-items:center; gap:.35rem;
 }

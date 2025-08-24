@@ -22,11 +22,11 @@
                 @endphp
                 <tr id="specialite-row-{{$specialite->id}}" data-id="{{$specialite->id}}">
                     <x-checkbox-row :item="$specialite" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$specialite->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $specialite->nom }}" >
+                    <td style="max-width: 41%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$specialite->id}}" data-field="nom">
                         {{ $specialite->nom }}
 
                     </td>
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$specialite->id}}" data-field="formateurs"  data-toggle="tooltip" title="{{ $specialite->formateurs }}" >
+                    <td style="max-width: 41%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$specialite->id}}" data-field="formateurs">
                         <ul>
                             @foreach ($specialite->formateurs as $formateur)
                                 <li @if(strlen($formateur) > 30) data-toggle="tooltip" title="{{$formateur}}"  @endif>@limit($formateur, 30)</li>

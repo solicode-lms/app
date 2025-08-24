@@ -24,19 +24,19 @@
                 @endphp
                 <tr id="eRelationship-row-{{$eRelationship->id}}" data-id="{{$eRelationship->id}}">
                     <x-checkbox-row :item="$eRelationship" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eRelationship->id}}" data-field="name"  data-toggle="tooltip" title="{{ $eRelationship->name }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eRelationship->id}}" data-field="name">
                         {{ $eRelationship->name }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eRelationship->id}}" data-field="type"  data-toggle="tooltip" title="{{ $eRelationship->type }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eRelationship->id}}" data-field="type">
                         {{ $eRelationship->type }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eRelationship->id}}" data-field="source_e_model_id"  data-toggle="tooltip" title="{{ $eRelationship->sourceEModel }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eRelationship->id}}" data-field="source_e_model_id">
                         {{  $eRelationship->sourceEModel }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eRelationship->id}}" data-field="target_e_model_id"  data-toggle="tooltip" title="{{ $eRelationship->targetEModel }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eRelationship->id}}" data-field="target_e_model_id">
                         {{  $eRelationship->targetEModel }}
 
                     </td>

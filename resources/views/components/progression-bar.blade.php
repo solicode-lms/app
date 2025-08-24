@@ -7,7 +7,7 @@
 @endphp
 
 <div style="width: 100%">
-    <div class="progress progress-sm" style="height: 0.75rem;">
+    <div class="progress progress-sm" style="height: 0.85rem;">
         {{-- ✅ Progression atteinte (réelle jusqu'à l'idéal) --}}
         <div class="progress-bar bg-success" 
              style="width: {{ $atteint }}%;" 
@@ -42,12 +42,12 @@
         @endif
     </div>
 
-    <small class="text-muted">
+    {{-- <small class="text-muted">
         @if(!is_null($tauxRythme))
            ⚡ Rythme : <strong data-toggle="tooltip" title="{{ $tauxRythme }}% Rythme">{{ $tauxRythme }}%</strong>
         @else
           ✔️ <strong data-toggle="tooltip" title="{{ $progression }}% Réel">{{ $progression }}%</strong>
         | 🎯 <strong data-toggle="tooltip" title="{{ $progressionIdeal }}% Idéal">{{ $progressionIdeal }}%</strong>
         @endif
-    </small>
+    </small> --}}
 </div>

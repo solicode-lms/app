@@ -23,14 +23,14 @@
                 @endphp
                 <tr id="mobilisationUa-row-{{$mobilisationUa->id}}" data-id="{{$mobilisationUa->id}}">
                     <x-checkbox-row :item="$mobilisationUa" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 30%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$mobilisationUa->id}}" data-field="unite_apprentissage_id"  data-toggle="tooltip" title="{{ $mobilisationUa->uniteApprentissage }}" >
+                    <td style="max-width: 30%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$mobilisationUa->id}}" data-field="unite_apprentissage_id">
                         {{  $mobilisationUa->uniteApprentissage }}
 
                     </td>
-                    <td style="max-width: 25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$mobilisationUa->id}}" data-field="criteres_evaluation_prototype"  data-toggle="tooltip" title="{{ $mobilisationUa->criteres_evaluation_prototype }}" >
+                    <td style="max-width: 25%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$mobilisationUa->id}}" data-field="criteres_evaluation_prototype" >
                         @include('PkgCreationProjet::mobilisationUa.custom.fields.criteres_evaluation_prototype', ['entity' => $mobilisationUa])
                     </td>
-                    <td style="max-width: 25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$mobilisationUa->id}}" data-field="criteres_evaluation_projet"  data-toggle="tooltip" title="{{ $mobilisationUa->criteres_evaluation_projet }}" >
+                    <td style="max-width: 25%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$mobilisationUa->id}}" data-field="criteres_evaluation_projet" >
                         @include('PkgCreationProjet::mobilisationUa.custom.fields.criteres_evaluation_projet', ['entity' => $mobilisationUa])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

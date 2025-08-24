@@ -23,15 +23,15 @@
                 @endphp
                 <tr id="apprenant-row-{{$apprenant->id}}" data-id="{{$apprenant->id}}">
                     <x-checkbox-row :item="$apprenant" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="prenom"  data-toggle="tooltip" title="{{ $apprenant->prenom }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="prenom">
                         {{ $apprenant->prenom }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class=" text-truncate" data-id="{{$apprenant->id}}" data-field="duree_sans_terminer_tache"  data-toggle="tooltip" title="{{ $apprenant->duree_sans_terminer_tache }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class=" text-truncate" data-id="{{$apprenant->id}}" data-field="duree_sans_terminer_tache">
                             <x-duree-affichage :heures="$apprenant->duree_sans_terminer_tache" />
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="groupes"  data-toggle="tooltip" title="{{ $apprenant->groupes }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="groupes">
                         <ul>
                             @foreach ($apprenant->groupes as $groupe)
                                 <li @if(strlen($groupe) > 30) data-toggle="tooltip" title="{{$groupe}}"  @endif>@limit($groupe, 30)</li>

@@ -25,23 +25,23 @@
                 @endphp
                 <tr id="tache-row-{{$tache->id}}" data-id="{{$tache->id}}">
                     <x-checkbox-row :item="$tache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $tache->ordre }}" >
+                    <td style="max-width: 5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $tache->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
 
                     </td>
-                    <td style="max-width: 5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="priorite"  data-toggle="tooltip" title="{{ $tache->priorite }}" >
+                    <td style="max-width: 5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="priorite">
                         {{ $tache->priorite }}
 
                     </td>
-                    <td style="max-width: 40%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $tache->titre }}" >
+                    <td style="max-width: 40%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="titre" >
                         @include('PkgCreationTache::tache.custom.fields.titre', ['entity' => $tache])
                     </td>
-                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="note"  data-toggle="tooltip" title="{{ $tache->note }}" >
+                    <td style="max-width: 10%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="note" >
                         @include('PkgCreationTache::tache.custom.fields.note', ['entity' => $tache])
                     </td>
-                    <td style="max-width: 22%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="livrables"  data-toggle="tooltip" title="{{ $tache->livrables }}" >
+                    <td style="max-width: 22%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="livrables">
                         <ul>
                             @foreach ($tache->livrables as $livrable)
                                 <li @if(strlen($livrable) > 30) data-toggle="tooltip" title="{{$livrable}}"  @endif>@limit($livrable, 30)</li>

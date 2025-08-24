@@ -23,17 +23,17 @@
                 @endphp
                 <tr id="eModel-row-{{$eModel->id}}" data-id="{{$eModel->id}}">
                     <x-checkbox-row :item="$eModel" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 7%;" class=" text-truncate" data-id="{{$eModel->id}}" data-field="icone"  data-toggle="tooltip" title="{{ $eModel->icone }}" >
+                    <td style="max-width: 7%;white-space: normal;" class=" text-truncate" data-id="{{$eModel->id}}" data-field="icone">
                         <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
                             <i class="{{ $eModel->icone }}" ></i>
                         </div>
 
                     </td>
-                    <td style="max-width: 37.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eModel->id}}" data-field="name"  data-toggle="tooltip" title="{{ $eModel->name }}" >
+                    <td style="max-width: 37.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eModel->id}}" data-field="name">
                         {{ $eModel->name }}
 
                     </td>
-                    <td style="max-width: 37.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eModel->id}}" data-field="e_package_id"  data-toggle="tooltip" title="{{ $eModel->ePackage }}" >
+                    <td style="max-width: 37.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eModel->id}}" data-field="e_package_id">
                         {{  $eModel->ePackage }}
 
                     </td>

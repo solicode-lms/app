@@ -25,28 +25,28 @@
                 @endphp
                 <tr id="etatRealisationTache-row-{{$etatRealisationTache->id}}" data-id="{{$etatRealisationTache->id}}">
                     <x-checkbox-row :item="$etatRealisationTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $etatRealisationTache->ordre }}" >
+                    <td style="max-width: 4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $etatRealisationTache->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
 
                     </td>
-                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $etatRealisationTache->nom }}" >
+                    <td style="max-width: 19.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="nom">
                         {{ $etatRealisationTache->nom }}
 
                     </td>
-                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="workflow_tache_id"  data-toggle="tooltip" title="{{ $etatRealisationTache->workflowTache }}" >
+                    <td style="max-width: 19.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="workflow_tache_id">
                         {{  $etatRealisationTache->workflowTache }}
 
                     </td>
-                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatRealisationTache->sysColor }}" >
+                    <td style="max-width: 19.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="sys_color_id">
                         <x-badge 
                         :text="$etatRealisationTache->sysColor->name ?? ''" 
                         :background="$etatRealisationTache->sysColor->hex ?? '#6c757d'" 
                         />
 
                     </td>
-                    <td style="max-width: 19.5%;" class=" text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $etatRealisationTache->formateur }}" >
+                    <td style="max-width: 19.5%;white-space: normal;" class=" text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="formateur_id">
                         {{  $etatRealisationTache->formateur }}
 
                     </td>

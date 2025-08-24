@@ -22,11 +22,11 @@
                 @endphp
                 <tr id="livrable-row-{{$livrable->id}}" data-id="{{$livrable->id}}">
                     <x-checkbox-row :item="$livrable" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrable->id}}" data-field="nature_livrable_id"  data-toggle="tooltip" title="{{ $livrable->natureLivrable }}" >
+                    <td style="max-width: 41%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrable->id}}" data-field="nature_livrable_id">
                         {{  $livrable->natureLivrable }}
 
                     </td>
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrable->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $livrable->titre }}" >
+                    <td style="max-width: 41%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrable->id}}" data-field="titre">
                         {{ $livrable->titre }}
 
                     </td>

@@ -26,14 +26,14 @@
                 @endphp
                 <tr id="realisationProjet-row-{{$realisationProjet->id}}" data-id="{{$realisationProjet->id}}">
                     <x-checkbox-row :item="$realisationProjet" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 13.4%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="affectation_projet_id"  data-toggle="tooltip" title="{{ $realisationProjet->affectationProjet }}" >
+                    <td style="max-width: 13.4%;white-space: normal;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="affectation_projet_id" >
                         @include('PkgRealisationProjets::realisationProjet.custom.fields.affectationProjet', ['entity' => $realisationProjet])
                     </td>
-                    <td style="max-width: 13.4%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $realisationProjet->apprenant }}" >
+                    <td style="max-width: 13.4%;white-space: normal;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="apprenant_id">
                         {{  $realisationProjet->apprenant }}
 
                     </td>
-                    <td style="max-width: 13.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="etats_realisation_projet_id"  data-toggle="tooltip" title="{{ $realisationProjet->etatsRealisationProjet }}" >
+                    <td style="max-width: 13.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="etats_realisation_projet_id">
                         @if(!empty($realisationProjet->etatsRealisationProjet))
                         <x-badge 
                         :text="$realisationProjet->etatsRealisationProjet" 
@@ -42,13 +42,13 @@
                         @endif
 
                     </td>
-                    <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="progression_validation_cache"  data-toggle="tooltip" title="{{ $realisationProjet->progression_validation_cache }}" >
+                    <td style="max-width: 15%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="progression_validation_cache" >
                         @include('PkgRealisationProjets::realisationProjet.custom.fields.progression_validation_cache', ['entity' => $realisationProjet])
                     </td>
-                    <td style="max-width: 13.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="note_cache"  data-toggle="tooltip" title="{{ $realisationProjet->note_cache }}" >
+                    <td style="max-width: 13.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="note_cache" >
                         @include('PkgRealisationProjets::realisationProjet.custom.fields.note_cache', ['entity' => $realisationProjet])
                     </td>
-                    <td style="max-width: 13.4%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="LivrablesRealisation"  data-toggle="tooltip" title="{{ $realisationProjet->livrablesRealisations }}" >
+                    <td style="max-width: 13.4%;white-space: normal;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="LivrablesRealisation" >
                         @include('PkgRealisationProjets::realisationProjet.custom.fields.livrablesRealisations', ['entity' => $realisationProjet])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

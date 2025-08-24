@@ -24,21 +24,21 @@
                 @endphp
                 <tr id="sysModule-row-{{$sysModule->id}}" data-id="{{$sysModule->id}}">
                     <x-checkbox-row :item="$sysModule" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModule->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $sysModule->ordre }}" >
+                    <td style="max-width: 4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModule->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $sysModule->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModule->id}}" data-field="name"  data-toggle="tooltip" title="{{ $sysModule->name }}" >
+                    <td style="max-width: 26%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModule->id}}" data-field="name">
                         {{ $sysModule->name }}
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModule->id}}" data-field="is_active"  data-toggle="tooltip" title="{{ $sysModule->is_active }}" >
+                    <td style="max-width: 26%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModule->id}}" data-field="is_active">
                         {{ $sysModule->is_active }}
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModule->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $sysModule->sysColor }}" >
+                    <td style="max-width: 26%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModule->id}}" data-field="sys_color_id">
                         <x-badge 
                         :text="$sysModule->sysColor->name ?? ''" 
                         :background="$sysModule->sysColor->hex ?? '#6c757d'" 

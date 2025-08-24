@@ -25,19 +25,19 @@
                 @endphp
                 <tr id="evaluationRealisationProjet-row-{{$evaluationRealisationProjet->id}}" data-id="{{$evaluationRealisationProjet->id}}">
                     <x-checkbox-row :item="$evaluationRealisationProjet" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="realisation_projet_id"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->realisationProjet }}" >
+                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="realisation_projet_id">
                         {{  $evaluationRealisationProjet->realisationProjet }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="nomApprenant"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->nomApprenant }}" >
+                    <td style="max-width: 16.4%;white-space: normal;" class=" text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="nomApprenant">
                         {{ $evaluationRealisationProjet->nomApprenant }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="evaluateur_id"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->evaluateur }}" >
+                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="evaluateur_id">
                         {{  $evaluationRealisationProjet->evaluateur }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="etat_evaluation_projet_id"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->etatEvaluationProjet }}" >
+                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="etat_evaluation_projet_id">
                         @if(!empty($evaluationRealisationProjet->etatEvaluationProjet))
                         <x-badge 
                         :text="$evaluationRealisationProjet->etatEvaluationProjet" 
@@ -46,7 +46,7 @@
                         @endif
 
                     </td>
-                    <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="note"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->note }}" >
+                    <td style="max-width: 16.4%;white-space: normal;" class=" text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="note" >
                         @include('PkgEvaluateurs::evaluationRealisationProjet.custom.fields.note', ['entity' => $evaluationRealisationProjet])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

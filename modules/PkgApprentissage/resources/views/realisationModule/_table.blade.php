@@ -23,13 +23,13 @@
                 @endphp
                 <tr id="realisationModule-row-{{$realisationModule->id}}" data-id="{{$realisationModule->id}}">
                     <x-checkbox-row :item="$realisationModule" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 35%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="module_id"  data-toggle="tooltip" title="{{ $realisationModule->module }}" >
+                    <td style="max-width: 35%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="module_id" >
                         @include('PkgApprentissage::realisationModule.custom.fields.module', ['entity' => $realisationModule])
                     </td>
-                    <td style="max-width: 20%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="progression_cache"  data-toggle="tooltip" title="{{ $realisationModule->progression_cache }}" >
+                    <td style="max-width: 20%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="progression_cache" >
                         @include('PkgApprentissage::realisationModule.custom.fields.progression_cache', ['entity' => $realisationModule])
                     </td>
-                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="note_cache"  data-toggle="tooltip" title="{{ $realisationModule->note_cache }}" >
+                    <td style="max-width: 10%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="note_cache" >
                         @include('PkgApprentissage::realisationModule.custom.fields.note_cache', ['entity' => $realisationModule])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

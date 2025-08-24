@@ -23,13 +23,13 @@
                 @endphp
                 <tr id="realisationTache-row-{{$realisationTache->id}}" data-id="{{$realisationTache->id}}">
                     <x-checkbox-row :item="$realisationTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 40%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="tache_id"  data-toggle="tooltip" title="{{ $realisationTache->tache }}" >
+                    <td style="max-width: 40%;white-space: normal;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="tache_id" >
                         @include('PkgRealisationTache::realisationTache.custom.fields.tache', ['entity' => $realisationTache])
                     </td>
-                    <td style="max-width: 20%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationTache->id}}" data-field="etat_realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationTache->etatRealisationTache }}" >
+                    <td style="max-width: 20%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationTache->id}}" data-field="etat_realisation_tache_id" >
                         @include('PkgRealisationTache::realisationTache.custom.fields.etatRealisationTache', ['entity' => $realisationTache])
                     </td>
-                    <td style="max-width: 20%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="nombre_livrables"  data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >
+                    <td style="max-width: 20%;white-space: normal;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="nombre_livrables" >
                         @include('PkgRealisationTache::realisationTache.custom.fields.nombre_livrables', ['entity' => $realisationTache])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

@@ -21,7 +21,7 @@
                 @endphp
                 <tr id="natureLivrable-row-{{$natureLivrable->id}}" data-id="{{$natureLivrable->id}}">
                     <x-checkbox-row :item="$natureLivrable" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 82%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$natureLivrable->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $natureLivrable->nom }}" >
+                    <td style="max-width: 82%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$natureLivrable->id}}" data-field="nom">
                         {{ $natureLivrable->nom }}
 
                     </td>

@@ -23,17 +23,17 @@
                 @endphp
                 <tr id="phaseEvaluation-row-{{$phaseEvaluation->id}}" data-id="{{$phaseEvaluation->id}}">
                     <x-checkbox-row :item="$phaseEvaluation" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$phaseEvaluation->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $phaseEvaluation->ordre }}" >
+                    <td style="max-width: 4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$phaseEvaluation->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $phaseEvaluation->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
 
                     </td>
-                    <td style="max-width: 39%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$phaseEvaluation->id}}" data-field="code"  data-toggle="tooltip" title="{{ $phaseEvaluation->code }}" >
+                    <td style="max-width: 39%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$phaseEvaluation->id}}" data-field="code">
                         {{ $phaseEvaluation->code }}
 
                     </td>
-                    <td style="max-width: 39%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$phaseEvaluation->id}}" data-field="libelle"  data-toggle="tooltip" title="{{ $phaseEvaluation->libelle }}" >
+                    <td style="max-width: 39%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$phaseEvaluation->id}}" data-field="libelle">
                         {{ $phaseEvaluation->libelle }}
 
                     </td>

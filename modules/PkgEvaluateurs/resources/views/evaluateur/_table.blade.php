@@ -24,19 +24,19 @@
                 @endphp
                 <tr id="evaluateur-row-{{$evaluateur->id}}" data-id="{{$evaluateur->id}}">
                     <x-checkbox-row :item="$evaluateur" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $evaluateur->nom }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="nom">
                         {{ $evaluateur->nom }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="prenom"  data-toggle="tooltip" title="{{ $evaluateur->prenom }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="prenom">
                         {{ $evaluateur->prenom }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="organism"  data-toggle="tooltip" title="{{ $evaluateur->organism }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="organism">
                         {{ $evaluateur->organism }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="user_id"  data-toggle="tooltip" title="{{ $evaluateur->user }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="user_id">
                         {{  $evaluateur->user }}
 
                     </td>

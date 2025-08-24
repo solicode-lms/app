@@ -23,15 +23,15 @@
                 @endphp
                 <tr id="eMetadatum-row-{{$eMetadatum->id}}" data-id="{{$eMetadatum->id}}">
                     <x-checkbox-row :item="$eMetadatum" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadatum->id}}" data-field="e_model_id"  data-toggle="tooltip" title="{{ $eMetadatum->eModel }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadatum->id}}" data-field="e_model_id">
                         {{  $eMetadatum->eModel }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadatum->id}}" data-field="e_data_field_id"  data-toggle="tooltip" title="{{ $eMetadatum->eDataField }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadatum->id}}" data-field="e_data_field_id">
                         {{  $eMetadatum->eDataField }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadatum->id}}" data-field="e_metadata_definition_id"  data-toggle="tooltip" title="{{ $eMetadatum->eMetadataDefinition }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadatum->id}}" data-field="e_metadata_definition_id" >
                         @include('PkgGapp::eMetadatum.custom.fields.eMetadataDefinition', ['entity' => $eMetadatum])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

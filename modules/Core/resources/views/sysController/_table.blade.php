@@ -24,21 +24,21 @@
                 @endphp
                 <tr id="sysController-row-{{$sysController->id}}" data-id="{{$sysController->id}}">
                     <x-checkbox-row :item="$sysController" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysController->id}}" data-field="sys_module_id"  data-toggle="tooltip" title="{{ $sysController->sysModule }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysController->id}}" data-field="sys_module_id">
                         {{  $sysController->sysModule }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysController->id}}" data-field="name"  data-toggle="tooltip" title="{{ $sysController->name }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysController->id}}" data-field="name">
                         {{ $sysController->name }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysController->id}}" data-field="is_active"  data-toggle="tooltip" title="{{ $sysController->is_active }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysController->id}}" data-field="is_active">
                         <span class="{{ $sysController->is_active ? 'text-success' : 'text-danger' }}">
                             {{ $sysController->is_active ? 'Oui' : 'Non' }}
                         </span>
 
                     </td>
-                    <td style="max-width: 20.5%;" class=" text-truncate" data-id="{{$sysController->id}}" data-field="Permission"  data-toggle="tooltip" title="{{ $sysController->controllerIdPermissions }}" >
+                    <td style="max-width: 20.5%;white-space: normal;" class=" text-truncate" data-id="{{$sysController->id}}" data-field="Permission">
                         <ul>
                             @foreach ($sysController->controllerIdPermissions as $permission)
                                 <li>{{$permission}} </li>

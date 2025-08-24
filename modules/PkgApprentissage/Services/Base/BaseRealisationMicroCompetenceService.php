@@ -359,10 +359,8 @@ class BaseRealisationMicroCompetenceService extends BaseService
     {
         return [
             'micro_competence_id',
-            'apprenant_id',
             'note_cache',
             'progression_cache',
-            'etat_realisation_micro_competence_id',
             'realisation_competence_id',
             'lien_livrable'
         ];
@@ -413,44 +411,12 @@ class BaseRealisationMicroCompetenceService extends BaseService
                         'values' => $values,
                     ],
                 ]);
-            case 'apprenant_id':
-                 $values = (new \Modules\PkgApprenants\Services\ApprenantService())
-                    ->getAllForSelect($e->apprenant)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
-
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
             case 'note_cache':
                 return $this->computeFieldMeta($e, $field, $meta, 'number');
 
             case 'progression_cache':
                 return $this->computeFieldMeta($e, $field, $meta, 'number');
 
-            case 'etat_realisation_micro_competence_id':
-                 $values = (new \Modules\PkgApprentissage\Services\EtatRealisationMicroCompetenceService())
-                    ->getAllForSelect($e->etatRealisationMicroCompetence)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
-
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
             case 'realisation_competence_id':
                  $values = (new \Modules\PkgApprentissage\Services\RealisationCompetenceService())
                     ->getAllForSelect($e->realisationCompetence)
@@ -509,28 +475,13 @@ class BaseRealisationMicroCompetenceService extends BaseService
         foreach ($fields as $field) {
             switch ($field) {
                 case 'micro_competence_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'microCompetence'
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgApprentissage::realisationMicroCompetence.custom.fields.microCompetence', [
+                        'entity' => $e
                     ])->render();
+
                     $out[$field] = ['html' => $html];
                     break;
-
-
-
-                case 'apprenant_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'apprenant'
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-
-
 
                 case 'note_cache':
                     // Vue custom définie pour ce champ
@@ -549,18 +500,6 @@ class BaseRealisationMicroCompetenceService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
-
-                case 'etat_realisation_micro_competence_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => 'badge',
-                        'relationName' => 'etatRealisationMicroCompetence'
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-
-
 
                 case 'realisation_competence_id':
                     $html = view('Core::fields_by_type.manytoone', [

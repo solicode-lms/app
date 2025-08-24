@@ -23,17 +23,17 @@
                 @endphp
                 <tr id="notification-row-{{$notification->id}}" data-id="{{$notification->id}}">
                     <x-checkbox-row :item="$notification" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$notification->id}}" data-field="title"  data-toggle="tooltip" title="{{ $notification->title }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$notification->id}}" data-field="title">
                         {{ $notification->title }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$notification->id}}" data-field="message"  data-toggle="tooltip" title="{{ $notification->message }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$notification->id}}" data-field="message">
                   
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($notification->message, 30) !!}
                    
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$notification->id}}" data-field="sent_at"  data-toggle="tooltip" title="{{ $notification->sent_at }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$notification->id}}" data-field="sent_at">
                         <x-deadline-display :value="$notification->sent_at" />
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

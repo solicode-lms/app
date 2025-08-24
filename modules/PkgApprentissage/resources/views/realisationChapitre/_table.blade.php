@@ -23,10 +23,10 @@
                 @endphp
                 <tr id="realisationChapitre-row-{{$realisationChapitre->id}}" data-id="{{$realisationChapitre->id}}">
                     <x-checkbox-row :item="$realisationChapitre" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 40%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="chapitre_id"  data-toggle="tooltip" title="{{ $realisationChapitre->chapitre }}" >
+                    <td style="max-width: 40%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="chapitre_id" >
                         @include('PkgApprentissage::realisationChapitre.custom.fields.chapitre', ['entity' => $realisationChapitre])
                     </td>
-                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="etat_realisation_chapitre_id"  data-toggle="tooltip" title="{{ $realisationChapitre->etatRealisationChapitre }}" >
+                    <td style="max-width: 10%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="etat_realisation_chapitre_id">
                         @if(!empty($realisationChapitre->etatRealisationChapitre))
                         <x-badge 
                         :text="$realisationChapitre->etatRealisationChapitre" 
@@ -35,7 +35,7 @@
                         @endif
 
                     </td>
-                    <td style="max-width: 32%;" class=" text-truncate" data-id="{{$realisationChapitre->id}}" data-field="apprenant"  data-toggle="tooltip" title="{{ $realisationChapitre->apprenant }}" >
+                    <td style="max-width: 32%;white-space: normal;" class=" text-truncate" data-id="{{$realisationChapitre->id}}" data-field="apprenant">
                         {{ $realisationChapitre->apprenant }}
 
                     </td>

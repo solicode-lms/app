@@ -22,11 +22,11 @@
                 @endphp
                 <tr id="resource-row-{{$resource->id}}" data-id="{{$resource->id}}">
                     <x-checkbox-row :item="$resource" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$resource->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $resource->nom }}" >
+                    <td style="max-width: 41%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$resource->id}}" data-field="nom">
                         {{ $resource->nom }}
 
                     </td>
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$resource->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $resource->lien }}" >
+                    <td style="max-width: 41%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$resource->id}}" data-field="lien">
      @if($resource->lien)
     <a href="{{ $resource->lien }}" target="_blank">
         <i class="fas fa-link"></i>

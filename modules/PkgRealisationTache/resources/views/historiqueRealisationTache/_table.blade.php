@@ -23,16 +23,16 @@
                 @endphp
                 <tr id="historiqueRealisationTache-row-{{$historiqueRealisationTache->id}}" data-id="{{$historiqueRealisationTache->id}}">
                     <x-checkbox-row :item="$historiqueRealisationTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 50%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="changement"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->changement }}" >
+                    <td style="max-width: 50%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="changement">
                   
                         {!! $historiqueRealisationTache->changement !!}
                  
 
                     </td>
-                    <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="dateModification"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->dateModification }}" >
+                    <td style="max-width: 15%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="dateModification" >
                         @include('PkgRealisationTache::historiqueRealisationTache.custom.fields.dateModification', ['entity' => $historiqueRealisationTache])
                     </td>
-                    <td style="max-width: 17%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="user_id"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->user }}" >
+                    <td style="max-width: 17%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="user_id">
                         {{  $historiqueRealisationTache->user }}
 
                     </td>

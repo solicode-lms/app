@@ -23,15 +23,15 @@
                 @endphp
                 <tr id="feature-row-{{$feature->id}}" data-id="{{$feature->id}}">
                     <x-checkbox-row :item="$feature" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$feature->id}}" data-field="name"  data-toggle="tooltip" title="{{ $feature->name }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$feature->id}}" data-field="name">
                         {{ $feature->name }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$feature->id}}" data-field="feature_domain_id"  data-toggle="tooltip" title="{{ $feature->featureDomain }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$feature->id}}" data-field="feature_domain_id">
                         {{  $feature->featureDomain }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$feature->id}}" data-field="permissions"  data-toggle="tooltip" title="{{ $feature->permissions }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$feature->id}}" data-field="permissions">
                         <ul>
                             @foreach ($feature->permissions as $permission)
                                 <li @if(strlen($permission) > 30) data-toggle="tooltip" title="{{$permission}}"  @endif>@limit($permission, 30)</li>

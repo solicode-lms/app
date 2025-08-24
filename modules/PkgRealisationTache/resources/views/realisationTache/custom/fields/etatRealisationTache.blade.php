@@ -1,4 +1,4 @@
-<div class="realisation-etat">
+<div class="realisation-etat"  style="--etat-color: {{ $entity->etatRealisationTache->sysColor->hex ?? '#6c757d' }};">
     <x-badge 
         :text="Str::limit($entity->etatRealisationTache->nom ?? '', 20)" 
         :background="$entity->etatRealisationTache->sysColor->hex ?? '#6c757d'" 
@@ -12,7 +12,8 @@
     @endphp
     @if($dateModification)
         <span class="etat-meta" title="Date de dernière modification" data-toggle="tooltip">
-            <i class="far fa-clock"></i> {{ $dateModification->diffForHumans() }}
+             <i class="fas fa-history"></i>
+            {{ $dateModification->diffForHumans() }}
         </span>
     @endif
 

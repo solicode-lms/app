@@ -9,12 +9,9 @@
                     $bulkEdit = $realisationCompetences_permissions['edit-realisationCompetence'] || $realisationCompetences_permissions['destroy-realisationCompetence'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="10.4" field="competence_id" modelname="realisationCompetence" label="{!!ucfirst(__('PkgCompetences::competence.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="30" field="realisation_module_id" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationCompetence.realisation_module_id'))!!}" />
-                <x-sortable-column :sortable="true" width="10.4" field="apprenant_id" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="10.4"  field="progression_cache" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationCompetence.progression_cache'))!!}" />
-                <x-sortable-column :sortable="true" width="10.4"  field="note_cache" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationCompetence.note_cache'))!!}" />
-                <x-sortable-column :sortable="true" width="10.4" field="etat_realisation_competence_id" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationCompetence.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="competence_id" modelname="realisationCompetence" label="{!!ucfirst(__('PkgCompetences::competence.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="progression_cache" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationCompetence.progression_cache'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="note_cache" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationCompetence.note_cache'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -26,32 +23,14 @@
                 @endphp
                 <tr id="realisationCompetence-row-{{$realisationCompetence->id}}" data-id="{{$realisationCompetence->id}}">
                     <x-checkbox-row :item="$realisationCompetence" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 10.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $realisationCompetence->competence }}" >
-                        {{  $realisationCompetence->competence }}
-
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="competence_id" >
+                        @include('PkgApprentissage::realisationCompetence.custom.fields.competence', ['entity' => $realisationCompetence])
                     </td>
-                    <td style="max-width: 30%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="realisation_module_id"  data-toggle="tooltip" title="{{ $realisationCompetence->realisationModule }}" >
-                        {{  $realisationCompetence->realisationModule }}
-
-                    </td>
-                    <td style="max-width: 10.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $realisationCompetence->apprenant }}" >
-                        {{  $realisationCompetence->apprenant }}
-
-                    </td>
-                    <td style="max-width: 10.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="progression_cache"  data-toggle="tooltip" title="{{ $realisationCompetence->progression_cache }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="progression_cache" >
                         @include('PkgApprentissage::realisationCompetence.custom.fields.progression_cache', ['entity' => $realisationCompetence])
                     </td>
-                    <td style="max-width: 10.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="note_cache"  data-toggle="tooltip" title="{{ $realisationCompetence->note_cache }}" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="note_cache" >
                         @include('PkgApprentissage::realisationCompetence.custom.fields.note_cache', ['entity' => $realisationCompetence])
-                    </td>
-                    <td style="max-width: 10.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="etat_realisation_competence_id"  data-toggle="tooltip" title="{{ $realisationCompetence->etatRealisationCompetence }}" >
-                        @if(!empty($realisationCompetence->etatRealisationCompetence))
-                        <x-badge 
-                        :text="$realisationCompetence->etatRealisationCompetence" 
-                        :background="$realisationCompetence->etatRealisationCompetence->sysColor->hex ?? '#6c757d'" 
-                        />
-                        @endif
-
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 

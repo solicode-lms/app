@@ -27,19 +27,19 @@
                 @endphp
                 <tr id="widget-row-{{$widget->id}}" data-id="{{$widget->id}}">
                     <x-checkbox-row :item="$widget" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $widget->ordre }}" >
+                    <td style="max-width: 4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $widget->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
 
                     </td>
-                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="icon"  data-toggle="tooltip" title="{{ $widget->icon }}" >
+                    <td style="max-width: 4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="icon">
                         <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
                             <i class="{{ $widget->icon }}" ></i>
                         </div>
 
                     </td>
-                    <td style="max-width: 19%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="name"  data-toggle="tooltip" title="{{ $widget->name }}" >
+                    <td style="max-width: 19%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="name">
                     <x-badge 
                         :text="$widget->name ?? ''" 
                         :background="$widget->sysColor->hex ?? '#6c757d'" 
@@ -47,22 +47,22 @@
 
 
                     </td>
-                    <td style="max-width: 19%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="label"  data-toggle="tooltip" title="{{ $widget->label }}" >
+                    <td style="max-width: 19%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="label">
                         {{ $widget->label }}
 
                     </td>
-                    <td style="max-width: 7%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="type_id"  data-toggle="tooltip" title="{{ $widget->type }}" >
+                    <td style="max-width: 7%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="type_id">
                         {{  $widget->type }}
 
                     </td>
-                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="roles"  data-toggle="tooltip" title="{{ $widget->roles }}" >
+                    <td style="max-width: 10%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="roles">
                         <ul>
                             @foreach ($widget->roles as $role)
                                 <li @if(strlen($role) > 30) data-toggle="tooltip" title="{{$role}}"  @endif>@limit($role, 30)</li>
                             @endforeach
                         </ul>
                     </td>
-                    <td style="max-width: 19%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="section_widget_id"  data-toggle="tooltip" title="{{ $widget->sectionWidget }}" >
+                    <td style="max-width: 19%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="section_widget_id">
                         {{  $widget->sectionWidget }}
 
                     </td>

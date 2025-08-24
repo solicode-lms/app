@@ -24,20 +24,20 @@
                 @endphp
                 <tr id="critereEvaluation-row-{{$critereEvaluation->id}}" data-id="{{$critereEvaluation->id}}">
                     <x-checkbox-row :item="$critereEvaluation" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$critereEvaluation->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $critereEvaluation->ordre }}" >
+                    <td style="max-width: 4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$critereEvaluation->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $critereEvaluation->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
 
                     </td>
-                    <td style="max-width: 40%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$critereEvaluation->id}}" data-field="intitule"  data-toggle="tooltip" title="{{ $critereEvaluation->intitule }}" >
+                    <td style="max-width: 40%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$critereEvaluation->id}}" data-field="intitule" >
                         @include('PkgCompetences::critereEvaluation.custom.fields.intitule', ['entity' => $critereEvaluation])
                     </td>
-                    <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$critereEvaluation->id}}" data-field="phase_evaluation_id"  data-toggle="tooltip" title="{{ $critereEvaluation->phaseEvaluation }}" >
+                    <td style="max-width: 15%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$critereEvaluation->id}}" data-field="phase_evaluation_id">
                         {{  $critereEvaluation->phaseEvaluation }}
 
                     </td>
-                    <td style="max-width: 23%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$critereEvaluation->id}}" data-field="unite_apprentissage_id"  data-toggle="tooltip" title="{{ $critereEvaluation->uniteApprentissage }}" >
+                    <td style="max-width: 23%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$critereEvaluation->id}}" data-field="unite_apprentissage_id">
                         {{  $critereEvaluation->uniteApprentissage }}
 
                     </td>
