@@ -1,0 +1,1 @@
+{{ $entity->code }} - {{ $entity->nom }}

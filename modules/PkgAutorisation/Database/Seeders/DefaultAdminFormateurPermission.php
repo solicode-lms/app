@@ -8,16 +8,16 @@ use Modules\PkgAutorisation\Models\Permission;
 
 
 // php artisan db:seed --class="Modules\PkgAutorisation\Database\Seeders\DefaultFormateurPermission"
-class DefaultFormateurPermission extends Seeder
+class DefaultAdminFormateurPermission extends Seeder
 {
     public static int $order = 1000;
 
     public function run(): void
     {
-        $formateurRole = Role::where('name', Role::FORMATEUR_ROLE)->first();
+        $adminFormateurRole = Role::where('name', Role::ADMIN_FORMATEUR_ROLE)->first();
 
-        if (!$formateurRole) {
-            $this->command->error('Rôle "formateur" introuvable.');
+        if (!$adminFormateurRole) {
+            $this->command->error('Rôle "admin formateur" introuvable.');
             return;
         }
 
@@ -43,36 +43,36 @@ class DefaultFormateurPermission extends Seeder
             'sousGroupe' => 'Afficher',
             'apprenant' => 'Lecture,initPassword',
             'natureLivrable' => 'Afficher',
-            'projet' => 'Édition,Extraction,clonerProjet',
-            'livrable' => 'Édition',
-            'resource' => 'Édition',
-            'mobilisationUa' => 'Édition',
-            'affectationProjet' => 'Édition,Extraction',
-            'etatsRealisationProjet' => 'Édition',
-            'livrablesRealisation' => 'Édition',
-            'realisationProjet' => 'Édition',
-            'commentaireRealisationTache' => 'Édition',
-            'etatRealisationTache' => 'Édition',
+            'projet' => 'Lecture',
+            'livrable' => 'Lecture',
+            'resource' => 'Lecture',
+            'mobilisationUa' => 'Lecture',
+            'affectationProjet' => 'Lecture',
+            'etatsRealisationProjet' => 'Lecture',
+            'livrablesRealisation' => 'Lecture',
+            'realisationProjet' => 'Lecture',
+            'commentaireRealisationTache' => 'Lecture',
+            'etatRealisationTache' => 'Lecture',
             'historiqueRealisationTache' => 'Lecture',
-            'realisationTache' => 'Édition sans Ajouter',
+            'realisationTache' => 'Lecture sans Ajouter',
             'workflowTache' => 'Afficher',
-            'tache' => 'Édition',
+            'tache' => 'Lecture',
             'notification' => 'Lecture',
             'widget' => 'Lecture',
             'sectionWidget' => 'Afficher',
             'widgetUtilisateur' => 'Édition',
-            'realisationChapitre' => 'Édition sans Ajouter',
-            'realisationUaProjet' => 'Édition sans Ajouter',
-            'realisationUaPrototype' => 'Édition sans Ajouter',
+            'realisationChapitre' => 'Lecture',
+            'realisationUaProjet' => 'Lecture',
+            'realisationUaPrototype' => 'Lecture',
             'realisationMicroCompetence' => 'Lecture',
             'realisationCompetence' => 'Lecture',
             'realisationModule' => 'Lecture',
             'etatRealisationMicroCompetence' => 'Lecture',
-            'sessionFormation' => 'Lecture',
+            'sessionFormation' => 'Édition sans Ajouter',
             'etatRealisationUa' => 'Afficher',
             'etatRealisationChapitre' => 'Afficher',
             'realisationUa' => 'Lecture',
-            'alignementUa' => 'Lecture',
+            'alignementUa' => 'Édition',
             'livrableSession' => 'Lecture',
         ];
 
@@ -103,7 +103,7 @@ class DefaultFormateurPermission extends Seeder
                     $permission = Permission::where('name', $permissionName)->first();
 
                     // Associer la permission au rôle "formateur"
-                    $formateurRole->givePermissionTo($permission);
+                    $adminFormateurRole->givePermissionTo($permission);
                 }
             }
         }

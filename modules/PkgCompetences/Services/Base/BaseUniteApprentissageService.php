@@ -304,9 +304,7 @@ class BaseUniteApprentissageService extends BaseService
     {
         return [
             'ordre',
-            'code',
             'nom',
-            'nom_filiere',
             'micro_competence_id',
             'lien',
             'Chapitre'
@@ -345,11 +343,7 @@ class BaseUniteApprentissageService extends BaseService
             case 'ordre':
                 return $this->computeFieldMeta($e, $field, $meta, 'number');
 
-            case 'code':
-                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'nom':
-                return $this->computeFieldMeta($e, $field, $meta, 'string');
-            case 'nom_filiere':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'micro_competence_id':
                  $values = (new \Modules\PkgCompetences\Services\MicroCompetenceService())
@@ -418,41 +412,23 @@ class BaseUniteApprentissageService extends BaseService
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
-                case 'code':
-                    $html = view('Core::fields_by_type.string', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => ''
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
                 case 'nom':
-                    $html = view('Core::fields_by_type.string', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => ''
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgCompetences::uniteApprentissage.custom.fields.nom', [
+                        'entity' => $e
                     ])->render();
+
                     $out[$field] = ['html' => $html];
                     break;
-                case 'nom_filiere':
-                    $html = view('Core::fields_by_type.string', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => ''
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
+
                 case 'micro_competence_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'microCompetence'
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgCompetences::uniteApprentissage.custom.fields.microCompetence', [
+                        'entity' => $e
                     ])->render();
+
                     $out[$field] = ['html' => $html];
                     break;
-
-
 
                 case 'lien':
                     $html = view('Core::fields_by_type.string', [

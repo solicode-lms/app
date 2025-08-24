@@ -1,10 +1,5 @@
 
-<div class="col-12 col-md-12">
-<label for="EvaluationRealisationTache">
-        Liste des unités d'apprentissage non alignées
-</label>
-    @include('PkgCompetences::uniteApprentissage._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'alignementUa.create'])
-</div>
+
 
 
 

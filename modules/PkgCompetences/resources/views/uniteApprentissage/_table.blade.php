@@ -10,12 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="uniteApprentissage" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.ordre'))!!}" />
-                <x-sortable-column :sortable="true" width="9"  field="code" modelname="uniteApprentissage" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.code'))!!}" />
                 <x-sortable-column :sortable="true" width="20"  field="nom" modelname="uniteApprentissage" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.nom'))!!}" />
-                <x-sortable-column :sortable="true" width="14"  field="nom_filiere" modelname="uniteApprentissage" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.nom_filiere'))!!}" />
-                <x-sortable-column :sortable="true" width="15" field="micro_competence_id" modelname="uniteApprentissage" label="{!!ucfirst(__('PkgCompetences::microCompetence.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="6"  field="lien" modelname="uniteApprentissage" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.lien'))!!}" />
-                <x-sortable-column :sortable="false" width="14"  field="Chapitre" modelname="uniteApprentissage" label="{!!ucfirst(__('PkgCompetences::chapitre.plural'))!!}" />
+                <x-sortable-column :sortable="true" width="20" field="micro_competence_id" modelname="uniteApprentissage" label="{!!ucfirst(__('PkgCompetences::microCompetence.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="5"  field="lien" modelname="uniteApprentissage" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.lien'))!!}" />
+                <x-sortable-column :sortable="false" width="33"  field="Chapitre" modelname="uniteApprentissage" label="{!!ucfirst(__('PkgCompetences::chapitre.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -27,29 +25,19 @@
                 @endphp
                 <tr id="uniteApprentissage-row-{{$uniteApprentissage->id}}" data-id="{{$uniteApprentissage->id}}">
                     <x-checkbox-row :item="$uniteApprentissage" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $uniteApprentissage->ordre }}" >
+                    <td style="max-width: 4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $uniteApprentissage->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
 
                     </td>
-                    <td style="max-width: 9%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="code"  data-toggle="tooltip" title="{{ $uniteApprentissage->code }}" >
-                        {{ $uniteApprentissage->code }}
-
+                    <td style="max-width: 20%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="nom" >
+                        @include('PkgCompetences::uniteApprentissage.custom.fields.nom', ['entity' => $uniteApprentissage])
                     </td>
-                    <td style="max-width: 20%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $uniteApprentissage->nom }}" >
-                        {{ $uniteApprentissage->nom }}
-
+                    <td style="max-width: 20%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="micro_competence_id" >
+                        @include('PkgCompetences::uniteApprentissage.custom.fields.microCompetence', ['entity' => $uniteApprentissage])
                     </td>
-                    <td style="max-width: 14%;" class=" text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="nom_filiere"  data-toggle="tooltip" title="{{ $uniteApprentissage->nom_filiere }}" >
-                        {{ $uniteApprentissage->nom_filiere }}
-
-                    </td>
-                    <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="micro_competence_id"  data-toggle="tooltip" title="{{ $uniteApprentissage->microCompetence }}" >
-                        {{  $uniteApprentissage->microCompetence }}
-
-                    </td>
-                    <td style="max-width: 6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $uniteApprentissage->lien }}" >
+                    <td style="max-width: 5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="lien">
      @if($uniteApprentissage->lien)
     <a href="{{ $uniteApprentissage->lien }}" target="_blank">
         <i class="fas fa-link"></i>
@@ -60,7 +48,7 @@
 
 
                     </td>
-                    <td style="max-width: 14%;" class=" text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="Chapitre"  data-toggle="tooltip" title="{{ $uniteApprentissage->chapitres }}" >
+                    <td style="max-width: 33%;white-space: normal;" class=" text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="Chapitre">
                         <ul>
                             @foreach ($uniteApprentissage->chapitres as $chapitre)
                                 <li>{{$chapitre}} </li>

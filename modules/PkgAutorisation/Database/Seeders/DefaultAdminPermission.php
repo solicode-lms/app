@@ -23,7 +23,7 @@ class DefaultAdminPermission extends Seeder
 
      
          $permissionsMap = [
-            'sysColor' => 'Lecture',
+            'sysColor' => 'Afficher',
             'profile' => 'Édition sans Ajouter',
             'competence' => 'Édition',
             'microCompetence' => 'Édition',

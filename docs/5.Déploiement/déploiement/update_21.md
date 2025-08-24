@@ -25,6 +25,10 @@ php artisan db:seed --class=Modules\Core\Database\Seeders\Base\BaseSysColorSeede
 # PkgAutorisation
 php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\DefaultApprenantPermission
 php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\DefaultFormateurPermission
+php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\DefaultAdminFormateurPermission
+
+
+
 php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\DefaultAdminPermission
 php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\DefaultGappPermission
 
@@ -74,3 +78,13 @@ php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\WidgetTypeSeeder
 php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\WidgetSeeder
 
 ````
+
+
+
+## Exercice pratique pour les formateur : 
+
+ajouter les unité non aligné au session de formation existant 
+
+Il existe 7 unité d'apprentissage non aligné que vous devez ajouter à leurs session de formation
+
+L'objectif de cet exercice et de maîtriser l'utilisation des alignement des unité d’apprentissage et découvrir les session de formation existant

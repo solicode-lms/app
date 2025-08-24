@@ -459,7 +459,8 @@
     },
     {
         "reference": "UniteApprentissage_code_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "UniteApprentissage_code",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -516,7 +517,7 @@
     {
         "reference": "UniteApprentissage_lien_columnWidth",
         "value_boolean": 1,
-        "value_integer": 6,
+        "value_integer": 5,
         "value_float": 0,
         "e_data_field_reference": "UniteApprentissage_lien",
         "e_metadata_definition_reference": "columnWidth"
@@ -539,7 +540,7 @@
     {
         "reference": "UniteApprentissage_micro_competence_id_columnWidth",
         "value_boolean": 1,
-        "value_integer": 15,
+        "value_integer": 20,
         "value_float": 0,
         "e_data_field_reference": "UniteApprentissage_micro_competence_id",
         "e_metadata_definition_reference": "columnWidth"
@@ -675,7 +676,7 @@
     },
     {
         "reference": "UniteApprentissage_nom_filiere_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
         "value_float": 0,
         "e_data_field_reference": "UniteApprentissage_nom_filiere",
         "e_metadata_definition_reference": "displayInTable"
