@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use JsonSerializable;
+use Modules\Core\App\Exceptions\BlException;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgAutorisation\Services\UserService;
@@ -118,7 +119,7 @@ class SessionState implements JsonSerializable
             } else {
                 if ($role === Role::APPRENANT_ROLE) {
                     Auth::logout();
-                    throw new Exception("L'apprenant est en état inactive");
+                    throw new BlException("L'apprenant est en état inactive");
                 }
             }
         }

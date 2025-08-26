@@ -13,6 +13,7 @@ use Modules\PkgCreationProjet\Models\NatureLivrable;
 use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\PkgSessions\Models\SessionFormation;
+use Modules\Core\App\Exceptions\BlException;
 
 /**
  * Classe ProjetService pour gérer la persistance de l'entité Projet.
@@ -39,7 +40,7 @@ class ProjetService extends BaseProjetService
             $formateurId = $this->sessionState->get('formateur_id');
 
             if (!$formateurId) {
-                throw new \Exception("Impossible de récupérer l'identifiant du formateur depuis la session.");
+                throw new BlException("Impossible de récupérer l'identifiant du formateur depuis la session.");
             }
 
             $data['formateur_id'] = $formateurId;
@@ -77,7 +78,7 @@ class ProjetService extends BaseProjetService
         $affectations = $projet->affectationProjets()->count();
 
         if ($affectations > 0) {
-            throw new \Exception("Impossible de supprimer ce projet : il est encore affecté à un ou plusieurs groupes. Supprimez d'abord les affectations avant de supprimer le projet.");
+            throw new BlException("Impossible de supprimer ce projet : il est encore affecté à un ou plusieurs groupes. Supprimez d'abord les affectations avant de supprimer le projet.");
         }
     }
 
@@ -88,7 +89,7 @@ class ProjetService extends BaseProjetService
         if (isset($projet['session_formation_id'])) {
             $original = $this->model->find($projet['id'] ?? null);
             if ($original && $original->session_formation_id != $projet['session_formation_id']) {
-                throw new \Exception('La session de formation ne peut pas être modifiée une fois le projet créé.');
+                throw new BlException('La session de formation ne peut pas être modifiée une fois le projet créé.');
             }
         }
     }
@@ -310,7 +311,7 @@ class ProjetService extends BaseProjetService
             }
         } else {
             // Gestion si l’utilisateur n’est pas formateur : lève une exception ou retourne une erreur personnalisée
-            throw new \Exception("Seuls les formateurs peuvent cloner un projet.");
+            throw new BlException("Seuls les formateurs peuvent cloner un projet.");
             // ou retourne false avec message d’erreur selon la convention de ton service
             // return false;
         }

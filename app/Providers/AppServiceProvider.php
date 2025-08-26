@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
+use App\Exceptions\Handler as AppHandler;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+
+        $this->app->singleton(ExceptionHandler::class, AppHandler::class);
+
         // Charger dynamiquement tous les ServiceProviders des modules.
         $this->loadModuleServiceProviders();
         

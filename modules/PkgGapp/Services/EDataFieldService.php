@@ -5,6 +5,7 @@
 namespace Modules\PkgGapp\Services;
 use Modules\PkgGapp\Services\Base\BaseEDataFieldService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Modules\Core\App\Exceptions\BlException;
 use Modules\Core\App\Traits\GappCommands;
 use Modules\PkgGapp\Models\EMetadataDefinition;
 use Modules\PkgGapp\Models\EMetadatum;
@@ -180,7 +181,7 @@ class EDataFieldService extends BaseEDataFieldService
         $definition = EMetadataDefinition::where('reference', $reference)->first();
 
         if (!$definition) {
-            throw new \Exception("La metadata definition '{$reference}' est introuvable.");
+            throw new BlException("La metadata definition '{$reference}' est introuvable.");
         }
 
         EMetadatum::updateOrCreate(
@@ -220,7 +221,7 @@ class EDataFieldService extends BaseEDataFieldService
         $definition = EMetadataDefinition::where('reference', 'displayOrder')->first();
 
         if (!$definition) {
-            throw new \Exception("La metadata definition 'displayOrder' est introuvable.");
+            throw new BlException("La metadata definition 'displayOrder' est introuvable.");
         }
 
         // 1. Récupérer tous les champs du modèle concerné

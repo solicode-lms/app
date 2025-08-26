@@ -5,6 +5,7 @@ namespace Modules\PkgRealisationProjets\Services;
 use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Modules\Core\App\Exceptions\BlException;
 use Modules\Core\App\Jobs\TraitementCrudJob;
 use Modules\Core\App\Manager\JobManager;
 use Modules\PkgApprenants\Services\GroupeService;
@@ -390,7 +391,7 @@ public function deletedObserverJob(int $id, string $token): void
         });
 
         if ($hasNonTodo) {
-            throw new \Exception("Impossible de supprimer cette affectation : au moins une réalisation de projet a un état différent de 'À faire'. Veuillez réinitialiser tous les états à 'À faire' avant de procéder à la suppression.");
+            throw new BlException("Impossible de supprimer cette affectation : au moins une réalisation de projet a un état différent de 'À faire'. Veuillez réinitialiser tous les états à 'À faire' avant de procéder à la suppression.");
         }
     }
 

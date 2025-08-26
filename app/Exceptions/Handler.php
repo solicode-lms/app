@@ -6,6 +6,8 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Throwable;
+use Illuminate\Http\Response;
+use Modules\Core\App\Exceptions\BlException;
 
 class Handler extends ExceptionHandler
 {
@@ -22,5 +24,24 @@ class Handler extends ExceptionHandler
                 'user_id'   => Auth::id(),
             ]);
         });
+    }
+
+    public function render($request, Throwable $e)
+    {
+        if ($e instanceof BlException) {
+            $message = $e->getMessage();
+               
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $message,
+                ], 400);
+            }
+
+            return redirect()->back()->with('error', $message);
+        }
+
+        // ⚙️ Fallback : laisser Laravel gérer les autres exceptions
+        return parent::render($request, $e);
     }
 }
