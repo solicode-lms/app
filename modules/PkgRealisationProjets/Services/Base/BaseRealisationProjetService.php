@@ -338,10 +338,7 @@ class BaseRealisationProjetService extends BaseService
     {
         return [
             'affectation_projet_id',
-            'apprenant_id',
             'etats_realisation_projet_id',
-            'progression_validation_cache',
-            'note_cache',
             'LivrablesRealisation'
         ];
     }
@@ -391,22 +388,6 @@ class BaseRealisationProjetService extends BaseService
                         'values' => $values,
                     ],
                 ]);
-            case 'apprenant_id':
-                 $values = (new \Modules\PkgApprenants\Services\ApprenantService())
-                    ->getAllForSelect($e->apprenant)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
-
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
             case 'etats_realisation_projet_id':
                  $values = (new \Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService())
                     ->getAllForSelect($e->etatsRealisationProjet)
@@ -423,12 +404,6 @@ class BaseRealisationProjetService extends BaseService
                         'values' => $values,
                     ],
                 ]);
-            case 'progression_validation_cache':
-                return $this->computeFieldMeta($e, $field, $meta, 'number');
-
-            case 'note_cache':
-                return $this->computeFieldMeta($e, $field, $meta, 'number');
-
             case 'LivrablesRealisation':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
             default:
@@ -479,42 +454,9 @@ class BaseRealisationProjetService extends BaseService
                     $out[$field] = ['html' => $html];
                     break;
 
-                case 'apprenant_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'apprenant'
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-
-
-
                 case 'etats_realisation_projet_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => 'badge',
-                        'relationName' => 'etatsRealisationProjet'
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-
-
-
-                case 'progression_validation_cache':
                     // Vue custom définie pour ce champ
-                    $html = view('PkgRealisationProjets::realisationProjet.custom.fields.progression_validation_cache', [
-                        'entity' => $e
-                    ])->render();
-
-                    $out[$field] = ['html' => $html];
-                    break;
-
-                case 'note_cache':
-                    // Vue custom définie pour ce champ
-                    $html = view('PkgRealisationProjets::realisationProjet.custom.fields.note_cache', [
+                    $html = view('PkgRealisationProjets::realisationProjet.custom.fields.etatsRealisationProjet', [
                         'entity' => $e
                     ])->render();
 

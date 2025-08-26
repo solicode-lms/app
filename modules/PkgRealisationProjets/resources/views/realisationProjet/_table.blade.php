@@ -9,12 +9,9 @@
                     $bulkEdit = $realisationProjets_permissions['edit-realisationProjet'] || $realisationProjets_permissions['destroy-realisationProjet'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="13.4" field="affectation_projet_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="13.4" field="apprenant_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="13.4" field="etats_realisation_projet_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.etats_realisation_projet_id'))!!}" />
-                <x-sortable-column :sortable="true" width="15"  field="progression_validation_cache" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.progression_validation_cache'))!!}" />
-                <x-sortable-column :sortable="true" width="13.4"  field="note_cache" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.note_cache'))!!}" />
-                <x-sortable-column :sortable="true" width="13.4"  field="LivrablesRealisation" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.livrables'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="affectation_projet_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="etats_realisation_projet_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.etats_realisation_projet_id'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="LivrablesRealisation" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.livrables'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -26,29 +23,13 @@
                 @endphp
                 <tr id="realisationProjet-row-{{$realisationProjet->id}}" data-id="{{$realisationProjet->id}}">
                     <x-checkbox-row :item="$realisationProjet" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 13.4%;white-space: normal;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="affectation_projet_id" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="affectation_projet_id" >
                         @include('PkgRealisationProjets::realisationProjet.custom.fields.affectationProjet', ['entity' => $realisationProjet])
                     </td>
-                    <td style="max-width: 13.4%;white-space: normal;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="apprenant_id">
-                        {{  $realisationProjet->apprenant }}
-
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="etats_realisation_projet_id" >
+                        @include('PkgRealisationProjets::realisationProjet.custom.fields.etatsRealisationProjet', ['entity' => $realisationProjet])
                     </td>
-                    <td style="max-width: 13.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="etats_realisation_projet_id">
-                        @if(!empty($realisationProjet->etatsRealisationProjet))
-                        <x-badge 
-                        :text="$realisationProjet->etatsRealisationProjet" 
-                        :background="$realisationProjet->etatsRealisationProjet->sysColor->hex ?? '#6c757d'" 
-                        />
-                        @endif
-
-                    </td>
-                    <td style="max-width: 15%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="progression_validation_cache" >
-                        @include('PkgRealisationProjets::realisationProjet.custom.fields.progression_validation_cache', ['entity' => $realisationProjet])
-                    </td>
-                    <td style="max-width: 13.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="note_cache" >
-                        @include('PkgRealisationProjets::realisationProjet.custom.fields.note_cache', ['entity' => $realisationProjet])
-                    </td>
-                    <td style="max-width: 13.4%;white-space: normal;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="LivrablesRealisation" >
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="LivrablesRealisation" >
                         @include('PkgRealisationProjets::realisationProjet.custom.fields.livrablesRealisations', ['entity' => $realisationProjet])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

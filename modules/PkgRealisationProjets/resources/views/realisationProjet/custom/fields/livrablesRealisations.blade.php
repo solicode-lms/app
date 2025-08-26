@@ -1,6 +1,17 @@
-<ul class="livrable">
+<ul class="livrables-list">
     @once
         @php
+
+            if (!function_exists('normalize')) {
+                function normalize($string) {
+                    $string = strtolower($string);
+                    $string = preg_replace('/\s+/', '', $string);
+                    $string = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $string);
+                    $string = preg_replace('/[^a-z0-9]/', '', $string);
+                    return $string;
+                }
+            }
+
             if (!function_exists('iconLivrable')) {
                 function iconLivrable($type) {
                     return [
@@ -29,18 +40,21 @@
     @foreach ($entity->livrablesRealisations as $livrablesRealisation)
         @php
             $livrable = $livrablesRealisation->livrable;
-            $titre = $livrable?->titre ?? 'Livrable';
+            $titre1 = normalize($livrablesRealisation->livrable?->titre ?? '');
+            $titre2 = normalize($livrablesRealisation->titre ?? 'Livrable');
             $lien = $livrablesRealisation->lien;
             $icon = iconLivrable($livrable?->natureLivrable?->nom ?? '');
         @endphp
-        <li class="text-truncate">
-            @if ($lien)
-                <a href="{{ $lien }}" target="_blank" class="d-block text-truncate">
-                    <i class="{{ $icon }}"></i> {{ $titre }}
-                </a>
-            @else
-                <span class="text-muted"><i class="{{ $icon }}"></i> {{ $titre }} — (aucun lien)</span>
-            @endif
+        <li class="livrable-card livrable-realise">
+                    <i class="{{ $icon }}"></i>
+                    <div class="livrable-content">
+                        <a href="{{ $lien }}" target="_blank" class="livrable-titre">
+                            {{ $titre1 ?? '—' }}
+                        </a>
+                        @if ($titre1 !== $titre2)
+                            <div class="livrable-sous-titre">— {{ $titre2 }}</div>
+                        @endif
+                    </div>
         </li>
     @endforeach
 
@@ -50,9 +64,12 @@
             $titre = $livrable->titre;
             $icon = iconLivrable($livrable?->natureLivrable?->nom ?? '');
         @endphp
-        <li class="text-danger livrable-manquant text-truncate">
-            <i class="{{ $icon }}"></i> {{ $titre }}
-            <span class="d-block text-muted small" title="Non encore déposé">— Livrable non soumis</span>
+        <li class="livrable-card livrable-manquant">
+                    <i class="{{ $icon }}"></i>
+                    <div class="livrable-content">
+                        <div class="livrable-titre">{{ $titre }}</div>
+                        <div class="livrable-sous-titre">— Livrable non soumis</div>
+                    </div>
         </li>
     @endforeach
 </ul>

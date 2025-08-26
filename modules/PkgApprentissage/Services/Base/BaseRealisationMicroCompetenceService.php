@@ -27,8 +27,8 @@ class BaseRealisationMicroCompetenceService extends BaseService
     protected $fieldsSearchable = [
         'micro_competence_id',
         'apprenant_id',
-        'note_cache',
         'progression_cache',
+        'note_cache',
         'etat_realisation_micro_competence_id',
         'bareme_cache',
         'commentaire_formateur',
@@ -359,9 +359,8 @@ class BaseRealisationMicroCompetenceService extends BaseService
     {
         return [
             'micro_competence_id',
-            'note_cache',
             'progression_cache',
-            'realisation_competence_id',
+            'note_cache',
             'lien_livrable'
         ];
     }
@@ -411,28 +410,12 @@ class BaseRealisationMicroCompetenceService extends BaseService
                         'values' => $values,
                     ],
                 ]);
-            case 'note_cache':
-                return $this->computeFieldMeta($e, $field, $meta, 'number');
-
             case 'progression_cache':
                 return $this->computeFieldMeta($e, $field, $meta, 'number');
 
-            case 'realisation_competence_id':
-                 $values = (new \Modules\PkgApprentissage\Services\RealisationCompetenceService())
-                    ->getAllForSelect($e->realisationCompetence)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
+            case 'note_cache':
+                return $this->computeFieldMeta($e, $field, $meta, 'number');
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
             case 'lien_livrable':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
             default:
@@ -483,15 +466,6 @@ class BaseRealisationMicroCompetenceService extends BaseService
                     $out[$field] = ['html' => $html];
                     break;
 
-                case 'note_cache':
-                    // Vue custom définie pour ce champ
-                    $html = view('PkgApprentissage::realisationMicroCompetence.custom.fields.note_cache', [
-                        'entity' => $e
-                    ])->render();
-
-                    $out[$field] = ['html' => $html];
-                    break;
-
                 case 'progression_cache':
                     // Vue custom définie pour ce champ
                     $html = view('PkgApprentissage::realisationMicroCompetence.custom.fields.progression_cache', [
@@ -501,17 +475,14 @@ class BaseRealisationMicroCompetenceService extends BaseService
                     $out[$field] = ['html' => $html];
                     break;
 
-                case 'realisation_competence_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'realisationCompetence'
+                case 'note_cache':
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgApprentissage::realisationMicroCompetence.custom.fields.note_cache', [
+                        'entity' => $e
                     ])->render();
+
                     $out[$field] = ['html' => $html];
                     break;
-
-
 
                 case 'lien_livrable':
                     $html = view('Core::fields_by_type.string', [

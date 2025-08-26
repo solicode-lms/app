@@ -303,9 +303,7 @@ class BaseMobilisationUaService extends BaseService
     public function getFieldsEditable(): array
     {
         return [
-            'unite_apprentissage_id',
-            'criteres_evaluation_prototype',
-            'criteres_evaluation_projet'
+            'unite_apprentissage_id'
         ];
     }
 
@@ -354,12 +352,6 @@ class BaseMobilisationUaService extends BaseService
                         'values' => $values,
                     ],
                 ]);
-            case 'criteres_evaluation_prototype':
-                return $this->computeFieldMeta($e, $field, $meta, 'text');
-
-            case 'criteres_evaluation_projet':
-                return $this->computeFieldMeta($e, $field, $meta, 'text');
-
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
         }
@@ -410,24 +402,6 @@ class BaseMobilisationUaService extends BaseService
                     break;
 
 
-
-                case 'criteres_evaluation_prototype':
-                    // Vue custom définie pour ce champ
-                    $html = view('PkgCreationProjet::mobilisationUa.custom.fields.criteres_evaluation_prototype', [
-                        'entity' => $e
-                    ])->render();
-
-                    $out[$field] = ['html' => $html];
-                    break;
-
-                case 'criteres_evaluation_projet':
-                    // Vue custom définie pour ce champ
-                    $html = view('PkgCreationProjet::mobilisationUa.custom.fields.criteres_evaluation_projet', [
-                        'entity' => $e
-                    ])->render();
-
-                    $out[$field] = ['html' => $html];
-                    break;
 
 
                 default:

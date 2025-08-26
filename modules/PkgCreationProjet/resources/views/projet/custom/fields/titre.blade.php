@@ -1,15 +1,8 @@
 <article class="projet-card">
     <header class="projet-titre">
         <h2>{{ $entity->titre }}</h2>
-        <small>Projet #{{ $entity->id }}</small>
+        <small>Session : {{ $entity->sessionFormation->titre }}</small>
     </header>
-
-    <section class="projet-section">
-        <h3><i class="fas fa-calendar-alt"></i> Session de formation</h3>
-        <ul class="projet-ressources">
-            <li><i class="fas fa-chalkboard-teacher"></i>{{ $entity->sessionFormation->titre }}</li>
-        </ul>
-    </section>
 
     <section class="projet-section">
         <h3><i class="fas fa-users"></i> Affectations</h3>

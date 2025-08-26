@@ -18,27 +18,30 @@
 }
 
 /* Module – Bleu */
+/* Module — Bleu */
 .realisation-card.realisation-module{
-  --accent:#2563eb;
-  --accent-strong:#1e40af;
-  --accent-soft:#eef2ff;
-  --accent-border:#93c5fd;
+  --accent:#1752b8;                     /* bleu royal */
+  --accent-strong:#124293;
+  --accent-soft: color-mix(in srgb, var(--accent) 12%, #ffffff);
+  --accent-border: color-mix(in srgb, var(--accent) 28%, #e5e7eb);
 }
 
 /* UA – Vert */
 .realisation-card.realisation-ua{
-  --accent:#10b981;
-  --accent-strong:#047857;
-  --accent-soft:#e7f8f1;   /* doux, légèrement bleuté/vert */
-  --accent-border:#a7f3d0;
+  /* Teal élégant (UA) */
+  --accent:        #17a2b8;  /* couleur principale */
+  --accent-strong: #0f7e8e;  /* hover / titres accentués */
+  --accent-soft:   #eef9fb;  /* fonds doux (badges, surlignage) */
+  --accent-border: #b9e6ee;  /* bordures subtiles */
 }
 
 /* Compétence – Violet */
 .realisation-card.realisation-competence{
-  --accent:#9333ea;
-  --accent-strong:#6b21a8;
-  --accent-soft:#f3e8ff;
-  --accent-border:#d8b4fe;
+  /* Violet élégant (Compétence) */
+  --accent:        #7c3aed;  /* principal, moins saturé que #9333ea */
+  --accent-strong: #5b21b6;  /* hover / titres accentués */
+  --accent-soft:   #f5f0ff;  /* fonds doux (badges, surlignage) */
+  --accent-border: #d8ccff;  /* bordures subtiles */
 }
 
 /* ================================

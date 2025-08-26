@@ -20,9 +20,6 @@ export class EditAction extends CrudAction {
 
     init(){
         this.handleEditEntity() ;
-
-        // TODO : pour edit et create ?
-        this.handleSubmitForm();
     }
 
     /**

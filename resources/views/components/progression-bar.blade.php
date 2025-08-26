@@ -2,7 +2,6 @@
     $atteint = min($progression, $progressionIdeal);
     $retard = max(0, $progressionIdeal - $progression);
     $avance = max(0, $progression - $progressionIdeal);
-
     $showTextThreshold = 12; // largeur min pour afficher texte %
 @endphp
 

@@ -25,16 +25,7 @@
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.etats_realisation_projet_id')) }}</small>
-
-                {{-- Affichage sous forme de badge --}}
-                @if($itemRealisationProjet->etatsRealisationProjet)
-                  <x-badge 
-                    :text="$itemRealisationProjet->etatsRealisationProjet" 
-                    :background="$itemRealisationProjet->etatsRealisationProjet->sysColor->hex ?? '#6c757d'" 
-                  />
-                @else
-                  <span class="text-muted">—</span>
-                @endif
+@include('PkgRealisationProjets::realisationProjet.custom.fields.etatsRealisationProjet',['entity' => $itemRealisationProjet])
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">

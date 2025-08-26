@@ -50,7 +50,7 @@
         } elseif ($progression > 0) {
             $icone = 'fas fa-battery-quarter text-danger';
         } else {
-            $icone = 'fas fa-battery-empty text-muted';
+            $icone = 'fas fa-battery-empty text-danger';
         }
         @endphp
 

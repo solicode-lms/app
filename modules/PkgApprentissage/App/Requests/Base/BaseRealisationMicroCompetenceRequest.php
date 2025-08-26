@@ -31,8 +31,8 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
         return [
             'micro_competence_id' => 'required',
             'apprenant_id' => 'required',
-            'note_cache' => 'nullable',
             'progression_cache' => 'required',
+            'note_cache' => 'nullable',
             'etat_realisation_micro_competence_id' => 'nullable',
             'bareme_cache' => 'nullable',
             'commentaire_formateur' => 'nullable|string',
@@ -56,8 +56,8 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
         return [
             'micro_competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.micro_competence_id')]),
             'apprenant_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.apprenant_id')]),
-            'note_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.note_cache')]),
             'progression_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.progression_cache')]),
+            'note_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.note_cache')]),
             'etat_realisation_micro_competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.etat_realisation_micro_competence_id')]),
             'bareme_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.bareme_cache')]),
             'commentaire_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.commentaire_formateur')]),
@@ -84,9 +84,9 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
             
             'apprenant_id' => "root",
             
-            'note_cache' => "root",
-            
             'progression_cache' => "root",
+            
+            'note_cache' => "root",
             
             'etat_realisation_micro_competence_id' => "root",
             

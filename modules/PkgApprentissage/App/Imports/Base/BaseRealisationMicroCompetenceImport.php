@@ -59,8 +59,8 @@ class BaseRealisationMicroCompetenceImport implements ToModel, WithHeadingRow
         return new RealisationMicroCompetence([
              'micro_competence_id' => $values[0] ?? null,
              'apprenant_id' => $values[1] ?? null,
-             'note_cache' => $values[2] ?? null,
-             'progression_cache' => $values[3] ?? null,
+             'progression_cache' => $values[2] ?? null,
+             'note_cache' => $values[3] ?? null,
              'etat_realisation_micro_competence_id' => $values[4] ?? null,
              'bareme_cache' => $values[5] ?? null,
              'commentaire_formateur' => $values[6] ?? null,

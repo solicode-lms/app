@@ -493,14 +493,14 @@
     },
     {
         "reference": "MobilisationUa_criteres_evaluation_projet_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
         "value_float": 0,
         "e_data_field_reference": "MobilisationUa_criteres_evaluation_projet",
         "e_metadata_definition_reference": "displayInTable"
     },
     {
         "reference": "MobilisationUa_criteres_evaluation_prototype_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
         "value_float": 0,
         "e_data_field_reference": "MobilisationUa_criteres_evaluation_prototype",
         "e_metadata_definition_reference": "displayInTable"

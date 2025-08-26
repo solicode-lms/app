@@ -75,9 +75,16 @@ export class CreateAction extends CrudAction {
                     if (traitement_token) {
                         this.pollTraitementStatus(traitement_token, () => {
                            this.handleSuccess(this.SuscesMessage);
+                           if(this.config.edit_has_many){
+                                this.tableUI.entityEditor.editEntity(data.data.entity_id);
+                           }
+                           
                         });
                     }else{
                        this.handleSuccess(this.SuscesMessage);
+                         if(this.config.edit_has_many){
+                                this.tableUI.entityEditor.editEntity(data.data.entity_id);
+                           }
                     }
 
 

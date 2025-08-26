@@ -27,7 +27,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_id_displayOrder",
-        "value_integer": 12,
+        "value_integer": 13,
         "e_data_field_reference": "RealisationMicroCompetence_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -69,7 +69,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_reference_displayOrder",
-        "value_integer": 13,
+        "value_integer": 14,
         "e_data_field_reference": "RealisationMicroCompetence_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -201,7 +201,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_progression_cache_displayOrder",
-        "value_integer": 4,
+        "value_integer": 3,
         "e_data_field_reference": "RealisationMicroCompetence_progression_cache",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -246,7 +246,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_note_cache_displayOrder",
-        "value_integer": 3,
+        "value_integer": 4,
         "e_data_field_reference": "RealisationMicroCompetence_note_cache",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -573,7 +573,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_created_at_displayOrder",
-        "value_integer": 15,
+        "value_integer": 17,
         "e_data_field_reference": "RealisationMicroCompetence_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -609,7 +609,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_updated_at_displayOrder",
-        "value_integer": 14,
+        "value_integer": 16,
         "e_data_field_reference": "RealisationMicroCompetence_updated_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -731,7 +731,8 @@
     },
     {
         "reference": "RealisationMicroCompetence_realisation_competence_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_realisation_competence_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -749,7 +750,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_realisation_competence_id_displayOrder",
-        "value_integer": 11,
+        "value_integer": 12,
         "e_data_field_reference": "RealisationMicroCompetence_realisation_competence_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -787,7 +788,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_lien_livrable_displayOrder",
-        "value_integer": 14,
+        "value_integer": 15,
         "e_data_field_reference": "RealisationMicroCompetence_lien_livrable",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -966,7 +967,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_progression_ideal_cache_displayOrder",
-        "value_integer": 17,
+        "value_integer": 18,
         "e_data_field_reference": "RealisationMicroCompetence_progression_ideal_cache",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -1008,7 +1009,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_taux_rythme_cache_displayOrder",
-        "value_integer": 18,
+        "value_integer": 19,
         "e_data_field_reference": "RealisationMicroCompetence_taux_rythme_cache",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -1041,5 +1042,21 @@
         "value_boolean": 1,
         "e_data_field_reference": "RealisationMicroCompetence_taux_rythme_cache",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationMicroCompetence_lien_livrable_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 7,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationMicroCompetence_lien_livrable",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "RealisationMicroCompetence_note_cache_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 10,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationMicroCompetence_note_cache",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]

@@ -207,7 +207,7 @@ export class CellOrchestrator extends CrudAction {
                     setTimeout(() => {
                         this.editCount = Math.max(0, this.editCount - 1);
                         this.tableUI.loadListAction.loadEntities();
-                    }, 3000);
+                    }, 800);
 
                 });
         }, 500);

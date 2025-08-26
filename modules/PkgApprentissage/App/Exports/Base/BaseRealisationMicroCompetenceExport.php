@@ -34,8 +34,8 @@ class BaseRealisationMicroCompetenceExport implements FromCollection, WithHeadin
             return [
                 'micro_competence_reference' => 'micro_competence_reference',
                 'apprenant_reference' => 'apprenant_reference',
-                'note_cache' => 'note_cache',
                 'progression_cache' => 'progression_cache',
+                'note_cache' => 'note_cache',
                 'etat_realisation_micro_competence_reference' => 'etat_realisation_micro_competence_reference',
                 'bareme_cache' => 'bareme_cache',
                 'commentaire_formateur' => 'commentaire_formateur',
@@ -52,8 +52,8 @@ class BaseRealisationMicroCompetenceExport implements FromCollection, WithHeadin
             return [
                 'micro_competence_reference' => __('PkgCompetences::microCompetence.singular'),
                 'apprenant_reference' => __('PkgApprenants::apprenant.singular'),
-                'note_cache' => __('PkgApprentissage::realisationMicroCompetence.note_cache'),
                 'progression_cache' => __('PkgApprentissage::realisationMicroCompetence.progression_cache'),
+                'note_cache' => __('PkgApprentissage::realisationMicroCompetence.note_cache'),
                 'etat_realisation_micro_competence_reference' => __('PkgApprentissage::etatRealisationMicroCompetence.singular'),
                 'bareme_cache' => __('PkgApprentissage::realisationMicroCompetence.bareme_cache'),
                 'commentaire_formateur' => __('PkgApprentissage::realisationMicroCompetence.commentaire_formateur'),
@@ -78,8 +78,8 @@ class BaseRealisationMicroCompetenceExport implements FromCollection, WithHeadin
             return [
                 'micro_competence_reference' => $realisationMicroCompetence->microCompetence?->reference,
                 'apprenant_reference' => $realisationMicroCompetence->apprenant?->reference,
-                'note_cache' => $realisationMicroCompetence->note_cache,
                 'progression_cache' => $realisationMicroCompetence->progression_cache,
+                'note_cache' => $realisationMicroCompetence->note_cache,
                 'etat_realisation_micro_competence_reference' => $realisationMicroCompetence->etatRealisationMicroCompetence?->reference,
                 'bareme_cache' => $realisationMicroCompetence->bareme_cache,
                 'commentaire_formateur' => $realisationMicroCompetence->commentaire_formateur,

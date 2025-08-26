@@ -9,11 +9,10 @@
                     $bulkEdit = $realisationMicroCompetences_permissions['edit-realisationMicroCompetence'] || $realisationMicroCompetences_permissions['destroy-realisationMicroCompetence'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="16.4" field="micro_competence_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgCompetences::microCompetence.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="note_cache" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.note_cache'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="progression_cache" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.progression_cache'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="realisation_competence_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationCompetence.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="lien_livrable" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.lien_livrable'))!!}" />
+                <x-sortable-column :sortable="true" width="32.5" field="micro_competence_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgCompetences::microCompetence.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="32.5"  field="progression_cache" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.progression_cache'))!!}" />
+                <x-sortable-column :sortable="true" width="10"  field="note_cache" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.note_cache'))!!}" />
+                <x-sortable-column :sortable="true" width="7"  field="lien_livrable" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.lien_livrable'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -25,20 +24,16 @@
                 @endphp
                 <tr id="realisationMicroCompetence-row-{{$realisationMicroCompetence->id}}" data-id="{{$realisationMicroCompetence->id}}">
                     <x-checkbox-row :item="$realisationMicroCompetence" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="micro_competence_id" >
+                    <td style="max-width: 32.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="micro_competence_id" >
                         @include('PkgApprentissage::realisationMicroCompetence.custom.fields.microCompetence', ['entity' => $realisationMicroCompetence])
                     </td>
-                    <td style="max-width: 16.4%;white-space: normal;" class=" text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="note_cache" >
-                        @include('PkgApprentissage::realisationMicroCompetence.custom.fields.note_cache', ['entity' => $realisationMicroCompetence])
-                    </td>
-                    <td style="max-width: 16.4%;white-space: normal;" class=" text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="progression_cache" >
+                    <td style="max-width: 32.5%;white-space: normal;" class=" text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="progression_cache" >
                         @include('PkgApprentissage::realisationMicroCompetence.custom.fields.progression_cache', ['entity' => $realisationMicroCompetence])
                     </td>
-                    <td style="max-width: 16.4%;white-space: normal;" class=" text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="realisation_competence_id">
-                        {{  $realisationMicroCompetence->realisationCompetence }}
-
+                    <td style="max-width: 10%;white-space: normal;" class=" text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="note_cache" >
+                        @include('PkgApprentissage::realisationMicroCompetence.custom.fields.note_cache', ['entity' => $realisationMicroCompetence])
                     </td>
-                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="lien_livrable">
+                    <td style="max-width: 7%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="lien_livrable">
      @if($realisationMicroCompetence->lien_livrable)
     <a href="{{ $realisationMicroCompetence->lien_livrable }}" target="_blank">
         <i class="fas fa-link"></i>

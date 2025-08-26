@@ -17,8 +17,8 @@
 
 
     <div class="text-center align-middle">
-        <div class="d-flex flex-column align-items-center">
-            <span class="font-weight-bold"> {{ $note }} / {{ $bareme }}</span>
+    
+            <span> {{ $note }} / {{ $bareme }}</span>
             @if ($noteSurEchelle !== null)
                 {{-- Affiche la note recalibrée --}}
                 <small class"text-muted">{{ $noteSurEchelle }} / {{ $echelle }}</small>
@@ -27,9 +27,6 @@
             @if ($pourcentage !== null)
             <small class"text-muted">  ({{ $pourcentage }} %)</small>
             @endif
-
-
-        </div>
     </div>
 @else
     <span>—</span>
