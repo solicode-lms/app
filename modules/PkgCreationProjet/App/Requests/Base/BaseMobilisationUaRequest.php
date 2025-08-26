@@ -30,9 +30,9 @@ class BaseMobilisationUaRequest extends FormRequest
     {
         return [
             'unite_apprentissage_id' => 'required',
-            'bareme_evaluation_prototype' => 'required',
+            'bareme_evaluation_prototype' => 'nullable',
             'criteres_evaluation_prototype' => 'nullable|string',
-            'bareme_evaluation_projet' => 'required',
+            'bareme_evaluation_projet' => 'nullable',
             'criteres_evaluation_projet' => 'nullable|string',
             'description' => 'nullable|string',
             'projet_id' => 'required'

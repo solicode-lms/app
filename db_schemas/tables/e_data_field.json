@@ -5520,11 +5520,10 @@
         "column_name": "bareme_evaluation_prototype",
         "data_type": "Float",
         "field_order": 4,
-        "db_nullable": 0,
+        "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 0,
-        "default_value": "0",
         "description": "Field in table mobilisation_uas"
     },
     {
@@ -5534,11 +5533,10 @@
         "column_name": "bareme_evaluation_projet",
         "data_type": "Float",
         "field_order": 5,
-        "db_nullable": 0,
+        "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 0,
-        "default_value": "0",
         "description": "Field in table mobilisation_uas"
     },
     {
@@ -12890,6 +12888,20 @@
     },
     {
         "id": 987,
+        "reference": "UniteApprentissage_nom_filiere",
+        "name": "nom_filiere",
+        "column_name": "nom_filiere",
+        "data_type": "String",
+        "field_order": 10,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT f.nom\r\nFROM filieres f\r\nJOIN modules m ON m.filiere_id = f.id\r\nJOIN competences c ON c.module_id = m.id\r\nJOIN micro_competences mc ON mc.competence_id = c.id\r\nWHERE mc.id = unite_apprentissages.micro_competence_id\r\nLIMIT 1",
+        "description": ""
+    },
+    {
+        "id": 988,
         "reference": "Widget-package",
         "name": "package",
         "column_name": "package",
@@ -12903,7 +12915,7 @@
         "description": ""
     },
     {
-        "id": 988,
+        "id": 989,
         "reference": "WidgetUtilisateur-sys_module_id",
         "name": "sys_module_id",
         "column_name": "sys_module_id",
@@ -12917,7 +12929,7 @@
         "description": ""
     },
     {
-        "id": 989,
+        "id": 990,
         "reference": "WidgetUtilisateur-package",
         "name": "package",
         "column_name": "package",
@@ -12931,7 +12943,7 @@
         "description": ""
     },
     {
-        "id": 990,
+        "id": 991,
         "reference": "WidgetUtilisateur-type",
         "name": "type",
         "column_name": "type",
@@ -12942,20 +12954,6 @@
         "db_unique": 0,
         "calculable": 1,
         "calculable_sql": "SELECT wt.type\r\nFROM widgets w\r\nJOIN widget_types wt ON w.type_id = wt.id\r\nWHERE w.id = widget_utilisateurs.widget_id",
-        "description": ""
-    },
-    {
-        "id": 991,
-        "reference": "UniteApprentissage_nom_filiere",
-        "name": "nom_filiere",
-        "column_name": "nom_filiere",
-        "data_type": "String",
-        "field_order": 10,
-        "db_nullable": 0,
-        "db_primaryKey": 0,
-        "db_unique": 0,
-        "calculable": 1,
-        "calculable_sql": "SELECT f.nom\r\nFROM filieres f\r\nJOIN modules m ON m.filiere_id = f.id\r\nJOIN competences c ON c.module_id = m.id\r\nJOIN micro_competences mc ON mc.competence_id = c.id\r\nWHERE mc.id = unite_apprentissages.micro_competence_id\r\nLIMIT 1",
         "description": ""
     }
 ]

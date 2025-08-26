@@ -70,7 +70,8 @@
     },
     {
         "reference": "MobilisationUa_criteres_evaluation_prototype_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "MobilisationUa_criteres_evaluation_prototype",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -88,13 +89,15 @@
     },
     {
         "reference": "MobilisationUa_criteres_evaluation_prototype_viewFormFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "MobilisationUa_criteres_evaluation_prototype",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
         "reference": "MobilisationUa_criteres_evaluation_prototype_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "MobilisationUa_criteres_evaluation_prototype",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -106,7 +109,8 @@
     },
     {
         "reference": "MobilisationUa_criteres_evaluation_projet_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "MobilisationUa_criteres_evaluation_projet",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -124,19 +128,22 @@
     },
     {
         "reference": "MobilisationUa_criteres_evaluation_projet_viewFormFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "MobilisationUa_criteres_evaluation_projet",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
         "reference": "MobilisationUa_criteres_evaluation_projet_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "MobilisationUa_criteres_evaluation_projet",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
         "reference": "MobilisationUa_bareme_evaluation_prototype_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "MobilisationUa_bareme_evaluation_prototype",
         "e_metadata_definition_reference": "required"
     },
@@ -148,7 +155,8 @@
     },
     {
         "reference": "MobilisationUa_bareme_evaluation_prototype_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "MobilisationUa_bareme_evaluation_prototype",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -166,19 +174,22 @@
     },
     {
         "reference": "MobilisationUa_bareme_evaluation_prototype_viewFormFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "MobilisationUa_bareme_evaluation_prototype",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
         "reference": "MobilisationUa_bareme_evaluation_prototype_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "MobilisationUa_bareme_evaluation_prototype",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
         "reference": "MobilisationUa_bareme_evaluation_projet_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "MobilisationUa_bareme_evaluation_projet",
         "e_metadata_definition_reference": "required"
     },
@@ -190,7 +201,8 @@
     },
     {
         "reference": "MobilisationUa_bareme_evaluation_projet_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "MobilisationUa_bareme_evaluation_projet",
         "e_metadata_definition_reference": "displayInForm"
     },
