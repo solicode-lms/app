@@ -9,7 +9,7 @@ class AlignementUa extends BaseAlignementUa
 
     public function generateReference(): string
     {
-        return  $this->uniteApprentissage->reference . '-' . $this->sessionFormation->reference ;
+        return  $this->sessionFormation->reference . '-' .  $this->uniteApprentissage->reference ;
     }
 
     public function __toString()

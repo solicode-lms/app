@@ -34,6 +34,7 @@ class BaseSessionFormationExport implements FromCollection, WithHeadings, Should
             return [
                 'ordre' => 'ordre',
                 'titre' => 'titre',
+                'code' => 'code',
                 'thematique' => 'thematique',
                 'filiere_reference' => 'filiere_reference',
                 'objectifs_pedagogique' => 'objectifs_pedagogique',
@@ -54,6 +55,7 @@ class BaseSessionFormationExport implements FromCollection, WithHeadings, Should
             return [
                 'ordre' => __('PkgSessions::sessionFormation.ordre'),
                 'titre' => __('PkgSessions::sessionFormation.titre'),
+                'code' => __('PkgSessions::sessionFormation.code'),
                 'thematique' => __('PkgSessions::sessionFormation.thematique'),
                 'filiere_reference' => __('PkgFormation::filiere.singular'),
                 'objectifs_pedagogique' => __('PkgSessions::sessionFormation.objectifs_pedagogique'),
@@ -82,6 +84,7 @@ class BaseSessionFormationExport implements FromCollection, WithHeadings, Should
             return [
                 'ordre' => (string) $sessionFormation->ordre,
                 'titre' => $sessionFormation->titre,
+                'code' => $sessionFormation->code,
                 'thematique' => $sessionFormation->thematique,
                 'filiere_reference' => $sessionFormation->filiere?->reference,
                 'objectifs_pedagogique' => $sessionFormation->objectifs_pedagogique,

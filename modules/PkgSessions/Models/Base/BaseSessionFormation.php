@@ -48,7 +48,7 @@ class BaseSessionFormation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'titre', 'thematique', 'filiere_id', 'objectifs_pedagogique', 'titre_prototype', 'description_prototype', 'contraintes_prototype', 'titre_projet', 'description_projet', 'contraintes_projet', 'remarques', 'date_debut', 'date_fin', 'jour_feries_vacances', 'annee_formation_id'
+        'ordre', 'titre', 'code', 'thematique', 'filiere_id', 'objectifs_pedagogique', 'titre_prototype', 'description_prototype', 'contraintes_prototype', 'titre_projet', 'description_projet', 'contraintes_projet', 'remarques', 'date_debut', 'date_fin', 'jour_feries_vacances', 'annee_formation_id'
     ];
     public $manyToOne = [
         'Filiere' => [
@@ -121,6 +121,6 @@ class BaseSessionFormation extends BaseModel
      */
     public function __toString()
     {
-        return $this->titre ?? "";
+        return $this->code ?? "";
     }
 }

@@ -10,9 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::sessionFormation.ordre'))!!}" />
-                <x-sortable-column :sortable="true" width="26"  field="titre" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::sessionFormation.titre'))!!}" />
-                <x-sortable-column :sortable="false" width="26"  field="objectifs_pedagogique" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::sessionFormation.objectifs_pedagogique'))!!}" />
-                <x-sortable-column :sortable="false" width="26"  field="AlignementUa" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::alignementUa.plural'))!!}" />
+                <x-sortable-column :sortable="true" width="19.5"  field="titre" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::sessionFormation.titre'))!!}" />
+                <x-sortable-column :sortable="true" width="19.5"  field="code" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::sessionFormation.code'))!!}" />
+                <x-sortable-column :sortable="false" width="19.5"  field="objectifs_pedagogique" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::sessionFormation.objectifs_pedagogique'))!!}" />
+                <x-sortable-column :sortable="false" width="19.5"  field="AlignementUa" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::alignementUa.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -30,13 +31,17 @@
                         </div>
 
                     </td>
-                    <td style="max-width: 26%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="titre" >
+                    <td style="max-width: 19.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="titre" >
                         @include('PkgSessions::sessionFormation.custom.fields.titre', ['entity' => $sessionFormation])
                     </td>
-                    <td style="max-width: 26%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="objectifs_pedagogique" >
+                    <td style="max-width: 19.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="code">
+                        {{ $sessionFormation->code }}
+
+                    </td>
+                    <td style="max-width: 19.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="objectifs_pedagogique" >
                         @include('PkgSessions::sessionFormation.custom.fields.objectifs_pedagogique', ['entity' => $sessionFormation])
                     </td>
-                    <td style="max-width: 26%;white-space: normal;" class=" text-truncate" data-id="{{$sessionFormation->id}}" data-field="AlignementUa" >
+                    <td style="max-width: 19.5%;white-space: normal;" class=" text-truncate" data-id="{{$sessionFormation->id}}" data-field="AlignementUa" >
                         @include('PkgSessions::sessionFormation.custom.fields.alignementUas', ['entity' => $sessionFormation])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

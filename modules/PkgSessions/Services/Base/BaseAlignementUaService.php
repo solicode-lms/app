@@ -124,7 +124,7 @@ class BaseAlignementUaService extends BaseService
                         __("PkgSessions::sessionFormation.plural"), 
                         'session_formation_id', 
                         \Modules\PkgSessions\Models\SessionFormation::class, 
-                        'titre',
+                        'code',
                         $sessionFormations
                     );
                 }

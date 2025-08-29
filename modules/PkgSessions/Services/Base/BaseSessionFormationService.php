@@ -27,6 +27,7 @@ class BaseSessionFormationService extends BaseService
     protected $fieldsSearchable = [
         'ordre',
         'titre',
+        'code',
         'thematique',
         'filiere_id',
         'objectifs_pedagogique',
@@ -325,6 +326,7 @@ class BaseSessionFormationService extends BaseService
         return [
             'ordre',
             'titre',
+            'code',
             'objectifs_pedagogique',
             'AlignementUa'
         ];
@@ -363,6 +365,8 @@ class BaseSessionFormationService extends BaseService
                 return $this->computeFieldMeta($e, $field, $meta, 'number');
 
             case 'titre':
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
+            case 'code':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'objectifs_pedagogique':
                 return $this->computeFieldMeta($e, $field, $meta, 'text');
@@ -425,6 +429,14 @@ class BaseSessionFormationService extends BaseService
                     $out[$field] = ['html' => $html];
                     break;
 
+                case 'code':
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                        'nature' => ''
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
                 case 'objectifs_pedagogique':
                     // Vue custom définie pour ce champ
                     $html = view('PkgSessions::sessionFormation.custom.fields.objectifs_pedagogique', [

@@ -31,6 +31,7 @@ class BaseSessionFormationRequest extends FormRequest
         return [
             'ordre' => 'required|integer',
             'titre' => 'required|string|max:255',
+            'code' => 'nullable|string|max:255',
             'thematique' => 'nullable|string|max:255',
             'filiere_id' => 'nullable',
             'objectifs_pedagogique' => 'required|string',
@@ -59,6 +60,8 @@ class BaseSessionFormationRequest extends FormRequest
             'ordre.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.ordre')]),
             'titre.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.titre')]),
             'titre.max' => __('validation.titreMax'),
+            'code.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.code')]),
+            'code.max' => __('validation.codeMax'),
             'thematique.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.thematique')]),
             'thematique.max' => __('validation.thematiqueMax'),
             'filiere_id.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.filiere_id')]),

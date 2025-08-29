@@ -89,6 +89,7 @@ class BaseSessionFormationSeeder extends Seeder
                 $sessionFormationData =[
                         "ordre" => isset($row["ordre"]) && $row["ordre"] !== "" ? $row["ordre"] : null,
                         "titre" => isset($row["titre"]) && $row["titre"] !== "" ? $row["titre"] : null,
+                        "code" => isset($row["code"]) && $row["code"] !== "" ? $row["code"] : null,
                         "thematique" => isset($row["thematique"]) && $row["thematique"] !== "" ? $row["thematique"] : null,
                         "filiere_id" => $filiere_id,
                         "objectifs_pedagogique" => isset($row["objectifs_pedagogique"]) && $row["objectifs_pedagogique"] !== "" ? $row["objectifs_pedagogique"] : null,
