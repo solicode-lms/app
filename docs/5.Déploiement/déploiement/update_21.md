@@ -27,8 +27,6 @@ php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\DefaultAppr
 php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\DefaultFormateurPermission
 php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\DefaultAdminFormateurPermission
 
-
-
 php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\DefaultAdminPermission
 php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\DefaultGappPermission
 
