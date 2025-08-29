@@ -8735,7 +8735,7 @@
         "field_order": 3,
         "db_nullable": 1,
         "db_primaryKey": 0,
-        "db_unique": 1,
+        "db_unique": 0,
         "calculable": 0,
         "description": "Field in table session_formations"
     },

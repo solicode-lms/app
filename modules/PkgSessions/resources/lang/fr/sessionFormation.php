@@ -20,4 +20,5 @@ return [
     'contraintes_projet' => 'Contraintes du projet',
     'filiere_id' => 'Filière',
     'annee_formation_id' => 'Année de formation',
+    'code' => 'Code',
 ];
