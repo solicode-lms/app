@@ -473,7 +473,7 @@ DROP TABLE IF EXISTS `etat_realisation_competences`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `etat_realisation_competences` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `ordre` int NOT NULL DEFAULT '0',
   `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `nom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -514,7 +514,7 @@ DROP TABLE IF EXISTS `etat_realisation_modules`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `etat_realisation_modules` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `ordre` int NOT NULL DEFAULT '0',
   `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `nom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -993,8 +993,8 @@ CREATE TABLE `mobilisation_uas` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `criteres_evaluation_prototype` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `criteres_evaluation_projet` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `bareme_evaluation_prototype` double NOT NULL DEFAULT '0',
-  `bareme_evaluation_projet` double NOT NULL DEFAULT '0',
+  `bareme_evaluation_prototype` double DEFAULT NULL,
+  `bareme_evaluation_projet` double DEFAULT NULL,
   `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `projet_id` bigint unsigned NOT NULL,
   `unite_apprentissage_id` bigint unsigned NOT NULL,
@@ -1212,6 +1212,7 @@ CREATE TABLE `realisation_chapitres` (
   `date_debut` datetime DEFAULT NULL,
   `date_fin` datetime DEFAULT NULL,
   `commentaire_formateur` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `dernier_update` datetime DEFAULT NULL,
   `realisation_ua_id` bigint unsigned NOT NULL,
   `realisation_tache_id` bigint unsigned DEFAULT NULL,
   `chapitre_id` bigint unsigned NOT NULL,
@@ -1249,6 +1250,8 @@ CREATE TABLE `realisation_competences` (
   `etat_realisation_competence_id` bigint unsigned DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `progression_ideal_cache` decimal(5,2) NOT NULL DEFAULT '0.00',
+  `taux_rythme_cache` decimal(5,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `realisation_competences_reference_unique` (`reference`),
   KEY `realisation_competences_apprenant_id_foreign` (`apprenant_id`),
@@ -1278,9 +1281,11 @@ CREATE TABLE `realisation_micro_competences` (
   `realisation_competence_id` bigint unsigned NOT NULL,
   `micro_competence_id` bigint unsigned NOT NULL,
   `etat_realisation_micro_competence_id` bigint unsigned DEFAULT NULL,
-  `lien_livrable` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Lien vers le livrable de la micro-compétence',
+  `lien_livrable` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Lien vers le livrable de la micro-compétence',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `progression_ideal_cache` decimal(5,2) NOT NULL DEFAULT '0.00',
+  `taux_rythme_cache` decimal(5,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `realisation_micro_competences_reference_unique` (`reference`),
   KEY `realisation_micro_competences_apprenant_id_foreign` (`apprenant_id`),
@@ -1311,6 +1316,8 @@ CREATE TABLE `realisation_modules` (
   `etat_realisation_module_id` bigint unsigned DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `progression_ideal_cache` decimal(5,2) NOT NULL DEFAULT '0.00',
+  `taux_rythme_cache` decimal(5,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `realisation_modules_reference_unique` (`reference`),
   KEY `realisation_modules_apprenant_id_foreign` (`apprenant_id`),
@@ -1438,11 +1445,14 @@ CREATE TABLE `realisation_uas` (
   `note_cache` double DEFAULT NULL,
   `bareme_cache` double DEFAULT NULL,
   `commentaire_formateur` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `dernier_update` datetime DEFAULT NULL,
   `realisation_micro_competence_id` bigint unsigned NOT NULL,
   `unite_apprentissage_id` bigint unsigned NOT NULL,
   `etat_realisation_ua_id` bigint unsigned DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `progression_ideal_cache` decimal(5,2) NOT NULL DEFAULT '0.00',
+  `taux_rythme_cache` decimal(5,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `realisation_uas_reference_unique` (`reference`),
   KEY `realisation_uas_realisation_micro_competence_id_foreign` (`realisation_micro_competence_id`),
@@ -1537,6 +1547,7 @@ DROP TABLE IF EXISTS `session_formations`;
 CREATE TABLE `session_formations` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `ordre` int NOT NULL DEFAULT '0',
   `date_debut` date DEFAULT NULL,
@@ -1697,6 +1708,7 @@ CREATE TABLE `tache_affectations` (
   `pourcentage_realisation_cache` double NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `apprenant_live_coding_cache` json DEFAULT NULL,
   `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `tache_affectations_tache_id_affectation_projet_id_unique` (`tache_id`,`affectation_projet_id`),
@@ -2053,3 +2065,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (187,'2025_08_11_13
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (188,'2025_08_11_150213_add_code_to_etat_realisation_tables',66);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (189,'2025_08_13_213441_add_livrable_id_to_realisation_micro_competences_table',67);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (190,'2025_08_14_120622_drop_priorite_taches_with_fk_from_taches_table',68);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (191,'2025_08_16_171309_add_apprenant_live_coding_cache_to_tache_affectations_table',69);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (192,'2025_08_19_111852_add_progression_ideal_to_realisations_tables',69);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (193,'2025_08_19_113527_modifier_taux_rythme_cache_nullable_in_realisations_tables',69);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (194,'2025_08_23_205553_add_dernier_update_to_realisation_uas_and_chapitres_table',69);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (195,'2025_08_26_204946_update_mobilisation_uas_nullable_fields',69);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (196,'2025_08_29_173500_add_code_to_session_formations_table',69);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (197,'2025_08_29_190826_update_code_nullable_in_session_formations_table',69);
