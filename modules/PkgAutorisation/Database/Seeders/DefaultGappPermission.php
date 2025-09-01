@@ -7,7 +7,7 @@ use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\Permission;
 
 
-// php artisan db:seed --class="Modules\PkgAutorisation\Database\Seeders\DefaultFormateurPermission"
+// php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\DefaultGappPermission
 class DefaultGappPermission extends Seeder
 {
     public static int $order = 1001;
@@ -23,11 +23,11 @@ class DefaultGappPermission extends Seeder
 
         // Tableau de configuration : modèle et type d'accès
         $permissionsMap = [
-            'profile' => 'EditeurSansCreate',
-            'EDataField' => 'Editeur,Extraction',
-            'EMetadataDefinition' => 'Editeur,Extraction',
-            'EMetadatum' => 'Editeur,Extraction',
-            'EModel' => 'Editeur,Extraction',
+            'profile' => 'Édition sans Ajouter',
+            'EDataField' => 'Édition,Extraction',
+            'EMetadataDefinition' => 'Édition,Extraction',
+            'EMetadatum' => 'Édition,Extraction',
+            'EModel' => 'Édition,Extraction',
             'EPackage' => 'Lecteur,Extraction',
             'ERelationship' => 'Lecteur,Extraction',
             'widget' => 'Lecture',

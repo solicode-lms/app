@@ -316,6 +316,7 @@ class BaseApprenantService extends BaseService
     public function getFieldsEditable(): array
     {
         return [
+            'nom',
             'prenom',
             'duree_sans_terminer_tache',
             'groupes'
@@ -351,6 +352,8 @@ class BaseApprenantService extends BaseService
         ];
 
        switch ($field) {
+            case 'nom':
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'prenom':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'duree_sans_terminer_tache':
@@ -397,6 +400,14 @@ class BaseApprenantService extends BaseService
 
         foreach ($fields as $field) {
             switch ($field) {
+                case 'nom':
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                        'nature' => ''
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
                 case 'prenom':
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
