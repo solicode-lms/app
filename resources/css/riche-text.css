@@ -14,3 +14,18 @@
   display: block;
   white-space: pre;
 }
+
+
+/* Éditeur inline CodeJar */
+.codejar-inline{
+  white-space: pre;
+  outline: none;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .875rem;
+  line-height: 1.5;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: #0b1020; /* mets #f6f8fa si tu préfères clair */
+  color: #e5e7eb;
+}
