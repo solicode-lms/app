@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="realisationProjet-hasmany-tabs-home-tab" data-toggle="pill" href="#realisationProjet-hasmany-tabs-home" role="tab" aria-controls="realisationProjet-hasmany-tabs-home" aria-selected="true">{{__('PkgRealisationProjets::realisationProjet.singular')}}</a>
                         </li>
 
-                        @if($itemRealisationProjet->realisationTaches?->count() > 0 || auth()->user()?->can('create-realisationTache'))
+                         @if($itemRealisationProjet->realisationTaches?->count() > 0 || auth()->user()?->can('create-realisationTache'))
                         <li class="nav-item">
                             <a class="nav-link" id="realisationProjet-hasmany-tabs-realisationTache-tab" data-toggle="pill" href="#realisationProjet-hasmany-tabs-realisationTache" role="tab" aria-controls="realisationProjet-hasmany-tabs-realisationTache" aria-selected="false">
                                 <i class="nav-icon fas fa-laptop-code"></i>

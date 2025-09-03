@@ -44,6 +44,7 @@
                     @endif
                   </span>                </div>
             </div>
+            @if(auth()->user()?->can('show-realisationTache') || auth()->user()?->can('create-realisationTache'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::realisationTache.plural')) }}</small>
@@ -52,7 +53,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-livrablesRealisation') || auth()->user()?->can('create-livrablesRealisation'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::realisationProjet.livrables')) }}</small>
@@ -61,8 +64,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
-            @if($itemRealisationProjet->evaluationRealisationProjets?->count() > 0 || auth()->user()?->can('create-evaluationRealisationProjet'))
+            @if(auth()->user()?->can('show-evaluationRealisationProjet') || auth()->user()?->can('create-evaluationRealisationProjet'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgEvaluateurs::evaluationRealisationProjet.plural')) }}</small>
