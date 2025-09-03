@@ -56,6 +56,21 @@ export default class SummernoteCodeManager {
         styleTags: ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3'],
         buttons: {
           codeLanguage: this._buildLanguageDropdownFactory(options)
+        },
+        // ✅ Ajout demandé : synchroniser les CodeJar actifs à chaque changement Summernote
+        callbacks: {
+          onChange: function (contents, $editable) {
+            const instances = (window.codejarInstances || window.CodeJarInstances || null);
+            if (instances && typeof instances.forEach === 'function') {
+              instances.forEach((jar, editor) => {
+                if (!editor || !editor.isConnected) return;
+                try {
+                  // Re-pousse le texte actuel (si inchangé, CodeJar n'ajoutera pas d'historique)
+                  jar.updateCode(editor.textContent);
+                } catch (_) { /* ignore */ }
+              });
+            }
+          }
         }
       });
     } else {
@@ -219,3 +234,5 @@ export default class SummernoteCodeManager {
     CodeHelpers.placeCaretAtEnd(code);
   }
 }
+
+

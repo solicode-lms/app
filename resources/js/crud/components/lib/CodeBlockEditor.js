@@ -34,6 +34,13 @@ export default class CodeBlockEditor {
     this.lang = 'javascript';
     this._clickOutsideHandler = null;
     this._rehighlight = () => {};
+
+    // ✅ Registre global minimal pour Summernote.onChange
+    if (typeof window !== 'undefined') {
+      if (!window.codejarInstances || !(window.codejarInstances instanceof Map)) {
+        window.codejarInstances = new Map();
+      }
+    }
   }
 
   isActive() {
@@ -100,6 +107,13 @@ export default class CodeBlockEditor {
     this.jar = CodeJar(editor, rehighlight, { tab: this.options.codeJarTab });
     rehighlight(editor);
 
+    // ✅ Enregistrer l’instance pour Summernote.onChange
+    try {
+      if (typeof window !== 'undefined' && window.codejarInstances instanceof Map) {
+        window.codejarInstances.set(editor, this.jar);
+      }
+    } catch (_) {}
+
     // Bloquer Summernote pendant l’édition (mais pas input !)
     const stopEv = (ev) => ev.stopPropagation();
     editor.addEventListener('keydown', stopEv, true);
@@ -147,8 +161,16 @@ export default class CodeBlockEditor {
 
   finish(addParagraphAfter = false) {
     if (!this.isActive()) return;
+
     const text = this.getText();
     const lang = this.lang || this.wrapper.dataset.lang || 'javascript';
+
+    // ✅ Retirer du registre global AVANT reset
+    try {
+      if (typeof window !== 'undefined' && window.codejarInstances instanceof Map && this.editorEl) {
+        window.codejarInstances.delete(this.editorEl);
+      }
+    } catch (_) {}
 
     // Détruire CodeJar
     this.jar.destroy?.();
