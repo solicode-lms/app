@@ -22,6 +22,9 @@
 @import './realisation/realisation-etat.css';
 @import './taches/tache-livrables.css';
 @import './realisation/realisation-card.css';
+@import './riche-text.css';
+
+
 
 :root {
 

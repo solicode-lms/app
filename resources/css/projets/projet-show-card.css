@@ -1,0 +1,327 @@
+/* =========================================================
+   Projet – Élégance minimaliste (scopé)
+   Hiérarchie typographique optimisée (h2 > h3 > small)
+   ========================================================= */
+.projet-show-card {
+    background: #fff;
+    border: 1px solid #eaecef;
+    border-radius: 0.25rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    white-space: normal;
+    word-break: break-word;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+
+    /* Couleurs & échelle typo locales */
+    --p-accent: #2563eb;
+    --p-text:   #0f172a;    /* Slate 900 pour les titres */
+    --p-body:   #374151;    /* Slate 700 pour contenu */
+    --p-muted:  #6b7280;    /* Slate 500 */
+    --p-soft:   #f3f4f6;
+    --p-border: #e5e7eb;
+    --p-chip-bg:#eff6ff;
+
+    /* Echelle fluide (h2 > h3 > body > small) */
+    --fs-h2: clamp(1.25rem, 1.05rem + 0.8vw, 1.6rem);
+    --fs-h3: clamp(0.95rem, 0.9rem + 0.35vw, 1.1rem);
+    --fs-body: 0.95rem;
+    --fs-small: 0.82rem;
+}
+
+/* Mode flat en page show */
+.show_group .projet-show-card {
+  border: none;
+  box-shadow: none;
+}
+
+/* =====================
+   Titre
+   ===================== */
+.projet-show-card .projet-titre {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+.projet-show-card .projet-titre h2 {
+    font-size: var(--fs-h2);
+    line-height: 1.25;
+    font-weight: 700;
+    color: var(--p-text);
+    margin: 0;
+    letter-spacing: -0.005em;
+}
+.projet-show-card .projet-titre small {
+    color: var(--p-muted);
+    font-size: var(--fs-small);
+    line-height: 1.3;
+    display: block;
+}
+
+/* =====================
+   Section générique
+   ===================== */
+.projet-show-card .projet-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+.projet-show-card .projet-section h3 {
+    font-size: var(--fs-h3);              /* < h2 */
+    font-weight: 600;
+    color: var(--p-body);
+    margin: 0 0 0.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    line-height: 1.35;
+    letter-spacing: 0;
+}
+.projet-show-card .projet-section h3 i {
+    color: var(--p-accent);
+    font-size: 0.95em;                    /* icône légèrement plus petite que le texte */
+}
+
+/* =====================
+   Listes (affectations / ressources)
+   ===================== */
+.projet-show-card .projet-affectations,
+.projet-show-card .projet-ressources {
+    padding-left: 1.2rem;
+    margin: 0;
+}
+.projet-show-card .projet-affectations li,
+.projet-show-card .projet-ressources li {
+    font-size: 0.88rem;
+    color: var(--p-body);
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.projet-show-card .projet-affectations li i,
+.projet-show-card .projet-ressources li i {
+    color: #9ca3af;
+}
+
+/* =====================
+   Infos & Footer
+   ===================== */
+.projet-show-card .projet-infos {
+    border-top: 1px solid var(--p-soft);
+    padding-top: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: var(--fs-body);
+    color: var(--p-body);
+}
+.projet-show-card .projet-deadline i { color: var(--p-accent); }
+
+.projet-show-card .projet-footer,
+.projet-show-card .projet-formateur { /* compat rétro */
+    border-top: 1px solid var(--p-soft);
+    padding-top: 0.6rem;
+    font-size: var(--fs-body);
+    color: var(--p-body);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* =====================
+   Liste de tâches
+   ===================== */
+.projet-show-card .projet-taches {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+.projet-show-card .projet-taches li {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.86rem;
+    color: var(--p-body);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.projet-show-card .projet-taches li i {
+    color: #9ca3af;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+.projet-show-card .projet-taches.two-columns {
+    column-count: 2;
+    column-gap: 1rem;
+}
+.projet-show-card .projet-taches.two-columns li { break-inside: avoid; }
+.projet-show-card .projet-taches.compact li {
+    gap: 0.3rem;
+    font-size: 0.9rem;
+}
+
+/* =========================================================
+   Travail à faire
+   ========================================================= */
+.projet-show-card .projet-travail {
+  background: #fff;
+  border: 1px solid var(--p-border);
+  border-radius: 0.5rem;
+  padding: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.projet-show-card .projet-travail h3 {
+  font-size: var(--fs-h3);               /* < h2 */
+  font-weight: 600;
+  color: var(--p-body);
+  margin: 0 0 0.25rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.projet-show-card .projet-travail h3 i { 
+  color: var(--p-accent); 
+  font-size: 0.95em;
+}
+.projet-show-card .projet-travail .projet-richtext {
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  color: var(--p-body);
+}
+.projet-show-card .projet-travail .projet-richtext p { margin: 0.25rem 0; }
+.projet-show-card .projet-travail .projet-richtext ul,
+.projet-show-card .projet-travail .projet-richtext ol {
+  margin: 0.25rem 0 0.25rem 1.1rem;
+}
+
+/* Checklists (optionnel) */
+.projet-show-card .projet-travail .checklist {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 0.35rem;
+}
+.projet-show-card .projet-travail .checklist li {
+  position: relative; padding-left: 1.35rem;
+  color: var(--p-body); font-size: var(--fs-body);
+}
+.projet-show-card .projet-travail .checklist li::before {
+  content: ""; position: absolute; left: 0; top: 0.2rem;
+  width: 0.9rem; height: 0.9rem;
+  border: 1.5px solid var(--p-accent);
+  border-radius: 0.2rem; background: #fff;
+}
+.projet-show-card .projet-travail .checklist li.is-done {
+  color: var(--p-muted); text-decoration: line-through;
+}
+.projet-show-card .projet-travail .checklist li.is-done::before {
+  background: var(--p-accent); box-shadow: inset 0 0 0 2px #fff;
+}
+
+/* =========================================================
+   Critères de travail
+   ========================================================= */
+.projet-show-card .projet-criteres {
+  background: #fff;
+  border: 1px solid var(--p-border);
+  border-radius: 0.5rem;
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.projet-show-card .projet-criteres h3 {
+  font-size: var(--fs-h3);               /* < h2 */
+  font-weight: 600;
+  color: var(--p-body);
+  margin: 0 0 0.25rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.projet-show-card .projet-criteres h3 i { 
+  color: var(--p-accent); 
+  font-size: 0.95em;
+}
+
+/* Si vous utilisez <ul> pour les critères */
+.projet-show-card .projet-criteres ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+.projet-show-card .projet-criteres .critere {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.55rem 0.65rem;
+  border: 1px dashed var(--p-border);
+  border-radius: 0.45rem;
+  background: #fcfcfd;
+}
+.projet-show-card .projet-criteres .critere .intitule {
+  flex: 1;
+  color: var(--p-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.projet-show-card .projet-criteres .critere .bareme,
+.projet-show-card .projet-criteres .critere .poids {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  background: var(--p-soft);
+  color: #111827;
+}
+.projet-show-card .projet-criteres .critere .progress {
+  width: 140px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--p-soft);
+  overflow: hidden;
+  margin-left: auto;
+}
+.projet-show-card .projet-criteres .critere .progress > span {
+  display: block;
+  width: var(--percent, 0%);
+  height: 100%;
+  background: var(--p-accent);
+}
+
+/* Variantes optionnelles */
+.projet-show-card .projet-criteres.striped .critere:nth-child(odd) { background: #fff; }
+.projet-show-card .projet-criteres.compact .critere { padding: 0.35rem 0.5rem; }
+
+/* Dots leader optionnel */
+.projet-show-card .projet-criteres .critere.leader { position: relative; }
+.projet-show-card .projet-criteres .critere.leader .intitule {
+  position: relative; padding-right: 0.5rem;
+}
+.projet-show-card .projet-criteres .critere.leader .intitule::after {
+  content: ""; position: absolute;
+  left: calc(100% + 0.2rem); right: 5.5rem;
+  top: 1.05em; border-bottom: 1px dotted var(--p-border);
+  transform: translateY(-50%);
+}
+
+/* =====================
+   Responsive
+   ===================== */
+@media (min-width: 768px) {
+  .projet-show-card .projet-sections-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 1rem;
+  }
+}

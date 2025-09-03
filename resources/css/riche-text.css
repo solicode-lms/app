@@ -1,0 +1,16 @@
+/* Aspect propre des blocs <pre><code> dans l’éditeur */
+.note-editor .note-editable pre {
+  background: #f6f8fa;
+  border: 1px solid #eaecef;
+  border-radius: 6px;
+  padding: 8px 10px;
+  overflow: auto;
+  margin: 0.5rem 0;
+}
+.note-editor .note-editable pre code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: .875rem;
+  line-height: 1.5;
+  display: block;
+  white-space: pre;
+}

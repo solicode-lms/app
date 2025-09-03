@@ -33,7 +33,7 @@
         <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="affectation_projet_id" :bulkEdit="$bulkEdit">
       @php $canEditaffectation_projet_id = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
 
-      <div class="form-group col-12 col-md-6">
+      <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="affectation_projet_id" id="bulk_field_affectation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">

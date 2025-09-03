@@ -18,6 +18,7 @@ import { DataCalculTreatment } from "../treatments/form/DataCalculTreatment";
 import { NotificationHandler } from "./NotificationHandler";
 import DynamicDropdownTreatment from "../treatments/global/DynamicDropdownTreatment";
 import LocalStorageDefaultTreatment from "../treatments/form/LocalStorageDefaultTreatment";
+import { SummernoteCodeManager } from "./lib/SummernoteCodeManager";
 
 
 export class FormUI  {
@@ -420,35 +421,46 @@ export class FormUI  {
         });
     }
     static initializeRichText() {
-        $('.richText').each(function () {
-            const $textarea = $(this);
-            const isDisabled = $textarea.prop('disabled');
 
-            // Initialisation de Summernote
-            $textarea.summernote({
-                height: 80,
-                toolbar: isDisabled ? false : undefined,
-                airMode: isDisabled ? false : undefined,
-                callbacks: isDisabled ? {
-                    onInit: function () {
-                        $textarea
-                            .siblings('.note-editor')
-                            .find('.note-editable')
-                            .attr('contenteditable', false);
-                    }
-                } : {}
-            });
 
-            // Synchroniser le textarea => Summernote
-            $textarea.on('input', function () {
-                $textarea.summernote('code', $textarea.val());
-            });
+        // $('.richText').each(function () {
+        //     const $textarea = $(this);
+        //     const isDisabled = $textarea.prop('disabled');
 
-            // Synchroniser Summernote => textarea
-            $textarea.on('summernote.change', function (e, contents) {
-                $textarea.val(contents);
-            });
+        //     // Initialisation de Summernote
+        //     $textarea.summernote({
+        //         height: 80,
+        //         toolbar: isDisabled ? false : undefined,
+        //         airMode: isDisabled ? false : undefined,
+        //         callbacks: isDisabled ? {
+        //             onInit: function () {
+        //                 $textarea
+        //                     .siblings('.note-editor')
+        //                     .find('.note-editable')
+        //                     .attr('contenteditable', false);
+        //             }
+        //         } : {}
+        //     });
+
+        //     // Synchroniser le textarea => Summernote
+        //     $textarea.on('input', function () {
+        //         $textarea.summernote('code', $textarea.val());
+        //     });
+
+        //     // Synchroniser Summernote => textarea
+        //     $textarea.on('summernote.change', function (e, contents) {
+        //         $textarea.val(contents);
+        //     });
+        // });
+
+
+        // Tous les <textarea class="richText"> deviennent Summernote + bouton “Code”
+        SummernoteCodeManager.initAll('.richText', {
+        height: 80,
+        defaultLang: 'php',       // change en 'js', 'html', etc. si tu veux
+        // highlightInEditor: true // active Prism dans l’éditeur si nécessaire
         });
+
     }
 
 

@@ -4,10 +4,10 @@
 <div id="realisationProjet-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}</small>
-@include('PkgRealisationProjets::realisationProjet.custom.fields.affectationProjet',['entity' => $itemRealisationProjet])
+@include('PkgRealisationProjets::realisationProjet.custom.showFields.affectationProjet',['entity' => $itemRealisationProjet])
                 </div>
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
@@ -44,17 +44,6 @@
                     @endif
                   </span>                </div>
             </div>
-            @if(auth()->user()?->can('show-realisationTache') || auth()->user()?->can('create-realisationTache'))
-            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
-                  <div class="border rounded p-2 h-100 " >
-                  <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::realisationTache.plural')) }}</small>
-                  <div class="pt-2">
-                        @include('PkgRealisationTache::realisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationProjet.show_' . $itemRealisationProjet->id])
-                  </div>
-                  </div>
-            </div>
-            @endif
-
             @if(auth()->user()?->can('show-livrablesRealisation') || auth()->user()?->can('create-livrablesRealisation'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >

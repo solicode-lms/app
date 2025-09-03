@@ -198,13 +198,6 @@ class BaseRealisationProjetController extends AdminController
         $this->authorize('view', $itemRealisationProjet);
 
 
-        $this->viewState->set('scope.realisationTache.realisation_projet_id', $id);
-        
-
-        $realisationTacheService =  new RealisationTacheService();
-        $realisationTaches_view_data = $realisationTacheService->prepareDataForIndexView();
-        extract($realisationTaches_view_data);
-
         $this->viewState->set('scope.livrablesRealisation.realisation_projet_id', $id);
         
         // scopeDataInEditContext
@@ -224,10 +217,10 @@ class BaseRealisationProjetController extends AdminController
         extract($evaluationRealisationProjets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::realisationProjet._show', array_merge(compact('itemRealisationProjet'),$realisationTache_compact_value, $livrablesRealisation_compact_value, $evaluationRealisationProjet_compact_value));
+            return view('PkgRealisationProjets::realisationProjet._show', array_merge(compact('itemRealisationProjet'),$livrablesRealisation_compact_value, $evaluationRealisationProjet_compact_value));
         }
 
-        return view('PkgRealisationProjets::realisationProjet.show', array_merge(compact('itemRealisationProjet'),$realisationTache_compact_value, $livrablesRealisation_compact_value, $evaluationRealisationProjet_compact_value));
+        return view('PkgRealisationProjets::realisationProjet.show', array_merge(compact('itemRealisationProjet'),$livrablesRealisation_compact_value, $evaluationRealisationProjet_compact_value));
 
     }
     /**

@@ -19,7 +19,7 @@
     font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
-/* Affichage de card dans show_group : Page Show */
+/* Affichage de card dans show_group : Page */
 .show_group .projet-card {
   border: none;
   box-shadow: none; /* pour être vraiment "flat" si besoin */
