@@ -99,7 +99,7 @@
 </div>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemProfile" field="user_id" :bulkEdit="$bulkEdit">
-      @php $canEdituser_id = !$itemProfile || !$itemProfile->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+      @php $canEdituser_id = !$itemProfile || !$itemProfile->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)

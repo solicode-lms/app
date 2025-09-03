@@ -64,7 +64,7 @@ class BaseProfileRequest extends FormRequest
         // Définition des rôles autorisés pour chaque champ
         $editableFieldsByRoles = [
             
-            'user_id' => "admin",
+            'user_id' => "root",
             
         ];
 

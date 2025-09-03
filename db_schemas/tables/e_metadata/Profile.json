@@ -269,7 +269,7 @@
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
-            "roles": "admin"
+            "roles": "root"
         },
         "e_data_field_reference": "Profile_user_id",
         "e_metadata_definition_reference": "editableByRoles"
