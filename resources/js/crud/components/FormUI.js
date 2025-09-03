@@ -18,8 +18,8 @@ import { DataCalculTreatment } from "../treatments/form/DataCalculTreatment";
 import { NotificationHandler } from "./NotificationHandler";
 import DynamicDropdownTreatment from "../treatments/global/DynamicDropdownTreatment";
 import LocalStorageDefaultTreatment from "../treatments/form/LocalStorageDefaultTreatment";
-import { SummernoteCodeManager } from "./lib/SummernoteCodeManager";
-
+import SummernoteCodeManager from "./lib/SummernoteCodeManager";
+ 
 
 export class FormUI  {
     /**
@@ -422,7 +422,10 @@ export class FormUI  {
     }
     static initializeRichText() {
 
-
+        SummernoteCodeManager.initAll('.richText', {
+                height: 100,
+        });
+            
         // $('.richText').each(function () {
         //     const $textarea = $(this);
         //     const isDisabled = $textarea.prop('disabled');
@@ -454,14 +457,7 @@ export class FormUI  {
         // });
 
 
-            SummernoteCodeManager.initAll('.richText', {
-                height: 100,
-                defaultLang: 'php',
-                languages: ['php','javascript','html','css','json','bash'],
-                inlineCodeEdit: true,
-                inlineExitKeys: ['Escape','Ctrl+Enter'],
-                highlightInEditor: false // si tu veux recolorer tout l’éditeur (plus lourd)
-            });
+          
     }
 
 

@@ -12,6 +12,8 @@
 @import 'admin-lte/plugins/daterangepicker/daterangepicker.css';
 @import 'admin-lte/plugins/summernote/summernote-bs4.min.css';
 
+@import 'prismjs/themes/prism.css';
+
 @import './font-adminlte/fonts.css';
 @import 'admin-lte';
 
