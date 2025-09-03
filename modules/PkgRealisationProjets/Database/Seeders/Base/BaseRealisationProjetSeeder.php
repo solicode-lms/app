@@ -96,10 +96,10 @@ class BaseRealisationProjetSeeder extends Seeder
                         "etats_realisation_projet_id" => $etats_realisation_projet_id,
                         "progression_validation_cache" => isset($row["progression_validation_cache"]) && $row["progression_validation_cache"] !== "" ? $row["progression_validation_cache"] : null,
                         "note_cache" => isset($row["note_cache"]) && $row["note_cache"] !== "" ? $row["note_cache"] : null,
-                        "bareme_cache" => isset($row["bareme_cache"]) && $row["bareme_cache"] !== "" ? $row["bareme_cache"] : null,
-                        "progression_execution_cache" => isset($row["progression_execution_cache"]) && $row["progression_execution_cache"] !== "" ? $row["progression_execution_cache"] : null,
                         "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
+                        "bareme_cache" => isset($row["bareme_cache"]) && $row["bareme_cache"] !== "" ? $row["bareme_cache"] : null,
+                        "progression_execution_cache" => isset($row["progression_execution_cache"]) && $row["progression_execution_cache"] !== "" ? $row["progression_execution_cache"] : null,
                         "rapport" => isset($row["rapport"]) && $row["rapport"] !== "" ? $row["rapport"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];

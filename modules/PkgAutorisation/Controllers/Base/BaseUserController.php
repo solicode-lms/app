@@ -9,8 +9,8 @@ use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgEvaluateurs\Services\EvaluateurService;
 use Modules\PkgAutorisation\Services\ProfileService;
-use Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService;
 use Modules\PkgNotification\Services\NotificationService;
+use Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService;
 use Modules\Core\Services\UserModelFilterService;
 use Modules\PkgWidgets\Services\WidgetUtilisateurService;
 use Illuminate\Http\Request;
@@ -267,13 +267,6 @@ class BaseUserController extends AdminController
         $profiles_view_data = $profileService->prepareDataForIndexView();
         extract($profiles_view_data);
 
-        $this->viewState->set('scope.historiqueRealisationTache.user_id', $id);
-        
-
-        $historiqueRealisationTacheService =  new HistoriqueRealisationTacheService();
-        $historiqueRealisationTaches_view_data = $historiqueRealisationTacheService->prepareDataForIndexView();
-        extract($historiqueRealisationTaches_view_data);
-
         $this->viewState->set('scope.notification.user_id', $id);
         
 
@@ -281,27 +274,13 @@ class BaseUserController extends AdminController
         $notifications_view_data = $notificationService->prepareDataForIndexView();
         extract($notifications_view_data);
 
-        $this->viewState->set('scope.userModelFilter.user_id', $id);
-        
-
-        $userModelFilterService =  new UserModelFilterService();
-        $userModelFilters_view_data = $userModelFilterService->prepareDataForIndexView();
-        extract($userModelFilters_view_data);
-
-        $this->viewState->set('scope.widgetUtilisateur.user_id', $id);
-        
-
-        $widgetUtilisateurService =  new WidgetUtilisateurService();
-        $widgetUtilisateurs_view_data = $widgetUtilisateurService->prepareDataForIndexView();
-        extract($widgetUtilisateurs_view_data);
-
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._edit', array_merge(compact('bulkEdit' , 'itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
+            return view('PkgAutorisation::user._edit', array_merge(compact('bulkEdit' , 'itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $notification_compact_value));
         }
 
-        return view('PkgAutorisation::user.edit', array_merge(compact('bulkEdit' ,'itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
+        return view('PkgAutorisation::user.edit', array_merge(compact('bulkEdit' ,'itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $notification_compact_value));
 
 
     }

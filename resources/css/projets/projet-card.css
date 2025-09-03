@@ -19,6 +19,12 @@
     font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
+/* Affichage de card dans show_group : Page Show */
+.show_group .projet-card {
+  border: none;
+  box-shadow: none; /* pour être vraiment "flat" si besoin */
+}
+
 /* Titre */
 .projet-titre h2 {
     font-size: 1.25rem;

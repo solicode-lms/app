@@ -19,7 +19,14 @@ use Modules\PkgEvaluateurs\Models\Evaluateur;
 class User extends Authenticatable
 {
 
-    use HasFactory, Notifiable, HasRoles, HasReference, HasDynamicContext;
+    // ⚠️ Nous n'utilisons pas le système standard Laravel (Notifiable + morphMany)
+    // car la table `notifications` a été personnalisée avec une colonne `user_id`
+    // au lieu de `notifiable_type` et `notifiable_id`.
+    // La gestion des notifications se fait donc via un modèle Notification dédié
+    // dans le module PkgNotification.
+    // use Notifiable;
+
+    use HasFactory , HasRoles, HasReference, HasDynamicContext;
 
     public const ADMIN = "admin";
     public const MEMBRE = "membre";

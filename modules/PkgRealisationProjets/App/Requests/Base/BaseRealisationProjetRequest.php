@@ -34,10 +34,10 @@ class BaseRealisationProjetRequest extends FormRequest
             'etats_realisation_projet_id' => 'required',
             'progression_validation_cache' => 'nullable',
             'note_cache' => 'nullable',
-            'bareme_cache' => 'nullable',
-            'progression_execution_cache' => 'nullable',
             'date_debut' => 'required',
             'date_fin' => 'nullable',
+            'bareme_cache' => 'nullable',
+            'progression_execution_cache' => 'nullable',
             'rapport' => 'nullable|string'
         ];
     }
@@ -55,10 +55,10 @@ class BaseRealisationProjetRequest extends FormRequest
             'etats_realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.etats_realisation_projet_id')]),
             'progression_validation_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.progression_validation_cache')]),
             'note_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.note_cache')]),
-            'bareme_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.bareme_cache')]),
-            'progression_execution_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.progression_execution_cache')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.date_debut')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.date_fin')]),
+            'bareme_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.bareme_cache')]),
+            'progression_execution_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.progression_execution_cache')]),
             'rapport.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.rapport')])
         ];
     }
@@ -81,13 +81,13 @@ class BaseRealisationProjetRequest extends FormRequest
             
             'note_cache' => "root",
             
-            'bareme_cache' => "root",
-            
-            'progression_execution_cache' => "root",
-            
             'date_debut' => "root",
             
             'date_fin' => "root",
+            
+            'bareme_cache' => "root",
+            
+            'progression_execution_cache' => "root",
             
         ];
 

@@ -20,6 +20,13 @@
   position:relative;
 }
 
+/* Affichage de card dans show_group : Page Show */
+.show_group .realisation-etat {
+  border: none;
+  box-shadow: none; /* pour être vraiment "flat" si besoin */
+}
+
+
 /* Liseré vertical (teinte = état) */
 .realisation-etat::before{
   content:"";

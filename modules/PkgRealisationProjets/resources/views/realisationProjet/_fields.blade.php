@@ -66,42 +66,6 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="apprenant_id" :bulkEdit="$bulkEdit">
-      @php $canEditapprenant_id = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="apprenant_id" id="bulk_field_apprenant_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="apprenant_id">
-            {{ ucfirst(__('PkgApprenants::apprenant.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="apprenant_id" 
-            {{ $canEditapprenant_id ? '' : 'disabled' }}
-            required
-            
-            
-            name="apprenant_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($apprenants as $apprenant)
-                    <option value="{{ $apprenant->id }}"
-                        {{ (isset($itemRealisationProjet) && $itemRealisationProjet->apprenant_id == $apprenant->id) || (old('apprenant_id>') == $apprenant->id) ? 'selected' : '' }}>
-                        {{ $apprenant }}
-                    </option>
-                @endforeach
-            </select>
-          @error('apprenant_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="etats_realisation_projet_id" :bulkEdit="$bulkEdit">
       @php $canEditetats_realisation_projet_id = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
 
@@ -138,38 +102,6 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="progression_validation_cache" :bulkEdit="$bulkEdit">
-      @php $canEditprogression_validation_cache = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="progression_validation_cache" id="bulk_field_progression_validation_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="progression_validation_cache">
-            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.progression_validation_cache')) }}
-            
-          </label>
-              <input
-        name="progression_validation_cache"
-        type="number"
-        class="form-control"
-        
-        
-        
-        id="progression_validation_cache"
-        {{ $canEditprogression_validation_cache ? '' : 'disabled' }}
-        step="0.01"
-        placeholder="{{ __('PkgRealisationProjets::realisationProjet.progression_validation_cache') }}"
-        value="{{ $itemRealisationProjet ? number_format($itemRealisationProjet->progression_validation_cache, 2, '.', '') : old('progression_validation_cache') }}">
-          @error('progression_validation_cache')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="note_cache" :bulkEdit="$bulkEdit">
       @php $canEditnote_cache = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
 
@@ -196,70 +128,6 @@
         placeholder="{{ __('PkgRealisationProjets::realisationProjet.note_cache') }}"
         value="{{ $itemRealisationProjet ? number_format($itemRealisationProjet->note_cache, 2, '.', '') : old('note_cache') }}">
           @error('note_cache')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="bareme_cache" :bulkEdit="$bulkEdit">
-      @php $canEditbareme_cache = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="bareme_cache" id="bulk_field_bareme_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="bareme_cache">
-            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.bareme_cache')) }}
-            
-          </label>
-              <input
-        name="bareme_cache"
-        type="number"
-        class="form-control"
-        
-        
-        
-        id="bareme_cache"
-        {{ $canEditbareme_cache ? '' : 'disabled' }}
-        step="0.01"
-        placeholder="{{ __('PkgRealisationProjets::realisationProjet.bareme_cache') }}"
-        value="{{ $itemRealisationProjet ? number_format($itemRealisationProjet->bareme_cache, 2, '.', '') : old('bareme_cache') }}">
-          @error('bareme_cache')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="progression_execution_cache" :bulkEdit="$bulkEdit">
-      @php $canEditprogression_execution_cache = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="progression_execution_cache" id="bulk_field_progression_execution_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="progression_execution_cache">
-            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.progression_execution_cache')) }}
-            
-          </label>
-              <input
-        name="progression_execution_cache"
-        type="number"
-        class="form-control"
-        
-        
-        
-        id="progression_execution_cache"
-        {{ $canEditprogression_execution_cache ? '' : 'disabled' }}
-        step="0.01"
-        placeholder="{{ __('PkgRealisationProjets::realisationProjet.progression_execution_cache') }}"
-        value="{{ $itemRealisationProjet ? number_format($itemRealisationProjet->progression_execution_cache, 2, '.', '') : old('progression_execution_cache') }}">
-          @error('progression_execution_cache')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -324,6 +192,70 @@
                 value="{{ $itemRealisationProjet ? $itemRealisationProjet->date_fin : old('date_fin') }}">
 
           @error('date_fin')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="bareme_cache" :bulkEdit="$bulkEdit">
+      @php $canEditbareme_cache = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="bareme_cache" id="bulk_field_bareme_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="bareme_cache">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.bareme_cache')) }}
+            
+          </label>
+              <input
+        name="bareme_cache"
+        type="number"
+        class="form-control"
+        
+        
+        
+        id="bareme_cache"
+        {{ $canEditbareme_cache ? '' : 'disabled' }}
+        step="0.01"
+        placeholder="{{ __('PkgRealisationProjets::realisationProjet.bareme_cache') }}"
+        value="{{ $itemRealisationProjet ? number_format($itemRealisationProjet->bareme_cache, 2, '.', '') : old('bareme_cache') }}">
+          @error('bareme_cache')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="progression_execution_cache" :bulkEdit="$bulkEdit">
+      @php $canEditprogression_execution_cache = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="progression_execution_cache" id="bulk_field_progression_execution_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="progression_execution_cache">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.progression_execution_cache')) }}
+            
+          </label>
+              <input
+        name="progression_execution_cache"
+        type="number"
+        class="form-control"
+        
+        
+        
+        id="progression_execution_cache"
+        {{ $canEditprogression_execution_cache ? '' : 'disabled' }}
+        step="0.01"
+        placeholder="{{ __('PkgRealisationProjets::realisationProjet.progression_execution_cache') }}"
+        value="{{ $itemRealisationProjet ? number_format($itemRealisationProjet->progression_execution_cache, 2, '.', '') : old('progression_execution_cache') }}">
+          @error('progression_execution_cache')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

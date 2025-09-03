@@ -17,6 +17,13 @@
     transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Affichage de card dans show_group : Page Show */
+.show_group .livrable-card {
+  border: none;
+  box-shadow: none; /* pour être vraiment "flat" si besoin */
+}
+
+
 .livrable-card i {
     font-size: 1rem;
     flex-shrink: 0;

@@ -62,6 +62,14 @@
   font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
+
+/* Affichage de card dans show_group : Page Show */
+.show_group .realisation-card {
+  border: none;
+  box-shadow: none; /* pour être vraiment "flat" si besoin */
+}
+
+
 /* ================================
    🧱 Header (titre + sous-titre)
    ================================ */
