@@ -4,6 +4,7 @@
 import { CodeJar } from 'codejar';
 
 export class SummernoteCodeManager {
+    
   static defaultOptions = {
     height: 80,
     defaultLang: 'php',          // language-php | language-js | language-html...
@@ -45,36 +46,18 @@ export class SummernoteCodeManager {
     return node?.closest ? node.closest('pre code') : null;
   }
   static _insertText(text) {
-    // insertText suffit pour <pre><code> (le <pre> gère les newlines)
     document.execCommand('insertText', false, text);
   }
 
-  // ===== boutons toolbar =====
-  static _buildCodeButton(context, lang) {
-    const ui = $.summernote.ui;
-    return ui.button({
-      contents: '<i class="note-icon-code"></i>',
-      tooltip: 'Insérer un bloc de code',
-      click: function () {
-        const rng  = context.invoke('editor.createRange');
-        const sel  = rng && rng.toString ? rng.toString() : '';
-        const safe = SummernoteCodeManager._escape(sel || '/* code */');
-        const node = $(`<pre><code class="language-${lang}">${safe}</code></pre>`)[0];
-        context.invoke('editor.insertNode', node);
-        context.invoke('editor.afterCommand');
-        SummernoteCodeManager._hlElementIfPossible(node.querySelector('code'));
-      }
-    });
-  }
 
   static _buildLangDropdown(context, languages) {
     const ui = $.summernote.ui;
 
-    // IMPORTANT : ne pas appeler .render() sur les enfants
+    // enfants NON rendus, seul le group est rendu
     const group = ui.buttonGroup([
       ui.button({
         className: 'dropdown-toggle',
-        contents: '<i class="note-icon-magic"></i> <span class="note-icon-caret"></span>',
+        contents: '<i class="note-icon-code"></i>',
         tooltip: 'Langage du code',
         data: { toggle: 'dropdown' }
       }),
@@ -86,13 +69,11 @@ export class SummernoteCodeManager {
           const label = $(e.target).text().trim().toLowerCase();
           const lang  = languages.includes(label) ? label : languages[0];
 
-          // Si caret dans un bloc code => changer la classe language-*
           const codeEl = SummernoteCodeManager._getSelectionCodeEl();
           if (codeEl) {
             codeEl.className = `language-${lang}`;
             SummernoteCodeManager._hlElementIfPossible(codeEl);
           } else {
-            // sinon insérer un bloc vide
             const node = $(`<pre><code class="language-${lang}">/* code */</code></pre>`)[0];
             context.invoke('editor.insertNode', node);
             context.invoke('editor.afterCommand');
@@ -102,12 +83,49 @@ export class SummernoteCodeManager {
       })
     ]);
 
-    return group;
+    return group.render(); // <<< IMPORTANT
   }
+
+
+  // + Ajouter cette méthode
+static _insertParagraphAfter(pre){
+  const p = document.createElement('p');
+  p.innerHTML = '<br>'; // paragraphe vide visible pour Summernote
+  pre.insertAdjacentElement('afterend', p);
+
+  // placer le caret dans le paragraphe
+  const sel = window.getSelection();
+  const range = document.createRange();
+  range.setStart(p, 0);
+  range.collapse(true);
+  sel.removeAllRanges();
+  sel.addRange(range);
+}
+
+// + Ajouter cette méthode
+static _buildExitButton(context){
+  const ui = $.summernote.ui;
+  return ui.button({
+    contents: '<span style="font-weight:600">¶+</span>',
+    tooltip: 'Paragraphe après le code',
+    click: function(){
+      const sel = window.getSelection();
+      if (!sel || sel.rangeCount === 0) return;
+      const node = sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement;
+      const codeEl = node?.closest('pre code');
+      if (codeEl){
+        SummernoteCodeManager._insertParagraphAfter(codeEl.closest('pre'));
+      } else {
+        // si pas dans un code, insérer un paragraphe standard
+        document.execCommand('insertParagraph', false);
+      }
+    }
+  }).render();
+}
+
 
   // ===== options Summernote =====
   static _ensureToolbarHasInsert(mergedToolbar) {
-    // S’assure que 'insert' existe et contient 'codeblock' + 'codelang'
     const tb = JSON.parse(JSON.stringify(mergedToolbar || []));
     let insertIdx = tb.findIndex(row => row && row[0] === 'insert');
 
@@ -115,7 +133,9 @@ export class SummernoteCodeManager {
       tb.push(['insert', ['codeblock','codelang']]);
     } else {
       const items = new Set(tb[insertIdx][1]);
-      items.add('codeblock'); items.add('codelang');
+      items.add('codeblock'); 
+      items.add('codelang');
+      items.add('exitcode');
       tb[insertIdx][1] = Array.from(items);
     }
     return tb;
@@ -127,11 +147,10 @@ export class SummernoteCodeManager {
     const lang   = merged.defaultLang;
 
     const buttons = {
-      codeblock: (context) => SummernoteCodeManager._buildCodeButton(context, lang),
-      codelang:  (context) => SummernoteCodeManager._buildLangDropdown(context, merged.languages)
+    codelang:  (context) => SummernoteCodeManager._buildLangDropdown(context, merged.languages),
+    exitcode:  (context) => SummernoteCodeManager._buildExitButton(context)
     };
 
-    // S’assurer que la toolbar possède 'insert' avec nos boutons
     const toolbarFixed = SummernoteCodeManager._ensureToolbarHasInsert(merged.toolbar);
 
     const baseConfig = {
@@ -163,7 +182,7 @@ export class SummernoteCodeManager {
       }
     };
 
-    // Optionnel : re-highlighter global (lourd)
+    // (optionnel) re-highlight global
     if (merged.highlightInEditor && typeof Prism !== 'undefined') {
       const prevInit = baseConfig.callbacks.onInit;
       baseConfig.callbacks.onChange = function () {
@@ -188,12 +207,11 @@ export class SummernoteCodeManager {
       ? opts.inlineExitKeys
       : SummernoteCodeManager.defaultOptions.inlineExitKeys;
 
-    // conteneur éditeur (remplace <pre>)
     const pre      = codeEl.parentElement;
     const jarDiv   = document.createElement('div');
     jarDiv.className = 'codejar-inline';
     jarDiv.textContent = codeEl.textContent || '/* code */';
-    jarDiv.dataset.lang = lang; // pour fermeture globale
+    jarDiv.dataset.lang = lang;
     pre.replaceWith(jarDiv);
 
     const highlight = (ed) => {
@@ -205,19 +223,17 @@ export class SummernoteCodeManager {
     const jar = CodeJar(jarDiv, highlight);
     jarDiv.focus();
 
-    // fermeture & commit (pour cet éditeur)
     function closeJar() {
-      if (!jarDiv.isConnected) return; // déjà fermé
+      if (!jarDiv.isConnected) return;
       const newPre  = document.createElement('pre');
       const newCode = document.createElement('code');
       newCode.className = langCls;
-      newCode.textContent = jarDiv.textContent; // texte brut (sécurité XSS)
+      newCode.textContent = jarDiv.textContent;
       newPre.appendChild(newCode);
       jarDiv.replaceWith(newPre);
       SummernoteCodeManager._hlElementIfPossible(newCode);
     }
 
-    // touches de sortie
     jarDiv.addEventListener('keydown', (e) => {
       const key = e.key;
       const isCtrlEnter = (e.ctrlKey && key === 'Enter');
@@ -228,10 +244,7 @@ export class SummernoteCodeManager {
       }
     });
 
-    // fermeture automatique si blur
     jarDiv.addEventListener('blur', () => closeJar(), { once: true });
-
-    // expose une méthode utilitaire sur l’élément pour fermeture globale
     jarDiv.__closeJar = closeJar;
   }
 
@@ -250,22 +263,61 @@ export class SummernoteCodeManager {
     });
   }
 
-  static _enableEnterAsNewlineInPre(editable) {
-    // Dans l’éditeur Summernote classique (hors CodeJar), Enter doit créer une newline dans <pre><code>
-    editable.addEventListener('keydown', (e) => {
-      if (e.key !== 'Enter') return;
+// REMPLACER entièrement la méthode
+static _enableEnterAsNewlineInPre(editable) {
+  // petit état pour le "double Enter rapide"
+  if (!editable.__enterState) editable.__enterState = { lastAt: 0, lastCode: null };
+  const state = editable.__enterState;
 
-      // si on tape Enter dans un bloc code (et pas dans notre .codejar-inline)
-      const target = e.target;
-      const codeEl = target && target.closest ? target.closest('pre code') : null;
-      const insideJar = target && target.closest ? target.closest('.codejar-inline') : null;
+  editable.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
 
-      if (codeEl && !insideJar) {
-        e.preventDefault();
-        SummernoteCodeManager._insertText('\n');
-      }
-    });
-  }
+    const sel = window.getSelection();
+    if (!sel || sel.rangeCount === 0) return;
+
+    const node = sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement;
+    const codeEl = node?.closest('pre code');
+    const insideJar = node?.closest('.codejar-inline');
+
+    // Agir uniquement si on est dans <pre><code> et pas dans CodeJar
+    if (!codeEl || insideJar) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const pre = codeEl.closest('pre');
+
+    // --- Cas A : Ctrl+Enter => sortir du bloc (paragraphe après)
+    if (e.ctrlKey) {
+      SummernoteCodeManager._insertParagraphAfter(pre);
+      state.lastAt = 0; state.lastCode = null;
+      return;
+    }
+
+    // --- Cas B : double Enter rapide dans le même bloc => sortir
+    const now = Date.now();
+    if (state.lastCode === codeEl && (now - state.lastAt) < 450) {
+      SummernoteCodeManager._insertParagraphAfter(pre);
+      state.lastAt = 0; state.lastCode = null;
+      return;
+    }
+
+    // --- Cas C : Enter normal => ajouter une nouvelle ligne dans le code
+    const range = sel.getRangeAt(0);
+    range.deleteContents();
+    const newline = document.createTextNode('\n');
+    range.insertNode(newline);
+    range.setStartAfter(newline);
+    range.collapse(true);
+    sel.removeAllRanges();
+    sel.addRange(range);
+
+    // mémoriser pour détecter le double Enter
+    state.lastAt = now;
+    state.lastCode = codeEl;
+  }, true); // capture pour passer avant Summernote
+}
+
 
   static _enableInlineCodeEditing($textarea, opts = {}) {
     const isDisabled = $textarea.prop('disabled');
@@ -275,10 +327,8 @@ export class SummernoteCodeManager {
     const editable   = editorRoot?.querySelector('.note-editable');
     if (!editable) return;
 
-    // Enter => newline dans <pre><code> (mode normal)
     SummernoteCodeManager._enableEnterAsNewlineInPre(editable);
 
-    // Double-clic sur un bloc <pre><code> => bascule en éditeur CodeJar
     editable.addEventListener('dblclick', (e) => {
       const target = e.target;
       const codeEl = target && target.closest ? target.closest('pre code') : null;
@@ -286,19 +336,14 @@ export class SummernoteCodeManager {
       SummernoteCodeManager._codeBlockToJar(codeEl, opts);
     });
 
-    // ——— Fermeture automatique si l’utilisateur “oublie” ———
-
-    // 1) Perte de focus de l’éditeur Summernote
     $textarea.on('summernote.blur', () => {
       SummernoteCodeManager._closeAllInlineEditors(editorRoot);
     });
 
-    // 2) Bascule en codeview
     $textarea.on('summernote.codeview.toggled', () => {
       SummernoteCodeManager._closeAllInlineEditors(editorRoot);
     });
 
-    // 3) Clic en dehors de la zone éditeur
     document.addEventListener('mousedown', (e) => {
       if (!editorRoot.contains(e.target)) {
         SummernoteCodeManager._closeAllInlineEditors(editorRoot);
@@ -308,20 +353,18 @@ export class SummernoteCodeManager {
 
   // ===== API publique =====
   static initTextArea($textarea, opts = {}) {
+
     const config = SummernoteCodeManager._computeOptions($textarea, opts);
     $textarea.summernote(config);
 
-    // textarea -> Summernote (si valeur changée via JS)
     $textarea.on('input', function () {
       $textarea.summernote('code', $textarea.val());
     });
 
-    // Summernote -> textarea (pour submit etc.)
     $textarea.on('summernote.change', function (e, contents) {
       $textarea.val(contents);
     });
 
-    // Activer Option B (inline CodeJar)
     const merged = { ...SummernoteCodeManager.defaultOptions, ...opts };
     if (merged.inlineCodeEdit) {
       SummernoteCodeManager._enableInlineCodeEditing($textarea, merged);

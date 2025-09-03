@@ -459,8 +459,8 @@ export class FormUI  {
                 defaultLang: 'php',
                 languages: ['php','javascript','html','css','json','bash'],
                 inlineCodeEdit: true,
-                inlineExitKeys: ['Escape','Ctrl+Enter']
-            // highlightInEditor: true // si tu veux recolorer tout l’éditeur (plus lourd)
+                inlineExitKeys: ['Escape','Ctrl+Enter'],
+                highlightInEditor: false // si tu veux recolorer tout l’éditeur (plus lourd)
             });
     }
 
