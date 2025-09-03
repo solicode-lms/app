@@ -44,6 +44,10 @@ export class SummernoteCodeManager {
     const node = sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement;
     return node?.closest ? node.closest('pre code') : null;
   }
+  static _insertText(text) {
+    // insertText suffit pour <pre><code> (le <pre> gère les newlines)
+    document.execCommand('insertText', false, text);
+  }
 
   // ===== boutons toolbar =====
   static _buildCodeButton(context, lang) {
@@ -66,8 +70,7 @@ export class SummernoteCodeManager {
   static _buildLangDropdown(context, languages) {
     const ui = $.summernote.ui;
 
-    // IMPORTANT : ne pas appeler .render() ici —
-    // Summernote le fera pour chaque enfant du buttonGroup.
+    // IMPORTANT : ne pas appeler .render() sur les enfants
     const group = ui.buttonGroup([
       ui.button({
         className: 'dropdown-toggle',
@@ -77,20 +80,19 @@ export class SummernoteCodeManager {
       }),
       ui.dropdown({
         className: 'dropdown-language',
-        // items peut être un array de strings
         items: languages.map(l => l.toUpperCase()),
         click: function (e) {
           e.preventDefault();
           const label = $(e.target).text().trim().toLowerCase();
           const lang  = languages.includes(label) ? label : languages[0];
 
-          // Si caret dans un bloc code => changer sa classe language-*
+          // Si caret dans un bloc code => changer la classe language-*
           const codeEl = SummernoteCodeManager._getSelectionCodeEl();
           if (codeEl) {
             codeEl.className = `language-${lang}`;
             SummernoteCodeManager._hlElementIfPossible(codeEl);
           } else {
-            // sinon insérer un nouveau bloc vide
+            // sinon insérer un bloc vide
             const node = $(`<pre><code class="language-${lang}">/* code */</code></pre>`)[0];
             context.invoke('editor.insertNode', node);
             context.invoke('editor.afterCommand');
@@ -104,6 +106,21 @@ export class SummernoteCodeManager {
   }
 
   // ===== options Summernote =====
+  static _ensureToolbarHasInsert(mergedToolbar) {
+    // S’assure que 'insert' existe et contient 'codeblock' + 'codelang'
+    const tb = JSON.parse(JSON.stringify(mergedToolbar || []));
+    let insertIdx = tb.findIndex(row => row && row[0] === 'insert');
+
+    if (insertIdx === -1) {
+      tb.push(['insert', ['codeblock','codelang']]);
+    } else {
+      const items = new Set(tb[insertIdx][1]);
+      items.add('codeblock'); items.add('codelang');
+      tb[insertIdx][1] = Array.from(items);
+    }
+    return tb;
+  }
+
   static _computeOptions($textarea, opts = {}) {
     const isDisabled = $textarea.prop('disabled');
     const merged = { ...SummernoteCodeManager.defaultOptions, ...opts };
@@ -114,11 +131,14 @@ export class SummernoteCodeManager {
       codelang:  (context) => SummernoteCodeManager._buildLangDropdown(context, merged.languages)
     };
 
+    // S’assurer que la toolbar possède 'insert' avec nos boutons
+    const toolbarFixed = SummernoteCodeManager._ensureToolbarHasInsert(merged.toolbar);
+
     const baseConfig = {
       height: merged.height,
       styleTags: merged.styleTags,
       buttons,
-      toolbar: isDisabled ? false : merged.toolbar,
+      toolbar: isDisabled ? false : toolbarFixed,
       airMode: isDisabled ? false : undefined,
       callbacks: isDisabled ? {
         onInit: function () {
@@ -139,7 +159,7 @@ export class SummernoteCodeManager {
       if (codeEl) {
         e.preventDefault();
         const text = (e.originalEvent || e).clipboardData.getData('text');
-        document.execCommand('insertText', false, text);
+        SummernoteCodeManager._insertText(text);
       }
     };
 
@@ -230,6 +250,23 @@ export class SummernoteCodeManager {
     });
   }
 
+  static _enableEnterAsNewlineInPre(editable) {
+    // Dans l’éditeur Summernote classique (hors CodeJar), Enter doit créer une newline dans <pre><code>
+    editable.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter') return;
+
+      // si on tape Enter dans un bloc code (et pas dans notre .codejar-inline)
+      const target = e.target;
+      const codeEl = target && target.closest ? target.closest('pre code') : null;
+      const insideJar = target && target.closest ? target.closest('.codejar-inline') : null;
+
+      if (codeEl && !insideJar) {
+        e.preventDefault();
+        SummernoteCodeManager._insertText('\n');
+      }
+    });
+  }
+
   static _enableInlineCodeEditing($textarea, opts = {}) {
     const isDisabled = $textarea.prop('disabled');
     if (isDisabled) return;
@@ -237,6 +274,9 @@ export class SummernoteCodeManager {
     const editorRoot = $textarea.siblings('.note-editor')[0];
     const editable   = editorRoot?.querySelector('.note-editable');
     if (!editable) return;
+
+    // Enter => newline dans <pre><code> (mode normal)
+    SummernoteCodeManager._enableEnterAsNewlineInPre(editable);
 
     // Double-clic sur un bloc <pre><code> => bascule en éditeur CodeJar
     editable.addEventListener('dblclick', (e) => {
