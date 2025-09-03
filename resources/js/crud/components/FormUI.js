@@ -454,14 +454,14 @@ export class FormUI  {
         // });
 
 
-        // Tous les <textarea class="richText"> deviennent Summernote + bouton “Code”
-        SummernoteCodeManager.initAll('.richText', {
-        height: 100,
-        defaultLang: 'php',          // ou 'js', 'html', ...
-        inlineCodeEdit: true,        // double-clic pour éditer
-        inlineExitKeys: ['Escape','Ctrl+Enter'], // fermer l’éditeur
-        // highlightInEditor: true    // si tu veux re-colorer tout l’éditeur (plus lourd)
-        });
+            SummernoteCodeManager.initAll('.richText', {
+                height: 100,
+                defaultLang: 'php',
+                languages: ['php','javascript','html','css','json','bash'],
+                inlineCodeEdit: true,
+                inlineExitKeys: ['Escape','Ctrl+Enter']
+            // highlightInEditor: true // si tu veux recolorer tout l’éditeur (plus lourd)
+            });
     }
 
 
