@@ -66,7 +66,9 @@ export default class SummernoteCodeManager {
                 if (!editor || !editor.isConnected) return;
                 try {
                   // Re-pousse le texte actuel (si inchangé, CodeJar n'ajoutera pas d'historique)
+                  let pos = jar.save()
                   jar.updateCode(editor.textContent);
+                  jar.restore(pos)
                 } catch (_) { /* ignore */ }
               });
             }

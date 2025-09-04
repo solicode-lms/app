@@ -45,6 +45,7 @@ export class ShowUI {
     this.initTooltip();
     this.initializeDate();
     this.initCodeJar();
+    this.initPrismHighlight();
 
     // Traitements dynamiques de visibilité
     if (window.dynamicFieldVisibilityTreatments) {
@@ -72,6 +73,31 @@ export class ShowUI {
       .removeClass('card-footer')
       .addClass('modal-footer');
   }
+
+
+    /**
+   * Initialise Prism.js pour mettre en surbrillance tous les blocs <pre><code>.
+   */
+  initPrismHighlight() {
+    const codeBlocks = document.querySelectorAll(
+      this.containerSelector + ' pre code'
+    );
+
+    codeBlocks.forEach(block => {
+      // Nettoyer avant highlight pour éviter les doublons de <span>
+      const rawText = block.textContent;
+      const language = Array.from(block.classList)
+        .find(cls => cls.startsWith('language-'))
+        ?.replace('language-', '') || 'json';
+
+      try {
+        block.innerHTML = Prism.highlight(rawText, Prism.languages[language] || Prism.languages.json, language);
+      } catch (e) {
+        block.innerHTML = Prism.highlight(rawText, Prism.languages.json, 'json');
+      }
+    });
+  }
+
 
   /**
    * Initialisation des tooltips Bootstrap.
