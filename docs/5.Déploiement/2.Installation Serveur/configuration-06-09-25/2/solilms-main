@@ -1,0 +1,59 @@
+# --- Redirection HTTP vers HTTPS ---
+# Redirige tout le trafic des ports 80 et 2024 (HTTP) vers leurs équivalents HTTPS
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name 192.168.100.230;
+    # Redirection vers le port HTTPS standard (443)
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 2024;
+    listen [::]:2024;
+    server_name 192.168.100.230;
+    # Redirection vers le port HTTPS 2024
+    return 301 https://$host:2024$request_uri;
+}
+
+
+# --- Application Principale : solilms-main ---
+# Écoute sur le port 443 (HTTPS )
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name 192.168.100.230;
+
+    # Paramètres SSL
+    ssl_certificate     /etc/nginx/ssl/certificate.crt;
+    ssl_certificate_key /etc/nginx/ssl/private.key;
+    ssl_protocols       TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers off;
+
+    # Racine et index du site
+    root /var/www/solilms-main/public;
+    index index.php index.html;
+    charset utf-8;
+
+    # Paramètres communs (voir plus bas si vous voulez factoriser )
+    client_max_body_size 50M;
+    error_page 404 /index.php;
+
+    # Front controller Laravel
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # PHP-FPM
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    # Protéger les fichiers cachés
+    location ~ /\.(?!well-known).* { deny all; }
+}

@@ -1,0 +1,33 @@
+
+
+server {
+    listen 2024;
+    server_name 192.168.100.230;
+
+    root /var/www/solilms-v2024/public;
+    index index.php index.html;
+    charset utf-8;
+
+    
+
+    # Laravel front controller
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # PHP-FPM
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    # Protéger les fichiers cachés (sauf .well-known)
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+
+    error_page 404 /index.php;
+    client_max_body_size 50M;
+}
