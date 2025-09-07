@@ -17,6 +17,7 @@
         </ul>
     </section>
 
+    @if($entity->resources->isNotEmpty())
     <section class="projet-section">
         <h3><i class="fas fa-book"></i> Ressources</h3>
         <ul class="projet-ressources">
@@ -25,6 +26,7 @@
             @endforeach
         </ul>
     </section>
+    @endif
 
     <footer class="projet-formateur">
         <i class="fas fa-user-tie"></i>

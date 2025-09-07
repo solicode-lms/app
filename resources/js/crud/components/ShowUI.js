@@ -29,13 +29,16 @@ export class ShowUI {
     this.entityEditor = new EditAction(config,this.indexUI.tableUI,this.containerSelector);
     this.viewStateService = this.config.viewStateService;
     this.loader = new LoadingIndicator(this.containerSelector);
+    this.showContainerSelector = this.config.showContainerSelector;
   }
 
   /**
    * Initialise la vue Show : chargement, décorations, traitements dynamiques.
    */
-  init() {
+  init(containerSelector) {
 
+    this.containerSelector = containerSelector || this.config.showContainerSelector;
+    
     InitUIManagers.init();
     this.loader.init();
     this.handleCardFooter();

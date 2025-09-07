@@ -103,6 +103,7 @@
 </div>
 <script>
     window.modalTitle   = '{{ __("PkgCreationProjet::projet.singular") }} : {{ $itemProjet }}';
+    window.showUIId = 'projet-crud-show';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

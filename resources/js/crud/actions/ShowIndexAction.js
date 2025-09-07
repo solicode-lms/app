@@ -59,7 +59,9 @@ export class ShowIndexAction extends Action {
                 this.tableUI.indexUI.modalUI.showContent(html);
                 this.executeScripts(html);
                 this.tableUI.indexUI.modalUI.setTitle(window.modalTitle);
-                this.tableUI.indexUI.formUI.init();
+                let showUIId = window.showUIId;
+
+                this.tableUI.indexUI.showUI.init("#" + showUIId);
                 if(readOnly){
                     this.tableUI.indexUI.formUI.setToReadOnly();
                 }
