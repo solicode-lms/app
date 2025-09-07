@@ -193,7 +193,7 @@
         
 
 @if($itemRealisationTache->id)
-@if(auth()->user()?->can('show-realisationChapitre || auth()->user()?->can('create-realisationChapitre'))
+@if(auth()->user()?->can('show-realisationChapitre') || auth()->user()?->can('create-realisationChapitre'))
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="RealisationChapitre">

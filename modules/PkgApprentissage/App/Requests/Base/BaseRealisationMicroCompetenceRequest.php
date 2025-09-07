@@ -42,7 +42,7 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
             'realisation_competence_id' => 'required',
             'lien_livrable' => 'nullable|string|max:255|url',
             'progression_ideal_cache' => 'nullable',
-            'taux_rythme_cache' => 'required'
+            'taux_rythme_cache' => 'nullable'
         ];
     }
 

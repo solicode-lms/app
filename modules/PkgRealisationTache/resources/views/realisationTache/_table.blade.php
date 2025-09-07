@@ -34,7 +34,7 @@
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
                         @if($realisationTaches_permissions['index-livrablesRealisation'])
-                        <x-action-button :entity="$realisationTaches" actionName="livrablesRealisations">
+                        <x-action-button :entity="$realisationTache" actionName="livrablesRealisations">
                             <a
                                 data-toggle="tooltip"
                                 title="Livrables"
@@ -44,14 +44,14 @@
                                         'scope.livrable.projet_id' => $realisationTache->realisationProjet->affectationProjet->projet_id,
                                         'scope.livrablesRealisation.realisation_projet_id' => $realisationTache->realisation_projet_id,
                                 ]) }}"
-                                class="btn btn-default btn-sm context-state actionEntity showIndex d-none d-md-inline d-lg-inline "
+                                class="btn btn-default btn-sm context-state actionEntity showIndex"
                                 data-id="{{ $realisationTache->id }}">
                                 <i class="fas fa-file-alt"></i>
                             </a>
                         </x-action-button>
                         @endif
                         @if($realisationTaches_permissions['show-projet'])
-                        <x-action-button :entity="$realisationTaches" actionName="projet">
+                        <x-action-button :entity="$realisationTache" actionName="projet">
                             <a
                                 data-toggle="tooltip"
                                 title="Projet"
@@ -60,7 +60,7 @@
                                         'showIndex' => true,
                                         'contextKey' => 'projets.show',
                                 ]) }}"
-                                class="btn btn-default btn-sm context-state actionEntity showIndex d-none d-md-inline d-lg-inline "
+                                class="btn btn-default btn-sm context-state actionEntity showIndex"
                                 data-id="{{ $realisationTache->id }}">
                                 <i class="fas fa-laptop"></i>
                             </a>
