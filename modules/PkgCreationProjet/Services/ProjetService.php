@@ -78,7 +78,7 @@ class ProjetService extends BaseProjetService
         $affectations = $projet->affectationProjets()->count();
 
         if ($affectations > 0) {
-            throw new BlException("Impossible de supprimer ce projet : il est encore affecté à un ou plusieurs groupes. Supprimez d'abord les affectations avant de supprimer le projet.");
+            throw new BlException("Impossible de supprimer ce projet : </br> il est encore affecté à un ou plusieurs groupes. </br> Supprimez d'abord les affectations avant de supprimer le projet.");
         }
     }
 

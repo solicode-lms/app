@@ -30,7 +30,6 @@ export class DeleteAction extends CrudAction {
         let deleteUrl = this.getUrlWithId(this.config.deleteUrl, id);
         deleteUrl = this.appendParamsToUrl(deleteUrl, this.viewStateService.getContextParams());
     
-        this.loader.showNomBloquante();
         NotificationHandler.confirmAction(
             'Êtes-vous sûr ?', 'Cette action est irréversible.',
             () => {
@@ -61,6 +60,7 @@ export class DeleteAction extends CrudAction {
                     AjaxErrorHandler.handleError(xhr, "Erreur lors de la suppression de l'entité.");
                 });
             }
+            
         );
     }
 

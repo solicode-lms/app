@@ -54,7 +54,7 @@ export class NotificationHandler {
      * @param {string} text - Texte explicatif.
      * @param {Function} onConfirm - Callback si l'utilisateur confirme.
      */
-    static confirmAction(title, text, onConfirm) {
+    static confirmAction(title, text, onConfirm, onCancel = null) {
         Swal.fire({
             title: title,
             text: text,
@@ -65,6 +65,8 @@ export class NotificationHandler {
         }).then((result) => {
             if (result.isConfirmed && typeof onConfirm === 'function') {
                 onConfirm();
+            }else if (typeof onCancel === 'function') {
+                onCancel();
             }
         });
     }
