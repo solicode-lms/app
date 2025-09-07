@@ -76,9 +76,10 @@ export class CrudAction extends Action {
                         }
                     }
                 })
-                .fail(() => {
+                .fail((xhr) => {
                     if (loader) loader.hide();
-                    NotificationHandler.showError('❌ Erreur réseau pendant le polling.');
+                    
+                    AjaxErrorHandler.handleError(xhr, 'Erreur réseau pendant le polling.');
                     this.tableUI.loadListAction.loadEntities();
                 });
         };

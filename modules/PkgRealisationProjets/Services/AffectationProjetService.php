@@ -44,6 +44,13 @@ class AffectationProjetService extends BaseAffectationProjetService
                 if (empty($instance->date_fin)) {
                     $instance->date_fin = $projet->sessionFormation->date_fin;
                 }
+
+                // Initialiser Remarques
+                if (!empty($projet->sessionFormation->jour_feries_vacances)) {
+
+                    $instance->description .= "<p>Jours fériés et vacances : " . $projet->sessionFormation->jour_feries_vacances . " </p>";
+
+                }
             }
         }
 
@@ -391,7 +398,7 @@ public function deletedObserverJob(int $id, string $token): void
         });
 
         if ($hasNonTodo) {
-            throw new BlException("Impossible de supprimer cette affectation : au moins une réalisation de projet a un état différent de 'À faire'. Veuillez réinitialiser tous les états à 'À faire' avant de procéder à la suppression.");
+            throw new BlException("Impossible de supprimer cette affectation : </br> au moins une réalisation de projet a un état différent de 'À faire'. </br> Veuillez réinitialiser tous les états à 'À faire' avant de procéder à la suppression.");
         }
     }
 
