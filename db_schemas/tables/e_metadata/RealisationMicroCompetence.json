@@ -961,7 +961,9 @@
     },
     {
         "reference": "RealisationMicroCompetence_progression_ideal_cache_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationMicroCompetence_progression_ideal_cache",
         "e_metadata_definition_reference": "required"
     },
@@ -973,7 +975,9 @@
     },
     {
         "reference": "RealisationMicroCompetence_progression_ideal_cache_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationMicroCompetence_progression_ideal_cache",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -991,7 +995,9 @@
     },
     {
         "reference": "RealisationMicroCompetence_progression_ideal_cache_viewFormFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationMicroCompetence_progression_ideal_cache",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
@@ -1004,6 +1010,8 @@
     {
         "reference": "RealisationMicroCompetence_taux_rythme_cache_required",
         "value_boolean": 1,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationMicroCompetence_taux_rythme_cache",
         "e_metadata_definition_reference": "required"
     },
@@ -1015,7 +1023,9 @@
     },
     {
         "reference": "RealisationMicroCompetence_taux_rythme_cache_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationMicroCompetence_taux_rythme_cache",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -1033,7 +1043,9 @@
     },
     {
         "reference": "RealisationMicroCompetence_taux_rythme_cache_viewFormFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationMicroCompetence_taux_rythme_cache",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
@@ -1058,5 +1070,25 @@
         "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_note_cache",
         "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "RealisationMicroCompetence_taux_rythme_cache_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationMicroCompetence_taux_rythme_cache",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationMicroCompetence_progression_ideal_cache_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationMicroCompetence_progression_ideal_cache",
+        "e_metadata_definition_reference": "editableByRoles"
     }
 ]

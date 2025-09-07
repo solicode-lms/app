@@ -41,7 +41,7 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
             'dernier_update' => 'nullable',
             'realisation_competence_id' => 'required',
             'lien_livrable' => 'nullable|string|max:255|url',
-            'progression_ideal_cache' => 'required',
+            'progression_ideal_cache' => 'nullable',
             'taux_rythme_cache' => 'required'
         ];
     }
@@ -103,6 +103,10 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
             'dernier_update' => "root",
             
             'realisation_competence_id' => "root",
+            
+            'progression_ideal_cache' => "root",
+            
+            'taux_rythme_cache' => "root",
             
         ];
 

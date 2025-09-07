@@ -34,6 +34,7 @@
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
                         @if($realisationTaches_permissions['index-livrablesRealisation'])
+                        <x-action-button :entity="$realisationTaches" actionName="livrablesRealisations">
                             <a
                                 data-toggle="tooltip"
                                 title="Livrables"
@@ -47,8 +48,10 @@
                                 data-id="{{ $realisationTache->id }}">
                                 <i class="fas fa-file-alt"></i>
                             </a>
+                        </x-action-button>
                         @endif
                         @if($realisationTaches_permissions['show-projet'])
+                        <x-action-button :entity="$realisationTaches" actionName="projet">
                             <a
                                 data-toggle="tooltip"
                                 title="Projet"
@@ -61,6 +64,7 @@
                                 data-id="{{ $realisationTache->id }}">
                                 <i class="fas fa-laptop"></i>
                             </a>
+                        </x-action-button>
                         @endif
 
 

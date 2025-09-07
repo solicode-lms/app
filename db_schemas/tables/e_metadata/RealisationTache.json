@@ -476,6 +476,7 @@
                     "scope.livrablesRealisation.realisation_projet_id": "$realisationTache->realisation_projet_id"
                 },
                 "tooltip": "Livrables",
+                "actionName": "livrablesRealisations",
                 "permission": "index-livrablesRealisation"
             },
             {
@@ -489,9 +490,11 @@
                     "contextKey": "'projets.show'"
                 },
                 "tooltip": "Projet",
+                "actionName": "projet",
                 "permission": "show-projet"
             }
         ],
+        "value_text": "<p><br></p>",
         "e_model_reference": "realisation_taches",
         "e_metadata_definition_reference": "linksAction"
     },
