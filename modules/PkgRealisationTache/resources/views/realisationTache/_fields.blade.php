@@ -193,7 +193,11 @@
         
 
 @if($itemRealisationTache->id)
-@if(auth()->user()?->can('show-realisationChapitre') || auth()->user()?->can('create-realisationChapitre'))
+@if(
+  (auth()->user()?->can('show-realisationChapitre') && $itemRealisationTache->realisationChapitres->isNotEmpty())  
+  || auth()->user()?->can('create-realisationChapitre')
+  || auth()->user()?->can('edit-realisationChapitre')
+  )
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="RealisationChapitre">
@@ -211,7 +215,11 @@
 
 
 @if($itemRealisationTache->id)
-@if(auth()->user()?->can('show-realisationUaProjet || auth()->user()?->can('create-realisationUaProjet'))
+@if(
+  (auth()->user()?->can('show-realisationUaProjet') && $itemRealisationTache->realisationUaProjets->isNotEmpty())  
+  || auth()->user()?->can('create-realisationUaProjet')
+  || auth()->user()?->can('edit-realisationUaProjet')
+  )
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="RealisationUaProjet">
@@ -229,7 +237,11 @@
 
 
 @if($itemRealisationTache->id)
-@if(auth()->user()?->can('show-realisationUaPrototype || auth()->user()?->can('create-realisationUaPrototype'))
+@if(
+  (auth()->user()?->can('show-realisationUaPrototype') && $itemRealisationTache->realisationUaPrototypes->isNotEmpty())  
+  || auth()->user()?->can('create-realisationUaPrototype')
+  || auth()->user()?->can('edit-realisationUaPrototype')
+  )
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="RealisationUaPrototype">
@@ -350,7 +362,11 @@
 
 
 @if($itemRealisationTache->id)
-@if(auth()->user()?->can('show-evaluationRealisationTache || auth()->user()?->can('create-evaluationRealisationTache'))
+@if(
+  (auth()->user()?->can('show-evaluationRealisationTache') && $itemRealisationTache->evaluationRealisationTaches->isNotEmpty())  
+  || auth()->user()?->can('create-evaluationRealisationTache')
+  || auth()->user()?->can('edit-evaluationRealisationTache')
+  )
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="EvaluationRealisationTache">
