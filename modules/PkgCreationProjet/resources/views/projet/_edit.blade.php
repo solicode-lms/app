@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="projet-hasmany-tabs-home-tab" data-toggle="pill" href="#projet-hasmany-tabs-home" role="tab" aria-controls="projet-hasmany-tabs-home" aria-selected="true">{{__('PkgCreationProjet::projet.singular')}}</a>
                         </li>
 
-                         @if($itemProjet->affectationProjets->count() > 0 || auth()->user()?->can('create-affectationProjet'))
+                         @if($itemProjet->affectationProjets?->count() > 0 || auth()->user()?->can('create-affectationProjet'))
                         <li class="nav-item">
                             <a class="nav-link" id="projet-hasmany-tabs-affectationProjet-tab" data-toggle="pill" href="#projet-hasmany-tabs-affectationProjet" role="tab" aria-controls="projet-hasmany-tabs-affectationProjet" aria-selected="false">
                                 <i class="nav-icon fas fa-calendar-check"></i>
@@ -44,7 +44,7 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemProjet->mobilisationUas->count() > 0 || auth()->user()?->can('create-mobilisationUa'))
+                         @if($itemProjet->mobilisationUas?->count() > 0 || auth()->user()?->can('create-mobilisationUa'))
                         <li class="nav-item">
                             <a class="nav-link" id="projet-hasmany-tabs-mobilisationUa-tab" data-toggle="pill" href="#projet-hasmany-tabs-mobilisationUa" role="tab" aria-controls="projet-hasmany-tabs-mobilisationUa" aria-selected="false">
                                 <i class="nav-icon fas  fa-seedling"></i>
@@ -52,7 +52,7 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemProjet->taches->count() > 0 || auth()->user()?->can('create-tache'))
+                         @if($itemProjet->taches?->count() > 0 || auth()->user()?->can('create-tache'))
                         <li class="nav-item">
                             <a class="nav-link" id="projet-hasmany-tabs-tache-tab" data-toggle="pill" href="#projet-hasmany-tabs-tache" role="tab" aria-controls="projet-hasmany-tabs-tache" aria-selected="false">
                                 <i class="nav-icon fas fa-tasks"></i>
@@ -60,7 +60,7 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemProjet->livrables->count() > 0 || auth()->user()?->can('create-livrable'))
+                         @if($itemProjet->livrables?->count() > 0 || auth()->user()?->can('create-livrable'))
                         <li class="nav-item">
                             <a class="nav-link" id="projet-hasmany-tabs-livrable-tab" data-toggle="pill" href="#projet-hasmany-tabs-livrable" role="tab" aria-controls="projet-hasmany-tabs-livrable" aria-selected="false">
                                 <i class="nav-icon fas fa-file-alt"></i>
@@ -68,7 +68,7 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemProjet->resources->count() > 0 || auth()->user()?->can('create-resource'))
+                         @if($itemProjet->resources?->count() > 0 || auth()->user()?->can('create-resource'))
                         <li class="nav-item">
                             <a class="nav-link" id="projet-hasmany-tabs-resource-tab" data-toggle="pill" href="#projet-hasmany-tabs-resource" role="tab" aria-controls="projet-hasmany-tabs-resource" aria-selected="false">
                                 <i class="nav-icon fas fa-book"></i>
@@ -86,27 +86,27 @@
                                 @include('PkgCreationProjet::projet._fields')
                             </div>
 
-                            @if($itemProjet->affectationProjets->count() > 0 || auth()->user()?->can('create-affectationProjet'))
+                            @if($itemProjet->affectationProjets?->count() > 0 || auth()->user()?->can('create-affectationProjet'))
                             <div class="tab-pane fade" id="projet-hasmany-tabs-affectationProjet" role="tabpanel" aria-labelledby="projet-hasmany-tabs-affectationProjet-tab">
                                 @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])
                             </div>
                             @endif
-                            @if($itemProjet->mobilisationUas->count() > 0 || auth()->user()?->can('create-mobilisationUa'))
+                            @if($itemProjet->mobilisationUas?->count() > 0 || auth()->user()?->can('create-mobilisationUa'))
                             <div class="tab-pane fade" id="projet-hasmany-tabs-mobilisationUa" role="tabpanel" aria-labelledby="projet-hasmany-tabs-mobilisationUa-tab">
                                 @include('PkgCreationProjet::mobilisationUa._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])
                             </div>
                             @endif
-                            @if($itemProjet->taches->count() > 0 || auth()->user()?->can('create-tache'))
+                            @if($itemProjet->taches?->count() > 0 || auth()->user()?->can('create-tache'))
                             <div class="tab-pane fade" id="projet-hasmany-tabs-tache" role="tabpanel" aria-labelledby="projet-hasmany-tabs-tache-tab">
                                 @include('PkgCreationTache::tache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])
                             </div>
                             @endif
-                            @if($itemProjet->livrables->count() > 0 || auth()->user()?->can('create-livrable'))
+                            @if($itemProjet->livrables?->count() > 0 || auth()->user()?->can('create-livrable'))
                             <div class="tab-pane fade" id="projet-hasmany-tabs-livrable" role="tabpanel" aria-labelledby="projet-hasmany-tabs-livrable-tab">
                                 @include('PkgCreationProjet::livrable._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])
                             </div>
                             @endif
-                            @if($itemProjet->resources->count() > 0 || auth()->user()?->can('create-resource'))
+                            @if($itemProjet->resources?->count() > 0 || auth()->user()?->can('create-resource'))
                             <div class="tab-pane fade" id="projet-hasmany-tabs-resource" role="tabpanel" aria-labelledby="projet-hasmany-tabs-resource-tab">
                                 @include('PkgCreationProjet::resource._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])
                             </div>

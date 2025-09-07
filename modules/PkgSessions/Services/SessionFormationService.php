@@ -9,7 +9,15 @@ use Modules\PkgSessions\Services\Base\BaseSessionFormationService;
  */
 class SessionFormationService extends BaseSessionFormationService
 {
+    
    
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->ordreGroupColumn = 'filiere_id';
+
+    }
 
     public function add_projet(int $sessionFormationId)
     {

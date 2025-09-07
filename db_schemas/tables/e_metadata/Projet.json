@@ -818,5 +818,20 @@
         ],
         "e_data_field_reference": "Projet_filiere_id",
         "e_metadata_definition_reference": "scopeDataByRole"
+    },
+    {
+        "reference": "Projet_session_formation_id_scopeDataByRole",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "key": "scope.sessionFormation.filiere.groupes.formateurs.id",
+                "role": "formateur",
+                "value": "formateur_id"
+            }
+        ],
+        "value_text": "<p><br></p>",
+        "e_data_field_reference": "Projet_session_formation_id",
+        "e_metadata_definition_reference": "scopeDataByRole"
     }
 ]

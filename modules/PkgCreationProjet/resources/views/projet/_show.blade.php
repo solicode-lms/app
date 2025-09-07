@@ -4,13 +4,13 @@
 <div id="projet-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}</small>
 @include('PkgCreationProjet::projet.custom.fields.titre',['entity' => $itemProjet])
                 </div>
             </div>
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::projet.travail_a_faire')) }}</small>
                   <!-- Valeur avec sauts de ligne -->
@@ -20,7 +20,7 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::projet.critere_de_travail')) }}</small>
                   <!-- Valeur avec sauts de ligne -->
@@ -30,7 +30,7 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::projet.description')) }}</small>
                   <!-- Valeur avec sauts de ligne -->
@@ -40,6 +40,7 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
+            @if(auth()->user()?->can('show-tache') || auth()->user()?->can('create-tache'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationTache::tache.plural')) }}</small>
@@ -48,7 +49,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-mobilisationUa') || auth()->user()?->can('create-mobilisationUa'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::mobilisationUa.plural')) }}</small>
@@ -57,7 +60,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-livrable') || auth()->user()?->can('create-livrable'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::livrable.plural')) }}</small>
@@ -66,7 +71,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-resource') || auth()->user()?->can('create-resource'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::resource.plural')) }}</small>
@@ -75,6 +82,7 @@
                   </div>
                   </div>
             </div>
+            @endif
 
             </div>
         </div>
