@@ -4,7 +4,7 @@
 <div id="module-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::module.code')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -15,7 +15,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::module.nom')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -26,7 +26,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::module.description')) }}</small>
                   <!-- Valeur avec sauts de ligne -->
@@ -36,7 +36,7 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::module.masse_horaire')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -47,7 +47,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::filiere.singular')) }}</small>
 
@@ -59,6 +59,7 @@
                 @endif
                 </div>
             </div>
+            @if(auth()->user()?->can('show-competence') || auth()->user()?->can('create-competence'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::competence.plural')) }}</small>
@@ -67,7 +68,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-realisationModule') || auth()->user()?->can('create-realisationModule'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationModule.plural')) }}</small>
@@ -76,6 +79,7 @@
                   </div>
                   </div>
             </div>
+            @endif
 
             </div>
         </div>
@@ -96,6 +100,7 @@
 </div>
 <script>
     window.modalTitle   = '{{ __("PkgFormation::module.singular") }} : {{ $itemModule }}';
+    window.showUIId = 'module-crud-show';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

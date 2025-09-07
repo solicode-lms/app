@@ -4,13 +4,13 @@
 <div id="realisationChapitre-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::chapitre.singular')) }}</small>
 @include('PkgApprentissage::realisationChapitre.custom.fields.chapitre',['entity' => $itemRealisationChapitre])
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationChapitre.etat_realisation_chapitre_id')) }}</small>
 
@@ -25,7 +25,7 @@
                 @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationChapitre.date_debut')) }}</small>
                   <span>
@@ -36,7 +36,7 @@
                     @endif
                   </span>                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationChapitre.date_fin')) }}</small>
                   <span>
@@ -47,7 +47,7 @@
                     @endif
                   </span>                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationChapitre.dernier_update')) }}</small>
                   <span>
@@ -58,7 +58,7 @@
                     @endif
                   </span>                </div>
             </div>
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationChapitre.commentaire_formateur')) }}</small>
                   <!-- Valeur avec sauts de ligne -->
@@ -87,6 +87,7 @@
 </div>
 <script>
     window.modalTitle   = '{{ __("PkgApprentissage::realisationChapitre.singular") }} : {{ $itemRealisationChapitre }}';
+    window.showUIId = 'realisationChapitre-crud-show';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

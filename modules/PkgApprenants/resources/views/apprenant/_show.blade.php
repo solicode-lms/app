@@ -7,7 +7,7 @@
                         <i class="fas fa-user mr-1"></i>{{ __('État Civil') }}
             </h6>
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.nom')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -18,7 +18,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.nom_arab')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -29,7 +29,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.prenom')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -40,7 +40,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.prenom_arab')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -51,7 +51,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.cin')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -62,7 +62,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.date_naissance')) }}</small>
                   <span>
@@ -73,7 +73,7 @@
                     @endif
                   </span>                </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.sexe')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -84,7 +84,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::nationalite.singular')) }}</small>
 
@@ -96,7 +96,7 @@
                 @endif
                 </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.lieu_naissance')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -107,7 +107,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-9 col-lg-9 mb-3 px-2">
+            <div class="show_group col-12 col-md-9 col-lg-9 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::niveauxScolaire.singular')) }}</small>
 
@@ -124,7 +124,7 @@
                         <i class="fas fa-address-book mr-1"></i>{{ __('Informations de Contact') }}
             </h6>
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.tele_num')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -135,7 +135,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.singular')) }}</small>
 
@@ -152,7 +152,7 @@
                         <i class="fas fa-graduation-cap mr-1"></i>{{ __('Informations Académiques') }}
             </h6>
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.matricule')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -163,7 +163,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::groupe.plural')) }}</small>
                   <!-- Valeurs many-to-many -->
@@ -179,7 +179,7 @@
                   <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.date_inscription')) }}</small>
                   <span>
@@ -190,7 +190,7 @@
                     @endif
                   </span>                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.actif')) }}</small>
                   @if($itemApprenant->actif)
@@ -201,7 +201,7 @@
             </div>
             </div>
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.diplome')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -212,7 +212,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.adresse')) }}</small>
                   <!-- Valeur avec sauts de ligne -->
@@ -222,7 +222,7 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::sousGroupe.plural')) }}</small>
                   <!-- Valeurs many-to-many -->
@@ -238,6 +238,7 @@
                   <span class="text-muted">—</span>
                   @endif                </div>
             </div>
+            @if(auth()->user()?->can('show-realisationProjet') || auth()->user()?->can('create-realisationProjet'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::realisationProjet.plural')) }}</small>
@@ -246,7 +247,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-realisationCompetence') || auth()->user()?->can('create-realisationCompetence'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationCompetence.plural')) }}</small>
@@ -255,7 +258,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-realisationMicroCompetence') || auth()->user()?->can('create-realisationMicroCompetence'))
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural')) }}</small>
@@ -264,7 +269,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-realisationModule') || auth()->user()?->can('create-realisationModule'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationModule.plural')) }}</small>
@@ -273,6 +280,7 @@
                   </div>
                   </div>
             </div>
+            @endif
 
             </div>
         </div>
@@ -293,6 +301,7 @@
 </div>
 <script>
     window.modalTitle   = '{{ __("PkgApprenants::apprenant.singular") }} : {{ $itemApprenant }}';
+    window.showUIId = 'apprenant-crud-show';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

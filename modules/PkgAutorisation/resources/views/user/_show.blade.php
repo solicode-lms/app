@@ -4,7 +4,7 @@
 <div id="user-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.name')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -15,7 +15,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.email')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -26,7 +26,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.email_verified_at')) }}</small>
                   <span>
@@ -37,7 +37,7 @@
                     @endif
                   </span>                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.password')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -48,7 +48,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.must_change_password')) }}</small>
                   @if($itemUser->must_change_password)
@@ -57,7 +57,7 @@
                   <span class="badge badge-secondary">{{ __('Non') }}</span>
                   @endif                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.remember_token')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -68,6 +68,7 @@
     @endif
                 </div>
             </div>
+            @if(auth()->user()?->can('show-apprenant') || auth()->user()?->can('create-apprenant'))
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprenants::apprenant.plural')) }}</small>
@@ -76,7 +77,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-formateur') || auth()->user()?->can('create-formateur'))
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgFormation::formateur.plural')) }}</small>
@@ -85,7 +88,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-evaluateur') || auth()->user()?->can('create-evaluateur'))
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgEvaluateurs::evaluateur.plural')) }}</small>
@@ -94,7 +99,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-profile') || auth()->user()?->can('create-profile'))
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgAutorisation::profile.plural')) }}</small>
@@ -103,7 +110,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-historiqueRealisationTache') || auth()->user()?->can('create-historiqueRealisationTache'))
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::historiqueRealisationTache.plural')) }}</small>
@@ -112,7 +121,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-notification') || auth()->user()?->can('create-notification'))
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgNotification::notification.plural')) }}</small>
@@ -121,7 +132,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-userModelFilter') || auth()->user()?->can('create-userModelFilter'))
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('Core::userModelFilter.plural')) }}</small>
@@ -130,7 +143,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-widgetUtilisateur') || auth()->user()?->can('create-widgetUtilisateur'))
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgWidgets::widgetUtilisateur.plural')) }}</small>
@@ -139,8 +154,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::role.plural')) }}</small>
                   <!-- Valeurs many-to-many -->
@@ -175,6 +191,7 @@
 </div>
 <script>
     window.modalTitle   = '{{ __("PkgAutorisation::user.singular") }} : {{ $itemUser }}';
+    window.showUIId = 'user-crud-show';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

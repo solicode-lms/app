@@ -4,13 +4,13 @@
 <div id="eDataField-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eDataField.name')) }}</small>
 @include('PkgGapp::eDataField.custom.fields.name',['entity' => $itemEDataField])
                 </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eModel.singular')) }}</small>
 
@@ -22,7 +22,7 @@
                 @endif
                 </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -33,7 +33,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eDataField.default_value')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -44,7 +44,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eDataField.column_name')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -55,7 +55,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eRelationship.singular')) }}</small>
 
@@ -67,7 +67,7 @@
                 @endif
                 </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eDataField.field_order')) }}</small>
                   <span>
@@ -78,7 +78,7 @@
                     @endif
                   </span>                </div>
             </div>
-            <div class="col-12 col-md-2 col-lg-2 mb-3 px-2">
+            <div class="show_group col-12 col-md-2 col-lg-2 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eDataField.db_primaryKey')) }}</small>
                   @if($itemEDataField->db_primaryKey)
@@ -87,7 +87,7 @@
                   <span class="badge badge-secondary">{{ __('Non') }}</span>
                   @endif                </div>
             </div>
-            <div class="col-12 col-md-2 col-lg-2 mb-3 px-2">
+            <div class="show_group col-12 col-md-2 col-lg-2 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eDataField.db_nullable')) }}</small>
                   @if($itemEDataField->db_nullable)
@@ -96,7 +96,7 @@
                   <span class="badge badge-secondary">{{ __('Non') }}</span>
                   @endif                </div>
             </div>
-            <div class="col-12 col-md-2 col-lg-2 mb-3 px-2">
+            <div class="show_group col-12 col-md-2 col-lg-2 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eDataField.db_unique')) }}</small>
                   @if($itemEDataField->db_unique)
@@ -105,7 +105,7 @@
                   <span class="badge badge-secondary">{{ __('Non') }}</span>
                   @endif                </div>
             </div>
-            <div class="col-12 col-md-2 col-lg-2 mb-3 px-2">
+            <div class="show_group col-12 col-md-2 col-lg-2 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eDataField.calculable')) }}</small>
                   @if($itemEDataField->calculable)
@@ -114,6 +114,7 @@
                   <span class="badge badge-secondary">{{ __('Non') }}</span>
                   @endif                </div>
             </div>
+            @if(auth()->user()?->can('show-eMetadatum') || auth()->user()?->can('create-eMetadatum'))
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgGapp::eMetadatum.plural')) }}</small>
@@ -122,8 +123,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eDataField.calculable_sql')) }}</small>
                   <!-- Valeur avec sauts de ligne -->
@@ -133,7 +135,7 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eDataField.description')) }}</small>
                   <!-- Valeur avec sauts de ligne -->
@@ -162,6 +164,7 @@
 </div>
 <script>
     window.modalTitle   = '{{ __("PkgGapp::eDataField.singular") }} : {{ $itemEDataField }}';
+    window.showUIId = 'eDataField-crud-show';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="sectionWidget-hasmany-tabs-home-tab" data-toggle="pill" href="#sectionWidget-hasmany-tabs-home" role="tab" aria-controls="sectionWidget-hasmany-tabs-home" aria-selected="true">{{__('PkgWidgets::sectionWidget.singular')}}</a>
                         </li>
 
-                         @if($itemSectionWidget->widgets->count() > 0 || auth()->user()?->can('create-widget'))
+                         @if($itemSectionWidget->widgets?->count() > 0 || auth()->user()?->can('create-widget'))
                         <li class="nav-item">
                             <a class="nav-link" id="sectionWidget-hasmany-tabs-widget-tab" data-toggle="pill" href="#sectionWidget-hasmany-tabs-widget" role="tab" aria-controls="sectionWidget-hasmany-tabs-widget" aria-selected="false">
                                 <i class="nav-icon fas fa-chart-bar"></i>
@@ -54,7 +54,7 @@
                                 @include('PkgWidgets::sectionWidget._fields')
                             </div>
 
-                            @if($itemSectionWidget->widgets->count() > 0 || auth()->user()?->can('create-widget'))
+                            @if($itemSectionWidget->widgets?->count() > 0 || auth()->user()?->can('create-widget'))
                             <div class="tab-pane fade" id="sectionWidget-hasmany-tabs-widget" role="tabpanel" aria-labelledby="sectionWidget-hasmany-tabs-widget-tab">
                                 @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sectionWidget.edit_' . $itemSectionWidget->id])
                             </div>

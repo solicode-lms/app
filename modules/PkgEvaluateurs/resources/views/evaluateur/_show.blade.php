@@ -4,7 +4,7 @@
 <div id="evaluateur-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::evaluateur.nom')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -15,7 +15,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::evaluateur.prenom')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -26,7 +26,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::evaluateur.email')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -37,7 +37,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::evaluateur.organism')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -48,7 +48,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::evaluateur.telephone')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -59,7 +59,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.singular')) }}</small>
 
@@ -71,7 +71,7 @@
                 @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.plural')) }}</small>
                   <!-- Valeurs many-to-many -->
@@ -87,6 +87,7 @@
                   <span class="text-muted">—</span>
                   @endif                </div>
             </div>
+            @if(auth()->user()?->can('show-evaluationRealisationProjet') || auth()->user()?->can('create-evaluationRealisationProjet'))
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgEvaluateurs::evaluationRealisationProjet.plural')) }}</small>
@@ -95,7 +96,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-evaluationRealisationTache') || auth()->user()?->can('create-evaluationRealisationTache'))
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.plural')) }}</small>
@@ -104,6 +107,7 @@
                   </div>
                   </div>
             </div>
+            @endif
 
             </div>
         </div>
@@ -124,6 +128,7 @@
 </div>
 <script>
     window.modalTitle   = '{{ __("PkgEvaluateurs::evaluateur.singular") }} : {{ $itemEvaluateur }}';
+    window.showUIId = 'evaluateur-crud-show';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

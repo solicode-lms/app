@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="nationalite-hasmany-tabs-home-tab" data-toggle="pill" href="#nationalite-hasmany-tabs-home" role="tab" aria-controls="nationalite-hasmany-tabs-home" aria-selected="true">{{__('PkgApprenants::nationalite.singular')}}</a>
                         </li>
 
-                         @if($itemNationalite->apprenants->count() > 0 || auth()->user()?->can('create-apprenant'))
+                         @if($itemNationalite->apprenants?->count() > 0 || auth()->user()?->can('create-apprenant'))
                         <li class="nav-item">
                             <a class="nav-link" id="nationalite-hasmany-tabs-apprenant-tab" data-toggle="pill" href="#nationalite-hasmany-tabs-apprenant" role="tab" aria-controls="nationalite-hasmany-tabs-apprenant" aria-selected="false">
                                 <i class="nav-icon fas fa-id-card"></i>
@@ -54,7 +54,7 @@
                                 @include('PkgApprenants::nationalite._fields')
                             </div>
 
-                            @if($itemNationalite->apprenants->count() > 0 || auth()->user()?->can('create-apprenant'))
+                            @if($itemNationalite->apprenants?->count() > 0 || auth()->user()?->can('create-apprenant'))
                             <div class="tab-pane fade" id="nationalite-hasmany-tabs-apprenant" role="tabpanel" aria-labelledby="nationalite-hasmany-tabs-apprenant-tab">
                                 @include('PkgApprenants::apprenant._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'nationalite.edit_' . $itemNationalite->id])
                             </div>

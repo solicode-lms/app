@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="etatRealisationModule-hasmany-tabs-home-tab" data-toggle="pill" href="#etatRealisationModule-hasmany-tabs-home" role="tab" aria-controls="etatRealisationModule-hasmany-tabs-home" aria-selected="true">{{__('PkgApprentissage::etatRealisationModule.singular')}}</a>
                         </li>
 
-                         @if($itemEtatRealisationModule->realisationModules->count() > 0 || auth()->user()?->can('create-realisationModule'))
+                         @if($itemEtatRealisationModule->realisationModules?->count() > 0 || auth()->user()?->can('create-realisationModule'))
                         <li class="nav-item">
                             <a class="nav-link" id="etatRealisationModule-hasmany-tabs-realisationModule-tab" data-toggle="pill" href="#etatRealisationModule-hasmany-tabs-realisationModule" role="tab" aria-controls="etatRealisationModule-hasmany-tabs-realisationModule" aria-selected="false">
                                 <i class="nav-icon fas fa-medal"></i>
@@ -54,7 +54,7 @@
                                 @include('PkgApprentissage::etatRealisationModule._fields')
                             </div>
 
-                            @if($itemEtatRealisationModule->realisationModules->count() > 0 || auth()->user()?->can('create-realisationModule'))
+                            @if($itemEtatRealisationModule->realisationModules?->count() > 0 || auth()->user()?->can('create-realisationModule'))
                             <div class="tab-pane fade" id="etatRealisationModule-hasmany-tabs-realisationModule" role="tabpanel" aria-labelledby="etatRealisationModule-hasmany-tabs-realisationModule-tab">
                                 @include('PkgApprentissage::realisationModule._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'etatRealisationModule.edit_' . $itemEtatRealisationModule->id])
                             </div>

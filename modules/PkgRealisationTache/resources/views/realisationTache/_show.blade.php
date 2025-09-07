@@ -7,13 +7,13 @@
                         <i class="fas fa-info-circle mr-1"></i>{{ __('Informations générales') }}
             </h6>
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.singular')) }}</small>
 @include('PkgRealisationTache::realisationTache.custom.fields.tache',['entity' => $itemRealisationTache])
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}</small>
 
@@ -30,7 +30,7 @@
                         <i class="fas fa-info-circle mr-1"></i>{{ __('Dates de réalisation') }}
             </h6>
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.dateDebut')) }}</small>
                   <span>
@@ -41,7 +41,7 @@
                     @endif
                   </span>                </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.dateFin')) }}</small>
                   <span>
@@ -57,19 +57,19 @@
                         <i class="fas fa-info-circle mr-1"></i>{{ __('État') }}
             </h6>
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.etat_realisation_tache_id')) }}</small>
 @include('PkgRealisationTache::realisationTache.custom.fields.etatRealisationTache',['entity' => $itemRealisationTache])
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.note')) }}</small>
 @include('PkgRealisationTache::realisationTache.custom.fields.note',['entity' => $itemRealisationTache])
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.is_live_coding')) }}</small>
                   @if($itemRealisationTache->is_live_coding)
@@ -83,6 +83,7 @@
                         <i class="fas fa-info-circle mr-1"></i>{{ __('Suivi et évaluation') }}
             </h6>
             <div class="row no-gutters mb-4">
+            @if(auth()->user()?->can('show-realisationChapitre') || auth()->user()?->can('create-realisationChapitre'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationChapitre.plural')) }}</small>
@@ -91,7 +92,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-realisationUaProjet') || auth()->user()?->can('create-realisationUaProjet'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaProjet.plural')) }}</small>
@@ -100,7 +103,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-realisationUaPrototype') || auth()->user()?->can('create-realisationUaPrototype'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.plural')) }}</small>
@@ -109,13 +114,14 @@
                   </div>
                   </div>
             </div>
+            @endif
 
             </div>
             <h6 class="text-muted mb-2">
                         <i class="fas fa-info-circle mr-1"></i>{{ __('Remarques') }}
             </h6>
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.remarques_formateur')) }}</small>
                   <!-- Valeur avec sauts de ligne -->
@@ -125,7 +131,7 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.remarques_apprenant')) }}</small>
                   <!-- Valeur avec sauts de ligne -->
@@ -137,12 +143,13 @@
             </div>
             </div>
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.remarque_evaluateur')) }}</small>
 @include('PkgRealisationTache::realisationTache.custom.fields.remarque_evaluateur',['entity' => $itemRealisationTache])
                 </div>
             </div>
+            @if(auth()->user()?->can('show-evaluationRealisationTache') || auth()->user()?->can('create-evaluationRealisationTache'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.plural')) }}</small>
@@ -151,7 +158,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-historiqueRealisationTache') || auth()->user()?->can('create-historiqueRealisationTache'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::historiqueRealisationTache.plural')) }}</small>
@@ -160,6 +169,7 @@
                   </div>
                   </div>
             </div>
+            @endif
 
             </div>
         </div>
@@ -180,6 +190,7 @@
 </div>
 <script>
     window.modalTitle   = '{{ __("PkgRealisationTache::realisationTache.singular") }} : {{ $itemRealisationTache }}';
+    window.showUIId = 'realisationTache-crud-show';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

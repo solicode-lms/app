@@ -4,7 +4,7 @@
 <div id="etatEvaluationProjet-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.ordre')) }}</small>
                   <span>
@@ -15,7 +15,7 @@
                     @endif
                   </span>                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.code')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -26,7 +26,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.titre')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -37,7 +37,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.description')) }}</small>
                   <!-- Valeur avec sauts de ligne -->
@@ -47,7 +47,7 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('Core::sysColor.singular')) }}</small>
                   @if($itemEtatEvaluationProjet->sysColor)
@@ -65,6 +65,7 @@
                   @endif
                 </div>
             </div>
+            @if(auth()->user()?->can('show-evaluationRealisationProjet') || auth()->user()?->can('create-evaluationRealisationProjet'))
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgEvaluateurs::evaluationRealisationProjet.plural')) }}</small>
@@ -73,6 +74,7 @@
                   </div>
                   </div>
             </div>
+            @endif
 
             </div>
         </div>
@@ -93,6 +95,7 @@
 </div>
 <script>
     window.modalTitle   = '{{ __("PkgEvaluateurs::etatEvaluationProjet.singular") }} : {{ $itemEtatEvaluationProjet }}';
+    window.showUIId = 'etatEvaluationProjet-crud-show';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

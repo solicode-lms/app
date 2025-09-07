@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="realisationMicroCompetence-hasmany-tabs-home-tab" data-toggle="pill" href="#realisationMicroCompetence-hasmany-tabs-home" role="tab" aria-controls="realisationMicroCompetence-hasmany-tabs-home" aria-selected="true">{{__('PkgApprentissage::realisationMicroCompetence.singular')}}</a>
                         </li>
 
-                         @if($itemRealisationMicroCompetence->realisationUas->count() > 0 || auth()->user()?->can('create-realisationUa'))
+                         @if($itemRealisationMicroCompetence->realisationUas?->count() > 0 || auth()->user()?->can('create-realisationUa'))
                         <li class="nav-item">
                             <a class="nav-link" id="realisationMicroCompetence-hasmany-tabs-realisationUa-tab" data-toggle="pill" href="#realisationMicroCompetence-hasmany-tabs-realisationUa" role="tab" aria-controls="realisationMicroCompetence-hasmany-tabs-realisationUa" aria-selected="false">
                                 <i class="nav-icon fas fa-tools"></i>
@@ -54,7 +54,7 @@
                                 @include('PkgApprentissage::realisationMicroCompetence._fields')
                             </div>
 
-                            @if($itemRealisationMicroCompetence->realisationUas->count() > 0 || auth()->user()?->can('create-realisationUa'))
+                            @if($itemRealisationMicroCompetence->realisationUas?->count() > 0 || auth()->user()?->can('create-realisationUa'))
                             <div class="tab-pane fade" id="realisationMicroCompetence-hasmany-tabs-realisationUa" role="tabpanel" aria-labelledby="realisationMicroCompetence-hasmany-tabs-realisationUa-tab">
                                 @include('PkgApprentissage::realisationUa._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationMicroCompetence.edit_' . $itemRealisationMicroCompetence->id])
                             </div>

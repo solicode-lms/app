@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="realisationModule-hasmany-tabs-home-tab" data-toggle="pill" href="#realisationModule-hasmany-tabs-home" role="tab" aria-controls="realisationModule-hasmany-tabs-home" aria-selected="true">{{__('PkgApprentissage::realisationModule.singular')}}</a>
                         </li>
 
-                         @if($itemRealisationModule->realisationCompetences->count() > 0 || auth()->user()?->can('create-realisationCompetence'))
+                         @if($itemRealisationModule->realisationCompetences?->count() > 0 || auth()->user()?->can('create-realisationCompetence'))
                         <li class="nav-item">
                             <a class="nav-link" id="realisationModule-hasmany-tabs-realisationCompetence-tab" data-toggle="pill" href="#realisationModule-hasmany-tabs-realisationCompetence" role="tab" aria-controls="realisationModule-hasmany-tabs-realisationCompetence" aria-selected="false">
                                 <i class="nav-icon fas fa-award"></i>
@@ -54,7 +54,7 @@
                                 @include('PkgApprentissage::realisationModule._fields')
                             </div>
 
-                            @if($itemRealisationModule->realisationCompetences->count() > 0 || auth()->user()?->can('create-realisationCompetence'))
+                            @if($itemRealisationModule->realisationCompetences?->count() > 0 || auth()->user()?->can('create-realisationCompetence'))
                             <div class="tab-pane fade" id="realisationModule-hasmany-tabs-realisationCompetence" role="tabpanel" aria-labelledby="realisationModule-hasmany-tabs-realisationCompetence-tab">
                                 @include('PkgApprentissage::realisationCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationModule.edit_' . $itemRealisationModule->id])
                             </div>

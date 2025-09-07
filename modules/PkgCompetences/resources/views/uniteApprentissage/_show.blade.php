@@ -4,7 +4,7 @@
 <div id="uniteApprentissage-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.code')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -15,19 +15,19 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.nom')) }}</small>
 @include('PkgCompetences::uniteApprentissage.custom.fields.nom',['entity' => $itemUniteApprentissage])
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::microCompetence.singular')) }}</small>
 @include('PkgCompetences::uniteApprentissage.custom.fields.microCompetence',['entity' => $itemUniteApprentissage])
                 </div>
             </div>
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.lien')) }}</small>
     {{-- Lien cliquable --}}
@@ -42,6 +42,7 @@
 
                 </div>
             </div>
+            @if(auth()->user()?->can('show-chapitre') || auth()->user()?->can('create-chapitre'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::chapitre.plural')) }}</small>
@@ -50,7 +51,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
+            @if(auth()->user()?->can('show-critereEvaluation') || auth()->user()?->can('create-critereEvaluation'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::critereEvaluation.plural')) }}</small>
@@ -59,8 +62,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.description')) }}</small>
                   <!-- Valeur avec sauts de ligne -->
@@ -89,6 +93,7 @@
 </div>
 <script>
     window.modalTitle   = '{{ __("PkgCompetences::uniteApprentissage.singular") }} : {{ $itemUniteApprentissage }}';
+    window.showUIId = 'uniteApprentissage-crud-show';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

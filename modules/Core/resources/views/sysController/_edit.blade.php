@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="sysController-hasmany-tabs-home-tab" data-toggle="pill" href="#sysController-hasmany-tabs-home" role="tab" aria-controls="sysController-hasmany-tabs-home" aria-selected="true">{{__('Core::sysController.singular')}}</a>
                         </li>
 
-                         @if($itemSysController->permissions->count() > 0 || auth()->user()?->can('create-permission'))
+                         @if($itemSysController->permissions?->count() > 0 || auth()->user()?->can('create-permission'))
                         <li class="nav-item">
                             <a class="nav-link" id="sysController-hasmany-tabs-permission-tab" data-toggle="pill" href="#sysController-hasmany-tabs-permission" role="tab" aria-controls="sysController-hasmany-tabs-permission" aria-selected="false">
                                 <i class="nav-icon fas fa-lock-open"></i>
@@ -54,7 +54,7 @@
                                 @include('Core::sysController._fields')
                             </div>
 
-                            @if($itemSysController->permissions->count() > 0 || auth()->user()?->can('create-permission'))
+                            @if($itemSysController->permissions?->count() > 0 || auth()->user()?->can('create-permission'))
                             <div class="tab-pane fade" id="sysController-hasmany-tabs-permission" role="tabpanel" aria-labelledby="sysController-hasmany-tabs-permission-tab">
                                 @include('PkgAutorisation::permission._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysController.edit_' . $itemSysController->id])
                             </div>

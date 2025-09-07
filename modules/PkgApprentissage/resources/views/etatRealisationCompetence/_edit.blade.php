@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="etatRealisationCompetence-hasmany-tabs-home-tab" data-toggle="pill" href="#etatRealisationCompetence-hasmany-tabs-home" role="tab" aria-controls="etatRealisationCompetence-hasmany-tabs-home" aria-selected="true">{{__('PkgApprentissage::etatRealisationCompetence.singular')}}</a>
                         </li>
 
-                         @if($itemEtatRealisationCompetence->realisationCompetences->count() > 0 || auth()->user()?->can('create-realisationCompetence'))
+                         @if($itemEtatRealisationCompetence->realisationCompetences?->count() > 0 || auth()->user()?->can('create-realisationCompetence'))
                         <li class="nav-item">
                             <a class="nav-link" id="etatRealisationCompetence-hasmany-tabs-realisationCompetence-tab" data-toggle="pill" href="#etatRealisationCompetence-hasmany-tabs-realisationCompetence" role="tab" aria-controls="etatRealisationCompetence-hasmany-tabs-realisationCompetence" aria-selected="false">
                                 <i class="nav-icon fas fa-award"></i>
@@ -54,7 +54,7 @@
                                 @include('PkgApprentissage::etatRealisationCompetence._fields')
                             </div>
 
-                            @if($itemEtatRealisationCompetence->realisationCompetences->count() > 0 || auth()->user()?->can('create-realisationCompetence'))
+                            @if($itemEtatRealisationCompetence->realisationCompetences?->count() > 0 || auth()->user()?->can('create-realisationCompetence'))
                             <div class="tab-pane fade" id="etatRealisationCompetence-hasmany-tabs-realisationCompetence" role="tabpanel" aria-labelledby="etatRealisationCompetence-hasmany-tabs-realisationCompetence-tab">
                                 @include('PkgApprentissage::realisationCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'etatRealisationCompetence.edit_' . $itemEtatRealisationCompetence->id])
                             </div>

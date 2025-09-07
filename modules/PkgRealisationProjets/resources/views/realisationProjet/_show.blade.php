@@ -85,6 +85,7 @@
 </div>
 <script>
     window.modalTitle   = '{{ __("PkgRealisationProjets::realisationProjet.singular") }} : {{ $itemRealisationProjet }}';
+    window.showUIId = 'realisationProjet-crud-show';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

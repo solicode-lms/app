@@ -193,7 +193,7 @@
         
 
 @if($itemRealisationTache->id)
-@if($itemRealisationTache->realisationChapitres->count() > 0 || auth()->user()?->can('create-realisationChapitre'))
+@if(auth()->user()?->can('show-realisationChapitre || auth()->user()?->can('create-realisationChapitre'))
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="RealisationChapitre">
@@ -211,7 +211,7 @@
 
 
 @if($itemRealisationTache->id)
-@if($itemRealisationTache->realisationUaProjets->count() > 0 || auth()->user()?->can('create-realisationUaProjet'))
+@if(auth()->user()?->can('show-realisationUaProjet || auth()->user()?->can('create-realisationUaProjet'))
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="RealisationUaProjet">
@@ -229,7 +229,7 @@
 
 
 @if($itemRealisationTache->id)
-@if($itemRealisationTache->realisationUaPrototypes->count() > 0 || auth()->user()?->can('create-realisationUaPrototype'))
+@if(auth()->user()?->can('show-realisationUaPrototype || auth()->user()?->can('create-realisationUaPrototype'))
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="RealisationUaPrototype">
@@ -350,7 +350,7 @@
 
 
 @if($itemRealisationTache->id)
-@if($itemRealisationTache->evaluationRealisationTaches->count() > 0 || auth()->user()?->can('create-evaluationRealisationTache'))
+@if(auth()->user()?->can('show-evaluationRealisationTache || auth()->user()?->can('create-evaluationRealisationTache'))
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="EvaluationRealisationTache">

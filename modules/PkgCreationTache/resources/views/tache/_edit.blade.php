@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="tache-hasmany-tabs-home-tab" data-toggle="pill" href="#tache-hasmany-tabs-home" role="tab" aria-controls="tache-hasmany-tabs-home" aria-selected="true">{{__('PkgCreationTache::tache.singular')}}</a>
                         </li>
 
-                         @if($itemTache->realisationTaches->count() > 0 || auth()->user()?->can('create-realisationTache'))
+                         @if($itemTache->realisationTaches?->count() > 0 || auth()->user()?->can('create-realisationTache'))
                         <li class="nav-item">
                             <a class="nav-link" id="tache-hasmany-tabs-realisationTache-tab" data-toggle="pill" href="#tache-hasmany-tabs-realisationTache" role="tab" aria-controls="tache-hasmany-tabs-realisationTache" aria-selected="false">
                                 <i class="nav-icon fas fa-laptop-code"></i>
@@ -44,7 +44,7 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemTache->tacheAffectations->count() > 0 || auth()->user()?->can('create-tacheAffectation'))
+                         @if($itemTache->tacheAffectations?->count() > 0 || auth()->user()?->can('create-tacheAffectation'))
                         <li class="nav-item">
                             <a class="nav-link" id="tache-hasmany-tabs-tacheAffectation-tab" data-toggle="pill" href="#tache-hasmany-tabs-tacheAffectation" role="tab" aria-controls="tache-hasmany-tabs-tacheAffectation" aria-selected="false">
                                 <i class="nav-icon fas fa-table"></i>
@@ -62,12 +62,12 @@
                                 @include('PkgCreationTache::tache._fields')
                             </div>
 
-                            @if($itemTache->realisationTaches->count() > 0 || auth()->user()?->can('create-realisationTache'))
+                            @if($itemTache->realisationTaches?->count() > 0 || auth()->user()?->can('create-realisationTache'))
                             <div class="tab-pane fade" id="tache-hasmany-tabs-realisationTache" role="tabpanel" aria-labelledby="tache-hasmany-tabs-realisationTache-tab">
                                 @include('PkgRealisationTache::realisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'tache.edit_' . $itemTache->id])
                             </div>
                             @endif
-                            @if($itemTache->tacheAffectations->count() > 0 || auth()->user()?->can('create-tacheAffectation'))
+                            @if($itemTache->tacheAffectations?->count() > 0 || auth()->user()?->can('create-tacheAffectation'))
                             <div class="tab-pane fade" id="tache-hasmany-tabs-tacheAffectation" role="tabpanel" aria-labelledby="tache-hasmany-tabs-tacheAffectation-tab">
                                 @include('PkgRealisationTache::tacheAffectation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'tache.edit_' . $itemTache->id])
                             </div>

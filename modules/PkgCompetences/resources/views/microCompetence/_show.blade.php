@@ -4,7 +4,7 @@
 <div id="microCompetence-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-2 col-lg-2 mb-3 px-2">
+            <div class="show_group col-12 col-md-2 col-lg-2 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::microCompetence.code')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -15,7 +15,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-8 col-lg-8 mb-3 px-2">
+            <div class="show_group col-12 col-md-8 col-lg-8 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::microCompetence.titre')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -26,7 +26,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::microCompetence.sous_titre')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -37,7 +37,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::competence.singular')) }}</small>
 
@@ -49,7 +49,7 @@
                 @endif
                 </div>
             </div>
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::microCompetence.lien')) }}</small>
     {{-- Lien cliquable --}}
@@ -64,6 +64,7 @@
 
                 </div>
             </div>
+            @if(auth()->user()?->can('show-uniteApprentissage') || auth()->user()?->can('create-uniteApprentissage'))
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::uniteApprentissage.plural')) }}</small>
@@ -72,8 +73,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::microCompetence.description')) }}</small>
                   <!-- Valeur avec sauts de ligne -->
@@ -102,6 +104,7 @@
 </div>
 <script>
     window.modalTitle   = '{{ __("PkgCompetences::microCompetence.singular") }} : {{ $itemMicroCompetence }}';
+    window.showUIId = 'microCompetence-crud-show';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

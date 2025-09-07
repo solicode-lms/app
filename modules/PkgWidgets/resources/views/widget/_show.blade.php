@@ -4,7 +4,7 @@
 <div id="widget-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-2 col-lg-2 mb-3 px-2">
+            <div class="show_group col-12 col-md-2 col-lg-2 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widget.ordre')) }}</small>
                   <span>
@@ -15,7 +15,7 @@
                     @endif
                   </span>                </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widget.icon')) }}</small>
     {{-- Icône centrée --}}
@@ -29,7 +29,7 @@
 
                 </div>
             </div>
-            <div class="col-12 col-md-4 col-lg-4 mb-3 px-2">
+            <div class="show_group col-12 col-md-4 col-lg-4 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widget.name')) }}</small>
     {{-- Badge coloré --}}
@@ -40,7 +40,7 @@
 
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widget.label')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -51,7 +51,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetType.singular')) }}</small>
 
@@ -63,7 +63,7 @@
                 @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('Core::sysModel.singular')) }}</small>
 
@@ -75,7 +75,7 @@
                 @endif
                 </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}</small>
 
@@ -87,7 +87,7 @@
                 @endif
                 </div>
             </div>
-            <div class="col-12 col-md-4 col-lg-4 mb-3 px-2">
+            <div class="show_group col-12 col-md-4 col-lg-4 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widget.color')) }}</small>
     {{-- Affichage texte par défaut --}}
@@ -98,7 +98,7 @@
     @endif
                 </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+            <div class="show_group col-12 col-md-3 col-lg-3 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('Core::sysColor.singular')) }}</small>
                   @if($itemWidget->sysColor)
@@ -116,7 +116,7 @@
                   @endif
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::role.plural')) }}</small>
                   <!-- Valeurs many-to-many -->
@@ -132,7 +132,7 @@
                   <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::sectionWidget.singular')) }}</small>
 
@@ -144,6 +144,7 @@
                 @endif
                 </div>
             </div>
+            @if(auth()->user()?->can('show-widgetUtilisateur') || auth()->user()?->can('create-widgetUtilisateur'))
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgWidgets::widgetUtilisateur.plural')) }}</small>
@@ -152,8 +153,9 @@
                   </div>
                   </div>
             </div>
+            @endif
 
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widget.parameters')) }}</small>
                   @if(! is_null($itemWidget->parameters))
@@ -183,6 +185,7 @@
 </div>
 <script>
     window.modalTitle   = '{{ __("PkgWidgets::widget.singular") }} : {{ $itemWidget }}';
+    window.showUIId = 'widget-crud-show';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

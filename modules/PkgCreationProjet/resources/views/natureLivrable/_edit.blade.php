@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="natureLivrable-hasmany-tabs-home-tab" data-toggle="pill" href="#natureLivrable-hasmany-tabs-home" role="tab" aria-controls="natureLivrable-hasmany-tabs-home" aria-selected="true">{{__('PkgCreationProjet::natureLivrable.singular')}}</a>
                         </li>
 
-                         @if($itemNatureLivrable->livrableSessions->count() > 0 || auth()->user()?->can('create-livrableSession'))
+                         @if($itemNatureLivrable->livrableSessions?->count() > 0 || auth()->user()?->can('create-livrableSession'))
                         <li class="nav-item">
                             <a class="nav-link" id="natureLivrable-hasmany-tabs-livrableSession-tab" data-toggle="pill" href="#natureLivrable-hasmany-tabs-livrableSession" role="tab" aria-controls="natureLivrable-hasmany-tabs-livrableSession" aria-selected="false">
                                 <i class="nav-icon fas fa-folder"></i>
@@ -44,7 +44,7 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemNatureLivrable->livrables->count() > 0 || auth()->user()?->can('create-livrable'))
+                         @if($itemNatureLivrable->livrables?->count() > 0 || auth()->user()?->can('create-livrable'))
                         <li class="nav-item">
                             <a class="nav-link" id="natureLivrable-hasmany-tabs-livrable-tab" data-toggle="pill" href="#natureLivrable-hasmany-tabs-livrable" role="tab" aria-controls="natureLivrable-hasmany-tabs-livrable" aria-selected="false">
                                 <i class="nav-icon fas fa-file-alt"></i>
@@ -62,12 +62,12 @@
                                 @include('PkgCreationProjet::natureLivrable._fields')
                             </div>
 
-                            @if($itemNatureLivrable->livrableSessions->count() > 0 || auth()->user()?->can('create-livrableSession'))
+                            @if($itemNatureLivrable->livrableSessions?->count() > 0 || auth()->user()?->can('create-livrableSession'))
                             <div class="tab-pane fade" id="natureLivrable-hasmany-tabs-livrableSession" role="tabpanel" aria-labelledby="natureLivrable-hasmany-tabs-livrableSession-tab">
                                 @include('PkgSessions::livrableSession._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'natureLivrable.edit_' . $itemNatureLivrable->id])
                             </div>
                             @endif
-                            @if($itemNatureLivrable->livrables->count() > 0 || auth()->user()?->can('create-livrable'))
+                            @if($itemNatureLivrable->livrables?->count() > 0 || auth()->user()?->can('create-livrable'))
                             <div class="tab-pane fade" id="natureLivrable-hasmany-tabs-livrable" role="tabpanel" aria-labelledby="natureLivrable-hasmany-tabs-livrable-tab">
                                 @include('PkgCreationProjet::livrable._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'natureLivrable.edit_' . $itemNatureLivrable->id])
                             </div>

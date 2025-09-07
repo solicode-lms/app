@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="competence-hasmany-tabs-home-tab" data-toggle="pill" href="#competence-hasmany-tabs-home" role="tab" aria-controls="competence-hasmany-tabs-home" aria-selected="true">{{__('PkgCompetences::competence.singular')}}</a>
                         </li>
 
-                         @if($itemCompetence->microCompetences->count() > 0 || auth()->user()?->can('create-microCompetence'))
+                         @if($itemCompetence->microCompetences?->count() > 0 || auth()->user()?->can('create-microCompetence'))
                         <li class="nav-item">
                             <a class="nav-link" id="competence-hasmany-tabs-microCompetence-tab" data-toggle="pill" href="#competence-hasmany-tabs-microCompetence" role="tab" aria-controls="competence-hasmany-tabs-microCompetence" aria-selected="false">
                                 <i class="nav-icon fas fa-book"></i>
@@ -44,7 +44,7 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemCompetence->realisationCompetences->count() > 0 || auth()->user()?->can('create-realisationCompetence'))
+                         @if($itemCompetence->realisationCompetences?->count() > 0 || auth()->user()?->can('create-realisationCompetence'))
                         <li class="nav-item">
                             <a class="nav-link" id="competence-hasmany-tabs-realisationCompetence-tab" data-toggle="pill" href="#competence-hasmany-tabs-realisationCompetence" role="tab" aria-controls="competence-hasmany-tabs-realisationCompetence" aria-selected="false">
                                 <i class="nav-icon fas fa-award"></i>
@@ -62,12 +62,12 @@
                                 @include('PkgCompetences::competence._fields')
                             </div>
 
-                            @if($itemCompetence->microCompetences->count() > 0 || auth()->user()?->can('create-microCompetence'))
+                            @if($itemCompetence->microCompetences?->count() > 0 || auth()->user()?->can('create-microCompetence'))
                             <div class="tab-pane fade" id="competence-hasmany-tabs-microCompetence" role="tabpanel" aria-labelledby="competence-hasmany-tabs-microCompetence-tab">
                                 @include('PkgCompetences::microCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'competence.edit_' . $itemCompetence->id])
                             </div>
                             @endif
-                            @if($itemCompetence->realisationCompetences->count() > 0 || auth()->user()?->can('create-realisationCompetence'))
+                            @if($itemCompetence->realisationCompetences?->count() > 0 || auth()->user()?->can('create-realisationCompetence'))
                             <div class="tab-pane fade" id="competence-hasmany-tabs-realisationCompetence" role="tabpanel" aria-labelledby="competence-hasmany-tabs-realisationCompetence-tab">
                                 @include('PkgApprentissage::realisationCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'competence.edit_' . $itemCompetence->id])
                             </div>

@@ -173,7 +173,7 @@
 
 
 @if($itemEvaluationRealisationProjet->id)
-@if($itemEvaluationRealisationProjet->evaluationRealisationTaches->count() > 0 || auth()->user()?->can('create-evaluationRealisationTache'))
+@if(auth()->user()?->can('show-evaluationRealisationTache || auth()->user()?->can('create-evaluationRealisationTache'))
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="EvaluationRealisationTache">

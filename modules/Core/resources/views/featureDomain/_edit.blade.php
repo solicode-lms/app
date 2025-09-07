@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="featureDomain-hasmany-tabs-home-tab" data-toggle="pill" href="#featureDomain-hasmany-tabs-home" role="tab" aria-controls="featureDomain-hasmany-tabs-home" aria-selected="true">{{__('Core::featureDomain.singular')}}</a>
                         </li>
 
-                         @if($itemFeatureDomain->features->count() > 0 || auth()->user()?->can('create-feature'))
+                         @if($itemFeatureDomain->features?->count() > 0 || auth()->user()?->can('create-feature'))
                         <li class="nav-item">
                             <a class="nav-link" id="featureDomain-hasmany-tabs-feature-tab" data-toggle="pill" href="#featureDomain-hasmany-tabs-feature" role="tab" aria-controls="featureDomain-hasmany-tabs-feature" aria-selected="false">
                                 <i class="nav-icon fas fa-plug"></i>
@@ -54,7 +54,7 @@
                                 @include('Core::featureDomain._fields')
                             </div>
 
-                            @if($itemFeatureDomain->features->count() > 0 || auth()->user()?->can('create-feature'))
+                            @if($itemFeatureDomain->features?->count() > 0 || auth()->user()?->can('create-feature'))
                             <div class="tab-pane fade" id="featureDomain-hasmany-tabs-feature" role="tabpanel" aria-labelledby="featureDomain-hasmany-tabs-feature-tab">
                                 @include('Core::feature._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'featureDomain.edit_' . $itemFeatureDomain->id])
                             </div>

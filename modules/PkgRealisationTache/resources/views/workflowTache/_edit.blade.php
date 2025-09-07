@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="workflowTache-hasmany-tabs-home-tab" data-toggle="pill" href="#workflowTache-hasmany-tabs-home" role="tab" aria-controls="workflowTache-hasmany-tabs-home" aria-selected="true">{{__('PkgRealisationTache::workflowTache.singular')}}</a>
                         </li>
 
-                         @if($itemWorkflowTache->etatRealisationTaches->count() > 0 || auth()->user()?->can('create-etatRealisationTache'))
+                         @if($itemWorkflowTache->etatRealisationTaches?->count() > 0 || auth()->user()?->can('create-etatRealisationTache'))
                         <li class="nav-item">
                             <a class="nav-link" id="workflowTache-hasmany-tabs-etatRealisationTache-tab" data-toggle="pill" href="#workflowTache-hasmany-tabs-etatRealisationTache" role="tab" aria-controls="workflowTache-hasmany-tabs-etatRealisationTache" aria-selected="false">
                                 <i class="nav-icon fas fa-check"></i>
@@ -54,7 +54,7 @@
                                 @include('PkgRealisationTache::workflowTache._fields')
                             </div>
 
-                            @if($itemWorkflowTache->etatRealisationTaches->count() > 0 || auth()->user()?->can('create-etatRealisationTache'))
+                            @if($itemWorkflowTache->etatRealisationTaches?->count() > 0 || auth()->user()?->can('create-etatRealisationTache'))
                             <div class="tab-pane fade" id="workflowTache-hasmany-tabs-etatRealisationTache" role="tabpanel" aria-labelledby="workflowTache-hasmany-tabs-etatRealisationTache-tab">
                                 @include('PkgRealisationTache::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'workflowTache.edit_' . $itemWorkflowTache->id])
                             </div>

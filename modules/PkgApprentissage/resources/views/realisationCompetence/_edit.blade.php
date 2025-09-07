@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="realisationCompetence-hasmany-tabs-home-tab" data-toggle="pill" href="#realisationCompetence-hasmany-tabs-home" role="tab" aria-controls="realisationCompetence-hasmany-tabs-home" aria-selected="true">{{__('PkgApprentissage::realisationCompetence.singular')}}</a>
                         </li>
 
-                         @if($itemRealisationCompetence->realisationMicroCompetences->count() > 0 || auth()->user()?->can('create-realisationMicroCompetence'))
+                         @if($itemRealisationCompetence->realisationMicroCompetences?->count() > 0 || auth()->user()?->can('create-realisationMicroCompetence'))
                         <li class="nav-item">
                             <a class="nav-link" id="realisationCompetence-hasmany-tabs-realisationMicroCompetence-tab" data-toggle="pill" href="#realisationCompetence-hasmany-tabs-realisationMicroCompetence" role="tab" aria-controls="realisationCompetence-hasmany-tabs-realisationMicroCompetence" aria-selected="false">
                                 <i class="nav-icon fas fa-certificate"></i>
@@ -54,7 +54,7 @@
                                 @include('PkgApprentissage::realisationCompetence._fields')
                             </div>
 
-                            @if($itemRealisationCompetence->realisationMicroCompetences->count() > 0 || auth()->user()?->can('create-realisationMicroCompetence'))
+                            @if($itemRealisationCompetence->realisationMicroCompetences?->count() > 0 || auth()->user()?->can('create-realisationMicroCompetence'))
                             <div class="tab-pane fade" id="realisationCompetence-hasmany-tabs-realisationMicroCompetence" role="tabpanel" aria-labelledby="realisationCompetence-hasmany-tabs-realisationMicroCompetence-tab">
                                 @include('PkgApprentissage::realisationMicroCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationCompetence.edit_' . $itemRealisationCompetence->id])
                             </div>

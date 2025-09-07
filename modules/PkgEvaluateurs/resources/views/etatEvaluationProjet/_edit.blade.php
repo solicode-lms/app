@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="etatEvaluationProjet-hasmany-tabs-home-tab" data-toggle="pill" href="#etatEvaluationProjet-hasmany-tabs-home" role="tab" aria-controls="etatEvaluationProjet-hasmany-tabs-home" aria-selected="true">{{__('PkgEvaluateurs::etatEvaluationProjet.singular')}}</a>
                         </li>
 
-                         @if($itemEtatEvaluationProjet->evaluationRealisationProjets->count() > 0 || auth()->user()?->can('create-evaluationRealisationProjet'))
+                         @if($itemEtatEvaluationProjet->evaluationRealisationProjets?->count() > 0 || auth()->user()?->can('create-evaluationRealisationProjet'))
                         <li class="nav-item">
                             <a class="nav-link" id="etatEvaluationProjet-hasmany-tabs-evaluationRealisationProjet-tab" data-toggle="pill" href="#etatEvaluationProjet-hasmany-tabs-evaluationRealisationProjet" role="tab" aria-controls="etatEvaluationProjet-hasmany-tabs-evaluationRealisationProjet" aria-selected="false">
                                 <i class="nav-icon fas fa-check-square"></i>
@@ -54,7 +54,7 @@
                                 @include('PkgEvaluateurs::etatEvaluationProjet._fields')
                             </div>
 
-                            @if($itemEtatEvaluationProjet->evaluationRealisationProjets->count() > 0 || auth()->user()?->can('create-evaluationRealisationProjet'))
+                            @if($itemEtatEvaluationProjet->evaluationRealisationProjets?->count() > 0 || auth()->user()?->can('create-evaluationRealisationProjet'))
                             <div class="tab-pane fade" id="etatEvaluationProjet-hasmany-tabs-evaluationRealisationProjet" role="tabpanel" aria-labelledby="etatEvaluationProjet-hasmany-tabs-evaluationRealisationProjet-tab">
                                 @include('PkgEvaluateurs::evaluationRealisationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'etatEvaluationProjet.edit_' . $itemEtatEvaluationProjet->id])
                             </div>

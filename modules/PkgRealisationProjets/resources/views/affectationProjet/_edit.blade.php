@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="affectationProjet-hasmany-tabs-home-tab" data-toggle="pill" href="#affectationProjet-hasmany-tabs-home" role="tab" aria-controls="affectationProjet-hasmany-tabs-home" aria-selected="true">{{__('PkgRealisationProjets::affectationProjet.singular')}}</a>
                         </li>
 
-                         @if($itemAffectationProjet->realisationProjets->count() > 0 || auth()->user()?->can('create-realisationProjet'))
+                         @if($itemAffectationProjet->realisationProjets?->count() > 0 || auth()->user()?->can('create-realisationProjet'))
                         <li class="nav-item">
                             <a class="nav-link" id="affectationProjet-hasmany-tabs-realisationProjet-tab" data-toggle="pill" href="#affectationProjet-hasmany-tabs-realisationProjet" role="tab" aria-controls="affectationProjet-hasmany-tabs-realisationProjet" aria-selected="false">
                                 <i class="nav-icon fas fa-laptop"></i>
@@ -44,7 +44,7 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemAffectationProjet->tacheAffectations->count() > 0 || auth()->user()?->can('create-tacheAffectation'))
+                         @if($itemAffectationProjet->tacheAffectations?->count() > 0 || auth()->user()?->can('create-tacheAffectation'))
                         <li class="nav-item">
                             <a class="nav-link" id="affectationProjet-hasmany-tabs-tacheAffectation-tab" data-toggle="pill" href="#affectationProjet-hasmany-tabs-tacheAffectation" role="tab" aria-controls="affectationProjet-hasmany-tabs-tacheAffectation" aria-selected="false">
                                 <i class="nav-icon fas fa-table"></i>
@@ -62,12 +62,12 @@
                                 @include('PkgRealisationProjets::affectationProjet._fields')
                             </div>
 
-                            @if($itemAffectationProjet->realisationProjets->count() > 0 || auth()->user()?->can('create-realisationProjet'))
+                            @if($itemAffectationProjet->realisationProjets?->count() > 0 || auth()->user()?->can('create-realisationProjet'))
                             <div class="tab-pane fade" id="affectationProjet-hasmany-tabs-realisationProjet" role="tabpanel" aria-labelledby="affectationProjet-hasmany-tabs-realisationProjet-tab">
                                 @include('PkgRealisationProjets::realisationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'affectationProjet.edit_' . $itemAffectationProjet->id])
                             </div>
                             @endif
-                            @if($itemAffectationProjet->tacheAffectations->count() > 0 || auth()->user()?->can('create-tacheAffectation'))
+                            @if($itemAffectationProjet->tacheAffectations?->count() > 0 || auth()->user()?->can('create-tacheAffectation'))
                             <div class="tab-pane fade" id="affectationProjet-hasmany-tabs-tacheAffectation" role="tabpanel" aria-labelledby="affectationProjet-hasmany-tabs-tacheAffectation-tab">
                                 @include('PkgRealisationTache::tacheAffectation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'affectationProjet.edit_' . $itemAffectationProjet->id])
                             </div>
