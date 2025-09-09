@@ -1,7 +1,7 @@
 <article class="projet-card">
     <header class="projet-titre">
         <h2>{{ $entity->titre }}</h2>
-        <small>Session : {{ $entity->sessionFormation->titre }}</small>
+        <small>Session : {{ $entity->sessionFormation?->titre }}</small>
     </header>
 
     <section class="projet-section">

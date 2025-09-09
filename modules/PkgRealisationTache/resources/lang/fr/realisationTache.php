@@ -17,5 +17,6 @@ return [
     'deadline' => 'deadline',
     'nombre_livrables' => 'livrables',
     'note' => 'note',
-    'is_live_coding' => 'Live coding validé'
+    'is_live_coding' => 'Live coding validé',
+    'travail_a_faire'=> 'Travail à faire',
 ];

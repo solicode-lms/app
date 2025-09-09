@@ -68,6 +68,11 @@ class BaseRealisationTache extends BaseModel
         WHERE lt.tache_id = realisation_taches.tache_id
         AND lr.realisation_projet_id = realisation_taches.realisation_projet_id";
         static::addDynamicAttribute('nombre_livrables', $sql);
+        // Colonne dynamique : travail_a_faire
+        $sql = "SELECT t.description
+        FROM taches t
+        WHERE t.id = realisation_taches.tache_id";
+        static::addDynamicAttribute('travail_a_faire', $sql);
         // Colonne dynamique : deadline
         $sql = "SELECT t.dateFin
         FROM taches t

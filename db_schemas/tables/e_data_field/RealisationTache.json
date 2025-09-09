@@ -54,5 +54,19 @@
         "calculable_sql": "SELECT t.dateFin\r\nFROM taches t\r\nWHERE t.id = realisation_taches.tache_id",
         "description": "",
         "e_model_reference": "realisation_taches"
+    },
+    {
+        "reference": "RealisationTache_travail_a_faire",
+        "name": "travail_a_faire",
+        "column_name": "travail_a_faire",
+        "data_type": "Text",
+        "field_order": 10,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT t.description\r\nFROM taches t\r\nWHERE t.id = realisation_taches.tache_id",
+        "description": "<p><br></p>",
+        "e_model_reference": "realisation_taches"
     }
 ]

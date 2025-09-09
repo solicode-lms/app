@@ -13,17 +13,15 @@
 @include('PkgRealisationTache::realisationTache.custom.fields.tache',['entity' => $itemRealisationTache])
                 </div>
             </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemRealisationTache->realisationProjet)
-                  {{ $itemRealisationTache->realisationProjet }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
-                </div>
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.travail_a_faire')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemRealisationTache->travail_a_faire) && $itemRealisationTache->travail_a_faire !== '')
+                    {!! $itemRealisationTache->travail_a_faire !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
             </div>
             </div>
             <h6 class="text-muted mb-2">
@@ -61,12 +59,6 @@
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.etat_realisation_tache_id')) }}</small>
 @include('PkgRealisationTache::realisationTache.custom.fields.etatRealisationTache',['entity' => $itemRealisationTache])
-                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.note')) }}</small>
-@include('PkgRealisationTache::realisationTache.custom.fields.note',['entity' => $itemRealisationTache])
                 </div>
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">

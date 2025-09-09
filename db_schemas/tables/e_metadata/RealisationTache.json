@@ -931,7 +931,9 @@
     },
     {
         "reference": "RealisationTache_realisation_projet_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationTache_realisation_projet_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -1063,7 +1065,9 @@
     },
     {
         "reference": "RealisationTache_note_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationTache_note",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -1522,5 +1526,48 @@
         "value_float": 0,
         "e_data_field_reference": "RealisationTache-nombre_livrables",
         "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "RealisationTache_travail_a_faire_required",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
+        "e_data_field_reference": "RealisationTache_travail_a_faire",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "RealisationTache_travail_a_faire_displayOrder",
+        "value_integer": 10,
+        "e_data_field_reference": "RealisationTache_travail_a_faire",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationTache_travail_a_faire_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_travail_a_faire",
+        "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "RealisationTache_travail_a_faire_viewShowFieldVisible",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_travail_a_faire",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationTache_travail_a_faire_inputMdWidth",
+        "value_boolean": 1,
+        "value_integer": 12,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_travail_a_faire",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationTache_travail_a_faire_viewShowFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Informations générales",
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_travail_a_faire",
+        "e_metadata_definition_reference": "viewShowFieldGroup"
     }
 ]

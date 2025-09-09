@@ -12968,5 +12968,19 @@
         "calculable": 1,
         "calculable_sql": "SELECT wt.type\r\nFROM widgets w\r\nJOIN widget_types wt ON w.type_id = wt.id\r\nWHERE w.id = widget_utilisateurs.widget_id",
         "description": ""
+    },
+    {
+        "id": 993,
+        "reference": "RealisationTache_travail_a_faire",
+        "name": "travail_a_faire",
+        "column_name": "travail_a_faire",
+        "data_type": "Text",
+        "field_order": 10,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT t.description\r\nFROM taches t\r\nWHERE t.id = realisation_taches.tache_id",
+        "description": "<p><br></p>"
     }
 ]
