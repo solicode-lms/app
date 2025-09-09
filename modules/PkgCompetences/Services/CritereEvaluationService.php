@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgCompetences\Services;
@@ -11,4 +10,10 @@ use Modules\PkgCompetences\Services\Base\BaseCritereEvaluationService;
 class CritereEvaluationService extends BaseCritereEvaluationService
 {
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->ordreGroupColumn = 'unite_apprentissage_id';
+
+    }
 }

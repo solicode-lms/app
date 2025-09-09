@@ -119,14 +119,35 @@ trait CrudCreateTrait
 
     public function updateOrCreate(array $attributes, array $values)
     {
+          
+
+         // Rechercher l'entité existante
+        $query = $this->model;
+
+
+        // $entity = $query->where("reference", "DWB-1.1.1-sait-definir-ce-quest-un-wireframe-et-expliquer-son-utilite-dans-un-projet-web")->first();
+
+        // $entity = $query->where("reference", "DWB-1.1.1-sait-definir-ce-qu-est-un-wireframe-et-expliquer-son-utilite-dans-un-projet-web")->first();
+        
+        // //$entity = $query->where("reference", "DWB-1.1.1-sait-definir-ce-qu-est-un-wireframe-et-expliquer-son-utilite-dans-un-projet-web")->first();
+        // dd($entity);
+
+
+        foreach ($attributes as $key => $value) {
+            $query = $query->where($key, $value);
+        }
+
+    
         // Rechercher l'entité existante
-        $entity = $this->model->where($attributes)->first();
+        $entity = $query->first();
 
         if ($entity) {
+          
             // Mettre à jour avec logique métier
             return $this->update($entity->id, $values);
         } else {
             // Créer avec logique métier
+              dd($attributes, $values);
             $data = array_merge($attributes, $values);
             return $this->create($data);
         }
