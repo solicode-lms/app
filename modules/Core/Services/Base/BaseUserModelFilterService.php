@@ -31,6 +31,16 @@ class BaseUserModelFilterService extends BaseService
         'filters'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

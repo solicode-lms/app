@@ -250,43 +250,106 @@ class BaseModuleController extends AdminController
      */
     public function bulkUpdate(Request $request) {
         $this->authorizeAction('update');
-    
-        $module_ids = $request->input('module_ids', []);
-        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
-    
-        if (!is_array($module_ids) || count($module_ids) === 0) {
-            return JsonResponseHelper::error("Aucun élément sélectionné.");
-        }
-        if (empty($champsCoches)) {
-            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+
+        // 1) Structure de la requête (ids + champs cochés)
+        $request->validate([
+            'module_ids'   => ['required', 'array', 'min:1'],
+            'fields_modifiables'               => ['required', 'array', 'min:1']
+        ]);
+
+        $ids          = $request->input('module_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []);
+
+        // 2) Restreindre aux champs réellement éditables (côté service/UI)
+        $updatableFields = $this->service->getFieldsEditable();
+        $requestedFields = array_values(array_intersect($champsCoches, $updatableFields));
+        if (empty($requestedFields)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné valide.");
         }
 
-        // 🔹 Récupérer les valeurs de ces champs
+        // 3) Valeurs “bulk” proposées par l'utilisateur (payload uniforme)
         $valeursChamps = [];
-        foreach ($champsCoches as $field) {
+        foreach ($requestedFields as $field) {
             $valeursChamps[$field] = $request->input($field);
         }
 
+        // 4) Charger rules/messages du FormRequest sans dépendre de la current request
+        $form         = new \Modules\PkgFormation\App\Requests\ModuleRequest();
+        $fullRules    = $form->rules();
+        $fullMessages = method_exists($form, 'messages') ? $form->messages() : [];
+
+        // 5) Autorisation & sanitation par rôles pour CHAQUE ID
+        //    -> on intersecte les champs réellement autorisés (via sanitizePayloadByRoles)
+        $allowedAcrossAll = $requestedFields;
+        foreach ($ids as $id) {
+            $model = $this->moduleService->find($id);
+            $this->authorize('update', $model);
+
+            // sanitizePayloadByRoles complète les champs non autorisés avec la valeur du modèle
+            // et nous retourne la liste des champs "kept" donc effectivement modifiables par cet utilisateur
+            [, $kept /* $removed */] = $this->service->sanitizePayloadByRoles(
+                $valeursChamps,
+                $model,
+                $request->user()
+            );
+
+            $allowedAcrossAll = array_values(array_intersect($allowedAcrossAll, $kept));
+            if (empty($allowedAcrossAll)) {
+                break;
+            }
+        }
+
+        if (empty($allowedAcrossAll)) {
+            return JsonResponseHelper::error("Aucun des champs sélectionnés n’est autorisé à être modifié pour les éléments choisis.");
+        }
+
+        // 6) Payload & Rules finaux (uniquement champs autorisés pour TOUS les IDs)
+        $finalPayload = [];
+        foreach ($allowedAcrossAll as $f) {
+            $finalPayload[$f] = $valeursChamps[$f] ?? null;
+        }
+
+        // Normaliser '' -> null pour les champs "nullable" en se basant sur les valeurs bulk
+        foreach ($allowedAcrossAll as $f) {
+            $rule = $fullRules[$f] ?? null;
+            if (is_string($rule) && str_contains($rule, 'nullable')) {
+                if (array_key_exists($f, $valeursChamps) && $valeursChamps[$f] === '') {
+                    $finalPayload[$f] = null;
+                }
+            }
+        }
+
+        $finalRules = array_intersect_key($fullRules, array_flip($allowedAcrossAll));
+
+        // 7) Validation finale avec les rules/messages du FormRequest
+        \Illuminate\Support\Facades\Validator::make($finalPayload, $finalRules, $fullMessages)->validate();
+
+        // 8) Dispatch du job avec uniquement les champs autorisés
         $jobManager = new JobManager();
-        $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
-         
+        $jobManager->init("bulkUpdateJob", $this->service->modelName, $this->service->moduleName);
+
+        $ignored = array_values(array_diff($requestedFields, $allowedAcrossAll));
+
         dispatch(new BulkEditJob(
             Auth::id(),
             ucfirst($this->service->moduleName),
             ucfirst($this->service->modelName),
             "bulkUpdateJob",
             $jobManager->getToken(),
-            $module_ids,
-            $champsCoches,
-            $valeursChamps
+            $ids,
+            $allowedAcrossAll,
+            $finalPayload
         ));
 
-       
-        return JsonResponseHelper::success(
-             __('Mise à jour en masse effectuée avec succès.'),
-                ['traitement_token' => $jobManager->getToken()]
-        );
+        $msg = 'Mise à jour en masse effectuée avec succès.';
+        if (!empty($ignored)) {
+            $msg .= ' Champs ignorés (non autorisés) : ' . implode(', ', $ignored) . '.';
+        }
 
+        return JsonResponseHelper::success($msg, [
+            'traitement_token' => $jobManager->getToken()
+        ]);
+    
     }
     /**
      */

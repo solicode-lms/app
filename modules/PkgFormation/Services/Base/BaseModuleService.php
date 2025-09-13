@@ -32,6 +32,16 @@ class BaseModuleService extends BaseService
         'filiere_id'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

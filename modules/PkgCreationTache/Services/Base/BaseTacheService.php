@@ -37,6 +37,16 @@ class BaseTacheService extends BaseService
         'chapitre_id'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

@@ -32,6 +32,17 @@ class BaseProfileService extends BaseService
         'bio'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+          'user_id' => ['root']
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

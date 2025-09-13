@@ -32,6 +32,19 @@ class BaseHistoriqueRealisationTacheService extends BaseService
         'isFeedback'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+          'dateModification' => ['admin'],
+          'user_id' => ['admin'],
+          'isFeedback' => ['admin']
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

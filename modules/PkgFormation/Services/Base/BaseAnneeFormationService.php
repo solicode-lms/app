@@ -30,6 +30,16 @@ class BaseAnneeFormationService extends BaseService
         'date_fin'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

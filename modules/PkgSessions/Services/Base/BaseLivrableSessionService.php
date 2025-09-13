@@ -32,6 +32,16 @@ class BaseLivrableSessionService extends BaseService
         'nature_livrable_id'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

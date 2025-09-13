@@ -283,8 +283,7 @@ class BaseRealisationMicroCompetenceController extends AdminController
         // 1) Structure de la requête (ids + champs cochés)
         $request->validate([
             'realisationMicroCompetence_ids'   => ['required', 'array', 'min:1'],
-            'fields_modifiables'               => ['required', 'array', 'min:1'],
-            'fields_modifiables.*'             => ['string'],
+            'fields_modifiables'               => ['required', 'array', 'min:1']
         ]);
 
         $ids          = $request->input('realisationMicroCompetence_ids', []);

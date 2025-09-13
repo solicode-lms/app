@@ -32,6 +32,16 @@ class BaseSysControllerService extends BaseService
         'is_active'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

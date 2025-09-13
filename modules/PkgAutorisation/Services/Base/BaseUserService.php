@@ -33,6 +33,16 @@ class BaseUserService extends BaseService
         'remember_token'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

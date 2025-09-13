@@ -32,6 +32,16 @@ class BaseEtatRealisationModuleService extends BaseService
         'sys_color_id'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

@@ -40,6 +40,16 @@ class BaseERelationshipService extends BaseService
         'morph_name'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

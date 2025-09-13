@@ -32,6 +32,16 @@ class BaseLivrablesRealisationService extends BaseService
         'realisation_projet_id'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

@@ -34,6 +34,16 @@ class BaseNotificationService extends BaseService
         'data'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

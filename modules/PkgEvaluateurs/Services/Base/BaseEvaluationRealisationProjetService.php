@@ -32,6 +32,20 @@ class BaseEvaluationRealisationProjetService extends BaseService
         'remarques'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+          'realisation_projet_id' => ['admin'],
+          'evaluateur_id' => ['admin'],
+          'date_evaluation' => ['admin'],
+          'etat_evaluation_projet_id' => ['admin']
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

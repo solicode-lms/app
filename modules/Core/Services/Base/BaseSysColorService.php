@@ -29,6 +29,16 @@ class BaseSysColorService extends BaseService
         'hex'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

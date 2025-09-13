@@ -57,49 +57,42 @@ class BaseRealisationUaPrototypeRequest extends FormRequest
         ];
     }
 
+    /**
+     * Prépare et sanitize les données avant la validation.
+     *
+     * - Pour les relations ManyToMany, on s'assure que le champ est toujours un tableau (vide si non fourni).
+     * - Pour les champs éditables par rôles, on délègue au service la sanitation en fonction de l'utilisateur.
+     *
+     * @return void
+     */
     protected function prepareForValidation()
     {
+        // En création, on ne touche pas au payload (même traitement existant)
+        $id = $this->route('realisationUaPrototype')
+        ?? $this->route('realisation_ua_prototype')
+        ?? null;
 
-        $user = Auth::user();
-
-        // Définition des rôles autorisés pour chaque champ
-        $editableFieldsByRoles = [
-            
-            'realisation_tache_id' => "admin",
-            
-            'realisation_ua_id' => "admin",
-            
-            'bareme' => "admin",
-            
-            'date_debut' => "admin",
-            
-            'date_fin' => "admin",
-            
-        ];
-
-        // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
-        $realisation_ua_prototype_id = $this->route('realisationUaPrototype'); // Remplace 'model' par le bon paramètre de route
-        
-        // Vérifier si c'est une édition (realisationUaPrototype existant dans l'URL)
-        if (!$realisation_ua_prototype_id) {
+        if (!$id) {
             return;
         }
-        
-        $model = RealisationUaPrototype::find($realisation_ua_prototype_id);
 
-        
-        // Vérification et suppression des champs non autorisés
-        foreach ($editableFieldsByRoles as $field => $roles) {
-            if (!$user->hasAnyRole(explode(',', $roles))) {
-                
-
-                // Supprimer le champ pour éviter l'écrasement
-                $this->request->remove($field);
-
-                // Si le champ est absent dans la requête, on garde la valeur actuelle
-                $this->merge([$field => $model->$field]);
-                
-            }
+        $model = \Modules\PkgApprentissage\Models\RealisationUaPrototype::find($id);
+        if (!$model) {
+            return;
         }
+
+        /** @var \Modules\PkgApprentissage\Services\RealisationUaPrototypeService $service */
+        $service = app(\Modules\PkgApprentissage\Services\RealisationUaPrototypeService::class);
+        $user    = $this->user() ?: \Illuminate\Support\Facades\Auth::user();
+
+        // Déléguer au service la sanitation par rôles
+        [$sanitized] = $service->sanitizePayloadByRoles(
+            $this->all(),
+            $model,
+            $user
+        );
+
+        // Remplacer la requête par la version nettoyée/merge
+        $this->replace($sanitized);
     }
 }

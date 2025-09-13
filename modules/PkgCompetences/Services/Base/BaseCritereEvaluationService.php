@@ -32,6 +32,16 @@ class BaseCritereEvaluationService extends BaseService
         'unite_apprentissage_id'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

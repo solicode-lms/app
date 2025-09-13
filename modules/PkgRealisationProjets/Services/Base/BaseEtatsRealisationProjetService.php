@@ -33,6 +33,16 @@ class BaseEtatsRealisationProjetService extends BaseService
         'is_editable_by_formateur'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

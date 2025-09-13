@@ -33,6 +33,16 @@ class BaseEModelService extends BaseService
         'e_package_id'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

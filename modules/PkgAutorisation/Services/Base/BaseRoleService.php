@@ -29,6 +29,16 @@ class BaseRoleService extends BaseService
         'guard_name'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

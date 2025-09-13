@@ -45,6 +45,16 @@ class BaseApprenantService extends BaseService
         'actif'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

@@ -32,6 +32,19 @@ class BaseEvaluationRealisationTacheService extends BaseService
         'evaluation_realisation_projet_id'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+          'realisation_tache_id' => ['admin'],
+          'evaluateur_id' => ['admin'],
+          'evaluation_realisation_projet_id' => ['admin']
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

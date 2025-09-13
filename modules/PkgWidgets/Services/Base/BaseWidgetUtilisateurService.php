@@ -33,6 +33,18 @@ class BaseWidgetUtilisateurService extends BaseService
         'visible'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+          'sys_module_id' => ['root'],
+          'widget_id' => ['root']
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

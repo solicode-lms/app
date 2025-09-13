@@ -32,6 +32,16 @@ class BaseLivrableService extends BaseService
         'is_affichable_seulement_par_formateur'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *
