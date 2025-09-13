@@ -1,8 +1,8 @@
 @php 
- $canEditis_live_coding = !$entity || !$entity->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin'));
- $phaseEvaluation = $entity->tache?->phaseEvaluation?->code;
+ $canEditis_live_coding = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'formateur,admin')) : (empty($itemRealisationTache->id) || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')) ); 
+  $phaseEvaluation = $entity->tache?->phaseEvaluation?->code;
 @endphp
-
+    
 {{-- @if($phaseEvaluation == "N1") --}}
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)

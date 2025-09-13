@@ -2,7 +2,7 @@
     use Illuminate\Support\Facades\Auth;
 
     $user = Auth::user();
-    $canEditnote = !$entity || !$entity->id || $user->hasAnyRole(['formateur', 'evaluateur']);
+    $canEditnote = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'formateur,evaluateur')) : (empty($itemRealisationTache->id) || Auth::user()->hasAnyRole(explode(',', 'formateur,evaluateur')) );
 
     // Note personnelle ou moyenne encapsulée
     $myNote = $entity->getDisplayNote();
