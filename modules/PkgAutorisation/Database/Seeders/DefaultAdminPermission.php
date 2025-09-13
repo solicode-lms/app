@@ -57,7 +57,7 @@ class DefaultAdminPermission extends Seeder
             'workflowTache' => 'Afficher',
             'tache' => 'Lecture',
             'notification' => 'Lecture',
-            'widget' => 'Lecture',
+            'widget' => 'Afficher',
             'sectionWidget' => 'Afficher',
             'widgetUtilisateur' => 'Édition',
             'realisationChapitre' => 'Lecture',

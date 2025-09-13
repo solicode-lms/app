@@ -12873,6 +12873,20 @@
     },
     {
         "id": 986,
+        "reference": "RealisationTache_travail_a_faire",
+        "name": "travail_a_faire",
+        "column_name": "travail_a_faire",
+        "data_type": "Text",
+        "field_order": 10,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT t.description\r\nFROM taches t\r\nWHERE t.id = realisation_taches.tache_id",
+        "description": "<p><br></p>"
+    },
+    {
+        "id": 987,
         "reference": "RealisationUaProjet_criteres_evaluation",
         "name": "criteres_evaluation",
         "column_name": "criteres_evaluation",
@@ -12886,7 +12900,7 @@
         "description": ""
     },
     {
-        "id": 987,
+        "id": 988,
         "reference": "RealisationUaPrototype_criteres_evaluation",
         "name": "criteres_evaluation",
         "column_name": "criteres_evaluation",
@@ -12900,7 +12914,7 @@
         "description": ""
     },
     {
-        "id": 988,
+        "id": 989,
         "reference": "UniteApprentissage_nom_filiere",
         "name": "nom_filiere",
         "column_name": "nom_filiere",
@@ -12914,7 +12928,7 @@
         "description": ""
     },
     {
-        "id": 989,
+        "id": 990,
         "reference": "Widget-package",
         "name": "package",
         "column_name": "package",
@@ -12928,7 +12942,7 @@
         "description": ""
     },
     {
-        "id": 990,
+        "id": 991,
         "reference": "WidgetUtilisateur-sys_module_id",
         "name": "sys_module_id",
         "column_name": "sys_module_id",
@@ -12942,7 +12956,7 @@
         "description": ""
     },
     {
-        "id": 991,
+        "id": 992,
         "reference": "WidgetUtilisateur-package",
         "name": "package",
         "column_name": "package",
@@ -12956,7 +12970,7 @@
         "description": ""
     },
     {
-        "id": 992,
+        "id": 993,
         "reference": "WidgetUtilisateur-type",
         "name": "type",
         "column_name": "type",
@@ -12968,19 +12982,5 @@
         "calculable": 1,
         "calculable_sql": "SELECT wt.type\r\nFROM widgets w\r\nJOIN widget_types wt ON w.type_id = wt.id\r\nWHERE w.id = widget_utilisateurs.widget_id",
         "description": ""
-    },
-    {
-        "id": 993,
-        "reference": "RealisationTache_travail_a_faire",
-        "name": "travail_a_faire",
-        "column_name": "travail_a_faire",
-        "data_type": "Text",
-        "field_order": 10,
-        "db_nullable": 0,
-        "db_primaryKey": 0,
-        "db_unique": 0,
-        "calculable": 1,
-        "calculable_sql": "SELECT t.description\r\nFROM taches t\r\nWHERE t.id = realisation_taches.tache_id",
-        "description": "<p><br></p>"
     }
 ]

@@ -191,12 +191,11 @@
     
     <div class="row">
         
-
 @if($itemRealisationTache->id)
 @if(
   (auth()->user()?->can('show-realisationChapitre') && $itemRealisationTache->realisationChapitres->isNotEmpty())  
   || auth()->user()?->can('create-realisationChapitre')
-  || auth()->user()?->can('edit-realisationChapitre')
+  || (auth()->user()?->can('edit-realisationChapitre')  && $itemRealisationTache->realisationChapitres->isNotEmpty() )
   )
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
@@ -212,14 +211,11 @@
 @endif
 
 
-
-
 @if($itemRealisationTache->id)
-@dump( auth()->user()?->can('edit-realisationUaProjet'));
 @if(
   (auth()->user()?->can('show-realisationUaProjet') && $itemRealisationTache->realisationUaProjets->isNotEmpty())  
   || auth()->user()?->can('create-realisationUaProjet')
-  ||( auth()->user()?->can('edit-realisationUaProjet') && $itemRealisationTache->realisationUaProjets->isNotEmpty())
+  || (auth()->user()?->can('edit-realisationUaProjet')  && $itemRealisationTache->realisationUaProjets->isNotEmpty() )
   )
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
@@ -235,13 +231,11 @@
 @endif
 
 
-
-
 @if($itemRealisationTache->id)
 @if(
   (auth()->user()?->can('show-realisationUaPrototype') && $itemRealisationTache->realisationUaPrototypes->isNotEmpty())  
   || auth()->user()?->can('create-realisationUaPrototype')
-  || auth()->user()?->can('edit-realisationUaPrototype')
+  || (auth()->user()?->can('edit-realisationUaPrototype')  && $itemRealisationTache->realisationUaPrototypes->isNotEmpty() )
   )
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
@@ -255,7 +249,6 @@
 @endif
 @endif
 @endif
-
 
 
     </div>
@@ -361,12 +354,11 @@
 </x-form-field>
 
 
-
 @if($itemRealisationTache->id)
 @if(
   (auth()->user()?->can('show-evaluationRealisationTache') && $itemRealisationTache->evaluationRealisationTaches->isNotEmpty())  
   || auth()->user()?->can('create-evaluationRealisationTache')
-  || auth()->user()?->can('edit-evaluationRealisationTache')
+  || (auth()->user()?->can('edit-evaluationRealisationTache')  && $itemRealisationTache->evaluationRealisationTaches->isNotEmpty() )
   )
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
@@ -380,7 +372,6 @@
 @endif
 @endif
 @endif
-
 
 
     </div>

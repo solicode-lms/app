@@ -58,7 +58,7 @@ class DefaultFormateurPermission extends Seeder
             'workflowTache' => 'Afficher',
             'tache' => 'Édition',
             'notification' => 'Lecture',
-            'widget' => 'Lecture',
+            'widget' => 'Afficher',
             'sectionWidget' => 'Afficher',
             'widgetUtilisateur' => 'Édition',
             'realisationChapitre' => 'Édition sans Ajouter',

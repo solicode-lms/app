@@ -34,7 +34,7 @@ class ContextStateMiddleware
         // - dans ce cas : formateur_id, apprenant_id, user_id
         // init contextUser in contexteState
         $user = Auth::user(); 
-    // Charger le contexte utilisateur si authentifié
+        // Charger le contexte utilisateur si authentifié
         if (Auth::check()) {
             $user = Auth::user();
             foreach ($user->getUsersContext() as $key => $value) {

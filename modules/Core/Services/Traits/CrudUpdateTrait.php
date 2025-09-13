@@ -38,7 +38,12 @@ trait CrudUpdateTrait
             }
 
 
-            $entity->update($data);
+
+            // Filtrer les champs non fillable
+            $data_fillable = array_intersect_key($data, array_flip($this->model->getFillable()));
+            
+            $entity->update($data_fillable);
+
             $this->executeRules('after', 'update', $entity, $id);
                 $this->executeJob('after', 'create', $entity->id);
             return $entity;
@@ -77,7 +82,9 @@ trait CrudUpdateTrait
                 }
             }
 
-            $entity->update($data);
+            $data_fillable = array_intersect_key($data, array_flip($this->model->getFillable()));
+           
+            $entity->update($data_fillable);
             $this->syncManyToManyRelations($entity, $data);
             $this->executeRules('after', 'update', $entity, $id);
 

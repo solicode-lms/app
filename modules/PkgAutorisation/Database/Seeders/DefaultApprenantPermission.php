@@ -56,7 +56,7 @@ class DefaultApprenantPermission extends Seeder
             'workflowTache' => 'Afficher',
             'tache' => 'Afficher',
             'notification' => 'Lecture',
-            'widget' => 'Lecture',
+            'widget' => 'Afficher',
             'widgetUtilisateur' => 'Édition',
             'realisationChapitre' => 'Lecture',
             'realisationUaProjet' => 'Afficher',
