@@ -60,7 +60,7 @@ class DefaultFormateurPermission extends Seeder
             'notification' => 'Lecture',
             'widget' => 'Afficher',
             'sectionWidget' => 'Afficher',
-            'widgetUtilisateur' => 'Édition',
+            'widgetUtilisateur' => 'Édition sans Ajouter',
             'realisationChapitre' => 'Édition sans Ajouter',
             'realisationUaProjet' => 'Édition sans Ajouter',
             'realisationUaPrototype' => 'Édition sans Ajouter',

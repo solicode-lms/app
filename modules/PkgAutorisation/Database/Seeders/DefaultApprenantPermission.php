@@ -57,7 +57,7 @@ class DefaultApprenantPermission extends Seeder
             'tache' => 'Afficher',
             'notification' => 'Lecture',
             'widget' => 'Afficher',
-            'widgetUtilisateur' => 'Édition',
+            'widgetUtilisateur' => 'Édition sans Ajouter',
             'realisationChapitre' => 'Lecture',
             'realisationUaProjet' => 'Afficher',
             'realisationUaPrototype' => 'Afficher',

@@ -57,4 +57,43 @@ class BaseWidgetUtilisateurRequest extends FormRequest
         ];
     }
 
+    protected function prepareForValidation()
+    {
+
+        $user = Auth::user();
+
+        // Définition des rôles autorisés pour chaque champ
+        $editableFieldsByRoles = [
+            
+            'sys_module_id' => "root",
+            
+            'widget_id' => "root",
+            
+        ];
+
+        // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
+        $widget_utilisateur_id = $this->route('widgetUtilisateur'); // Remplace 'model' par le bon paramètre de route
+        
+        // Vérifier si c'est une édition (widgetUtilisateur existant dans l'URL)
+        if (!$widget_utilisateur_id) {
+            return;
+        }
+        
+        $model = WidgetUtilisateur::find($widget_utilisateur_id);
+
+        
+        // Vérification et suppression des champs non autorisés
+        foreach ($editableFieldsByRoles as $field => $roles) {
+            if (!$user->hasAnyRole(explode(',', $roles))) {
+                
+
+                // Supprimer le champ pour éviter l'écrasement
+                $this->request->remove($field);
+
+                // Si le champ est absent dans la requête, on garde la valeur actuelle
+                $this->merge([$field => $model->$field]);
+                
+            }
+        }
+    }
 }

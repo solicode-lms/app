@@ -59,7 +59,7 @@ class DefaultAdminPermission extends Seeder
             'notification' => 'Lecture',
             'widget' => 'Afficher',
             'sectionWidget' => 'Afficher',
-            'widgetUtilisateur' => 'Édition',
+            'widgetUtilisateur' => 'Édition sans Ajouter',
             'realisationChapitre' => 'Lecture',
             'realisationUaProjet' => 'Lecture',
             'realisationUaPrototype' => 'Lecture',

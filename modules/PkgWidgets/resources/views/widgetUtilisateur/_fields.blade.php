@@ -60,6 +60,7 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemWidgetUtilisateur" field="sys_module_id" :bulkEdit="$bulkEdit">
+      @php $canEditsys_module_id = !$itemWidgetUtilisateur || !$itemWidgetUtilisateur->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -79,6 +80,7 @@
         
         
         id="sys_module_id"
+        {{ $canEditsys_module_id ? '' : 'disabled' }}
         step="0.01"
         placeholder="{{ __('PkgWidgets::widgetUtilisateur.sys_module_id') }}"
         value="{{ $itemWidgetUtilisateur ? number_format($itemWidgetUtilisateur->sys_module_id, 2, '.', '') : old('sys_module_id') }}">
@@ -124,6 +126,7 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemWidgetUtilisateur" field="widget_id" :bulkEdit="$bulkEdit">
+      @php $canEditwidget_id = !$itemWidgetUtilisateur || !$itemWidgetUtilisateur->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -137,6 +140,7 @@
           </label>
                       <select 
             id="widget_id" 
+            {{ $canEditwidget_id ? '' : 'disabled' }}
             required
             data-calcul='true'
             
