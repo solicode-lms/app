@@ -67,7 +67,7 @@ class DefaultFormateurPermission extends Seeder
             'realisationMicroCompetence' => 'Lecture',
             'realisationCompetence' => 'Lecture',
             'realisationModule' => 'Lecture',
-            'etatRealisationMicroCompetence' => 'Lecture',
+            'etatRealisationMicroCompetence' => 'Afficher',
             'sessionFormation' => 'Lecture',
             'etatRealisationUa' => 'Afficher',
             'etatRealisationChapitre' => 'Afficher',

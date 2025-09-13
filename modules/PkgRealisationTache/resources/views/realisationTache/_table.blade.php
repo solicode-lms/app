@@ -50,22 +50,6 @@
                             </a>
                         </x-action-button>
                         @endif
-                        @if($realisationTaches_permissions['show-projet'])
-                        <x-action-button :entity="$realisationTache" actionName="projet">
-                            <a
-                                data-toggle="tooltip"
-                                title="Projet"
-                                href="{{ route('projets.show', [
-                                        'projet' => $realisationTache->realisationProjet->affectationProjet->projet_id,
-                                        'showIndex' => true,
-                                        'contextKey' => 'projets.show',
-                                ]) }}"
-                                class="btn btn-default btn-sm context-state actionEntity showIndex"
-                                data-id="{{ $realisationTache->id }}">
-                                <i class="fas fa-laptop"></i>
-                            </a>
-                        </x-action-button>
-                        @endif
 
 
                        

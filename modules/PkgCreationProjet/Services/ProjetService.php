@@ -239,7 +239,7 @@ class ProjetService extends BaseProjetService
                 'titre' => 'Réalisation',
             ],
             [
-                'description' => 'Réalisation du projet',
+                'description' =>  trim(($session->description_projet ?? '') . "<br>" . ($session->contraintes_projet ?? '')),
                 'priorite' => $priorite++,
                 'ordre' => $ordre++,
                 'phase_evaluation_id' => $phaseN3,

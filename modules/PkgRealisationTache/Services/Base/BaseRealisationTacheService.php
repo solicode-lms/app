@@ -285,7 +285,6 @@ class BaseRealisationTacheService extends BaseService
     
         $realisationTaches_permissions = [
             'index-livrablesRealisation' => Auth::user()->can('index-livrablesRealisation'),
-            'show-projet' => Auth::user()->can('show-projet'),
 
             'edit-realisationTache' => Auth::user()->can('edit-realisationTache'),
             'destroy-realisationTache' => Auth::user()->can('destroy-realisationTache'),

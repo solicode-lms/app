@@ -478,20 +478,6 @@
                 "tooltip": "Livrables",
                 "actionName": "livrablesRealisations",
                 "permission": "index-livrablesRealisation"
-            },
-            {
-                "icon": "fas fa-laptop",
-                "class": "btn btn-default btn-sm context-state actionEntity showIndex",
-                "ordre": 3,
-                "route": "projets.show",
-                "params": {
-                    "projet": "$realisationTache->realisationProjet->affectationProjet->projet_id",
-                    "showIndex": true,
-                    "contextKey": "'projets.show'"
-                },
-                "tooltip": "Projet",
-                "actionName": "projet",
-                "permission": "show-projet"
             }
         ],
         "value_text": "<p><br></p>",
