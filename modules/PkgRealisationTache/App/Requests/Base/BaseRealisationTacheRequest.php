@@ -65,59 +65,42 @@ class BaseRealisationTacheRequest extends FormRequest
         ];
     }
 
+    /**
+     * Prépare et sanitize les données avant la validation.
+     *
+     * - Pour les relations ManyToMany, on s'assure que le champ est toujours un tableau (vide si non fourni).
+     * - Pour les champs éditables par rôles, on délègue au service la sanitation en fonction de l'utilisateur.
+     *
+     * @return void
+     */
     protected function prepareForValidation()
     {
+        // En création, on ne touche pas au payload (même traitement existant)
+        $id = $this->route('realisationTache')
+        ?? $this->route('realisation_tache')
+        ?? null;
 
-        $user = Auth::user();
-
-        // Définition des rôles autorisés pour chaque champ
-        $editableFieldsByRoles = [
-            
-            'tache_id' => "admin",
-            
-            'etat_realisation_tache_id' => "apprenant,formateur,admin",
-            
-            'realisation_projet_id' => "admin",
-            
-            'dateDebut' => "admin",
-            
-            'dateFin' => "admin",
-            
-            'note' => "formateur,evaluateur",
-            
-            'is_live_coding' => "formateur,admin",
-            
-            'remarques_formateur' => "formateur",
-            
-            'remarques_apprenant' => "apprenant,formateur,admin",
-            
-            'tache_affectation_id' => "root",
-            
-        ];
-
-        // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
-        $realisation_tache_id = $this->route('realisationTache'); // Remplace 'model' par le bon paramètre de route
-        
-        // Vérifier si c'est une édition (realisationTache existant dans l'URL)
-        if (!$realisation_tache_id) {
+        if (!$id) {
             return;
         }
-        
-        $model = RealisationTache::find($realisation_tache_id);
 
-        
-        // Vérification et suppression des champs non autorisés
-        foreach ($editableFieldsByRoles as $field => $roles) {
-            if (!$user->hasAnyRole(explode(',', $roles))) {
-                
-
-                // Supprimer le champ pour éviter l'écrasement
-                $this->request->remove($field);
-
-                // Si le champ est absent dans la requête, on garde la valeur actuelle
-                $this->merge([$field => $model->$field]);
-                
-            }
+        $model = \Modules\PkgRealisationTache\Models\RealisationTache::find($id);
+        if (!$model) {
+            return;
         }
+
+        /** @var \Modules\PkgRealisationTache\Services\RealisationTacheService $service */
+        $service = app(\Modules\PkgRealisationTache\Services\RealisationTacheService::class);
+        $user    = $this->user() ?: \Illuminate\Support\Facades\Auth::user();
+
+        // Déléguer au service la sanitation par rôles
+        [$sanitized] = $service->sanitizePayloadByRoles(
+            $this->all(),
+            $model,
+            $user
+        );
+
+        // Remplacer la requête par la version nettoyée/merge
+        $this->replace($sanitized);
     }
 }

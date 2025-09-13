@@ -38,6 +38,26 @@ class BaseRealisationTacheService extends BaseService
         'tache_affectation_id'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+          'tache_id' => ['admin'],
+          'etat_realisation_tache_id' => ['apprenant', 'formateur', 'admin'],
+          'realisation_projet_id' => ['admin'],
+          'dateDebut' => ['admin'],
+          'dateFin' => ['admin'],
+          'note' => ['formateur', 'evaluateur'],
+          'is_live_coding' => ['formateur', 'admin'],
+          'remarques_formateur' => ['formateur'],
+          'remarques_apprenant' => ['apprenant', 'formateur', 'admin'],
+          'tache_affectation_id' => ['root']
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *
