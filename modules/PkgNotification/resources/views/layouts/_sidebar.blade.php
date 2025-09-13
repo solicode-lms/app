@@ -10,7 +10,7 @@
                 <a href="{{ route('notifications.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgNotification/notifications') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-bell"></i>
-                    {{__('PkgNotification::notification.plural')}}
+                    <p>{{__('PkgNotification::notification.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -29,7 +29,7 @@
             <li class="nav-item" id="menu-notifications">
                 <a href="{{ route('notifications.index') }}" class="nav-link {{ Request::is('admin/PkgNotification/notifications') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-bell"></i>
-                    {{__('PkgNotification::notification.plural')}}
+                    <p>{{__('PkgNotification::notification.plural')}}</p>
                 </a>
             </li>
             @endcan

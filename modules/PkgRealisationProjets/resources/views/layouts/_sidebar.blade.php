@@ -10,7 +10,7 @@
                 <a href="{{ route('etatsRealisationProjets.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgRealisationProjets/etatsRealisationProjets') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-check"></i>
-                    {{__('PkgRealisationProjets::etatsRealisationProjet.plural')}}
+                    <p>{{__('PkgRealisationProjets::etatsRealisationProjet.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -19,7 +19,7 @@
                 <a href="{{ route('realisationProjets.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgRealisationProjets/realisationProjets') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-laptop"></i>
-                    {{__('PkgRealisationProjets::realisationProjet.plural')}}
+                    <p>{{__('PkgRealisationProjets::realisationProjet.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -38,7 +38,7 @@
             <li class="nav-item" id="menu-etatsRealisationProjets">
                 <a href="{{ route('etatsRealisationProjets.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationProjets/etatsRealisationProjets') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-check"></i>
-                    {{__('PkgRealisationProjets::etatsRealisationProjet.plural')}}
+                    <p>{{__('PkgRealisationProjets::etatsRealisationProjet.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -46,7 +46,7 @@
             <li class="nav-item" id="menu-realisationProjets">
                 <a href="{{ route('realisationProjets.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationProjets/realisationProjets') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-laptop"></i>
-                    {{__('PkgRealisationProjets::realisationProjet.plural')}}
+                    <p>{{__('PkgRealisationProjets::realisationProjet.plural')}}</p>
                 </a>
             </li>
             @endcan

@@ -323,7 +323,7 @@ class RealisationProjetService extends BaseRealisationProjetService
                 data: [
                     'lien' => route('realisationProjets.index', [
                         'contextKey' => 'realisationProjet.index',
-                        'action' => 'edit',
+                        'action' => 'show',
                         'id' => $realisationProjet->id
                     ]),
                     'realisationProjet' => $realisationProjet->id

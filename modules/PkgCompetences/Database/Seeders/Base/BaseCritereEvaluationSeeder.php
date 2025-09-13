@@ -95,10 +95,7 @@ class BaseCritereEvaluationSeeder extends Seeder
                 ];
 
                 $critereEvaluation = null;
-
-              
                 if (!empty($row["reference"])) {
-                    
                     $critereEvaluation = $critereEvaluationService->updateOrCreate(["reference" => $row["reference"]], $critereEvaluationData);
                 } else {
                     $critereEvaluation = $critereEvaluationService->create($critereEvaluationData);

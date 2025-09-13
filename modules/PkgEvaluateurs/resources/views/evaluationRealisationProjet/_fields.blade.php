@@ -171,9 +171,12 @@
 </x-form-field>
 
 
-
 @if($itemEvaluationRealisationProjet->id)
-@if(auth()->user()?->can('show-evaluationRealisationTache || auth()->user()?->can('create-evaluationRealisationTache'))
+@if(
+  (auth()->user()?->can('show-evaluationRealisationTache') && $itemRealisationTache->evaluationRealisationTaches->isNotEmpty())  
+  || auth()->user()?->can('create-evaluationRealisationTache')
+  || (auth()->user()?->can('edit-evaluationRealisationTache')  && $itemRealisationTache->evaluationRealisationTaches->isNotEmpty() )
+  )
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="EvaluationRealisationTache">
@@ -186,7 +189,6 @@
 @endif
 @endif
 @endif
-
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemEvaluationRealisationProjet" field="remarques" :bulkEdit="$bulkEdit">
 

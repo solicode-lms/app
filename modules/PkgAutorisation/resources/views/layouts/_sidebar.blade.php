@@ -10,7 +10,7 @@
                 <a href="{{ route('users.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgAutorisation/users') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-user"></i>
-                    {{__('PkgAutorisation::user.plural')}}
+                    <p>{{__('PkgAutorisation::user.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -19,7 +19,7 @@
                 <a href="{{ route('roles.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgAutorisation/roles') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-id-badge"></i>
-                    {{__('PkgAutorisation::role.plural')}}
+                    <p>{{__('PkgAutorisation::role.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -28,7 +28,7 @@
                 <a href="{{ route('permissions.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgAutorisation/permissions') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-lock-open"></i>
-                    {{__('PkgAutorisation::permission.plural')}}
+                    <p>{{__('PkgAutorisation::permission.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -47,7 +47,7 @@
             <li class="nav-item" id="menu-users">
                 <a href="{{ route('users.index') }}" class="nav-link {{ Request::is('admin/PkgAutorisation/users') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-user"></i>
-                    {{__('PkgAutorisation::user.plural')}}
+                    <p>{{__('PkgAutorisation::user.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -55,7 +55,7 @@
             <li class="nav-item" id="menu-roles">
                 <a href="{{ route('roles.index') }}" class="nav-link {{ Request::is('admin/PkgAutorisation/roles') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-id-badge"></i>
-                    {{__('PkgAutorisation::role.plural')}}
+                    <p>{{__('PkgAutorisation::role.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -63,7 +63,7 @@
             <li class="nav-item" id="menu-permissions">
                 <a href="{{ route('permissions.index') }}" class="nav-link {{ Request::is('admin/PkgAutorisation/permissions') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-lock-open"></i>
-                    {{__('PkgAutorisation::permission.plural')}}
+                    <p>{{__('PkgAutorisation::permission.plural')}}</p>
                 </a>
             </li>
             @endcan

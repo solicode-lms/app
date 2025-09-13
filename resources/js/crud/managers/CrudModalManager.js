@@ -110,7 +110,7 @@ export class CrudModalManager {
                 this.tableUI.entityEditor.editEntity(actionId);
                 break;
             case "show":
-                this.tableUI.entityEditor.showEntity(actionId); // Correction : appel correct de la méthode
+                this.tableUI.entityViewer.showEntity(actionId); // Correction : appel correct de la méthode
                 break;
             default:
                 console.warn(`Action inconnue : ${actionName}`);

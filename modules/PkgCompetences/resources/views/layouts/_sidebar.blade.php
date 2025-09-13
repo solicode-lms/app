@@ -10,7 +10,7 @@
                 <a href="{{ route('competences.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgCompetences/competences') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-user-graduate"></i>
-                    {{__('PkgCompetences::competence.plural')}}
+                    <p>{{__('PkgCompetences::competence.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -19,7 +19,7 @@
                 <a href="{{ route('microCompetences.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgCompetences/microCompetences') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-book"></i>
-                    {{__('PkgCompetences::microCompetence.plural')}}
+                    <p>{{__('PkgCompetences::microCompetence.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -38,7 +38,7 @@
             <li class="nav-item" id="menu-competences">
                 <a href="{{ route('competences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/competences') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-user-graduate"></i>
-                    {{__('PkgCompetences::competence.plural')}}
+                    <p>{{__('PkgCompetences::competence.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -46,7 +46,7 @@
             <li class="nav-item" id="menu-microCompetences">
                 <a href="{{ route('microCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/microCompetences') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-book"></i>
-                    {{__('PkgCompetences::microCompetence.plural')}}
+                    <p>{{__('PkgCompetences::microCompetence.plural')}}</p>
                 </a>
             </li>
             @endcan
