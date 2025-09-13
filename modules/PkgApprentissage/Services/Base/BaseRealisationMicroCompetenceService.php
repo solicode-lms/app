@@ -42,7 +42,6 @@ class BaseRealisationMicroCompetenceService extends BaseService
     ];
 
 
-
     public function editableFieldsByRoles(): array
     {
         // Adapter selon ton besoin réel
@@ -65,62 +64,6 @@ class BaseRealisationMicroCompetenceService extends BaseService
         ];
     }
 
-/**
- * Nettoie le payload selon les rôles :
- * - Supprime les champs non autorisés (et ceux inconnus)
- * - Réinjecte, pour les champs non autorisés, la valeur actuelle du modèle (évite l’écrasement)
- * - Retourne: [$sanitized, $keptFields, $removedFields]
- *
- * @param array $payload Données brutes de la requête
- * @param \Modules\PkgApprentissage\Models\RealisationMicroCompetence|null $model Modèle courant (édition) ou null (création)
- * @param \Illuminate\Contracts\Auth\Authenticatable|null $user Utilisateur courant
- * @return array{0: array, 1: array, 2: array}
- */
-public function sanitizePayloadByRoles(
-    array $payload,
-    ?RealisationMicroCompetence $model,
-    ?\Illuminate\Contracts\Auth\Authenticatable $user
-): array {
-    $map     = $this->editableFieldsByRoles();
-    $kept    = [];
-    $removed = [];
-    $sanitized = $payload;
-
-    // 1) Supprimer les champs inconnus
-    foreach (array_keys($sanitized) as $field) {
-        if (!array_key_exists($field, $map)) {
-            unset($sanitized[$field]);
-            $removed[$field] = 'unknown';
-        }
-    }
-
-    // 2) Pour chaque champ connu, vérifier les rôles
-    foreach ($map as $field => $roles) {
-        $isAllowed = $user && method_exists($user, 'hasAnyRole') ? $user->hasAnyRole($roles) : false;
-
-        if (!$isAllowed) {
-            // Si l'utilisateur a tenté de l'envoyer, on le marque "role"
-            if (array_key_exists($field, $payload)) {
-                $removed[$field] = 'role';
-            }
-
-            // Supprimer toute valeur fournie par l'utilisateur
-            unset($sanitized[$field]);
-
-            // Réinjecter la valeur actuelle du modèle (si existante) pour éviter l'écrasement
-            if ($model && $model->getKey() && $model->offsetExists($field)) {
-                $sanitized[$field] = $model->$field;
-            }
-        } else {
-            // Champ autorisé et présent dans le payload initial
-            if (array_key_exists($field, $payload)) {
-                $kept[] = $field;
-            }
-        }
-    }
-
-    return [$sanitized, $kept, $removed];
-}
 
     /**
      * Renvoie les champs de recherche disponibles.
