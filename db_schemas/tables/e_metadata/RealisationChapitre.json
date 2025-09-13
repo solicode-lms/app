@@ -7,7 +7,9 @@
     },
     {
         "reference": "realisation_chapitres_displayInSideBar",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_model_reference": "realisation_chapitres",
         "e_metadata_definition_reference": "displayInSideBar"
     },

@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-etatRealisationMicroCompetence', 'index-etatRealisationUa', 'index-etatRealisationChapitre', 'index-realisationMicroCompetence', 'index-realisationChapitre', 'index-etatRealisationModule', 'index-etatRealisationCompetence', 'index-realisationModule', 'index-realisationCompetence'])
+@accessiblePermissions(['index-etatRealisationMicroCompetence', 'index-etatRealisationUa', 'index-etatRealisationChapitre', 'index-realisationMicroCompetence', 'index-etatRealisationModule', 'index-etatRealisationCompetence', 'index-realisationModule', 'index-realisationCompetence'])
 @if($accessiblePermissions->isNotEmpty())
     @if($accessiblePermissions->count() === 1)
         {{-- Cas d’un seul élément accessible --}}
@@ -38,15 +38,6 @@
                    class="nav-link {{ Request::is('admin/PkgApprentissage/realisationMicroCompetences') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-certificate"></i>
                     <p>{{__('PkgApprentissage::realisationMicroCompetence.plural')}}</p>
-                </a>
-            </li>
-            @endcan
-            @can('index-realisationChapitre')
-            <li class="nav-item" id="menu-realisationChapitres">
-                <a href="{{ route('realisationChapitres.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgApprentissage/realisationChapitres') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-code"></i>
-                    <p>{{__('PkgApprentissage::realisationChapitre.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -126,14 +117,6 @@
                 <a href="{{ route('realisationMicroCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/realisationMicroCompetences') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-certificate"></i>
                     <p>{{__('PkgApprentissage::realisationMicroCompetence.plural')}}</p>
-                </a>
-            </li>
-            @endcan
-            @can('index-realisationChapitre') 
-            <li class="nav-item" id="menu-realisationChapitres">
-                <a href="{{ route('realisationChapitres.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/realisationChapitres') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-code"></i>
-                    <p>{{__('PkgApprentissage::realisationChapitre.plural')}}</p>
                 </a>
             </li>
             @endcan

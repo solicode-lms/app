@@ -5,6 +5,7 @@
              <i class="fas fa-bars"></i>
             </a>
         </li>
+
         @can('index-widgetUtilisateur') 
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
           <a href="{{ route(name: 'widgetUtilisateurs.index') }}" data-toggle="tooltip" title="Tableau de bord" class="nav-link">
@@ -12,14 +13,16 @@
           </a>
         </li>
         @endcan
-      
-        @can('index-projet')
+
+        @can('index-realisationTache')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
-          <a href="{{ route(name: 'projets.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgCreationProjet::projet.plural')) }}" class="nav-link">
-            <i class="fas fa-rocket"></i>
+          <a href="{{ route('realisationTaches.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgRealisationTache::realisationTache.plural')) }}" class="nav-link">
+           <i class="fas fa-laptop-code"></i>
           </a>
         </li>
         @endcan
+      
+  
        
         {{-- @can('index-affectationProjet')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
@@ -35,23 +38,24 @@
           </a>
         </li>
         @endcan
-        @can('index-realisationTache')
+
+     
+        @can('index-projet')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
-          <a href="{{ route('realisationTaches.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgRealisationTache::realisationTache.plural')) }}" class="nav-link">
-           <i class="fas fa-laptop-code"></i>
+          <a href="{{ route(name: 'projets.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgCreationProjet::projet.plural')) }}" class="nav-link">
+            <i class="fas fa-rocket"></i>
           </a>
         </li>
         @endcan
-
        
        
-         @can('index-realisationChapitre')
+        {{-- @can('index-realisationChapitre')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
           <a href="{{ route('realisationChapitres.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgApprentissage::realisationChapitre.plural')) }}" class="nav-link">
            <i class="fas fas fa-code"></i>
           </a>
         </li>
-        @endcan
+        @endcan --}}
        
         @can('index-realisationMicroCompetence')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
