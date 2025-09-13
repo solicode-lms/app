@@ -215,10 +215,11 @@
 
 
 @if($itemRealisationTache->id)
+@dump( auth()->user()?->can('edit-realisationUaProjet'));
 @if(
   (auth()->user()?->can('show-realisationUaProjet') && $itemRealisationTache->realisationUaProjets->isNotEmpty())  
   || auth()->user()?->can('create-realisationUaProjet')
-  || auth()->user()?->can('edit-realisationUaProjet')
+  ||( auth()->user()?->can('edit-realisationUaProjet') && $itemRealisationTache->realisationUaProjets->isNotEmpty())
   )
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
