@@ -42,25 +42,25 @@ class BaseRealisationMicroCompetenceService extends BaseService
     ];
 
 
+
     public function editableFieldsByRoles(): array
     {
-        // Adapter selon ton besoin réel
         return [
-            'micro_competence_id'                 => ['root'],
-            'apprenant_id'                        => ['root'],
-            'progression_cache'                   => ['root'],
-            'note_cache'                          => ['root'],
-            'etat_realisation_micro_competence_id'=> ['root'],
-            'bareme_cache'                        => ['root'],
-            'commentaire_formateur'               => ['root','formateur'],
-            'date_debut'                          => ['root','formateur'],
-            'date_fin'                            => ['root','formateur'],
-            'dernier_update'                      => ['root'],
-            'realisation_competence_id'           => ['root'],
-            'lien_livrable'                       => ['root','formateur','apprenant'],
-            'progression_ideal_cache'             => ['root'],
-            'taux_rythme_cache'                   => ['root'],
-            // 'RealisationUa' => ['root'], // si pertinent
+          'micro_competence_id' => ['root'],
+          'apprenant_id' => ['root'],
+          'progression_cache' => ['root'],
+          'note_cache' => ['root'],
+          'etat_realisation_micro_competence_id' => ['root'],
+          'bareme_cache' => ['root'],
+          'RealisationUa' => ['root'],
+          'commentaire_formateur' => ['root'],
+          'date_debut' => ['root'],
+          'date_fin' => ['root'],
+          'dernier_update' => ['root'],
+          'realisation_competence_id' => ['root'],
+          'progression_ideal_cache' => ['root'],
+          'taux_rythme_cache' => ['root']
+        
         ];
     }
 

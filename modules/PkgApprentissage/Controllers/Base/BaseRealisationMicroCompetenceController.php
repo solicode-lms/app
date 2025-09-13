@@ -277,14 +277,12 @@ class BaseRealisationMicroCompetenceController extends AdminController
     /**
      * @DynamicPermissionIgnore
      */
-    public function bulkUpdate(Request $request)
-    {
+    public function bulkUpdate(Request $request) {
         $this->authorizeAction('update');
 
         // 1) Structure de la requête (ids + champs cochés)
         $request->validate([
             'realisationMicroCompetence_ids'   => ['required', 'array', 'min:1'],
-            'realisationMicroCompetence_ids.*' => ['integer', 'exists:realisation_micro_competences,id'],
             'fields_modifiables'               => ['required', 'array', 'min:1'],
             'fields_modifiables.*'             => ['string'],
         ]);
@@ -381,8 +379,8 @@ class BaseRealisationMicroCompetenceController extends AdminController
         return JsonResponseHelper::success($msg, [
             'traitement_token' => $jobManager->getToken()
         ]);
+    
     }
-
     /**
      */
     public function destroy(Request $request, string $id) {

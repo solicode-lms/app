@@ -288,51 +288,56 @@ abstract class BaseService implements ServiceInterface
      * @param \Illuminate\Contracts\Auth\Authenticatable|null $user Utilisateur courant
      * @return array{0: array, 1: array, 2: array}
      */
-    public function sanitizePayloadByRoles(
-        array $payload,
-        $model,
-        ?\Illuminate\Contracts\Auth\Authenticatable $user
-    ): array {
-        $map     = $this->editableFieldsByRoles();
-        $kept    = [];
-        $removed = [];
-        $sanitized = $payload;
+public function sanitizePayloadByRoles(
+    array $payload,
+    $model,
+    ?\Illuminate\Contracts\Auth\Authenticatable $user
+): array {
+    $map        = $this->editableFieldsByRoles();        // champ => [roles...]
+    $kept       = [];
+    $removed    = [];
 
-        // 1) Supprimer les champs inconnus
-        foreach (array_keys($sanitized) as $field) {
-            if (!array_key_exists($field, $map)) {
-                unset($sanitized[$field]);
-                $removed[$field] = 'unknown';
-            }
-        }
+    // Base : tous les attributs du modèle (assure la présence de *tous* les champs du model)
+    $sanitized  = $model ? ($model->getAttributes() ?? []) : [];
 
-        // 2) Pour chaque champ connu, vérifier les rôles
-        foreach ($map as $field => $roles) {
-            $isAllowed = $user && method_exists($user, 'hasAnyRole') ? $user->hasAnyRole($roles) : false;
+    // Appliquer les valeurs du payload selon les rôles
+    foreach ($payload as $field => $value) {
+        // Champ géré par la matrice des rôles ?
+        if (array_key_exists($field, $map)) {
+            $isAllowed = $user && method_exists($user, 'hasAnyRole') ? $user->hasAnyRole($map[$field]) : false;
 
-            if (!$isAllowed) {
-                // Si l'utilisateur a tenté de l'envoyer, on le marque "role"
-                if (array_key_exists($field, $payload)) {
-                    $removed[$field] = 'role';
-                }
-
-                // Supprimer toute valeur fournie par l'utilisateur
-                unset($sanitized[$field]);
-
-                // Réinjecter la valeur actuelle du modèle (si existante) pour éviter l'écrasement
-                if ($model && $model->getKey() && $model->offsetExists($field)) {
-                    $sanitized[$field] = $model->$field;
-                }
+            if ($isAllowed) {
+                // Autorisé : on écrase la valeur du modèle par celle du payload
+                $sanitized[$field] = $value;
+                $kept[] = $field;
             } else {
-                // Champ autorisé et présent dans le payload initial
-                if (array_key_exists($field, $payload)) {
-                    $kept[] = $field;
+                // Interdit : marquer comme retiré et rétablir la valeur du modèle (si disponible)
+                $removed[$field] = 'role';
+                if ($model) {
+                    // getAttribute pour récupérer la valeur actuelle (même si null)
+                    $sanitized[$field] = $model->getAttribute($field);
+                } else {
+                    // Pas de modèle (création) : on n’applique pas la valeur interdite
+                    unset($sanitized[$field]);
                 }
             }
+        } else {
+            // Champ non présent dans la matrice : on le garde tel quel (on ne le "remove" pas)
+            $sanitized[$field] = $value;
+            $kept[] = $field;
         }
-
-        return [$sanitized, $kept, $removed];
     }
+
+    // À ce stade :
+    // - $sanitized contient *au minimum* tous les champs du modèle (via getAttributes),
+    //   plus les champs du payload non gérés par la matrice (laissés tels quels).
+    // - $kept = champs du payload autorisés par rôles (présents dans $map et autorisés)
+    // - $removed = champs du payload connus dans $map mais interdits par rôles
+
+    return [$sanitized, $kept, $removed];
+}
+
+
 
 
 
