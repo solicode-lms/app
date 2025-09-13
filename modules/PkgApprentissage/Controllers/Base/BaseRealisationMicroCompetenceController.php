@@ -278,6 +278,7 @@ class BaseRealisationMicroCompetenceController extends AdminController
      * @DynamicPermissionIgnore
      */
     public function bulkUpdate(Request $request) {
+        
         $this->authorizeAction('update');
     
         $realisationMicroCompetence_ids = $request->input('realisationMicroCompetence_ids', []);
