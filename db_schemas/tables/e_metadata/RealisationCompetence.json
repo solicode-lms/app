@@ -185,7 +185,9 @@
     },
     {
         "reference": "RealisationCompetence_date_fin_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationCompetence_date_fin",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -336,7 +338,9 @@
     },
     {
         "reference": "RealisationCompetence_commentaire_formateur_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationCompetence_commentaire_formateur",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -422,12 +426,16 @@
     {
         "reference": "RealisationCompetence_apprenant_id_viewFormFieldVisible",
         "value_boolean": 1,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationCompetence_apprenant_id",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
         "reference": "RealisationCompetence_apprenant_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationCompetence_apprenant_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -538,7 +546,9 @@
     },
     {
         "reference": "RealisationCompetence_etat_realisation_competence_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationCompetence_etat_realisation_competence_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -665,7 +675,9 @@
     },
     {
         "reference": "RealisationCompetence_realisation_module_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationCompetence_realisation_module_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -792,7 +804,9 @@
     },
     {
         "reference": "RealisationCompetence_progression_ideal_cache_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationCompetence_progression_ideal_cache",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -834,7 +848,9 @@
     },
     {
         "reference": "RealisationCompetence_taux_rythme_cache_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationCompetence_taux_rythme_cache",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     }

@@ -71,7 +71,11 @@
                 @endif
                 </div>
             </div>
-            @if(auth()->user()?->can('show-eDataField') || auth()->user()?->can('create-eDataField'))
+            @if(
+                  (auth()->user()?->can('show-eDataField') && $itemEModel->eDataFields->isNotEmpty())  
+                  || auth()->user()?->can('create-eDataField')
+                  || (auth()->user()?->can('edit-eDataField')  && $itemEModel->eDataFields->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgGapp::eDataField.plural')) }}</small>
@@ -82,7 +86,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-eMetadatum') || auth()->user()?->can('create-eMetadatum'))
+            @if(
+                  (auth()->user()?->can('show-eMetadatum') && $itemEModel->eMetadata->isNotEmpty())  
+                  || auth()->user()?->can('create-eMetadatum')
+                  || (auth()->user()?->can('edit-eMetadatum')  && $itemEModel->eMetadata->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgGapp::eMetadatum.plural')) }}</small>
@@ -93,7 +101,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-eRelationship') || auth()->user()?->can('create-eRelationship'))
+            @if(
+                  (auth()->user()?->can('show-eRelationship') && $itemEModel->eRelationships->isNotEmpty())  
+                  || auth()->user()?->can('create-eRelationship')
+                  || (auth()->user()?->can('edit-eRelationship')  && $itemEModel->eRelationships->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgGapp::eRelationship.plural')) }}</small>
@@ -104,7 +116,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-eRelationship') || auth()->user()?->can('create-eRelationship'))
+            @if(
+                  (auth()->user()?->can('show-eRelationship') && $itemEModel->eRelationships->isNotEmpty())  
+                  || auth()->user()?->can('create-eRelationship')
+                  || (auth()->user()?->can('edit-eRelationship')  && $itemEModel->eRelationships->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgGapp::eRelationship.plural')) }}</small>

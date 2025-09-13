@@ -144,7 +144,11 @@
     @endif
                 </div>
             </div>
-            @if(auth()->user()?->can('show-eDataField') || auth()->user()?->can('create-eDataField'))
+            @if(
+                  (auth()->user()?->can('show-eDataField') && $itemERelationship->eDataFields->isNotEmpty())  
+                  || auth()->user()?->can('create-eDataField')
+                  || (auth()->user()?->can('edit-eDataField')  && $itemERelationship->eDataFields->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgGapp::eDataField.plural')) }}</small>

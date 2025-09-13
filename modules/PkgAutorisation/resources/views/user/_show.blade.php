@@ -68,7 +68,11 @@
     @endif
                 </div>
             </div>
-            @if(auth()->user()?->can('show-apprenant') || auth()->user()?->can('create-apprenant'))
+            @if(
+                  (auth()->user()?->can('show-apprenant') && $itemUser->apprenants->isNotEmpty())  
+                  || auth()->user()?->can('create-apprenant')
+                  || (auth()->user()?->can('edit-apprenant')  && $itemUser->apprenants->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprenants::apprenant.plural')) }}</small>
@@ -79,7 +83,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-formateur') || auth()->user()?->can('create-formateur'))
+            @if(
+                  (auth()->user()?->can('show-formateur') && $itemUser->formateurs->isNotEmpty())  
+                  || auth()->user()?->can('create-formateur')
+                  || (auth()->user()?->can('edit-formateur')  && $itemUser->formateurs->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgFormation::formateur.plural')) }}</small>
@@ -90,7 +98,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-evaluateur') || auth()->user()?->can('create-evaluateur'))
+            @if(
+                  (auth()->user()?->can('show-evaluateur') && $itemUser->evaluateurs->isNotEmpty())  
+                  || auth()->user()?->can('create-evaluateur')
+                  || (auth()->user()?->can('edit-evaluateur')  && $itemUser->evaluateurs->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgEvaluateurs::evaluateur.plural')) }}</small>
@@ -101,7 +113,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-profile') || auth()->user()?->can('create-profile'))
+            @if(
+                  (auth()->user()?->can('show-profile') && $itemUser->profiles->isNotEmpty())  
+                  || auth()->user()?->can('create-profile')
+                  || (auth()->user()?->can('edit-profile')  && $itemUser->profiles->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgAutorisation::profile.plural')) }}</small>
@@ -112,7 +128,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-historiqueRealisationTache') || auth()->user()?->can('create-historiqueRealisationTache'))
+            @if(
+                  (auth()->user()?->can('show-historiqueRealisationTache') && $itemUser->historiqueRealisationTaches->isNotEmpty())  
+                  || auth()->user()?->can('create-historiqueRealisationTache')
+                  || (auth()->user()?->can('edit-historiqueRealisationTache')  && $itemUser->historiqueRealisationTaches->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::historiqueRealisationTache.plural')) }}</small>
@@ -123,7 +143,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-notification') || auth()->user()?->can('create-notification'))
+            @if(
+                  (auth()->user()?->can('show-notification') && $itemUser->notifications->isNotEmpty())  
+                  || auth()->user()?->can('create-notification')
+                  || (auth()->user()?->can('edit-notification')  && $itemUser->notifications->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgNotification::notification.plural')) }}</small>
@@ -134,7 +158,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-userModelFilter') || auth()->user()?->can('create-userModelFilter'))
+            @if(
+                  (auth()->user()?->can('show-userModelFilter') && $itemUser->userModelFilters->isNotEmpty())  
+                  || auth()->user()?->can('create-userModelFilter')
+                  || (auth()->user()?->can('edit-userModelFilter')  && $itemUser->userModelFilters->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('Core::userModelFilter.plural')) }}</small>
@@ -145,7 +173,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-widgetUtilisateur') || auth()->user()?->can('create-widgetUtilisateur'))
+            @if(
+                  (auth()->user()?->can('show-widgetUtilisateur') && $itemUser->widgetUtilisateurs->isNotEmpty())  
+                  || auth()->user()?->can('create-widgetUtilisateur')
+                  || (auth()->user()?->can('edit-widgetUtilisateur')  && $itemUser->widgetUtilisateurs->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgWidgets::widgetUtilisateur.plural')) }}</small>

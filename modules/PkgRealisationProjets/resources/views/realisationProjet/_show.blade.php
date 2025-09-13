@@ -44,7 +44,11 @@
                     @endif
                   </span>                </div>
             </div>
-            @if(auth()->user()?->can('show-livrablesRealisation') || auth()->user()?->can('create-livrablesRealisation'))
+            @if(
+                  (auth()->user()?->can('show-livrablesRealisation') && $itemRealisationProjet->livrablesRealisations->isNotEmpty())  
+                  || auth()->user()?->can('create-livrablesRealisation')
+                  || (auth()->user()?->can('edit-livrablesRealisation')  && $itemRealisationProjet->livrablesRealisations->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::realisationProjet.livrables')) }}</small>
@@ -55,7 +59,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-evaluationRealisationProjet') || auth()->user()?->can('create-evaluationRealisationProjet'))
+            @if(
+                  (auth()->user()?->can('show-evaluationRealisationProjet') && $itemRealisationProjet->evaluationRealisationProjets->isNotEmpty())  
+                  || auth()->user()?->can('create-evaluationRealisationProjet')
+                  || (auth()->user()?->can('edit-evaluationRealisationProjet')  && $itemRealisationProjet->evaluationRealisationProjets->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgEvaluateurs::evaluationRealisationProjet.plural')) }}</small>

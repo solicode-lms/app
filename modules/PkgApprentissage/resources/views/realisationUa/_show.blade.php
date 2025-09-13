@@ -55,7 +55,11 @@
 @include('PkgApprentissage::realisationUa.custom.fields.note_cache',['entity' => $itemRealisationUa])
                 </div>
             </div>
-            @if(auth()->user()?->can('show-realisationChapitre') || auth()->user()?->can('create-realisationChapitre'))
+            @if(
+                  (auth()->user()?->can('show-realisationChapitre') && $itemRealisationUa->realisationChapitres->isNotEmpty())  
+                  || auth()->user()?->can('create-realisationChapitre')
+                  || (auth()->user()?->can('edit-realisationChapitre')  && $itemRealisationUa->realisationChapitres->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationChapitre.plural')) }}</small>
@@ -66,7 +70,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-realisationUaPrototype') || auth()->user()?->can('create-realisationUaPrototype'))
+            @if(
+                  (auth()->user()?->can('show-realisationUaPrototype') && $itemRealisationUa->realisationUaPrototypes->isNotEmpty())  
+                  || auth()->user()?->can('create-realisationUaPrototype')
+                  || (auth()->user()?->can('edit-realisationUaPrototype')  && $itemRealisationUa->realisationUaPrototypes->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.plural')) }}</small>
@@ -88,7 +96,11 @@
                     @endif
                   </span>                </div>
             </div>
-            @if(auth()->user()?->can('show-realisationUaProjet') || auth()->user()?->can('create-realisationUaProjet'))
+            @if(
+                  (auth()->user()?->can('show-realisationUaProjet') && $itemRealisationUa->realisationUaProjets->isNotEmpty())  
+                  || auth()->user()?->can('create-realisationUaProjet')
+                  || (auth()->user()?->can('edit-realisationUaProjet')  && $itemRealisationUa->realisationUaProjets->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaProjet.plural')) }}</small>

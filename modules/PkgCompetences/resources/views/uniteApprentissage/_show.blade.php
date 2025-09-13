@@ -42,7 +42,11 @@
 
                 </div>
             </div>
-            @if(auth()->user()?->can('show-chapitre') || auth()->user()?->can('create-chapitre'))
+            @if(
+                  (auth()->user()?->can('show-chapitre') && $itemUniteApprentissage->chapitres->isNotEmpty())  
+                  || auth()->user()?->can('create-chapitre')
+                  || (auth()->user()?->can('edit-chapitre')  && $itemUniteApprentissage->chapitres->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::chapitre.plural')) }}</small>
@@ -53,7 +57,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-critereEvaluation') || auth()->user()?->can('create-critereEvaluation'))
+            @if(
+                  (auth()->user()?->can('show-critereEvaluation') && $itemUniteApprentissage->critereEvaluations->isNotEmpty())  
+                  || auth()->user()?->can('create-critereEvaluation')
+                  || (auth()->user()?->can('edit-critereEvaluation')  && $itemUniteApprentissage->critereEvaluations->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::critereEvaluation.plural')) }}</small>

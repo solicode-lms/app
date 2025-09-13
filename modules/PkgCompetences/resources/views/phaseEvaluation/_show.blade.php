@@ -59,7 +59,11 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            @if(auth()->user()?->can('show-critereEvaluation') || auth()->user()?->can('create-critereEvaluation'))
+            @if(
+                  (auth()->user()?->can('show-critereEvaluation') && $itemPhaseEvaluation->critereEvaluations->isNotEmpty())  
+                  || auth()->user()?->can('create-critereEvaluation')
+                  || (auth()->user()?->can('edit-critereEvaluation')  && $itemPhaseEvaluation->critereEvaluations->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::critereEvaluation.plural')) }}</small>
@@ -70,7 +74,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-tache') || auth()->user()?->can('create-tache'))
+            @if(
+                  (auth()->user()?->can('show-tache') && $itemPhaseEvaluation->taches->isNotEmpty())  
+                  || auth()->user()?->can('create-tache')
+                  || (auth()->user()?->can('edit-tache')  && $itemPhaseEvaluation->taches->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationTache::tache.plural')) }}</small>

@@ -37,7 +37,11 @@
                 @endif
                 </div>
             </div>
-            @if(auth()->user()?->can('show-affectationProjet') || auth()->user()?->can('create-affectationProjet'))
+            @if(
+                  (auth()->user()?->can('show-affectationProjet') && $itemSousGroupe->affectationProjets->isNotEmpty())  
+                  || auth()->user()?->can('create-affectationProjet')
+                  || (auth()->user()?->can('edit-affectationProjet')  && $itemSousGroupe->affectationProjets->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::affectationProjet.plural')) }}</small>

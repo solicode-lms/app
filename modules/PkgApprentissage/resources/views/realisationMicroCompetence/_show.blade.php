@@ -12,18 +12,6 @@
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemRealisationMicroCompetence->apprenant)
-                  {{ $itemRealisationMicroCompetence->apprenant }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
-                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.progression_cache')) }}</small>
 @include('PkgApprentissage::realisationMicroCompetence.custom.fields.progression_cache',['entity' => $itemRealisationMicroCompetence])
                 </div>
@@ -49,7 +37,11 @@
                 @endif
                 </div>
             </div>
-            @if(auth()->user()?->can('show-realisationUa') || auth()->user()?->can('create-realisationUa'))
+            @if(
+                  (auth()->user()?->can('show-realisationUa') && $itemRealisationMicroCompetence->realisationUas->isNotEmpty())  
+                  || auth()->user()?->can('create-realisationUa')
+                  || (auth()->user()?->can('edit-realisationUa')  && $itemRealisationMicroCompetence->realisationUas->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUa.plural')) }}</small>
@@ -60,33 +52,12 @@
             </div>
             @endif
 
-            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.commentaire_formateur')) }}</small>
-                  <!-- Valeur avec sauts de ligne -->
-                  @if(! is_null($itemRealisationMicroCompetence->commentaire_formateur) && $itemRealisationMicroCompetence->commentaire_formateur !== '')
-                    {!! $itemRealisationMicroCompetence->commentaire_formateur !!}
-                  @else
-                    <span class="text-muted">—</span>
-                  @endif                </div>
-            </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.date_debut')) }}</small>
                   <span>
                     @if ($itemRealisationMicroCompetence->date_debut)
                     {{ \Carbon\Carbon::parse($itemRealisationMicroCompetence->date_debut)->isoFormat('LLL') }}
-                    @else
-                    —
-                    @endif
-                  </span>                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.date_fin')) }}</small>
-                  <span>
-                    @if ($itemRealisationMicroCompetence->date_fin)
-                    {{ \Carbon\Carbon::parse($itemRealisationMicroCompetence->date_fin)->isoFormat('LLL') }}
                     @else
                     —
                     @endif
@@ -103,18 +74,6 @@
                     @endif
                   </span>                </div>
             </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationCompetence.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemRealisationMicroCompetence->realisationCompetence)
-                  {{ $itemRealisationMicroCompetence->realisationCompetence }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
-                </div>
-            </div>
             <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.lien_livrable')) }}</small>
@@ -128,30 +87,6 @@
         <span class="text-muted">—</span>
     @endif
 
-                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.progression_ideal_cache')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationMicroCompetence->progression_ideal_cache))
-                  {{ number_format($itemRealisationMicroCompetence->progression_ideal_cache, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
-                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.taux_rythme_cache')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationMicroCompetence->taux_rythme_cache))
-                  {{ number_format($itemRealisationMicroCompetence->taux_rythme_cache, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
                 </div>
             </div>
             </div>

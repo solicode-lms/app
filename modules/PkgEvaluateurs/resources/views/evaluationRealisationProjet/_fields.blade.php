@@ -173,9 +173,9 @@
 
 @if($itemEvaluationRealisationProjet->id)
 @if(
-  (auth()->user()?->can('show-evaluationRealisationTache') && $itemRealisationTache->evaluationRealisationTaches->isNotEmpty())  
+  (auth()->user()?->can('show-evaluationRealisationTache') && $itemEvaluationRealisationProjet->evaluationRealisationTaches->isNotEmpty())  
   || auth()->user()?->can('create-evaluationRealisationTache')
-  || (auth()->user()?->can('edit-evaluationRealisationTache')  && $itemRealisationTache->evaluationRealisationTaches->isNotEmpty() )
+  || (auth()->user()?->can('edit-evaluationRealisationTache')  && $itemEvaluationRealisationProjet->evaluationRealisationTaches->isNotEmpty() )
   )
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">

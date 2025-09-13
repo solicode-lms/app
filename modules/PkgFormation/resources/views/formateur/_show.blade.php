@@ -180,7 +180,11 @@
                 @endif
                 </div>
             </div>
-            @if(auth()->user()?->can('show-chapitre') || auth()->user()?->can('create-chapitre'))
+            @if(
+                  (auth()->user()?->can('show-chapitre') && $itemFormateur->chapitres->isNotEmpty())  
+                  || auth()->user()?->can('create-chapitre')
+                  || (auth()->user()?->can('edit-chapitre')  && $itemFormateur->chapitres->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::chapitre.plural')) }}</small>
@@ -191,7 +195,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-commentaireRealisationTache') || auth()->user()?->can('create-commentaireRealisationTache'))
+            @if(
+                  (auth()->user()?->can('show-commentaireRealisationTache') && $itemFormateur->commentaireRealisationTaches->isNotEmpty())  
+                  || auth()->user()?->can('create-commentaireRealisationTache')
+                  || (auth()->user()?->can('edit-commentaireRealisationTache')  && $itemFormateur->commentaireRealisationTaches->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::commentaireRealisationTache.plural')) }}</small>
@@ -202,7 +210,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-etatRealisationTache') || auth()->user()?->can('create-etatRealisationTache'))
+            @if(
+                  (auth()->user()?->can('show-etatRealisationTache') && $itemFormateur->etatRealisationTaches->isNotEmpty())  
+                  || auth()->user()?->can('create-etatRealisationTache')
+                  || (auth()->user()?->can('edit-etatRealisationTache')  && $itemFormateur->etatRealisationTaches->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::etatRealisationTache.plural')) }}</small>
@@ -213,7 +225,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-projet') || auth()->user()?->can('create-projet'))
+            @if(
+                  (auth()->user()?->can('show-projet') && $itemFormateur->projets->isNotEmpty())  
+                  || auth()->user()?->can('create-projet')
+                  || (auth()->user()?->can('edit-projet')  && $itemFormateur->projets->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::projet.plural')) }}</small>

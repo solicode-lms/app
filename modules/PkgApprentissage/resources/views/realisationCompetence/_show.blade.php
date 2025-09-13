@@ -12,30 +12,6 @@
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationCompetence.realisation_module_id')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemRealisationCompetence->realisationModule)
-                  {{ $itemRealisationCompetence->realisationModule }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
-                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemRealisationCompetence->apprenant)
-                  {{ $itemRealisationCompetence->apprenant }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
-                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationCompetence.progression_cache')) }}</small>
 @include('PkgApprentissage::realisationCompetence.custom.fields.progression_cache',['entity' => $itemRealisationCompetence])
                 </div>
@@ -44,21 +20,6 @@
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationCompetence.note_cache')) }}</small>
 @include('PkgApprentissage::realisationCompetence.custom.fields.note_cache',['entity' => $itemRealisationCompetence])
-                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::etatRealisationCompetence.singular')) }}</small>
-
-                {{-- Affichage sous forme de badge --}}
-                @if($itemRealisationCompetence->etatRealisationCompetence)
-                  <x-badge 
-                    :text="$itemRealisationCompetence->etatRealisationCompetence" 
-                    :background="$itemRealisationCompetence->etatRealisationCompetence->sysColor->hex ?? '#6c757d'" 
-                  />
-                @else
-                  <span class="text-muted">—</span>
-                @endif
                 </div>
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
@@ -72,16 +33,6 @@
                     @endif
                   </span>                </div>
             </div>
-            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationCompetence.commentaire_formateur')) }}</small>
-                  <!-- Valeur avec sauts de ligne -->
-                  @if(! is_null($itemRealisationCompetence->commentaire_formateur) && $itemRealisationCompetence->commentaire_formateur !== '')
-                    {!! $itemRealisationCompetence->commentaire_formateur !!}
-                  @else
-                    <span class="text-muted">—</span>
-                  @endif                </div>
-            </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationCompetence.date_debut')) }}</small>
@@ -93,18 +44,11 @@
                     @endif
                   </span>                </div>
             </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationCompetence.date_fin')) }}</small>
-                  <span>
-                    @if ($itemRealisationCompetence->date_fin)
-                    {{ \Carbon\Carbon::parse($itemRealisationCompetence->date_fin)->isoFormat('LLL') }}
-                    @else
-                    —
-                    @endif
-                  </span>                </div>
-            </div>
-            @if(auth()->user()?->can('show-realisationMicroCompetence') || auth()->user()?->can('create-realisationMicroCompetence'))
+            @if(
+                  (auth()->user()?->can('show-realisationMicroCompetence') && $itemRealisationCompetence->realisationMicroCompetences->isNotEmpty())  
+                  || auth()->user()?->can('create-realisationMicroCompetence')
+                  || (auth()->user()?->can('edit-realisationMicroCompetence')  && $itemRealisationCompetence->realisationMicroCompetences->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural')) }}</small>
@@ -115,30 +59,6 @@
             </div>
             @endif
 
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationCompetence.progression_ideal_cache')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationCompetence->progression_ideal_cache))
-                  {{ number_format($itemRealisationCompetence->progression_ideal_cache, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
-                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationCompetence.taux_rythme_cache')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationCompetence->taux_rythme_cache))
-                  {{ number_format($itemRealisationCompetence->taux_rythme_cache, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
-                </div>
-            </div>
             </div>
         </div>
         <div class="card-footer">

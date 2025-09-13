@@ -177,7 +177,11 @@
                 @endif
                 </div>
             </div>
-            @if(auth()->user()?->can('show-alignementUa') || auth()->user()?->can('create-alignementUa'))
+            @if(
+                  (auth()->user()?->can('show-alignementUa') && $itemSessionFormation->alignementUas->isNotEmpty())  
+                  || auth()->user()?->can('create-alignementUa')
+                  || (auth()->user()?->can('edit-alignementUa')  && $itemSessionFormation->alignementUas->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgSessions::alignementUa.plural')) }}</small>
@@ -188,7 +192,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-livrableSession') || auth()->user()?->can('create-livrableSession'))
+            @if(
+                  (auth()->user()?->can('show-livrableSession') && $itemSessionFormation->livrableSessions->isNotEmpty())  
+                  || auth()->user()?->can('create-livrableSession')
+                  || (auth()->user()?->can('edit-livrableSession')  && $itemSessionFormation->livrableSessions->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgSessions::livrableSession.plural')) }}</small>
@@ -199,7 +207,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-projet') || auth()->user()?->can('create-projet'))
+            @if(
+                  (auth()->user()?->can('show-projet') && $itemSessionFormation->projets->isNotEmpty())  
+                  || auth()->user()?->can('create-projet')
+                  || (auth()->user()?->can('edit-projet')  && $itemSessionFormation->projets->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::projet.plural')) }}</small>

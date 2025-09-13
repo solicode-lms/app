@@ -40,7 +40,11 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            @if(auth()->user()?->can('show-tache') || auth()->user()?->can('create-tache'))
+            @if(
+                  (auth()->user()?->can('show-tache') && $itemProjet->taches->isNotEmpty())  
+                  || auth()->user()?->can('create-tache')
+                  || (auth()->user()?->can('edit-tache')  && $itemProjet->taches->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationTache::tache.plural')) }}</small>
@@ -51,7 +55,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-mobilisationUa') || auth()->user()?->can('create-mobilisationUa'))
+            @if(
+                  (auth()->user()?->can('show-mobilisationUa') && $itemProjet->mobilisationUas->isNotEmpty())  
+                  || auth()->user()?->can('create-mobilisationUa')
+                  || (auth()->user()?->can('edit-mobilisationUa')  && $itemProjet->mobilisationUas->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::mobilisationUa.plural')) }}</small>
@@ -62,7 +70,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-livrable') || auth()->user()?->can('create-livrable'))
+            @if(
+                  (auth()->user()?->can('show-livrable') && $itemProjet->livrables->isNotEmpty())  
+                  || auth()->user()?->can('create-livrable')
+                  || (auth()->user()?->can('edit-livrable')  && $itemProjet->livrables->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::livrable.plural')) }}</small>
@@ -73,7 +85,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-resource') || auth()->user()?->can('create-resource'))
+            @if(
+                  (auth()->user()?->can('show-resource') && $itemProjet->resources->isNotEmpty())  
+                  || auth()->user()?->can('create-resource')
+                  || (auth()->user()?->can('edit-resource')  && $itemProjet->resources->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::resource.plural')) }}</small>

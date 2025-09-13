@@ -48,7 +48,11 @@
                 @endif
                 </div>
             </div>
-            @if(auth()->user()?->can('show-feature') || auth()->user()?->can('create-feature'))
+            @if(
+                  (auth()->user()?->can('show-feature') && $itemFeatureDomain->features->isNotEmpty())  
+                  || auth()->user()?->can('create-feature')
+                  || (auth()->user()?->can('edit-feature')  && $itemFeatureDomain->features->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('Core::feature.plural')) }}</small>

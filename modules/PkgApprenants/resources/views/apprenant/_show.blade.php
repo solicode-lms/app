@@ -238,7 +238,11 @@
                   <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            @if(auth()->user()?->can('show-realisationProjet') || auth()->user()?->can('create-realisationProjet'))
+            @if(
+                  (auth()->user()?->can('show-realisationProjet') && $itemApprenant->realisationProjets->isNotEmpty())  
+                  || auth()->user()?->can('create-realisationProjet')
+                  || (auth()->user()?->can('edit-realisationProjet')  && $itemApprenant->realisationProjets->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::realisationProjet.plural')) }}</small>
@@ -249,7 +253,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-realisationCompetence') || auth()->user()?->can('create-realisationCompetence'))
+            @if(
+                  (auth()->user()?->can('show-realisationCompetence') && $itemApprenant->realisationCompetences->isNotEmpty())  
+                  || auth()->user()?->can('create-realisationCompetence')
+                  || (auth()->user()?->can('edit-realisationCompetence')  && $itemApprenant->realisationCompetences->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationCompetence.plural')) }}</small>
@@ -260,7 +268,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-realisationMicroCompetence') || auth()->user()?->can('create-realisationMicroCompetence'))
+            @if(
+                  (auth()->user()?->can('show-realisationMicroCompetence') && $itemApprenant->realisationMicroCompetences->isNotEmpty())  
+                  || auth()->user()?->can('create-realisationMicroCompetence')
+                  || (auth()->user()?->can('edit-realisationMicroCompetence')  && $itemApprenant->realisationMicroCompetences->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural')) }}</small>
@@ -271,7 +283,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-realisationModule') || auth()->user()?->can('create-realisationModule'))
+            @if(
+                  (auth()->user()?->can('show-realisationModule') && $itemApprenant->realisationModules->isNotEmpty())  
+                  || auth()->user()?->can('create-realisationModule')
+                  || (auth()->user()?->can('edit-realisationModule')  && $itemApprenant->realisationModules->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationModule.plural')) }}</small>

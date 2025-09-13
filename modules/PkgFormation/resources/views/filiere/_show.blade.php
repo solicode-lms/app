@@ -36,7 +36,11 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            @if(auth()->user()?->can('show-groupe') || auth()->user()?->can('create-groupe'))
+            @if(
+                  (auth()->user()?->can('show-groupe') && $itemFiliere->groupes->isNotEmpty())  
+                  || auth()->user()?->can('create-groupe')
+                  || (auth()->user()?->can('edit-groupe')  && $itemFiliere->groupes->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprenants::groupe.plural')) }}</small>
@@ -47,7 +51,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-module') || auth()->user()?->can('create-module'))
+            @if(
+                  (auth()->user()?->can('show-module') && $itemFiliere->modules->isNotEmpty())  
+                  || auth()->user()?->can('create-module')
+                  || (auth()->user()?->can('edit-module')  && $itemFiliere->modules->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgFormation::module.plural')) }}</small>
@@ -58,7 +66,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-projet') || auth()->user()?->can('create-projet'))
+            @if(
+                  (auth()->user()?->can('show-projet') && $itemFiliere->projets->isNotEmpty())  
+                  || auth()->user()?->can('create-projet')
+                  || (auth()->user()?->can('edit-projet')  && $itemFiliere->projets->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::projet.plural')) }}</small>
@@ -69,7 +81,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-sessionFormation') || auth()->user()?->can('create-sessionFormation'))
+            @if(
+                  (auth()->user()?->can('show-sessionFormation') && $itemFiliere->sessionFormations->isNotEmpty())  
+                  || auth()->user()?->can('create-sessionFormation')
+                  || (auth()->user()?->can('edit-sessionFormation')  && $itemFiliere->sessionFormations->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgSessions::sessionFormation.plural')) }}</small>

@@ -25,7 +25,11 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            @if(auth()->user()?->can('show-livrableSession') || auth()->user()?->can('create-livrableSession'))
+            @if(
+                  (auth()->user()?->can('show-livrableSession') && $itemNatureLivrable->livrableSessions->isNotEmpty())  
+                  || auth()->user()?->can('create-livrableSession')
+                  || (auth()->user()?->can('edit-livrableSession')  && $itemNatureLivrable->livrableSessions->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgSessions::livrableSession.plural')) }}</small>
@@ -36,7 +40,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-livrable') || auth()->user()?->can('create-livrable'))
+            @if(
+                  (auth()->user()?->can('show-livrable') && $itemNatureLivrable->livrables->isNotEmpty())  
+                  || auth()->user()?->can('create-livrable')
+                  || (auth()->user()?->can('edit-livrable')  && $itemNatureLivrable->livrables->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::livrable.plural')) }}</small>
