@@ -150,9 +150,7 @@
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="is_live_coding" :bulkEdit="$bulkEdit">
       @php $canEditis_live_coding = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'formateur,admin')) : (empty($itemRealisationTache->id) || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')) ); @endphp
-      a
-      @dump($canEditis_live_coding)
-b
+
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">

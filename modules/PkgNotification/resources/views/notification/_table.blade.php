@@ -54,7 +54,7 @@
                         <x-action-button :entity="$notification" actionName="show">
                         @if($notifications_permissionsByItem['view'][$notification->id])
                             <a href="{{ route('notifications.show', ['notification' => $notification->id]) }}" data-id="{{$notification->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

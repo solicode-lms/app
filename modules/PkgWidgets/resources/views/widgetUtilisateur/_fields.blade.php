@@ -35,7 +35,7 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="ordre">
@@ -60,12 +60,12 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemWidgetUtilisateur" field="sys_module_id" :bulkEdit="$bulkEdit">
-      @php $canEditsys_module_id = !$itemWidgetUtilisateur || !$itemWidgetUtilisateur->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
+      @php $canEditsys_module_id = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'root')) : (empty($itemWidgetUtilisateur->id) || Auth::user()->hasAnyRole(explode(',', 'root')) ); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="sys_module_id" id="bulk_field_sys_module_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="sys_module_id" id="bulk_field_sys_module_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="sys_module_id">
@@ -96,7 +96,7 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="user_id" id="bulk_field_user_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="user_id" id="bulk_field_user_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="user_id">
@@ -126,12 +126,12 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemWidgetUtilisateur" field="widget_id" :bulkEdit="$bulkEdit">
-      @php $canEditwidget_id = !$itemWidgetUtilisateur || !$itemWidgetUtilisateur->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
+      @php $canEditwidget_id = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'root')) : (empty($itemWidgetUtilisateur->id) || Auth::user()->hasAnyRole(explode(',', 'root')) ); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="widget_id" id="bulk_field_widget_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="widget_id" id="bulk_field_widget_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="widget_id">
@@ -166,7 +166,7 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="visible" id="bulk_field_visible" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="visible" id="bulk_field_visible" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="visible">

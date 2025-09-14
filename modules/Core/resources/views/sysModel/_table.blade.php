@@ -63,7 +63,7 @@
                         <x-action-button :entity="$sysModel" actionName="show">
                         @if($sysModels_permissionsByItem['view'][$sysModel->id])
                             <a href="{{ route('sysModels.show', ['sysModel' => $sysModel->id]) }}" data-id="{{$sysModel->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

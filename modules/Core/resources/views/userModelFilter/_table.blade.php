@@ -43,7 +43,7 @@
                         <x-action-button :entity="$userModelFilter" actionName="show">
                         @if($userModelFilters_permissionsByItem['view'][$userModelFilter->id])
                             <a href="{{ route('userModelFilters.show', ['userModelFilter' => $userModelFilter->id]) }}" data-id="{{$userModelFilter->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

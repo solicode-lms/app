@@ -43,7 +43,7 @@
                         <x-action-button :entity="$sysColor" actionName="show">
                         @if($sysColors_permissionsByItem['view'][$sysColor->id])
                             <a href="{{ route('sysColors.show', ['sysColor' => $sysColor->id]) }}" data-id="{{$sysColor->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

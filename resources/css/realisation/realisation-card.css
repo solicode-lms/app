@@ -69,6 +69,10 @@
   box-shadow: none; /* pour être vraiment "flat" si besoin */
 }
 
+small.text-muted.d-block:has(+ .realisation-card) {
+    display: none !important;
+}
+
 
 /* ================================
    🧱 Header (titre + sous-titre)

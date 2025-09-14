@@ -4,44 +4,10 @@
 <div id="tache-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-            <div class="show_group col-12 col-md-2 col-lg-2 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.ordre')) }}</small>
-                  <span>
-                    @if(! is_null($itemTache->ordre))
-                      {{ $itemTache->ordre }}
-                    @else
-                      —
-                    @endif
-                  </span>                </div>
-            </div>
-            <div class="show_group col-12 col-md-2 col-lg-2 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.priorite')) }}</small>
-                  <span>
-                    @if(! is_null($itemTache->priorite))
-                      {{ $itemTache->priorite }}
-                    @else
-                      —
-                    @endif
-                  </span>                </div>
-            </div>
             <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.titre')) }}</small>
 @include('PkgCreationTache::tache.custom.fields.titre',['entity' => $itemTache])
-                </div>
-            </div>
-            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemTache->projet)
-                  {{ $itemTache->projet }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
                 </div>
             </div>
             <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
@@ -53,34 +19,6 @@
                   @else
                     <span class="text-muted">—</span>
                   @endif                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.dateDebut')) }}</small>
-                  <span>
-                    @if ($itemTache->dateDebut)
-                    {{ \Carbon\Carbon::parse($itemTache->dateDebut)->isoFormat('LLL') }}
-                    @else
-                    —
-                    @endif
-                  </span>                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.dateFin')) }}</small>
-                  <span>
-                    @if ($itemTache->dateFin)
-                    {{ \Carbon\Carbon::parse($itemTache->dateFin)->isoFormat('LLL') }}
-                    @else
-                    —
-                    @endif
-                  </span>                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.note')) }}</small>
-@include('PkgCreationTache::tache.custom.fields.note',['entity' => $itemTache])
-                </div>
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">

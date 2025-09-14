@@ -31,12 +31,12 @@
     
     <div class="row">
         <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="micro_competence_id" :bulkEdit="$bulkEdit">
-      @php $canEditmicro_competence_id = !$itemRealisationMicroCompetence || !$itemRealisationMicroCompetence->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
+      @php $canEditmicro_competence_id = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'root')) : (empty($itemRealisationMicroCompetence->id) || Auth::user()->hasAnyRole(explode(',', 'root')) ); @endphp
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="micro_competence_id" id="bulk_field_micro_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="micro_competence_id" id="bulk_field_micro_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="micro_competence_id">
@@ -67,12 +67,12 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="apprenant_id" :bulkEdit="$bulkEdit">
-      @php $canEditapprenant_id = !$itemRealisationMicroCompetence || !$itemRealisationMicroCompetence->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
+      @php $canEditapprenant_id = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'root')) : (empty($itemRealisationMicroCompetence->id) || Auth::user()->hasAnyRole(explode(',', 'root')) ); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="apprenant_id" id="bulk_field_apprenant_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="apprenant_id" id="bulk_field_apprenant_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="apprenant_id">
@@ -103,12 +103,12 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="etat_realisation_micro_competence_id" :bulkEdit="$bulkEdit">
-      @php $canEditetat_realisation_micro_competence_id = !$itemRealisationMicroCompetence || !$itemRealisationMicroCompetence->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
+      @php $canEditetat_realisation_micro_competence_id = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'root')) : (empty($itemRealisationMicroCompetence->id) || Auth::user()->hasAnyRole(explode(',', 'root')) ); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etat_realisation_micro_competence_id" id="bulk_field_etat_realisation_micro_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="etat_realisation_micro_competence_id" id="bulk_field_etat_realisation_micro_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="etat_realisation_micro_competence_id">
@@ -143,7 +143,7 @@
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="lien_livrable" id="bulk_field_lien_livrable" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="lien_livrable" id="bulk_field_lien_livrable" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="lien_livrable">

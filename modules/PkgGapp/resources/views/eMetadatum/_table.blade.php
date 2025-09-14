@@ -52,7 +52,7 @@
                         <x-action-button :entity="$eMetadatum" actionName="show">
                         @if($eMetadata_permissionsByItem['view'][$eMetadatum->id])
                             <a href="{{ route('eMetadata.show', ['eMetadatum' => $eMetadatum->id]) }}" data-id="{{$eMetadatum->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

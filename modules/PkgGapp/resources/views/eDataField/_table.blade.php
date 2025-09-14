@@ -66,7 +66,7 @@
                         <x-action-button :entity="$eDataField" actionName="show">
                         @if($eDataFields_permissionsByItem['view'][$eDataField->id])
                             <a href="{{ route('eDataFields.show', ['eDataField' => $eDataField->id]) }}" data-id="{{$eDataField->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

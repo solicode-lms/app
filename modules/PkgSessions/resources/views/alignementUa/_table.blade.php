@@ -55,7 +55,7 @@
                         <x-action-button :entity="$alignementUa" actionName="show">
                         @if($alignementUas_permissionsByItem['view'][$alignementUa->id])
                             <a href="{{ route('alignementUas.show', ['alignementUa' => $alignementUa->id]) }}" data-id="{{$alignementUa->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

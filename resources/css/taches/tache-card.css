@@ -22,6 +22,10 @@
   box-shadow: none; /* pour être vraiment "flat" si besoin */
 }
 
+/* masque titre de projet-card */
+small.text-muted.d-block:has(+ .tache-card) {
+    display: none !important;
+}
 
 /* Header */
 .tache-header {
@@ -92,6 +96,45 @@
     font-weight: 500;
 }
 
+/* Badge priorité / ordre */
+.tache-priorite {
+    background-color: #dbeafe;   /* bleu très clair */
+    color: #1e3a8a;              /* bleu foncé */
+    font-size: 0.7rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 500;
+}
+
+/* Badge durée */
+.tache-duree {
+    background-color: #f3e8ff;   /* violet clair */
+    color: #6b21a8;              /* violet foncé */
+    font-size: 0.7rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 500;
+}
+
+/* Badge note */
+.tache-note {
+    background-color: #fef3c7;   /* jaune clair */
+    color: #92400e;              /* orange foncé */
+    font-size: 0.7rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 500;
+}
+
 /* Footer */
 .tache-footer {
     border-top: 1px solid #f3f4f6;
@@ -102,3 +145,4 @@
     align-items: center;
     gap: 0.35rem;
 }
+

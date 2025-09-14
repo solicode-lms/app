@@ -43,7 +43,7 @@
                         <x-action-button :entity="$ePackage" actionName="show">
                         @if($ePackages_permissionsByItem['view'][$ePackage->id])
                             <a href="{{ route('ePackages.show', ['ePackage' => $ePackage->id]) }}" data-id="{{$ePackage->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

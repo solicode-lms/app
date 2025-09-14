@@ -48,7 +48,7 @@
                         <x-action-button :entity="$featureDomain" actionName="show">
                         @if($featureDomains_permissionsByItem['view'][$featureDomain->id])
                             <a href="{{ route('featureDomains.show', ['featureDomain' => $featureDomain->id]) }}" data-id="{{$featureDomain->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

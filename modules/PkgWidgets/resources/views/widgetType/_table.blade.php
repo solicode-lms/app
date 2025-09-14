@@ -50,7 +50,7 @@
                         <x-action-button :entity="$widgetType" actionName="show">
                         @if($widgetTypes_permissionsByItem['view'][$widgetType->id])
                             <a href="{{ route('widgetTypes.show', ['widgetType' => $widgetType->id]) }}" data-id="{{$widgetType->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>
