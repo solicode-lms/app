@@ -57,6 +57,9 @@
         </li>
         @endcan --}}
        
+
+        @if(!Auth::user()->hasRole('admin'))
+
         @can('index-realisationMicroCompetence')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
           <a href="{{ route('realisationMicroCompetences.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural')) }}" class="nav-link">
@@ -72,6 +75,9 @@
           </a>
         </li>
         @endcan
+
+        @endif
+
 
         @can('index-realisationModule')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
