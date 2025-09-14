@@ -22,21 +22,6 @@
 @include('PkgApprentissage::realisationMicroCompetence.custom.fields.note_cache',['entity' => $itemRealisationMicroCompetence])
                 </div>
             </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.etat_realisation_micro_competence_id')) }}</small>
-
-                {{-- Affichage sous forme de badge --}}
-                @if($itemRealisationMicroCompetence->etatRealisationMicroCompetence)
-                  <x-badge 
-                    :text="$itemRealisationMicroCompetence->etatRealisationMicroCompetence" 
-                    :background="$itemRealisationMicroCompetence->etatRealisationMicroCompetence->sysColor->hex ?? '#6c757d'" 
-                  />
-                @else
-                  <span class="text-muted">—</span>
-                @endif
-                </div>
-            </div>
             @if(
                   (auth()->user()?->can('show-realisationUa') && $itemRealisationMicroCompetence->realisationUas->isNotEmpty())  
                   || auth()->user()?->can('create-realisationUa')

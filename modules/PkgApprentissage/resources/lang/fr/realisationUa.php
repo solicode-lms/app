@@ -14,6 +14,7 @@ return [
     'unite_apprentissage_id' => 'Unité d’apprentissage',
     'etat_realisation_ua_id' => 'État',
     'progression_ideal_cache' => 'Progression idéale',
-    'taux_rythme_cache' => 'Taux de rythme'
+    'taux_rythme_cache' => 'Taux de rythme',
+    'dernier_update' => 'Dernière mise à jour'
 
 ];

@@ -85,17 +85,6 @@
             </div>
             @endif
 
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.dernier_update')) }}</small>
-                  <span>
-                    @if ($itemRealisationUa->dernier_update)
-                    {{ \Carbon\Carbon::parse($itemRealisationUa->dernier_update)->isoFormat('LLL') }}
-                    @else
-                    —
-                    @endif
-                  </span>                </div>
-            </div>
             @if(
                   (auth()->user()?->can('show-realisationUaProjet') && $itemRealisationUa->realisationUaProjets->isNotEmpty())  
                   || auth()->user()?->can('create-realisationUaProjet')
@@ -133,15 +122,16 @@
                     @endif
                   </span>                </div>
             </div>
-            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.commentaire_formateur')) }}</small>
-                  <!-- Valeur avec sauts de ligne -->
-                  @if(! is_null($itemRealisationUa->commentaire_formateur) && $itemRealisationUa->commentaire_formateur !== '')
-                    {!! $itemRealisationUa->commentaire_formateur !!}
-                  @else
-                    <span class="text-muted">—</span>
-                  @endif                </div>
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.dernier_update')) }}</small>
+                  <span>
+                    @if ($itemRealisationUa->dernier_update)
+                    {{ \Carbon\Carbon::parse($itemRealisationUa->dernier_update)->isoFormat('LLL') }}
+                    @else
+                    —
+                    @endif
+                  </span>                </div>
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">

@@ -58,16 +58,6 @@
                     @endif
                   </span>                </div>
             </div>
-            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationChapitre.commentaire_formateur')) }}</small>
-                  <!-- Valeur avec sauts de ligne -->
-                  @if(! is_null($itemRealisationChapitre->commentaire_formateur) && $itemRealisationChapitre->commentaire_formateur !== '')
-                    {!! $itemRealisationChapitre->commentaire_formateur !!}
-                  @else
-                    <span class="text-muted">—</span>
-                  @endif                </div>
-            </div>
             </div>
         </div>
         <div class="card-footer">
