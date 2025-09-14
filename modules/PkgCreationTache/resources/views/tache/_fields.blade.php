@@ -35,7 +35,7 @@
       <div class="form-group col-12 col-md-2">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="ordre">
@@ -64,7 +64,7 @@
       <div class="form-group col-12 col-md-2">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="priorite" id="bulk_field_priorite" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="priorite" id="bulk_field_priorite" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="priorite">
@@ -93,7 +93,7 @@
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="titre" id="bulk_field_titre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="titre" id="bulk_field_titre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="titre">
@@ -122,7 +122,7 @@
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="projet_id" id="bulk_field_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="projet_id" id="bulk_field_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="projet_id">
@@ -156,7 +156,7 @@
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="description">
@@ -183,7 +183,7 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dateDebut" id="bulk_field_dateDebut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="dateDebut" id="bulk_field_dateDebut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="dateDebut">
@@ -213,7 +213,7 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dateFin" id="bulk_field_dateFin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="dateFin" id="bulk_field_dateFin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="dateFin">
@@ -243,7 +243,7 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="note" id="bulk_field_note" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="note" id="bulk_field_note" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="note">
@@ -273,7 +273,7 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="phase_evaluation_id" id="bulk_field_phase_evaluation_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="phase_evaluation_id" id="bulk_field_phase_evaluation_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="phase_evaluation_id">
@@ -307,7 +307,7 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="chapitre_id" id="bulk_field_chapitre_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="chapitre_id" id="bulk_field_chapitre_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="chapitre_id">
@@ -341,7 +341,7 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="livrables" id="bulk_field_livrables" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="livrables" id="bulk_field_livrables" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="livrables">

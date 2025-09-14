@@ -30,16 +30,6 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::projet.description')) }}</small>
-                  <!-- Valeur avec sauts de ligne -->
-                  @if(! is_null($itemProjet->description) && $itemProjet->description !== '')
-                    {!! $itemProjet->description !!}
-                  @else
-                    <span class="text-muted">—</span>
-                  @endif                </div>
-            </div>
             @if(
                   (auth()->user()?->can('show-tache') && $itemProjet->taches->isNotEmpty())  
                   || auth()->user()?->can('create-tache')

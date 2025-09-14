@@ -6,6 +6,17 @@
             <div class="row no-gutters mb-4">
             <div class="show_group col-12 col-md-2 col-lg-2 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.ordre')) }}</small>
+                  <span>
+                    @if(! is_null($itemTache->ordre))
+                      {{ $itemTache->ordre }}
+                    @else
+                      —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="show_group col-12 col-md-2 col-lg-2 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.priorite')) }}</small>
                   <span>
                     @if(! is_null($itemTache->priorite))
@@ -69,41 +80,6 @@
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.note')) }}</small>
 @include('PkgCreationTache::tache.custom.fields.note',['entity' => $itemTache])
-                </div>
-            </div>
-            <div class="show_group col-12 col-md-2 col-lg-2 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.ordre')) }}</small>
-                  <span>
-                    @if(! is_null($itemTache->ordre))
-                      {{ $itemTache->ordre }}
-                    @else
-                      —
-                    @endif
-                  </span>                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::phaseEvaluation.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemTache->phaseEvaluation)
-                  {{ $itemTache->phaseEvaluation }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
-                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::chapitre.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemTache->chapitre)
-                  {{ $itemTache->chapitre }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
                 </div>
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">

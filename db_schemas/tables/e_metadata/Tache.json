@@ -517,6 +517,8 @@
     {
         "reference": "Tache_ordre_viewShowFieldVisible",
         "value_boolean": 1,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "Tache_ordre",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -574,14 +576,6 @@
         "value_float": 0,
         "e_data_field_reference": "taches_hasMany_realisation_taches_tache_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
-        "reference": "Tache_ordre_viewShowFieldOrder",
-        "value_boolean": 1,
-        "value_integer": 11,
-        "value_float": 0,
-        "e_data_field_reference": "Tache_ordre",
-        "e_metadata_definition_reference": "viewShowFieldOrder"
     },
     {
         "reference": "Tache_projet_id_viewShowFieldOrder",
@@ -677,7 +671,9 @@
     },
     {
         "reference": "Tache_phase_evaluation_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "Tache_phase_evaluation_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -726,7 +722,9 @@
     },
     {
         "reference": "Tache_chapitre_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "Tache_chapitre_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
