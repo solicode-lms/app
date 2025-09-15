@@ -197,8 +197,9 @@
     },
     {
         "reference": "RealisationProjet_apprenant_id_displayInForm",
-        "value_boolean": 0,
+        "value_boolean": 1,
         "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationProjet_apprenant_id",
         "e_metadata_definition_reference": "displayInForm"
     },
