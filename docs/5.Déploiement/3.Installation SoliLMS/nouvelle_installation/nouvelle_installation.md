@@ -22,7 +22,7 @@ Il existe **deux types d’installation** :
   * **Option A – Changer le propriétaire vers `solicode` (recommandé en dev)**
 
     ```bash
-    sudo chown -R solicode:solicode /var/www/solilms-v2024
+    sudo chown -R solicode:solicode /var/www/solilms-v2025
     ```
   * **Option B – Garder `root` propriétaire mais marquer le repo comme “safe” pour Git**
 

@@ -10,12 +10,14 @@ sudo mysqldump -u root -p solicode_lms > sauvegarde_19_05_25.sql
 
 
 ````bash
+sudo chown -R solicode:solicode /var/www/solilms-2025
 sudo git pull
 sudo npm install
 
 
 sudo chmod -R 755 /var/www/solilms-2025/
 sudo chown -R www-data:www-data /var/www/solilms-2025/
+
 sudo php artisan config:clear
 sudo php artisan cache:clear
 sudo php artisan optimize:clear
