@@ -62,7 +62,7 @@
                         <x-action-button :entity="$realisationMicroCompetence" actionName="show">
                         @if($realisationMicroCompetences_permissionsByItem['view'][$realisationMicroCompetence->id])
                             <a href="{{ route('realisationMicroCompetences.show', ['realisationMicroCompetence' => $realisationMicroCompetence->id]) }}" data-id="{{$realisationMicroCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

@@ -57,4 +57,42 @@ class BaseWidgetUtilisateurRequest extends FormRequest
         ];
     }
 
+    /**
+     * Prépare et sanitize les données avant la validation.
+     *
+     * - Pour les relations ManyToMany, on s'assure que le champ est toujours un tableau (vide si non fourni).
+     * - Pour les champs éditables par rôles, on délègue au service la sanitation en fonction de l'utilisateur.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        // En création, on ne touche pas au payload (même traitement existant)
+        $id = $this->route('widgetUtilisateur')
+        ?? $this->route('widget_utilisateur')
+        ?? null;
+
+        if (!$id) {
+            return;
+        }
+
+        $model = \Modules\PkgWidgets\Models\WidgetUtilisateur::find($id);
+        if (!$model) {
+            return;
+        }
+
+        /** @var \Modules\PkgWidgets\Services\WidgetUtilisateurService $service */
+        $service = app(\Modules\PkgWidgets\Services\WidgetUtilisateurService::class);
+        $user    = $this->user() ?: \Illuminate\Support\Facades\Auth::user();
+
+        // Déléguer au service la sanitation par rôles
+        [$sanitized] = $service->sanitizePayloadByRoles(
+            $this->all(),
+            $model,
+            $user
+        );
+
+        // Remplacer la requête par la version nettoyée/merge
+        $this->replace($sanitized);
+    }
 }

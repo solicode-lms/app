@@ -35,6 +35,23 @@ class BaseRealisationChapitreService extends BaseService
         'commentaire_formateur'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+          'chapitre_id' => ['root'],
+          'apprenant' => ['root'],
+          'date_debut' => ['root'],
+          'date_fin' => ['root'],
+          'realisation_ua_id' => ['root'],
+          'realisation_tache_id' => ['root'],
+          'commentaire_formateur' => ['formateur']
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

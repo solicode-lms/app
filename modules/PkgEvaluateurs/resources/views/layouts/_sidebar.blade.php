@@ -10,7 +10,7 @@
                 <a href="{{ route('evaluateurs.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgEvaluateurs/evaluateurs') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-user-check"></i>
-                    {{__('PkgEvaluateurs::evaluateur.plural')}}
+                    <p>{{__('PkgEvaluateurs::evaluateur.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -19,7 +19,7 @@
                 <a href="{{ route('etatEvaluationProjets.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgEvaluateurs/etatEvaluationProjets') ? 'active' : '' }}">
                     <i class="nav-icon fa-table"></i>
-                    {{__('PkgEvaluateurs::etatEvaluationProjet.plural')}}
+                    <p>{{__('PkgEvaluateurs::etatEvaluationProjet.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -28,7 +28,7 @@
                 <a href="{{ route('evaluationRealisationProjets.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgEvaluateurs/evaluationRealisationProjets') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-check-square"></i>
-                    {{__('PkgEvaluateurs::evaluationRealisationProjet.plural')}}
+                    <p>{{__('PkgEvaluateurs::evaluationRealisationProjet.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -47,7 +47,7 @@
             <li class="nav-item" id="menu-evaluateurs">
                 <a href="{{ route('evaluateurs.index') }}" class="nav-link {{ Request::is('admin/PkgEvaluateurs/evaluateurs') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-user-check"></i>
-                    {{__('PkgEvaluateurs::evaluateur.plural')}}
+                    <p>{{__('PkgEvaluateurs::evaluateur.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -55,7 +55,7 @@
             <li class="nav-item" id="menu-etatEvaluationProjets">
                 <a href="{{ route('etatEvaluationProjets.index') }}" class="nav-link {{ Request::is('admin/PkgEvaluateurs/etatEvaluationProjets') ? 'active' : '' }}">
                     <i class="nav-icon fa-table"></i>
-                    {{__('PkgEvaluateurs::etatEvaluationProjet.plural')}}
+                    <p>{{__('PkgEvaluateurs::etatEvaluationProjet.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -63,7 +63,7 @@
             <li class="nav-item" id="menu-evaluationRealisationProjets">
                 <a href="{{ route('evaluationRealisationProjets.index') }}" class="nav-link {{ Request::is('admin/PkgEvaluateurs/evaluationRealisationProjets') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-check-square"></i>
-                    {{__('PkgEvaluateurs::evaluationRealisationProjet.plural')}}
+                    <p>{{__('PkgEvaluateurs::evaluationRealisationProjet.plural')}}</p>
                 </a>
             </li>
             @endcan

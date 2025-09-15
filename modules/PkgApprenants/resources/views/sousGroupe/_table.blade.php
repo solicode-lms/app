@@ -48,7 +48,7 @@
                         <x-action-button :entity="$sousGroupe" actionName="show">
                         @if($sousGroupes_permissionsByItem['view'][$sousGroupe->id])
                             <a href="{{ route('sousGroupes.show', ['sousGroupe' => $sousGroupe->id]) }}" data-id="{{$sousGroupe->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

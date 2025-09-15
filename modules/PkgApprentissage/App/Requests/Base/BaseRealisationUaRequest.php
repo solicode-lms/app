@@ -35,9 +35,9 @@ class BaseRealisationUaRequest extends FormRequest
             'progression_cache' => 'required',
             'note_cache' => 'nullable',
             'bareme_cache' => 'nullable',
-            'dernier_update' => 'nullable',
             'date_debut' => 'nullable',
             'date_fin' => 'nullable',
+            'dernier_update' => 'nullable',
             'commentaire_formateur' => 'nullable|string',
             'progression_ideal_cache' => 'required',
             'taux_rythme_cache' => 'required'
@@ -58,9 +58,9 @@ class BaseRealisationUaRequest extends FormRequest
             'progression_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.progression_cache')]),
             'note_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.note_cache')]),
             'bareme_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.bareme_cache')]),
-            'dernier_update.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.dernier_update')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.date_debut')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.date_fin')]),
+            'dernier_update.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.dernier_update')]),
             'commentaire_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.commentaire_formateur')]),
             'progression_ideal_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.progression_ideal_cache')]),
             'taux_rythme_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.taux_rythme_cache')])

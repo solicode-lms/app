@@ -53,45 +53,42 @@ class BaseEvaluationRealisationTacheRequest extends FormRequest
         ];
     }
 
+    /**
+     * Prépare et sanitize les données avant la validation.
+     *
+     * - Pour les relations ManyToMany, on s'assure que le champ est toujours un tableau (vide si non fourni).
+     * - Pour les champs éditables par rôles, on délègue au service la sanitation en fonction de l'utilisateur.
+     *
+     * @return void
+     */
     protected function prepareForValidation()
     {
+        // En création, on ne touche pas au payload (même traitement existant)
+        $id = $this->route('evaluationRealisationTache')
+        ?? $this->route('evaluation_realisation_tache')
+        ?? null;
 
-        $user = Auth::user();
-
-        // Définition des rôles autorisés pour chaque champ
-        $editableFieldsByRoles = [
-            
-            'realisation_tache_id' => "admin",
-            
-            'evaluateur_id' => "admin",
-            
-            'evaluation_realisation_projet_id' => "admin",
-            
-        ];
-
-        // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
-        $evaluation_realisation_tache_id = $this->route('evaluationRealisationTache'); // Remplace 'model' par le bon paramètre de route
-        
-        // Vérifier si c'est une édition (evaluationRealisationTache existant dans l'URL)
-        if (!$evaluation_realisation_tache_id) {
+        if (!$id) {
             return;
         }
-        
-        $model = EvaluationRealisationTache::find($evaluation_realisation_tache_id);
 
-        
-        // Vérification et suppression des champs non autorisés
-        foreach ($editableFieldsByRoles as $field => $roles) {
-            if (!$user->hasAnyRole(explode(',', $roles))) {
-                
-
-                // Supprimer le champ pour éviter l'écrasement
-                $this->request->remove($field);
-
-                // Si le champ est absent dans la requête, on garde la valeur actuelle
-                $this->merge([$field => $model->$field]);
-                
-            }
+        $model = \Modules\PkgEvaluateurs\Models\EvaluationRealisationTache::find($id);
+        if (!$model) {
+            return;
         }
+
+        /** @var \Modules\PkgEvaluateurs\Services\EvaluationRealisationTacheService $service */
+        $service = app(\Modules\PkgEvaluateurs\Services\EvaluationRealisationTacheService::class);
+        $user    = $this->user() ?: \Illuminate\Support\Facades\Auth::user();
+
+        // Déléguer au service la sanitation par rôles
+        [$sanitized] = $service->sanitizePayloadByRoles(
+            $this->all(),
+            $model,
+            $user
+        );
+
+        // Remplacer la requête par la version nettoyée/merge
+        $this->replace($sanitized);
     }
 }

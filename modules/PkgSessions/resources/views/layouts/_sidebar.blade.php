@@ -10,7 +10,7 @@
                 <a href="{{ route('sessionFormations.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgSessions/sessionFormations') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-map"></i>
-                    {{__('PkgSessions::sessionFormation.plural')}}
+                    <p>{{__('PkgSessions::sessionFormation.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -29,7 +29,7 @@
             <li class="nav-item" id="menu-sessionFormations">
                 <a href="{{ route('sessionFormations.index') }}" class="nav-link {{ Request::is('admin/PkgSessions/sessionFormations') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-map"></i>
-                    {{__('PkgSessions::sessionFormation.plural')}}
+                    <p>{{__('PkgSessions::sessionFormation.plural')}}</p>
                 </a>
             </li>
             @endcan

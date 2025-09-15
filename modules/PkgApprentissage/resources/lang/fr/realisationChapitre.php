@@ -11,5 +11,6 @@ return [
     'realisation_tache_id' => 'Réalisation de tâche',
     'chapitre_id' => 'Chapitre',
     'etat_realisation_chapitre_id' => 'État',
-    "apprenant" => "Apprenant"
+    "apprenant" => "Apprenant",
+    'dernier_update' => 'Dernière mise à jour'
 ];

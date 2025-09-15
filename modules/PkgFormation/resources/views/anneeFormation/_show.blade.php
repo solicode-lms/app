@@ -37,7 +37,11 @@
                     @endif
                   </span>                </div>
             </div>
-            @if(auth()->user()?->can('show-affectationProjet') || auth()->user()?->can('create-affectationProjet'))
+            @if(
+                  (auth()->user()?->can('show-affectationProjet') && $itemAnneeFormation->affectationProjets->isNotEmpty())  
+                  || auth()->user()?->can('create-affectationProjet')
+                  || (auth()->user()?->can('edit-affectationProjet')  && $itemAnneeFormation->affectationProjets->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::affectationProjet.plural')) }}</small>
@@ -48,7 +52,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-groupe') || auth()->user()?->can('create-groupe'))
+            @if(
+                  (auth()->user()?->can('show-groupe') && $itemAnneeFormation->groupes->isNotEmpty())  
+                  || auth()->user()?->can('create-groupe')
+                  || (auth()->user()?->can('edit-groupe')  && $itemAnneeFormation->groupes->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprenants::groupe.plural')) }}</small>
@@ -59,7 +67,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-sessionFormation') || auth()->user()?->can('create-sessionFormation'))
+            @if(
+                  (auth()->user()?->can('show-sessionFormation') && $itemAnneeFormation->sessionFormations->isNotEmpty())  
+                  || auth()->user()?->can('create-sessionFormation')
+                  || (auth()->user()?->can('edit-sessionFormation')  && $itemAnneeFormation->sessionFormations->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgSessions::sessionFormation.plural')) }}</small>

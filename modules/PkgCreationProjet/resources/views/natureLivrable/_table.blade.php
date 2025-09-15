@@ -43,7 +43,7 @@
                         <x-action-button :entity="$natureLivrable" actionName="show">
                         @if($natureLivrables_permissionsByItem['view'][$natureLivrable->id])
                             <a href="{{ route('natureLivrables.show', ['natureLivrable' => $natureLivrable->id]) }}" data-id="{{$natureLivrable->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

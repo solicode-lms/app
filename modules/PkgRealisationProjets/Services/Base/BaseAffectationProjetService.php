@@ -36,6 +36,18 @@ class BaseAffectationProjetService extends BaseService
         'description'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+          'projet_id' => ['admin', 'formateur'],
+          'groupe_id' => ['formateur', 'admin']
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

@@ -65,7 +65,11 @@
                   @endif
                 </div>
             </div>
-            @if(auth()->user()?->can('show-realisationCompetence') || auth()->user()?->can('create-realisationCompetence'))
+            @if(
+                  (auth()->user()?->can('show-realisationCompetence') && $itemEtatRealisationCompetence->realisationCompetences->isNotEmpty())  
+                  || auth()->user()?->can('create-realisationCompetence')
+                  || (auth()->user()?->can('edit-realisationCompetence')  && $itemEtatRealisationCompetence->realisationCompetences->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationCompetence.plural')) }}</small>

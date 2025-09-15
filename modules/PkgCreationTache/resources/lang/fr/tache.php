@@ -10,6 +10,6 @@ return [
     'projet_id' => 'Projet',
     'priorite_tache_id' => 'Priorité',
     'ordre' => '#',
-    'note' => 'Note',
+    'note' => 'Barème',
     'priorite' => 'Priorité'
 ];

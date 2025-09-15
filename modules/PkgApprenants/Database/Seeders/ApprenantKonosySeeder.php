@@ -44,26 +44,29 @@ class ApprenantKonosySeeder extends BaseApprenantKonosySeeder
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                (new ApprenantKonosyService())->create([
-                    "MatriculeEtudiant" => $data[0] ,
-                    "Nom" => $data[1] ,
-                    "Prenom" => $data[2] ,
-                    "Sexe" => $data[3] ,
-                    "EtudiantActif" => $data[4] ,
-                    "Diplome" => $data[5] ,
-                    "Principale" => $data[6] ,
-                    "LibelleLong" => $data[7] ,
-                    "CodeDiplome" => $data[8] ,
-                    "DateNaissance" => $data[9] ,
-                    "DateInscription" => $data[10] ,
-                    "LieuNaissance" => $data[11] ,
-                    "CIN" => $data[12] ,
-                    "NTelephone" => $data[13] ,
-                    "Adresse" => $data[14] ,
-                    "Nationalite" => $data[15] ,
-                    "Nom_Arabe" => $data[16] ,
-                    "Prenom_Arabe" => $data[17] ,
-                    "NiveauScolaire" => $data[18] 
+
+              
+
+                (new ApprenantKonosyService())->updateOrCreate(["MatriculeEtudiant" => $data[1] ], [
+                    "MatriculeEtudiant" => $data[1] ,
+                    "Nom" => $data[2] ,
+                    "Prenom" => $data[3] ,
+                    "Sexe" => $data[4] ,
+                    "EtudiantActif" => $data[5] ,
+                    "Diplome" => $data[6] ,
+                    "Principale" => $data[7] ,
+                    "LibelleLong" => $data[8] ,
+                    "CodeDiplome" => $data[9] ,
+                    "DateNaissance" => $data[14] ,
+                    "DateInscription" => $data[17] ,
+                    "LieuNaissance" => $data[19] ,
+                    "CIN" => $data[21] ,
+                    "NTelephone" => $data[22] ,
+                    "Adresse" => $data[24] ,
+                    "Nationalite" => $data[25] ,
+                    "Nom_Arabe" => $data[27] ,
+                    "Prenom_Arabe" => $data[28] ,
+                    "NiveauScolaire" => $data[29] 
                 ]);
             }
             $firstline = false;

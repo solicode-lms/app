@@ -33,6 +33,16 @@ class BaseEvaluateurService extends BaseService
         'user_id'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

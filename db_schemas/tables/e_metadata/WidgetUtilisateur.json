@@ -663,5 +663,25 @@
         "value_boolean": 1,
         "e_data_field_reference": "WidgetUtilisateur_updated_at",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WidgetUtilisateur-sys_module_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "WidgetUtilisateur-sys_module_id",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "WidgetUtilisateur_widget_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "WidgetUtilisateur_widget_id",
+        "e_metadata_definition_reference": "editableByRoles"
     }
 ]

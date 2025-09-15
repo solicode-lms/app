@@ -33,6 +33,16 @@ class BaseEMetadataDefinitionService extends BaseService
         'default_value'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

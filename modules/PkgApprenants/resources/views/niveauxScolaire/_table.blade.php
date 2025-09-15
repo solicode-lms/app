@@ -43,7 +43,7 @@
                         <x-action-button :entity="$niveauxScolaire" actionName="show">
                         @if($niveauxScolaires_permissionsByItem['view'][$niveauxScolaire->id])
                             <a href="{{ route('niveauxScolaires.show', ['niveauxScolaire' => $niveauxScolaire->id]) }}" data-id="{{$niveauxScolaire->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

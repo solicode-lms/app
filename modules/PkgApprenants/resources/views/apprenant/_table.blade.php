@@ -9,10 +9,11 @@
                     $bulkEdit = $apprenants_permissions['edit-apprenant'] || $apprenants_permissions['destroy-apprenant'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="apprenant" label="{!!ucfirst(__('PkgApprenants::apprenant.nom'))!!}" />
-                <x-sortable-column :sortable="true" width="20.5"  field="prenom" modelname="apprenant" label="{!!ucfirst(__('PkgApprenants::apprenant.prenom'))!!}" />
-                <x-sortable-column :sortable="true" width="20.5"  field="duree_sans_terminer_tache" modelname="apprenant" label="{!!ucfirst(__('PkgApprenants::apprenant.duree_sans_terminer_tache'))!!}" />
-                <x-sortable-column :sortable="true" width="20.5"  field="groupes" modelname="apprenant" label="{!!ucfirst(__('PkgApprenants::groupe.plural'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="nom" modelname="apprenant" label="{!!ucfirst(__('PkgApprenants::apprenant.nom'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="prenom" modelname="apprenant" label="{!!ucfirst(__('PkgApprenants::apprenant.prenom'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="duree_sans_terminer_tache" modelname="apprenant" label="{!!ucfirst(__('PkgApprenants::apprenant.duree_sans_terminer_tache'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4" field="user_id" modelname="apprenant" label="{!!ucfirst(__('PkgAutorisation::user.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="groupes" modelname="apprenant" label="{!!ucfirst(__('PkgApprenants::groupe.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -24,19 +25,23 @@
                 @endphp
                 <tr id="apprenant-row-{{$apprenant->id}}" data-id="{{$apprenant->id}}">
                     <x-checkbox-row :item="$apprenant" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="nom">
+                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="nom">
                         {{ $apprenant->nom }}
 
                     </td>
-                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="prenom">
+                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="prenom">
                         {{ $apprenant->prenom }}
 
                     </td>
-                    <td style="max-width: 20.5%;white-space: normal;" class=" text-truncate" data-id="{{$apprenant->id}}" data-field="duree_sans_terminer_tache">
+                    <td style="max-width: 16.4%;white-space: normal;" class=" text-truncate" data-id="{{$apprenant->id}}" data-field="duree_sans_terminer_tache">
                             <x-duree-affichage :heures="$apprenant->duree_sans_terminer_tache" />
 
                     </td>
-                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="groupes">
+                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="user_id">
+                        {{  $apprenant->user }}
+
+                    </td>
+                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="groupes">
                         <ul>
                             @foreach ($apprenant->groupes as $groupe)
                                 <li @if(strlen($groupe) > 30) data-toggle="tooltip" title="{{$groupe}}"  @endif>@limit($groupe, 30)</li>
@@ -75,7 +80,7 @@
                         <x-action-button :entity="$apprenant" actionName="show">
                         @if($apprenants_permissionsByItem['view'][$apprenant->id])
                             <a href="{{ route('apprenants.show', ['apprenant' => $apprenant->id]) }}" data-id="{{$apprenant->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

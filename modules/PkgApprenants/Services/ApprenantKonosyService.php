@@ -72,6 +72,7 @@ class ApprenantKonosyService extends BaseService
      */
     public function create($data)
     {
+        
         $apprenantKonosy =  parent::create($data);
         $this->updateOrCreateDataFromApprenantKonosys($apprenantKonosy);
         return $apprenantKonosy;

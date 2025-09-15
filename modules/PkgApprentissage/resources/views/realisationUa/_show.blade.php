@@ -55,7 +55,11 @@
 @include('PkgApprentissage::realisationUa.custom.fields.note_cache',['entity' => $itemRealisationUa])
                 </div>
             </div>
-            @if(auth()->user()?->can('show-realisationChapitre') || auth()->user()?->can('create-realisationChapitre'))
+            @if(
+                  (auth()->user()?->can('show-realisationChapitre') && $itemRealisationUa->realisationChapitres->isNotEmpty())  
+                  || auth()->user()?->can('create-realisationChapitre')
+                  || (auth()->user()?->can('edit-realisationChapitre')  && $itemRealisationUa->realisationChapitres->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationChapitre.plural')) }}</small>
@@ -66,7 +70,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-realisationUaPrototype') || auth()->user()?->can('create-realisationUaPrototype'))
+            @if(
+                  (auth()->user()?->can('show-realisationUaPrototype') && $itemRealisationUa->realisationUaPrototypes->isNotEmpty())  
+                  || auth()->user()?->can('create-realisationUaPrototype')
+                  || (auth()->user()?->can('edit-realisationUaPrototype')  && $itemRealisationUa->realisationUaPrototypes->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.plural')) }}</small>
@@ -77,18 +85,11 @@
             </div>
             @endif
 
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.dernier_update')) }}</small>
-                  <span>
-                    @if ($itemRealisationUa->dernier_update)
-                    {{ \Carbon\Carbon::parse($itemRealisationUa->dernier_update)->isoFormat('LLL') }}
-                    @else
-                    —
-                    @endif
-                  </span>                </div>
-            </div>
-            @if(auth()->user()?->can('show-realisationUaProjet') || auth()->user()?->can('create-realisationUaProjet'))
+            @if(
+                  (auth()->user()?->can('show-realisationUaProjet') && $itemRealisationUa->realisationUaProjets->isNotEmpty())  
+                  || auth()->user()?->can('create-realisationUaProjet')
+                  || (auth()->user()?->can('edit-realisationUaProjet')  && $itemRealisationUa->realisationUaProjets->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaProjet.plural')) }}</small>
@@ -121,15 +122,16 @@
                     @endif
                   </span>                </div>
             </div>
-            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.commentaire_formateur')) }}</small>
-                  <!-- Valeur avec sauts de ligne -->
-                  @if(! is_null($itemRealisationUa->commentaire_formateur) && $itemRealisationUa->commentaire_formateur !== '')
-                    {!! $itemRealisationUa->commentaire_formateur !!}
-                  @else
-                    <span class="text-muted">—</span>
-                  @endif                </div>
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.dernier_update')) }}</small>
+                  <span>
+                    @if ($itemRealisationUa->dernier_update)
+                    {{ \Carbon\Carbon::parse($itemRealisationUa->dernier_update)->isoFormat('LLL') }}
+                    @else
+                    —
+                    @endif
+                  </span>                </div>
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">

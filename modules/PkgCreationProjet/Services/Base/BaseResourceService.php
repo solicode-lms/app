@@ -31,6 +31,16 @@ class BaseResourceService extends BaseService
         'projet_id'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

@@ -144,7 +144,11 @@
                 @endif
                 </div>
             </div>
-            @if(auth()->user()?->can('show-widgetUtilisateur') || auth()->user()?->can('create-widgetUtilisateur'))
+            @if(
+                  (auth()->user()?->can('show-widgetUtilisateur') && $itemWidget->widgetUtilisateurs->isNotEmpty())  
+                  || auth()->user()?->can('create-widgetUtilisateur')
+                  || (auth()->user()?->can('edit-widgetUtilisateur')  && $itemWidget->widgetUtilisateurs->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgWidgets::widgetUtilisateur.plural')) }}</small>

@@ -25,6 +25,11 @@
   box-shadow: none; /* pour être vraiment "flat" si besoin */
 }
 
+small.text-muted.d-block:has(+ .projet-card) {
+    display: none !important;
+}
+
+
 /* Titre */
 .projet-titre h2 {
     font-size: 1.25rem;

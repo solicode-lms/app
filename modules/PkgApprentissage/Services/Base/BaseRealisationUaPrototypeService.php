@@ -34,6 +34,21 @@ class BaseRealisationUaPrototypeService extends BaseService
         'date_fin'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+          'realisation_tache_id' => ['admin'],
+          'realisation_ua_id' => ['admin'],
+          'bareme' => ['admin'],
+          'date_debut' => ['admin'],
+          'date_fin' => ['admin']
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

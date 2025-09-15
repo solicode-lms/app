@@ -31,12 +31,12 @@
     
     <div class="row">
         <x-form-field :defined_vars="get_defined_vars()" :entity="$itemEvaluationRealisationTache" field="realisation_tache_id" :bulkEdit="$bulkEdit">
-      @php $canEditrealisation_tache_id = !$itemEvaluationRealisationTache || !$itemEvaluationRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+      @php $canEditrealisation_tache_id = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'admin')) : (empty($itemEvaluationRealisationTache->id) || Auth::user()->hasAnyRole(explode(',', 'admin')) ); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_tache_id" id="bulk_field_realisation_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_tache_id" id="bulk_field_realisation_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="realisation_tache_id">
@@ -67,12 +67,12 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemEvaluationRealisationTache" field="evaluateur_id" :bulkEdit="$bulkEdit">
-      @php $canEditevaluateur_id = !$itemEvaluationRealisationTache || !$itemEvaluationRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+      @php $canEditevaluateur_id = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'admin')) : (empty($itemEvaluationRealisationTache->id) || Auth::user()->hasAnyRole(explode(',', 'admin')) ); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="evaluateur_id" id="bulk_field_evaluateur_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="evaluateur_id" id="bulk_field_evaluateur_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="evaluateur_id">
@@ -107,7 +107,7 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="note" id="bulk_field_note" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="note" id="bulk_field_note" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="note">
@@ -137,7 +137,7 @@
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="message" id="bulk_field_message" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="message" id="bulk_field_message" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="message">
@@ -160,12 +160,12 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemEvaluationRealisationTache" field="evaluation_realisation_projet_id" :bulkEdit="$bulkEdit">
-      @php $canEditevaluation_realisation_projet_id = !$itemEvaluationRealisationTache || !$itemEvaluationRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+      @php $canEditevaluation_realisation_projet_id = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'admin')) : (empty($itemEvaluationRealisationTache->id) || Auth::user()->hasAnyRole(explode(',', 'admin')) ); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="evaluation_realisation_projet_id" id="bulk_field_evaluation_realisation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="evaluation_realisation_projet_id" id="bulk_field_evaluation_realisation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="evaluation_realisation_projet_id">

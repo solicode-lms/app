@@ -313,7 +313,7 @@ export class FormUI  {
                 const richTextContent = field.val().trim(); // Get Summernote content
                 const richTextContainer = field.next('.note-editor'); // Get Summernote container
     
-                if (!richTextContent || richTextContent === '<br>') {
+                if (!richTextContent || richTextContent === '<br>' || richTextContent === '<p><br></p>') {
                     richTextContainer.addClass('richText_is_invalid');
     
                     // Add an error message if not already added

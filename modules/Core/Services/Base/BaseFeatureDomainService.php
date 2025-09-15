@@ -31,6 +31,16 @@ class BaseFeatureDomainService extends BaseService
         'sys_module_id'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

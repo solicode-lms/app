@@ -37,6 +37,25 @@ class BaseRealisationProjetService extends BaseService
         'rapport'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+          'affectation_projet_id' => ['root'],
+          'apprenant_id' => ['root'],
+          'etats_realisation_projet_id' => ['root'],
+          'progression_validation_cache' => ['root'],
+          'note_cache' => ['root'],
+          'date_debut' => ['root'],
+          'date_fin' => ['root'],
+          'bareme_cache' => ['root'],
+          'progression_execution_cache' => ['root']
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

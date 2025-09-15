@@ -50,7 +50,7 @@
                         <x-action-button :entity="$realisationUaProjet" actionName="show">
                         @if($realisationUaProjets_permissionsByItem['view'][$realisationUaProjet->id])
                             <a href="{{ route('realisationUaProjets.show', ['realisationUaProjet' => $realisationUaProjet->id]) }}" data-id="{{$realisationUaProjet->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

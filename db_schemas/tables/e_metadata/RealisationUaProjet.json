@@ -221,7 +221,9 @@
     },
     {
         "reference": "RealisationUaProjet_remarque_formateur_viewFormFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationUaProjet_remarque_formateur",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
@@ -548,5 +550,12 @@
         "value_float": 0,
         "e_data_field_reference": "RealisationUaProjet_realisation_tache_id",
         "e_metadata_definition_reference": "metaLabel"
+    },
+    {
+        "reference": "realisation_ua_projets_editOnFullScreen",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_model_reference": "realisation_ua_projets",
+        "e_metadata_definition_reference": "editOnFullScreen"
     }
 ]

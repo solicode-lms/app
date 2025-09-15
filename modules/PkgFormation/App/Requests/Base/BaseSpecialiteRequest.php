@@ -51,11 +51,18 @@ class BaseSpecialiteRequest extends FormRequest
         ];
     }
 
+    /**
+     * Prépare et sanitize les données avant la validation.
+     *
+     * - Pour les relations ManyToMany, on s'assure que le champ est toujours un tableau (vide si non fourni).
+     * - Pour les champs éditables par rôles, on délègue au service la sanitation en fonction de l'utilisateur.
+     *
+     * @return void
+     */
     protected function prepareForValidation()
     {
         $this->merge([
             'formateurs' => $this->has('formateurs') ? $this->formateurs : []
         ]);
-
     }
 }

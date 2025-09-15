@@ -64,7 +64,11 @@
 
                 </div>
             </div>
-            @if(auth()->user()?->can('show-uniteApprentissage') || auth()->user()?->can('create-uniteApprentissage'))
+            @if(
+                  (auth()->user()?->can('show-uniteApprentissage') && $itemMicroCompetence->uniteApprentissages->isNotEmpty())  
+                  || auth()->user()?->can('create-uniteApprentissage')
+                  || (auth()->user()?->can('edit-uniteApprentissage')  && $itemMicroCompetence->uniteApprentissages->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::uniteApprentissage.plural')) }}</small>

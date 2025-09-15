@@ -78,7 +78,7 @@
                         <x-action-button :entity="$formateur" actionName="show">
                         @if($formateurs_permissionsByItem['view'][$formateur->id])
                             <a href="{{ route('formateurs.show', ['formateur' => $formateur->id]) }}" data-id="{{$formateur->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

@@ -43,7 +43,7 @@
                         <x-action-button :entity="$profile" actionName="show">
                         @if($profiles_permissionsByItem['view'][$profile->id])
                             <a href="{{ route('profiles.show', ['profile' => $profile->id]) }}" data-id="{{$profile->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

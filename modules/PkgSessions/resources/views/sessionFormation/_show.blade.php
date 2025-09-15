@@ -3,64 +3,31 @@
 @section('sessionFormation-show')
 <div id="sessionFormation-crud-show">
         <div class="card-body">
+            <h6 class="text-muted mb-2">
+                        <i class="fas fa-info-circle mr-1"></i>{{ __('Informations générales') }}
+            </h6>
             <div class="row no-gutters mb-4">
-            <div class="show_group col-12 col-md-2 col-lg-2 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.ordre')) }}</small>
-                  <span>
-                    @if(! is_null($itemSessionFormation->ordre))
-                      {{ $itemSessionFormation->ordre }}
-                    @else
-                      —
-                    @endif
-                  </span>                </div>
-            </div>
             <div class="show_group col-12 col-md-10 col-lg-10 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.titre')) }}</small>
 @include('PkgSessions::sessionFormation.custom.fields.titre',['entity' => $itemSessionFormation])
                 </div>
             </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.code')) }}</small>
-    {{-- Affichage texte par défaut --}}
-    @if(!is_null($itemSessionFormation->code) && $itemSessionFormation->code !== '')
-        {{ $itemSessionFormation->code }}
-    @else
-        <span class="text-muted">—</span>
-    @endif
-                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.thematique')) }}</small>
-    {{-- Affichage texte par défaut --}}
-    @if(!is_null($itemSessionFormation->thematique) && $itemSessionFormation->thematique !== '')
-        {{ $itemSessionFormation->thematique }}
-    @else
-        <span class="text-muted">—</span>
-    @endif
-                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::filiere.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemSessionFormation->filiere)
-                  {{ $itemSessionFormation->filiere }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
-                </div>
-            </div>
             <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.objectifs_pedagogique')) }}</small>
-@include('PkgSessions::sessionFormation.custom.fields.objectifs_pedagogique',['entity' => $itemSessionFormation])
-                </div>
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.remarques')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemSessionFormation->remarques) && $itemSessionFormation->remarques !== '')
+                    {!! $itemSessionFormation->remarques !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
             </div>
+            </div>
+            <h6 class="text-muted mb-2">
+                        <i class="fas fa-info-circle mr-1"></i>{{ __('Prototype') }}
+            </h6>
+            <div class="row no-gutters mb-4">
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.titre_prototype')) }}</small>
@@ -92,6 +59,11 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
+            </div>
+            <h6 class="text-muted mb-2">
+                        <i class="fas fa-info-circle mr-1"></i>{{ __('Projet') }}
+            </h6>
+            <div class="row no-gutters mb-4">
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.titre_projet')) }}</small>
@@ -123,62 +95,23 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
+            </div>
+            <h6 class="text-muted mb-2">
+                        <i class="fas fa-info-circle mr-1"></i>{{ __('Objectifs pédagogiques') }}
+            </h6>
+            <div class="row no-gutters mb-4">
             <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.remarques')) }}</small>
-                  <!-- Valeur avec sauts de ligne -->
-                  @if(! is_null($itemSessionFormation->remarques) && $itemSessionFormation->remarques !== '')
-                    {!! $itemSessionFormation->remarques !!}
-                  @else
-                    <span class="text-muted">—</span>
-                  @endif                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.date_debut')) }}</small>
-                  <span>
-                    @if ($itemSessionFormation->date_debut)
-                    {{ \Carbon\Carbon::parse($itemSessionFormation->date_debut)->isoFormat('LLL') }}
-                    @else
-                    —
-                    @endif
-                  </span>                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.date_fin')) }}</small>
-                  <span>
-                    @if ($itemSessionFormation->date_fin)
-                    {{ \Carbon\Carbon::parse($itemSessionFormation->date_fin)->isoFormat('LLL') }}
-                    @else
-                    —
-                    @endif
-                  </span>                </div>
-            </div>
-            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.jour_feries_vacances')) }}</small>
-                  <!-- Valeur avec sauts de ligne -->
-                  @if(! is_null($itemSessionFormation->jour_feries_vacances) && $itemSessionFormation->jour_feries_vacances !== '')
-                    {!! $itemSessionFormation->jour_feries_vacances !!}
-                  @else
-                    <span class="text-muted">—</span>
-                  @endif                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::anneeFormation.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemSessionFormation->anneeFormation)
-                  {{ $itemSessionFormation->anneeFormation }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.objectifs_pedagogique')) }}</small>
+@include('PkgSessions::sessionFormation.custom.fields.objectifs_pedagogique',['entity' => $itemSessionFormation])
                 </div>
             </div>
-            @if(auth()->user()?->can('show-alignementUa') || auth()->user()?->can('create-alignementUa'))
-            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+            @if(
+                  (auth()->user()?->can('show-alignementUa') && $itemSessionFormation->alignementUas->isNotEmpty())  
+                  || auth()->user()?->can('create-alignementUa')
+                  || (auth()->user()?->can('edit-alignementUa')  && $itemSessionFormation->alignementUas->isNotEmpty() )
+                  )
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgSessions::alignementUa.plural')) }}</small>
                   <div class="pt-2">
@@ -188,7 +121,13 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-livrableSession') || auth()->user()?->can('create-livrableSession'))
+            </div>
+            <div class="row no-gutters mb-4">
+            @if(
+                  (auth()->user()?->can('show-livrableSession') && $itemSessionFormation->livrableSessions->isNotEmpty())  
+                  || auth()->user()?->can('create-livrableSession')
+                  || (auth()->user()?->can('edit-livrableSession')  && $itemSessionFormation->livrableSessions->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgSessions::livrableSession.plural')) }}</small>
@@ -199,7 +138,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-projet') || auth()->user()?->can('create-projet'))
+            @if(
+                  (auth()->user()?->can('show-projet') && $itemSessionFormation->projets->isNotEmpty())  
+                  || auth()->user()?->can('create-projet')
+                  || (auth()->user()?->can('edit-projet')  && $itemSessionFormation->projets->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::projet.plural')) }}</small>

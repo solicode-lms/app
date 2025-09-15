@@ -46,6 +46,16 @@ class BaseApprenantKonosyService extends BaseService
         'NiveauScolaire'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

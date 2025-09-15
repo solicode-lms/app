@@ -39,6 +39,16 @@ class BaseRealisationModuleService extends BaseService
         'taux_rythme_cache'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

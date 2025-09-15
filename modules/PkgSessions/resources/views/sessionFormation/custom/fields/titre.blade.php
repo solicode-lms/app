@@ -1,6 +1,7 @@
 <article class="projet-card">
     <header class="projet-titre">
         <h2>{{ $entity->titre }}</h2>
+        <samll> {{ $entity->titre_projet }}</samll>
     </header>
 
     <section class="projet-section">

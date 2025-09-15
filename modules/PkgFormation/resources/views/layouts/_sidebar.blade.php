@@ -10,7 +10,7 @@
                 <a href="{{ route('filieres.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgFormation/filieres') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-book"></i>
-                    {{__('PkgFormation::filiere.plural')}}
+                    <p>{{__('PkgFormation::filiere.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -19,7 +19,7 @@
                 <a href="{{ route('modules.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgFormation/modules') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-puzzle-piece"></i>
-                    {{__('PkgFormation::module.plural')}}
+                    <p>{{__('PkgFormation::module.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -28,7 +28,7 @@
                 <a href="{{ route('anneeFormations.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgFormation/anneeFormations') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-calendar-plus"></i>
-                    {{__('PkgFormation::anneeFormation.plural')}}
+                    <p>{{__('PkgFormation::anneeFormation.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -37,7 +37,7 @@
                 <a href="{{ route('specialites.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgFormation/specialites') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-award"></i>
-                    {{__('PkgFormation::specialite.plural')}}
+                    <p>{{__('PkgFormation::specialite.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -46,7 +46,7 @@
                 <a href="{{ route('formateurs.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgFormation/formateurs') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-user-tie"></i>
-                    {{__('PkgFormation::formateur.plural')}}
+                    <p>{{__('PkgFormation::formateur.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -65,7 +65,7 @@
             <li class="nav-item" id="menu-filieres">
                 <a href="{{ route('filieres.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/filieres') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-book"></i>
-                    {{__('PkgFormation::filiere.plural')}}
+                    <p>{{__('PkgFormation::filiere.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -73,7 +73,7 @@
             <li class="nav-item" id="menu-modules">
                 <a href="{{ route('modules.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/modules') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-puzzle-piece"></i>
-                    {{__('PkgFormation::module.plural')}}
+                    <p>{{__('PkgFormation::module.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -81,7 +81,7 @@
             <li class="nav-item" id="menu-anneeFormations">
                 <a href="{{ route('anneeFormations.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/anneeFormations') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-calendar-plus"></i>
-                    {{__('PkgFormation::anneeFormation.plural')}}
+                    <p>{{__('PkgFormation::anneeFormation.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -89,7 +89,7 @@
             <li class="nav-item" id="menu-specialites">
                 <a href="{{ route('specialites.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/specialites') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-award"></i>
-                    {{__('PkgFormation::specialite.plural')}}
+                    <p>{{__('PkgFormation::specialite.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -97,7 +97,7 @@
             <li class="nav-item" id="menu-formateurs">
                 <a href="{{ route('formateurs.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/formateurs') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-user-tie"></i>
-                    {{__('PkgFormation::formateur.plural')}}
+                    <p>{{__('PkgFormation::formateur.plural')}}</p>
                 </a>
             </li>
             @endcan

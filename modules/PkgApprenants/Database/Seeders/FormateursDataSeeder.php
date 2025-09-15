@@ -13,17 +13,17 @@ class FormateursDataSeeder extends Seeder
     public function run(): void
     {
        
-        $groupes = [
-            "0001" => "DMB101-2025-2026",
-            "0002" => "DWB101-2025-2026",
-            "0003" => "DWB102-2025-2026",
-            "0004" => "DWB103-2025-2026",
-            "0005" => "DWB104-2025-2026"
-        ];
+        // $groupes = [
+        //     "0001" => "DMB101-2025-2026",
+        //     "0002" => "DWB101-2025-2026",
+        //     "0003" => "DWB102-2025-2026",
+        //     "0004" => "DWB103-2025-2026",
+        //     "0005" => "DWB104-2025-2026"
+        // ];
 
-        foreach ($groupes as $formateurRef => $groupeRef) {
-            $this->affecterFormateurAGroupe($formateurRef, $groupeRef);
-        }
+        // foreach ($groupes as $formateurRef => $groupeRef) {
+        //     $this->affecterFormateurAGroupe($formateurRef, $groupeRef);
+        // }
 
         $specialites = [
             "0001" => "Développement logiciel",

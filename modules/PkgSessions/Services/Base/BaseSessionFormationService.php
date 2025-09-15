@@ -44,6 +44,16 @@ class BaseSessionFormationService extends BaseService
         'annee_formation_id'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

@@ -10,7 +10,7 @@
                 <a href="{{ route('etatRealisationTaches.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgRealisationTache/etatRealisationTaches') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-check"></i>
-                    {{__('PkgRealisationTache::etatRealisationTache.plural')}}
+                    <p>{{__('PkgRealisationTache::etatRealisationTache.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -19,7 +19,7 @@
                 <a href="{{ route('realisationTaches.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgRealisationTache/realisationTaches') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-laptop-code"></i>
-                    {{__('PkgRealisationTache::realisationTache.plural')}}
+                    <p>{{__('PkgRealisationTache::realisationTache.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -28,7 +28,7 @@
                 <a href="{{ route('workflowTaches.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgRealisationTache/workflowTaches') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-check-square"></i>
-                    {{__('PkgRealisationTache::workflowTache.plural')}}
+                    <p>{{__('PkgRealisationTache::workflowTache.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -47,7 +47,7 @@
             <li class="nav-item" id="menu-etatRealisationTaches">
                 <a href="{{ route('etatRealisationTaches.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationTache/etatRealisationTaches') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-check"></i>
-                    {{__('PkgRealisationTache::etatRealisationTache.plural')}}
+                    <p>{{__('PkgRealisationTache::etatRealisationTache.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -55,7 +55,7 @@
             <li class="nav-item" id="menu-realisationTaches">
                 <a href="{{ route('realisationTaches.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationTache/realisationTaches') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-laptop-code"></i>
-                    {{__('PkgRealisationTache::realisationTache.plural')}}
+                    <p>{{__('PkgRealisationTache::realisationTache.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -63,7 +63,7 @@
             <li class="nav-item" id="menu-workflowTaches">
                 <a href="{{ route('workflowTaches.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationTache/workflowTaches') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-check-square"></i>
-                    {{__('PkgRealisationTache::workflowTache.plural')}}
+                    <p>{{__('PkgRealisationTache::workflowTache.plural')}}</p>
                 </a>
             </li>
             @endcan

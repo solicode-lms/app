@@ -139,8 +139,9 @@
     },
     {
         "reference": "Apprenant_user_id_displayInTable",
-        "value_boolean": 0,
+        "value_boolean": 1,
         "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "Apprenant_user_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -1500,5 +1501,13 @@
         "value_boolean": 1,
         "e_data_field_reference": "apprenants_hasMany_realisation_modules_apprenant_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_matricule_displayInTable",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
+        "e_data_field_reference": "Apprenant_matricule",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

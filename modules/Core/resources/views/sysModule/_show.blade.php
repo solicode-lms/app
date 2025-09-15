@@ -87,7 +87,11 @@
                   @endif
                 </div>
             </div>
-            @if(auth()->user()?->can('show-featureDomain') || auth()->user()?->can('create-featureDomain'))
+            @if(
+                  (auth()->user()?->can('show-featureDomain') && $itemSysModule->featureDomains->isNotEmpty())  
+                  || auth()->user()?->can('create-featureDomain')
+                  || (auth()->user()?->can('edit-featureDomain')  && $itemSysModule->featureDomains->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('Core::featureDomain.plural')) }}</small>
@@ -98,7 +102,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-sysController') || auth()->user()?->can('create-sysController'))
+            @if(
+                  (auth()->user()?->can('show-sysController') && $itemSysModule->sysControllers->isNotEmpty())  
+                  || auth()->user()?->can('create-sysController')
+                  || (auth()->user()?->can('edit-sysController')  && $itemSysModule->sysControllers->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('Core::sysController.plural')) }}</small>
@@ -109,7 +117,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-sysModel') || auth()->user()?->can('create-sysModel'))
+            @if(
+                  (auth()->user()?->can('show-sysModel') && $itemSysModule->sysModels->isNotEmpty())  
+                  || auth()->user()?->can('create-sysModel')
+                  || (auth()->user()?->can('edit-sysModel')  && $itemSysModule->sysModels->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('Core::sysModel.plural')) }}</small>

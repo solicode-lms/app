@@ -31,6 +31,16 @@ class BaseTacheAffectationService extends BaseService
         'apprenant_live_coding_cache'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

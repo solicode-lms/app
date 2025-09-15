@@ -480,7 +480,9 @@
     },
     {
         "reference": "Tache_dateDebut_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "Tache_dateDebut",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -492,7 +494,9 @@
     },
     {
         "reference": "Tache_dateFin_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "Tache_dateFin",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -516,7 +520,9 @@
     },
     {
         "reference": "Tache_ordre_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "Tache_ordre",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -528,7 +534,9 @@
     },
     {
         "reference": "Tache_projet_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "Tache_projet_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -576,14 +584,6 @@
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference": "Tache_ordre_viewShowFieldOrder",
-        "value_boolean": 1,
-        "value_integer": 11,
-        "value_float": 0,
-        "e_data_field_reference": "Tache_ordre",
-        "e_metadata_definition_reference": "viewShowFieldOrder"
-    },
-    {
         "reference": "Tache_projet_id_viewShowFieldOrder",
         "value_boolean": 1,
         "value_float": 0,
@@ -628,7 +628,9 @@
     },
     {
         "reference": "Tache_note_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "Tache_note",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -677,7 +679,9 @@
     },
     {
         "reference": "Tache_phase_evaluation_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "Tache_phase_evaluation_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -726,7 +730,9 @@
     },
     {
         "reference": "Tache_chapitre_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "Tache_chapitre_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -764,7 +770,9 @@
     },
     {
         "reference": "Tache_priorite_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "Tache_priorite",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },

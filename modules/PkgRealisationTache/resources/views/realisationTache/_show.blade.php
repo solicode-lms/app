@@ -75,7 +75,11 @@
                         <i class="fas fa-info-circle mr-1"></i>{{ __('Suivi et évaluation') }}
             </h6>
             <div class="row no-gutters mb-4">
-            @if(auth()->user()?->can('show-realisationChapitre') || auth()->user()?->can('create-realisationChapitre'))
+            @if(
+                  (auth()->user()?->can('show-realisationChapitre') && $itemRealisationTache->realisationChapitres->isNotEmpty())  
+                  || auth()->user()?->can('create-realisationChapitre')
+                  || (auth()->user()?->can('edit-realisationChapitre')  && $itemRealisationTache->realisationChapitres->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationChapitre.plural')) }}</small>
@@ -86,7 +90,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-realisationUaProjet') || auth()->user()?->can('create-realisationUaProjet'))
+            @if(
+                  (auth()->user()?->can('show-realisationUaProjet') && $itemRealisationTache->realisationUaProjets->isNotEmpty())  
+                  || auth()->user()?->can('create-realisationUaProjet')
+                  || (auth()->user()?->can('edit-realisationUaProjet')  && $itemRealisationTache->realisationUaProjets->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaProjet.plural')) }}</small>
@@ -97,7 +105,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-realisationUaPrototype') || auth()->user()?->can('create-realisationUaPrototype'))
+            @if(
+                  (auth()->user()?->can('show-realisationUaPrototype') && $itemRealisationTache->realisationUaPrototypes->isNotEmpty())  
+                  || auth()->user()?->can('create-realisationUaPrototype')
+                  || (auth()->user()?->can('edit-realisationUaPrototype')  && $itemRealisationTache->realisationUaPrototypes->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.plural')) }}</small>
@@ -135,13 +147,11 @@
             </div>
             </div>
             <div class="row no-gutters mb-4">
-            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.remarque_evaluateur')) }}</small>
-@include('PkgRealisationTache::realisationTache.custom.fields.remarque_evaluateur',['entity' => $itemRealisationTache])
-                </div>
-            </div>
-            @if(auth()->user()?->can('show-evaluationRealisationTache') || auth()->user()?->can('create-evaluationRealisationTache'))
+            @if(
+                  (auth()->user()?->can('show-evaluationRealisationTache') && $itemRealisationTache->evaluationRealisationTaches->isNotEmpty())  
+                  || auth()->user()?->can('create-evaluationRealisationTache')
+                  || (auth()->user()?->can('edit-evaluationRealisationTache')  && $itemRealisationTache->evaluationRealisationTaches->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.plural')) }}</small>
@@ -152,7 +162,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-historiqueRealisationTache') || auth()->user()?->can('create-historiqueRealisationTache'))
+            @if(
+                  (auth()->user()?->can('show-historiqueRealisationTache') && $itemRealisationTache->historiqueRealisationTaches->isNotEmpty())  
+                  || auth()->user()?->can('create-historiqueRealisationTache')
+                  || (auth()->user()?->can('edit-historiqueRealisationTache')  && $itemRealisationTache->historiqueRealisationTaches->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::historiqueRealisationTache.plural')) }}</small>

@@ -50,22 +50,6 @@
                             </a>
                         </x-action-button>
                         @endif
-                        @if($realisationTaches_permissions['show-projet'])
-                        <x-action-button :entity="$realisationTache" actionName="projet">
-                            <a
-                                data-toggle="tooltip"
-                                title="Projet"
-                                href="{{ route('projets.show', [
-                                        'projet' => $realisationTache->realisationProjet->affectationProjet->projet_id,
-                                        'showIndex' => true,
-                                        'contextKey' => 'projets.show',
-                                ]) }}"
-                                class="btn btn-default btn-sm context-state actionEntity showIndex"
-                                data-id="{{ $realisationTache->id }}">
-                                <i class="fas fa-laptop"></i>
-                            </a>
-                        </x-action-button>
-                        @endif
 
 
                        
@@ -83,7 +67,7 @@
                         <x-action-button :entity="$realisationTache" actionName="show">
                         @if($realisationTaches_permissionsByItem['view'][$realisationTache->id])
                             <a href="{{ route('realisationTaches.show', ['realisationTache' => $realisationTache->id]) }}" data-id="{{$realisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

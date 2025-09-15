@@ -72,67 +72,42 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
         ];
     }
 
+    /**
+     * Prépare et sanitize les données avant la validation.
+     *
+     * - Pour les relations ManyToMany, on s'assure que le champ est toujours un tableau (vide si non fourni).
+     * - Pour les champs éditables par rôles, on délègue au service la sanitation en fonction de l'utilisateur.
+     *
+     * @return void
+     */
     protected function prepareForValidation()
     {
+        // En création, on ne touche pas au payload (même traitement existant)
+        $id = $this->route('realisationMicroCompetence')
+        ?? $this->route('realisation_micro_competence')
+        ?? null;
 
-        $user = Auth::user();
-
-        // Définition des rôles autorisés pour chaque champ
-        $editableFieldsByRoles = [
-            
-            'micro_competence_id' => "root",
-            
-            'apprenant_id' => "root",
-            
-            'progression_cache' => "root",
-            
-            'note_cache' => "root",
-            
-            'etat_realisation_micro_competence_id' => "root",
-            
-            'bareme_cache' => "root",
-            
-            'RealisationUa' => "root",
-            
-            'commentaire_formateur' => "root",
-            
-            'date_debut' => "root",
-            
-            'date_fin' => "root",
-            
-            'dernier_update' => "root",
-            
-            'realisation_competence_id' => "root",
-            
-            'progression_ideal_cache' => "root",
-            
-            'taux_rythme_cache' => "root",
-            
-        ];
-
-        // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
-        $realisation_micro_competence_id = $this->route('realisationMicroCompetence'); // Remplace 'model' par le bon paramètre de route
-        
-        // Vérifier si c'est une édition (realisationMicroCompetence existant dans l'URL)
-        if (!$realisation_micro_competence_id) {
+        if (!$id) {
             return;
         }
-        
-        $model = RealisationMicroCompetence::find($realisation_micro_competence_id);
 
-        
-        // Vérification et suppression des champs non autorisés
-        foreach ($editableFieldsByRoles as $field => $roles) {
-            if (!$user->hasAnyRole(explode(',', $roles))) {
-                
-
-                // Supprimer le champ pour éviter l'écrasement
-                $this->request->remove($field);
-
-                // Si le champ est absent dans la requête, on garde la valeur actuelle
-                $this->merge([$field => $model->$field]);
-                
-            }
+        $model = \Modules\PkgApprentissage\Models\RealisationMicroCompetence::find($id);
+        if (!$model) {
+            return;
         }
+
+        /** @var \Modules\PkgApprentissage\Services\RealisationMicroCompetenceService $service */
+        $service = app(\Modules\PkgApprentissage\Services\RealisationMicroCompetenceService::class);
+        $user    = $this->user() ?: \Illuminate\Support\Facades\Auth::user();
+
+        // Déléguer au service la sanitation par rôles
+        [$sanitized] = $service->sanitizePayloadByRoles(
+            $this->all(),
+            $model,
+            $user
+        );
+
+        // Remplacer la requête par la version nettoyée/merge
+        $this->replace($sanitized);
     }
 }

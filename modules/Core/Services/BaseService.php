@@ -271,4 +271,74 @@ abstract class BaseService implements ServiceInterface
     }
 
 
+    public function editableFieldsByRoles(): array
+    {
+        return [];
+    }
+
+
+    /**
+     * Nettoie le payload selon les rôles :
+     * - Supprime les champs non autorisés (et ceux inconnus)
+     * - Réinjecte, pour les champs non autorisés, la valeur actuelle du modèle (évite l’écrasement)
+     * - Retourne: [$sanitized, $keptFields, $removedFields]
+     *
+     * @param array $payload Données brutes de la requête
+     * @param \Modules\PkgApprentissage\Models\RealisationMicroCompetence|null $model Modèle courant (édition) ou null (création)
+     * @param \Illuminate\Contracts\Auth\Authenticatable|null $user Utilisateur courant
+     * @return array{0: array, 1: array, 2: array}
+     */
+public function sanitizePayloadByRoles(
+    array $payload,
+    $model,
+    ?\Illuminate\Contracts\Auth\Authenticatable $user
+): array {
+    $map        = $this->editableFieldsByRoles();        // champ => [roles...]
+    $kept       = [];
+    $removed    = [];
+
+    // Base : tous les attributs du modèle (assure la présence de *tous* les champs du model)
+    $sanitized  = $model ? ($model->getAttributes() ?? []) : [];
+
+    // Appliquer les valeurs du payload selon les rôles
+    foreach ($payload as $field => $value) {
+        // Champ géré par la matrice des rôles ?
+        if (array_key_exists($field, $map)) {
+            $isAllowed = $user && method_exists($user, 'hasAnyRole') ? $user->hasAnyRole($map[$field]) : false;
+
+            if ($isAllowed) {
+                // Autorisé : on écrase la valeur du modèle par celle du payload
+                $sanitized[$field] = $value;
+                $kept[] = $field;
+            } else {
+                // Interdit : marquer comme retiré et rétablir la valeur du modèle (si disponible)
+                $removed[$field] = 'role';
+                if ($model) {
+                    // getAttribute pour récupérer la valeur actuelle (même si null)
+                    $sanitized[$field] = $model->getAttribute($field);
+                } else {
+                    // Pas de modèle (création) : on n’applique pas la valeur interdite
+                    unset($sanitized[$field]);
+                }
+            }
+        } else {
+            // Champ non présent dans la matrice : on le garde tel quel (on ne le "remove" pas)
+            $sanitized[$field] = $value;
+            $kept[] = $field;
+        }
+    }
+
+    // À ce stade :
+    // - $sanitized contient *au minimum* tous les champs du modèle (via getAttributes),
+    //   plus les champs du payload non gérés par la matrice (laissés tels quels).
+    // - $kept = champs du payload autorisés par rôles (présents dans $map et autorisés)
+    // - $removed = champs du payload connus dans $map mais interdits par rôles
+
+    return [$sanitized, $kept, $removed];
+}
+
+
+
+
+
 }

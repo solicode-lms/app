@@ -36,6 +36,16 @@ class BaseChapitreService extends BaseService
         'formateur_id'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

@@ -48,7 +48,7 @@
                         <x-action-button :entity="$filiere" actionName="show">
                         @if($filieres_permissionsByItem['view'][$filiere->id])
                             <a href="{{ route('filieres.show', ['filiere' => $filiere->id]) }}" data-id="{{$filiere->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

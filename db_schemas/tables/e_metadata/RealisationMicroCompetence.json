@@ -189,7 +189,9 @@
     },
     {
         "reference": "RealisationMicroCompetence_date_fin_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationMicroCompetence_date_fin",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -361,7 +363,9 @@
     },
     {
         "reference": "RealisationMicroCompetence_commentaire_formateur_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationMicroCompetence_commentaire_formateur",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -454,7 +458,9 @@
     },
     {
         "reference": "RealisationMicroCompetence_apprenant_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationMicroCompetence_apprenant_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -567,7 +573,9 @@
     },
     {
         "reference": "RealisationMicroCompetence_etat_realisation_micro_competence_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationMicroCompetence_etat_realisation_micro_competence_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -782,7 +790,9 @@
     },
     {
         "reference": "RealisationMicroCompetence_realisation_competence_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationMicroCompetence_realisation_competence_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -1003,7 +1013,9 @@
     },
     {
         "reference": "RealisationMicroCompetence_progression_ideal_cache_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationMicroCompetence_progression_ideal_cache",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -1051,7 +1063,9 @@
     },
     {
         "reference": "RealisationMicroCompetence_taux_rythme_cache_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "RealisationMicroCompetence_taux_rythme_cache",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },

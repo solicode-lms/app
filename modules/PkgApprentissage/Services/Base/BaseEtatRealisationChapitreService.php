@@ -33,6 +33,16 @@ class BaseEtatRealisationChapitreService extends BaseService
         'description'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

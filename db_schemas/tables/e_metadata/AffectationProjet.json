@@ -236,6 +236,7 @@
         "reference": "affectation_projets_displayInSideBar",
         "value_boolean": 0,
         "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_model_reference": "affectation_projets",
         "e_metadata_definition_reference": "displayInSideBar"
     },

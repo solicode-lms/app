@@ -10,7 +10,7 @@
                 <a href="{{ route('apprenantKonosies.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgApprenants/apprenantKonosies') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-id-badge"></i>
-                    {{__('PkgApprenants::apprenantKonosy.plural')}}
+                    <p>{{__('PkgApprenants::apprenantKonosy.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -19,7 +19,7 @@
                 <a href="{{ route('niveauxScolaires.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgApprenants/niveauxScolaires') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-award"></i>
-                    {{__('PkgApprenants::niveauxScolaire.plural')}}
+                    <p>{{__('PkgApprenants::niveauxScolaire.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -28,7 +28,7 @@
                 <a href="{{ route('nationalites.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgApprenants/nationalites') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-map-marked-alt"></i>
-                    {{__('PkgApprenants::nationalite.plural')}}
+                    <p>{{__('PkgApprenants::nationalite.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -37,7 +37,7 @@
                 <a href="{{ route('groupes.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgApprenants/groupes') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-users"></i>
-                    {{__('PkgApprenants::groupe.plural')}}
+                    <p>{{__('PkgApprenants::groupe.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -46,7 +46,7 @@
                 <a href="{{ route('apprenants.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgApprenants/apprenants') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-id-card"></i>
-                    {{__('PkgApprenants::apprenant.plural')}}
+                    <p>{{__('PkgApprenants::apprenant.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -55,7 +55,7 @@
                 <a href="{{ route('sousGroupes.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgApprenants/sousGroupes') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-user-friends"></i>
-                    {{__('PkgApprenants::sousGroupe.plural')}}
+                    <p>{{__('PkgApprenants::sousGroupe.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -74,7 +74,7 @@
             <li class="nav-item" id="menu-apprenantKonosies">
                 <a href="{{ route('apprenantKonosies.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/apprenantKonosies') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-id-badge"></i>
-                    {{__('PkgApprenants::apprenantKonosy.plural')}}
+                    <p>{{__('PkgApprenants::apprenantKonosy.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -82,7 +82,7 @@
             <li class="nav-item" id="menu-niveauxScolaires">
                 <a href="{{ route('niveauxScolaires.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/niveauxScolaires') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-award"></i>
-                    {{__('PkgApprenants::niveauxScolaire.plural')}}
+                    <p>{{__('PkgApprenants::niveauxScolaire.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -90,7 +90,7 @@
             <li class="nav-item" id="menu-nationalites">
                 <a href="{{ route('nationalites.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/nationalites') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-map-marked-alt"></i>
-                    {{__('PkgApprenants::nationalite.plural')}}
+                    <p>{{__('PkgApprenants::nationalite.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -98,7 +98,7 @@
             <li class="nav-item" id="menu-groupes">
                 <a href="{{ route('groupes.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/groupes') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-users"></i>
-                    {{__('PkgApprenants::groupe.plural')}}
+                    <p>{{__('PkgApprenants::groupe.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -106,7 +106,7 @@
             <li class="nav-item" id="menu-apprenants">
                 <a href="{{ route('apprenants.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/apprenants') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-id-card"></i>
-                    {{__('PkgApprenants::apprenant.plural')}}
+                    <p>{{__('PkgApprenants::apprenant.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -114,7 +114,7 @@
             <li class="nav-item" id="menu-sousGroupes">
                 <a href="{{ route('sousGroupes.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/sousGroupes') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-user-friends"></i>
-                    {{__('PkgApprenants::sousGroupe.plural')}}
+                    <p>{{__('PkgApprenants::sousGroupe.plural')}}</p>
                 </a>
             </li>
             @endcan

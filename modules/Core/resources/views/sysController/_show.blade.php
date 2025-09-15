@@ -57,7 +57,11 @@
                   <span class="badge badge-secondary">{{ __('Non') }}</span>
                   @endif                </div>
             </div>
-            @if(auth()->user()?->can('show-permission') || auth()->user()?->can('create-permission'))
+            @if(
+                  (auth()->user()?->can('show-permission') && $itemSysController->permissions->isNotEmpty())  
+                  || auth()->user()?->can('create-permission')
+                  || (auth()->user()?->can('edit-permission')  && $itemSysController->permissions->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgAutorisation::permission.plural')) }}</small>

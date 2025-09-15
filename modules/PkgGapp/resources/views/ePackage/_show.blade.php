@@ -25,7 +25,11 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            @if(auth()->user()?->can('show-eModel') || auth()->user()?->can('create-eModel'))
+            @if(
+                  (auth()->user()?->can('show-eModel') && $itemEPackage->eModels->isNotEmpty())  
+                  || auth()->user()?->can('create-eModel')
+                  || (auth()->user()?->can('edit-eModel')  && $itemEPackage->eModels->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgGapp::eModel.plural')) }}</small>

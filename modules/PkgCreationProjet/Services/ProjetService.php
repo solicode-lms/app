@@ -208,7 +208,7 @@ class ProjetService extends BaseProjetService
                 'titre' => $session->titre_prototype ? "Prototype : " . $session->titre_prototype  :  'Prototype',
             ],
             [
-                'description' => trim(($session->description_prototype ?? '') . "<br>" . ($session->contraintes_prototype ?? '')),
+                'description' => trim(($session->description_prototype ?? '') . "</br><b>Contraintes</b>" . ($session->contraintes_prototype ?? '')),
                 'priorite' => $priorite++,
                 'ordre' => $ordre++,
                 'phase_evaluation_id' => $phaseN2,
@@ -239,7 +239,7 @@ class ProjetService extends BaseProjetService
                 'titre' => 'Réalisation',
             ],
             [
-                'description' => 'Réalisation du projet',
+                'description' =>  trim(($session->description_projet ?? '')  . "</br><b>Contraintes</b>" . ($session->contraintes_projet ?? '')),
                 'priorite' => $priorite++,
                 'ordre' => $ordre++,
                 'phase_evaluation_id' => $phaseN3,

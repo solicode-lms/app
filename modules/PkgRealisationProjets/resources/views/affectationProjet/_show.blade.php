@@ -101,7 +101,11 @@
                   <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            @if(auth()->user()?->can('show-realisationProjet') || auth()->user()?->can('create-realisationProjet'))
+            @if(
+                  (auth()->user()?->can('show-realisationProjet') && $itemAffectationProjet->realisationProjets->isNotEmpty())  
+                  || auth()->user()?->can('create-realisationProjet')
+                  || (auth()->user()?->can('edit-realisationProjet')  && $itemAffectationProjet->realisationProjets->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::realisationProjet.plural')) }}</small>
@@ -122,7 +126,11 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            @if(auth()->user()?->can('show-tacheAffectation') || auth()->user()?->can('create-tacheAffectation'))
+            @if(
+                  (auth()->user()?->can('show-tacheAffectation') && $itemAffectationProjet->tacheAffectations->isNotEmpty())  
+                  || auth()->user()?->can('create-tacheAffectation')
+                  || (auth()->user()?->can('edit-tacheAffectation')  && $itemAffectationProjet->tacheAffectations->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::tacheAffectation.plural')) }}</small>

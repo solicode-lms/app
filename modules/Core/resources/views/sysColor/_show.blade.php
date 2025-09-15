@@ -26,7 +26,11 @@
     @endif
                 </div>
             </div>
-            @if(auth()->user()?->can('show-etatRealisationTache') || auth()->user()?->can('create-etatRealisationTache'))
+            @if(
+                  (auth()->user()?->can('show-etatRealisationTache') && $itemSysColor->etatRealisationTaches->isNotEmpty())  
+                  || auth()->user()?->can('create-etatRealisationTache')
+                  || (auth()->user()?->can('edit-etatRealisationTache')  && $itemSysColor->etatRealisationTaches->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::etatRealisationTache.plural')) }}</small>
@@ -37,7 +41,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-sysModel') || auth()->user()?->can('create-sysModel'))
+            @if(
+                  (auth()->user()?->can('show-sysModel') && $itemSysColor->sysModels->isNotEmpty())  
+                  || auth()->user()?->can('create-sysModel')
+                  || (auth()->user()?->can('edit-sysModel')  && $itemSysColor->sysModels->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('Core::sysModel.plural')) }}</small>
@@ -48,7 +56,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-etatEvaluationProjet') || auth()->user()?->can('create-etatEvaluationProjet'))
+            @if(
+                  (auth()->user()?->can('show-etatEvaluationProjet') && $itemSysColor->etatEvaluationProjets->isNotEmpty())  
+                  || auth()->user()?->can('create-etatEvaluationProjet')
+                  || (auth()->user()?->can('edit-etatEvaluationProjet')  && $itemSysColor->etatEvaluationProjets->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.plural')) }}</small>
@@ -59,7 +71,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-etatRealisationChapitre') || auth()->user()?->can('create-etatRealisationChapitre'))
+            @if(
+                  (auth()->user()?->can('show-etatRealisationChapitre') && $itemSysColor->etatRealisationChapitres->isNotEmpty())  
+                  || auth()->user()?->can('create-etatRealisationChapitre')
+                  || (auth()->user()?->can('edit-etatRealisationChapitre')  && $itemSysColor->etatRealisationChapitres->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::etatRealisationChapitre.plural')) }}</small>
@@ -70,7 +86,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-sysModule') || auth()->user()?->can('create-sysModule'))
+            @if(
+                  (auth()->user()?->can('show-sysModule') && $itemSysColor->sysModules->isNotEmpty())  
+                  || auth()->user()?->can('create-sysModule')
+                  || (auth()->user()?->can('edit-sysModule')  && $itemSysColor->sysModules->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('Core::sysModule.plural')) }}</small>
@@ -81,7 +101,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-etatRealisationCompetence') || auth()->user()?->can('create-etatRealisationCompetence'))
+            @if(
+                  (auth()->user()?->can('show-etatRealisationCompetence') && $itemSysColor->etatRealisationCompetences->isNotEmpty())  
+                  || auth()->user()?->can('create-etatRealisationCompetence')
+                  || (auth()->user()?->can('edit-etatRealisationCompetence')  && $itemSysColor->etatRealisationCompetences->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::etatRealisationCompetence.plural')) }}</small>
@@ -92,7 +116,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-etatRealisationMicroCompetence') || auth()->user()?->can('create-etatRealisationMicroCompetence'))
+            @if(
+                  (auth()->user()?->can('show-etatRealisationMicroCompetence') && $itemSysColor->etatRealisationMicroCompetences->isNotEmpty())  
+                  || auth()->user()?->can('create-etatRealisationMicroCompetence')
+                  || (auth()->user()?->can('edit-etatRealisationMicroCompetence')  && $itemSysColor->etatRealisationMicroCompetences->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::etatRealisationMicroCompetence.plural')) }}</small>
@@ -103,7 +131,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-etatsRealisationProjet') || auth()->user()?->can('create-etatsRealisationProjet'))
+            @if(
+                  (auth()->user()?->can('show-etatsRealisationProjet') && $itemSysColor->etatsRealisationProjets->isNotEmpty())  
+                  || auth()->user()?->can('create-etatsRealisationProjet')
+                  || (auth()->user()?->can('edit-etatsRealisationProjet')  && $itemSysColor->etatsRealisationProjets->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.plural')) }}</small>
@@ -114,7 +146,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-etatRealisationModule') || auth()->user()?->can('create-etatRealisationModule'))
+            @if(
+                  (auth()->user()?->can('show-etatRealisationModule') && $itemSysColor->etatRealisationModules->isNotEmpty())  
+                  || auth()->user()?->can('create-etatRealisationModule')
+                  || (auth()->user()?->can('edit-etatRealisationModule')  && $itemSysColor->etatRealisationModules->isNotEmpty() )
+                  )
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::etatRealisationModule.plural')) }}</small>
@@ -125,7 +161,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-etatRealisationUa') || auth()->user()?->can('create-etatRealisationUa'))
+            @if(
+                  (auth()->user()?->can('show-etatRealisationUa') && $itemSysColor->etatRealisationUas->isNotEmpty())  
+                  || auth()->user()?->can('create-etatRealisationUa')
+                  || (auth()->user()?->can('edit-etatRealisationUa')  && $itemSysColor->etatRealisationUas->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::etatRealisationUa.plural')) }}</small>
@@ -136,7 +176,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-sectionWidget') || auth()->user()?->can('create-sectionWidget'))
+            @if(
+                  (auth()->user()?->can('show-sectionWidget') && $itemSysColor->sectionWidgets->isNotEmpty())  
+                  || auth()->user()?->can('create-sectionWidget')
+                  || (auth()->user()?->can('edit-sectionWidget')  && $itemSysColor->sectionWidgets->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgWidgets::sectionWidget.plural')) }}</small>
@@ -147,7 +191,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-widget') || auth()->user()?->can('create-widget'))
+            @if(
+                  (auth()->user()?->can('show-widget') && $itemSysColor->widgets->isNotEmpty())  
+                  || auth()->user()?->can('create-widget')
+                  || (auth()->user()?->can('edit-widget')  && $itemSysColor->widgets->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgWidgets::widget.plural')) }}</small>
@@ -158,7 +206,11 @@
             </div>
             @endif
 
-            @if(auth()->user()?->can('show-workflowTache') || auth()->user()?->can('create-workflowTache'))
+            @if(
+                  (auth()->user()?->can('show-workflowTache') && $itemSysColor->workflowTaches->isNotEmpty())  
+                  || auth()->user()?->can('create-workflowTache')
+                  || (auth()->user()?->can('edit-workflowTache')  && $itemSysColor->workflowTaches->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::workflowTache.plural')) }}</small>

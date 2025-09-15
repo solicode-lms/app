@@ -41,6 +41,30 @@ class BaseRealisationMicroCompetenceService extends BaseService
         'taux_rythme_cache'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+          'micro_competence_id' => ['root'],
+          'apprenant_id' => ['root'],
+          'progression_cache' => ['root'],
+          'note_cache' => ['root'],
+          'etat_realisation_micro_competence_id' => ['root'],
+          'bareme_cache' => ['root'],
+          'RealisationUa' => ['root'],
+          'commentaire_formateur' => ['root'],
+          'date_debut' => ['root'],
+          'date_fin' => ['root'],
+          'dernier_update' => ['root'],
+          'realisation_competence_id' => ['root'],
+          'progression_ideal_cache' => ['root'],
+          'taux_rythme_cache' => ['root']
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

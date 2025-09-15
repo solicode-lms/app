@@ -117,7 +117,9 @@
     },
     {
         "reference": "etats_realisation_projets_displayInSideBar",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_model_reference": "etats_realisation_projets",
         "e_metadata_definition_reference": "displayInSideBar"
     },

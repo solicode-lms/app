@@ -38,6 +38,22 @@ class ProfileService extends BaseProfileService
                         'old_password' => ['L’ancien mot de passe est incorrect.']
                     ]);
                 }
+
+                 // Interdiction de "12345678"
+                if (trim((string)$data['password']) === '12345678') {
+                    throw ValidationException::withMessages([
+                        'password' => ['Le nouveau mot de passe ne peut pas être "12345678".']
+                    ]);
+                }
+
+
+                // (Optionnel) empêcher de remettre le même que l’actuel
+                if (Hash::check($data['password'], $user->password)) {
+                    throw ValidationException::withMessages([
+                        'password' => ['Le nouveau mot de passe ne doit pas être identique à l’actuel.']
+                    ]);
+                }
+
                 // Modifier le mot de passe si l'ancien est correct
                 $user->password = Hash::make($data["password"]);
                 $user->must_change_password = false; // Désactiver l'obligation de changement après modification

@@ -71,7 +71,7 @@
                         <x-action-button :entity="$sessionFormation" actionName="show">
                         @if($sessionFormations_permissionsByItem['view'][$sessionFormation->id])
                             <a href="{{ route('sessionFormations.show', ['sessionFormation' => $sessionFormation->id]) }}" data-id="{{$sessionFormation->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

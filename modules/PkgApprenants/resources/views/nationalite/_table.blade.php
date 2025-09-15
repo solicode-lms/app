@@ -43,7 +43,7 @@
                         <x-action-button :entity="$nationalite" actionName="show">
                         @if($nationalites_permissionsByItem['view'][$nationalite->id])
                             <a href="{{ route('nationalites.show', ['nationalite' => $nationalite->id]) }}" data-id="{{$nationalite->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>

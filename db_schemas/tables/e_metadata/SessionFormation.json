@@ -213,7 +213,9 @@
     },
     {
         "reference": "SessionFormation_ordre_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "SessionFormation_ordre",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -256,7 +258,9 @@
     },
     {
         "reference": "SessionFormation_date_debut_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "SessionFormation_date_debut",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -299,7 +303,9 @@
     },
     {
         "reference": "SessionFormation_date_fin_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "SessionFormation_date_fin",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -335,7 +341,9 @@
     },
     {
         "reference": "SessionFormation_jour_feries_vacances_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "SessionFormation_jour_feries_vacances",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -371,7 +379,9 @@
     },
     {
         "reference": "SessionFormation_thematique_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "SessionFormation_thematique",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -738,7 +748,9 @@
     },
     {
         "reference": "SessionFormation_filiere_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "SessionFormation_filiere_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -781,13 +793,17 @@
     },
     {
         "reference": "SessionFormation_annee_formation_id_viewFormFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "SessionFormation_annee_formation_id",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
         "reference": "SessionFormation_annee_formation_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "SessionFormation_annee_formation_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -877,7 +893,10 @@
     },
     {
         "reference": "session_formations_hasMany_alignement_uas_session_formation_id_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "session_formations_hasMany_alignement_uas_session_formation_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -1017,8 +1036,127 @@
     },
     {
         "reference": "SessionFormation_code_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
         "e_data_field_reference": "SessionFormation_code",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "session_formations_viewFormGroups",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "Projet": {
+                "label": "Projet",
+                "order": 3
+            },
+            "Prototype": {
+                "label": "Prototype",
+                "order": 2
+            },
+            "Objectifs pédagogiques": {
+                "label": "Objectifs pédagogiques",
+                "order": 4
+            },
+            "Informations générales": {
+                "label": "Informations générales",
+                "order": 1
+            }
+        },
+        "e_model_reference": "session_formations",
+        "e_metadata_definition_reference": "viewFormGroups"
+    },
+    {
+        "reference": "SessionFormation_titre_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Informations générales",
+        "value_float": 0,
+        "e_data_field_reference": "SessionFormation_titre",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "SessionFormation_titre_prototype_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Prototype",
+        "value_float": 0,
+        "e_data_field_reference": "SessionFormation_titre_prototype",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "SessionFormation_description_prototype_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Prototype",
+        "value_float": 0,
+        "e_data_field_reference": "SessionFormation_description_prototype",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "SessionFormation_contraintes_prototype_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Prototype",
+        "value_float": 0,
+        "e_data_field_reference": "SessionFormation_contraintes_prototype",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "SessionFormation_titre_projet_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Projet",
+        "value_float": 0,
+        "e_data_field_reference": "SessionFormation_titre_projet",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "SessionFormation_description_projet_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Projet",
+        "value_float": 0,
+        "e_data_field_reference": "SessionFormation_description_projet",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "SessionFormation_contraintes_projet_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Projet",
+        "value_float": 0,
+        "e_data_field_reference": "SessionFormation_contraintes_projet",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "SessionFormation_objectifs_pedagogique_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Objectifs pédagogiques",
+        "value_float": 0,
+        "e_data_field_reference": "SessionFormation_objectifs_pedagogique",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "session_formations_hasMany_alignement_uas_session_formation_id_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Objectifs pédagogiques",
+        "value_float": 0,
+        "value_json": {
+            "group_basic": {
+                "label": "Infos de base",
+                "order": 10,
+                "section": "tab_details"
+            },
+            "group_extra": {
+                "label": "Infos complémentaires",
+                "order": 20,
+                "section": "tab_details"
+            }
+        },
+        "e_data_field_reference": "session_formations_hasMany_alignement_uas_session_formation_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "SessionFormation_remarques_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Informations générales",
+        "value_float": 0,
+        "e_data_field_reference": "SessionFormation_remarques",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     }
 ]

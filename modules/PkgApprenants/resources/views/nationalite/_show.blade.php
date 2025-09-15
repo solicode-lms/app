@@ -36,7 +36,11 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            @if(auth()->user()?->can('show-apprenant') || auth()->user()?->can('create-apprenant'))
+            @if(
+                  (auth()->user()?->can('show-apprenant') && $itemNationalite->apprenants->isNotEmpty())  
+                  || auth()->user()?->can('create-apprenant')
+                  || (auth()->user()?->can('edit-apprenant')  && $itemNationalite->apprenants->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprenants::apprenant.plural')) }}</small>

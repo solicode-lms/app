@@ -70,7 +70,11 @@
 
                 </div>
             </div>
-            @if(auth()->user()?->can('show-widget') || auth()->user()?->can('create-widget'))
+            @if(
+                  (auth()->user()?->can('show-widget') && $itemSysModel->widgets->isNotEmpty())  
+                  || auth()->user()?->can('create-widget')
+                  || (auth()->user()?->can('edit-widget')  && $itemSysModel->widgets->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgWidgets::widget.plural')) }}</small>

@@ -38,6 +38,16 @@ class BaseWidgetService extends BaseService
         'parameters'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

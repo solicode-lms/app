@@ -39,6 +39,16 @@ class BaseEMetadatumService extends BaseService
         'e_metadata_definition_id'
     ];
 
+
+
+    public function editableFieldsByRoles(): array
+    {
+        return [
+        
+        ];
+    }
+
+
     /**
      * Renvoie les champs de recherche disponibles.
      *

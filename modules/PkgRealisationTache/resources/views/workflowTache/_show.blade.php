@@ -74,7 +74,11 @@
                   @endif
                 </div>
             </div>
-            @if(auth()->user()?->can('show-etatRealisationTache') || auth()->user()?->can('create-etatRealisationTache'))
+            @if(
+                  (auth()->user()?->can('show-etatRealisationTache') && $itemWorkflowTache->etatRealisationTaches->isNotEmpty())  
+                  || auth()->user()?->can('create-etatRealisationTache')
+                  || (auth()->user()?->can('edit-etatRealisationTache')  && $itemWorkflowTache->etatRealisationTaches->isNotEmpty() )
+                  )
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::etatRealisationTache.plural')) }}</small>

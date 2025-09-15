@@ -1,25 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-etatsRealisationProjet', 'index-realisationProjet'])
+@accessiblePermissions(['index-realisationProjet'])
 @if($accessiblePermissions->isNotEmpty())
     @if($accessiblePermissions->count() === 1)
         {{-- Cas d’un seul élément accessible --}}
-            @can('index-etatsRealisationProjet')
-            <li class="nav-item" id="menu-etatsRealisationProjets">
-                <a href="{{ route('etatsRealisationProjets.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgRealisationProjets/etatsRealisationProjets') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-check"></i>
-                    {{__('PkgRealisationProjets::etatsRealisationProjet.plural')}}
-                </a>
-            </li>
-            @endcan
             @can('index-realisationProjet')
             <li class="nav-item" id="menu-realisationProjets">
                 <a href="{{ route('realisationProjets.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgRealisationProjets/realisationProjets') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-laptop"></i>
-                    {{__('PkgRealisationProjets::realisationProjet.plural')}}
+                    <p>{{__('PkgRealisationProjets::realisationProjet.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -34,19 +25,11 @@
             </p>
         </a>
         <ul class="nav nav-treeview">
-            @can('index-etatsRealisationProjet') 
-            <li class="nav-item" id="menu-etatsRealisationProjets">
-                <a href="{{ route('etatsRealisationProjets.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationProjets/etatsRealisationProjets') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-check"></i>
-                    {{__('PkgRealisationProjets::etatsRealisationProjet.plural')}}
-                </a>
-            </li>
-            @endcan
             @can('index-realisationProjet') 
             <li class="nav-item" id="menu-realisationProjets">
                 <a href="{{ route('realisationProjets.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationProjets/realisationProjets') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-laptop"></i>
-                    {{__('PkgRealisationProjets::realisationProjet.plural')}}
+                    <p>{{__('PkgRealisationProjets::realisationProjet.plural')}}</p>
                 </a>
             </li>
             @endcan

@@ -29,42 +29,22 @@
     
 
     
+      <h5 class="debut-groupe-title text-info">{{ __('Informations générales') }}</h5>
+      <hr class="debut-groupe-hr">
+    
     <div class="row">
-        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="ordre" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-2">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="ordre">
-            {{ ucfirst(__('PkgSessions::sessionFormation.ordre')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <input
-                name="ordre"
-                type="number"
-                class="form-control"
-                required
-                
-                
-                id="ordre"
-                placeholder="{{ __('PkgSessions::sessionFormation.ordre') }}"
-                value="{{ $itemSessionFormation ? $itemSessionFormation->ordre : old('ordre') }}">
-          @error('ordre')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="titre" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="titre" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-10">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="titre" id="bulk_field_titre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="titre" 
+              id="bulk_field_titre" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="titre">
@@ -88,131 +68,61 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="code" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="code" id="bulk_field_code" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="code">
-            {{ ucfirst(__('PkgSessions::sessionFormation.code')) }}
-            
-          </label>
-           <input
-                name="code"
-                type="input"
-                class="form-control"
-                
-                
-                
-                id="code"
-                placeholder="{{ __('PkgSessions::sessionFormation.code') }}"
-                value="{{ $itemSessionFormation ? $itemSessionFormation->code : old('code') }}">
-          @error('code')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="thematique" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="thematique" id="bulk_field_thematique" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="thematique">
-            {{ ucfirst(__('PkgSessions::sessionFormation.thematique')) }}
-            
-          </label>
-           <input
-                name="thematique"
-                type="input"
-                class="form-control"
-                
-                
-                
-                id="thematique"
-                placeholder="{{ __('PkgSessions::sessionFormation.thematique') }}"
-                value="{{ $itemSessionFormation ? $itemSessionFormation->thematique : old('thematique') }}">
-          @error('thematique')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="filiere_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="filiere_id" id="bulk_field_filiere_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="filiere_id">
-            {{ ucfirst(__('PkgFormation::filiere.singular')) }}
-            
-          </label>
-                      <select 
-            id="filiere_id" 
-            
-            
-            
-            name="filiere_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($filieres as $filiere)
-                    <option value="{{ $filiere->id }}"
-                        {{ (isset($itemSessionFormation) && $itemSessionFormation->filiere_id == $filiere->id) || (old('filiere_id>') == $filiere->id) ? 'selected' : '' }}>
-                        {{ $filiere }}
-                    </option>
-                @endforeach
-            </select>
-          @error('filiere_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="objectifs_pedagogique" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="remarques" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="objectifs_pedagogique" id="bulk_field_objectifs_pedagogique" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="remarques" 
+              id="bulk_field_remarques" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="objectifs_pedagogique">
-            {{ ucfirst(__('PkgSessions::sessionFormation.objectifs_pedagogique')) }}
-            <span class="text-danger">*</span>
+          <label for="remarques">
+            {{ ucfirst(__('PkgSessions::sessionFormation.remarques')) }}
+            
           </label>
                       <textarea rows="" cols=""
-                name="objectifs_pedagogique"
+                name="remarques"
                 class="form-control richText"
-                required
                 
                 
-                id="objectifs_pedagogique"
-                placeholder="{{ __('PkgSessions::sessionFormation.objectifs_pedagogique') }}">{{ $itemSessionFormation ? $itemSessionFormation->objectifs_pedagogique : old('objectifs_pedagogique') }}</textarea>
-          @error('objectifs_pedagogique')
+                
+                id="remarques"
+                placeholder="{{ __('PkgSessions::sessionFormation.remarques') }}">{{ $itemSessionFormation ? $itemSessionFormation->remarques : old('remarques') }}</textarea>
+          @error('remarques')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="titre_prototype" :bulkEdit="$bulkEdit">
+
+    </div>
+  
+    
+
+    
+      <h5 class="debut-groupe-title text-info">{{ __('Prototype') }}</h5>
+      <hr class="debut-groupe-hr">
+    
+    <div class="row">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="titre_prototype" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="titre_prototype" id="bulk_field_titre_prototype" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="titre_prototype" 
+              id="bulk_field_titre_prototype" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="titre_prototype">
@@ -241,7 +151,13 @@
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description_prototype" id="bulk_field_description_prototype" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="description_prototype" 
+              id="bulk_field_description_prototype" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="description_prototype">
@@ -268,7 +184,13 @@
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="contraintes_prototype" id="bulk_field_contraintes_prototype" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="contraintes_prototype" 
+              id="bulk_field_contraintes_prototype" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="contraintes_prototype">
@@ -290,12 +212,28 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="titre_projet" :bulkEdit="$bulkEdit">
+
+    </div>
+  
+    
+
+    
+      <h5 class="debut-groupe-title text-info">{{ __('Projet') }}</h5>
+      <hr class="debut-groupe-hr">
+    
+    <div class="row">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="titre_projet" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="titre_projet" id="bulk_field_titre_projet" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="titre_projet" 
+              id="bulk_field_titre_projet" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="titre_projet">
@@ -324,7 +262,13 @@
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description_projet" id="bulk_field_description_projet" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="description_projet" 
+              id="bulk_field_description_projet" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="description_projet">
@@ -351,7 +295,13 @@
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="contraintes_projet" id="bulk_field_contraintes_projet" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="contraintes_projet" 
+              id="bulk_field_contraintes_projet" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="contraintes_projet">
@@ -373,27 +323,195 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="remarques" :bulkEdit="$bulkEdit">
+
+    </div>
+  
+    
+
+    
+      <h5 class="debut-groupe-title text-info">{{ __('Objectifs pédagogiques') }}</h5>
+      <hr class="debut-groupe-hr">
+    
+    <div class="row">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="objectifs_pedagogique" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques" id="bulk_field_remarques" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="objectifs_pedagogique" 
+              id="bulk_field_objectifs_pedagogique" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="remarques">
-            {{ ucfirst(__('PkgSessions::sessionFormation.remarques')) }}
-            
+          <label for="objectifs_pedagogique">
+            {{ ucfirst(__('PkgSessions::sessionFormation.objectifs_pedagogique')) }}
+            <span class="text-danger">*</span>
           </label>
                       <textarea rows="" cols=""
-                name="remarques"
+                name="objectifs_pedagogique"
                 class="form-control richText"
+                required
+                
+                
+                id="objectifs_pedagogique"
+                placeholder="{{ __('PkgSessions::sessionFormation.objectifs_pedagogique') }}">{{ $itemSessionFormation ? $itemSessionFormation->objectifs_pedagogique : old('objectifs_pedagogique') }}</textarea>
+          @error('objectifs_pedagogique')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+
+    </div>
+  
+    
+
+    
+    <div class="row">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="ordre" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-2">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="ordre" 
+              id="bulk_field_ordre" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="ordre">
+            {{ ucfirst(__('PkgSessions::sessionFormation.ordre')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
+                name="ordre"
+                type="number"
+                class="form-control"
+                required
+                
+                
+                id="ordre"
+                placeholder="{{ __('PkgSessions::sessionFormation.ordre') }}"
+                value="{{ $itemSessionFormation ? $itemSessionFormation->ordre : old('ordre') }}">
+          @error('ordre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="code" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="code" 
+              id="bulk_field_code" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="code">
+            {{ ucfirst(__('PkgSessions::sessionFormation.code')) }}
+            
+          </label>
+           <input
+                name="code"
+                type="input"
+                class="form-control"
                 
                 
                 
-                id="remarques"
-                placeholder="{{ __('PkgSessions::sessionFormation.remarques') }}">{{ $itemSessionFormation ? $itemSessionFormation->remarques : old('remarques') }}</textarea>
-          @error('remarques')
+                id="code"
+                placeholder="{{ __('PkgSessions::sessionFormation.code') }}"
+                value="{{ $itemSessionFormation ? $itemSessionFormation->code : old('code') }}">
+          @error('code')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="thematique" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="thematique" 
+              id="bulk_field_thematique" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="thematique">
+            {{ ucfirst(__('PkgSessions::sessionFormation.thematique')) }}
+            
+          </label>
+           <input
+                name="thematique"
+                type="input"
+                class="form-control"
+                
+                
+                
+                id="thematique"
+                placeholder="{{ __('PkgSessions::sessionFormation.thematique') }}"
+                value="{{ $itemSessionFormation ? $itemSessionFormation->thematique : old('thematique') }}">
+          @error('thematique')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSessionFormation" field="filiere_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="filiere_id" 
+              id="bulk_field_filiere_id" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="filiere_id">
+            {{ ucfirst(__('PkgFormation::filiere.singular')) }}
+            
+          </label>
+                      <select 
+            id="filiere_id" 
+            
+            
+            
+            name="filiere_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($filieres as $filiere)
+                    <option value="{{ $filiere->id }}"
+                        {{ (isset($itemSessionFormation) && $itemSessionFormation->filiere_id == $filiere->id) || (old('filiere_id>') == $filiere->id) ? 'selected' : '' }}>
+                        {{ $filiere }}
+                    </option>
+                @endforeach
+            </select>
+          @error('filiere_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -405,7 +523,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_debut" id="bulk_field_date_debut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="date_debut" 
+              id="bulk_field_date_debut" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="date_debut">
@@ -435,7 +559,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_fin" id="bulk_field_date_fin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="date_fin" 
+              id="bulk_field_date_fin" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="date_fin">
@@ -465,7 +595,13 @@
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="jour_feries_vacances" id="bulk_field_jour_feries_vacances" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="jour_feries_vacances" 
+              id="bulk_field_jour_feries_vacances" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="jour_feries_vacances">
@@ -492,7 +628,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="annee_formation_id" id="bulk_field_annee_formation_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="annee_formation_id" 
+              id="bulk_field_annee_formation_id" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="annee_formation_id">
