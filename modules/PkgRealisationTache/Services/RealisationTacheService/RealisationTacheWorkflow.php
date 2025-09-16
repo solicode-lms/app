@@ -72,6 +72,22 @@ trait RealisationTacheWorkflow
         }
     }
 
+
+
+    // Helper pour normaliser une remarque
+    public function normalizeRemarque(?string $value): ?string
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        // Supprimer balises HTML et espaces
+        $clean = trim(strip_tags($value));
+
+        // Si vide après nettoyage, on retourne null
+        return $clean === '' ? null : $value;
+    }
+
     /**
      * Met à jour l’état de la tâche si une remarque formateur est ajoutée ou modifiée
      */
@@ -85,9 +101,18 @@ trait RealisationTacheWorkflow
             return;
         }
 
-        if ($record->remarques_formateur === $data['remarques_formateur']) {
+        // if ($record->remarques_formateur === $data['remarques_formateur']) {
+        //     return;
+        // }
+
+        // Utilisation
+        $current = $this->normalizeRemarque($record->remarques_formateur);
+        $incoming = $this->normalizeRemarque($data['remarques_formateur'] ?? null);
+        if ($current === $incoming) {
             return;
         }
+
+
 
         if ($record->etatRealisationTache?->reference === 'REVISION_NECESSAIRE') {
             return;
