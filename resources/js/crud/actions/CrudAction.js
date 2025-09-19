@@ -67,6 +67,7 @@ export class CrudAction extends Action {
 
                     } else if (status.startsWith('error')) {
                         if (loader) loader.hide();
+                        console.log(res);
                         NotificationHandler.showError('❌ Erreur traitement : ' + messageError);
                         this.tableUI.loadListAction.loadEntities();
                     } else {

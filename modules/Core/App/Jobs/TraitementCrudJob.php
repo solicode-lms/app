@@ -69,7 +69,7 @@ class TraitementCrudJob implements ShouldQueue
         } catch (\Throwable $e) {
             Cache::put("traitement.{$this->token}.status", 'error', 3600);
             Cache::put("traitement.{$this->token}.messageError", $e->getMessage(), 3600);
-
+            throw $e;
           
         }
     }

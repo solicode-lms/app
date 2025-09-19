@@ -2,6 +2,8 @@
 
 
 namespace Modules\PkgRealisationProjets\Models;
+
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Modules\PkgRealisationProjets\Models\Base\BaseRealisationProjet;
 
 class RealisationProjet extends BaseRealisationProjet
@@ -18,6 +20,16 @@ class RealisationProjet extends BaseRealisationProjet
         return ($this->affectationProjet ?? "") . "-" . ($this->apprenant ?? "") ;
     }
 
+
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope('apprenant_actif', function (Builder $builder) {
+            $builder->whereHas('apprenant', function ($q) {
+                $q->where('actif', true); 
+            });
+        });
+    }
 
     /**
      * Calcule la note recalibrée selon l’échelle cible définie sur l’affectation.
