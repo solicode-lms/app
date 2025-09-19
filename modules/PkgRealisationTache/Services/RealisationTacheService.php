@@ -83,10 +83,36 @@ class RealisationTacheService extends BaseRealisationTacheService
         // Ajouter dans $baseData
         $baseData['revisionsBeforePriorityGrouped'] = $revisionsGrouped;
 
-        // ⚡️ L'ajouter aussi dans le compact_value pour qu'il soit disponible dans Blade
+        
+     
+
+
+
+        // --- Nouveau : toutes les RT des mêmes projets (pour trouver la précédente par ordre-1)
+        $previousTasksGrouped = RealisationTache::query()
+            ->whereIn('realisation_projet_id', $realisationTaches->pluck('realisation_projet_id'))
+            ->with([
+                // on a besoin de l'ordre/priorité pour comparer
+                'tache',
+                'etatRealisationTache.workflowTache',
+            ])
+            ->get()
+            ->groupBy('realisation_projet_id');
+
+        $baseData['previousTasksGrouped'] = $previousTasksGrouped;
+
+
+        // Dispo dans Blade via compact_value
         if (isset($baseData['realisationTache_compact_value']) && is_array($baseData['realisationTache_compact_value'])) {
             $baseData['realisationTache_compact_value']['revisionsBeforePriorityGrouped'] = $revisionsGrouped;
+            $baseData['realisationTache_compact_value']['previousTasksGrouped'] = $previousTasksGrouped;
         }
+
+
+        //   // Dispo dans Blade via compact_value
+        // if (isset($baseData['realisationTache_compact_value']) && is_array($baseData['realisationTache_compact_value'])) {
+        //     $baseData['realisationTache_compact_value']['revisionsBeforePriorityGrouped'] = $revisionsGrouped;
+        // }
 
         return $baseData;
     }

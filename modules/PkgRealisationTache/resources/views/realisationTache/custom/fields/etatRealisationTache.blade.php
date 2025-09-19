@@ -30,6 +30,18 @@
         </span>
     @endforeach
 
+
+
+
+
+    
+
+
+
+
+
+
+
     {{-- Note --}}
     @if(!is_null($entity->note))
         <span class="etat-meta" title="Note : {{ $entity->note }}" data-toggle="tooltip">
@@ -56,6 +68,37 @@
 
         <span class="etat-meta" title="Progression de la classe" data-toggle="tooltip">
             <i class="{{ $icone }}"></i> {{ $progression }}% réalisés par la classe
+        </span>
+    @endif
+
+
+
+    {{-- État de la tâche précédente (ordre courant - 1) --}}
+   
+    @php
+        $ordreCourant = $entity->tache->ordre ?? null;
+        
+       
+        $rtPrecedente = $ordreCourant
+            ? ($previousTasksGrouped[$entity->realisation_projet_id] ?? collect())
+                ->first(function ($rt) use ($ordreCourant) {
+                    // même RP donc même projet ; on matche juste sur l'ordre
+                    return $rt->tache?->ordre === ($ordreCourant - 1);
+                })
+            : null;
+      
+        $etatPrec = $rtPrecedente->etatRealisationTache->nom ?? null;
+    @endphp
+ 
+    @if($rtPrecedente)
+        <span class="etat-meta" data-toggle="tooltip" title="Tâche précédente : {{ $rtPrecedente->tache ?? '' }}">
+           
+            {{-- Flèche gauche si état précèdent n'est pas approved --}}
+            {{-- Icône check si état = approved --}}
+            {{-- <i class="fas fa-check"></i> --}}
+            <i class="fas fa-arrow-left"></i>
+         
+            {{ $etatPrec ?? '—' }}
         </span>
     @endif
 

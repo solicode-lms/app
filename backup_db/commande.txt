@@ -1,0 +1,18 @@
+
+```bash
+[System.Text.Encoding]::Default
+$OutputEncoding = [System.Text.Encoding]::UTF8
+
+Get-Content .\solilms-2025_17_09_25.sql -Raw -Encoding UTF8 | mysql -u root -p solicode_lms
+```
+
+Pour supprimer tous les tables 
+
+````
+php artisan db:wipe
+````
+
+
+## Sur ubuntu 
+
+mysql -u root -p --default-character-set=utf8 solicode_lms < sauvegarde_30_06_25.sql
