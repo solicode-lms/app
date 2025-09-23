@@ -6,7 +6,8 @@
  
 <div class="projet-section mt-2">
     <ul class="list-unstyled m-0">
-        @forelse($entity->realisationUa->realisationChapitres->sortBy('chapitre.ordre') as $rc)
+
+@forelse($entity->realisationUa->realisationChapitres->sortBy('chapitre.ordre') as $rc)
             
         
         
@@ -25,6 +26,7 @@
 
                 @php
                     $raw   = optional($rc->realisationTache)->remarques_formateur;
+                    $is_live_coding = optional($rc->realisationTache)->is_live_coding;
                     $plain = trim(strip_tags($raw ?? ''));
                 @endphp
 
@@ -50,12 +52,24 @@
                     @endif
                 </small>
 
+              
                 <div id="{{ $collapseId }}" class="collapse mt-1">
                     <div class="commentaire-content border rounded p-2">
                         {!! $raw !!}
                     </div>
                 </div>
             @endif
+
+             
+               
+                @if($rc->realisationTache?->is_live_coding)
+              
+                <section class="tache-infos">
+                    <span class="tache-badge-live">
+                        <i class="fas fa-code"></i> Live coding
+                    </span>
+                </section>
+                @endif
         </div>
     </div>
      <div class="etat-line w-100 mb-2">
