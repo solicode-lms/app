@@ -35,7 +35,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="tache_id" id="bulk_field_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="tache_id" 
+              id="bulk_field_tache_id" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="tache_id">
@@ -69,7 +75,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="affectation_projet_id" id="bulk_field_affectation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="affectation_projet_id" 
+              id="bulk_field_affectation_projet_id" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="affectation_projet_id">
@@ -103,7 +115,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="pourcentage_realisation_cache" id="bulk_field_pourcentage_realisation_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="pourcentage_realisation_cache" 
+              id="bulk_field_pourcentage_realisation_cache" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="pourcentage_realisation_cache">
@@ -133,7 +151,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="apprenant_live_coding_cache" id="bulk_field_apprenant_live_coding_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="apprenant_live_coding_cache" 
+              id="bulk_field_apprenant_live_coding_cache" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="apprenant_live_coding_cache">

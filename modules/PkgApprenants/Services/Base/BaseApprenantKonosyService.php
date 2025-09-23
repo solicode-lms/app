@@ -288,7 +288,7 @@ class BaseApprenantKonosyService extends BaseService
     /**
     * Liste des champs autorisés à l’édition inline
     */
-    public function getFieldsEditable(): array
+    public function getInlineFieldsEditable(): array
     {
         return [
             'Nom'
@@ -316,7 +316,7 @@ class BaseApprenantKonosyService extends BaseService
             'entity'         => 'apprenant_konosy',
             'id'             => $e->id,
             'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'writable'       => in_array($field, $this->getInlineFieldsEditable()),
             'etag'           => $this->etag($e),
             'schema_version' => 'v1',
             'html_attrs'     => $htmlAttrs,
@@ -336,7 +336,7 @@ class BaseApprenantKonosyService extends BaseService
      */
     public function applyInlinePatch(ApprenantKonosy $e, array $changes): ApprenantKonosy
     {
-        $allowed = $this->getFieldsEditable();
+        $allowed = $this->getInlineFieldsEditable();
         $filtered = Arr::only($changes, $allowed);
 
         if (empty($filtered)) {

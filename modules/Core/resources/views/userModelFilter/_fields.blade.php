@@ -35,7 +35,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="user_id" id="bulk_field_user_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="user_id" 
+              id="bulk_field_user_id" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="user_id">
@@ -69,7 +75,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="model_name" id="bulk_field_model_name" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="model_name" 
+              id="bulk_field_model_name" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="model_name">
@@ -98,7 +110,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="context_key" id="bulk_field_context_key" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="context_key" 
+              id="bulk_field_context_key" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="context_key">
@@ -127,7 +145,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="filters" id="bulk_field_filters" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="filters" 
+              id="bulk_field_filters" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="filters">

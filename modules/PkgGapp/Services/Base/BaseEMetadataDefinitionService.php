@@ -284,7 +284,7 @@ class BaseEMetadataDefinitionService extends BaseService
     /**
     * Liste des champs autorisés à l’édition inline
     */
-    public function getFieldsEditable(): array
+    public function getInlineFieldsEditable(): array
     {
         return [
             'name',
@@ -314,7 +314,7 @@ class BaseEMetadataDefinitionService extends BaseService
             'entity'         => 'e_metadata_definition',
             'id'             => $e->id,
             'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'writable'       => in_array($field, $this->getInlineFieldsEditable()),
             'etag'           => $this->etag($e),
             'schema_version' => 'v1',
             'html_attrs'     => $htmlAttrs,
@@ -339,7 +339,7 @@ class BaseEMetadataDefinitionService extends BaseService
      */
     public function applyInlinePatch(EMetadataDefinition $e, array $changes): EMetadataDefinition
     {
-        $allowed = $this->getFieldsEditable();
+        $allowed = $this->getInlineFieldsEditable();
         $filtered = Arr::only($changes, $allowed);
 
         if (empty($filtered)) {

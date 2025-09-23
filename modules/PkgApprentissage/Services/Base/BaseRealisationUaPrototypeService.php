@@ -315,7 +315,7 @@ class BaseRealisationUaPrototypeService extends BaseService
     /**
     * Liste des champs autorisés à l’édition inline
     */
-    public function getFieldsEditable(): array
+    public function getInlineFieldsEditable(): array
     {
         return [
             'realisation_tache_id',
@@ -345,7 +345,7 @@ class BaseRealisationUaPrototypeService extends BaseService
             'entity'         => 'realisation_ua_prototype',
             'id'             => $e->id,
             'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'writable'       => in_array($field, $this->getInlineFieldsEditable()),
             'etag'           => $this->etag($e),
             'schema_version' => 'v1',
             'html_attrs'     => $htmlAttrs,
@@ -385,7 +385,7 @@ class BaseRealisationUaPrototypeService extends BaseService
      */
     public function applyInlinePatch(RealisationUaPrototype $e, array $changes): RealisationUaPrototype
     {
-        $allowed = $this->getFieldsEditable();
+        $allowed = $this->getInlineFieldsEditable();
         $filtered = Arr::only($changes, $allowed);
 
         if (empty($filtered)) {

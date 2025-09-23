@@ -272,7 +272,7 @@ class BaseFiliereService extends BaseService
     /**
     * Liste des champs autorisés à l’édition inline
     */
-    public function getFieldsEditable(): array
+    public function getInlineFieldsEditable(): array
     {
         return [
             'code',
@@ -301,7 +301,7 @@ class BaseFiliereService extends BaseService
             'entity'         => 'filiere',
             'id'             => $e->id,
             'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'writable'       => in_array($field, $this->getInlineFieldsEditable()),
             'etag'           => $this->etag($e),
             'schema_version' => 'v1',
             'html_attrs'     => $htmlAttrs,
@@ -323,7 +323,7 @@ class BaseFiliereService extends BaseService
      */
     public function applyInlinePatch(Filiere $e, array $changes): Filiere
     {
-        $allowed = $this->getFieldsEditable();
+        $allowed = $this->getInlineFieldsEditable();
         $filtered = Arr::only($changes, $allowed);
 
         if (empty($filtered)) {

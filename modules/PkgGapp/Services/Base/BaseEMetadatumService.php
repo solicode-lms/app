@@ -332,7 +332,7 @@ class BaseEMetadatumService extends BaseService
     /**
     * Liste des champs autorisés à l’édition inline
     */
-    public function getFieldsEditable(): array
+    public function getInlineFieldsEditable(): array
     {
         return [
             'e_model_id',
@@ -362,7 +362,7 @@ class BaseEMetadatumService extends BaseService
             'entity'         => 'e_metadatum',
             'id'             => $e->id,
             'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'writable'       => in_array($field, $this->getInlineFieldsEditable()),
             'etag'           => $this->etag($e),
             'schema_version' => 'v1',
             'html_attrs'     => $htmlAttrs,
@@ -428,7 +428,7 @@ class BaseEMetadatumService extends BaseService
      */
     public function applyInlinePatch(EMetadatum $e, array $changes): EMetadatum
     {
-        $allowed = $this->getFieldsEditable();
+        $allowed = $this->getInlineFieldsEditable();
         $filtered = Arr::only($changes, $allowed);
 
         if (empty($filtered)) {

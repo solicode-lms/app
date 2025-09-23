@@ -35,7 +35,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="MatriculeEtudiant" id="bulk_field_MatriculeEtudiant" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="MatriculeEtudiant" 
+              id="bulk_field_MatriculeEtudiant" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="MatriculeEtudiant">
@@ -64,7 +70,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="Nom" id="bulk_field_Nom" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="Nom" 
+              id="bulk_field_Nom" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="Nom">
@@ -93,7 +105,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="Prenom" id="bulk_field_Prenom" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="Prenom" 
+              id="bulk_field_Prenom" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="Prenom">
@@ -122,7 +140,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="Sexe" id="bulk_field_Sexe" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="Sexe" 
+              id="bulk_field_Sexe" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="Sexe">
@@ -151,7 +175,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="EtudiantActif" id="bulk_field_EtudiantActif" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="EtudiantActif" 
+              id="bulk_field_EtudiantActif" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="EtudiantActif">
@@ -180,7 +210,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="Diplome" id="bulk_field_Diplome" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="Diplome" 
+              id="bulk_field_Diplome" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="Diplome">
@@ -209,7 +245,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="Principale" id="bulk_field_Principale" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="Principale" 
+              id="bulk_field_Principale" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="Principale">
@@ -238,7 +280,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="LibelleLong" id="bulk_field_LibelleLong" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="LibelleLong" 
+              id="bulk_field_LibelleLong" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="LibelleLong">
@@ -267,7 +315,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="CodeDiplome" id="bulk_field_CodeDiplome" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="CodeDiplome" 
+              id="bulk_field_CodeDiplome" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="CodeDiplome">
@@ -296,7 +350,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="DateNaissance" id="bulk_field_DateNaissance" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="DateNaissance" 
+              id="bulk_field_DateNaissance" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="DateNaissance">
@@ -325,7 +385,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="DateInscription" id="bulk_field_DateInscription" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="DateInscription" 
+              id="bulk_field_DateInscription" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="DateInscription">
@@ -354,7 +420,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="LieuNaissance" id="bulk_field_LieuNaissance" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="LieuNaissance" 
+              id="bulk_field_LieuNaissance" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="LieuNaissance">
@@ -383,7 +455,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="CIN" id="bulk_field_CIN" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="CIN" 
+              id="bulk_field_CIN" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="CIN">
@@ -412,7 +490,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="NTelephone" id="bulk_field_NTelephone" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="NTelephone" 
+              id="bulk_field_NTelephone" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="NTelephone">
@@ -441,7 +525,13 @@
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="Adresse" id="bulk_field_Adresse" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="Adresse" 
+              id="bulk_field_Adresse" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="Adresse">
@@ -468,7 +558,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="Nationalite" id="bulk_field_Nationalite" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="Nationalite" 
+              id="bulk_field_Nationalite" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="Nationalite">
@@ -497,7 +593,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="Nom_Arabe" id="bulk_field_Nom_Arabe" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="Nom_Arabe" 
+              id="bulk_field_Nom_Arabe" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="Nom_Arabe">
@@ -526,7 +628,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="Prenom_Arabe" id="bulk_field_Prenom_Arabe" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="Prenom_Arabe" 
+              id="bulk_field_Prenom_Arabe" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="Prenom_Arabe">
@@ -555,7 +663,13 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="NiveauScolaire" id="bulk_field_NiveauScolaire" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="NiveauScolaire" 
+              id="bulk_field_NiveauScolaire" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="NiveauScolaire">

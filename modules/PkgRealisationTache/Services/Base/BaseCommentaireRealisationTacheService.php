@@ -325,7 +325,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
     /**
     * Liste des champs autorisés à l’édition inline
     */
-    public function getFieldsEditable(): array
+    public function getInlineFieldsEditable(): array
     {
         return [
             'commentaire',
@@ -356,7 +356,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
             'entity'         => 'commentaire_realisation_tache',
             'id'             => $e->id,
             'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'writable'       => in_array($field, $this->getInlineFieldsEditable()),
             'etag'           => $this->etag($e),
             'schema_version' => 'v1',
             'html_attrs'     => $htmlAttrs,
@@ -425,7 +425,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
      */
     public function applyInlinePatch(CommentaireRealisationTache $e, array $changes): CommentaireRealisationTache
     {
-        $allowed = $this->getFieldsEditable();
+        $allowed = $this->getInlineFieldsEditable();
         $filtered = Arr::only($changes, $allowed);
 
         if (empty($filtered)) {

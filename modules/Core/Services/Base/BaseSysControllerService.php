@@ -291,7 +291,7 @@ class BaseSysControllerService extends BaseService
     /**
     * Liste des champs autorisés à l’édition inline
     */
-    public function getFieldsEditable(): array
+    public function getInlineFieldsEditable(): array
     {
         return [
             'sys_module_id',
@@ -322,7 +322,7 @@ class BaseSysControllerService extends BaseService
             'entity'         => 'sys_controller',
             'id'             => $e->id,
             'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'writable'       => in_array($field, $this->getInlineFieldsEditable()),
             'etag'           => $this->etag($e),
             'schema_version' => 'v1',
             'html_attrs'     => $htmlAttrs,
@@ -363,7 +363,7 @@ class BaseSysControllerService extends BaseService
      */
     public function applyInlinePatch(SysController $e, array $changes): SysController
     {
-        $allowed = $this->getFieldsEditable();
+        $allowed = $this->getInlineFieldsEditable();
         $filtered = Arr::only($changes, $allowed);
 
         if (empty($filtered)) {

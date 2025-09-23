@@ -272,7 +272,7 @@ class BaseAnneeFormationService extends BaseService
     /**
     * Liste des champs autorisés à l’édition inline
     */
-    public function getFieldsEditable(): array
+    public function getInlineFieldsEditable(): array
     {
         return [
             'titre',
@@ -302,7 +302,7 @@ class BaseAnneeFormationService extends BaseService
             'entity'         => 'annee_formation',
             'id'             => $e->id,
             'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'writable'       => in_array($field, $this->getInlineFieldsEditable()),
             'etag'           => $this->etag($e),
             'schema_version' => 'v1',
             'html_attrs'     => $htmlAttrs,
@@ -328,7 +328,7 @@ class BaseAnneeFormationService extends BaseService
      */
     public function applyInlinePatch(AnneeFormation $e, array $changes): AnneeFormation
     {
-        $allowed = $this->getFieldsEditable();
+        $allowed = $this->getInlineFieldsEditable();
         $filtered = Arr::only($changes, $allowed);
 
         if (empty($filtered)) {

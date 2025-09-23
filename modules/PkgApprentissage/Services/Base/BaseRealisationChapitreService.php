@@ -399,7 +399,7 @@ class BaseRealisationChapitreService extends BaseService
     /**
     * Liste des champs autorisés à l’édition inline
     */
-    public function getFieldsEditable(): array
+    public function getInlineFieldsEditable(): array
     {
         return [
             'chapitre_id',
@@ -429,7 +429,7 @@ class BaseRealisationChapitreService extends BaseService
             'entity'         => 'realisation_chapitre',
             'id'             => $e->id,
             'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'writable'       => in_array($field, $this->getInlineFieldsEditable()),
             'etag'           => $this->etag($e),
             'schema_version' => 'v1',
             'html_attrs'     => $htmlAttrs,
@@ -481,7 +481,7 @@ class BaseRealisationChapitreService extends BaseService
      */
     public function applyInlinePatch(RealisationChapitre $e, array $changes): RealisationChapitre
     {
-        $allowed = $this->getFieldsEditable();
+        $allowed = $this->getInlineFieldsEditable();
         $filtered = Arr::only($changes, $allowed);
 
         if (empty($filtered)) {

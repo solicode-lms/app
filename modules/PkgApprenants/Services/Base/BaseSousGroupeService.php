@@ -289,7 +289,7 @@ class BaseSousGroupeService extends BaseService
     /**
     * Liste des champs autorisés à l’édition inline
     */
-    public function getFieldsEditable(): array
+    public function getInlineFieldsEditable(): array
     {
         return [
             'nom',
@@ -318,7 +318,7 @@ class BaseSousGroupeService extends BaseService
             'entity'         => 'sous_groupe',
             'id'             => $e->id,
             'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'writable'       => in_array($field, $this->getInlineFieldsEditable()),
             'etag'           => $this->etag($e),
             'schema_version' => 'v1',
             'html_attrs'     => $htmlAttrs,
@@ -354,7 +354,7 @@ class BaseSousGroupeService extends BaseService
      */
     public function applyInlinePatch(SousGroupe $e, array $changes): SousGroupe
     {
-        $allowed = $this->getFieldsEditable();
+        $allowed = $this->getInlineFieldsEditable();
         $filtered = Arr::only($changes, $allowed);
 
         if (empty($filtered)) {

@@ -36,7 +36,14 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_projet_id" id="bulk_field_realisation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+                {{ $canEditrealisation_projet_id ? '' : 'disabled' }}
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="realisation_projet_id" 
+              id="bulk_field_realisation_projet_id" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="realisation_projet_id">
@@ -72,7 +79,14 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="evaluateur_id" id="bulk_field_evaluateur_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+                {{ $canEditevaluateur_id ? '' : 'disabled' }}
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="evaluateur_id" 
+              id="bulk_field_evaluateur_id" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="evaluateur_id">
@@ -108,7 +122,14 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="date_evaluation" id="bulk_field_date_evaluation" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+                {{ $canEditdate_evaluation ? '' : 'disabled' }}
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="date_evaluation" 
+              id="bulk_field_date_evaluation" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="date_evaluation">
@@ -140,7 +161,14 @@
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="etat_evaluation_projet_id" id="bulk_field_etat_evaluation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+                {{ $canEditetat_evaluation_projet_id ? '' : 'disabled' }}
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="etat_evaluation_projet_id" 
+              id="bulk_field_etat_evaluation_projet_id" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="etat_evaluation_projet_id">
@@ -195,7 +223,13 @@
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input {{ $canEdittache_id ? '' : 'disabled' }} type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques" id="bulk_field_remarques" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="remarques" 
+              id="bulk_field_remarques" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
           <label for="remarques">

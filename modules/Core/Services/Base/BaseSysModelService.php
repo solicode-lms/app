@@ -309,7 +309,7 @@ class BaseSysModelService extends BaseService
     /**
     * Liste des champs autorisés à l’édition inline
     */
-    public function getFieldsEditable(): array
+    public function getInlineFieldsEditable(): array
     {
         return [
             'name',
@@ -340,7 +340,7 @@ class BaseSysModelService extends BaseService
             'entity'         => 'sys_model',
             'id'             => $e->id,
             'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'writable'       => in_array($field, $this->getInlineFieldsEditable()),
             'etag'           => $this->etag($e),
             'schema_version' => 'v1',
             'html_attrs'     => $htmlAttrs,
@@ -394,7 +394,7 @@ class BaseSysModelService extends BaseService
      */
     public function applyInlinePatch(SysModel $e, array $changes): SysModel
     {
-        $allowed = $this->getFieldsEditable();
+        $allowed = $this->getInlineFieldsEditable();
         $filtered = Arr::only($changes, $allowed);
 
         if (empty($filtered)) {

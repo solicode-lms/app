@@ -271,7 +271,7 @@ class BaseWidgetTypeService extends BaseService
     /**
     * Liste des champs autorisés à l’édition inline
     */
-    public function getFieldsEditable(): array
+    public function getInlineFieldsEditable(): array
     {
         return [
             'type',
@@ -300,7 +300,7 @@ class BaseWidgetTypeService extends BaseService
             'entity'         => 'widget_type',
             'id'             => $e->id,
             'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'writable'       => in_array($field, $this->getInlineFieldsEditable()),
             'etag'           => $this->etag($e),
             'schema_version' => 'v1',
             'html_attrs'     => $htmlAttrs,
@@ -323,7 +323,7 @@ class BaseWidgetTypeService extends BaseService
      */
     public function applyInlinePatch(WidgetType $e, array $changes): WidgetType
     {
-        $allowed = $this->getFieldsEditable();
+        $allowed = $this->getInlineFieldsEditable();
         $filtered = Arr::only($changes, $allowed);
 
         if (empty($filtered)) {

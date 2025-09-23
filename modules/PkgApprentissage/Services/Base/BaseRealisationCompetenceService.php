@@ -364,7 +364,7 @@ class BaseRealisationCompetenceService extends BaseService
     /**
     * Liste des champs autorisés à l’édition inline
     */
-    public function getFieldsEditable(): array
+    public function getInlineFieldsEditable(): array
     {
         return [
             'competence_id',
@@ -394,7 +394,7 @@ class BaseRealisationCompetenceService extends BaseService
             'entity'         => 'realisation_competence',
             'id'             => $e->id,
             'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'writable'       => in_array($field, $this->getInlineFieldsEditable()),
             'etag'           => $this->etag($e),
             'schema_version' => 'v1',
             'html_attrs'     => $htmlAttrs,
@@ -434,7 +434,7 @@ class BaseRealisationCompetenceService extends BaseService
      */
     public function applyInlinePatch(RealisationCompetence $e, array $changes): RealisationCompetence
     {
-        $allowed = $this->getFieldsEditable();
+        $allowed = $this->getInlineFieldsEditable();
         $filtered = Arr::only($changes, $allowed);
 
         if (empty($filtered)) {

@@ -346,7 +346,7 @@ class BaseRealisationModuleService extends BaseService
     /**
     * Liste des champs autorisés à l’édition inline
     */
-    public function getFieldsEditable(): array
+    public function getInlineFieldsEditable(): array
     {
         return [
             'module_id',
@@ -376,7 +376,7 @@ class BaseRealisationModuleService extends BaseService
             'entity'         => 'realisation_module',
             'id'             => $e->id,
             'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'writable'       => in_array($field, $this->getInlineFieldsEditable()),
             'etag'           => $this->etag($e),
             'schema_version' => 'v1',
             'html_attrs'     => $htmlAttrs,
@@ -416,7 +416,7 @@ class BaseRealisationModuleService extends BaseService
      */
     public function applyInlinePatch(RealisationModule $e, array $changes): RealisationModule
     {
-        $allowed = $this->getFieldsEditable();
+        $allowed = $this->getInlineFieldsEditable();
         $filtered = Arr::only($changes, $allowed);
 
         if (empty($filtered)) {

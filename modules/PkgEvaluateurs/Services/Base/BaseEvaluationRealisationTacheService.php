@@ -328,7 +328,7 @@ class BaseEvaluationRealisationTacheService extends BaseService
     /**
     * Liste des champs autorisés à l’édition inline
     */
-    public function getFieldsEditable(): array
+    public function getInlineFieldsEditable(): array
     {
         return [
             'realisation_tache_id',
@@ -358,7 +358,7 @@ class BaseEvaluationRealisationTacheService extends BaseService
             'entity'         => 'evaluation_realisation_tache',
             'id'             => $e->id,
             'field'          => $field,
-            'writable'       => in_array($field, $this->getFieldsEditable()),
+            'writable'       => in_array($field, $this->getInlineFieldsEditable()),
             'etag'           => $this->etag($e),
             'schema_version' => 'v1',
             'html_attrs'     => $htmlAttrs,
@@ -398,7 +398,7 @@ class BaseEvaluationRealisationTacheService extends BaseService
      */
     public function applyInlinePatch(EvaluationRealisationTache $e, array $changes): EvaluationRealisationTache
     {
-        $allowed = $this->getFieldsEditable();
+        $allowed = $this->getInlineFieldsEditable();
         $filtered = Arr::only($changes, $allowed);
 
         if (empty($filtered)) {
