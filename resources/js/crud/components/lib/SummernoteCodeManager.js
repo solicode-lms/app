@@ -38,17 +38,13 @@ export default class SummernoteCodeManager {
   static initTextArea($textarea, opts = {}) {
     const $ = window.jQuery || window.$;
     const options = { ...this.defaultOptions, ...opts };
-
     if (!$ || !$.summernote) throw new Error('SummernoteCodeManager: Summernote requis.');
 
-    // 🔹 Détection disabled (ancien comportement)
     const isDisabled = !!$textarea.prop('disabled');
 
-    // Initialiser Summernote (avec bouton dropdown "langue" si non disabled)
     if (!$textarea.data('summernote')) {
       $textarea.summernote({
         height: options.height,
-        // ✅ Ancien comportement : retirer la toolbar si disabled
         toolbar: isDisabled ? false : [
           ['style', ['style']],
           ['font', ['bold', 'italic', 'underline', 'clear']],
@@ -59,21 +55,28 @@ export default class SummernoteCodeManager {
         ],
         airMode: isDisabled ? false : undefined,
         styleTags: ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3'],
-        buttons: isDisabled ? {} : {
-          codeLanguage: this._buildLanguageDropdownFactory(options)
-        },
+        buttons: isDisabled ? {} : { codeLanguage: this._buildLanguageDropdownFactory(options) },
         callbacks: {
-          // ✅ Ancien comportement : forcer contenteditable=false si disabled
           onInit: () => {
+            // ✅ Sync valeur initiale du textarea → éditeur
+            const initial = $textarea.val() || '';
+            $textarea.summernote('code', initial);
+
             if (isDisabled) {
-              $textarea
-                .siblings('.note-editor')
+              $textarea.siblings('.note-editor')
                 .find('.note-editable')
                 .attr('contenteditable', false);
             }
           },
-          // ✅ Synchroniser les CodeJar actifs (déjà présent)
-          onChange: function (contents, $editable) {
+          onChange: (contents /*, $editable */) => {
+            // ✅ Sync éditeur → textarea et **déclenche change**
+            const cleaned = CodeHelpers.cleanPrismFromHtml(contents);
+            // ⚠️ Set uniquement si valeur réellement différente (évite boucles inutiles)
+            if ($textarea.val() !== cleaned) {
+              $textarea.val(cleaned).trigger('change');
+            }
+
+            // ✅ Ta logique CodeJar existante
             const instances = (window.codejarInstances || window.CodeJarInstances || null);
             if (instances && typeof instances.forEach === 'function') {
               instances.forEach((jar, editor) => {
@@ -89,14 +92,12 @@ export default class SummernoteCodeManager {
         }
       });
     } else if (!isDisabled) {
-      // Si déjà initialisé ET non disabled → injecter bouton langue si absent
       this._injectLanguageButton($textarea, this._buildLanguageDropdownFactory(options));
     }
 
     const $editor = $textarea.next('.note-editor');
     const $editable = $editor.find('.note-editable');
 
-    // État local pour cet éditeur
     const state = {
       lastEnterTime: 0,
       editor: new CodeBlockEditor({
@@ -106,17 +107,15 @@ export default class SummernoteCodeManager {
     };
     $editable.data('sncm-state', state);
 
-    // ⚠️ Si disabled → on n’attache pas les handlers qui modifient le contenu
     if (!isDisabled) {
-      // Double-clic sur <pre><code> => activer CodeJar
+      // dblclick / keydown / paste : inchangés
       $editable.on('dblclick', 'pre code', (e) => {
         e.preventDefault();
         state.editor.startOnCodeEl(e.currentTarget);
       });
 
-      // Enter/Tab dans <pre><code> quand CodeJar n’est PAS actif
       $editable.on('keydown', (e) => {
-        if (state.editor.isActive()) return; // géré par CodeJar
+        if (state.editor.isActive()) return;
         const codeEl = CodeHelpers.getCodeAncestorFromSelection();
         if (!codeEl) return;
 
@@ -141,7 +140,6 @@ export default class SummernoteCodeManager {
         }
       });
 
-      // Coller en texte brut quand on est dans un bloc code (ou dans CodeJar)
       $editable.on('paste', (we) => {
         const e = we.originalEvent || we;
         const codeEl = CodeHelpers.getCodeAncestorFromSelection();
@@ -154,20 +152,17 @@ export default class SummernoteCodeManager {
       });
     }
 
-    // ✅ Summernote → textarea (avec nettoyage Prism déjà présent)
-    $textarea.on('summernote.change', (_, contents) => {
-      $textarea.val(CodeHelpers.cleanPrismFromHtml(contents));
-    });
-
-    // ✅ textarea → Summernote (ancien comportement rétabli)
+    // 🔁 textarea → Summernote (si valeur changée par code)
     $textarea.on('input', function () {
-      // NB: même en disabled, cela ne devrait pas boucler si la valeur est inchangée
       if ($textarea.data('summernote')) {
-        $textarea.summernote('code', $textarea.val());
+        const v = $textarea.val();
+        if ($textarea.summernote('code') !== v) {
+          $textarea.summernote('code', v);
+        }
       }
     });
 
-    // Nettoyage juste avant submit du formulaire
+    // 🧽 Nettoyage avant submit
     const $form = $textarea.closest('form');
     if ($form.length) {
       $form.on('submit', () => {
@@ -176,7 +171,6 @@ export default class SummernoteCodeManager {
       });
     }
 
-    // 👉 Option : autoStart (inchangé)
     if (options.autoStart && !isDisabled) {
       setTimeout(() => {
         const firstCode = $editable.find('pre code').get(0);
