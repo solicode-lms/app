@@ -4,6 +4,17 @@ import { NotificationHandler } from '../components/NotificationHandler';
 import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 import { CrudAction } from './CrudAction';
 
+
+/**
+ * Classe BulkAction
+ * ----------------
+ * Gère les actions en masse sur les entités d’un tableau (sélection multiple).
+ * 
+ * - Surveille la sélection des lignes.
+ * - Active les boutons d’actions groupées.
+ * - Permet l’exécution d’actions AJAX ou via un formulaire modal.
+ * - Affiche des notifications de progression et d’erreur.
+ */
 export class BulkAction extends CrudAction {
 
     constructor(config, tableUI) {

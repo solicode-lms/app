@@ -426,6 +426,12 @@ export class FormUI  {
                 height: 100,
         });
             
+
+
+
+        // Init sumernote
+        
+
         // $('.richText').each(function () {
         //     const $textarea = $(this);
         //     const isDisabled = $textarea.prop('disabled');
