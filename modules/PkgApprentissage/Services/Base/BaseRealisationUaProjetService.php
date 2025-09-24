@@ -318,10 +318,21 @@ class BaseRealisationUaProjetService extends BaseService
     public function getInlineFieldsEditable(): array
     {
         return [
-            'realisation_tache_id',
             'note',
             'criteres_evaluation'
         ];
+    }
+
+    public function getInlineFieldsEditable(): array
+    {
+        // Champs considérés comme inline
+        $inlineFields = ['note', 'criteres_evaluation'];
+
+        // Récupération des champs autorisés par rôle via getFieldsEditable()
+        return array_values(array_intersect(
+            $inlineFields,
+            $this->getFieldsEditable()
+        ));
     }
 
 

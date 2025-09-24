@@ -67,6 +67,11 @@ fieldRegistry.register('text', (props) => {
             input.className = 'form-control form-control-sm';
             input.value = value ?? '';
 
+
+            if(meta.writable === false) {
+                input.setAttribute('readonly', 'readonly');
+            }
+            
             // appliquer les règles de validation HTML5
             applyHtmlValidation(input, meta.html_attrs || {});
 
@@ -95,7 +100,10 @@ fieldRegistry.register('number', (props) => {
             input.type = 'number';
             input.className = 'form-control form-control-sm';
             input.value = value ?? '';
-
+            if(meta.writable === false) {
+                input.setAttribute('readonly', 'readonly');
+            }
+           
             // appliquer les règles de validation HTML5
             applyHtmlValidation(input, meta.html_attrs || {});
 
@@ -123,7 +131,9 @@ fieldRegistry.register('date', (props) => {
             input.type = 'date';
             input.className = 'form-control form-control-sm';
             input.value = value ?? '';
-
+            if(meta.writable === false) {
+                input.setAttribute('readonly', 'readonly');
+            }
             // appliquer les règles de validation HTML5
             applyHtmlValidation(input, meta.html_attrs || {});
 
@@ -150,7 +160,9 @@ fieldRegistry.register('boolean', (props) => {
             input = document.createElement('input');
             input.type = 'checkbox';
             input.checked = !!value;
-
+            if(meta.writable === false) {
+                input.setAttribute('readonly', 'readonly');
+            }
             // appliquer les règles de validation HTML5
             applyHtmlValidation(input, meta.html_attrs || {});
 
@@ -179,6 +191,11 @@ fieldRegistry.register('select', (props) => {
 
             // appliquer les règles de validation HTML5
             applyHtmlValidation(select, meta.html_attrs || {});
+
+
+            if(meta.writable === false) {
+                select.setAttribute('disabled', 'disabled');
+            }
 
             (meta.options?.values || []).forEach(opt => {
                 const option = document.createElement('option');
@@ -214,7 +231,9 @@ fieldRegistry.register('string', (props) => {
             input.className = 'form-control form-control-sm';
             input.value = value ?? '';
             committed = false;
-
+            if(meta.writable === false) {
+                input.setAttribute('readonly', 'readonly');
+            }
 
             // appliquer les règles de validation HTML5
             applyHtmlValidation(input, meta.html_attrs || {});

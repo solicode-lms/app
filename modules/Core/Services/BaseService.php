@@ -121,7 +121,16 @@ abstract class BaseService implements ServiceInterface
 
     public function getFieldsEditable(): array
     {
-        return $this->fieldsSearchable;
+        $roleName = Auth::user()?->roles()->pluck('name')->first();
+
+        if (!$roleName) {
+            return [];
+        }
+
+        return collect($this->editableFieldsByRoles())
+            ->filter(fn($roles) => in_array($roleName, $roles))
+            ->keys()
+            ->toArray();
     }
     
     /**
