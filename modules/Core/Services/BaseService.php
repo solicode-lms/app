@@ -127,10 +127,17 @@ abstract class BaseService implements ServiceInterface
             return [];
         }
 
-        return collect($this->editableFieldsByRoles())
-            ->filter(fn($roles) => in_array($roleName, $roles))
-            ->keys()
-            ->toArray();
+        // Champs déclarés avec restriction par rôle
+        $restricted = collect($this->editableFieldsByRoles())
+            ->filter(fn ($roles) => in_array($roleName, $roles))
+            ->keys();
+
+        // Champs non définis dans editableFieldsByRoles mais présents dans fieldsSearchable
+        $defaults = collect($this->fieldsSearchable)
+            ->reject(fn ($field) => array_key_exists($field, $this->editableFieldsByRoles()));
+
+        // Fusionner les deux
+        return $restricted->merge($defaults)->unique()->values()->toArray();
     }
     
     /**
