@@ -31,11 +31,13 @@
     
     <div class="row">
         <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaProjet" field="realisation_tache_id" :bulkEdit="$bulkEdit">
+      @php $canEditrealisation_tache_id = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'root')) : (empty($itemRealisationUaProjet->id) || Auth::user()->hasAnyRole(explode(',', 'root')) ); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input 
+                {{ $canEditrealisation_tache_id ? '' : 'disabled' }}
               type="checkbox" 
               class="check-input" 
               name="fields_modifiables[]" 
@@ -50,6 +52,7 @@
           </label>
                       <select 
             id="realisation_tache_id" 
+            {{ $canEditrealisation_tache_id ? '' : 'disabled' }}
             required
             
             

@@ -557,5 +557,15 @@
         "value_float": 0,
         "e_model_reference": "realisation_ua_projets",
         "e_metadata_definition_reference": "editOnFullScreen"
+    },
+    {
+        "reference": "RealisationUaProjet_realisation_tache_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationUaProjet_realisation_tache_id",
+        "e_metadata_definition_reference": "editableByRoles"
     }
 ]
