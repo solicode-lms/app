@@ -7,6 +7,16 @@ use Modules\PkgApprentissage\Models\Base\BaseRealisationUaPrototype;
 class RealisationUaPrototype extends BaseRealisationUaPrototype
 {
 
+
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
+        // Colonne dynamique : realisation_projet_id
+        $sql = "SELECT rt.realisation_projet_id
+                FROM realisation_taches rt
+                WHERE rt.id = realisation_ua_prototypes.realisation_tache_id";
+        static::addDynamicAttribute('realisation_projet_id', $sql);
+    }
+
     protected static function booted()
     {
         static::saving(function ($model) {

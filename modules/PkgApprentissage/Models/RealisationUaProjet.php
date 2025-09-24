@@ -3,9 +3,27 @@
 
 namespace Modules\PkgApprentissage\Models;
 use Modules\PkgApprentissage\Models\Base\BaseRealisationUaProjet;
+use Modules\PkgApprentissage\Models\RealisationUaPrototype;
 
 class RealisationUaProjet extends BaseRealisationUaProjet
 {
+
+
+     public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
+        // Colonne dynamique : realisation_projet_id
+        $sql = "SELECT rt.realisation_projet_id
+                FROM realisation_taches rt
+                WHERE rt.id = realisation_ua_projets.realisation_tache_id";
+        static::addDynamicAttribute('realisation_projet_id', $sql);
+    }
+
+    protected $with = [
+    'realisationTache.etatRealisationTache.sysColor',
+    'realisationUa.realisationChapitres.chapitre',
+    'realisationUa.realisationChapitres.realisationTache.etatRealisationTache.sysColor',
+    'prototypeRelation.realisationTache',
+    ];
 
     protected static function booted()
     {
@@ -41,6 +59,17 @@ class RealisationUaProjet extends BaseRealisationUaProjet
             }
         });
     }
+
+public function prototypeRelation()
+{
+    return $this->hasOne(RealisationUaPrototype::class, 'realisation_ua_id', 'realisation_ua_id');
+}
+public function getPrototypeAttribute()
+{
+    return $this->prototypeRelation
+        ->get()
+        ->firstWhere('realisation_projet_id', $this->realisation_projet_id);
+}
 
 
 }
