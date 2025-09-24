@@ -49,10 +49,18 @@
 
         {{-- Ligne 4 : Mode --}}
         @if($proto->realisationTache?->is_live_coding)
-          <div class="line">
-            <span class="label">Mode</span>
-            <span><i class="fas fa-code"></i> Live coding</span>
-          </div>
+         
+          <span class="label">Mode</span>
+            <span>
+              
+              <section class="tache-infos">
+                    <span class="tache-badge-live">
+                        <i class="fas fa-code"></i> Live coding
+                    </span>
+            </section>
+
+
+            </span>
         @endif
       </div>
     @endif
@@ -94,7 +102,16 @@
         @if($rc->realisationTache?->is_live_coding)
           <div class="line">
             <span class="label">Mode</span>
-            <span><i class="fas fa-code"></i> Live coding</span>
+            <span>
+              
+              <section class="tache-infos">
+                    <span class="tache-badge-live">
+                        <i class="fas fa-code"></i> Live coding
+                    </span>
+            </section>
+
+
+            </span>
           </div>
         @endif
       </div>
