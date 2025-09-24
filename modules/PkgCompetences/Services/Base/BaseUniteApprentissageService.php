@@ -312,13 +312,20 @@ class BaseUniteApprentissageService extends BaseService
     */
     public function getInlineFieldsEditable(): array
     {
-        return [
+        // Champs considérés comme inline
+        $inlineFields = [
             'ordre',
             'nom',
             'micro_competence_id',
             'lien',
             'Chapitre'
         ];
+
+        // Récupération des champs autorisés par rôle via getFieldsEditable()
+        return array_values(array_intersect(
+            $inlineFields,
+            $this->getFieldsEditable()
+        ));
     }
 
 

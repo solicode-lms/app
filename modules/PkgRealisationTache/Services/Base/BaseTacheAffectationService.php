@@ -309,11 +309,18 @@ class BaseTacheAffectationService extends BaseService
     */
     public function getInlineFieldsEditable(): array
     {
-        return [
+        // Champs considérés comme inline
+        $inlineFields = [
             'tache_id',
             'affectation_projet_id',
             'pourcentage_realisation_cache'
         ];
+
+        // Récupération des champs autorisés par rôle via getFieldsEditable()
+        return array_values(array_intersect(
+            $inlineFields,
+            $this->getFieldsEditable()
+        ));
     }
 
 

@@ -385,11 +385,18 @@ class BaseRealisationTacheService extends BaseService
     */
     public function getInlineFieldsEditable(): array
     {
-        return [
+        // Champs considérés comme inline
+        $inlineFields = [
             'tache_id',
             'etat_realisation_tache_id',
             'nombre_livrables'
         ];
+
+        // Récupération des champs autorisés par rôle via getFieldsEditable()
+        return array_values(array_intersect(
+            $inlineFields,
+            $this->getFieldsEditable()
+        ));
     }
 
 

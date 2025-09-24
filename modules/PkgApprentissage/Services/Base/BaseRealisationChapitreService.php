@@ -401,11 +401,18 @@ class BaseRealisationChapitreService extends BaseService
     */
     public function getInlineFieldsEditable(): array
     {
-        return [
+        // Champs considérés comme inline
+        $inlineFields = [
             'chapitre_id',
             'etat_realisation_chapitre_id',
             'apprenant'
         ];
+
+        // Récupération des champs autorisés par rôle via getFieldsEditable()
+        return array_values(array_intersect(
+            $inlineFields,
+            $this->getFieldsEditable()
+        ));
     }
 
 

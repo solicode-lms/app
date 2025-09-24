@@ -293,12 +293,19 @@ class BaseSysControllerService extends BaseService
     */
     public function getInlineFieldsEditable(): array
     {
-        return [
+        // Champs considérés comme inline
+        $inlineFields = [
             'sys_module_id',
             'name',
             'is_active',
             'Permission'
         ];
+
+        // Récupération des champs autorisés par rôle via getFieldsEditable()
+        return array_values(array_intersect(
+            $inlineFields,
+            $this->getFieldsEditable()
+        ));
     }
 
 

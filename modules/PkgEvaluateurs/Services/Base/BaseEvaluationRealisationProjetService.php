@@ -346,13 +346,20 @@ class BaseEvaluationRealisationProjetService extends BaseService
     */
     public function getInlineFieldsEditable(): array
     {
-        return [
+        // Champs considérés comme inline
+        $inlineFields = [
             'realisation_projet_id',
             'nomApprenant',
             'evaluateur_id',
             'etat_evaluation_projet_id',
             'note'
         ];
+
+        // Récupération des champs autorisés par rôle via getFieldsEditable()
+        return array_values(array_intersect(
+            $inlineFields,
+            $this->getFieldsEditable()
+        ));
     }
 
 

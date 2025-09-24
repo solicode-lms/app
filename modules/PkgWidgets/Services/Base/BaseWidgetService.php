@@ -332,7 +332,8 @@ class BaseWidgetService extends BaseService
     */
     public function getInlineFieldsEditable(): array
     {
-        return [
+        // Champs considérés comme inline
+        $inlineFields = [
             'ordre',
             'icon',
             'name',
@@ -341,6 +342,12 @@ class BaseWidgetService extends BaseService
             'roles',
             'section_widget_id'
         ];
+
+        // Récupération des champs autorisés par rôle via getFieldsEditable()
+        return array_values(array_intersect(
+            $inlineFields,
+            $this->getFieldsEditable()
+        ));
     }
 
 
