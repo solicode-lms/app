@@ -39,7 +39,11 @@ class BaseRealisationUaProjetService extends BaseService
     public function editableFieldsByRoles(): array
     {
         return [
-          'realisation_tache_id' => ['root']
+          'realisation_tache_id' => ['root'],
+          'realisation_ua_id' => ['root'],
+          'bareme' => ['root'],
+          'date_debut' => ['root'],
+          'date_fin' => ['root']
         
         ];
     }
