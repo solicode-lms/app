@@ -276,4 +276,26 @@ public function getRealisationLivrable()
         return $this->realisationProjet->reference . "-" . $this->tache->reference ;
     }
 
+
+
+    /**
+     * Calcule le barème total (somme des barèmes notés)
+     * en se basant sur les relations realisationUaProjets et realisationUaPrototypes.
+     *
+     * @return float|int
+     */
+    public function getBaremeTotalNotes(): float|int
+    {
+        // Somme des barèmes des UA Projet avec note non nulle
+        $sumProjet = $this->realisationUaProjets()
+            ->whereNotNull('note')
+            ->sum('bareme');
+
+        // Somme des barèmes des UA Prototype avec note non nulle
+        $sumPrototype = $this->realisationUaPrototypes()
+            ->whereNotNull('note')
+            ->sum('bareme');
+
+        return $sumProjet + $sumPrototype;
+    }
 }

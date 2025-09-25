@@ -44,7 +44,7 @@ class BaseRealisationProjetService extends BaseService
         return [
           'affectation_projet_id' => ['root'],
           'apprenant_id' => ['root'],
-          'etats_realisation_projet_id' => ['root'],
+          'etats_realisation_projet_id' => ['root', 'formateur'],
           'progression_validation_cache' => ['root'],
           'note_cache' => ['root'],
           'date_debut' => ['root'],

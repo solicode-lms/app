@@ -31,22 +31,21 @@
     @endforeach
 
 
-
-
-
-    
-
-
-
-
-
-
-
     {{-- Note --}}
     @if(!is_null($entity->note))
+       
+        @php
+            $baremeTotalNotes = $entity->getBaremeTotalNotes();
+        @endphp
         <span class="etat-meta" title="Note : {{ $entity->note }}" data-toggle="tooltip">
-            <i class="fas fa-star"></i> {{ $entity->note }} / {{ $entity->tache?->note }}
+            @if( $entity->tache?->note  != $baremeTotalNotes )
+                <i class="fas fa-exclamation-triangle text-warning" data-toggle="tooltip"  title="L'évaluation de la tâche n'est pas encore terminée"></i> {{ $entity->note }} / {{ $entity->getBaremeTotalNotes() }}
+            @else
+                <i class="fas fa-star"></i> {{ $entity->note }} / {{ $entity->getBaremeTotalNotes() }}
+            @endif
+           
         </span>
+
     @endif
 
     {{-- Progression --}}

@@ -117,7 +117,7 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="etats_realisation_projet_id" :bulkEdit="$bulkEdit">
-      @php $canEditetats_realisation_projet_id = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'root')) : (empty($itemRealisationProjet->id) || Auth::user()->hasAnyRole(explode(',', 'root')) ); @endphp
+      @php $canEditetats_realisation_projet_id = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'root,formateur')) : (empty($itemRealisationProjet->id) || Auth::user()->hasAnyRole(explode(',', 'root,formateur')) ); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)

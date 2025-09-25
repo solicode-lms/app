@@ -865,7 +865,7 @@
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
-            "roles": "root"
+            "roles": "root,formateur"
         },
         "e_data_field_reference": "RealisationProjet_etats_realisation_projet_id",
         "e_metadata_definition_reference": "editableByRoles"
