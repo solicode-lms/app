@@ -11,7 +11,7 @@
     <ul style="word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
         @foreach($criteresN2 as $critere)
             <li style="word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
-                {{ $critere->intitule ?? 'Critère sans nom' }}
+                {!! $critere->intitule ?? 'Critère sans nom' !!}
             </li>
         @endforeach
     </ul>
