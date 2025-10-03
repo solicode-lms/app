@@ -3,7 +3,7 @@
         ?->realisationUa
         ?->uniteApprentissage
         ?->critereEvaluations
-        ?->where('phaseEvaluation.code', 'N2');
+        ?->where('phaseEvaluation.code', 'N3');
 @endphp
 
 {{-- Affichage de la liste (exemple) --}}

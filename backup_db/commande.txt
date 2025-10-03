@@ -3,7 +3,7 @@
 [System.Text.Encoding]::Default
 $OutputEncoding = [System.Text.Encoding]::UTF8
 
-Get-Content .\solilms-2025_24_09_25.sql -Raw -Encoding UTF8 | mysql -u root -p solicode_lms
+Get-Content .\solilms-2025_3_10_25.sql -Raw -Encoding UTF8 | mysql -u root -p solicode_lms
 
 ```
 
