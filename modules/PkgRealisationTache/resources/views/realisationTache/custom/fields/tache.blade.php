@@ -27,7 +27,18 @@
                 <x-deadline-display :value="$entity->deadline" />
             </span>
         @endif
+
     </section>
+ 
+
+
+
+
+    @if( !empty($entity->remarques_formateur) && trim(strip_tags($entity->remarques_formateur))  != '' )
+    <section class="tache-comment" data-toggle="tooltip" title="Commentaire formateur">
+      {!! $entity->remarques_formateur !!}
+    </section>
+    @endif
 
     <footer class="tache-footer">
         <i class="fas fa-user"></i>

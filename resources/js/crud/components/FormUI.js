@@ -697,8 +697,15 @@ export class FormUI  {
                 } 
                 // Vérifier si c'est un champ de type checkbox ou radio
                 else if (field.is(':checkbox, :radio')) {
-                    field.prop('checked', !!value);
-                } 
+                        if (value === '1' || value === 1 || value === true) {
+                            field.prop('checked', true);
+                        } else if (value === '0' || value === 0 || value === false || value === null) {
+                            field.prop('checked', false);
+                        } else {
+                            // fallback pour compatibilité (ex: autres valeurs truthy/falsy)
+                            field.prop('checked', !!value);
+                        }
+                }
                 // Vérifier si c'est un champ input classique ou textarea
                 else {
                      field.val(value);

@@ -208,11 +208,11 @@ trait RealisationTacheServiceCrud
     public function afterUpdateRules(RealisationTache $realisationTache): void{
         if ($realisationTache->wasChanged('note')) {
 
-            if($realisationTache->tache->phaseEvaluation->code == "N2"){
+            if($realisationTache->tache?->phaseEvaluation?->code == "N2"){
                 // 3️⃣ Répartir la note sur les prototypes associés
                 $this->repartirNoteDansRealisationUaPrototypes($realisationTache);
             }
-             if($realisationTache->tache->phaseEvaluation->code == "N3"){
+             if($realisationTache->tache?->phaseEvaluation?->code == "N3"){
                 // 3️⃣ Répartir la note sur les prototypes associés
                 $this->repartirNoteDansRealisationUaProjets($realisationTache);
             }
