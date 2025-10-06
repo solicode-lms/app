@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('etatRealisationUa-crud-filters')
-                @if(!empty($etatRealisationUas_total) &&  $etatRealisationUas_total > 5)
+                @if(!empty($etatRealisationUas_total) &&  $etatRealisationUas_total > 50)
                 <div class="card-header">
                     <form id="etatRealisationUa-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($etatRealisationUas_filters ?? [])}}">

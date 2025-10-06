@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('permission-crud-filters')
-                @if(!empty($permissions_total) &&  $permissions_total > 5)
+                @if(!empty($permissions_total) &&  $permissions_total > 50)
                 <div class="card-header">
                     <form id="permission-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($permissions_filters ?? [])}}">

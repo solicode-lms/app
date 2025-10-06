@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('featureDomain-crud-filters')
-                @if(!empty($featureDomains_total) &&  $featureDomains_total > 5)
+                @if(!empty($featureDomains_total) &&  $featureDomains_total > 50)
                 <div class="card-header">
                     <form id="featureDomain-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($featureDomains_filters ?? [])}}">

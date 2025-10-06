@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('realisationMicroCompetence-crud-filters')
-                @if(!empty($realisationMicroCompetences_total) &&  $realisationMicroCompetences_total > 5)
+                @if(!empty($realisationMicroCompetences_total) &&  $realisationMicroCompetences_total > 50)
                 <div class="card-header">
                     <form id="realisationMicroCompetence-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($realisationMicroCompetences_filters ?? [])}}">

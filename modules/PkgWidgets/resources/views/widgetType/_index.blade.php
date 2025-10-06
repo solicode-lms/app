@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('widgetType-crud-filters')
-                @if(!empty($widgetTypes_total) &&  $widgetTypes_total > 5)
+                @if(!empty($widgetTypes_total) &&  $widgetTypes_total > 50)
                 <div class="card-header">
                     <form id="widgetType-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($widgetTypes_filters ?? [])}}">

@@ -107,7 +107,7 @@
                 </div>
                 @show
                 @section('workflowTache-crud-filters')
-                @if(!empty($workflowTaches_total) &&  $workflowTaches_total > 5)
+                @if(!empty($workflowTaches_total) &&  $workflowTaches_total > 50)
                 <div class="card-header">
                     <form id="workflowTache-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($workflowTaches_filters ?? [])}}">

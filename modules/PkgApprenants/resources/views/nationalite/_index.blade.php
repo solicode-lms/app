@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('nationalite-crud-filters')
-                @if(!empty($nationalites_total) &&  $nationalites_total > 5)
+                @if(!empty($nationalites_total) &&  $nationalites_total > 50)
                 <div class="card-header">
                     <form id="nationalite-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($nationalites_filters ?? [])}}">

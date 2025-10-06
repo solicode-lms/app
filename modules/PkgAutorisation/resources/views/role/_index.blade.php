@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('role-crud-filters')
-                @if(!empty($roles_total) &&  $roles_total > 5)
+                @if(!empty($roles_total) &&  $roles_total > 50)
                 <div class="card-header">
                     <form id="role-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($roles_filters ?? [])}}">

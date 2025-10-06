@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('eRelationship-crud-filters')
-                @if(!empty($eRelationships_total) &&  $eRelationships_total > 5)
+                @if(!empty($eRelationships_total) &&  $eRelationships_total > 50)
                 <div class="card-header">
                     <form id="eRelationship-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($eRelationships_filters ?? [])}}">

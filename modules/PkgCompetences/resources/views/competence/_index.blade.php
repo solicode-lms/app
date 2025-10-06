@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('competence-crud-filters')
-                @if(!empty($competences_total) &&  $competences_total > 5)
+                @if(!empty($competences_total) &&  $competences_total > 50)
                 <div class="card-header">
                     <form id="competence-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($competences_filters ?? [])}}">

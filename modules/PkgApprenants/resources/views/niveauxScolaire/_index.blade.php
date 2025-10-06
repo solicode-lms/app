@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('niveauxScolaire-crud-filters')
-                @if(!empty($niveauxScolaires_total) &&  $niveauxScolaires_total > 5)
+                @if(!empty($niveauxScolaires_total) &&  $niveauxScolaires_total > 50)
                 <div class="card-header">
                     <form id="niveauxScolaire-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($niveauxScolaires_filters ?? [])}}">

@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('eMetadataDefinition-crud-filters')
-                @if(!empty($eMetadataDefinitions_total) &&  $eMetadataDefinitions_total > 5)
+                @if(!empty($eMetadataDefinitions_total) &&  $eMetadataDefinitions_total > 50)
                 <div class="card-header">
                     <form id="eMetadataDefinition-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($eMetadataDefinitions_filters ?? [])}}">

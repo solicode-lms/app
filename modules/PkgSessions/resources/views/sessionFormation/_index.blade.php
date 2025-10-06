@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('sessionFormation-crud-filters')
-                @if(!empty($sessionFormations_total) &&  $sessionFormations_total > 5)
+                @if(!empty($sessionFormations_total) &&  $sessionFormations_total > 50)
                 <div class="card-header">
                     <form id="sessionFormation-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($sessionFormations_filters ?? [])}}">
