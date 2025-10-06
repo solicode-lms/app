@@ -822,5 +822,47 @@
         "value_boolean": 1,
         "e_data_field_reference": "taches_hasMany_tache_affectations_tache_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Tache_is_live_coding_task_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_is_live_coding_task",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Tache_is_live_coding_task_displayOrder",
+        "value_integer": 11,
+        "e_data_field_reference": "Tache_is_live_coding_task",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Tache_is_live_coding_task_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_is_live_coding_task",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Tache_is_live_coding_task_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Tache_is_live_coding_task",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Tache_is_live_coding_task_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_is_live_coding_task",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Tache_is_live_coding_task_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_is_live_coding_task",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Tache_is_live_coding_task_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_is_live_coding_task",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

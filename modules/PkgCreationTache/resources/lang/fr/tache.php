@@ -11,5 +11,6 @@ return [
     'priorite_tache_id' => 'Priorité',
     'ordre' => '#',
     'note' => 'Barème',
-    'priorite' => 'Priorité'
+    'priorite' => 'Priorité',
+    'is_live_coding_task' => 'Mode live coding',
 ];
