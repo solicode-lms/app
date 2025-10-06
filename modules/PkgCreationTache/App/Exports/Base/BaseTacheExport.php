@@ -41,6 +41,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'dateFin' => 'dateFin',
                 'reference' => 'reference',
                 'note' => 'note',
+                'is_live_coding_task' => 'is_live_coding_task',
                 'phase_evaluation_reference' => 'phase_evaluation_reference',
                 'chapitre_reference' => 'chapitre_reference',
                 'livrables' => 'livrables',
@@ -56,6 +57,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'dateFin' => __('PkgCreationTache::tache.dateFin'),
                 'reference' => __('Core::msg.reference'),
                 'note' => __('PkgCreationTache::tache.note'),
+                'is_live_coding_task' => __('PkgCreationTache::tache.is_live_coding_task'),
                 'phase_evaluation_reference' => __('PkgCompetences::phaseEvaluation.singular'),
                 'chapitre_reference' => __('PkgCompetences::chapitre.singular'),
                     'livrables' => __('PkgCreationProjet::livrable.plural'),
@@ -79,6 +81,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'dateFin' => $tache->dateFin,
                 'reference' => $tache->reference,
                 'note' => $tache->note,
+                'is_live_coding_task' => $tache->is_live_coding_task ? '1' : '0',
                 'phase_evaluation_reference' => $tache->phaseEvaluation?->reference,
                 'chapitre_reference' => $tache->chapitre?->reference,
                 'livrables' => $tache->livrables

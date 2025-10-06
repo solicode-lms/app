@@ -37,6 +37,7 @@ class BaseTacheRequest extends FormRequest
             'dateDebut' => 'nullable',
             'dateFin' => 'nullable',
             'note' => 'nullable',
+            'is_live_coding_task' => 'nullable|boolean',
             'phase_evaluation_id' => 'nullable',
             'chapitre_id' => 'nullable',
             'livrables' => 'nullable|array'
@@ -60,6 +61,7 @@ class BaseTacheRequest extends FormRequest
             'dateDebut.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.dateDebut')]),
             'dateFin.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.dateFin')]),
             'note.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.note')]),
+            'is_live_coding_task.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.is_live_coding_task')]),
             'phase_evaluation_id.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.phase_evaluation_id')]),
             'chapitre_id.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.chapitre_id')]),
             'livrables.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.livrables')]),

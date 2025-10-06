@@ -213,6 +213,7 @@ class ProjetService extends BaseProjetService
                 'ordre' => $ordre++,
                 'phase_evaluation_id' => $phaseN2,
                 'chapitre_id' => null,
+                'is_live_coding_task' => false,
                 'note' => $notePrototype
             ]
         );
@@ -244,6 +245,7 @@ class ProjetService extends BaseProjetService
                 'ordre' => $ordre++,
                 'phase_evaluation_id' => $phaseN3,
                 'chapitre_id' => null,
+                'is_live_coding_task' => false,
                 'note' => $noteRealisation
             ]
         );

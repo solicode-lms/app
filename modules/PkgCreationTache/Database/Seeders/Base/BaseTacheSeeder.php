@@ -99,6 +99,7 @@ class BaseTacheSeeder extends Seeder
                         "dateDebut" => isset($row["dateDebut"]) && $row["dateDebut"] !== "" ? $row["dateDebut"] : null,
                         "dateFin" => isset($row["dateFin"]) && $row["dateFin"] !== "" ? $row["dateFin"] : null,
                         "note" => isset($row["note"]) && $row["note"] !== "" ? $row["note"] : null,
+                        "is_live_coding_task" => isset($row["is_live_coding_task"]) && $row["is_live_coding_task"] !== "" ? $row["is_live_coding_task"] : null,
                         "phase_evaluation_id" => $phase_evaluation_id,
                         "chapitre_id" => $chapitre_id,
                     "reference" => $row["reference"] ?? null ,

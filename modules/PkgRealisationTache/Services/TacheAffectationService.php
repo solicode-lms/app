@@ -62,10 +62,19 @@ class TacheAffectationService extends BaseTacheAffectationService
 public function lancerLiveCodingSiEligible(TacheAffectation $tacheAffectation): void
 {
 
+
+    // 🚫 Ne rien faire si la tâche n’est pas prévue pour le live coding
+    if (!$tacheAffectation->tache?->is_live_coding_task) {
+        return;
+    }
+
+
     // ⛔ Ne rien faire si un live coding est déjà en cours pour cette tâche
     if ($tacheAffectation->realisationTaches()->where('is_live_coding', true)->exists()) {
         return;
     }
+
+
 
     if (($tacheAffectation->pourcentage_realisation_cache ?? 0) < 50) return;
 

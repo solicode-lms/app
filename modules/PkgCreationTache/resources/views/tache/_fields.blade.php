@@ -316,6 +316,42 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="is_live_coding_task" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="is_live_coding_task" 
+              id="bulk_field_is_live_coding_task" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="is_live_coding_task">
+            {{ ucfirst(__('PkgCreationTache::tache.is_live_coding_task')) }}
+            
+          </label>
+                      <input type="hidden" name="is_live_coding_task" value="0">
+            <input
+                name="is_live_coding_task"
+                type="checkbox"
+                class="form-control d-block"
+                
+                
+                
+                id="is_live_coding_task"
+                value="1"
+                {{ old('is_live_coding_task', $itemTache ? $itemTache->is_live_coding_task : 0) ? 'checked' : '' }}>
+          @error('is_live_coding_task')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="phase_evaluation_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">

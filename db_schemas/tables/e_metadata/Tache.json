@@ -825,7 +825,8 @@
     },
     {
         "reference": "Tache_is_live_coding_task_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Tache_is_live_coding_task",
         "e_metadata_definition_reference": "required"
     },

@@ -22,6 +22,15 @@
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.is_live_coding_task')) }}</small>
+                  @if($itemTache->is_live_coding_task)
+                  <span class="badge badge-success">{{ __('Oui') }}</span>
+                  @else
+                  <span class="badge badge-secondary">{{ __('Non') }}</span>
+                  @endif                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::livrable.plural')) }}</small>
                   <!-- Valeurs many-to-many -->
                   @if($itemTache->livrables->isNotEmpty())
