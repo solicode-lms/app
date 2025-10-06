@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'Chapitre',
-    'plural' => 'Chapitres',
+    'singular' => 'Tutoriel',
+    'plural' => 'Tutoriels',
     'ordre' => 'Ordre',
     'nom' => 'Nom',
     'lien' => 'Lien',

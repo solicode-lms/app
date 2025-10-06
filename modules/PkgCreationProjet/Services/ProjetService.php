@@ -188,7 +188,7 @@ class ProjetService extends BaseProjetService
                 Tache::firstOrCreate(
                     [
                         'projet_id' => $projet->id,
-                        'titre' => 'Chapitre : ' . $chapitre->nom,
+                        'titre' => 'Tutoriel : ' . $chapitre->nom,
                     ],
                     [
                         'description' => $chapitre->description ?? '',
