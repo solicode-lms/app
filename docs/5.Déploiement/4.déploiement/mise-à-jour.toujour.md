@@ -5,7 +5,7 @@
 
 
 ````bash
-sudo mysqldump -u root -p solilms-2025 > solilms-2025_16_09_25.sql
+sudo mysqldump -u root -p solilms-2025 > solilms-2025_06_10_25.sql
 ````
 
 
