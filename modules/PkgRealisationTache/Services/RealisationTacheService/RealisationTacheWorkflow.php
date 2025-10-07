@@ -114,7 +114,24 @@ trait RealisationTacheWorkflow
 
 
 
-        if ($record->etatRealisationTache?->reference === 'REVISION_NECESSAIRE') {
+        // 🔒 Ne pas modifier si le formateur a explicitement changé l'état
+        if (array_key_exists('etat_realisation_tache_id', $data)) {
+            $etatActuelId = (string) ($record->etat_realisation_tache_id ?? '');
+            $nouvelEtatId = trim((string) ($data['etat_realisation_tache_id'] ?? ''));
+
+            // Si le formateur a défini un état différent de l'actuel, on ne modifie pas
+            if ($nouvelEtatId !== '' && $nouvelEtatId != $etatActuelId) {
+                return;
+            }
+        }
+
+        // Ne pas modifier si la tâche est déjà en révision
+        if ($record->etatRealisationTache?->workflowTache->code === 'REVISION_NECESSAIRE') {
+            return;
+        }
+
+        // Ne pas modifier si la tâche est déjà dans un état final
+        if(in_array($record->etatRealisationTache?->workflowTache->code, ['APPROVED', 'NOT_VALIDATED'])) {
             return;
         }
 
