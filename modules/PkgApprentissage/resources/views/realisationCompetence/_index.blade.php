@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('realisationCompetence-crud-filters')
-                @if(!empty($realisationCompetences_total) &&  $realisationCompetences_total > 50)
+                @if(!empty($realisationCompetences_total) &&  $realisationCompetences_total > 10)
                 <div class="card-header">
                     <form id="realisationCompetence-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($realisationCompetences_filters ?? [])}}">

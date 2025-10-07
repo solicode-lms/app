@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('tache-crud-filters')
-                @if(!empty($taches_total) &&  $taches_total > 50)
+                @if(!empty($taches_total) &&  $taches_total > 10)
                 <div class="card-header">
                     <form id="tache-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($taches_filters ?? [])}}">

@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('anneeFormation-crud-filters')
-                @if(!empty($anneeFormations_total) &&  $anneeFormations_total > 50)
+                @if(!empty($anneeFormations_total) &&  $anneeFormations_total > 10)
                 <div class="card-header">
                     <form id="anneeFormation-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($anneeFormations_filters ?? [])}}">

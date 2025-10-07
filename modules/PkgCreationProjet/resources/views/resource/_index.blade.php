@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('resource-crud-filters')
-                @if(!empty($resources_total) &&  $resources_total > 50)
+                @if(!empty($resources_total) &&  $resources_total > 10)
                 <div class="card-header">
                     <form id="resource-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($resources_filters ?? [])}}">

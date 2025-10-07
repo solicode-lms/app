@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('module-crud-filters')
-                @if(!empty($modules_total) &&  $modules_total > 50)
+                @if(!empty($modules_total) &&  $modules_total > 10)
                 <div class="card-header">
                     <form id="module-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($modules_filters ?? [])}}">

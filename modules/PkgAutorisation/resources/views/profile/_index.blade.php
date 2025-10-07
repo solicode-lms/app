@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('profile-crud-filters')
-                @if(!empty($profiles_total) &&  $profiles_total > 50)
+                @if(!empty($profiles_total) &&  $profiles_total > 10)
                 <div class="card-header">
                     <form id="profile-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($profiles_filters ?? [])}}">

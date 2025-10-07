@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('ePackage-crud-filters')
-                @if(!empty($ePackages_total) &&  $ePackages_total > 50)
+                @if(!empty($ePackages_total) &&  $ePackages_total > 10)
                 <div class="card-header">
                     <form id="ePackage-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($ePackages_filters ?? [])}}">

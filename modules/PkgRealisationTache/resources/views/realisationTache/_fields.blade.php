@@ -214,76 +214,6 @@
     
 
     
-      <h5 class="debut-groupe-title text-info">{{ __('Suivi et évaluation') }}</h5>
-      <hr class="debut-groupe-hr">
-    
-    <div class="row">
-        
-@if($itemRealisationTache->id)
-@if(
-  (auth()->user()?->can('show-realisationChapitre') && $itemRealisationTache->realisationChapitres->isNotEmpty())  
-  || auth()->user()?->can('create-realisationChapitre')
-  || (auth()->user()?->can('edit-realisationChapitre')  && $itemRealisationTache->realisationChapitres->isNotEmpty() )
-  )
-@if (empty($bulkEdit))
-<div class="col-12 col-md-12">
-   <label for="RealisationChapitre">
-            {{ ucfirst(__('PkgApprentissage::realisationChapitre.plural')) }}
-            
-    </label>
-
-  @include('PkgApprentissage::realisationChapitre._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => false ,"parent_manager_id" => "realisationTache-crud","contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
-</div>
-@endif
-@endif
-@endif
-
-
-@if($itemRealisationTache->id)
-@if(
-  (auth()->user()?->can('show-realisationUaProjet') && $itemRealisationTache->realisationUaProjets->isNotEmpty())  
-  || auth()->user()?->can('create-realisationUaProjet')
-  || (auth()->user()?->can('edit-realisationUaProjet')  && $itemRealisationTache->realisationUaProjets->isNotEmpty() )
-  )
-@if (empty($bulkEdit))
-<div class="col-12 col-md-12">
-   <label for="RealisationUaProjet">
-            {{ ucfirst(__('PkgApprentissage::realisationUaProjet.plural')) }}
-            
-    </label>
-
-  @include('PkgApprentissage::realisationUaProjet._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => true ,"parent_manager_id" => "realisationTache-crud","contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
-</div>
-@endif
-@endif
-@endif
-
-
-@if($itemRealisationTache->id)
-@if(
-  (auth()->user()?->can('show-realisationUaPrototype') && $itemRealisationTache->realisationUaPrototypes->isNotEmpty())  
-  || auth()->user()?->can('create-realisationUaPrototype')
-  || (auth()->user()?->can('edit-realisationUaPrototype')  && $itemRealisationTache->realisationUaPrototypes->isNotEmpty() )
-  )
-@if (empty($bulkEdit))
-<div class="col-12 col-md-12">
-   <label for="RealisationUaPrototype">
-            {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.plural')) }}
-            
-    </label>
-
-  @include('PkgApprentissage::realisationUaPrototype._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => true ,"parent_manager_id" => "realisationTache-crud","contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
-</div>
-@endif
-@endif
-@endif
-
-
-    </div>
-  
-    
-
-    
       <h5 class="debut-groupe-title text-info">{{ __('Remarques') }}</h5>
       <hr class="debut-groupe-hr">
     
@@ -359,6 +289,76 @@
       </div>
   
 </x-form-field>
+
+
+    </div>
+  
+    
+
+    
+      <h5 class="debut-groupe-title text-info">{{ __('Suivi et évaluation') }}</h5>
+      <hr class="debut-groupe-hr">
+    
+    <div class="row">
+        
+@if($itemRealisationTache->id)
+@if(
+  (auth()->user()?->can('show-realisationChapitre') && $itemRealisationTache->realisationChapitres->isNotEmpty())  
+  || auth()->user()?->can('create-realisationChapitre')
+  || (auth()->user()?->can('edit-realisationChapitre')  && $itemRealisationTache->realisationChapitres->isNotEmpty() )
+  )
+@if (empty($bulkEdit))
+<div class="col-12 col-md-12">
+   <label for="RealisationChapitre">
+            {{ ucfirst(__('PkgApprentissage::realisationChapitre.plural')) }}
+            
+    </label>
+
+  @include('PkgApprentissage::realisationChapitre._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => false ,"parent_manager_id" => "realisationTache-crud","contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+</div>
+@endif
+@endif
+@endif
+
+
+@if($itemRealisationTache->id)
+@if(
+  (auth()->user()?->can('show-realisationUaProjet') && $itemRealisationTache->realisationUaProjets->isNotEmpty())  
+  || auth()->user()?->can('create-realisationUaProjet')
+  || (auth()->user()?->can('edit-realisationUaProjet')  && $itemRealisationTache->realisationUaProjets->isNotEmpty() )
+  )
+@if (empty($bulkEdit))
+<div class="col-12 col-md-12">
+   <label for="RealisationUaProjet">
+            {{ ucfirst(__('PkgApprentissage::realisationUaProjet.plural')) }}
+            
+    </label>
+
+  @include('PkgApprentissage::realisationUaProjet._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => true ,"parent_manager_id" => "realisationTache-crud","contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+</div>
+@endif
+@endif
+@endif
+
+
+@if($itemRealisationTache->id)
+@if(
+  (auth()->user()?->can('show-realisationUaPrototype') && $itemRealisationTache->realisationUaPrototypes->isNotEmpty())  
+  || auth()->user()?->can('create-realisationUaPrototype')
+  || (auth()->user()?->can('edit-realisationUaPrototype')  && $itemRealisationTache->realisationUaPrototypes->isNotEmpty() )
+  )
+@if (empty($bulkEdit))
+<div class="col-12 col-md-12">
+   <label for="RealisationUaPrototype">
+            {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.plural')) }}
+            
+    </label>
+
+  @include('PkgApprentissage::realisationUaPrototype._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => true ,"parent_manager_id" => "realisationTache-crud","contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+</div>
+@endif
+@endif
+@endif
 
 
     </div>

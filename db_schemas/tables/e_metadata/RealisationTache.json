@@ -760,7 +760,7 @@
             },
             "Remarques": {
                 "label": "Remarques",
-                "order": 5
+                "order": 4
             },
             "Historique": {
                 "label": "Historique",
@@ -768,7 +768,7 @@
             },
             "Suivi et évaluation": {
                 "label": "Suivi et évaluation",
-                "order": 4
+                "order": 5
             },
             "Dates de réalisation": {
                 "label": "Dates de réalisation",

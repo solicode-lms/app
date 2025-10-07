@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('eModel-crud-filters')
-                @if(!empty($eModels_total) &&  $eModels_total > 50)
+                @if(!empty($eModels_total) &&  $eModels_total > 10)
                 <div class="card-header">
                     <form id="eModel-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($eModels_filters ?? [])}}">

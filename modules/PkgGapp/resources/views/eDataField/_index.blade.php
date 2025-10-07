@@ -102,7 +102,7 @@
                 </div>
                 @show
                 @section('eDataField-crud-filters')
-                @if(!empty($eDataFields_total) &&  $eDataFields_total > 50)
+                @if(!empty($eDataFields_total) &&  $eDataFields_total > 10)
                 <div class="card-header">
                     <form id="eDataField-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($eDataFields_filters ?? [])}}">

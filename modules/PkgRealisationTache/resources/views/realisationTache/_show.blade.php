@@ -72,6 +72,31 @@
             </div>
             </div>
             <h6 class="text-muted mb-2">
+                        <i class="fas fa-info-circle mr-1"></i>{{ __('Remarques') }}
+            </h6>
+            <div class="row no-gutters mb-4">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.remarques_formateur')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemRealisationTache->remarques_formateur) && $itemRealisationTache->remarques_formateur !== '')
+                    {!! $itemRealisationTache->remarques_formateur !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.remarques_apprenant')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemRealisationTache->remarques_apprenant) && $itemRealisationTache->remarques_apprenant !== '')
+                    {!! $itemRealisationTache->remarques_apprenant !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            </div>
+            <h6 class="text-muted mb-2">
                         <i class="fas fa-info-circle mr-1"></i>{{ __('Suivi et évaluation') }}
             </h6>
             <div class="row no-gutters mb-4">
@@ -120,31 +145,6 @@
             </div>
             @endif
 
-            </div>
-            <h6 class="text-muted mb-2">
-                        <i class="fas fa-info-circle mr-1"></i>{{ __('Remarques') }}
-            </h6>
-            <div class="row no-gutters mb-4">
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.remarques_formateur')) }}</small>
-                  <!-- Valeur avec sauts de ligne -->
-                  @if(! is_null($itemRealisationTache->remarques_formateur) && $itemRealisationTache->remarques_formateur !== '')
-                    {!! $itemRealisationTache->remarques_formateur !!}
-                  @else
-                    <span class="text-muted">—</span>
-                  @endif                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.remarques_apprenant')) }}</small>
-                  <!-- Valeur avec sauts de ligne -->
-                  @if(! is_null($itemRealisationTache->remarques_apprenant) && $itemRealisationTache->remarques_apprenant !== '')
-                    {!! $itemRealisationTache->remarques_apprenant !!}
-                  @else
-                    <span class="text-muted">—</span>
-                  @endif                </div>
-            </div>
             </div>
             <div class="row no-gutters mb-4">
             @if(
