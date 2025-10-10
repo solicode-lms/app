@@ -381,13 +381,24 @@ class RealisationProjetService extends BaseRealisationProjetService
                 );
 
                 // Vérification de l'existence d'une RealisationChapitre
+                
                 $tache->chapitreExistant = RealisationChapitre::where('chapitre_id', $tache->chapitre->id)
                     ->where('realisation_ua_id', $realisationUA->id)
-                    ->whereNull('realisation_tache_id')
                     ->first();
 
                 if ($tache->chapitreExistant) {
-                    $tache->chapitreExistant->update(['realisation_tache_id' => $realisationTache->id]);
+                    // TODO : si le chapitre est déja existe, et son état et n'est pas valide, on doit le mettre à jour
+                   
+                    //$tache->chapitreExistant->update(['realisation_tache_id' => $realisationTache->id]);
+
+                     // ✅ Si le chapitre existe et que son état n’est pas “DONE”, on le met à jour
+                    if ($tache->chapitreExistant->etatRealisationChapitre?->code !== 'DONE') {
+                        $tache->chapitreExistant->update([
+                            'realisation_tache_id' => $realisationTache->id,
+                        ]);
+                    }
+
+
                 } else {
                     $realisationChapitreService->create([
                         'realisation_tache_id' => $realisationTache->id,
