@@ -351,11 +351,16 @@ class RealisationProjetService extends BaseRealisationProjetService
         $realisationUaProjetService = app(RealisationUaProjetService::class);
         $realisationUaPrototypeService = app(RealisationUaPrototypeService::class);
 
+
         foreach ($taches as $tache) {
             $tacheAffectation = $tache->tacheAffectations
                 ->where('affectation_projet_id', $affectationProjet->id)
                 ->first();
 
+            // TODO : il faut ajouter réalisationTace si la tâche n'a pas de RéaisationTace
+            // Le cas ou l'apprenant modifer les état en dehor de réalisation des tâches
+
+            
             // ⚠️ Si la tâche est liée à un chapitre terminé, on passe à la suivante
             if ($tache->chapitre) {
                 $realisationUA = $realisationUaService->getOrCreateApprenant(
