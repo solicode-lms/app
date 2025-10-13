@@ -33,7 +33,52 @@ trait RealisationTacheServiceCrud
 {
 
 
-    
+    /**
+     * Summary of beforCreateRules
+     * 
+     * Règle métier exécutée avant la création d'une RealisationTache.
+     * Si le champ `tache_affectation_id` n'est pas fourni :
+     *  - on le recherche dans la table `tache_affectations`
+     *  - sinon on le crée automatiquement à partir de la Tâche et de l'AffectationProjet
+     * 
+     * @param mixed $data
+     * @return mixed
+     */
+    public function beforeCreateRules(&$data)
+    {
+        // 🧩 Si tache_affectation_id est vide → on le détermine ou le crée
+        if (empty($data['tache_affectation_id']) && !empty($data['tache_id']) && !empty($data['realisation_projet_id'])) {
+
+            $tache = \Modules\PkgCreationTache\Models\Tache::find($data['tache_id']);
+            $realisationProjet = \Modules\PkgRealisationProjets\Models\RealisationProjet::find($data['realisation_projet_id']);
+
+            if ($tache && $realisationProjet && $realisationProjet->affectation_projet_id) {
+                $affectationProjetId = $realisationProjet->affectation_projet_id;
+
+                // 🔍 Chercher si une TacheAffectation existe déjà
+                $tacheAffectation = \Modules\PkgRealisationTache\Models\TacheAffectation::where('tache_id', $tache->id)
+                    ->where('affectation_projet_id', $affectationProjetId)
+                    ->first();
+
+                // 🧱 Si elle n'existe pas, on la crée automatiquement
+                if (!$tacheAffectation) {
+                    $tacheAffectation = \Modules\PkgRealisationTache\Models\TacheAffectation::create([
+                        'tache_id' => $tache->id,
+                        'affectation_projet_id' => $affectationProjetId,
+                        // Ajout de champs de sécurité pour compatibilité
+                        'date_debut' => $realisationProjet->date_debut ?? now(),
+                        'date_fin'   => $realisationProjet->date_fin ?? now()->addWeek(),
+                    ]);
+                }
+
+                // ✅ Injection de la valeur dans les données de création
+                $data['tache_affectation_id'] = $tacheAffectation->id;
+            }
+        }
+
+        // return $data;
+    }
+
 
     /**
      * Méthode contient les règles métier qui sont appliquer avant l'édition

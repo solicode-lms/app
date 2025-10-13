@@ -28,26 +28,6 @@ class TacheService extends BaseTacheService
     protected $ordreGroupColumn = "projet_id";
 
 
-   
-
-
-    // public function paginate(array $params = [], int $perPage = 0, array $columns = ['*']): LengthAwarePaginator
-    // {
-    //     $perPage = $perPage ?: $this->paginationLimit;
-    
-    //     return $this->model::withScope(function () use ($params, $perPage, $columns) {
-    //         $query = $this->allQuery($params);
-    
-        
-    //         // Calcul du nombre total des résultats filtrés
-    //         $this->totalFilteredCount = $query->count();
-    
-    //         return $query->paginate($perPage, $columns);
-    //     });
-    // }
-
-
-
         /**
      * Hook appelé après la création d’une tâche
      * pour générer les réalisations et évaluations associées.
@@ -136,17 +116,6 @@ class TacheService extends BaseTacheService
         }
     }
 
-    /**
-     * Met à jour un élément existant.
-     *
-     * @param mixed $id Identifiant de l'élément à mettre à jour.
-     * @param array $data Données à mettre à jour.
-     * @return Entity modifié
-     */
-    // public function update($id, array $data)
-    // {
-    //     return parent::update($id,$data);
-    // }
 
    /**
      * Récupérer les tâches associées aux projets d'un formateur donné.

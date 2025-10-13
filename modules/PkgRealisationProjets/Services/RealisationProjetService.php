@@ -168,12 +168,6 @@ class RealisationProjetService extends BaseRealisationProjetService
     }
     
 
-    // public function delete($entity){
-    //     $entity->realisationTaches->delete();
-    //     $entity->delete();
-    // }
-
-
       public function deletedObserverJob(int $id, string $token): void
     {
         $jobManager = new JobManager($token); 
