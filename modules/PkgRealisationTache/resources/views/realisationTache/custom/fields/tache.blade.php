@@ -36,7 +36,15 @@
 
     @if( !empty($entity->remarques_formateur) && trim(strip_tags($entity->remarques_formateur))  != '' )
     <section class="tache-comment" data-toggle="tooltip" title="Commentaire formateur">
-      {!! $entity->remarques_formateur !!}
+        <i class="fas fa-user-tie text-info"></i> 
+        {!! $entity->remarques_formateur !!}
+    </section>
+    @endif
+
+    @if( !empty($entity->remarques_apprenant) && trim(strip_tags($entity->remarques_apprenant))  != '' )
+    <section class="tache-comment" data-toggle="tooltip" title="Commentaire apprenant">
+      <i class="fas fa-user text-info"></i> 
+      {!! $entity->remarques_apprenant !!}
     </section>
     @endif
 
