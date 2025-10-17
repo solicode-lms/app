@@ -4,6 +4,7 @@
     $projet       = data_get($entity, 'affectationProjet.projet');
     $projetTitre  = data_get($projet, 'titre') ?: (string) data_get($entity, 'affectationProjet');
     $sessionTitre = data_get($projet, 'sessionFormation.titre');
+    $resources = $projet?->resources ?? collect();
 
     $travailHtml  = data_get($projet, 'travail_a_faire') ?? '';
     $criteresHtml = data_get($projet, 'critere_de_travail') ?? '';
@@ -59,6 +60,33 @@
             --}}
         </section>
         @endif
+
+
+      
+        @if($resources->isNotEmpty())
+        <section class="projet-ressources projet-section" aria-labelledby="ressources-heading">
+            <h3 id="ressources-heading">
+                <i class="fas fa-link" aria-hidden="true"></i>
+                <span>Ressources</span>
+            </h3>
+            <ul class="projet-ressources-list">
+                @foreach($resources as $resource)
+               
+                    <li>
+                        @if(Str::startsWith($resource->lien, ['http://', 'https://']))
+                            <a href="{{ $resource->lien }}" target="_blank" rel="noopener">
+                                <i class="fas fa-external-link-alt"></i>
+                                {{ $resource->nom ?? basename($resource->lien) }}
+                            </a>
+                        @else
+                            {{ $resource->nom ?? $resource->lien }}
+                        @endif
+                    </li>
+                @endforeach
+            </ul>
+        </section>
+        @endif
+
     </section>
     @endif
 

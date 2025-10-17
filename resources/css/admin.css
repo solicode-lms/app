@@ -20,6 +20,8 @@
 @import './loading-spin';
 
 @import './projets/projet-card.css';
+@import './projets/projet-show-card.css';
+
 @import './taches/tache-card.css';
 @import './realisation/realisation-etat.css';
 @import './taches/tache-livrables.css';

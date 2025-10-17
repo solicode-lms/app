@@ -316,12 +316,101 @@
 }
 
 /* =====================
-   Responsive
+   Responsive – Pleine largeur (12 colonnes)
    ===================== */
 @media (min-width: 768px) {
+  /* Grille principale sur 12 colonnes */
   .projet-show-card .projet-sections-grid {
     display: grid;
-    grid-template-columns: 1.3fr 1fr;
+    grid-template-columns: repeat(12, 1fr);
     gap: 1rem;
   }
+
+  /* Chaque section occupe toute la largeur */
+  .projet-show-card .projet-travail,
+  .projet-show-card .projet-criteres,
+  .projet-show-card .projet-ressources {
+    grid-column: span 12;
+  }
+
+  /* Disposition interne des ressources */
+  .projet-show-card .projet-ressources-list {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
 }
+/* =========================================================
+   Ressources du projet
+   ========================================================= */
+.projet-show-card .projet-ressources {
+  background: #fff;
+  border: 1px solid var(--p-border);
+  border-radius: 0.5rem;
+  padding: 0.8rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.projet-show-card .projet-ressources h3 {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  color: var(--p-body);
+  margin: 0 0 0.25rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.projet-show-card .projet-ressources h3 i {
+  color: var(--p-accent);
+  font-size: 0.95em;
+}
+
+/* Liste des liens */
+/* =========================================================
+   Ressources du projet (une ressource par ligne)
+   ========================================================= */
+.projet-show-card .projet-ressources-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column; /* ✅ chaque ressource à la ligne */
+  gap: 0.4rem;
+}
+
+.projet-show-card .projet-ressources-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--p-body);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* Icône et lien */
+.projet-show-card .projet-ressources-list li i {
+  color: #9ca3af;
+  font-size: 0.9em;
+  flex-shrink: 0;
+}
+.projet-show-card .projet-ressources-list a {
+  color: var(--p-accent);
+  text-decoration: none;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+.projet-show-card .projet-ressources-list a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--p-accent);
+}
+
+/* Variante : type fichier local ou externe */
+.projet-show-card .projet-ressources-list li.file {
+  background: var(--p-soft);
+  border-radius: 0.35rem;
+  padding: 0.3rem 0.5rem;
+}
+.projet-show-card .projet-ressources-list li.external i {
+  color: var(--p-accent);
+}
+
