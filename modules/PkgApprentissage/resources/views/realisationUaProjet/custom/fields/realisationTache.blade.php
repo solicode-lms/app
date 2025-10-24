@@ -6,7 +6,8 @@
   <section class="projet-section">
 
     {{-- ===================== PROTOTYPE ===================== --}}
-    @php $proto = $entity->prototype ?? null; @endphp
+    @php $proto = $entity->prototypeRelation ?? null; @endphp
+    
     @if($proto)
       <div class="item">
         {{-- Ligne 1 : Titre + État --}}
