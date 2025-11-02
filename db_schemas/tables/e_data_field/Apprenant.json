@@ -37,8 +37,22 @@
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 1,
-        "calculable_sql": "SELECT TIMESTAMPDIFF(HOUR, MAX(rt.updated_at), NOW())\r\nFROM realisation_taches rt\r\nJOIN realisation_projets rp ON rt.realisation_projet_id = rp.id\r\nJOIN etat_realisation_taches ert ON rt.etat_realisation_tache_id = ert.id\r\nJOIN workflow_taches wt ON ert.workflow_tache_id = wt.id\r\nWHERE rp.apprenant_id = apprenants.id \r\n  AND wt.code IN ('APPROVED', 'TO_APPROVE')",
+        "calculable_sql": "SELECT TIMESTAMPDIFF(HOUR, MAX(rt.updated_at), NOW())\r\nFROM realisation_taches rt\r\nJOIN realisation_projets rp ON rt.realisation_projet_id = rp.id\r\nJOIN etat_realisation_taches ert ON rt.etat_realisation_tache_id = ert.id\r\nJOIN workflow_taches wt ON ert.workflow_tache_id = wt.id\r\nWHERE rp.apprenant_id = apprenants.id \r\n  AND wt.code IN ('APPROVED', 'TO_APPROVE','NOT_VALIDATED')",
         "description": "",
+        "e_model_reference": "apprenants"
+    },
+    {
+        "reference": "Apprenant_derniere_activite",
+        "name": "derniere_activite",
+        "column_name": "derniere_activite",
+        "data_type": "Date",
+        "field_order": 10,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT MAX(hrt.created_at)\r\nFROM historique_realisation_taches hrt\r\nJOIN realisation_taches rt ON hrt.realisation_tache_id = rt.id\r\nJOIN realisation_projets rp ON rt.realisation_projet_id = rp.id\r\nJOIN apprenants a ON rp.apprenant_id = a.id\r\nJOIN users u ON hrt.user_id = u.id\r\nWHERE rp.apprenant_id = apprenants.id\r\n  AND u.id = a.user_id",
+        "description": "derniere_activite",
         "e_model_reference": "apprenants"
     }
 ]

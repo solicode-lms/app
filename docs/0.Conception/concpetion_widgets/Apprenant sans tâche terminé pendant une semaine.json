@@ -12,7 +12,7 @@
       "tableUI": [
         {
           "key": "duree",
-          "label": "Dernière Tache finie",
+          "label": "Dernière tâche terminée",
           "order": 3
         },
         {
@@ -31,7 +31,7 @@
       "tableUI": [
         {
           "key": "duree",
-          "label": "Dernière Tache finie",
+          "label": "Dernière tâche terminée",
           "order": 2
         },
         {
@@ -45,7 +45,7 @@
       "tableUI": [
         {
           "key": "duree",
-          "label": "Dernière Tache finie",
+          "label": "Dernière tâche terminée",
           "order": 2
         },
         {
@@ -59,7 +59,7 @@
   "tableUI": [
     {
       "key": "duree",
-      "label": "Dernière Tache finie",
+      "label": "Dernière tâche terminée",
       "order": 2
     },
     {

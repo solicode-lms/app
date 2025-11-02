@@ -166,22 +166,23 @@ trait ApprenantServiceWidgets
 
         return $query->get()->map(function ($apprenant) {
 
-            // 🧮 Récupération de la durée sans tâche terminée ou en validation
-            $heures = (int) $apprenant->duree_sans_terminer_tache;
+            // 🕒 Dernière activité (réalisée par l'apprenant)
+            $derniere_activite = $apprenant->derniere_activite;
 
-            if ($heures > 0) {
-                // Conversion en jours + heures
-                $jours = floor($heures / 24);
-                $reste_heures = $heures % 24;
-                $duree = "{$jours} jours {$reste_heures} heures";
+            if ($derniere_activite) {
+                try {
+                    $derniere_activite = \Carbon\Carbon::parse($derniere_activite)->diffForHumans();
+                } catch (\Exception $e) {
+                    $derniere_activite = $apprenant->derniere_activite; // fallback brut
+                }
             } else {
-                $duree = "Aucune tâche terminée";
+                $derniere_activite = "Aucune activité";
             }
 
             return [
                 'apprenant' => $apprenant,
                 'groupe' => $apprenant->groupes?->pluck('code')->implode(', ') ?? '—',
-                'duree' => $duree,
+                'derniere_activite' => $derniere_activite, // ✅ remplacement
             ];
         })->toArray(); // ✅ Conversion finale en tableau associatif
     }

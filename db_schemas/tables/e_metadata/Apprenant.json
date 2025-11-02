@@ -756,7 +756,7 @@
     },
     {
         "reference": "Apprenant-duree_sans_terminer_tache_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
         "value_float": 0,
         "e_data_field_reference": "Apprenant-duree_sans_terminer_tache",
         "e_metadata_definition_reference": "displayInTable"
@@ -1508,6 +1508,32 @@
         "value_float": 0,
         "value_text": "<p><br></p>",
         "e_data_field_reference": "Apprenant_matricule",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Apprenant_derniere_activite_required",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_derniere_activite",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Apprenant_derniere_activite_displayOrder",
+        "value_integer": 10,
+        "e_data_field_reference": "Apprenant_derniere_activite",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_derniere_activite_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_derniere_activite",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_derniere_activite_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_derniere_activite",
         "e_metadata_definition_reference": "displayInTable"
     }
 ]

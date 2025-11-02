@@ -323,22 +323,15 @@ class BaseApprenantService extends BaseService
     /**
     * Liste des champs autorisés à l’édition inline
     */
-    public function getInlineFieldsEditable(): array
+    public function getFieldsEditable(): array
     {
-        // Champs considérés comme inline
-        $inlineFields = [
+        return [
             'nom',
             'prenom',
-            'duree_sans_terminer_tache',
+            'derniere_activite',
             'user_id',
             'groupes'
         ];
-
-        // Récupération des champs autorisés par rôle via getFieldsEditable()
-        return array_values(array_intersect(
-            $inlineFields,
-            $this->getFieldsEditable()
-        ));
     }
 
 
@@ -362,7 +355,7 @@ class BaseApprenantService extends BaseService
             'entity'         => 'apprenant',
             'id'             => $e->id,
             'field'          => $field,
-            'writable'       => in_array($field, $this->getInlineFieldsEditable()),
+            'writable'       => in_array($field, $this->getFieldsEditable()),
             'etag'           => $this->etag($e),
             'schema_version' => 'v1',
             'html_attrs'     => $htmlAttrs,
@@ -374,9 +367,9 @@ class BaseApprenantService extends BaseService
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'prenom':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
-            case 'duree_sans_terminer_tache':
-                return $this->computeFieldMeta($e, $field, $meta, 'number');
-
+            case 'derniere_activite':
+                return $this->computeFieldMeta($e, $field, $meta, 'date', $validationRules);
+            
             case 'user_id':
                  $values = (new \Modules\PkgAutorisation\Services\UserService())
                     ->getAllForSelect($e->user)
@@ -405,7 +398,7 @@ class BaseApprenantService extends BaseService
      */
     public function applyInlinePatch(Apprenant $e, array $changes): Apprenant
     {
-        $allowed = $this->getInlineFieldsEditable();
+        $allowed = $this->getFieldsEditable();
         $filtered = Arr::only($changes, $allowed);
 
         if (empty($filtered)) {
@@ -450,14 +443,15 @@ class BaseApprenantService extends BaseService
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
-                case 'duree_sans_terminer_tache':
-                    $html = view('Core::fields_by_type.integer', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => 'duree'
+                case 'derniere_activite':
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgApprenants::apprenant.custom.fields.derniere_activite', [
+                        'entity' => $e
                     ])->render();
+
                     $out[$field] = ['html' => $html];
                     break;
+
                 case 'user_id':
                     $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,

@@ -60,8 +60,18 @@ class BaseApprenant extends BaseModel
         JOIN etat_realisation_taches ert ON rt.etat_realisation_tache_id = ert.id
         JOIN workflow_taches wt ON ert.workflow_tache_id = wt.id
         WHERE rp.apprenant_id = apprenants.id 
-          AND wt.code IN ('APPROVED', 'TO_APPROVE')";
+          AND wt.code IN ('APPROVED', 'TO_APPROVE','NOT_VALIDATED')";
         static::addDynamicAttribute('duree_sans_terminer_tache', $sql);
+        // Colonne dynamique : derniere_activite
+        $sql = "SELECT MAX(hrt.created_at)
+        FROM historique_realisation_taches hrt
+        JOIN realisation_taches rt ON hrt.realisation_tache_id = rt.id
+        JOIN realisation_projets rp ON rt.realisation_projet_id = rp.id
+        JOIN apprenants a ON rp.apprenant_id = a.id
+        JOIN users u ON hrt.user_id = u.id
+        WHERE rp.apprenant_id = apprenants.id
+          AND u.id = a.user_id";
+        static::addDynamicAttribute('derniere_activite', $sql);
         // Colonne dynamique : nombre_realisation_taches_en_cours
         $sql = "SELECT count(*) FROM realisation_taches rt 
         JOIN realisation_projets rp ON rt.realisation_projet_id = rp.id 

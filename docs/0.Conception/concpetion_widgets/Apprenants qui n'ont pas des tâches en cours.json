@@ -11,8 +11,8 @@
     "admin": {
       "tableUI": [
         {
-          "key": "duree",
-          "label": "Durée",
+          "key": "derniere_activite",
+          "label": "Dernière activité",
           "order": 3
         },
         {
@@ -30,8 +30,8 @@
     "apprenant": {
       "tableUI": [
         {
-          "key": "duree",
-          "label": "Durée",
+          "key": "derniere_activite",
+          "label": "Dernière activité",
           "order": 2
         },
         {
@@ -44,8 +44,8 @@
     "formateur": {
       "tableUI": [
         {
-          "key": "duree",
-          "label": "Durée",
+          "key": "derniere_activite",
+          "label": "Dernière activité",
           "order": 2
         },
         {
@@ -58,8 +58,8 @@
   },
   "tableUI": [
     {
-      "key": "duree",
-      "label": "Durée",
+      "key": "derniere_activite",
+      "label": "Dernière activité",
       "order": 2
     },
     {

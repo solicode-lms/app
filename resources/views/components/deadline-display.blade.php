@@ -16,7 +16,7 @@
         $inPast = $value->lt($now); // Vérifie si dans le passé
 
         if ($inPast) {
-            $display = $value->format('d/m/Y'); // Date de fin atteinte
+            $display = $value->format('d/m/Y H:i'); // Date de fin atteinte
         } else {
             $diff = $value->diff($now);
             $jours = $diff->d;

@@ -11,7 +11,7 @@
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="16.4"  field="nom" modelname="apprenant" label="{!!ucfirst(__('PkgApprenants::apprenant.nom'))!!}" />
                 <x-sortable-column :sortable="true" width="16.4"  field="prenom" modelname="apprenant" label="{!!ucfirst(__('PkgApprenants::apprenant.prenom'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="duree_sans_terminer_tache" modelname="apprenant" label="{!!ucfirst(__('PkgApprenants::apprenant.duree_sans_terminer_tache'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="derniere_activite" modelname="apprenant" label="{!!ucfirst(__('PkgApprenants::apprenant.derniere_activite'))!!}" />
                 <x-sortable-column :sortable="true" width="16.4" field="user_id" modelname="apprenant" label="{!!ucfirst(__('PkgAutorisation::user.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="16.4"  field="groupes" modelname="apprenant" label="{!!ucfirst(__('PkgApprenants::groupe.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -33,9 +33,8 @@
                         {{ $apprenant->prenom }}
 
                     </td>
-                    <td style="max-width: 16.4%;white-space: normal;" class=" text-truncate" data-id="{{$apprenant->id}}" data-field="duree_sans_terminer_tache">
-                            <x-duree-affichage :heures="$apprenant->duree_sans_terminer_tache" />
-
+                    <td style="max-width: 16.4%;white-space: normal;" class=" text-truncate" data-id="{{$apprenant->id}}" data-field="derniere_activite" >
+                        @include('PkgApprenants::apprenant.custom.fields.derniere_activite', ['entity' => $apprenant])
                     </td>
                     <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="user_id">
                         {{  $apprenant->user }}

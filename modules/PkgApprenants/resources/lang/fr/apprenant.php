@@ -23,5 +23,6 @@ return [
     'cin' => 'cin',
     'nombre_realisation_taches_en_cours' => 'Tâches en cours',
     'nom_filiere' => 'filière',
-    'duree_sans_terminer_tache' => 'Dernière Tache finie',
+    'duree_sans_terminer_tache' => 'Dernière tâche terminée',
+    'derniere_activite' => 'Dernière activité'
 ];
