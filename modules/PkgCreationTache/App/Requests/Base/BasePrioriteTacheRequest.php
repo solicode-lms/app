@@ -52,5 +52,4 @@ class BasePrioriteTacheRequest extends FormRequest
         ];
     }
 
-    
 }

@@ -35,21 +35,6 @@ class BaseRealisationUaProjetService extends BaseService
     ];
 
 
-    /**
-     * Trie par défault, il est utiliser par la méthode : applySort
-     * Ne pas trie par défaut sur updated_at
-     * @param mixed $query
-     */
-    public function defaultSort($query){
-        $model = $query->getModel();
-        $table = $model->getTable();
-        
-        // return $query->orderBy('updated_at', 'desc');
-
-        // il ajoute une requêtre sur la table schema : 1.11 ms
-        return $query;
-    }
-
 
     public function editableFieldsByRoles(): array
     {

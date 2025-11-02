@@ -240,6 +240,21 @@
             </div>
             @endif
 
+            @if(
+                  (auth()->user()?->can('show-prioriteTache') && $itemFormateur->prioriteTaches->isNotEmpty())  
+                  || auth()->user()?->can('create-prioriteTache')
+                  || (auth()->user()?->can('edit-prioriteTache')  && $itemFormateur->prioriteTaches->isNotEmpty() )
+                  )
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationTache::prioriteTache.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgCreationTache::prioriteTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+                  </div>
+                  </div>
+            </div>
+            @endif
+
             </div>
         </div>
         <div class="card-footer">
