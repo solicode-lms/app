@@ -1,0 +1,72 @@
+{
+  "link": {
+    "route_name": "apprenants.index",
+    "route_params": {
+      "showIndex": "true",
+      "dataSource.apprenant.code": "apprenantSansTacheTerminee7Jours"
+    }
+  },
+  "limit": 5,
+  "roles": {
+    "admin": {
+      "tableUI": [
+        {
+          "key": "duree",
+          "label": "Dernière Tache finie",
+          "order": 3
+        },
+        {
+          "key": "groupe",
+          "label": "Groupe",
+          "order": 2
+        },
+        {
+          "key": "apprenant",
+          "label": "Apprenant",
+          "order": 1
+        }
+      ]
+    },
+    "apprenant": {
+      "tableUI": [
+        {
+          "key": "duree",
+          "label": "Dernière Tache finie",
+          "order": 2
+        },
+        {
+          "key": "apprenant",
+          "label": "Apprenant",
+          "order": 1
+        }
+      ]
+    },
+    "formateur": {
+      "tableUI": [
+        {
+          "key": "duree",
+          "label": "Dernière Tache finie",
+          "order": 2
+        },
+        {
+          "key": "apprenant",
+          "label": "Apprenant",
+          "order": 1
+        }
+      ]
+    }
+  },
+  "tableUI": [
+    {
+      "key": "duree",
+      "label": "Dernière Tache finie",
+      "order": 2
+    },
+    {
+      "key": "apprenant",
+      "label": "Apprenant",
+      "order": 1
+    }
+  ],
+  "dataSource": "apprenantSansTacheTermineeDepuis7Jours"
+}

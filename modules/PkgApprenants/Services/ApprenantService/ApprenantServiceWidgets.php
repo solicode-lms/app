@@ -28,7 +28,7 @@ trait ApprenantServiceWidgets
                 JOIN etat_realisation_taches ert ON rt.etat_realisation_tache_id = ert.id
                 JOIN workflow_taches wt ON ert.workflow_tache_id = wt.id
                 WHERE rp.apprenant_id = apprenants.id
-                AND wt.code IN ("APPROVED", "TO_APPROVE")
+                AND wt.code IN ("APPROVED", "TO_APPROVE","NOT_VALIDATED")
             ) >= 7');
         })->orWhere(function ($q) {
             $q->whereRaw('(SELECT COUNT(*)
@@ -37,7 +37,7 @@ trait ApprenantServiceWidgets
                 JOIN etat_realisation_taches ert ON rt.etat_realisation_tache_id = ert.id
                 JOIN workflow_taches wt ON ert.workflow_tache_id = wt.id
                 WHERE rp.apprenant_id = apprenants.id
-                AND wt.code IN ("APPROVED", "TO_APPROVE")
+                AND wt.code IN ("APPROVED", "TO_APPROVE","NOT_VALIDATED")
             ) = 0');
         });
 
@@ -63,25 +63,24 @@ trait ApprenantServiceWidgets
 
         return $query->get()->map(function ($apprenant) {
 
-            // On cherche la dernière tâche "terminée" ou "en validation"
-            $derniere_tache_terminee_ou_validation = $apprenant->derniere_tache_terminee_ou_validation;
-            $date = optional($derniere_tache_terminee_ou_validation)->updated_at;
-        
-            if ($date) { // ✅ Vérifier que la date est passée
-                $diff = $date->diff(now());
-                $jours = $diff->d;
-                $heures = $diff->h;
-                $duree = "{$jours} jours {$heures} heures";
-            }else{
+            // 🧮 Récupération de la durée sans tâche terminée (en heures)
+            $heures = (int) $apprenant->duree_sans_terminer_tache;
+
+            if ($heures > 0) {
+                // Conversion heures → jours + heures
+                $jours = floor($heures / 24);
+                $reste_heures = $heures % 24;
+                $duree = "{$jours} jours {$reste_heures} heures";
+            } else {
                 $duree = "Aucune tâche terminée";
             }
-        
+
             return [
                 'apprenant' => $apprenant,
-                'groupe' => $apprenant->groupe,
+                'groupe' => $apprenant->groupes?->pluck('code')->implode(', ') ?? '—',
                 'duree' => $duree,
             ];
-        })->toArray(); // <-- Conversion finale en tableau associatif
+        })->toArray(); // ✅ Conversion finale en tableau associatif
     }
 
     public function getApprenantSansTacheAFaireQuery(): Builder
@@ -115,26 +114,26 @@ trait ApprenantServiceWidgets
 
         return $query->get()->map(function ($apprenant) {
 
-            // On cherche la dernière tâche "terminée" ou "en validation"
-            $derniere_tache_terminee_ou_validation = $apprenant->derniere_tache_terminee_ou_validation;
-            $date = optional($derniere_tache_terminee_ou_validation)->updated_at;
-        
-            if ($date) { // ✅ Vérifier que la date est passée
-                $diff = $date->diff(now());
-                $jours = $diff->d;
-                $heures = $diff->h;
-                $duree = "{$jours} jours {$heures} heures";
-            }else{
+            // 🧮 Récupération de la durée depuis la dernière tâche terminée ou en validation
+            $heures = (int) $apprenant->duree_sans_terminer_tache;
+
+            if ($heures > 0) {
+                // Conversion des heures en jours + heures
+                $jours = floor($heures / 24);
+                $reste_heures = $heures % 24;
+                $duree = "{$jours} jours {$reste_heures} heures";
+            } else {
                 $duree = "Aucune tâche terminée";
             }
-        
+
             return [
                 'apprenant' => $apprenant,
-                'groupe' => $apprenant->groupe,
+                'groupe' => $apprenant->groupes?->pluck('code')->implode(', ') ?? '—',
                 'duree' => $duree,
             ];
-        })->toArray(); // <-- Conversion finale en tableau associatif
+        })->toArray(); // ✅ Conversion finale en tableau associatif
     }
+
 
     public function apprenantSansTacheEnCoursQuery(): Builder
     {
@@ -163,32 +162,28 @@ trait ApprenantServiceWidgets
 
     public function getApprenantSansTacheEnCours()
     {
-        
         $query = $this->apprenantSansTacheEnCoursQuery();
-
-        // return $query->get();
 
         return $query->get()->map(function ($apprenant) {
 
-            // On cherche la dernière tâche "terminée" ou "en validation"
-            $derniere_tache_terminee_ou_validation = $apprenant->derniere_tache_terminee_ou_validation;
-            $date = optional($derniere_tache_terminee_ou_validation)->updated_at;
-        
-            if ($date) { // ✅ Vérifier que la date est passée
-                $diff = $date->diff(now());
-                $jours = $diff->d;
-                $heures = $diff->h;
-                $duree = "{$jours} jours {$heures} heures";
-            }else{
+            // 🧮 Récupération de la durée sans tâche terminée ou en validation
+            $heures = (int) $apprenant->duree_sans_terminer_tache;
+
+            if ($heures > 0) {
+                // Conversion en jours + heures
+                $jours = floor($heures / 24);
+                $reste_heures = $heures % 24;
+                $duree = "{$jours} jours {$reste_heures} heures";
+            } else {
                 $duree = "Aucune tâche terminée";
             }
-        
+
             return [
                 'apprenant' => $apprenant,
-                'groupe' => $apprenant->groupe,
+                'groupe' => $apprenant->groupes?->pluck('code')->implode(', ') ?? '—',
                 'duree' => $duree,
             ];
-        })->toArray(); // <-- Conversion finale en tableau associatif
+        })->toArray(); // ✅ Conversion finale en tableau associatif
     }
 
 
@@ -242,7 +237,7 @@ trait ApprenantServiceWidgets
         
             return [
                 'apprenant' => $apprenant,
-                'groupe' => $apprenant->groupe,
+                'groupe' => $apprenant->groupes?->pluck('code')->implode(', '),
                 'duree' => $duree,
             ];
         })->toArray(); // <-- Conversion finale en tableau associatif
@@ -297,7 +292,7 @@ trait ApprenantServiceWidgets
         
             return [
                 'apprenant' => $apprenant,
-                'groupe' => $apprenant->groupe,
+                'groupe' => $apprenant->groupes?->pluck('code')->implode(', '),
                 'duree' => $duree,
             ];
         })->toArray(); // <-- Conversion finale en tableau associatif

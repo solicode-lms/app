@@ -2,7 +2,6 @@
 ```bash
 [System.Text.Encoding]::Default
 $OutputEncoding = [System.Text.Encoding]::UTF8
-
 Get-Content .\solilms-2025_15_09_25.sql -Raw -Encoding UTF8 | mysql -u root -p solicode_lms
 ```
 
