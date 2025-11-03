@@ -330,7 +330,6 @@ class BaseApprenantService extends BaseService
             'nom',
             'prenom',
             'derniere_activite',
-            'user_id',
             'groupes'
         ];
 
@@ -377,22 +376,6 @@ class BaseApprenantService extends BaseService
             case 'derniere_activite':
                 return $this->computeFieldMeta($e, $field, $meta, 'date', $validationRules);
             
-            case 'user_id':
-                 $values = (new \Modules\PkgAutorisation\Services\UserService())
-                    ->getAllForSelect($e->user)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
-
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
             case 'groupes':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
             default:
@@ -458,18 +441,6 @@ class BaseApprenantService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
-
-                case 'user_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'user'
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-
-
 
                 case 'groupes':
                     // fallback string simple

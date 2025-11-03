@@ -139,7 +139,7 @@
     },
     {
         "reference": "Apprenant_user_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
         "value_float": 0,
         "value_text": "<p><br></p>",
         "e_data_field_reference": "Apprenant_user_id",
