@@ -625,18 +625,6 @@
     },
     {
         "id": 53,
-        "reference": "priorite_taches",
-        "name": "PrioriteTache",
-        "table_name": "priorite_taches",
-        "icon": "fa-table",
-        "description": "Automatically generated model for priorite_taches",
-        "e_package_id": 10,
-        "is_pivot_table": 0,
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": 54,
         "reference": "profiles",
         "name": "Profile",
         "table_name": "profiles",
@@ -648,7 +636,7 @@
         "updated_at": null
     },
     {
-        "id": 55,
+        "id": 54,
         "reference": "projets",
         "name": "Projet",
         "table_name": "projets",
@@ -660,7 +648,7 @@
         "updated_at": null
     },
     {
-        "id": 56,
+        "id": 55,
         "reference": "realisation_chapitres",
         "name": "RealisationChapitre",
         "table_name": "realisation_chapitres",
@@ -672,7 +660,7 @@
         "updated_at": null
     },
     {
-        "id": 57,
+        "id": 56,
         "reference": "realisation_competences",
         "name": "RealisationCompetence",
         "table_name": "realisation_competences",
@@ -684,7 +672,7 @@
         "updated_at": null
     },
     {
-        "id": 58,
+        "id": 57,
         "reference": "realisation_micro_competences",
         "name": "RealisationMicroCompetence",
         "table_name": "realisation_micro_competences",
@@ -696,7 +684,7 @@
         "updated_at": null
     },
     {
-        "id": 59,
+        "id": 58,
         "reference": "realisation_modules",
         "name": "RealisationModule",
         "table_name": "realisation_modules",
@@ -708,7 +696,7 @@
         "updated_at": null
     },
     {
-        "id": 60,
+        "id": 59,
         "reference": "realisation_projets",
         "name": "RealisationProjet",
         "table_name": "realisation_projets",
@@ -720,7 +708,7 @@
         "updated_at": null
     },
     {
-        "id": 61,
+        "id": 60,
         "reference": "realisation_taches",
         "name": "RealisationTache",
         "table_name": "realisation_taches",
@@ -732,7 +720,7 @@
         "updated_at": null
     },
     {
-        "id": 62,
+        "id": 61,
         "reference": "realisation_ua_projets",
         "name": "RealisationUaProjet",
         "table_name": "realisation_ua_projets",
@@ -744,7 +732,7 @@
         "updated_at": null
     },
     {
-        "id": 63,
+        "id": 62,
         "reference": "realisation_ua_prototypes",
         "name": "RealisationUaPrototype",
         "table_name": "realisation_ua_prototypes",
@@ -756,7 +744,7 @@
         "updated_at": null
     },
     {
-        "id": 64,
+        "id": 63,
         "reference": "realisation_uas",
         "name": "RealisationUa",
         "table_name": "realisation_uas",
@@ -768,7 +756,7 @@
         "updated_at": null
     },
     {
-        "id": 65,
+        "id": 64,
         "reference": "resources",
         "name": "Resource",
         "table_name": "resources",
@@ -780,7 +768,7 @@
         "updated_at": null
     },
     {
-        "id": 66,
+        "id": 65,
         "reference": "role_has_permissions",
         "name": "RoleHasPermission",
         "table_name": "role_has_permissions",
@@ -792,7 +780,7 @@
         "updated_at": null
     },
     {
-        "id": 67,
+        "id": 66,
         "reference": "role_widget",
         "name": "RoleWidget",
         "table_name": "role_widget",
@@ -804,7 +792,7 @@
         "updated_at": null
     },
     {
-        "id": 68,
+        "id": 67,
         "reference": "roles",
         "name": "Role",
         "table_name": "roles",
@@ -816,7 +804,7 @@
         "updated_at": null
     },
     {
-        "id": 69,
+        "id": 68,
         "reference": "section_widgets",
         "name": "SectionWidget",
         "table_name": "section_widgets",
@@ -828,7 +816,7 @@
         "updated_at": null
     },
     {
-        "id": 70,
+        "id": 69,
         "reference": "session_formations",
         "name": "SessionFormation",
         "table_name": "session_formations",
@@ -840,7 +828,7 @@
         "updated_at": null
     },
     {
-        "id": 71,
+        "id": 70,
         "reference": "sous_groupes",
         "name": "SousGroupe",
         "table_name": "sous_groupes",
@@ -852,7 +840,7 @@
         "updated_at": null
     },
     {
-        "id": 72,
+        "id": 71,
         "reference": "specialites",
         "name": "Specialite",
         "table_name": "specialites",
@@ -864,7 +852,7 @@
         "updated_at": null
     },
     {
-        "id": 73,
+        "id": 72,
         "reference": "sys_colors",
         "name": "SysColor",
         "table_name": "sys_colors",
@@ -876,7 +864,7 @@
         "updated_at": null
     },
     {
-        "id": 74,
+        "id": 73,
         "reference": "sys_controllers",
         "name": "SysController",
         "table_name": "sys_controllers",
@@ -888,7 +876,7 @@
         "updated_at": null
     },
     {
-        "id": 75,
+        "id": 74,
         "reference": "sys_models",
         "name": "SysModel",
         "table_name": "sys_models",
@@ -900,7 +888,7 @@
         "updated_at": null
     },
     {
-        "id": 76,
+        "id": 75,
         "reference": "sys_modules",
         "name": "SysModule",
         "table_name": "sys_modules",
@@ -912,7 +900,7 @@
         "updated_at": null
     },
     {
-        "id": 77,
+        "id": 76,
         "reference": "tache_affectations",
         "name": "TacheAffectation",
         "table_name": "tache_affectations",
@@ -924,7 +912,7 @@
         "updated_at": null
     },
     {
-        "id": 78,
+        "id": 77,
         "reference": "taches",
         "name": "Tache",
         "table_name": "taches",
@@ -936,7 +924,7 @@
         "updated_at": null
     },
     {
-        "id": 79,
+        "id": 78,
         "reference": "unite_apprentissages",
         "name": "UniteApprentissage",
         "table_name": "unite_apprentissages",
@@ -948,7 +936,7 @@
         "updated_at": null
     },
     {
-        "id": 80,
+        "id": 79,
         "reference": "user_model_filters",
         "name": "UserModelFilter",
         "table_name": "user_model_filters",
@@ -960,7 +948,7 @@
         "updated_at": null
     },
     {
-        "id": 81,
+        "id": 80,
         "reference": "users",
         "name": "User",
         "table_name": "users",
@@ -972,7 +960,7 @@
         "updated_at": null
     },
     {
-        "id": 82,
+        "id": 81,
         "reference": "widget_operations",
         "name": "WidgetOperation",
         "table_name": "widget_operations",
@@ -984,7 +972,7 @@
         "updated_at": null
     },
     {
-        "id": 83,
+        "id": 82,
         "reference": "widget_types",
         "name": "WidgetType",
         "table_name": "widget_types",
@@ -996,7 +984,7 @@
         "updated_at": null
     },
     {
-        "id": 84,
+        "id": 83,
         "reference": "widget_utilisateurs",
         "name": "WidgetUtilisateur",
         "table_name": "widget_utilisateurs",
@@ -1008,7 +996,7 @@
         "updated_at": null
     },
     {
-        "id": 85,
+        "id": 84,
         "reference": "widgets",
         "name": "Widget",
         "table_name": "widgets",
@@ -1020,7 +1008,7 @@
         "updated_at": null
     },
     {
-        "id": 86,
+        "id": 85,
         "reference": "workflow_taches",
         "name": "WorkflowTache",
         "table_name": "workflow_taches",

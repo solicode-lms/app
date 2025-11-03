@@ -963,29 +963,5 @@
         "value_boolean": 1,
         "e_data_field_reference": "formateurs_hasMany_chapitres_formateur_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
-        "reference": "formateurs_hasMany_priorite_taches_formateur_id_editHasMany",
-        "value_boolean": 1,
-        "e_data_field_reference": "formateurs_hasMany_priorite_taches_formateur_id",
-        "e_metadata_definition_reference": "editHasMany"
-    },
-    {
-        "reference": "formateurs_hasMany_priorite_taches_formateur_id_displayOrder",
-        "value_integer": 23,
-        "e_data_field_reference": "formateurs_hasMany_priorite_taches_formateur_id",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "formateurs_hasMany_priorite_taches_formateur_id_inputMdWidth",
-        "value_integer": 12,
-        "e_data_field_reference": "formateurs_hasMany_priorite_taches_formateur_id",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
-        "reference": "formateurs_hasMany_priorite_taches_formateur_id_viewShowFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "formateurs_hasMany_priorite_taches_formateur_id",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
