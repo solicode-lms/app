@@ -163,6 +163,8 @@
             {{ ucfirst(__('PkgCreationProjet::projet.travail_a_faire')) }}
             <span class="text-danger">*</span>
           </label>
+
+          
                       <textarea rows="" cols=""
                 name="travail_a_faire"
                 class="form-control richText"
@@ -170,7 +172,9 @@
                 
                 
                 id="travail_a_faire"
-                placeholder="{{ __('PkgCreationProjet::projet.travail_a_faire') }}">{{ $itemProjet ? $itemProjet->travail_a_faire : old('travail_a_faire') }}</textarea>
+                >
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('travail_a_faire', $itemProjet->travail_a_faire ?? '')) !!}
+              </textarea>
           @error('travail_a_faire')
             <div class="text-danger">{{ $message }}</div>
           @enderror

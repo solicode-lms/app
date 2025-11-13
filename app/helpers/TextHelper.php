@@ -19,5 +19,26 @@ class TextHelper
         return nl2br($wrappedText);
     }
 
+
+     /**
+     * Nettoyer un contenu HTML avant de l'injecter dans un <textarea>.
+     *
+     * - Empêche la fermeture accidentelle du <textarea>
+     * - Neutralise les délimiteurs Blade dans le texte
+     */
+    public static function sanitizeTextarea($html)
+    {
+        $html ??= '';
+
+        // 1) Empêcher la fermeture du textarea
+        $html = preg_replace('~</textarea~i', '&lt;/textarea', $html);
+
+        // 2) Empêcher d’éventuels délimiteurs Blade dans le texte d’exemple
+        $html = str_replace(['{!!', '!!}'], ['&#123;!!', '!!&#125;'], $html);
+        $html = str_replace(['{{', '}}'], ['&#123;&#123;', '&#125;&#125;'], $html);
+
+        return $html;
+    }
+
      
 }
