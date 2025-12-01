@@ -7,6 +7,8 @@ use Modules\PkgApprentissage\Models\EtatRealisationUa;
 use Modules\PkgApprentissage\Models\RealisationMicroCompetence;
 use Modules\PkgApprentissage\Services\Base\BaseRealisationMicroCompetenceService;
 use Modules\PkgCompetences\Services\UniteApprentissageService;
+use Modules\PkgApprentissage\Services\RealisationCompetenceService;
+use Modules\PkgCompetences\Models\MicroCompetence;
 
 /**
  * Classe RealisationMicroCompetenceService pour gérer la persistance de l'entité RealisationMicroCompetence.
@@ -161,5 +163,49 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
     }
 
 
+
+
+    /**
+     * Récupère ou crée la réalisation d'une micro-compétence pour un apprenant donné.
+     *
+     * @param  int $apprenantId
+     * @param  int $microCompetenceId
+     * @return RealisationMicroCompetence
+     */
+    public function getOrCreateApprenant(int $apprenantId, int $microCompetenceId): RealisationMicroCompetence
+    {
+        // 1️⃣ Chercher une RMC existante
+        $rmc = $this->model
+            ->where('micro_competence_id', $microCompetenceId)
+            ->where('apprenant_id', $apprenantId)
+            ->first();
+
+        if ($rmc) {
+            return $rmc;
+        }
+
+        // 2️⃣ Charger la micro-compétence et sa compétence parente
+        $microCompetence = MicroCompetence::with('competence')
+            ->findOrFail($microCompetenceId);
+
+        $competence = $microCompetence->competence;
+
+        if (! $competence?->id) {
+            throw new \RuntimeException("Impossible de déterminer la compétence liée à la micro-compétence #$microCompetenceId");
+        }
+
+        // 3️⃣ S'assurer que la RealisationCompetence existe
+        $realisationCompetenceService = new RealisationCompetenceService();
+        $realisationCompetence = $realisationCompetenceService
+            ->getOrCreateApprenant($apprenantId, $competence->id);
+
+        // 4️⃣ Créer la RealisationMicroCompetence
+        //     (l'état par défaut TODO est géré dans create())
+        return $this->create([
+            'realisation_competence_id' => $realisationCompetence->id,
+            'micro_competence_id'       => $microCompetenceId,
+            'apprenant_id'              => $apprenantId,
+        ]);
+    }
 
 }

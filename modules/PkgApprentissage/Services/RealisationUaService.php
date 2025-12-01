@@ -65,10 +65,10 @@ class RealisationUaService extends BaseRealisationUaService
      */
     public function getOrCreateApprenant(int $apprenantId, int $uniteApprentissageId): RealisationUa
     {
-        // Vérifier si la réalisation UA existe déjà
+        // 1️⃣ Vérifier si la réalisation UA existe déjà pour cet apprenant
         $realisationUa = $this->model
             ->where('unite_apprentissage_id', $uniteApprentissageId)
-            ->whereHas('realisationMicroCompetence', fn($query) =>
+            ->whereHas('realisationMicroCompetence', fn ($query) =>
                 $query->where('apprenant_id', $apprenantId)
             )
             ->first();
@@ -77,7 +77,7 @@ class RealisationUaService extends BaseRealisationUaService
             return $realisationUa;
         }
 
-        // 🔎 Récupérer l’UA et son module
+        // 2️⃣ Récupérer l’UA et son module
         $ua = UniteApprentissage::with('microCompetence.competence.module')
             ->findOrFail($uniteApprentissageId);
 
@@ -87,14 +87,34 @@ class RealisationUaService extends BaseRealisationUaService
             throw new \RuntimeException("Impossible de déterminer le module lié à l’unité d’apprentissage #$uniteApprentissageId");
         }
 
-        // ✅ Créer RealisationModule si inexistant
+        // 3️⃣ Créer RealisationModule si inexistant
         $realisationModuleService = new RealisationModuleService();
         $realisationModuleService->getOrCreateByApprenant($apprenantId, $moduleId);
 
-        // Rechercher à nouveau la réalisation UA (elle est créée par afterCreateRules)
+        // ✅ 4️⃣ S’assurer qu’il existe une Réalisation de la micro-compétence
+        // (sinon on ne peut pas lier la RealisationUa)
+        $realisationMicroCompetenceService = new RealisationMicroCompetenceService();
+        $realisationMicroCompetence = $realisationMicroCompetenceService->getOrCreateApprenant(
+            $apprenantId,
+            $ua->micro_competence_id
+        );
+
+        // ✅ 5️⃣ Créer la Réalisation UA si elle n’existe toujours pas
+        $this->model->firstOrCreate(
+            [
+                'unite_apprentissage_id'          => $uniteApprentissageId,
+                'realisation_micro_competence_id' => $realisationMicroCompetence->id,
+            ],
+            [
+                // Tu peux initialiser d’autres champs ici si tu veux
+                // 'date_debut' => now(),
+            ]
+        );
+
+        // 6️⃣ Rechercher à nouveau la réalisation UA (qu’elle vienne d’afterCreateRules ou du firstOrCreate)
         return $this->model
             ->where('unite_apprentissage_id', $uniteApprentissageId)
-            ->whereHas('realisationMicroCompetence', fn($query) =>
+            ->whereHas('realisationMicroCompetence', fn ($query) =>
                 $query->where('apprenant_id', $apprenantId)
             )
             ->firstOrFail();

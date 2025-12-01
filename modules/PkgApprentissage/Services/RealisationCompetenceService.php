@@ -9,6 +9,11 @@ use Modules\PkgApprentissage\Models\RealisationMicroCompetence;
 use Modules\PkgApprentissage\Services\Base\BaseRealisationCompetenceService;
 use Modules\PkgCompetences\Services\CompetenceService;
 
+use Modules\PkgApprentissage\Services\RealisationModuleService;
+ 
+
+
+
 class RealisationCompetenceService extends BaseRealisationCompetenceService
 {
     /**
@@ -159,6 +164,58 @@ class RealisationCompetenceService extends BaseRealisationCompetenceService
 
         // Si rien trouvé, on considère comme TODO
         return 'TODO';
+    }
+
+
+
+    /**
+     * Récupère ou crée la réalisation d'une compétence pour un apprenant donné.
+     *
+     * @param  int $apprenantId
+     * @param  int $competenceId
+     * @return RealisationCompetence
+     */
+    public function getOrCreateApprenant(int $apprenantId, int $competenceId): RealisationCompetence
+    {
+        // 1️⃣ Chercher une réalisation de compétence existante
+        $rc = $this->model
+            ->where('competence_id', $competenceId)
+            ->where('apprenant_id', $apprenantId)
+            ->first();
+
+        if ($rc) {
+            return $rc;
+        }
+
+        // 2️⃣ Charger la compétence et son module
+        $competence = \Modules\PkgCompetences\Models\Competence::findOrFail($competenceId);
+
+        $moduleId = $competence->module_id ?? null;
+
+        if (! $moduleId) {
+            throw new \RuntimeException("Impossible de déterminer le module lié à la compétence #$competenceId");
+        }
+
+        // 3️⃣ S'assurer que la réalisation du module existe
+        $realisationModuleService = new RealisationModuleService();
+        $realisationModuleService->getOrCreateByApprenant($apprenantId, $moduleId);
+
+        // 4️⃣ Rechercher à nouveau (elle a pu être créée par afterCreateRules du module)
+        $rc = $this->model
+            ->where('competence_id', $competenceId)
+            ->where('apprenant_id', $apprenantId)
+            ->first();
+
+        // 5️⃣ Si toujours rien, on crée explicitement la RealisationCompetence
+        if (! $rc) {
+            $rc = $this->create([
+                'competence_id' => $competenceId,
+                'apprenant_id'  => $apprenantId,
+                // etat_realisation_competence_id géré dans create()
+            ]);
+        }
+
+        return $rc;
     }
 
 
