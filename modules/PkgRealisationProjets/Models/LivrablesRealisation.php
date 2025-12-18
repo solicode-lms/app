@@ -10,8 +10,8 @@ class LivrablesRealisation extends BaseLivrablesRealisation
         'livrable',
     ];
 
-    public function generateReference(): string
-    {
-        return $this->realisationProjet->reference . "-" . $this->livrable->reference ;
-    }
+    // public function generateReference(): string
+    // {
+    //     return $this->realisationProjet->reference . "-" . $this->livrable->reference ;
+    // }
 }
