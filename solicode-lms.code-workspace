@@ -21,7 +21,7 @@
 		},	
 		
 		{
-			"path": "E:/solicode-lms/db_connaissances"
+			"path": "./agent-soli-lms"
 		},
 		{
 			"path": "E:/solicode-lms/docs"
