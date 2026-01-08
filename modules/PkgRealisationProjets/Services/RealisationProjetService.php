@@ -399,6 +399,10 @@ class RealisationProjetService extends BaseRealisationProjetService
                 }
             }
 
+            
+            // TODO : ce traitement doit être réaliser aussi aprés l'insertion ou modification 
+            //  d'une mobilisation d'unité d'apprentissage dans le projet 
+
             // 🧩 Gestion des UA prototypes (N2)
             if ($tache->phaseEvaluation?->code == "N2") {
                 foreach ($mobilisationUas as $mobilisation) {
