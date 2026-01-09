@@ -9,7 +9,7 @@ use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgFormation\Services\FormateurService;
-use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
+
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgRealisationProjets\Services\Base\BaseRealisationProjetService;
@@ -26,10 +26,10 @@ use Modules\PkgApprentissage\Models\EtatRealisationMicroCompetence;
 use Modules\PkgApprentissage\Models\RealisationChapitre;
 use Modules\PkgApprentissage\Models\RealisationMicroCompetence;
 use Modules\PkgApprentissage\Models\RealisationUa;
-use Modules\PkgApprentissage\Services\RealisationChapitreService;
+
 use Modules\PkgApprentissage\Services\RealisationMicroCompetenceService;
-use Modules\PkgApprentissage\Services\RealisationUaProjetService;
-use Modules\PkgApprentissage\Services\RealisationUaPrototypeService;
+use Modules\PkgApprentissage\Services\RealisationChapitreService;
+
 use Modules\PkgApprentissage\Services\RealisationUaService;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\PkgCreationTache\Models\Tache;
@@ -43,7 +43,7 @@ use Modules\PkgRealisationProjets\Models\WorkflowProjet;
  */
 class RealisationProjetService extends BaseRealisationProjetService
 {
-     protected array $index_with_relations = [
+    protected array $index_with_relations = [
         'affectationProjet',
         'affectationProjet.projet',
         'affectationProjet.projet.livrables',
@@ -52,21 +52,22 @@ class RealisationProjetService extends BaseRealisationProjetService
         'etatsRealisationProjet',
     ];
 
-    public function initFieldsFilterable(){
+    public function initFieldsFilterable()
+    {
 
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('realisationProjet');
         $this->fieldsFilterable = [];
 
         // Groupe 
-        if(!Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE,Role::APPRENANT_ROLE) || !empty($this->viewState->get("filter.realisationProjet.AffectationProjet.Groupe_id") ) ) {
+        if (!Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE, Role::APPRENANT_ROLE) || !empty($this->viewState->get("filter.realisationProjet.AffectationProjet.Groupe_id"))) {
             // Affichage de l'état de solicode
             $groupeService = new GroupeService();
             $groupes = $groupeService->all();
             $this->fieldsFilterable[] = $this->generateRelationFilter(
-                __("PkgApprenants::Groupe.plural"), 
-                'AffectationProjet.Groupe_id', 
-                Groupe::class, 
+                __("PkgApprenants::Groupe.plural"),
+                'AffectationProjet.Groupe_id',
+                Groupe::class,
                 "code",
                 "id",
                 $groupes,
@@ -77,34 +78,36 @@ class RealisationProjetService extends BaseRealisationProjetService
         }
 
         // AffectationProjet
-        if(Auth::user()->hasRole(Role::FORMATEUR_ROLE)){
+        if (Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
             $affectationProjets = (new AffectationProjetService())->getAffectationProjetsByFormateurId($this->sessionState->get("formateur_id"));
-        } elseif (Auth::user()->hasRole(Role::APPRENANT_ROLE)){
+        } elseif (Auth::user()->hasRole(Role::APPRENANT_ROLE)) {
             $affectationProjets = (new AffectationProjetService())->getAffectationProjetsByApprenantId($this->sessionState->get("apprenant_id"));
-        } else{
+        } else {
             $affectationProjets = AffectationProjet::all();
         }
-        $this->fieldsFilterable[] =  $this->generateManyToOneFilter(
-            __("PkgRealisationProjets::affectationProjet.plural"), 
-            'affectation_projet_id', 
-            \Modules\PkgRealisationProjets\Models\AffectationProjet::class, 
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+            __("PkgRealisationProjets::affectationProjet.plural"),
+            'affectation_projet_id',
+            \Modules\PkgRealisationProjets\Models\AffectationProjet::class,
             'id',
-            $affectationProjets);
+            $affectationProjets
+        );
 
         // Apprenant
-        if(Auth::user()->hasRole(Role::FORMATEUR_ROLE)){
+        if (Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
             $apprenants = (new FormateurService())->getApprenants($this->sessionState->get("formateur_id"));
-        } elseif (Auth::user()->hasRole(Role::APPRENANT_ROLE)){
+        } elseif (Auth::user()->hasRole(Role::APPRENANT_ROLE)) {
             $apprenants = (new ApprenantService())->getApprenantsDeGroupe($this->sessionState->get("apprenant_id"));
-        } else{
+        } else {
             $apprenants = Apprenant::all();
         }
-        $this->fieldsFilterable[] =  $this->generateManyToOneFilter(
-            __("PkgApprenants::apprenant.plural"), 
-            'apprenant_id', 
-            \Modules\PkgApprenants\Models\Apprenant::class, 
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+            __("PkgApprenants::apprenant.plural"),
+            'apprenant_id',
+            \Modules\PkgApprenants\Models\Apprenant::class,
             'nom',
-            $apprenants);
+            $apprenants
+        );
 
 
         // If formateur ou apprenant
@@ -113,15 +116,15 @@ class RealisationProjetService extends BaseRealisationProjetService
         $etatsRealisationProjets = $etatsRealisationProjetService->getByIds($etatsRealisationProjetIds);
 
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-            __("PkgRealisationProjets::etatsRealisationProjet.plural"), 
-            'etats_realisation_projet_id', 
-            \Modules\PkgRealisationProjets\Models\EtatsRealisationProjet::class, 
+            __("PkgRealisationProjets::etatsRealisationProjet.plural"),
+            'etats_realisation_projet_id',
+            \Modules\PkgRealisationProjets\Models\EtatsRealisationProjet::class,
             'code',
             $etatsRealisationProjets
         );
 
 
-     }
+    }
 
     public function paginate(array $params = [], int $perPage = 0, array $columns = ['*']): LengthAwarePaginator
     {
@@ -164,13 +167,13 @@ class RealisationProjetService extends BaseRealisationProjetService
         });
 
 
-       
-    }
-    
 
-      public function deletedObserverJob(int $id, string $token): void
+    }
+
+
+    public function deletedObserverJob(int $id, string $token): void
     {
-        $jobManager = new JobManager($token); 
+        $jobManager = new JobManager($token);
         $payload = $jobManager->getPayload();
 
         $uaIds = collect($payload['ua_ids'] ?? []);
@@ -280,7 +283,7 @@ class RealisationProjetService extends BaseRealisationProjetService
         if (!$realisationProjet instanceof RealisationProjet) {
             return; // 🛡️ Vérification de sécurité
         }
-         // Étape 1 : Affecter l'état "TODO" s'il existe
+        // Étape 1 : Affecter l'état "TODO" s'il existe
         if (empty($realisationProjet->etats_realisation_projet_id)) {
             $etatTodo = EtatsRealisationProjet::where('code', 'TODO')->first();
 
@@ -293,7 +296,8 @@ class RealisationProjetService extends BaseRealisationProjetService
         $this->notifierApprenant($realisationProjet);
 
         // Étape 3 : Création des RealisationTache
-        $this->creerRealisationTaches($realisationProjet);
+        $realisationTacheService = new RealisationTacheService();
+        $realisationTacheService->generateFromRealisationProjet($realisationProjet);
     }
 
     /**
@@ -327,115 +331,7 @@ class RealisationProjetService extends BaseRealisationProjetService
         }
     }
 
-    private function creerRealisationTaches(RealisationProjet $realisationProjet): void
-    {
-        $formateur_id = $realisationProjet->affectationProjet->projet->formateur_id;
-        $affectationProjet = $realisationProjet->affectationProjet;
-        $taches = $affectationProjet->projet->taches;
-        $mobilisationUas = $affectationProjet->projet->mobilisationUas ?? collect();
 
-        $etatInitialRealisationTache = $formateur_id
-            ? (new EtatRealisationTacheService())->getDefaultEtatByFormateurId($formateur_id)
-            : null;
-
-        $realisationTacheService = new RealisationTacheService();
-        $realisationUaService = new RealisationUaService();
-
-        $realisationChapitreService = app(RealisationChapitreService::class);
-        $realisationUaProjetService = app(RealisationUaProjetService::class);
-        $realisationUaPrototypeService = app(RealisationUaPrototypeService::class);
-
-
-        foreach ($taches as $tache) {
-            $tacheAffectation = $tache->tacheAffectations
-                ->where('affectation_projet_id', $affectationProjet->id)
-                ->first();
-
-            // TODO : il faut ajouter réalisationTace si la tâche n'a pas de RéaisationTace
-            // Le cas ou l'apprenant modifer les état en dehor de réalisation des tâches
-
-            
-            // ⚠️ Si la tâche est liée à un chapitre terminé, on passe à la suivante
-            if ($tache->chapitre) {
-                $realisationUA = $realisationUaService->getOrCreateApprenant(
-                    $realisationProjet->apprenant_id,
-                    $tache->chapitre->unite_apprentissage_id
-                );
-
-                $chapitreExistant = RealisationChapitre::where('chapitre_id', $tache->chapitre->id)
-                    ->where('realisation_ua_id', $realisationUA->id)
-                    ->first();
-
-                if ($chapitreExistant && $chapitreExistant->etatRealisationChapitre?->code === 'DONE') {
-                    // 🚫 Ne pas créer de RealisationTache pour ce chapitre
-                    continue;
-                }
-            }
-
-            // ✅ Création de la RealisationTache (si non bloquée)
-            $realisationTache = $realisationTacheService->create([
-                'realisation_projet_id' => $realisationProjet->id,
-                'tache_id' => $tache->id,
-                'etat_realisation_tache_id' => $etatInitialRealisationTache?->id,
-                'tache_affectation_id' => $tacheAffectation?->id,
-            ]);
-
-            // 🔗 Si le chapitre existe, on lie ou crée sa RealisationChapitre
-            if ($tache->chapitre) {
-                if (isset($chapitreExistant)) {
-                    // Si le chapitre existe et n’est pas DONE, on met à jour le lien
-                    if ($chapitreExistant->etatRealisationChapitre?->code !== 'DONE') {
-                        $chapitreExistant->update([
-                            'realisation_tache_id' => $realisationTache->id,
-                        ]);
-                    }
-                } else {
-                    // Sinon, on crée une nouvelle RealisationChapitre
-                    $realisationChapitreService->create([
-                        'realisation_tache_id' => $realisationTache->id,
-                        'chapitre_id' => $tache->chapitre->id,
-                        'realisation_ua_id' => $realisationUA->id,
-                    ]);
-                }
-            }
-
-            
-            // TODO : ce traitement doit être réaliser aussi aprés l'insertion ou modification 
-            //  d'une mobilisation d'unité d'apprentissage dans le projet 
-
-            // 🧩 Gestion des UA prototypes (N2)
-            if ($tache->phaseEvaluation?->code == "N2") {
-                foreach ($mobilisationUas as $mobilisation) {
-                    $realisationUA = $realisationUaService->getOrCreateApprenant(
-                        $realisationProjet->apprenant_id,
-                        $mobilisation->unite_apprentissage_id
-                    );
-
-                    $realisationUaPrototypeService->create([
-                        'realisation_tache_id' => $realisationTache->id,
-                        'realisation_ua_id' => $realisationUA->id,
-                        'bareme' => $mobilisation->bareme_evaluation_prototype ?? 0,
-                    ]);
-                }
-            }
-
-            // 🧩 Gestion des UA projets (N3)
-            if ($tache->phaseEvaluation?->code == "N3") {
-                foreach ($mobilisationUas as $mobilisation) {
-                    $realisationUA = $realisationUaService->getOrCreateApprenant(
-                        $realisationProjet->apprenant_id,
-                        $mobilisation->unite_apprentissage_id
-                    );
-
-                    $realisationUaProjetService->create([
-                        'realisation_tache_id' => $realisationTache->id,
-                        'realisation_ua_id' => $realisationUA->id,
-                        'bareme' => $mobilisation->bareme_evaluation_projet ?? 0,
-                    ]);
-                }
-            }
-        }
-    }
 
 
     private function getOrCreateRealisationUa(int $uniteApprentissageId, int $realisationMicroCompetenceId): int
@@ -505,18 +401,18 @@ class RealisationProjetService extends BaseRealisationProjetService
         if (collect($codesTaches)->every(fn($code) => $code === 'APPROVED')) {
             $nouvelEtatCode = 'DONE';
 
-        // ✅ TO_APPROVE : toutes les tâches sont TO_APPROVE ou DONE
+            // ✅ TO_APPROVE : toutes les tâches sont TO_APPROVE ou DONE
         } elseif (collect($codesTaches)->every(fn($code) => in_array($code, ['TO_APPROVE', 'APPROVED']))) {
             $nouvelEtatCode = 'TO_APPROVE';
 
-        // ✅ PAUSED : toutes les tâches sont PAUSED
+            // ✅ PAUSED : toutes les tâches sont PAUSED
         } elseif (collect($codesTaches)->every(fn($code) => $code === 'PAUSED')) {
             $nouvelEtatCode = 'PAUSED';
 
         } elseif (collect($codesTaches)->every(fn($code) => $code === 'TODO')) {
             $nouvelEtatCode = 'TODO';
 
-        // ✅ IN_PROGRESS : au moins une tâche est IN_PROGRESS
+            // ✅ IN_PROGRESS : au moins une tâche est IN_PROGRESS
         } else {
             $nouvelEtatCode = 'IN_PROGRESS';
         }

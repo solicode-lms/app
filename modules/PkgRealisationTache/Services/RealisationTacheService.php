@@ -27,6 +27,13 @@ use Modules\PkgRealisationTache\Services\RealisationTacheService\RealisationTach
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgEvaluateurs\Services\EvaluationRealisationTacheService;
+use Modules\PkgRealisationProjets\Models\RealisationProjet;
+use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
+use Modules\PkgApprentissage\Services\RealisationUaService;
+use Modules\PkgApprentissage\Services\RealisationChapitreService;
+use Modules\PkgApprentissage\Services\RealisationUaProjetService;
+use Modules\PkgApprentissage\Services\RealisationUaPrototypeService;
+use Modules\PkgApprentissage\Models\RealisationChapitre;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 
@@ -35,32 +42,32 @@ use Illuminate\Support\Facades\Validator;
  */
 class RealisationTacheService extends BaseRealisationTacheService
 {
-    use 
+    use
         RealisationTacheServiceCrud,
-        RealisationTacheServiceWidgets,  
+        RealisationTacheServiceWidgets,
         RealisationTacheWorkflow,
         RealisationTacheCalculeProgression;
 
 
-      
-
-        protected array $index_with_relations = [
-            'tache',
-            'realisationChapitres',
-            'tacheAffectation',
-            'tache.livrables',
-            'etatRealisationTache',
-            'historiqueRealisationTaches',
-            'realisationProjet.apprenant',
-            'realisationProjet.affectationProjet',
-            'tache.livrables.natureLivrable',
-            'livrablesRealisations.livrable.taches',
-            'realisationProjet.realisationTaches.tache',
-        ];
 
 
+    protected array $index_with_relations = [
+        'tache',
+        'realisationChapitres',
+        'tacheAffectation',
+        'tache.livrables',
+        'etatRealisationTache',
+        'historiqueRealisationTaches',
+        'realisationProjet.apprenant',
+        'realisationProjet.affectationProjet',
+        'tache.livrables.natureLivrable',
+        'livrablesRealisations.livrable.taches',
+        'realisationProjet.realisationTaches.tache',
+    ];
 
- 
+
+
+
 
     public function prepareDataForIndexView(array $params = []): array
     {
@@ -83,8 +90,8 @@ class RealisationTacheService extends BaseRealisationTacheService
         // Ajouter dans $baseData
         $baseData['revisionsBeforePriorityGrouped'] = $revisionsGrouped;
 
-        
-     
+
+
 
 
 
@@ -133,14 +140,14 @@ class RealisationTacheService extends BaseRealisationTacheService
         $sessionState = $this->sessionState;
 
         // Groupe 
-        if(Auth::user()->hasRole(Role::ADMIN_ROLE) || !Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE,Role::APPRENANT_ROLE) || !empty($this->viewState->get("filter.realisationTache.RealisationProjet.AffectationProjet.Groupe_id") ) ) {
+        if (Auth::user()->hasRole(Role::ADMIN_ROLE) || !Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE, Role::APPRENANT_ROLE) || !empty($this->viewState->get("filter.realisationTache.RealisationProjet.AffectationProjet.Groupe_id"))) {
             // Affichage de l'état de solicode
             $groupeService = new GroupeService();
             $groupes = $groupeService->all();
             $this->fieldsFilterable[] = $this->generateRelationFilter(
-                __("PkgApprenants::Groupe.plural"), 
-                'RealisationProjet.AffectationProjet.Groupe_id', 
-                Groupe::class, 
+                __("PkgApprenants::Groupe.plural"),
+                'RealisationProjet.AffectationProjet.Groupe_id',
+                Groupe::class,
                 "code",
                 "id",
                 $groupes,
@@ -158,23 +165,24 @@ class RealisationTacheService extends BaseRealisationTacheService
             default => AffectationProjet::all(),
         };
         $this->fieldsFilterable[] = $this->generateRelationFilter(
-            __("PkgRealisationProjets::affectationProjet.plural"), 
-            'RealisationProjet.Affectation_projet_id', 
-            AffectationProjet::class, 
-            "id","id",
-            $affectationProjets, 
-             "[name='tache_id'],[name='etat_realisation_tache_id']",
+            __("PkgRealisationProjets::affectationProjet.plural"),
+            'RealisationProjet.Affectation_projet_id',
+            AffectationProjet::class,
+            "id",
+            "id",
+            $affectationProjets,
+            "[name='tache_id'],[name='etat_realisation_tache_id']",
             route('taches.getData') . "," . route('etatRealisationTaches.getData'),
-             "projet.affectationProjets.id,formateur.projets.affectationProjets.id"
+            "projet.affectationProjets.id,formateur.projets.affectationProjets.id"
         );
-       
+
         // --- ETAT REALISATION TACHE : choix selon AffectationProjet, Formateur ou Apprenant ---
         $affectationProjetId = $this->viewState->get(
             'filter.realisationTache.RealisationProjet.Affectation_projet_id'
         );
 
         $affectationProjetId = AffectationProjet::find($affectationProjetId) ? $affectationProjetId : null;
-       
+
         $etatService = new EtatRealisationTacheService();
 
         if (!empty($affectationProjetId)) {
@@ -182,18 +190,16 @@ class RealisationTacheService extends BaseRealisationTacheService
             $affectationProjet = (new AffectationProjetService())->find($affectationProjetId);
             // Afficher les états de formateur pour ce projet
             $etats = $affectationProjet->projet->formateur->etatRealisationTaches;
-        }
-        elseif (Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
+        } elseif (Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
             // Cas 2 : Formateur sans projet sélectionné
             // Afficher les états génériques du formateur
             $etats = $etatService->getEtatRealisationTacheByFormateurId(
-               $this->sessionState->get("formateur_id")
+                $this->sessionState->get("formateur_id")
             );
-        }
-        else {
+        } else {
             // Cas 3 : Apprenant ou autre rôle
             // Aucun état formateur -> liste vide pour masquer le filtre
-           $etats =  collect();
+            $etats = collect();
         }
 
         // Génération du filtre ManyToOne pour l'état de réalisation de tâche
@@ -204,7 +210,7 @@ class RealisationTacheService extends BaseRealisationTacheService
             'nom',
             $etats
         );
-      
+
         // Affiche  WorkflowTache
         // Afficher si le filtre est selectionné
         // ou si le l'affectation de projet n'est pas selectionné et que l'acteur n'est pas formateur
@@ -214,20 +220,20 @@ class RealisationTacheService extends BaseRealisationTacheService
             'filter.realisationTache.etatRealisationTache.WorkflowTache.Code'
         );
 
-      
+
         $workflowService = new WorkflowTacheService();
         $workflows = $workflowService->all();
-    
+
         // Génération du filtre Relation pour WorkflowTache
         $this->fieldsFilterable[] = $this->generateRelationFilter(
-                __('PkgRealisationTache::workflowTache.plural'),
-                'etatRealisationTache.WorkflowTache.Code',
-                \Modules\PkgRealisationTache\Models\WorkflowTache::class,
-                'code',
-                'code',
-                $workflows
+            __('PkgRealisationTache::workflowTache.plural'),
+            'etatRealisationTache.WorkflowTache.Code',
+            \Modules\PkgRealisationTache\Models\WorkflowTache::class,
+            'code',
+            'code',
+            $workflows
         );
-        
+
 
         // Apprenant
         // TODO : Gapp add MetaData relationFilter
@@ -237,11 +243,13 @@ class RealisationTacheService extends BaseRealisationTacheService
             default => Apprenant::all(),
         };
         $this->fieldsFilterable[] = $this->generateRelationFilter(
-            __("PkgApprenants::apprenant.plural"), 
-            'RealisationProjet.Apprenant_id', 
+            __("PkgApprenants::apprenant.plural"),
+            'RealisationProjet.Apprenant_id',
             \Modules\PkgApprenants\Models\Apprenant::class,
-            "id","id",
-            $apprenants);
+            "id",
+            "id",
+            $apprenants
+        );
 
         // Tâches
         $tacheService = new TacheService();
@@ -257,9 +265,9 @@ class RealisationTacheService extends BaseRealisationTacheService
             'titre',
             $taches
         );
-        
 
-        
+
+
     }
 
 
@@ -270,7 +278,7 @@ class RealisationTacheService extends BaseRealisationTacheService
      * @param  int  $realisationTacheId
      * @return Builder
      */
-//    protected function revisionsBeforePriorityQuery(int $realisationTacheId): Builder
+    //    protected function revisionsBeforePriorityQuery(int $realisationTacheId): Builder
 //     {
 //         $current = RealisationTache::findOrFail($realisationTacheId);
 //         $projectId = $current->realisation_projet_id;
@@ -310,12 +318,118 @@ class RealisationTacheService extends BaseRealisationTacheService
     public function getRevisionsNecessairesBeforePriority(int $realisationTacheId): Collection
     {
         return $this->revisionsBeforePriorityQuery($realisationTacheId)
-                    ->with(['tache', 'etatRealisationTache.workflowTache'])
-                    ->get();
+            ->with(['tache', 'etatRealisationTache.workflowTache'])
+            ->get();
     }
 
-    
 
 
 
+
+    /**
+     * Génère les réalisations de tâches pour un projet donné.
+     * Cette méthode centralise la logique de création initiale des tâches.
+     *
+     * @param RealisationProjet $realisationProjet
+     * @return void
+     */
+    public function generateFromRealisationProjet(RealisationProjet $realisationProjet): void
+    {
+        $formateur_id = $realisationProjet->affectationProjet->projet->formateur_id;
+        $affectationProjet = $realisationProjet->affectationProjet;
+        $taches = $affectationProjet->projet->taches;
+        $mobilisationUas = $affectationProjet->projet->mobilisationUas ?? collect();
+
+        $etatInitialRealisationTache = $formateur_id
+            ? (new EtatRealisationTacheService())->getDefaultEtatByFormateurId($formateur_id)
+            : null;
+
+        $realisationUaService = new RealisationUaService();
+        $realisationChapitreService = app(RealisationChapitreService::class);
+        $realisationUaProjetService = app(RealisationUaProjetService::class);
+        $realisationUaPrototypeService = app(RealisationUaPrototypeService::class);
+
+        foreach ($taches as $tache) {
+            $tacheAffectation = $tache->tacheAffectations
+                ->where('affectation_projet_id', $affectationProjet->id)
+                ->first();
+
+            // ⚠️ Si la tâche est liée à un chapitre terminé, on passe à la suivante
+            if ($tache->chapitre) {
+                // Créer ou récupérer l'UA associée
+                $realisationUA = $realisationUaService->getOrCreateApprenant(
+                    $realisationProjet->apprenant_id,
+                    $tache->chapitre->unite_apprentissage_id
+                );
+
+                $chapitreExistant = RealisationChapitre::where('chapitre_id', $tache->chapitre->id)
+                    ->where('realisation_ua_id', $realisationUA->id)
+                    ->first();
+
+                if ($chapitreExistant && $chapitreExistant->etatRealisationChapitre?->code === 'DONE') {
+                    // 🚫 Ne pas créer de RealisationTache pour ce chapitre
+                    continue;
+                }
+            }
+
+            // ✅ Création de la RealisationTache (si non bloquée)
+            $realisationTache = $this->create([
+                'realisation_projet_id' => $realisationProjet->id,
+                'tache_id' => $tache->id,
+                'etat_realisation_tache_id' => $etatInitialRealisationTache?->id,
+                'tache_affectation_id' => $tacheAffectation?->id,
+            ]);
+
+            // 🔗 Si le chapitre existe, on lie ou crée sa RealisationChapitre
+            if ($tache->chapitre) {
+                if (isset($chapitreExistant) && $chapitreExistant) {
+                    // Si le chapitre existe et n’est pas DONE, on met à jour le lien
+                    if ($chapitreExistant->etatRealisationChapitre?->code !== 'DONE') {
+                        $chapitreExistant->update([
+                            'realisation_tache_id' => $realisationTache->id,
+                        ]);
+                    }
+                } else {
+                    // Sinon, on crée une nouvelle RealisationChapitre
+                    $realisationChapitreService->create([
+                        'realisation_tache_id' => $realisationTache->id,
+                        'chapitre_id' => $tache->chapitre->id,
+                        'realisation_ua_id' => $realisationUA->id,
+                    ]);
+                }
+            }
+
+            // 🧩 Gestion des UA prototypes (N2)
+            if ($tache->phaseEvaluation?->code == "N2") {
+                foreach ($mobilisationUas as $mobilisation) {
+                    $realisationUA = $realisationUaService->getOrCreateApprenant(
+                        $realisationProjet->apprenant_id,
+                        $mobilisation->unite_apprentissage_id
+                    );
+
+                    $realisationUaPrototypeService->create([
+                        'realisation_tache_id' => $realisationTache->id,
+                        'realisation_ua_id' => $realisationUA->id,
+                        'bareme' => $mobilisation->bareme_evaluation_prototype ?? 0,
+                    ]);
+                }
+            }
+
+            // 🧩 Gestion des UA projets (N3)
+            if ($tache->phaseEvaluation?->code == "N3") {
+                foreach ($mobilisationUas as $mobilisation) {
+                    $realisationUA = $realisationUaService->getOrCreateApprenant(
+                        $realisationProjet->apprenant_id,
+                        $mobilisation->unite_apprentissage_id
+                    );
+
+                    $realisationUaProjetService->create([
+                        'realisation_tache_id' => $realisationTache->id,
+                        'realisation_ua_id' => $realisationUA->id,
+                        'bareme' => $mobilisation->bareme_evaluation_projet ?? 0,
+                    ]);
+                }
+            }
+        }
+    }
 }
