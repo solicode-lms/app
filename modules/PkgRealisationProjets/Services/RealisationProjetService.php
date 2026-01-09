@@ -36,6 +36,11 @@ use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgRealisationTache\Services\RealisationTacheService;
 use Modules\PkgNotification\Enums\NotificationType;
 use Modules\PkgRealisationProjets\Models\WorkflowProjet;
+use Modules\PkgCreationProjet\Models\MobilisationUa;
+use Modules\PkgApprentissage\Services\RealisationUaProjetService;
+use Modules\PkgApprentissage\Services\RealisationUaPrototypeService;
+use Modules\PkgApprentissage\Models\RealisationUaPrototype;
+use Modules\PkgApprentissage\Models\RealisationUaProjet;
 
 /**
  * 
@@ -522,4 +527,115 @@ class RealisationProjetService extends BaseRealisationProjetService
 
 
 
+    /**
+     * Propage l'ajout d'une mobilisation d'UA à toutes les réalisations de projets en cours.
+     * Cette méthode crée les RealisationUaPrototype et RealisationUaProjet manquants.
+     *
+     * @param int $projetId
+     * @param MobilisationUa $mobilisation
+     * @return void
+     */
+    public function addMobilisationToProjectRealisations(int $projetId, MobilisationUa $mobilisation): void
+    {
+        // 1. Récupérer toutes les réalisations liées à ce projet
+        $realisationProjets = $this->model->whereHas('affectationProjet', function ($q) use ($projetId) {
+            $q->where('projet_id', $projetId);
+        })->get();
+
+        $realisationUaService = new RealisationUaService();
+        $realisationUaProjetService = app(RealisationUaProjetService::class);
+        $realisationUaPrototypeService = app(RealisationUaPrototypeService::class);
+
+        foreach ($realisationProjets as $realisationProjet) {
+
+            // 2. Créer ou récupérer l'UA pour l'apprenant (point d'entrée pour la notation)
+            $realisationUA = $realisationUaService->getOrCreateApprenant(
+                $realisationProjet->apprenant_id,
+                $mobilisation->unite_apprentissage_id
+            );
+
+            // 3. Identifier les tâches N2 (Prototype) du projet
+            $tachesN2 = $realisationProjet->realisationTaches()
+                ->whereHas('tache.phaseEvaluation', function ($q) {
+                    $q->where('code', 'N2');
+                })->get();
+
+            foreach ($tachesN2 as $realisationTache) {
+                $exists = RealisationUaPrototype::where('realisation_tache_id', $realisationTache->id)
+                    ->where('realisation_ua_id', $realisationUA->id)
+                    ->exists();
+
+                if (!$exists) {
+                    $realisationUaPrototypeService->create([
+                        'realisation_tache_id' => $realisationTache->id,
+                        'realisation_ua_id' => $realisationUA->id,
+                        'bareme' => $mobilisation->bareme_evaluation_prototype ?? 0,
+                    ]);
+                }
+            }
+
+            // 4. Identifier les tâches N3 (Projet) du projet
+            $tachesN3 = $realisationProjet->realisationTaches()
+                ->whereHas('tache.phaseEvaluation', function ($q) {
+                    $q->where('code', 'N3');
+                })->get();
+
+            foreach ($tachesN3 as $realisationTache) {
+                $exists = RealisationUaProjet::where('realisation_tache_id', $realisationTache->id)
+                    ->where('realisation_ua_id', $realisationUA->id)
+                    ->exists();
+
+                if (!$exists) {
+                    $realisationUaProjetService->create([
+                        'realisation_tache_id' => $realisationTache->id,
+                        'realisation_ua_id' => $realisationUA->id,
+                        'bareme' => $mobilisation->bareme_evaluation_projet ?? 0,
+                    ]);
+                }
+            }
+        }
+    }
+
+    /**
+     * Propage la suppression d'une mobilisation d'UA.
+     * Cette méthode nettoie les RealisationUaPrototype et RealisationUaProjet orphelins.
+     *
+     * @param int $projetId
+     * @param int $uniteApprentissageId
+     * @return void
+     */
+    public function removeMobilisationFromProjectRealisations(int $projetId, int $uniteApprentissageId): void
+    {
+        // 1. Récupérer toutes les réalisations du projet avec leurs tâches
+        $realisationProjets = $this->model->whereHas('affectationProjet', function ($q) use ($projetId) {
+            $q->where('projet_id', $projetId);
+        })->with('realisationTaches')->get();
+
+        foreach ($realisationProjets as $realisationProjet) {
+
+            // Trouver la RealisationUa de l'apprenant concerné
+            $realisationUA = \Modules\PkgApprentissage\Models\RealisationUa::where('unite_apprentissage_id', $uniteApprentissageId)
+                ->whereHas(
+                    'realisationMicroCompetence',
+                    fn($query) =>
+                    $query->where('apprenant_id', $realisationProjet->apprenant_id)
+                )->first();
+
+            if (!$realisationUA) {
+                continue;
+            }
+
+            $realisationTacheIds = $realisationProjet->realisationTaches->pluck('id');
+
+            // Suppression des notes partielles N2
+            RealisationUaPrototype::whereIn('realisation_tache_id', $realisationTacheIds)
+                ->where('realisation_ua_id', $realisationUA->id)
+                ->delete();
+
+            // Suppression des notes partielles N3
+            RealisationUaProjet::whereIn('realisation_tache_id', $realisationTacheIds)
+                ->where('realisation_ua_id', $realisationUA->id)
+                ->delete();
+        }
+    }
 }
