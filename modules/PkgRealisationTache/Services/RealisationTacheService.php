@@ -327,7 +327,7 @@ class RealisationTacheService extends BaseRealisationTacheService
 
 
     /**
-     * Génère les réalisations de tâches pour un projet donné.
+     * Rappeler le processus de création des tâches depuis l'affectation.
      * Cette méthode centralise la logique de création initiale des tâches.
      *
      * @param RealisationProjet $realisationProjet
@@ -337,22 +337,16 @@ class RealisationTacheService extends BaseRealisationTacheService
     {
         $formateur_id = $realisationProjet->affectationProjet->projet->formateur_id;
         $affectationProjet = $realisationProjet->affectationProjet;
-        $taches = $affectationProjet->projet->taches;
-        $mobilisationUas = $affectationProjet->projet->mobilisationUas ?? collect();
+        $tacheAffectations = $affectationProjet->tacheAffectations;
 
         $etatInitialRealisationTache = $formateur_id
             ? (new EtatRealisationTacheService())->getDefaultEtatByFormateurId($formateur_id)
             : null;
 
         $realisationUaService = new RealisationUaService();
-        $realisationChapitreService = app(RealisationChapitreService::class);
-        $realisationUaProjetService = app(RealisationUaProjetService::class);
-        $realisationUaPrototypeService = app(RealisationUaPrototypeService::class);
 
-        foreach ($taches as $tache) {
-            $tacheAffectation = $tache->tacheAffectations
-                ->where('affectation_projet_id', $affectationProjet->id)
-                ->first();
+        foreach ($tacheAffectations as $tacheAffectation) {
+            $tache = $tacheAffectation->tache;
 
             // ⚠️ Si la tâche est liée à un chapitre terminé, on passe à la suivante
             if ($tache->chapitre) {
@@ -373,15 +367,57 @@ class RealisationTacheService extends BaseRealisationTacheService
             }
 
             // ✅ Création de la RealisationTache (si non bloquée)
-            $realisationTache = $this->create([
+            // L'appel à create() déclenchera afterCreateRules -> processPostCreation()
+            $this->create([
                 'realisation_projet_id' => $realisationProjet->id,
                 'tache_id' => $tache->id,
                 'etat_realisation_tache_id' => $etatInitialRealisationTache?->id,
-                'tache_affectation_id' => $tacheAffectation?->id,
+                'tache_affectation_id' => $tacheAffectation->id,
             ]);
+        }
+    }
+
+    /**
+     * Règles à appliquer après la création.
+     * Cette méthode gère les dépendances comme les chapitres et les UA (N2/N3) automatiquement.
+     *
+     * @param mixed $item
+     * @return void
+     */
+    public function afterCreateRules($item): void
+    {
+        if ($item instanceof RealisationTache) {
+            $realisationTache = $item;
+
+            // Chargement des relations nécessaires
+            $realisationTache->loadMissing([
+                'tache.chapitre',
+                'realisationProjet.affectationProjet.projet.mobilisationUas',
+                'realisationProjet.apprenant'
+            ]);
+
+            $tache = $realisationTache->tache;
+            $realisationProjet = $realisationTache->realisationProjet;
+
+            // On récupère les mobilisations depuis le projet associé
+            $mobilisationUas = $realisationProjet->affectationProjet->projet->mobilisationUas ?? collect();
+
+            $realisationUaService = new RealisationUaService();
+            $realisationChapitreService = app(RealisationChapitreService::class);
+            $realisationUaProjetService = app(RealisationUaProjetService::class);
+            $realisationUaPrototypeService = app(RealisationUaPrototypeService::class);
 
             // 🔗 Si le chapitre existe, on lie ou crée sa RealisationChapitre
             if ($tache->chapitre) {
+                $realisationUA = $realisationUaService->getOrCreateApprenant(
+                    $realisationProjet->apprenant_id,
+                    $tache->chapitre->unite_apprentissage_id
+                );
+
+                $chapitreExistant = RealisationChapitre::where('chapitre_id', $tache->chapitre->id)
+                    ->where('realisation_ua_id', $realisationUA->id)
+                    ->first();
+
                 if (isset($chapitreExistant) && $chapitreExistant) {
                     // Si le chapitre existe et n’est pas DONE, on met à jour le lien
                     if ($chapitreExistant->etatRealisationChapitre?->code !== 'DONE') {
