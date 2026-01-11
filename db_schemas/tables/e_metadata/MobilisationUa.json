@@ -561,5 +561,19 @@
         "value_float": 0,
         "e_data_field_reference": "MobilisationUa_bareme_evaluation_projet",
         "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "MobilisationUa_unite_apprentissage_id_scopeDataInEditContext",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": [
+            {
+                "key": "scope.uniteApprentissage.microCompetence.competence.module.filiere_id",
+                "value": "projet.filiere_id",
+                "modelName": "MobilisationUa"
+            }
+        ],
+        "e_data_field_reference": "MobilisationUa_unite_apprentissage_id",
+        "e_metadata_definition_reference": "scopeDataInEditContext"
     }
 ]

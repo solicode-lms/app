@@ -1,20 +1,32 @@
 @php
-    $criteresN2 = $entity
-        ?->realisationUa
-        ?->uniteApprentissage
-        ?->critereEvaluations
-        ?->where('phaseEvaluation.code', 'N2');
+    $criteresHtml = null;
+    $realisationTache = $entity->realisationTache ?? null;
+
+    if($realisationTache && $realisationTache->realisationProjet && $realisationTache->realisationProjet->affectationProjet) {
+        $projetId = $realisationTache->realisationProjet->affectationProjet->projet_id;
+        
+        // Récupération de l'UA via la relation RealisationUa
+        $realisationUa = $entity->realisationUa ?? null;
+        $uaId = $realisationUa ? $realisationUa->unite_apprentissage_id : null;
+
+        if ($projetId && $uaId) {
+            $mobilisation = \Modules\PkgCreationProjet\Models\MobilisationUa::where('projet_id', $projetId)
+                ->where('unite_apprentissage_id', $uaId)
+                ->first();
+            
+            if($mobilisation) {
+                $criteresHtml = $mobilisation->criteres_evaluation_prototype;
+            }
+        }
+    }
 @endphp
 
-{{-- Affichage de la liste (exemple) --}}
-@if($criteresN2 && $criteresN2->count())
-    <ul style="word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
-        @foreach($criteresN2 as $critere)
-            <li style="word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
-                {{ $critere->intitule ?? 'Critère sans nom' }}
-            </li>
-        @endforeach
-    </ul>
+{{-- Affichage des critères depuis la mobilisation --}}
+@if(!empty($criteresHtml))
+    <div class="criteres-content">
+        {!! $criteresHtml !!}
+    </div>
 @else
-    <em>Aucun critère N2 trouvé.</em>
+    {{-- Fallback: Aucune mobilisation trouvée ou champ vide --}}
+    <em>Aucun critère défini pour ce projet.</em>
 @endif

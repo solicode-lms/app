@@ -79,7 +79,11 @@ class BaseMobilisationUaController extends AdminController
 
 
         $itemMobilisationUa = $this->mobilisationUaService->createInstance();
-        
+ 
+        // scopeDataInEditContext
+        $value = $itemMobilisationUa->getNestedValue('projet.filiere_id');
+        $key = 'scope.uniteApprentissage.microCompetence.competence.module.filiere_id';
+        $this->viewState->set($key, $value);
 
         $uniteApprentissages = $this->uniteApprentissageService->all();
         $projets = $this->projetService->all();
@@ -107,6 +111,10 @@ class BaseMobilisationUaController extends AdminController
  
          $itemMobilisationUa = $this->mobilisationUaService->find($mobilisationUa_ids[0]);
          
+        // scopeDataInEditContext
+        $value = $itemMobilisationUa->getNestedValue('projet.filiere_id');
+        $key = 'scope.uniteApprentissage.microCompetence.competence.module.filiere_id';
+        $this->viewState->set($key, $value);
  
         $uniteApprentissages = $this->uniteApprentissageService->getAllForSelect($itemMobilisationUa->uniteApprentissage);
         $projets = $this->projetService->getAllForSelect($itemMobilisationUa->projet);
@@ -176,6 +184,10 @@ class BaseMobilisationUaController extends AdminController
 
         $itemMobilisationUa = $this->mobilisationUaService->edit($id);
 
+        // scopeDataInEditContext
+        $value = $itemMobilisationUa->getNestedValue('projet.filiere_id');
+        $key = 'scope.uniteApprentissage.microCompetence.competence.module.filiere_id';
+        $this->viewState->set($key, $value);
 
         $uniteApprentissages = $this->uniteApprentissageService->getAllForSelect($itemMobilisationUa->uniteApprentissage);
         $projets = $this->projetService->getAllForSelect($itemMobilisationUa->projet);
@@ -496,6 +508,10 @@ class BaseMobilisationUaController extends AdminController
         // $this->authorizeAction('update');
         $itemMobilisationUa = MobilisationUa::findOrFail($id);
 
+        // scopeDataInEditContext
+        $value = $itemMobilisationUa->getNestedValue('projet.filiere_id');
+        $key = 'scope.uniteApprentissage.microCompetence.competence.module.filiere_id';
+        $this->viewState->set($key, $value);
 
         $data = $this->service->buildFieldMeta($itemMobilisationUa, $field);
         return response()->json(
@@ -513,6 +529,10 @@ class BaseMobilisationUaController extends AdminController
         $this->authorizeAction('update');
         $itemMobilisationUa = MobilisationUa::findOrFail($id);
 
+        // scopeDataInEditContext
+        $value = $itemMobilisationUa->getNestedValue('projet.filiere_id');
+        $key = 'scope.uniteApprentissage.microCompetence.competence.module.filiere_id';
+        $this->viewState->set($key, $value);
 
         // Vérification ETag
         $ifMatch = $request->header('If-Match');
