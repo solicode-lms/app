@@ -547,12 +547,6 @@ class RealisationProjetService extends BaseRealisationProjetService
         $realisationUaPrototypeService = app(RealisationUaPrototypeService::class);
         $realisationTacheService = new RealisationTacheService();
 
-        // Récupérer les tâches N1 (Tutoriels) liées à cette UA pour ce projet
-        $tachesN1 = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $projetId)
-            ->whereHas('chapitre', function ($q) use ($mobilisation) {
-                $q->where('unite_apprentissage_id', $mobilisation->unite_apprentissage_id);
-            })
-            ->get();
 
         foreach ($realisationProjets as $realisationProjet) {
 
@@ -563,35 +557,7 @@ class RealisationProjetService extends BaseRealisationProjetService
             );
 
             // 2b. Créer les RealisationTache pour les tutoriels (N1), sauf si chapitre déjà validé
-            foreach ($tachesN1 as $tache) {
-                if ($tache->chapitre) {
-                    $chapitreExistant = RealisationChapitre::where('chapitre_id', $tache->chapitre->id)
-                        ->where('realisation_ua_id', $realisationUA->id)
-                        ->first();
-
-                    if ($chapitreExistant && $chapitreExistant->etatRealisationChapitre?->code === 'DONE') {
-                        continue; // Déjà validé
-                    }
-
-                    // Créer la RT si elle n'existe pas déjà
-                    $existeRT = $realisationProjet->realisationTaches()->where('tache_id', $tache->id)->exists();
-                    if (!$existeRT) {
-                        // Il faut récupérer l'affectation de tache (ou la créer si besoin, mais normalement elle existe si le projet est bien fait)
-                        // Pour simplifier, on crée la RT sans tache_affectation_id si non obligatoire, ou on la cherche.
-                        // Ici, on va utiliser create directement, le service RT gérera le reste.
-
-                        // On essaie de trouver une tacheAffectation
-                        $tacheAffectation = $realisationProjet->affectationProjet->tacheAffectations()->where('tache_id', $tache->id)->first();
-
-                        $realisationTacheService->create([
-                            'realisation_projet_id' => $realisationProjet->id,
-                            'tache_id' => $tache->id,
-                            'tache_affectation_id' => $tacheAffectation?->id,
-                            // Etat par défaut ? null laissera le service gérer
-                        ]);
-                    }
-                }
-            }
+            $realisationTacheService->createTutorielsForMobilisation($realisationProjet, $mobilisation);
 
             // 3. Identifier les tâches N2 (Prototype) du projet
             $tachesN2 = $realisationProjet->realisationTaches()

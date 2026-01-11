@@ -36,6 +36,7 @@ use Modules\PkgApprentissage\Services\RealisationUaPrototypeService;
 use Modules\PkgApprentissage\Models\RealisationChapitre;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
+use Modules\PkgCreationProjet\Models\MobilisationUa;
 
 /**
  * Classe RealisationTacheService pour gérer la persistance de l'entité RealisationTache.
@@ -463,6 +464,59 @@ class RealisationTacheService extends BaseRealisationTacheService
                         'realisation_tache_id' => $realisationTache->id,
                         'realisation_ua_id' => $realisationUA->id,
                         'bareme' => $mobilisation->bareme_evaluation_projet ?? 0,
+                    ]);
+                }
+            }
+        }
+    }
+    /**
+     * Crée les RealisationTache pour les tâches de type tutoriel (N1) associées à une mobilisation UA.
+     * Vérifie si le chapitre est déjà validé pour ne pas créer de doublon inutile.
+     *
+     * @param RealisationProjet $realisationProjet
+     * @param MobilisationUa $mobilisation
+     * @return void
+     */
+    public function createTutorielsForMobilisation(RealisationProjet $realisationProjet, MobilisationUa $mobilisation): void
+    {
+        // Récupérer les tâches N1 (Tutoriels) liées à cette UA pour ce projet
+        $tachesN1 = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $mobilisation->projet_id)
+            ->whereHas('chapitre', function ($q) use ($mobilisation) {
+                $q->where('unite_apprentissage_id', $mobilisation->unite_apprentissage_id);
+            })
+            ->get();
+
+        $realisationUaService = new RealisationUaService();
+
+        // S'assurer que la RealisationUA existe (point d'ancrage)
+        $realisationUA = $realisationUaService->getOrCreateApprenant(
+            $realisationProjet->apprenant_id,
+            $mobilisation->unite_apprentissage_id
+        );
+
+        foreach ($tachesN1 as $tache) {
+            if ($tache->chapitre) {
+                // Vérifier si le chapitre est déjà validé par l'apprenant
+                $chapitreExistant = RealisationChapitre::where('chapitre_id', $tache->chapitre->id)
+                    ->where('realisation_ua_id', $realisationUA->id)
+                    ->first();
+
+                if ($chapitreExistant && $chapitreExistant->etatRealisationChapitre?->code === 'DONE') {
+                    continue; // Déjà validé, on ignore
+                }
+
+                // Créer la RT si elle n'existe pas déjà
+                $existeRT = $realisationProjet->realisationTaches()->where('tache_id', $tache->id)->exists();
+                if (!$existeRT) {
+                    // On essaie de trouver une tacheAffectation existante
+                    $tacheAffectation = $realisationProjet->affectationProjet->tacheAffectations()
+                        ->where('tache_id', $tache->id)
+                        ->first();
+
+                    $this->create([
+                        'realisation_projet_id' => $realisationProjet->id,
+                        'tache_id' => $tache->id,
+                        'tache_affectation_id' => $tacheAffectation?->id,
                     ]);
                 }
             }
