@@ -1,4 +1,6 @@
 <?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
 
 namespace Modules\PkgCreationProjet\Services;
 use Modules\PkgCreationProjet\Services\Base\BaseMobilisationUaService;
@@ -9,6 +11,35 @@ use Modules\PkgCompetences\Models\UniteApprentissage;
  */
 class MobilisationUaService extends BaseMobilisationUaService
 {
+    /**
+     * Enrichit les données de la mobilisation pour le formulaire.
+     * 
+     * Calcule automatiquement les critères et barèmes (Prototype & Projet)
+     * si une UA est fournie.
+     */
+    public function dataCalcul($data)
+    {
+        $data = parent::dataCalcul($data);
+
+        // Si on a une UA mais pas encore les critères calculés (ou si on veut les forcer pour l'affichage)
+        if (!empty($data['unite_apprentissage_id'])) {
+
+            $ua = UniteApprentissage::with('critereEvaluations.phaseEvaluation')->find($data['unite_apprentissage_id']);
+
+            if ($ua) {
+                [$criteresPrototype, $baremePrototype] = $this->extractCriteresEtBareme($ua, 'N2');
+                [$criteresProjet, $baremeProjet] = $this->extractCriteresEtBareme($ua, 'N3');
+
+                $data['criteres_evaluation_prototype'] = $this->formatCriteres($criteresPrototype);
+                $data['criteres_evaluation_projet'] = $this->formatCriteres($criteresProjet);
+                $data['bareme_evaluation_prototype'] = $baremePrototype;
+                $data['bareme_evaluation_projet'] = $baremeProjet;
+            }
+        }
+
+        return $data;
+    }
+
     /**
      * Règles métier à appliquer avant la création d'une mobilisation.
      * 
@@ -64,15 +95,30 @@ class MobilisationUaService extends BaseMobilisationUaService
     {
         $mobilisation = $this->find($id);
 
-        $result = parent::destroy($id);
-
         if ($mobilisation) {
+            // 1. Supprimer les tâches associées (TOUTES les tâches liées aux chapitres de l'UA)
+            $ua = \Modules\PkgCompetences\Models\UniteApprentissage::with('chapitres')->find($mobilisation->unite_apprentissage_id);
+
+            if ($ua && $ua->chapitres->isNotEmpty()) {
+                $chapitreIds = $ua->chapitres->pluck('id');
+
+                // Supprimer TOUTES les tâches liées à ces chapitres pour ce projet
+                \Modules\PkgCreationTache\Models\Tache::where('projet_id', $mobilisation->projet_id)
+                    ->whereIn('chapitre_id', $chapitreIds)
+                    ->delete();
+            }
+
+            // 2. Nettoyer les réalisations de projet
             $realisationProjetService = new \Modules\PkgRealisationProjets\Services\RealisationProjetService();
             $realisationProjetService->removeMobilisationFromProjectRealisations(
                 $mobilisation->projet_id,
                 $mobilisation->unite_apprentissage_id
             );
+        }
 
+        $result = parent::destroy($id);
+
+        if ($mobilisation) {
             // Mise à jour de la date de modification du projet parent
             if (isset($mobilisation->projet)) {
                 $mobilisation->projet->touch();

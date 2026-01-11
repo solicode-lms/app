@@ -575,5 +575,12 @@
         ],
         "e_data_field_reference": "MobilisationUa_unite_apprentissage_id",
         "e_metadata_definition_reference": "scopeDataInEditContext"
+    },
+    {
+        "reference": "MobilisationUa_unite_apprentissage_id_dataCalcul",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "MobilisationUa_unite_apprentissage_id",
+        "e_metadata_definition_reference": "dataCalcul"
     }
 ]

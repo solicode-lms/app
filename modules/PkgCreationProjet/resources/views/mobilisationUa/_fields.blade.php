@@ -51,7 +51,7 @@
                       <select 
             id="unite_apprentissage_id" 
             required
-            
+            data-calcul='true'
             
             name="unite_apprentissage_id" 
             class="form-control select2">
