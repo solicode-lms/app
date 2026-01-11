@@ -88,8 +88,8 @@ class BaseMobilisationUaSeeder extends Seeder
                 $mobilisationUaData =[
                         "unite_apprentissage_id" => $unite_apprentissage_id,
                         "bareme_evaluation_prototype" => isset($row["bareme_evaluation_prototype"]) && $row["bareme_evaluation_prototype"] !== "" ? $row["bareme_evaluation_prototype"] : null,
-                        "criteres_evaluation_prototype" => isset($row["criteres_evaluation_prototype"]) && $row["criteres_evaluation_prototype"] !== "" ? $row["criteres_evaluation_prototype"] : null,
                         "bareme_evaluation_projet" => isset($row["bareme_evaluation_projet"]) && $row["bareme_evaluation_projet"] !== "" ? $row["bareme_evaluation_projet"] : null,
+                        "criteres_evaluation_prototype" => isset($row["criteres_evaluation_prototype"]) && $row["criteres_evaluation_prototype"] !== "" ? $row["criteres_evaluation_prototype"] : null,
                         "criteres_evaluation_projet" => isset($row["criteres_evaluation_projet"]) && $row["criteres_evaluation_projet"] !== "" ? $row["criteres_evaluation_projet"] : null,
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                         "projet_id" => $projet_id,

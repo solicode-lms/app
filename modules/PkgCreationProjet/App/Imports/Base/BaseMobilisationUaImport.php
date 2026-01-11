@@ -59,8 +59,8 @@ class BaseMobilisationUaImport implements ToModel, WithHeadingRow
         return new MobilisationUa([
              'unite_apprentissage_id' => $values[0] ?? null,
              'bareme_evaluation_prototype' => $values[1] ?? null,
-             'criteres_evaluation_prototype' => $values[2] ?? null,
-             'bareme_evaluation_projet' => $values[3] ?? null,
+             'bareme_evaluation_projet' => $values[2] ?? null,
+             'criteres_evaluation_prototype' => $values[3] ?? null,
              'criteres_evaluation_projet' => $values[4] ?? null,
              'description' => $values[5] ?? null,
              'projet_id' => $values[6] ?? null,

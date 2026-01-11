@@ -31,8 +31,8 @@ class BaseMobilisationUaRequest extends FormRequest
         return [
             'unite_apprentissage_id' => 'required',
             'bareme_evaluation_prototype' => 'nullable',
-            'criteres_evaluation_prototype' => 'nullable|string',
             'bareme_evaluation_projet' => 'nullable',
+            'criteres_evaluation_prototype' => 'nullable|string',
             'criteres_evaluation_projet' => 'nullable|string',
             'description' => 'nullable|string',
             'projet_id' => 'required'
@@ -49,8 +49,8 @@ class BaseMobilisationUaRequest extends FormRequest
         return [
             'unite_apprentissage_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::MobilisationUa.unite_apprentissage_id')]),
             'bareme_evaluation_prototype.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::MobilisationUa.bareme_evaluation_prototype')]),
-            'criteres_evaluation_prototype.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::MobilisationUa.criteres_evaluation_prototype')]),
             'bareme_evaluation_projet.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::MobilisationUa.bareme_evaluation_projet')]),
+            'criteres_evaluation_prototype.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::MobilisationUa.criteres_evaluation_prototype')]),
             'criteres_evaluation_projet.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::MobilisationUa.criteres_evaluation_projet')]),
             'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::MobilisationUa.description')]),
             'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::MobilisationUa.projet_id')])

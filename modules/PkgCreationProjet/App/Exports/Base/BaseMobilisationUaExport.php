@@ -34,8 +34,8 @@ class BaseMobilisationUaExport implements FromCollection, WithHeadings, ShouldAu
             return [
                 'unite_apprentissage_reference' => 'unite_apprentissage_reference',
                 'bareme_evaluation_prototype' => 'bareme_evaluation_prototype',
-                'criteres_evaluation_prototype' => 'criteres_evaluation_prototype',
                 'bareme_evaluation_projet' => 'bareme_evaluation_projet',
+                'criteres_evaluation_prototype' => 'criteres_evaluation_prototype',
                 'criteres_evaluation_projet' => 'criteres_evaluation_projet',
                 'description' => 'description',
                 'projet_reference' => 'projet_reference',
@@ -45,8 +45,8 @@ class BaseMobilisationUaExport implements FromCollection, WithHeadings, ShouldAu
             return [
                 'unite_apprentissage_reference' => __('PkgCompetences::uniteApprentissage.singular'),
                 'bareme_evaluation_prototype' => __('PkgCreationProjet::mobilisationUa.bareme_evaluation_prototype'),
-                'criteres_evaluation_prototype' => __('PkgCreationProjet::mobilisationUa.criteres_evaluation_prototype'),
                 'bareme_evaluation_projet' => __('PkgCreationProjet::mobilisationUa.bareme_evaluation_projet'),
+                'criteres_evaluation_prototype' => __('PkgCreationProjet::mobilisationUa.criteres_evaluation_prototype'),
                 'criteres_evaluation_projet' => __('PkgCreationProjet::mobilisationUa.criteres_evaluation_projet'),
                 'description' => __('PkgCreationProjet::mobilisationUa.description'),
                 'projet_reference' => __('PkgCreationProjet::projet.singular'),
@@ -64,8 +64,8 @@ class BaseMobilisationUaExport implements FromCollection, WithHeadings, ShouldAu
             return [
                 'unite_apprentissage_reference' => $mobilisationUa->uniteApprentissage?->reference,
                 'bareme_evaluation_prototype' => $mobilisationUa->bareme_evaluation_prototype,
-                'criteres_evaluation_prototype' => $mobilisationUa->criteres_evaluation_prototype,
                 'bareme_evaluation_projet' => $mobilisationUa->bareme_evaluation_projet,
+                'criteres_evaluation_prototype' => $mobilisationUa->criteres_evaluation_prototype,
                 'criteres_evaluation_projet' => $mobilisationUa->criteres_evaluation_projet,
                 'description' => $mobilisationUa->description,
                 'projet_reference' => $mobilisationUa->projet?->reference,
