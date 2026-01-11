@@ -22,16 +22,24 @@ class ProjetService extends BaseProjetService
 {
 
     protected array $index_with_relations = [
-        'filiere', 
-        'formateur', 
-        'livrables', 
-        'resources', 
+        'filiere',
+        'formateur',
+        'livrables',
+        'resources',
         'taches',
         'affectationProjets',
         'affectationProjets.groupe'
     ];
 
 
+
+    /**
+     * Crée une instance de Projet.
+     *
+     * @param array $data Données initiales.
+     * @return mixed L'instance créée.
+     * @throws BlException Si l'ID du formateur ne peut pas être récupéré.
+     */
     public function createInstance(array $data = [])
     {
         // Si l'utilisateur est formateur, on injecte son formateur_id
@@ -120,7 +128,7 @@ class ProjetService extends BaseProjetService
 
     public function afterUpdateRules($projet)
     {
-       
+
     }
 
     protected function updateMobilisationsUa($projet, $session)
@@ -205,7 +213,7 @@ class ProjetService extends BaseProjetService
         Tache::firstOrCreate(
             [
                 'projet_id' => $projet->id,
-                'titre' => $session->titre_prototype ? "Prototype : " . $session->titre_prototype  :  'Prototype',
+                'titre' => $session->titre_prototype ? "Prototype : " . $session->titre_prototype : 'Prototype',
             ],
             [
                 'description' => trim(($session->description_prototype ?? '') . "</br><b>Contraintes</b>" . ($session->contraintes_prototype ?? '')),
@@ -240,7 +248,7 @@ class ProjetService extends BaseProjetService
                 'titre' => 'Réalisation',
             ],
             [
-                'description' =>  trim(($session->description_projet ?? '')  . "</br><b>Contraintes</b>" . ($session->contraintes_projet ?? '')),
+                'description' => trim(($session->description_projet ?? '') . "</br><b>Contraintes</b>" . ($session->contraintes_projet ?? '')),
                 'priorite' => $priorite++,
                 'ordre' => $ordre++,
                 'phase_evaluation_id' => $phaseN3,
@@ -280,8 +288,8 @@ class ProjetService extends BaseProjetService
 
             if ($session) {
                 // Hydrater les champs du projet avec les données de la session
-                $projet->titre              = $session->titre_projet;
-                $projet->travail_a_faire    = $session->description_projet;
+                $projet->titre = $session->titre_projet;
+                $projet->travail_a_faire = $session->description_projet;
                 $projet->critere_de_travail = $session->contraintes_projet;
 
                 // Assigner la filière si présente
@@ -328,12 +336,12 @@ class ProjetService extends BaseProjetService
         }
 
         // On encapsule tout dans une transaction
-        return DB::transaction(function () use ($projet,$formateurId) {
+        return DB::transaction(function () use ($projet, $formateurId) {
             // Clone du projet (hors clé primaire et références uniques)
             $nouveauProjet = $projet->replicate(['id', 'reference']);
             $nouveauProjet->reference = (string) Str::uuid(); // Nouvelle référence unique
             $nouveauProjet->titre .= ' (Cloné)';
-            $nouveauProjet->formateur_id = $formateurId; 
+            $nouveauProjet->formateur_id = $formateurId;
             $nouveauProjet->push(); // Insert le nouveau projet
 
             // -- Clonage des ressources --
@@ -395,14 +403,14 @@ class ProjetService extends BaseProjetService
     {
         $defaultLivrables = [
             [
-                'titre'            => 'Code source',
-                'description'      => 'Livrable contenant le code source complet du projet',
-                'natureReference'  => 'Code'
+                'titre' => 'Code source',
+                'description' => 'Livrable contenant le code source complet du projet',
+                'natureReference' => 'Code'
             ],
             [
-                'titre'            => 'Présentation',
-                'description'      => 'Présentation du projet (slides, vidéo, etc.)',
-                'natureReference'  => 'Présentation'
+                'titre' => 'Présentation',
+                'description' => 'Présentation du projet (slides, vidéo, etc.)',
+                'natureReference' => 'Présentation'
             ],
         ];
 
@@ -412,11 +420,11 @@ class ProjetService extends BaseProjetService
 
             Livrable::firstOrCreate(
                 [
-                    'projet_id'          => $projet->id,
-                    'titre'              => $livrableData['titre'],
+                    'projet_id' => $projet->id,
+                    'titre' => $livrableData['titre'],
                 ],
                 [
-                    'description'        => $livrableData['description'],
+                    'description' => $livrableData['description'],
                     'nature_livrable_id' => $natureId, // null si introuvable
                 ]
             );
