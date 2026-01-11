@@ -27,9 +27,21 @@
     4. **Calculs et Enrichissement** (`dataCalcul`, `getStats`)
     5. **Gestion des Relations** (Création de sous-entités)
     6. **Requêtes, Filtres et Scopes** (`defaultSort`)
-- **Hooks CRUD** : 
-    - Ne jamais surcharger directement les méthodes `create`, `update`, `delete` du `BaseService`.
-    - Toujours implémenter les méthodes hooks : `beforeCreate`, `afterCreate`, `beforeUpdate`, `afterUpdate` pour injecter la logique métier.
+- **Hooks CRUD (Signatures et Usage)** :
+    - Ne jamais surcharger directement les méthodes `create`, `update`, `delete` du `BaseService` sauf cas exceptionnel.
+    - **`beforeCreateRules(array &$data)`** :
+        - **Passage par référence obligatoire** (`&`) pour pouvoir modifier les données avant insertion.
+        - Utiliser pour : Validation métier, calcul de champs par défaut, enrichissement de données.
+    - **`afterCreateRules($item)`** :
+        - Reçoit l'objet créé.
+        - Utiliser pour : Création d'enfants, notifications, jobs asynchrones, synchronisations.
+    - **`beforeUpdateRules($item, array $data)`** :
+        - Reçoit l'item actuel et les nouvelles données.
+        - Utiliser pour : Validation de transition d'état, règles de modification.
+    - **`afterUpdateRules($item, array $data)`** :
+        - Utiliser pour : Mises à jour en cascade, logs d'audit.
+    - **`beforeDeleteRules($item)`** :
+        - Utiliser pour : Vérifier les dépendances bloquantes (règles de gestion de suppression).
 - **Règle** : Ne pas mettre de logique métier lourde dans les Contrôleurs. Déléguer aux Services.
 
 ## 3. Format de Réponse
