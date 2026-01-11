@@ -14,10 +14,12 @@
 ## 2. Architecture des Services & Refactoring
 - **Héritage** : Tous les services doivent hériter de `BaseService`. Si un service de base spécifique à l'entité existe (ex: `Base[Model]Service`), il doit être utilisé comme parent.
 - **Seuil critique (500 Lignes)** : Si une classe Service dépasse 500 lignes, le code doit être découpé en **Traits** situés dans `Services/Traits/{NomEntite}/`.
-- **Organisation des Traits** :
-    - `{Model}ActionsTrait` : Contient le Workflow, les transitions d'états, les validations métier complexes.
-    - `{Model}CalculTrait` : Contient les méthodes `dataCalcul`, les statistiques (`getStats`) et les getters calculés.
-    - `{Model}CrudTrait` (Optionnel) : Contient les implémentations des Hooks CRUD si elles sont volumineuses.
+- **Organisation des Traits (Convention Standard)** :
+    - `{Model}CrudTrait` : Implémentation des Hooks CRUD (`createInstance`, `before/after Rules`).
+    - `{Model}ActionsTrait` : Workflow métier, transitions d'états et actions complexes.
+    - `{Model}GetterTrait` : Logic de récupération (`get...`, `getCurrent...`) et scopes complexes.
+    - `{Model}CalculTrait` : Méthodes de calcul (`dataCalcul`), statistiques et formatage.
+    - `{Model}JobTrait` : Gestion des Jobs asynchrones (`ObserverJob`).
 - **Classification des Méthodes** : Organiser les méthodes dans cet ordre logique :
     1. **Gestion des Instances et Surcharges CRUD** (`createInstance`, `create`...)
     2. **Hooks de Cycle de Vie** (`before/after` Rules)
