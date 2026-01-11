@@ -3,16 +3,21 @@
 ## 1. Standards de Développement
 - **PSR-12** : Respect strict des standards de codage PHP.
 - **SOLID** : Application rigoureuse des principes SOLID.
-- **Nommage** : Noms explicites, cohérents, en anglais pour le code (variables, méthodes), mais respect des conventions existantes (parfois franglais dans le métier, s'aligner sur l'existant).
+- **Nommage (Convention Mixte)** :
+    - **Français (Langue Client)** : Utilisé pour les **noms de Classes** (Models, Controllers, Services...), les **champs de Base de Données**, et tout code lié au métier (variables et méthodes manipulant des données métier).
+    - **Anglais (Technique)** : Utilisé pour le code purement technique, l'infrastructure, et les variables/méthodes qui ne dépendent pas de la base de données (itérateurs, compteurs, helpers génériques, configurations).
 
-## 2. Architecture des Services
-- Architecture basée sur des **services métier** (`Modules/PkgX/Services`).
-- **Héritage** : Utiliser `BaseService`, `BaseFormateurService`.
+## 2. Architecture des Services & Refactoring
+- **Héritage** : Tous les services doivent hériter de `BaseService`. Si un service de base spécifique à l'entité existe (ex: `Base[Model]Service`), il doit être utilisé comme parent.
+- **Seuil critique (600 Lignes)** : Si une classe Service dépasse 600 lignes, le code doit être découpé en **Traits** situés dans `Services/Traits/{NomEntite}/`.
+- **Organisation des Traits** :
+    - `{Model}ActionsTrait` : Contient le Workflow, les transitions d'états, les validations métier complexes.
+    - `{Model}CalculTrait` : Contient les méthodes `dataCalcul`, les statistiques (`getStats`) et les getters calculés.
+    - `{Model}CrudTrait` (Optionnel) : Contient les implémentations des Hooks CRUD si elles sont volumineuses.
+- **Hooks CRUD** : 
+    - Ne jamais surcharger directement les méthodes `create`, `update`, `delete` du `BaseService`.
+    - Toujours implémenter les méthodes hooks : `beforeCreate`, `afterCreate`, `beforeUpdate`, `afterUpdate` pour injecter la logique métier.
 - **Règle** : Ne pas mettre de logique métier lourde dans les Contrôleurs. Déléguer aux Services.
-- **Méthodes Service** :
-    - Utiliser le `CrudTrait` (all, find, create, update...) en priorité.
-    - Créer des méthodes spécifiques uniquement si besoin métier réel.
-    - Utiliser `$this->model`, `$this->viewState`.
 
 ## 3. Format de Réponse
 - **Bloc de code** : Bien formaté, prêt à l'emploi.
