@@ -9,11 +9,18 @@
 
 ## 2. Architecture des Services & Refactoring
 - **Héritage** : Tous les services doivent hériter de `BaseService`. Si un service de base spécifique à l'entité existe (ex: `Base[Model]Service`), il doit être utilisé comme parent.
-- **Seuil critique (600 Lignes)** : Si une classe Service dépasse 600 lignes, le code doit être découpé en **Traits** situés dans `Services/Traits/{NomEntite}/`.
+- **Seuil critique (500 Lignes)** : Si une classe Service dépasse 500 lignes, le code doit être découpé en **Traits** situés dans `Services/Traits/{NomEntite}/`.
 - **Organisation des Traits** :
     - `{Model}ActionsTrait` : Contient le Workflow, les transitions d'états, les validations métier complexes.
     - `{Model}CalculTrait` : Contient les méthodes `dataCalcul`, les statistiques (`getStats`) et les getters calculés.
     - `{Model}CrudTrait` (Optionnel) : Contient les implémentations des Hooks CRUD si elles sont volumineuses.
+- **Classification des Méthodes** : Organiser les méthodes dans cet ordre logique :
+    1. **Gestion des Instances et Surcharges CRUD** (`createInstance`, `create`...)
+    2. **Hooks de Cycle de Vie** (`before/after` Rules)
+    3. **Logique Métier Spécifique** (Actions complexes, workflows)
+    4. **Calculs et Enrichissement** (`dataCalcul`, `getStats`)
+    5. **Gestion des Relations** (Création de sous-entités)
+    6. **Requêtes, Filtres et Scopes** (`defaultSort`)
 - **Hooks CRUD** : 
     - Ne jamais surcharger directement les méthodes `create`, `update`, `delete` du `BaseService`.
     - Toujours implémenter les méthodes hooks : `beforeCreate`, `afterCreate`, `beforeUpdate`, `afterUpdate` pour injecter la logique métier.
