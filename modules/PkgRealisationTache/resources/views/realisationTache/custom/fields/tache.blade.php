@@ -5,6 +5,7 @@
         @endphp
 
         <h2 class="tache-titre">
+           
             @if($realisationChapitre?->chapitre?->lien)
                 <a href="{{ $realisationChapitre->chapitre->lien }}" target="_blank">{{ $entity->tache }}</a>
             @else

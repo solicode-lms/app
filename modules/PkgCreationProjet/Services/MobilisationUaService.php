@@ -49,7 +49,6 @@ class MobilisationUaService extends BaseMobilisationUaService
     public function beforeCreateRules(&$data): array
     {
         // Appel parent si nécessaire (mais BaseService n'a pas forcément de beforeCreateRules qui retourne un array)
-        // Note: Dans votre architecture, les Rules prennent souvent l'objet ou le tableau par référence ou retournent void/array.
         // Je suppose ici que je peux modifier $data et le retourner.
 
         // Si on a une UA mais pas encore les critères calculés
@@ -74,10 +73,48 @@ class MobilisationUaService extends BaseMobilisationUaService
     public function afterCreateRules($item): void
     {
         if ($item instanceof \Modules\PkgCreationProjet\Models\MobilisationUa) {
+
+            // 1. Ajouter les tâches (Tutoriels) liées aux chapitres de l'UA
+            $ua = \Modules\PkgCompetences\Models\UniteApprentissage::with('chapitres')->find($item->unite_apprentissage_id);
+            if ($ua && $ua->chapitres->isNotEmpty()) {
+                $phaseN1Id = \Modules\PkgCompetences\Models\PhaseEvaluation::where('code', 'N1')->value('id');
+
+                $tacheService = new \Modules\PkgCreationTache\Services\TacheService();
+
+                // Calculer l'ordre/priorité max actuel pour ajouter à la suite
+                // Pour l'ordre/proiorité, on peut passer par le service ou le modèle en lecture seule, c'est acceptable.
+                $maxOrdre = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)->max('ordre') ?? 0;
+                $maxPriorite = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)->max('priorite') ?? 0;
+
+                foreach ($ua->chapitres as $chapitre) {
+
+                    // Vérifier si la tâche existe déjà
+                    $existe = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
+                        ->where('titre', 'Tutoriel : ' . $chapitre->nom)
+                        ->exists();
+
+                    if (!$existe) {
+                        $maxOrdre++;
+                        $maxPriorite++;
+
+                        $tacheService->create([
+                            'projet_id' => $item->projet_id,
+                            'titre' => 'Tutoriel : ' . $chapitre->nom,
+                            'description' => $chapitre->description ?? '',
+                            'priorite' => $maxPriorite,
+                            'ordre' => $maxOrdre,
+                            'phase_evaluation_id' => $phaseN1Id,
+                            'chapitre_id' => $chapitre->id
+                        ]);
+                    }
+                }
+            }
+
+            // 2. Synchroniser avec les réalisations de projet existantes (élèves)
             $realisationProjetService = new \Modules\PkgRealisationProjets\Services\RealisationProjetService();
             $realisationProjetService->addMobilisationToProjectRealisations($item->projet_id, $item);
 
-            // Mise à jour de la date de modification du projet parent
+            // 3. Mise à jour de la date de modification du projet parent
             if (isset($item->projet)) {
                 $item->projet->touch();
             }
