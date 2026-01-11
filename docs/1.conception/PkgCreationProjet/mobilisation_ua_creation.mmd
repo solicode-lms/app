@@ -1,0 +1,44 @@
+sequenceDiagram
+    participant Client
+    participant ProjetService
+    participant MobilisationUaService
+    participant RealisationProjetService
+    participant MobilisationUa as MobilisationUa (Model)
+
+    note over Client, RealisationProjetService: Cas 1 : Création automatique via ProjetService (lors de la création d'un Projet)
+
+    Client->>ProjetService: create(data)
+    ProjetService->>ProjetService: createInstance(data)
+    ProjetService->>ProjetService: save() (Parent BaseService)
+    
+    activate ProjetService
+    ProjetService->>ProjetService: afterCreateRules(projet)
+    ProjetService->>ProjetService: updateMobilisationsUa(projet, session)
+    
+    loop Pour chaque AlignementUA de la Session
+        ProjetService->>ProjetService: getCriteresEtBareme()
+        note right of ProjetService: Appel du Service pour garantir les Hooks
+        ProjetService->>MobilisationUaService: create(data)
+        activate MobilisationUaService
+        MobilisationUaService->>MobilisationUa: create()
+        
+        MobilisationUaService->>MobilisationUaService: afterCreateRules(mobilisation)
+        MobilisationUaService->>RealisationProjetService: addMobilisationToProjectRealisations()
+        deactivate MobilisationUaService
+    end
+    
+    ProjetService->>ProjetService: addProjectTasks(projet, session) 
+    deactivate ProjetService
+    ProjetService-->>Client: Projet créé
+
+    note over Client, RealisationProjetService: Cas 2 : Création manuelle via MobilisationUaService
+
+    Client->>MobilisationUaService: create(data)
+    MobilisationUaService->>MobilisationUaService: createInstance(data)
+    MobilisationUaService->>MobilisationUa: create()
+    activate MobilisationUaService
+    MobilisationUaService->>MobilisationUaService: afterCreateRules(mobilisation)
+    MobilisationUaService->>RealisationProjetService: addMobilisationToProjectRealisations()
+    note right of RealisationProjetService: Met à jour les réalisations projets existantes
+    deactivate MobilisationUaService
+    MobilisationUaService-->>Client: Mobilisation créée

@@ -39,3 +39,12 @@
 ## 5. Documentation
 - Documenter chaque méthode complexe (PHPDoc).
 - Expliquer les choix d'architecture dans les réponses.
+
+## 6. Diagrammes de Séquence (Mermaid)
+- **Format** : Utiliser Mermaid (`.mmd`).
+- **Emplacement** : `docs/1.conception/{Module}/`.
+- **Contenu** : Modéliser les interactions complexes entre Services, notamment les Hooks (`afterCreateRules`).
+- **Convention** :
+    - `participant Service` pour la logique métier.
+    - `participant Model` uniquement pour les opérations BDD pures.
+    - Utiliser `note` pour expliquer le "Pourquoi".
