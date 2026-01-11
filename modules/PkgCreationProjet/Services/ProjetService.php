@@ -57,6 +57,16 @@ class ProjetService extends BaseProjetService
         return parent::createInstance($data);
     }
 
+    /**
+     * Crée un nouveau projet.
+     * 
+     * Cette méthode surcharge la méthode parente pour garantir que si l'utilisateur connecté
+     * est un formateur, le projet lui est automatiquement assigné via son ID récupéré en session.
+     *
+     * @param array|object $data Données du projet.
+     * @return mixed Le projet créé.
+     * @throws \Exception Si l'ID du formateur ne peut pas être récupéré pour un formateur connecté.
+     */
     public function create(array|object $data)
     {
         // Vérifier si l'utilisateur connecté est un formateur
@@ -80,6 +90,16 @@ class ProjetService extends BaseProjetService
     }
 
 
+    /**
+     * Vérifie les règles métier avant la suppression d'un projet.
+     *
+     * Empêche la suppression si le projet est déjà affecté à des groupes
+     * pour garantir l'intégrité des données historiques.
+     *
+     * @param mixed $projet Le projet à supprimer.
+     * @throws BlException Si le projet a des affectations actives.
+     * @return void
+     */
     public function beforeDeleteRules($projet)
     {
         // Vérification des affectations liées au projet
@@ -91,6 +111,16 @@ class ProjetService extends BaseProjetService
     }
 
 
+    /**
+     * Vérifie les règles métier avant la mise à jour d'un projet.
+     *
+     * Interdit la modification de la session de formation une fois
+     * que celle-ci a été définie lors de la création.
+     *
+     * @param array $projet Les données du projet à mettre à jour.
+     * @throws BlException Si on tente de changer la session de formation.
+     * @return void
+     */
     public function beforeUpdateRules($projet)
     {
         // Empêcher la modification de la session de formation
@@ -102,6 +132,17 @@ class ProjetService extends BaseProjetService
         }
     }
 
+    /**
+     * Exécute les actions nécessaires après la création d'un projet.
+     *
+     * Cette méthode orchestre l'initialisation du projet :
+     * - Importation des compétences (mobilisations UA) depuis la session.
+     * - Création automatique de l'arbre des tâches (Analyse, Tutos, Prototype, etc.).
+     * - Ajout des livrables par défaut.
+     *
+     * @param mixed $projet Le projet fraîchement créé.
+     * @return void
+     */
     public function afterCreateRules($projet)
     {
         if (!$projet || !$projet->id) {
@@ -126,11 +167,27 @@ class ProjetService extends BaseProjetService
 
     }
 
+    /**
+     * Point d'ancrage pour les règles métier après mise à jour.
+     *
+     * @param mixed $projet Le projet mis à jour.
+     * @return void
+     */
     public function afterUpdateRules($projet)
     {
 
     }
 
+    /**
+     * Met à jour ou initialise les mobilisations des Unités d'Apprentissage (UA).
+     *
+     * Associe les UA de la session au projet et copie les critères 
+     * d'évaluation (Prototype N2 et Projet N3) pour figer le référentiel.
+     *
+     * @param mixed $projet Le projet concerné.
+     * @param mixed $session La session de formation source.
+     * @return void
+     */
     protected function updateMobilisationsUa($projet, $session)
     {
         foreach ($session->alignementUas as $alignementUa) {
@@ -152,6 +209,20 @@ class ProjetService extends BaseProjetService
     }
 
 
+    /**
+     * Génère et ajoute les tâches du projet basées sur le scénario pédagogique.
+     *
+     * Crée une séquence de tâches standardisée :
+     * 1. Analyse
+     * 2. Tutoriels (basés sur les chapitres de la session) - Niveau N1
+     * 3. Prototype - Niveau N2
+     * 4. Conception
+     * 5. Réalisation - Niveau N3
+     *
+     * @param mixed $projet Le projet cible.
+     * @param mixed $session La session contenant la structure pédagogique.
+     * @return void
+     */
     protected function addProjectTasks($projet, $session)
     {
         $priorite = 1; // compteur de priorité progressive
@@ -259,6 +330,13 @@ class ProjetService extends BaseProjetService
         );
     }
 
+    /**
+     * Extrait les critères d'évaluation et calcule le barème pour un niveau donné.
+     *
+     * @param mixed $alignementUa L'alignement UA contenant l'unité d'apprentissage.
+     * @param string $niveau Le code du niveau d'évaluation (ex: 'N2', 'N3').
+     * @return array Un tableau contenant [liste_criteres (array), total_bareme (float)].
+     */
     protected function getCriteresEtBareme($alignementUa, $niveau)
     {
         $criteres = $alignementUa->uniteApprentissage->critereEvaluations
@@ -273,11 +351,26 @@ class ProjetService extends BaseProjetService
         return [$criteres, $bareme];
     }
 
+    /**
+     * Formate une liste de critères en HTML.
+     *
+     * @param array $criteres Liste des chaînes de caractères des critères.
+     * @return string Liste HTML non ordonnée (<ul>).
+     */
     protected function formatCriteres(array $criteres): string
     {
         return '<ul><li>' . implode('</li><li>', $criteres) . '</li></ul>';
     }
 
+    /**
+     * Enrichit l'objet projet avec des données calculées ou par défaut.
+     *
+     * Lors de l'initialisation (création), pré-remplit le titre, la description 
+     * et les contraintes à partir de la session de formation sélectionnée.
+     *
+     * @param mixed $data Les données brutes ou l'objet projet.
+     * @return mixed L'objet projet enrichi.
+     */
     public function dataCalcul($data)
     {
         $projet = parent::dataCalcul($data);
@@ -302,6 +395,15 @@ class ProjetService extends BaseProjetService
         return $projet;
     }
 
+    /**
+     * Définit l'ordre de tri par défaut pour les requêtes de projets.
+     *
+     * Trie les projets par la date de fin la plus récente de leurs affectations,
+     * mettant en avant les projets actifs ou récemment terminés.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query La requête Eloquent.
+     * @return \Illuminate\Database\Eloquent\Builder La requête triée.
+     */
     public function defaultSort($query)
     {
         return $query
@@ -309,6 +411,20 @@ class ProjetService extends BaseProjetService
             ->orderBy('affectation_projets_max_date_fin', 'desc');
     }
 
+    /**
+     * Clone un projet complet pour le formateur connecté.
+     *
+     * Duplique le projet et toutes ses dépendances :
+     * - Ressources
+     * - Livrables
+     * - Tâches
+     * - Relations Livrables-Tâches
+     *
+     * @param int $projetId L'ID du projet source.
+     * @return mixed Le nouveau projet cloné ou false en cas d'erreur.
+     * @throws BlException Si l'utilisateur n'est pas autorisé.
+     * @throws \Exception Si l'ID formateur est introuvable.
+     */
     public function clonerProjet(int $projetId)
     {
         $formateurId = null;
@@ -398,6 +514,12 @@ class ProjetService extends BaseProjetService
 
     /**
      * Ajoute les livrables par défaut à un projet.
+     * 
+     * Crée automatiquement les entrées pour "Code source" et "Présentation"
+     * en se basant sur les références de nature de livrable.
+     *
+     * @param mixed $projet Le projet cible.
+     * @return void
      */
     protected function addDefaultLivrables($projet)
     {
