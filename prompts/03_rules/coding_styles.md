@@ -3,6 +3,10 @@
 ## 1. Standards de Développement
 - **PSR-12** : Respect strict des standards de codage PHP.
 - **SOLID** : Application rigoureuse des principes SOLID.
+- **Principe de Responsabilité Unique (SRP) dans les Services** :
+    - Un Service A ne doit pas effectuer les calculs ou la logique métier interne d'une Entité B.
+    - Il doit déléguer cette tâche au Service B via ses méthodes publiques (ex: `ServiceB::create` ou `ServiceB::beforeCreateRules`).
+    - *Exemple* : `ProjetService` ne calcule pas les critères d'une `MobilisationUa`, il appelle `MobilisationUaService`.
 - **Nommage (Convention Mixte)** :
     - **Français (Langue Client)** : Utilisé pour les **noms de Classes** (Models, Controllers, Services...), les **champs de Base de Données**, et tout code lié au métier (variables et méthodes manipulant des données métier).
     - **Anglais (Technique)** : Utilisé pour le code purement technique, l'infrastructure, et les variables/méthodes qui ne dépendent pas de la base de données (itérateurs, compteurs, helpers génériques, configurations).

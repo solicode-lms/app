@@ -181,10 +181,10 @@ class ProjetService extends BaseProjetService
      * @param \Illuminate\Database\Eloquent\Builder $query La requête Eloquent.
      * @return \Illuminate\Database\Eloquent\Builder La requête triée.
      */
-    public function defaultSort($query)
-    {
-        return $query
-            ->withMax('affectationProjets', 'date_fin') // 🔥 Important
-            ->orderBy('affectation_projets_max_date_fin', 'desc');
-    }
+    // public function defaultSort($query)
+    // {
+    //     return $query
+    //         ->withMax('affectationProjets', 'date_fin') // 🔥 Important
+    //         ->orderBy('affectation_projets_max_date_fin', 'asc');
+    // }
 }

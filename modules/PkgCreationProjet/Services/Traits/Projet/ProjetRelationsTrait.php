@@ -16,8 +16,8 @@ trait ProjetRelationsTrait
     /**
      * Met à jour ou initialise les mobilisations des Unités d'Apprentissage (UA).
      *
-     * Associe les UA de la session au projet et copie les critères 
-     * d'évaluation (Prototype N2 et Projet N3) pour figer le référentiel.
+     * Associe les UA de la session au projet. Le calcul des critères est délégué
+     * au MobilisationUaService via dataCalcul().
      *
      * @param mixed $projet Le projet concerné.
      * @param mixed $session La session de formation source.
@@ -28,20 +28,14 @@ trait ProjetRelationsTrait
         $mobilisationService = new \Modules\PkgCreationProjet\Services\MobilisationUaService();
 
         foreach ($session->alignementUas as $alignementUa) {
-            [$criteresPrototype, $baremePrototype] = $this->getCriteresEtBareme($alignementUa, 'N2');
-            [$criteresProjet, $baremeProjet] = $this->getCriteresEtBareme($alignementUa, 'N3');
-
             $data = [
                 'projet_id' => $projet->id,
                 'unite_apprentissage_id' => $alignementUa->unite_apprentissage_id,
-                'criteres_evaluation_prototype' => $this->formatCriteres($criteresPrototype),
-                'criteres_evaluation_projet' => $this->formatCriteres($criteresProjet),
-                'bareme_evaluation_prototype' => $baremePrototype,
-                'bareme_evaluation_projet' => $baremeProjet,
                 'description' => $alignementUa->description ?? '',
             ];
 
-            // Utilisation du service pour garantir l'exécution des règles métier (Hooks)
+            // Utilisation du service pour créer la mobilisation.
+            // Le service va automatiquement calculer les critères/barèmes via sa méthode dataCalcul
             $mobilisationService->create($data);
         }
     }

@@ -44,36 +44,4 @@ trait ProjetCalculTrait
 
         return $projet;
     }
-
-    /**
-     * Extrait les critères d'évaluation et calcule le barème pour un niveau donné.
-     *
-     * @param mixed $alignementUa L'alignement UA contenant l'unité d'apprentissage.
-     * @param string $niveau Le code du niveau d'évaluation (ex: 'N2', 'N3').
-     * @return array Un tableau contenant [liste_criteres (array), total_bareme (float)].
-     */
-    protected function getCriteresEtBareme($alignementUa, $niveau)
-    {
-        $criteres = $alignementUa->uniteApprentissage->critereEvaluations
-            ->filter(fn($critere) => optional($critere->phaseEvaluation)->code === $niveau)
-            ->pluck('intitule')
-            ->toArray();
-
-        $bareme = $alignementUa->uniteApprentissage->critereEvaluations
-            ->filter(fn($critere) => optional($critere->phaseEvaluation)->code === $niveau)
-            ->sum('bareme');
-
-        return [$criteres, $bareme];
-    }
-
-    /**
-     * Formate une liste de critères en HTML.
-     *
-     * @param array $criteres Liste des chaînes de caractères des critères.
-     * @return string Liste HTML non ordonnée (<ul>).
-     */
-    protected function formatCriteres(array $criteres): string
-    {
-        return '<ul><li>' . implode('</li><li>', $criteres) . '</li></ul>';
-    }
 }
