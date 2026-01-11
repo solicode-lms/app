@@ -22,7 +22,7 @@ class TacheService extends BaseTacheService
 {
 
     protected array $index_with_relations = [
-        'projet', 
+        'projet',
         'livrables'
     ];
     protected $ordreGroupColumn = "projet_id";
@@ -38,7 +38,7 @@ class TacheService extends BaseTacheService
     public function afterCreateRules($tache): void
     {
         // Si la tâche n'est pas liée à un projet, on ne fait rien.
-        if (! isset($tache->projet)) {
+        if (!isset($tache->projet)) {
             return;
         }
 
@@ -49,10 +49,10 @@ class TacheService extends BaseTacheService
             ->affectationProjets
             ->flatMap(fn($affectation) => $affectation->realisationProjets);
 
-        $realisationTacheService       = new RealisationTacheService();
-        $evaluationTacheService        = new EvaluationRealisationTacheService();
-        $etatService                   = new EtatRealisationTacheService();
-        $evaluationProjetService        = new EvaluationRealisationProjetService();
+        $realisationTacheService = new RealisationTacheService();
+        $evaluationTacheService = new EvaluationRealisationTacheService();
+        $etatService = new EtatRealisationTacheService();
+        $evaluationProjetService = new EvaluationRealisationProjetService();
 
         // Déterminer l'état initial selon l'utilisateur courant (s'il est formateur)
         $formateurId = Auth::user()->hasRole(Role::FORMATEUR_ROLE)
@@ -70,11 +70,11 @@ class TacheService extends BaseTacheService
         foreach ($realisationProjets as $realisationProjet) {
             // 2.a) Création de la RealisationTache
             $realisationTache = $realisationTacheService->create([
-                'tache_id'                  => $tache->id,
-                'realisation_projet_id'     => $realisationProjet->id,
+                'tache_id' => $tache->id,
+                'realisation_projet_id' => $realisationProjet->id,
                 'etat_realisation_tache_id' => $etatInitial?->id,
-                'dateDebut'                 => $tache->dateDebut,
-                'dateFin'                   => $tache->dateFin,
+                'dateDebut' => $tache->dateDebut,
+                'dateFin' => $tache->dateFin,
             ]);
 
             // 2.b) Notifications aux apprenants pour la nouvelle tâche
@@ -96,28 +96,62 @@ class TacheService extends BaseTacheService
                 foreach ($affectation->evaluateurs as $evaluateur) {
 
 
-                     // 2.c.i) Créer (ou récupérer) EvaluationRealisationProjet 
+                    // 2.c.i) Créer (ou récupérer) EvaluationRealisationProjet 
                     $evaluationProjet = EvaluationRealisationProjet::firstWhere([
                         'realisation_projet_id' => $realisationProjet->id,
-                        'evaluateur_id'        => $evaluateur->id,
+                        'evaluateur_id' => $evaluateur->id,
                     ]);
 
-                    if(!empty($evaluationProjet)){
+                    if (!empty($evaluationProjet)) {
                         $evaluationTacheService->create([
                             'realisation_tache_id' => $realisationTache->id,
-                            'evaluateur_id'        => $evaluateur->id,
+                            'evaluateur_id' => $evaluateur->id,
                             'evaluation_realisation_projet_id' => $evaluationProjet->id,
                             // 'note' et 'message' restent à remplir lors de l’évaluation
                         ]);
                     }
-                    
+
                 }
             }
         }
+
+        // Mise à jour de la date de modification du projet parent
+        $tache->projet->touch();
+    }
+
+    /**
+     * Hook appelé après la mise à jour d’une tâche.
+     *
+     * @param  mixed  $tache
+     * @return void
+     */
+    public function afterUpdateRules($tache)
+    {
+        if (isset($tache->projet)) {
+            $tache->projet->touch();
+        }
+    }
+
+    /**
+     * Surcharge de la suppression pour mettre à jour la date du projet.
+     *
+     * @param  mixed  $id
+     * @return mixed
+     */
+    public function destroy($id)
+    {
+        $tache = $this->find($id);
+        $result = parent::destroy($id);
+
+        if ($tache && isset($tache->projet)) {
+            $tache->projet->touch();
+        }
+
+        return $result;
     }
 
 
-   /**
+    /**
      * Récupérer les tâches associées aux projets d'un formateur donné.
      *
      * @param int $formateurId
@@ -162,16 +196,16 @@ class TacheService extends BaseTacheService
     }
 
 
-    public function allQuery(array $params = [],$query = null): Builder
+    public function allQuery(array $params = [], $query = null): Builder
     {
-        $query = parent::allQuery($params,$query);
+        $query = parent::allQuery($params, $query);
 
         // // Joindre les tables Tache et PrioriteTache avec LEFT JOIN pour inclure les tâches sans priorité
         // $query->leftJoin('priorite_taches', 'taches.priorite_tache_id', '=', 'priorite_taches.id')
         //         ->orderByRaw('COALESCE(priorite_taches.ordre, 9999) ASC') // Trier par priorité (les NULL en dernier)
         //         ->select('taches.*'); // Sélectionner les colonnes de la table principale
 
-        return  $query;
+        return $query;
     }
 
 }

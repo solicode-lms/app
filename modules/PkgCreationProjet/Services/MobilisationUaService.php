@@ -47,6 +47,18 @@ class MobilisationUaService extends BaseMobilisationUaService
         if ($item instanceof \Modules\PkgCreationProjet\Models\MobilisationUa) {
             $realisationProjetService = new \Modules\PkgRealisationProjets\Services\RealisationProjetService();
             $realisationProjetService->addMobilisationToProjectRealisations($item->projet_id, $item);
+
+            // Mise à jour de la date de modification du projet parent
+            if (isset($item->projet)) {
+                $item->projet->touch();
+            }
+        }
+    }
+
+    public function afterUpdateRules($item): void
+    {
+        if ($item instanceof \Modules\PkgCreationProjet\Models\MobilisationUa && isset($item->projet)) {
+            $item->projet->touch();
         }
     }
 
@@ -62,6 +74,11 @@ class MobilisationUaService extends BaseMobilisationUaService
                 $mobilisation->projet_id,
                 $mobilisation->unite_apprentissage_id
             );
+
+            // Mise à jour de la date de modification du projet parent
+            if (isset($mobilisation->projet)) {
+                $mobilisation->projet->touch();
+            }
         }
 
         return $result;
