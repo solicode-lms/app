@@ -46,12 +46,12 @@ trait RealisationTacheCrudTrait
                 ->first();
 
             if ($chapitreExistant && $chapitreExistant->etatRealisationChapitre?->code === 'DONE') {
-                $etatRealise = \Modules\PkgRealisationTache\Models\EtatRealisationTache::whereHas('workflowTache', function ($q) {
-                    $q->where('code', 'DONE');
-                })->first();
-
-                if ($etatRealise) {
-                    $etatInitialId = $etatRealise->id;
+                $formateurId = $realisationProjet->affectationProjet->projet->formateur_id;
+                if ($formateurId) {
+                    $etatDone = (new \Modules\PkgRealisationTache\Services\EtatRealisationTacheService())->getDoneEtatByFormateurId($formateurId);
+                    if ($etatDone) {
+                        $etatInitialId = $etatDone->id;
+                    }
                 }
             }
         }

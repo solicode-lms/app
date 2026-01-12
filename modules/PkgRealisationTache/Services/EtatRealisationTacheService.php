@@ -16,7 +16,7 @@ use Modules\PkgRealisationTache\Services\Base\BaseEtatRealisationTacheService;
 class EtatRealisationTacheService extends BaseEtatRealisationTacheService
 {
 
-    protected array $index_with_relations = ['sysColor','workflowTache','formateur'];
+    protected array $index_with_relations = ['sysColor', 'workflowTache', 'formateur'];
 
     // ✅ Définir ici la whitelist des états autorisés pour un apprenant
     protected array $workflowTacheAutorisesApprenant = [
@@ -26,18 +26,18 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
         'IN_LIVE_CODING',
         'TO_APPROVE',
     ];
-   
+
     /**
      * Override de all() avec filtrage selon le rôle
      */
     public function getAllForSelect($etatRealisationTache): Collection
     {
 
-        if($etatRealisationTache){
-             $this->workflowTacheAutorisesApprenant[] = $etatRealisationTache?->workflowTache?->code;
+        if ($etatRealisationTache) {
+            $this->workflowTacheAutorisesApprenant[] = $etatRealisationTache?->workflowTache?->code;
         }
-       
-        return $this->model->withScope(function ()  {
+
+        return $this->model->withScope(function () {
 
             $query = $this->newQuery();
             // Si rôle Apprenant → appliquer le filtre sur WorkflowTache
@@ -80,12 +80,12 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
         })->get();
     }
 
-   /**
+    /**
      * Récupère l'état par défaut  TODO
      * S'il n'existe pas, les états sont créés à partir des workflows.
      *
      * @param int $formateurId
-     * @return EtatRealisationTache|null
+     * @return \Modules\PkgRealisationTache\Models\EtatRealisationTache|null
      */
     public function getDefaultEtatByFormateurId(int $formateurId)
     {
@@ -113,8 +113,45 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
         return $etatTodo;
     }
 
+    /**
+     * Récupère l'état de réalisation correspondant au workflow 'DONE' pour un formateur donné.
+     * Si les états n'existent pas encore, ils sont créés.
+     *
+     * @param int $formateurId
+     * @return EtatRealisationTache|null
+     */
+    public function getDoneEtatByFormateurId(int $formateurId)
+    {
+        // 1. Recherche directe de l'état "DONE"
+        $etatDone = $this->model
+            ->where('formateur_id', $formateurId)
+            ->whereHas('workflowTache', function ($q) {
+                $q->where('code', 'APPROVED');
+            })
+            ->first();
 
-       /**
+        // 2. Si non trouvé, on initialise les états (cas rare mais possible)
+        if (!$etatDone) {
+            // Vérifier si des états existent déjà pour éviter doublons inutiles
+            $count = $this->model->where('formateur_id', $formateurId)->count();
+            if ($count === 0) {
+                $this->createDefaultEtatsFromWorkflow($formateurId);
+            }
+
+            // 3. Relance de la recherche
+            $etatDone = $this->model
+                ->where('formateur_id', $formateurId)
+                ->whereHas('workflowTache', function ($q) {
+                    $q->where('code', 'APPROVED');
+                })
+                ->first();
+        }
+
+        return $etatDone;
+    }
+
+
+    /**
      * Crée les états de réalisation par défaut à partir des workflows pour un formateur donné.
      *
      * @param int $formateurId
@@ -132,7 +169,7 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
                     'description' => $workflow->description,
                     'formateur_id' => $formateurId,
                     'workflow_tache_id' => $workflow->id,
-                    'sys_color_id' => $workflow?->sys_color_id ,
+                    'sys_color_id' => $workflow?->sys_color_id,
                     'is_editable_only_by_formateur' => $workflow->is_editable_only_by_formateur
                 ]);
             }
@@ -140,7 +177,7 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
     }
 
 
-   /**
+    /**
      * Récupère un état par formateur et code workflow.
      * Crée les états du formateur si aucun n'existe.
      * Ne crée pas le WorkflowTache : il doit exister.
@@ -172,6 +209,6 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
             ->first();
     }
 
-    
-   
+
+
 }

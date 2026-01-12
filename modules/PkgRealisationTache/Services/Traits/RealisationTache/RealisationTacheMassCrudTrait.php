@@ -21,9 +21,14 @@ trait RealisationTacheMassCrudTrait
     public function createFromRealisationProjet(RealisationProjet $realisationProjet): void
     {
         $formateur_id = $realisationProjet->affectationProjet->projet->formateur_id;
-        $etatInitialId = $formateur_id
-            ? (new EtatRealisationTacheService())->getDefaultEtatByFormateurId($formateur_id)?->id
-            : null;
+        // Récupérer l'état initial (TODO) propre au formateur du projet
+        $etatInitialId = null;
+        if ($formateur_id) {
+            $etatInitialId = \Modules\PkgRealisationTache\Models\EtatRealisationTache::where('formateur_id', $formateur_id)
+                ->whereHas('workflowTache', function ($q) {
+                    $q->where('code', 'TODO');
+                })->value('id');
+        }
 
         $realisationUaService = new RealisationUaService();
         $tacheAffectations = $realisationProjet->affectationProjet->tacheAffectations;
