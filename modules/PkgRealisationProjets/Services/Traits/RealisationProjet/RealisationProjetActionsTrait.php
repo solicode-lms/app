@@ -170,8 +170,10 @@ trait RealisationProjetActionsTrait
                 $mobilisation->unite_apprentissage_id
             );
 
-            // 2b. Créer les RealisationTache pour les tutoriels (N1), sauf si chapitre déjà validé
-            $realisationTacheService->createFormMobilisation($realisationProjet, $mobilisation);
+            // 2bb. LES RÉALISATIONS DE TÂCHES (N1) SONT CRÉÉES AUTOMATIQUEMENT
+            // via le hook TacheService::afterCreateRules lors de la création de la tâche elle-même.
+            // On n'a donc pas besoin de les recréer ici.
+            // $realisationTacheService->createFormMobilisation($realisationProjet, $mobilisation);
 
             // 3. Identifier les tâches N2 (Prototype) du projet
             $tachesN2 = $realisationProjet->realisationTaches()

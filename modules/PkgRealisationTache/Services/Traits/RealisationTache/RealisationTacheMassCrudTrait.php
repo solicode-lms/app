@@ -34,13 +34,19 @@ trait RealisationTacheMassCrudTrait
         $tacheAffectations = $realisationProjet->affectationProjet->tacheAffectations;
 
         foreach ($tacheAffectations as $tacheAffectation) {
-            $this->createRealisationTacheIfEligible(
-                $tacheAffectation->tache,
-                $realisationProjet,
-                $realisationUaService,
-                $etatInitialId,
-                $tacheAffectation->id
-            );
+            // Unicité : on vérifie si la tâche est déjà réalisée
+            $existeRT = $realisationProjet->realisationTaches()->where('tache_id', $tacheAffectation->tache->id)->exists();
+            if ($existeRT) {
+                continue;
+            }
+
+            // Création standard qui déclenchera beforeCreateRules
+            $this->create([
+                'realisation_projet_id' => $realisationProjet->id,
+                'tache_id' => $tacheAffectation->tache->id,
+                'etat_realisation_tache_id' => $etatInitialId,
+                'tache_affectation_id' => $tacheAffectation->id
+            ]);
         }
     }
 
@@ -52,24 +58,13 @@ trait RealisationTacheMassCrudTrait
      * @param MobilisationUa $mobilisation
      * @return void
      */
+    /**
+     * @deprecated Cette méthode est obsolète car TacheService::afterCreateRules gère maintenant la création automatique.
+     */
     public function createFormMobilisation(RealisationProjet $realisationProjet, MobilisationUa $mobilisation): void
     {
-        // Récupérer les tâches N1 (Tutoriels) liées à cette UA pour ce projet
-        $tachesN1 = Tache::where('projet_id', $mobilisation->projet_id)
-            ->whereHas('chapitre', function ($q) use ($mobilisation) {
-                $q->where('unite_apprentissage_id', $mobilisation->unite_apprentissage_id);
-            })
-            ->get();
-
-        $realisationUaService = new RealisationUaService();
-
-        foreach ($tachesN1 as $tache) {
-            $this->createRealisationTacheIfEligible(
-                $tache,
-                $realisationProjet,
-                $realisationUaService
-            );
-        }
+        // Méthode conservée vide pour éviter les erreurs fatales si appelée ailleurs,
+        // mais le code a été déplacé vers TacheService::afterCreateRules.
     }
 
 

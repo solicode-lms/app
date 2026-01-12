@@ -27,93 +27,94 @@ trait RealisationTacheCrudTrait
      * @param int|null $tacheAffectationId
      * @return void
      */
-    public function createRealisationTacheIfEligible(
-        Tache $tache,
-        RealisationProjet $realisationProjet,
-        RealisationUaService $realisationUaService,
-        ?int $etatInitialId = null,
-        ?int $tacheAffectationId = null
-    ): void {
-        // 1. Vérification : Chapitre déjà terminé ?
-        if ($tache->chapitre) {
-            $realisationUA = $realisationUaService->getOrCreateApprenant(
-                $realisationProjet->apprenant_id,
-                $tache->chapitre->unite_apprentissage_id
-            );
+    /**
+     * Helper pour encapsuler la logique de récupération de l'état "DONE"
+     * si le chapitre associé est terminé.
+     */
+    protected function getEtatInitialIfChapitreDone(array $data): ?int
+    {
+        if (empty($data['tache_id']) || empty($data['realisation_projet_id'])) {
+            return null;
+        }
 
-            $chapitreExistant = RealisationChapitre::where('chapitre_id', $tache->chapitre->id)
-                ->where('realisation_ua_id', $realisationUA->id)
-                ->first();
+        $tache = Tache::with('chapitre')->find($data['tache_id']);
+        if (!$tache || !$tache->chapitre) {
+            return null;
+        }
 
-            if ($chapitreExistant && $chapitreExistant->etatRealisationChapitre?->code === 'DONE') {
-                $formateurId = $realisationProjet->affectationProjet->projet->formateur_id;
-                if ($formateurId) {
-                    $etatDone = (new \Modules\PkgRealisationTache\Services\EtatRealisationTacheService())->getDoneEtatByFormateurId($formateurId);
-                    if ($etatDone) {
-                        $etatInitialId = $etatDone->id;
-                    }
-                }
+        $realisationProjet = RealisationProjet::with('affectationProjet.projet')->find($data['realisation_projet_id']);
+        if (!$realisationProjet) {
+            return null;
+        }
+
+        // Vérification de l'état du chapitre pour cet apprenant
+        $realisationUaService = new RealisationUaService();
+        $realisationUA = $realisationUaService->getOrCreateApprenant(
+            $realisationProjet->apprenant_id,
+            $tache->chapitre->unite_apprentissage_id
+        );
+
+        $chapitreExistant = RealisationChapitre::where('chapitre_id', $tache->chapitre->id)
+            ->where('realisation_ua_id', $realisationUA->id)
+            ->first();
+
+        // Si chapitre terminé, on cherche l'état correspondant (APPROVED/DONE)
+        if ($chapitreExistant && $chapitreExistant->etatRealisationChapitre?->code === 'DONE') {
+            $formateurId = $realisationProjet->affectationProjet->projet->formateur_id ?? null;
+            if ($formateurId) {
+                $etatDone = (new \Modules\PkgRealisationTache\Services\EtatRealisationTacheService())
+                    ->getDoneEtatByFormateurId($formateurId);
+
+                return $etatDone ? $etatDone->id : null;
             }
         }
 
-        // 2. Vérification : Doublon existence tâche ?
-        $existeRT = $realisationProjet->realisationTaches()->where('tache_id', $tache->id)->exists();
-        if ($existeRT) {
-            return; // 🚫 Existe déjà
-        }
-
-
-
-        // 3. Création
-        $this->create([
-            'realisation_projet_id' => $realisationProjet->id,
-            'tache_id' => $tache->id,
-            'etat_realisation_tache_id' => $etatInitialId,
-            'tache_affectation_id' => $tacheAffectationId,
-        ]);
+        return null;
     }
 
     /**
      * Règle métier exécutée avant la création d'une RealisationTache.
-     * Si le champ `tache_affectation_id` n'est pas fourni :
-     *  - on le recherche dans la table `tache_affectations`
-     *  - sinon on le crée automatiquement à partir de la Tâche et de l'AffectationProjet
+     * 1. Détermine automatiquement `tache_affectation_id` si manquant.
+     * 2. Ajuste `etat_realisation_tache_id` si le chapitre est déjà validé.
      * 
-     * @param mixed $data
-     * @return mixed
+     * @param array $data Les données pour la création.
+     * @return array Les données modifiées.
      */
-    public function beforeCreateRules(&$data)
+    public function beforeCreateRules(array $data): array
     {
-        // 🧩 Si tache_affectation_id est vide → on le détermine ou le crée
+        // 1. Gestion de tache_affectation_id
         if (empty($data['tache_affectation_id']) && !empty($data['tache_id']) && !empty($data['realisation_projet_id'])) {
-
             $tache = \Modules\PkgCreationTache\Models\Tache::find($data['tache_id']);
             $realisationProjet = \Modules\PkgRealisationProjets\Models\RealisationProjet::find($data['realisation_projet_id']);
 
             if ($tache && $realisationProjet && $realisationProjet->affectation_projet_id) {
                 $affectationProjetId = $realisationProjet->affectation_projet_id;
 
-                // 🔍 Chercher si une TacheAffectation existe déjà
                 $tacheAffectation = \Modules\PkgRealisationTache\Models\TacheAffectation::where('tache_id', $tache->id)
                     ->where('affectation_projet_id', $affectationProjetId)
                     ->first();
 
-                // 🧱 Si elle n'existe pas, on la crée automatiquement
                 if (!$tacheAffectation) {
                     $tacheAffectation = \Modules\PkgRealisationTache\Models\TacheAffectation::create([
                         'tache_id' => $tache->id,
                         'affectation_projet_id' => $affectationProjetId,
-                        // Ajout de champs de sécurité pour compatibilité
                         'date_debut' => $realisationProjet->date_debut ?? now(),
                         'date_fin' => $realisationProjet->date_fin ?? now()->addWeek(),
                     ]);
                 }
-
-                // ✅ Injection de la valeur dans les données de création
                 $data['tache_affectation_id'] = $tacheAffectation->id;
             }
         }
+
+        // 2. Gestion automatique de l'état si Chapitre déjà terminés
+        $overrideEtatId = $this->getEtatInitialIfChapitreDone($data);
+        if ($overrideEtatId) {
+            $data['etat_realisation_tache_id'] = $overrideEtatId;
+        }
+
+        return $data;
     }
+
 
 
     /**
