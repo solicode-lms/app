@@ -10,11 +10,10 @@ use Modules\PkgApprentissage\Services\RealisationUaProjetService;
 use Modules\PkgApprentissage\Services\RealisationUaPrototypeService;
 use Modules\PkgApprentissage\Models\RealisationChapitre;
 use Modules\PkgCreationProjet\Models\MobilisationUa;
+use Modules\PkgCreationTache\Models\Tache;
 
 trait RealisationTacheCrudTrait
 {
-
-
 
     /**
      * Méthode helper pour créer une RealisationTache après vérification des règles :
@@ -28,7 +27,7 @@ trait RealisationTacheCrudTrait
      * @param int|null $tacheAffectationId
      * @return void
      */
-    protected function createRealisationTacheIfEligible(
+    public function createRealisationTacheIfEligible(
         Tache $tache,
         RealisationProjet $realisationProjet,
         RealisationUaService $realisationUaService,
@@ -73,7 +72,7 @@ trait RealisationTacheCrudTrait
             'tache_affectation_id' => $tacheAffectationId,
         ]);
     }
-    
+
     /**
      * Règle métier exécutée avant la création d'une RealisationTache.
      * Si le champ `tache_affectation_id` n'est pas fourni :
