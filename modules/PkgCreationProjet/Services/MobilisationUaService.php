@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgCreationProjet\Services;
@@ -82,7 +81,33 @@ class MobilisationUaService extends BaseMobilisationUaService
                 $tacheService = new \Modules\PkgCreationTache\Services\TacheService();
 
                 // Calculer l'ordre/priorité max actuel pour ajouter à la suite
-                // Pour l'ordre/proiorité, on peut passer par le service ou le modèle en lecture seule, c'est acceptable.
+                // Si les compteurs sont passés dans les données "virtuelles" de l'item (non persisté), on les utilise
+                // Attention : l'item est un ORM, donc ces champs n'existent pas en BDD sur MobilisationUa.
+                // On peut cependant les passer via un mécanisme temporaire ou recalculer ici.
+
+                // Correction : Le service appelant (ProjetService) s'attend à ce que l'ordre soit continu.
+                // MAIS MobilisationUaService est indépendant.
+                // Option A : On recalcule toujours le MAX en base. C'est robuste.
+                // Option B : On récupère une valeur passée.
+
+                // Pour assurer la cohérence demandée (Analyse -> Tutos -> Prototype), on DOIT s'insérer au bon endroit.
+                // Si 'Tutos' doivent être avant 'Prototype' (qui n'existe pas encore lors de la création initiale),
+                // alors le MAX est correct car 'Prototype' n'est pas encore créé.
+
+                // Le problème : si on crée tout en séquence, le MAX va fonctionner si 'Analyse' est créé AVANT.
+                // ET 'Prototype' est créé APRES.
+
+                // ProjetService::generateProjectTasks :
+                // 1. Analyse (créé) -> MAX priorite = 1
+                // 2. initMobilisationsUaAndTutoTasks -> Appel MobilisationUaService::create
+                //    -> inside afterCreateRules : MAX priorite = 1.
+                //    -> create Tuto 1 -> priorite 2.
+                //    -> create Tuto 2 -> priorite 3.
+                // 3. Prototype (créé après) -> MAX priorite sera 3. -> on lui donne 4.
+
+                // DONC : calculer le MAX ici est la BONNE approche, à condition que l'appelant respecte l'ordre d'appel.
+                // Comme j'ai corrigé l'ordre d'appel dans ProjetService/RelationsTrait, cela devrait fonctionner.
+
                 $maxOrdre = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)->max('ordre') ?? 0;
                 $maxPriorite = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)->max('priorite') ?? 0;
 

@@ -14,16 +14,17 @@ use Modules\PkgCreationTache\Models\Tache;
 trait ProjetRelationsTrait
 {
     /**
-     * Met à jour ou initialise les mobilisations des Unités d'Apprentissage (UA).
+     * Initialise les mobilisations des Unités d'Apprentissage (UA) à partir de la session.
      *
      * Associe les UA de la session au projet. Le calcul des critères est délégué
      * au MobilisationUaService via dataCalcul().
-     *
      * @param mixed $projet Le projet concerné.
      * @param mixed $session La session de formation source.
+     * @param int $priorite (Référence) Compteur de priorité.
+     * @param int $ordre (Référence) Compteur d'ordre.
      * @return void
      */
-    protected function updateMobilisationsUa($projet, $session)
+    protected function initMobilisationsUaAndTutoTasks($projet, $session, &$priorite, &$ordre)
     {
         $mobilisationService = new \Modules\PkgCreationProjet\Services\MobilisationUaService();
 
@@ -36,25 +37,26 @@ trait ProjetRelationsTrait
 
             // Utilisation du service pour créer la mobilisation.
             // Le service va automatiquement calculer les critères/barèmes via sa méthode dataCalcul
+            // Le service MobilisationUaService se chargera d'ajouter les tâches N1 (Tutoriels)
             $mobilisationService->create($data);
         }
     }
 
     /**
-     * Génère et ajoute les tâches du projet basées sur le scénario pédagogique.
+     * Génère l'ensemble de la structure du projet : Tâches et Mobilisations.
      *
-     * Crée une séquence de tâches standardisée :
-     * 1. Analyse
-     * 2. Tutoriels (basés sur les chapitres de la session) - Niveau N1
-     * 3. Prototype - Niveau N2
-     * 4. Conception
-     * 5. Réalisation - Niveau N3
+     * Crée une séquence de construction standardisée :
+     * 1. Tâche d'Analyse
+     * 2. Mobilisations des compétences (UA) -> Génère automatiquement les tâches N1 (Tutoriels)
+     * 3. Tâche Prototype (N2)
+     * 4. Tâche Conception
+     * 5. Tâche Réalisation (N3)
      *
      * @param mixed $projet Le projet cible.
      * @param mixed $session La session contenant la structure pédagogique.
      * @return void
      */
-    protected function addProjectTasks($projet, $session)
+    protected function generateTasksAndMobilisations($projet, $session)
     {
         $priorite = 1; // compteur de priorité progressive
         $ordre = 1;   // compteur d'ordre
@@ -92,24 +94,17 @@ trait ProjetRelationsTrait
             ]
         );
 
-        // Tâches Chapitre
-        foreach ($session->alignementUas as $alignementUa) {
-            foreach ($alignementUa->uniteApprentissage->chapitres as $chapitre) {
-                Tache::firstOrCreate(
-                    [
-                        'projet_id' => $projet->id,
-                        'titre' => 'Tutoriel : ' . $chapitre->nom,
-                    ],
-                    [
-                        'description' => $chapitre->description ?? '',
-                        'priorite' => $priorite++,
-                        'ordre' => $ordre++,
-                        'phase_evaluation_id' => $phaseN1,
-                        'chapitre_id' => $chapitre->id
-                    ]
-                );
-            }
-        }
+        // Intégration des mobilisations (et donc des tâches Tuto/Chapitre)
+        $this->initMobilisationsUaAndTutoTasks($projet, $session, $priorite, $ordre);
+
+        // Mise à jour des compteurs basés sur ce qui a été créé par le service MobilisationUa
+        $maxOrdre = Tache::where('projet_id', $projet->id)->max('ordre');
+        $maxPriorite = Tache::where('projet_id', $projet->id)->max('priorite');
+
+        if ($maxOrdre)
+            $ordre = $maxOrdre + 1;
+        if ($maxPriorite)
+            $priorite = $maxPriorite + 1;
 
         // Tâche Prototype
         Tache::firstOrCreate(

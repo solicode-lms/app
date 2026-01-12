@@ -56,15 +56,9 @@ trait RealisationTacheCrudTrait
             return; // 🚫 Existe déjà
         }
 
-        // 3. Récupération tacheAffectation si non fournie
-        if (is_null($tacheAffectationId)) {
-            $tacheAffectationId = $realisationProjet->affectationProjet
-                ->tacheAffectations()
-                ->where('tache_id', $tache->id)
-                ->value('id');
-        }
 
-        // 4. Création
+
+        // 3. Création
         $this->create([
             'realisation_projet_id' => $realisationProjet->id,
             'tache_id' => $tache->id,

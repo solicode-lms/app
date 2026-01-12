@@ -150,10 +150,7 @@ class ProjetService extends BaseProjetService
 
             if ($session) {
                 // Utilisation des méthodes via ProjetRelationsTrait
-                $this->updateMobilisationsUa($projet, $session);
-
-                
-                $this->addProjectTasks($projet, $session);
+                $this->generateTasksAndMobilisations($projet, $session);
             }
         }
 
