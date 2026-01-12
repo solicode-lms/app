@@ -69,6 +69,16 @@ class MobilisationUaService extends BaseMobilisationUaService
         return $data;
     }
 
+    /**
+     * Actions effectuées après la création d'une mobilisation.
+     *
+     * 1. Génère les tâches de tutoriels (N1) associées aux chapitres de l'UA.
+     * 2. Synchronise les réalisations de projets existantes (élèves) avec cette nouvelle mobilisation.
+     * 3. Met à jour la date de modification du projet.
+     *
+     * @param mixed $item La mobilisation créée.
+     * @return void
+     */
     public function afterCreateRules($item): void
     {
         if ($item instanceof \Modules\PkgCreationProjet\Models\MobilisationUa) {

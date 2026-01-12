@@ -27,6 +27,52 @@ class ProjetService extends BaseProjetService
         'affectationProjets.groupe'
     ];
 
+
+
+    /**
+     * Retourne la configuration des tâches à générer pour un projet donné.
+     * Cette configuration définit l'ordre et les propriétés des tâches (Analyse, Prototype, etc.).
+     *
+     * @param mixed $session La session de formation (pour les titres/descriptions dynamiques).
+     * @param array $phases Les IDs des phases d'évaluation ['N1' => id, 'N2' => id, 'N3' => id].
+     * @param array $notes Les notes calculées ['prototype' => float, 'realisation' => float].
+     * @return array
+     */
+    public static function getTasksConfig($session, $phases, $notes)
+    {
+        return [
+            [
+                'nature' => 'Analyse',
+                'titre' => 'Analyse',
+                'description' => 'Analyse du projet',
+                'phase_evaluation_id' => null,
+                'note' => null,
+            ],
+            'MOBILISATIONS', // Marqueur pour insertion dynamique des tutoriels
+            [
+                'nature' => 'Réalisation', // Prototype est une phase de réalisation technique
+                'titre' => $session->titre_prototype ? "Prototype : " . $session->titre_prototype : 'Prototype',
+                'description' => trim(($session->description_prototype ?? '') . "</br><b>Contraintes</b>" . ($session->contraintes_prototype ?? '')),
+                'phase_evaluation_id' => $phases['N2'] ?? null,
+                'note' => $notes['prototype'] ?? 0,
+            ],
+            [
+                'nature' => 'Conception',
+                'titre' => 'Conception',
+                'description' => 'Conception du projet',
+                'phase_evaluation_id' => null,
+                'note' => null,
+            ],
+            [
+                'nature' => 'Réalisation',
+                'titre' => 'Réalisation',
+                'description' => trim(($session->description_projet ?? '') . "</br><b>Contraintes</b>" . ($session->contraintes_projet ?? '')),
+                'phase_evaluation_id' => $phases['N3'] ?? null,
+                'note' => $notes['realisation'] ?? 0,
+            ]
+        ];
+    }
+
     /**
      * Crée une instance de Projet.
      *

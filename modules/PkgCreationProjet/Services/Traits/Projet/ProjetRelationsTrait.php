@@ -58,8 +58,8 @@ trait ProjetRelationsTrait
      */
     protected function generateTasksAndMobilisations($projet, $session)
     {
-        $priorite = 1; // compteur de priorité progressive
-        $ordre = 1;   // compteur d'ordre
+        $priorite = 1;
+        $ordre = 1;
 
         // Récupérer les IDs des phases d'évaluation (N1, N2, N3)
         $phaseN1 = PhaseEvaluation::where('code', 'N1')->value('id');
@@ -79,80 +79,48 @@ trait ProjetRelationsTrait
                 ->sum('bareme');
         });
 
-        // Tâche Analyse
-        Tache::firstOrCreate(
-            [
-                'projet_id' => $projet->id,
-                'titre' => 'Analyse',
-            ],
-            [
-                'description' => 'Analyse du projet',
-                'priorite' => $priorite++,
-                'ordre' => $ordre++,
-                'phase_evaluation_id' => null,
-                'chapitre_id' => null
-            ]
+        // Définition de la structure des tâches via le service
+        $tasksConfig = \Modules\PkgCreationProjet\Services\ProjetService::getTasksConfig(
+            $session,
+            ['N1' => $phaseN1, 'N2' => $phaseN2, 'N3' => $phaseN3],
+            ['prototype' => $notePrototype, 'realisation' => $noteRealisation]
         );
 
-        // Intégration des mobilisations (et donc des tâches Tuto/Chapitre)
-        $this->initMobilisationsUaAndTutoTasks($projet, $session, $priorite, $ordre);
+        // Itération et création
+        foreach ($tasksConfig as $taskData) {
 
-        // Mise à jour des compteurs basés sur ce qui a été créé par le service MobilisationUa
-        $maxOrdre = Tache::where('projet_id', $projet->id)->max('ordre');
-        $maxPriorite = Tache::where('projet_id', $projet->id)->max('priorite');
+            if ($taskData === 'MOBILISATIONS') {
+                // Intégration des mobilisations (et donc des tâches Tuto/Chapitre)
+                $this->initMobilisationsUaAndTutoTasks($projet, $session, $priorite, $ordre);
 
-        if ($maxOrdre)
-            $ordre = $maxOrdre + 1;
-        if ($maxPriorite)
-            $priorite = $maxPriorite + 1;
+                // Mise à jour des compteurs basés sur ce qui a été créé par le service MobilisationUa
+                $maxOrdre = Tache::where('projet_id', $projet->id)->max('ordre');
+                $maxPriorite = Tache::where('projet_id', $projet->id)->max('priorite');
 
-        // Tâche Prototype
-        Tache::firstOrCreate(
-            [
-                'projet_id' => $projet->id,
-                'titre' => $session->titre_prototype ? "Prototype : " . $session->titre_prototype : 'Prototype',
-            ],
-            [
-                'description' => trim(($session->description_prototype ?? '') . "</br><b>Contraintes</b>" . ($session->contraintes_prototype ?? '')),
-                'priorite' => $priorite++,
-                'ordre' => $ordre++,
-                'phase_evaluation_id' => $phaseN2,
-                'chapitre_id' => null,
-                'is_live_coding_task' => false,
-                'note' => $notePrototype
-            ]
-        );
+                if ($maxOrdre)
+                    $ordre = $maxOrdre + 1;
+                if ($maxPriorite)
+                    $priorite = $maxPriorite + 1;
 
-        // Tâche Conception
-        Tache::firstOrCreate(
-            [
-                'projet_id' => $projet->id,
-                'titre' => 'Conception',
-            ],
-            [
-                'description' => 'Conception du projet',
-                'priorite' => $priorite++,
-                'ordre' => $ordre++,
-                'phase_evaluation_id' => null,
-                'chapitre_id' => null
-            ]
-        );
+                continue;
+            }
 
-        // Tâche Réalisation
-        Tache::firstOrCreate(
-            [
-                'projet_id' => $projet->id,
-                'titre' => 'Réalisation',
-            ],
-            [
-                'description' => trim(($session->description_projet ?? '') . "</br><b>Contraintes</b>" . ($session->contraintes_projet ?? '')),
-                'priorite' => $priorite++,
-                'ordre' => $ordre++,
-                'phase_evaluation_id' => $phaseN3,
-                'chapitre_id' => null,
-                'is_live_coding_task' => false,
-                'note' => $noteRealisation
-            ]
-        );
+            Tache::firstOrCreate(
+                [
+                    'projet_id' => $projet->id,
+                    'titre' => $taskData['titre'],
+                ],
+                [
+                    'description' => $taskData['description'],
+                    'priorite' => $priorite++,
+                    'ordre' => $ordre++,
+                    'phase_evaluation_id' => $taskData['phase_evaluation_id'],
+                    'chapitre_id' => null,
+                    'is_live_coding_task' => false,
+                    'note' => $taskData['note'] ?? 0,
+                    'nature' => $taskData['nature']
+                ]
+            );
+        }
     }
 }
