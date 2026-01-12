@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\PkgRealisationTache\Services\RealisationTacheService;
+namespace Modules\PkgRealisationTache\Services\Traits\RealisationTache;
 
 use Modules\Core\App\Manager\JobManager;
 use Modules\PkgApprentissage\Models\RealisationUa;
@@ -10,10 +10,10 @@ use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\PkgRealisationTache\Services\TacheAffectationService;
+use Modules\PkgRealisationTache\Models\TacheAffectation;
 
-trait RealisationTacheCalculeProgression
+trait RealisationTacheJobTrait
 {
-
     /**
      * Calcule de progression 
      * @param int $id
@@ -30,7 +30,7 @@ trait RealisationTacheCalculeProgression
         // Calculer total
         $total = 0;
         $uaIds = collect();
-       
+
         $total++; // synchroniserEtatsChapitreDepuisTache
 
         $realisationTache->load(['realisationUaPrototypes', 'realisationUaProjets']);
@@ -49,7 +49,7 @@ trait RealisationTacheCalculeProgression
         $total += $uaIds->count(); // progression/note pour chaque UA
         $total += 2; // maj état + progression projet
         $total += 2; // maj progression + live coding sur tacheAffectation
-        
+
         if ($realisationTache->isDirty('note')) {
             $total++; // calcul note + barème projet
         }
@@ -61,13 +61,13 @@ trait RealisationTacheCalculeProgression
         // - tache N1 = chapitre 
         // - tache N2 = RealisationUaPrototype
         // - tache N3 = RealisationUaProjet
-        if($jobManager->isDirty('etat_realisation_tache_id') || $jobManager->isDirty('note')){
+        if ($jobManager->isDirty('etat_realisation_tache_id') || $jobManager->isDirty('note')) {
 
 
 
 
             // N1 : Calcule de progression et mettre à jour l'état de realisationChapitres
-            if(!$realisationTache->realisationChapitres->isEmpty()){
+            if (!$realisationTache->realisationChapitres->isEmpty()) {
                 $jobManager->setLabel("Synchronisation des états de chapitre");
                 $realisationChapitreService = new RealisationChapitreService();
                 $realisationChapitreService->calculerProgression($realisationTache);
@@ -118,7 +118,7 @@ trait RealisationTacheCalculeProgression
         if ($jobManager->isDirty('note') && $realisationTache->realisationProjet) {
 
 
-            
+
 
             $jobManager->setLabel("Calcul note et barème projet");
             $realisationProjetService = app(RealisationProjetService::class);
@@ -132,7 +132,7 @@ trait RealisationTacheCalculeProgression
 
     public function deletedObserverJob(int $id, string $token): void
     {
-        $jobManager = new JobManager($token); 
+        $jobManager = new JobManager($token);
         $payload = $jobManager->getPayload();
 
         $uaIds = collect($payload['ua_ids'] ?? []);
@@ -199,7 +199,7 @@ trait RealisationTacheCalculeProgression
         // 4️⃣ Affectation
         if ($tacheAffectationId) {
             $tacheAffectationService = app(TacheAffectationService::class);
-            $tacheAffectation = \Modules\PkgRealisationTache\Models\TacheAffectation::find($tacheAffectationId);
+            $tacheAffectation = TacheAffectation::find($tacheAffectationId);
             if ($tacheAffectation) {
                 $jobManager->setLabel("Mise à jour progression tâche affectation");
                 $tacheAffectationService->mettreAjourTacheProgression($tacheAffectation);
@@ -214,6 +214,31 @@ trait RealisationTacheCalculeProgression
         $jobManager->finish();
     }
 
+    public function bulkUpdateJob($token, $realisationTache_ids, $champsCoches, $valeursChamps){
+          
+        
+        $total = count( $realisationTache_ids); 
+        $jobManager = new JobManager($token,$total);
+      
 
+        foreach ($realisationTache_ids as $id) {
+            $realisationTache = $this->find($id);
+            $this->authorize('update', $realisationTache);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
 
+            $jobManager->tick();
+            
+        }
+
+        return "done";
+    }
 }
