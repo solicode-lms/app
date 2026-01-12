@@ -50,8 +50,6 @@ class RealisationTacheService extends BaseRealisationTacheService
         RealisationTacheCalculeProgression;
 
 
-
-
     protected array $index_with_relations = [
         'tache',
         'realisationChapitres',
@@ -90,11 +88,6 @@ class RealisationTacheService extends BaseRealisationTacheService
 
         // Ajouter dans $baseData
         $baseData['revisionsBeforePriorityGrouped'] = $revisionsGrouped;
-
-
-
-
-
 
         // --- Nouveau : toutes les RT des mêmes projets (pour trouver la précédente par ordre-1)
         $previousTasksGrouped = RealisationTache::query()
@@ -334,7 +327,7 @@ class RealisationTacheService extends BaseRealisationTacheService
      * @param RealisationProjet $realisationProjet
      * @return void
      */
-    public function generateFromRealisationProjet(RealisationProjet $realisationProjet): void
+    public function createFromRealisationProjet(RealisationProjet $realisationProjet): void
     {
         $formateur_id = $realisationProjet->affectationProjet->projet->formateur_id;
         $affectationProjet = $realisationProjet->affectationProjet;

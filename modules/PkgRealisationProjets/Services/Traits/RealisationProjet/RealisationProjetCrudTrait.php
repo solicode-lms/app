@@ -12,6 +12,39 @@ use Illuminate\Validation\ValidationException;
 
 trait RealisationProjetCrudTrait
 {
+
+    /**
+     * Actions post-création d'une réalisation de projet.
+     *
+     * - Affecte l'état par défaut (TODO).
+     * - Envoie une notification à l'apprenant.
+     * - Génère les tâches de réalisation associées.
+     *
+     * @param RealisationProjet $realisationProjet L'instance créée.
+     * @return void
+     */
+    public function afterCreateRules($realisationProjet): void
+    {
+        if (!$realisationProjet instanceof RealisationProjet) {
+            return; // 🛡️ Vérification de sécurité
+        }
+        // Étape 1 : Affecter l'état "TODO" s'il existe
+        if (empty($realisationProjet->etats_realisation_projet_id)) {
+            $etatTodo = EtatsRealisationProjet::where('code', 'TODO')->first();
+
+            if ($etatTodo) {
+                $realisationProjet->etats_realisation_projet_id = $etatTodo->id;
+                $realisationProjet->save();
+            }
+        }
+        // Étape 2 : Notification
+        $this->notifierApprenant($realisationProjet);
+
+        // Étape 3 : Création des RealisationTache
+        $realisationTacheService = new RealisationTacheService();
+        $realisationTacheService->createFromRealisationProjet($realisationProjet);
+    }
+
     /**
      * Règles métiers appliquées avant la mise à jour d'un RealisationProjet.
      *
@@ -77,25 +110,5 @@ trait RealisationProjetCrudTrait
         }
     }
 
-    public function afterCreateRules($realisationProjet): void
-    {
-        if (!$realisationProjet instanceof RealisationProjet) {
-            return; // 🛡️ Vérification de sécurité
-        }
-        // Étape 1 : Affecter l'état "TODO" s'il existe
-        if (empty($realisationProjet->etats_realisation_projet_id)) {
-            $etatTodo = EtatsRealisationProjet::where('code', 'TODO')->first();
 
-            if ($etatTodo) {
-                $realisationProjet->etats_realisation_projet_id = $etatTodo->id;
-                $realisationProjet->save();
-            }
-        }
-        // Étape 2 : Notification
-        $this->notifierApprenant($realisationProjet);
-
-        // Étape 3 : Création des RealisationTache
-        $realisationTacheService = new RealisationTacheService();
-        $realisationTacheService->generateFromRealisationProjet($realisationProjet);
-    }
 }

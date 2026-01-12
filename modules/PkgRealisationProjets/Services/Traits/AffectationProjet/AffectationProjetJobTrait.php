@@ -69,8 +69,8 @@ trait AffectationProjetJobTrait
             $realisationProjetService = app(\Modules\PkgRealisationProjets\Services\RealisationProjetService::class);
             $evaluationService = app(\Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService::class);
 
-            $jobManager->setLabel("Création des tâches");
-            // 6) Création des TacheAffectations
+            $jobManager->setLabel("Création des tâches affectation");
+            // 6) Création des TacheAffectations : Suivi de réalisation de tâche par groupe
             foreach ($taches as $tache) {
                 $tacheAffectationService->create([
                     'tache_id' => $tache->id,
