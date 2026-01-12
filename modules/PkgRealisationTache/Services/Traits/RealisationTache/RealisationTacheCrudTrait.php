@@ -15,6 +15,64 @@ trait RealisationTacheCrudTrait
 {
 
 
+
+    /**
+     * Méthode helper pour créer une RealisationTache après vérification des règles :
+     * 1. Le chapitre lié ne doit pas être déjà validé (DONE).
+     * 2. La tâche ne doit pas déjà exister pour ce projet.
+     * 
+     * @param Tache $tache
+     * @param RealisationProjet $realisationProjet
+     * @param RealisationUaService $realisationUaService
+     * @param int|null $etatInitialId
+     * @param int|null $tacheAffectationId
+     * @return void
+     */
+    protected function createRealisationTacheIfEligible(
+        Tache $tache,
+        RealisationProjet $realisationProjet,
+        RealisationUaService $realisationUaService,
+        ?int $etatInitialId = null,
+        ?int $tacheAffectationId = null
+    ): void {
+        // 1. Vérification : Chapitre déjà terminé ?
+        if ($tache->chapitre) {
+            $realisationUA = $realisationUaService->getOrCreateApprenant(
+                $realisationProjet->apprenant_id,
+                $tache->chapitre->unite_apprentissage_id
+            );
+
+            $chapitreExistant = RealisationChapitre::where('chapitre_id', $tache->chapitre->id)
+                ->where('realisation_ua_id', $realisationUA->id)
+                ->first();
+
+            if ($chapitreExistant && $chapitreExistant->etatRealisationChapitre?->code === 'DONE') {
+                return; // 🚫 Déjà validé, on ignore
+            }
+        }
+
+        // 2. Vérification : Doublon existence tâche ?
+        $existeRT = $realisationProjet->realisationTaches()->where('tache_id', $tache->id)->exists();
+        if ($existeRT) {
+            return; // 🚫 Existe déjà
+        }
+
+        // 3. Récupération tacheAffectation si non fournie
+        if (is_null($tacheAffectationId)) {
+            $tacheAffectationId = $realisationProjet->affectationProjet
+                ->tacheAffectations()
+                ->where('tache_id', $tache->id)
+                ->value('id');
+        }
+
+        // 4. Création
+        $this->create([
+            'realisation_projet_id' => $realisationProjet->id,
+            'tache_id' => $tache->id,
+            'etat_realisation_tache_id' => $etatInitialId,
+            'tache_affectation_id' => $tacheAffectationId,
+        ]);
+    }
     
     /**
      * Règle métier exécutée avant la création d'une RealisationTache.
@@ -323,159 +381,4 @@ trait RealisationTacheCrudTrait
     }
 
 
-
-
-    public function repartirNoteDansRealisationUaPrototypes(RealisationTache $tache): void
-    {
-        $this->repartirNoteDansElements($tache->realisationUaPrototypes, $tache->note ?? 0);
-    }
-
-    public function repartirNoteDansRealisationUaProjets(RealisationTache $tache): void
-    {
-        $this->repartirNoteDansElements($tache->realisationUaProjets, $tache->note ?? 0);
-    }
-
-
-    /**
-     * Répartit la note de la tâche sur les éléments liés (prototypes ou projets),
-     * en fonction du taux de remplissage (note / barème),
-     * tout en respectant les barèmes et en arrondissant à 0.25.
-     *
-     * ✅ À la fin, la somme exacte des notes des prototypes sera égale à la note de la tâche.
-     *
-     * 🔢 Exemple :
-     *  - P1 = 3 / 5  → taux = 0.6
-     *  - P2 = 3 / 6  → taux = 0.5
-     *  - total taux = 1.1
-     *  - Ratio P1 = 0.6 / 1.1 ≈ 0.5455
-     *  - Ratio P2 = 0.5 / 1.1 ≈ 0.4545
-     *  - Pour une note globale de 5 :
-     *      P1 ≈ 2.73 → arrondi à 2.75
-     *      P2 ≈ 2.27 → arrondi à 2.25
-     */
-    public function repartirNoteDansElements(\Illuminate\Database\Eloquent\Collection $elements, float $noteTotale): void
-    {
-
-
-        if ($elements->isEmpty() || $noteTotale === null) {
-            return;
-        }
-
-        // ✅ Définition de la constante d’arrondi
-        $STEP_ROUNDING = 0.5;
-
-        // ⚠️ Ne garder que les prototypes avec un barème > 0
-        $elements = $elements->filter(fn($p) => $p->bareme > 0);
-        if ($elements->isEmpty())
-            return;
-
-        // 🧮 Fonction pour arrondir à un multiple de 0.25
-        $roundToStep = fn($value) => round($value / $STEP_ROUNDING) * $STEP_ROUNDING;
-
-        // 🎯 Étape 1 : calcul du total des taux de remplissage (note actuelle / barème)
-        $totalRemplissage = $elements->sum(function ($p) {
-            $note = $p->note ?? 0;
-            return $note / $p->bareme;
-        });
-
-        // Si aucun taux valide → on sort
-        $useBareme = false;
-        if ($totalRemplissage <= 0) {
-            // Aucun remplissage → on répartit selon le barème
-            $totalRemplissage = $elements->sum(fn($p) => $p->bareme);
-            $useBareme = true;
-        }
-
-        $repartitions = [];
-
-        // 1️⃣ Répartition initiale avec arrondi à 0.25
-        $totalAttribue = 0;
-        foreach ($elements as $p) {
-            $note = $p->note ?? 0;
-            $remplissage = $note / $p->bareme; // Exemple : 3 / 5 = 0.6
-            $ratio = $useBareme ? $p->bareme / $totalRemplissage : $remplissage / $totalRemplissage; // Exemple : 0.6 / 1.1 ≈ 0.5455
-            $noteProposee = $roundToStep($noteTotale * $ratio); // Ex: 5 * 0.5455 ≈ 2.75
-            $noteAppliquee = min($noteProposee, $p->bareme);
-            $noteAppliquee = $roundToStep($noteAppliquee);
-
-            $repartitions[] = [
-                'proto' => $p,
-                'note_appliquee' => $noteAppliquee,
-                'reste_possible' => max($p->bareme - $noteAppliquee, 0),
-            ];
-
-            $totalAttribue += $noteAppliquee;
-        }
-
-        // 2️⃣ Correction finale : forcer la somme exacte = note de la tâche
-        $ecart = round($noteTotale - $totalAttribue, 2); // positif ou négatif
-        $step = 0.25;
-        if (abs($ecart) >= 0.01) {
-            $maxIterations = 1000;
-            $i = 0;
-
-            while (abs($ecart) >= 0.01 && $i < $maxIterations) {
-                // Trier les prototypes par reste possible (ajout) ou note actuelle (retrait)
-                usort($repartitions, function ($a, $b) use ($ecart) {
-                    return $ecart > 0
-                        ? $b['reste_possible'] <=> $a['reste_possible']
-                        : $b['note_appliquee'] <=> $a['note_appliquee'];
-                });
-
-                $modification = false;
-
-                foreach ($repartitions as &$entry) {
-                    $proto = $entry['proto'];
-                    $note = $entry['note_appliquee'];
-
-                    if ($ecart > 0 && $note + $step <= $proto->bareme) {
-                        $entry['note_appliquee'] += $step;
-                        $ecart = round($ecart - $step, 2);
-                        $modification = true;
-                        break;
-                    }
-
-                    if ($ecart < 0 && $note - $step >= 0) {
-                        $entry['note_appliquee'] -= $step;
-                        $ecart = round($ecart + $step, 2);
-                        $modification = true;
-                        break;
-                    }
-                }
-
-                unset($entry); // Sécurité
-
-                if (!$modification)
-                    break;
-                $i++;
-            }
-
-            // ✅ Si l'écart résiduel est exactement ±0.25 → appliquer une dernière correction
-            if (abs($ecart) === 0.25) {
-                foreach ($repartitions as &$entry) {
-                    $proto = $entry['proto'];
-                    $note = $entry['note_appliquee'];
-
-                    if ($ecart > 0 && $note + 0.25 <= $proto->bareme) {
-                        $entry['note_appliquee'] += 0.25;
-                        break;
-                    }
-
-                    if ($ecart < 0 && $note - 0.25 >= 0) {
-                        $entry['note_appliquee'] -= 0.25;
-                        break;
-                    }
-                }
-                unset($entry);
-            }
-        }
-
-        // 3️⃣ Application finale (arrondi garanti à 0.25)
-        foreach ($repartitions as $entry) {
-            $entry['proto']->note = $entry['note_appliquee'];
-
-            // TODO : il ne doit pas lancer l'observer Update : RealisationTache
-            $entry['proto']->save();
-        }
-    }
 }

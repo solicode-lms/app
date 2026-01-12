@@ -20,6 +20,7 @@
     - `{Model}GetterTrait` : Logic de récupération (`get...`, `getCurrent...`) et scopes complexes.
     - `{Model}CalculTrait` : Méthodes de calcul (`dataCalcul`), statistiques et formatage.
     - `{Model}JobTrait` : Gestion des Jobs asynchrones (`ObserverJob`).
+    - `{Model}MassCrudTrait` : Opérations de masse, initialisation par lot, ou import/export en volume.
 - **Classification des Méthodes** : Organiser les méthodes dans cet ordre logique :
     1. **Gestion des Instances et Surcharges CRUD** (`createInstance`, `create`...)
     2. **Hooks de Cycle de Vie** (`before/after` Rules)

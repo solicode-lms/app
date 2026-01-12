@@ -41,6 +41,7 @@ use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTach
 use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheActionsTrait;
 use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheGetterTrait;
 use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheJobTrait;
+use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheMassCrudTrait;
 
 /**
  * Classe RealisationTacheService pour gérer la persistance de l'entité RealisationTache.
@@ -51,7 +52,8 @@ class RealisationTacheService extends BaseRealisationTacheService
         RealisationTacheCrudTrait,
         RealisationTacheActionsTrait,
         RealisationTacheGetterTrait,
-        RealisationTacheJobTrait;
+        RealisationTacheJobTrait,
+        RealisationTacheMassCrudTrait;
 
 
     protected array $index_with_relations = [

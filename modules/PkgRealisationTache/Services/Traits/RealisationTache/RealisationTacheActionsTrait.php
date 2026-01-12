@@ -2,119 +2,17 @@
 
 namespace Modules\PkgRealisationTache\Services\Traits\RealisationTache;
 
-use Modules\PkgRealisationProjets\Models\RealisationProjet;
-use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
-use Modules\PkgApprentissage\Services\RealisationUaService;
-use Modules\PkgApprentissage\Models\RealisationChapitre;
-use Modules\PkgCreationTache\Models\Tache;
-use Modules\PkgCreationProjet\Models\MobilisationUa;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+use Modules\Core\App\Manager\JobManager;
+use Modules\PkgAutorisation\Models\Role;
+use Modules\PkgRealisationTache\Models\EtatRealisationTache;
+use Modules\PkgRealisationTache\Models\RealisationTache;
+use Modules\PkgRealisationTache\Services\WorkflowTacheService;
 
 trait RealisationTacheActionsTrait
 {
-    /**
-     * Rappeler le processus de création des tâches depuis l'affectation.
-     * Cette méthode centralise la logique de création initiale des tâches.
-     *
-     * @param RealisationProjet $realisationProjet
-     * @return void
-     */
-    public function createFromRealisationProjet(RealisationProjet $realisationProjet): void
-    {
-        $formateur_id = $realisationProjet->affectationProjet->projet->formateur_id;
-        $affectationProjet = $realisationProjet->affectationProjet;
-        $tacheAffectations = $affectationProjet->tacheAffectations;
 
-        $etatInitialRealisationTache = $formateur_id
-            ? (new EtatRealisationTacheService())->getDefaultEtatByFormateurId($formateur_id)
-            : null;
-
-        $realisationUaService = new RealisationUaService();
-
-        foreach ($tacheAffectations as $tacheAffectation) {
-            $tache = $tacheAffectation->tache;
-
-            // ⚠️ Si la tâche est liée à un chapitre terminé, on passe à la suivante
-            if ($tache->chapitre) {
-                // Créer ou récupérer l'UA associée
-                $realisationUA = $realisationUaService->getOrCreateApprenant(
-                    $realisationProjet->apprenant_id,
-                    $tache->chapitre->unite_apprentissage_id
-                );
-
-                $chapitreExistant = RealisationChapitre::where('chapitre_id', $tache->chapitre->id)
-                    ->where('realisation_ua_id', $realisationUA->id)
-                    ->first();
-
-                if ($chapitreExistant && $chapitreExistant->etatRealisationChapitre?->code === 'DONE') {
-                    // 🚫 Ne pas créer de RealisationTache pour ce chapitre
-                    continue;
-                }
-            }
-
-            // ✅ Création de la RealisationTache (si non bloquée)
-            // L'appel à create() déclenchera afterCreateRules -> processPostCreation()
-            $this->create([
-                'realisation_projet_id' => $realisationProjet->id,
-                'tache_id' => $tache->id,
-                'etat_realisation_tache_id' => $etatInitialRealisationTache?->id,
-                'tache_affectation_id' => $tacheAffectation->id,
-            ]);
-        }
-    }
-
-    /**
-     * Crée les RealisationTache pour les tâches de type tutoriel (N1) associées à une mobilisation UA.
-     * Vérifie si le chapitre est déjà validé pour ne pas créer de doublon inutile.
-     *
-     * @param RealisationProjet $realisationProjet
-     * @param MobilisationUa $mobilisation
-     * @return void
-     */
-    public function createFormMobilisation(RealisationProjet $realisationProjet, MobilisationUa $mobilisation): void
-    {
-        // Récupérer les tâches N1 (Tutoriels) liées à cette UA pour ce projet
-        $tachesN1 = Tache::where('projet_id', $mobilisation->projet_id)
-            ->whereHas('chapitre', function ($q) use ($mobilisation) {
-                $q->where('unite_apprentissage_id', $mobilisation->unite_apprentissage_id);
-            })
-            ->get();
-
-        $realisationUaService = new RealisationUaService();
-
-        // S'assurer que la RealisationUA existe (point d'ancrage)
-        $realisationUA = $realisationUaService->getOrCreateApprenant(
-            $realisationProjet->apprenant_id,
-            $mobilisation->unite_apprentissage_id
-        );
-
-        foreach ($tachesN1 as $tache) {
-            if ($tache->chapitre) {
-                // Vérifier si le chapitre est déjà validé par l'apprenant
-                $chapitreExistant = RealisationChapitre::where('chapitre_id', $tache->chapitre->id)
-                    ->where('realisation_ua_id', $realisationUA->id)
-                    ->first();
-
-                if ($chapitreExistant && $chapitreExistant->etatRealisationChapitre?->code === 'DONE') {
-                    continue; // Déjà validé, on ignore
-                }
-
-                // Créer la RT si elle n'existe pas déjà
-                $existeRT = $realisationProjet->realisationTaches()->where('tache_id', $tache->id)->exists();
-                if (!$existeRT) {
-                    // On essaie de trouver une tacheAffectation existante
-                    $tacheAffectation = $realisationProjet->affectationProjet->tacheAffectations()
-                        ->where('tache_id', $tache->id)
-                        ->first();
-
-                    $this->create([
-                        'realisation_projet_id' => $realisationProjet->id,
-                        'tache_id' => $tache->id,
-                        'tache_affectation_id' => $tacheAffectation?->id,
-                    ]);
-                }
-            }
-        }
-    }
 
     /**
      * Liste des codes de workflows imposant une validation de priorité après la modification
@@ -254,6 +152,161 @@ trait RealisationTacheActionsTrait
         $data['etat_realisation_tache_id'] = $etatRevision->id;
     }
 
+
+    
+    public function repartirNoteDansRealisationUaPrototypes(RealisationTache $tache): void
+    {
+        $this->repartirNoteDansElements($tache->realisationUaPrototypes, $tache->note ?? 0);
+    }
+
+    public function repartirNoteDansRealisationUaProjets(RealisationTache $tache): void
+    {
+        $this->repartirNoteDansElements($tache->realisationUaProjets, $tache->note ?? 0);
+    }
+
+
+    /**
+     * Répartit la note de la tâche sur les éléments liés (prototypes ou projets),
+     * en fonction du taux de remplissage (note / barème),
+     * tout en respectant les barèmes et en arrondissant à 0.25.
+     *
+     * ✅ À la fin, la somme exacte des notes des prototypes sera égale à la note de la tâche.
+     *
+     * 🔢 Exemple :
+     *  - P1 = 3 / 5  → taux = 0.6
+     *  - P2 = 3 / 6  → taux = 0.5
+     *  - total taux = 1.1
+     *  - Ratio P1 = 0.6 / 1.1 ≈ 0.5455
+     *  - Ratio P2 = 0.5 / 1.1 ≈ 0.4545
+     *  - Pour une note globale de 5 :
+     *      P1 ≈ 2.73 → arrondi à 2.75
+     *      P2 ≈ 2.27 → arrondi à 2.25
+     */
+    public function repartirNoteDansElements(\Illuminate\Database\Eloquent\Collection $elements, float $noteTotale): void
+    {
+
+
+        if ($elements->isEmpty() || $noteTotale === null) {
+            return;
+        }
+
+        // ✅ Définition de la constante d’arrondi
+        $STEP_ROUNDING = 0.5;
+
+        // ⚠️ Ne garder que les prototypes avec un barème > 0
+        $elements = $elements->filter(fn($p) => $p->bareme > 0);
+        if ($elements->isEmpty())
+            return;
+
+        // 🧮 Fonction pour arrondir à un multiple de 0.25
+        $roundToStep = fn($value) => round($value / $STEP_ROUNDING) * $STEP_ROUNDING;
+
+        // 🎯 Étape 1 : calcul du total des taux de remplissage (note actuelle / barème)
+        $totalRemplissage = $elements->sum(function ($p) {
+            $note = $p->note ?? 0;
+            return $note / $p->bareme;
+        });
+
+        // Si aucun taux valide → on sort
+        $useBareme = false;
+        if ($totalRemplissage <= 0) {
+            // Aucun remplissage → on répartit selon le barème
+            $totalRemplissage = $elements->sum(fn($p) => $p->bareme);
+            $useBareme = true;
+        }
+
+        $repartitions = [];
+
+        // 1️⃣ Répartition initiale avec arrondi à 0.25
+        $totalAttribue = 0;
+        foreach ($elements as $p) {
+            $note = $p->note ?? 0;
+            $remplissage = $note / $p->bareme; // Exemple : 3 / 5 = 0.6
+            $ratio = $useBareme ? $p->bareme / $totalRemplissage : $remplissage / $totalRemplissage; // Exemple : 0.6 / 1.1 ≈ 0.5455
+            $noteProposee = $roundToStep($noteTotale * $ratio); // Ex: 5 * 0.5455 ≈ 2.75
+            $noteAppliquee = min($noteProposee, $p->bareme);
+            $noteAppliquee = $roundToStep($noteAppliquee);
+
+            $repartitions[] = [
+                'proto' => $p,
+                'note_appliquee' => $noteAppliquee,
+                'reste_possible' => max($p->bareme - $noteAppliquee, 0),
+            ];
+
+            $totalAttribue += $noteAppliquee;
+        }
+
+        // 2️⃣ Correction finale : forcer la somme exacte = note de la tâche
+        $ecart = round($noteTotale - $totalAttribue, 2); // positif ou négatif
+        $step = 0.25;
+        if (abs($ecart) >= 0.01) {
+            $maxIterations = 1000;
+            $i = 0;
+
+            while (abs($ecart) >= 0.01 && $i < $maxIterations) {
+                // Trier les prototypes par reste possible (ajout) ou note actuelle (retrait)
+                usort($repartitions, function ($a, $b) use ($ecart) {
+                    return $ecart > 0
+                        ? $b['reste_possible'] <=> $a['reste_possible']
+                        : $b['note_appliquee'] <=> $a['note_appliquee'];
+                });
+
+                $modification = false;
+
+                foreach ($repartitions as &$entry) {
+                    $proto = $entry['proto'];
+                    $note = $entry['note_appliquee'];
+
+                    if ($ecart > 0 && $note + $step <= $proto->bareme) {
+                        $entry['note_appliquee'] += $step;
+                        $ecart = round($ecart - $step, 2);
+                        $modification = true;
+                        break;
+                    }
+
+                    if ($ecart < 0 && $note - $step >= 0) {
+                        $entry['note_appliquee'] -= $step;
+                        $ecart = round($ecart + $step, 2);
+                        $modification = true;
+                        break;
+                    }
+                }
+
+                unset($entry); // Sécurité
+
+                if (!$modification)
+                    break;
+                $i++;
+            }
+
+            // ✅ Si l'écart résiduel est exactement ±0.25 → appliquer une dernière correction
+            if (abs($ecart) === 0.25) {
+                foreach ($repartitions as &$entry) {
+                    $proto = $entry['proto'];
+                    $note = $entry['note_appliquee'];
+
+                    if ($ecart > 0 && $note + 0.25 <= $proto->bareme) {
+                        $entry['note_appliquee'] += 0.25;
+                        break;
+                    }
+
+                    if ($ecart < 0 && $note - 0.25 >= 0) {
+                        $entry['note_appliquee'] -= 0.25;
+                        break;
+                    }
+                }
+                unset($entry);
+            }
+        }
+
+        // 3️⃣ Application finale (arrondi garanti à 0.25)
+        foreach ($repartitions as $entry) {
+            $entry['proto']->note = $entry['note_appliquee'];
+
+            // TODO : il ne doit pas lancer l'observer Update : RealisationTache
+            $entry['proto']->save();
+        }
+    }
 
 
 }
