@@ -51,8 +51,8 @@ class ProjetService extends BaseProjetService
             'MOBILISATIONS', // Marqueur pour insertion dynamique des tutoriels
             [
                 'nature' => 'Réalisation', // Prototype est une phase de réalisation technique
-                'titre' => $session->titre_prototype ? "Prototype : " . $session->titre_prototype : 'Prototype',
-                'description' => trim(($session->description_prototype ?? '') . "</br><b>Contraintes</b>" . ($session->contraintes_prototype ?? '')),
+                'titre' => optional($session)->titre_prototype ? "Prototype : " . optional($session)->titre_prototype : 'Prototype',
+                'description' => trim((optional($session)->description_prototype ?? '') . "</br><b>Contraintes</b>" . (optional($session)->contraintes_prototype ?? '')),
                 'phase_evaluation_id' => $phases['N2'] ?? null,
                 'note' => $notes['prototype'] ?? 0,
             ],
@@ -66,7 +66,7 @@ class ProjetService extends BaseProjetService
             [
                 'nature' => 'Réalisation',
                 'titre' => 'Réalisation',
-                'description' => trim(($session->description_projet ?? '') . "</br><b>Contraintes</b>" . ($session->contraintes_projet ?? '')),
+                'description' => trim((optional($session)->description_projet ?? '') . "</br><b>Contraintes</b>" . (optional($session)->contraintes_projet ?? '')),
                 'phase_evaluation_id' => $phases['N3'] ?? null,
                 'note' => $notes['realisation'] ?? 0,
             ]

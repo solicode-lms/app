@@ -118,7 +118,6 @@ trait ProjetRelationsTrait
                     'chapitre_id' => null,
                     'is_live_coding_task' => false,
                     'note' => $taskData['note'] ?? 0,
-                    'nature' => $taskData['nature']
                 ]
             );
         }

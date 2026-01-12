@@ -46,7 +46,13 @@ trait RealisationTacheCrudTrait
                 ->first();
 
             if ($chapitreExistant && $chapitreExistant->etatRealisationChapitre?->code === 'DONE') {
-                return; // 🚫 Déjà validé, on ignore
+                $etatRealise = \Modules\PkgRealisationTache\Models\EtatRealisationTache::whereHas('workflowTache', function ($q) {
+                    $q->where('code', 'DONE');
+                })->first();
+
+                if ($etatRealise) {
+                    $etatInitialId = $etatRealise->id;
+                }
             }
         }
 

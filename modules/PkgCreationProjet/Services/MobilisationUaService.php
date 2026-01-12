@@ -87,7 +87,6 @@ class MobilisationUaService extends BaseMobilisationUaService
             $ua = \Modules\PkgCompetences\Models\UniteApprentissage::with('chapitres')->find($item->unite_apprentissage_id);
             if ($ua && $ua->chapitres->isNotEmpty()) {
                 $phaseN1Id = \Modules\PkgCompetences\Models\PhaseEvaluation::where('code', 'N1')->value('id');
-
                 $tacheService = new \Modules\PkgCreationTache\Services\TacheService();
 
                 // Calculer l'ordre/priorité max actuel pour ajouter à la suite
@@ -97,50 +96,81 @@ class MobilisationUaService extends BaseMobilisationUaService
 
                 // Correction : Le service appelant (ProjetService) s'attend à ce que l'ordre soit continu.
                 // MAIS MobilisationUaService est indépendant.
-                // Option A : On recalcule toujours le MAX en base. C'est robuste.
-                // Option B : On récupère une valeur passée.
-
-                // Pour assurer la cohérence demandée (Analyse -> Tutos -> Prototype), on DOIT s'insérer au bon endroit.
-                // Si 'Tutos' doivent être avant 'Prototype' (qui n'existe pas encore lors de la création initiale),
-                // alors le MAX est correct car 'Prototype' n'est pas encore créé.
-
-                // Le problème : si on crée tout en séquence, le MAX va fonctionner si 'Analyse' est créé AVANT.
-                // ET 'Prototype' est créé APRES.
-
-                // ProjetService::generateProjectTasks :
-                // 1. Analyse (créé) -> MAX priorite = 1
-                // 2. initMobilisationsUaAndTutoTasks -> Appel MobilisationUaService::create
-                //    -> inside afterCreateRules : MAX priorite = 1.
-                //    -> create Tuto 1 -> priorite 2.
-                //    -> create Tuto 2 -> priorite 3.
-                // 3. Prototype (créé après) -> MAX priorite sera 3. -> on lui donne 4.
-
-                // DONC : calculer le MAX ici est la BONNE approche, à condition que l'appelant respecte l'ordre d'appel.
-                // Comme j'ai corrigé l'ordre d'appel dans ProjetService/RelationsTrait, cela devrait fonctionner.
-
-                $maxOrdre = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)->max('ordre') ?? 0;
-                $maxPriorite = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)->max('priorite') ?? 0;
-
-                foreach ($ua->chapitres as $chapitre) {
-
-                    // Vérifier si la tâche existe déjà
-                    $existe = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
+                // Identifier les chapitres qui nécessitent vraiment une création de tâche
+                $chapitresToAdd = $ua->chapitres->filter(function ($chapitre) use ($item) {
+                    return !\Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
                         ->where('titre', 'Tutoriel : ' . $chapitre->nom)
                         ->exists();
+                });
 
-                    if (!$existe) {
-                        $maxOrdre++;
-                        $maxPriorite++;
+                $count = $chapitresToAdd->count();
 
+                if ($count > 0) {
+                    // 🔍 Trouver le point d'insertion :
+                    // On doit insérer APRÈS le dernier tutoriel existant (Phase N1)
+                    // OU APRÈS 'Analyse' (Nature = Analyse) s'il n'y a pas encore de tutoriels
+
+                    // 1. Chercher la dernière tâche qui correspond à l'Analyse ou aux Tutoriels existants
+
+                    // Récupération de la configuration pour obtenir le titre exact de l'Analyse
+                    $tasksConfig = \Modules\PkgCreationProjet\Services\ProjetService::getTasksConfig(null, [], []);
+                    $analyseTaskTitles = [];
+                    foreach ($tasksConfig as $taskData) {
+                        if (is_array($taskData) && ($taskData['nature'] ?? '') === 'Analyse') {
+                            $analyseTaskTitles[] = $taskData['titre'];
+                        }
+                    }
+
+                    $lastPrecedingTask = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
+                        ->where(function ($query) use ($phaseN1Id, $analyseTaskTitles) {
+                            // Soit c'est une Phase N1 (Tuto existant)
+                            if ($phaseN1Id) {
+                                $query->where('phase_evaluation_id', $phaseN1Id);
+                            }
+                            // Soit c'est une tâche de nature 'Analyse' (selon la config)
+                            if (!empty($analyseTaskTitles)) {
+                                $query->orWhereIn('titre', $analyseTaskTitles);
+                            }
+                        })
+                        ->orderBy('ordre', 'desc')
+                        ->first();
+
+                    if ($lastPrecedingTask) {
+                        $insertionPointOrdre = $lastPrecedingTask->ordre + 1;
+                        $insertionPointPriorite = $lastPrecedingTask->priorite + 1;
+                    } else {
+                        // Fallback (ne devrait pas arriver si Analyse existe)
+                        $insertionPointOrdre = 1;
+                        $insertionPointPriorite = 1;
+                    }
+
+                    // 🔼 DÉCALER les tâches qui sont APRÈS ce point (Prototype, Conception, etc.)
+                    \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
+                        ->where('ordre', '>=', $insertionPointOrdre)
+                        ->increment('ordre', $count);
+
+                    \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
+                        ->where('priorite', '>=', $insertionPointPriorite)
+                        ->increment('priorite', $count);
+
+
+                    $currentOrdre = $insertionPointOrdre;
+                    $currentPriorite = $insertionPointPriorite;
+
+                    // 📝 Création et insertion des tâches
+                    foreach ($chapitresToAdd as $chapitre) {
                         $tacheService->create([
                             'projet_id' => $item->projet_id,
                             'titre' => 'Tutoriel : ' . $chapitre->nom,
                             'description' => $chapitre->description ?? '',
-                            'priorite' => $maxPriorite,
-                            'ordre' => $maxOrdre,
+                            'priorite' => $currentPriorite,
+                            'ordre' => $currentOrdre,
                             'phase_evaluation_id' => $phaseN1Id,
                             'chapitre_id' => $chapitre->id
                         ]);
+
+                        $currentOrdre++;
+                        $currentPriorite++;
                     }
                 }
             }
