@@ -13,11 +13,60 @@ use Modules\PkgCreationProjet\Models\MobilisationUa;
 
 trait RealisationTacheCrudTrait
 {
+
+
+    
     /**
-     * Règles à appliquer après la création.
-     * Cette méthode gère les dépendances comme les chapitres et les UA (N2/N3) automatiquement.
+     * Règle métier exécutée avant la création d'une RealisationTache.
+     * Si le champ `tache_affectation_id` n'est pas fourni :
+     *  - on le recherche dans la table `tache_affectations`
+     *  - sinon on le crée automatiquement à partir de la Tâche et de l'AffectationProjet
+     * 
+     * @param mixed $data
+     * @return mixed
+     */
+    public function beforeCreateRules(&$data)
+    {
+        // 🧩 Si tache_affectation_id est vide → on le détermine ou le crée
+        if (empty($data['tache_affectation_id']) && !empty($data['tache_id']) && !empty($data['realisation_projet_id'])) {
+
+            $tache = \Modules\PkgCreationTache\Models\Tache::find($data['tache_id']);
+            $realisationProjet = \Modules\PkgRealisationProjets\Models\RealisationProjet::find($data['realisation_projet_id']);
+
+            if ($tache && $realisationProjet && $realisationProjet->affectation_projet_id) {
+                $affectationProjetId = $realisationProjet->affectation_projet_id;
+
+                // 🔍 Chercher si une TacheAffectation existe déjà
+                $tacheAffectation = \Modules\PkgRealisationTache\Models\TacheAffectation::where('tache_id', $tache->id)
+                    ->where('affectation_projet_id', $affectationProjetId)
+                    ->first();
+
+                // 🧱 Si elle n'existe pas, on la crée automatiquement
+                if (!$tacheAffectation) {
+                    $tacheAffectation = \Modules\PkgRealisationTache\Models\TacheAffectation::create([
+                        'tache_id' => $tache->id,
+                        'affectation_projet_id' => $affectationProjetId,
+                        // Ajout de champs de sécurité pour compatibilité
+                        'date_debut' => $realisationProjet->date_debut ?? now(),
+                        'date_fin' => $realisationProjet->date_fin ?? now()->addWeek(),
+                    ]);
+                }
+
+                // ✅ Injection de la valeur dans les données de création
+                $data['tache_affectation_id'] = $tacheAffectation->id;
+            }
+        }
+    }
+
+
+    /**
+     * Règles à appliquer après la création d'une RealisationTache.
+     * Cette méthode gère automatiquement :
+     * 1. La liaison ou création de `RealisationChapitre` si la tâche est liée à un chapitre.
+     * 2. La création des `RealisationUaPrototype` pour les tâches de niveau N2.
+     * 3. La création des `RealisationUaProjet` pour les tâches de niveau N3.
      *
-     * @param mixed $item
+     * @param mixed $item L'instance de RealisationTache créée.
      * @return void
      */
     public function afterCreateRules($item): void
@@ -105,47 +154,6 @@ trait RealisationTacheCrudTrait
         }
     }
 
-    /**
-     * Règle métier exécutée avant la création d'une RealisationTache.
-     * Si le champ `tache_affectation_id` n'est pas fourni :
-     *  - on le recherche dans la table `tache_affectations`
-     *  - sinon on le crée automatiquement à partir de la Tâche et de l'AffectationProjet
-     * 
-     * @param mixed $data
-     * @return mixed
-     */
-    public function beforeCreateRules(&$data)
-    {
-        // 🧩 Si tache_affectation_id est vide → on le détermine ou le crée
-        if (empty($data['tache_affectation_id']) && !empty($data['tache_id']) && !empty($data['realisation_projet_id'])) {
-
-            $tache = \Modules\PkgCreationTache\Models\Tache::find($data['tache_id']);
-            $realisationProjet = \Modules\PkgRealisationProjets\Models\RealisationProjet::find($data['realisation_projet_id']);
-
-            if ($tache && $realisationProjet && $realisationProjet->affectation_projet_id) {
-                $affectationProjetId = $realisationProjet->affectation_projet_id;
-
-                // 🔍 Chercher si une TacheAffectation existe déjà
-                $tacheAffectation = \Modules\PkgRealisationTache\Models\TacheAffectation::where('tache_id', $tache->id)
-                    ->where('affectation_projet_id', $affectationProjetId)
-                    ->first();
-
-                // 🧱 Si elle n'existe pas, on la crée automatiquement
-                if (!$tacheAffectation) {
-                    $tacheAffectation = \Modules\PkgRealisationTache\Models\TacheAffectation::create([
-                        'tache_id' => $tache->id,
-                        'affectation_projet_id' => $affectationProjetId,
-                        // Ajout de champs de sécurité pour compatibilité
-                        'date_debut' => $realisationProjet->date_debut ?? now(),
-                        'date_fin' => $realisationProjet->date_fin ?? now()->addWeek(),
-                    ]);
-                }
-
-                // ✅ Injection de la valeur dans les données de création
-                $data['tache_affectation_id'] = $tacheAffectation->id;
-            }
-        }
-    }
 
 
     /**

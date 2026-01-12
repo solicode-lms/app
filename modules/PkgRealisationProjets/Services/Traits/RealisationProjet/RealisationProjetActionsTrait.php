@@ -171,7 +171,7 @@ trait RealisationProjetActionsTrait
             );
 
             // 2b. Créer les RealisationTache pour les tutoriels (N1), sauf si chapitre déjà validé
-            $realisationTacheService->createTutorielsForMobilisation($realisationProjet, $mobilisation);
+            $realisationTacheService->createFormMobilisation($realisationProjet, $mobilisation);
 
             // 3. Identifier les tâches N2 (Prototype) du projet
             $tachesN2 = $realisationProjet->realisationTaches()

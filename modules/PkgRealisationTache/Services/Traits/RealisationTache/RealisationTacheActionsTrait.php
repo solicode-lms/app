@@ -70,7 +70,7 @@ trait RealisationTacheActionsTrait
      * @param MobilisationUa $mobilisation
      * @return void
      */
-    public function createTutorielsForMobilisation(RealisationProjet $realisationProjet, MobilisationUa $mobilisation): void
+    public function createFormMobilisation(RealisationProjet $realisationProjet, MobilisationUa $mobilisation): void
     {
         // Récupérer les tâches N1 (Tutoriels) liées à cette UA pour ce projet
         $tachesN1 = Tache::where('projet_id', $mobilisation->projet_id)
@@ -152,7 +152,7 @@ trait RealisationTacheActionsTrait
             return;
         }
 
-        $etatsFinaux = ['APPROVED', 'TO_APPROVE', 'READY_FOR_LIVE_CODING','NOT_VALIDATED'];
+        $etatsFinaux = ['APPROVED', 'TO_APPROVE', 'READY_FOR_LIVE_CODING', 'NOT_VALIDATED'];
 
         $tachesBloquantes = RealisationTache::where('realisation_projet_id', $projetId)
             ->whereHas('tache', function ($query) use ($prioriteActuelle) {
@@ -160,9 +160,9 @@ trait RealisationTacheActionsTrait
             })
             ->where(function ($query) use ($etatsFinaux) {
                 $query->whereDoesntHave('etatRealisationTache')
-                      ->orWhereHas('etatRealisationTache.workflowTache', function ($q) use ($etatsFinaux) {
-                          $q->whereNotIn('code', $etatsFinaux);
-                      });
+                    ->orWhereHas('etatRealisationTache.workflowTache', function ($q) use ($etatsFinaux) {
+                        $q->whereNotIn('code', $etatsFinaux);
+                    });
             })
             ->with('tache')
             ->get();
@@ -235,7 +235,7 @@ trait RealisationTacheActionsTrait
         }
 
         // Ne pas modifier si la tâche est déjà dans un état final
-        if(in_array($record->etatRealisationTache?->workflowTache->code, ['APPROVED', 'NOT_VALIDATED'])) {
+        if (in_array($record->etatRealisationTache?->workflowTache->code, ['APPROVED', 'NOT_VALIDATED'])) {
             return;
         }
 
