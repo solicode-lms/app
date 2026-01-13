@@ -27,7 +27,8 @@ class BasePhaseProjetService extends BaseService
     protected $fieldsSearchable = [
         'ordre',
         'nom',
-        'description'
+        'description',
+        'code'
     ];
 
 
@@ -277,7 +278,8 @@ class BasePhaseProjetService extends BaseService
         // Champs considérés comme inline
         $inlineFields = [
             'ordre',
-            'nom'
+            'nom',
+            'code'
         ];
 
         // Récupération des champs autorisés par rôle via getFieldsEditable()
@@ -320,6 +322,8 @@ class BasePhaseProjetService extends BaseService
                 return $this->computeFieldMeta($e, $field, $meta, 'number');
 
             case 'nom':
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
+            case 'code':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
@@ -369,6 +373,14 @@ class BasePhaseProjetService extends BaseService
                     $out[$field] = ['html' => $html];
                     break;
                 case 'nom':
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                        'nature' => ''
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'code':
                     $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,

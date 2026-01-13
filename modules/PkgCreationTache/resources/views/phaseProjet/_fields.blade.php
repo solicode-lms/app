@@ -46,13 +46,13 @@
           @endif
           <label for="ordre">
             {{ ucfirst(__('PkgCreationTache::phaseProjet.ordre')) }}
-            
+            <span class="text-danger">*</span>
           </label>
                       <input
                 name="ordre"
                 type="number"
                 class="form-control"
-                
+                required
                 
                 
                 id="ordre"
@@ -116,18 +116,53 @@
           @endif
           <label for="description">
             {{ ucfirst(__('PkgCreationTache::phaseProjet.description')) }}
-            
+            <span class="text-danger">*</span>
           </label>
                       <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
-                
+                required
                 
                 
                 id="description">
                 {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemPhaseProjet->description ?? '')) !!}
                 </textarea>
           @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemPhaseProjet" field="code" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="code" 
+              id="bulk_field_code" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="code">
+            {{ ucfirst(__('PkgCreationTache::phaseProjet.code')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
+                name="code"
+                type="input"
+                class="form-control"
+                required
+                
+                
+                id="code"
+                placeholder="{{ __('PkgCreationTache::phaseProjet.code') }}"
+                value="{{ $itemPhaseProjet ? $itemPhaseProjet->code : old('code') }}">
+          @error('code')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

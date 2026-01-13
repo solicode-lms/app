@@ -79,6 +79,7 @@ class BasePhaseProjetSeeder extends Seeder
                         "ordre" => isset($row["ordre"]) && $row["ordre"] !== "" ? $row["ordre"] : null,
                         "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
+                        "code" => isset($row["code"]) && $row["code"] !== "" ? $row["code"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
 

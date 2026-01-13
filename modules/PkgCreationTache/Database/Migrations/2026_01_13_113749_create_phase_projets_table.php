@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->integer('ordre');
             $table->string('nom');
             $table->text('description');
+            $table->string('code');
             $table->string('reference');
 
             $table->timestamps();

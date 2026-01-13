@@ -354,5 +354,53 @@
         "value_boolean": 1,
         "e_data_field_reference": "PhaseProjet_description",
         "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "PhaseProjet_code_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "PhaseProjet_code",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "PhaseProjet_code_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "PhaseProjet_code",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "PhaseProjet_code_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "PhaseProjet_code",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "PhaseProjet_code_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "PhaseProjet_code",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "PhaseProjet_code_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "PhaseProjet_code",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "PhaseProjet_code_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "PhaseProjet_code",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "PhaseProjet_code_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "PhaseProjet_code",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "PhaseProjet_code_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "PhaseProjet_code",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

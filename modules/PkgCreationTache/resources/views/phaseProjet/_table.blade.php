@@ -10,7 +10,8 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="phaseProjet" label="{!!ucfirst(__('PkgCreationTache::phaseProjet.ordre'))!!}" />
-                <x-sortable-column :sortable="true" width="78"  field="nom" modelname="phaseProjet" label="{!!ucfirst(__('PkgCreationTache::phaseProjet.nom'))!!}" />
+                <x-sortable-column :sortable="true" width="39"  field="nom" modelname="phaseProjet" label="{!!ucfirst(__('PkgCreationTache::phaseProjet.nom'))!!}" />
+                <x-sortable-column :sortable="true" width="39"  field="code" modelname="phaseProjet" label="{!!ucfirst(__('PkgCreationTache::phaseProjet.code'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -28,8 +29,12 @@
                         </div>
 
                     </td>
-                    <td style="max-width: 78%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$phaseProjet->id}}" data-field="nom">
+                    <td style="max-width: 39%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$phaseProjet->id}}" data-field="nom">
                         {{ $phaseProjet->nom }}
+
+                    </td>
+                    <td style="max-width: 39%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$phaseProjet->id}}" data-field="code">
+                        {{ $phaseProjet->code }}
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

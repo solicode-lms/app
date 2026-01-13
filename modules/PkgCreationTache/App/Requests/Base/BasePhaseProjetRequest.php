@@ -29,9 +29,10 @@ class BasePhaseProjetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ordre' => 'nullable|integer',
+            'ordre' => 'required|integer',
             'nom' => 'required|string|max:255',
-            'description' => 'nullable|string'
+            'description' => 'required|string',
+            'code' => 'required|string|max:255'
         ];
     }
 
@@ -46,7 +47,9 @@ class BasePhaseProjetRequest extends FormRequest
             'ordre.required' => __('validation.required', ['attribute' => __('PkgCreationTache::PhaseProjet.ordre')]),
             'nom.required' => __('validation.required', ['attribute' => __('PkgCreationTache::PhaseProjet.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgCreationTache::PhaseProjet.description')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgCreationTache::PhaseProjet.description')]),
+            'code.required' => __('validation.required', ['attribute' => __('PkgCreationTache::PhaseProjet.code')]),
+            'code.max' => __('validation.codeMax')
         ];
     }
 

@@ -34,7 +34,7 @@ class BasePhaseProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'nom', 'description'
+        'ordre', 'nom', 'description', 'code'
     ];
 
 

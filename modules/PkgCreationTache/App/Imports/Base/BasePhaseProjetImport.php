@@ -60,6 +60,7 @@ class BasePhaseProjetImport implements ToModel, WithHeadingRow
              'ordre' => $values[0] ?? null,
              'nom' => $values[1] ?? null,
              'description' => $values[2] ?? null,
+             'code' => $values[3] ?? null,
              'reference' => $reference,
         ]);
 

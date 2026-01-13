@@ -35,6 +35,7 @@ class BasePhaseProjetExport implements FromCollection, WithHeadings, ShouldAutoS
                 'ordre' => 'ordre',
                 'nom' => 'nom',
                 'description' => 'description',
+                'code' => 'code',
                 'reference' => 'reference',
             ];
         } else {
@@ -42,6 +43,7 @@ class BasePhaseProjetExport implements FromCollection, WithHeadings, ShouldAutoS
                 'ordre' => __('PkgCreationTache::phaseProjet.ordre'),
                 'nom' => __('PkgCreationTache::phaseProjet.nom'),
                 'description' => __('PkgCreationTache::phaseProjet.description'),
+                'code' => __('PkgCreationTache::phaseProjet.code'),
                 'reference' => __('Core::msg.reference'),
             ];
         }
@@ -57,6 +59,7 @@ class BasePhaseProjetExport implements FromCollection, WithHeadings, ShouldAutoS
                 'ordre' => (string) $phaseProjet->ordre,
                 'nom' => $phaseProjet->nom,
                 'description' => $phaseProjet->description,
+                'code' => $phaseProjet->code,
                 'reference' => $phaseProjet->reference,
             ];
         });
