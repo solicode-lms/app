@@ -345,12 +345,11 @@ trait RealisationTacheCrudTrait
             $tache->chapitre->unite_apprentissage_id
         );
 
-        $chapitreExistant = RealisationChapitre::where('chapitre_id', $tache->chapitre->id)
-            ->where('realisation_ua_id', $realisationUA->id)
-            ->first();
+        $realisationChapitreService = app(\Modules\PkgApprentissage\Services\RealisationChapitreService::class);
+        $chapitreEstValide = $realisationChapitreService->isChapitreAlreadyDone($tache->chapitre->id, $realisationUA->id);
 
         // Si chapitre terminé, on cherche l'état correspondant (APPROVED/DONE)
-        if ($chapitreExistant && $chapitreExistant->etatRealisationChapitre?->code === 'DONE') {
+        if ($chapitreEstValide) {
             $formateurId = $realisationProjet->affectationProjet->projet->formateur_id ?? null;
             if ($formateurId) {
                 $etatDone = (new \Modules\PkgRealisationTache\Services\EtatRealisationTacheService())

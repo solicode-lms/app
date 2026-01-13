@@ -4,6 +4,7 @@ namespace Modules\PkgApprentissage\Services;
 
 use Modules\Core\App\Manager\JobManager;
 use Modules\PkgApprentissage\Models\EtatRealisationChapitre;
+use Modules\PkgApprentissage\Models\RealisationChapitre;
 use Modules\PkgApprentissage\Services\Base\BaseRealisationChapitreService;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\PkgApprentissage\Services\RealisationUaService;
@@ -16,7 +17,24 @@ use Modules\PkgRealisationTache\Services\RealisationTacheService;
  */
 class RealisationChapitreService extends BaseRealisationChapitreService
 {
-    
+
+    /**
+     * Vérifie si un chapitre a été réalisé (état DONE) pour un apprenant donné.
+     *
+     * @param int $chapitreId
+     * @param int $realisationUaId
+     * @return bool
+     */
+    public function isChapitreAlreadyDone(int $chapitreId, int $realisationUaId): bool
+    {
+        return RealisationChapitre::where('chapitre_id', $chapitreId)
+            ->where('realisation_ua_id', $realisationUaId)
+            ->whereHas('etatRealisationChapitre', function ($q) {
+                $q->where('code', 'DONE');
+            })
+            ->exists();
+    }
+
     /**
      * Job déclenché après mise à jour d’un chapitre.
      */
@@ -25,7 +43,7 @@ class RealisationChapitreService extends BaseRealisationChapitreService
         $jobManager = new JobManager($token);
         $realisationChapitre = $this->find($id);
 
-        if (! $realisationChapitre) {
+        if (!$realisationChapitre) {
             return;
         }
 
@@ -120,19 +138,19 @@ class RealisationChapitreService extends BaseRealisationChapitreService
      */
     private function modifierEtatRealisationTache($realisationChapitre): void
     {
-        if (! $realisationChapitre->realisation_tache_id) {
+        if (!$realisationChapitre->realisation_tache_id) {
             return;
         }
 
         $realisationTache = RealisationTache::find($realisationChapitre->realisation_tache_id);
-        if (! $realisationTache) {
+        if (!$realisationTache) {
             return;
         }
 
         $etatTache = $this->mapEtatChapitreToEtatTache($realisationChapitre->etat_realisation_chapitre_id, $realisationTache->realisationProjet->affectationProjet->projet->formateur_id);
         $realisationTacheService = new RealisationTacheService();
-        if ($etatTache &&  $realisationTache->etat_realisation_tache_id != $etatTache->id) {
-            $realisationTacheService->update($realisationTache->id,[
+        if ($etatTache && $realisationTache->etat_realisation_tache_id != $etatTache->id) {
+            $realisationTacheService->update($realisationTache->id, [
                 'etat_realisation_tache_id' => $etatTache->id,
             ]);
         }
@@ -145,22 +163,22 @@ class RealisationChapitreService extends BaseRealisationChapitreService
     private function mapEtatChapitreToEtatTache(int $etatChapitreId, int $formateurId = null)
     {
         $etatChapitre = EtatRealisationChapitre::find($etatChapitreId);
-        if (! $etatChapitre) {
+        if (!$etatChapitre) {
             return null;
         }
 
         $mapping = [
-            'TODO'           => 'TODO',
-            'IN_PROGRESS'    => 'IN_PROGRESS',
-            'PAUSED'         => 'EN_PAUSE',
+            'TODO' => 'TODO',
+            'IN_PROGRESS' => 'IN_PROGRESS',
+            'PAUSED' => 'EN_PAUSE',
             'READY_FOR_LIVE_CODING' => 'READY_FOR_LIVE_CODING',
-            'IN_LIVE_CODING'      => 'IN_LIVE_CODING',
-            'TO_APPROVE'     => 'TO_APPROVE',
-            'DONE'           => 'APPROVED',
+            'IN_LIVE_CODING' => 'IN_LIVE_CODING',
+            'TO_APPROVE' => 'TO_APPROVE',
+            'DONE' => 'APPROVED',
         ];
 
         $codeTache = $mapping[$etatChapitre->code] ?? null;
-        if (! $codeTache) {
+        if (!$codeTache) {
             return null;
         }
 
@@ -169,7 +187,7 @@ class RealisationChapitreService extends BaseRealisationChapitreService
 
     }
 
-       /**
+    /**
      * Mapper un état de tâche à un état de chapitre
      */
     private function mapEtatTacheToEtatChapitre(int $etatTacheId)
@@ -182,16 +200,16 @@ class RealisationChapitreService extends BaseRealisationChapitreService
 
         // Table de mapping entre les codes
         $mapping = [
-            'TODO'            => 'TODO',
-            'IN_PROGRESS'           => 'IN_PROGRESS',
-            'PAUSED'           => 'PAUSED',
-            'REVISION_NECESSAIRE'=> 'IN_PROGRESS',
+            'TODO' => 'TODO',
+            'IN_PROGRESS' => 'IN_PROGRESS',
+            'PAUSED' => 'PAUSED',
+            'REVISION_NECESSAIRE' => 'IN_PROGRESS',
             'READY_FOR_LIVE_CODING' => 'READY_FOR_LIVE_CODING',
             'IN_LIVE_CODING' => 'IN_LIVE_CODING',
-            'TO_APPROVE'      => 'TO_APPROVE',
+            'TO_APPROVE' => 'TO_APPROVE',
             'NOT_VALIDATED' => 'TODO',
             'LATE' => 'IN_PROGRESS',
-            'APPROVED'           => 'DONE'
+            'APPROVED' => 'DONE'
         ];
 
         $codeChapitre = $mapping[$etatTache->workflowTache->code] ?? null;
