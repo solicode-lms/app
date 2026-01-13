@@ -1,33 +1,37 @@
 <?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+
+
+namespace Modules\PkgCreationTache\Database\Migrations;
+
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('phase_projets', function (Blueprint $table) {
             $table->id();
+            $table->integer('ordre');
             $table->string('nom');
-            $table->text('description')->nullable();
-             $table->integer('ordre')->nullable();
-            $table->string('reference')->unique();
+            $table->text('description');
+            $table->string('reference');
+
             $table->timestamps();
+           
+
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('phase_projets');
     }
