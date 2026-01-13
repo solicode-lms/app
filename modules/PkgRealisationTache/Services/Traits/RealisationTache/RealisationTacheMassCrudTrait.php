@@ -14,25 +14,23 @@ trait RealisationTacheMassCrudTrait
     /**
      * Rappeler le processus de création des tâches depuis l'affectation.
      * Cette méthode centralise la logique de création initiale des tâches.
+     * aprés l'affectation de projet à un groupe
      *
      * @param RealisationProjet $realisationProjet
      * @return void
      */
     public function createFromRealisationProjet(RealisationProjet $realisationProjet): void
     {
-        $formateur_id = $realisationProjet->affectationProjet->projet->formateur_id;
         // Récupérer l'état initial (TODO) propre au formateur du projet
+        $formateur_id = $realisationProjet->affectationProjet->projet->formateur_id;
         $etatInitialId = null;
         if ($formateur_id) {
-            $etatInitialId = \Modules\PkgRealisationTache\Models\EtatRealisationTache::where('formateur_id', $formateur_id)
-                ->whereHas('workflowTache', function ($q) {
-                    $q->where('code', 'TODO');
-                })->value('id');
+            $etatRealisationTacheService = new EtatRealisationTacheService();
+            $etatInitial = $etatRealisationTacheService->getDefaultEtatByFormateurId($formateur_id);
+            $etatInitialId = $etatInitial ? $etatInitial->id : null;
         }
 
-        $realisationUaService = new RealisationUaService();
         $tacheAffectations = $realisationProjet->affectationProjet->tacheAffectations;
-
         foreach ($tacheAffectations as $tacheAffectation) {
             // Unicité : on vérifie si la tâche est déjà réalisée
             $existeRT = $realisationProjet->realisationTaches()->where('tache_id', $tacheAffectation->tache->id)->exists();
@@ -49,25 +47,5 @@ trait RealisationTacheMassCrudTrait
             ]);
         }
     }
-
-    /**
-     * Crée les RealisationTache pour les tâches de type tutoriel (N1) associées à une mobilisation UA.
-     * Vérifie si le chapitre est déjà validé pour ne pas créer de doublon inutile.
-     *
-     * @param RealisationProjet $realisationProjet
-     * @param MobilisationUa $mobilisation
-     * @return void
-     */
-    /**
-     * @deprecated Cette méthode est obsolète car TacheService::afterCreateRules gère maintenant la création automatique.
-     */
-    public function createFormMobilisation(RealisationProjet $realisationProjet, MobilisationUa $mobilisation): void
-    {
-        // Méthode conservée vide pour éviter les erreurs fatales si appelée ailleurs,
-        // mais le code a été déplacé vers TacheService::afterCreateRules.
-    }
-
-
-
 
 }

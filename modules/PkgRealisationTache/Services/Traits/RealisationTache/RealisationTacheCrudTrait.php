@@ -15,62 +15,7 @@ use Modules\PkgCreationTache\Models\Tache;
 trait RealisationTacheCrudTrait
 {
 
-    /**
-     * Méthode helper pour créer une RealisationTache après vérification des règles :
-     * 1. Le chapitre lié ne doit pas être déjà validé (DONE).
-     * 2. La tâche ne doit pas déjà exister pour ce projet.
-     * 
-     * @param Tache $tache
-     * @param RealisationProjet $realisationProjet
-     * @param RealisationUaService $realisationUaService
-     * @param int|null $etatInitialId
-     * @param int|null $tacheAffectationId
-     * @return void
-     */
-    /**
-     * Helper pour encapsuler la logique de récupération de l'état "DONE"
-     * si le chapitre associé est terminé.
-     */
-    protected function getEtatInitialIfChapitreDone(array $data): ?int
-    {
-        if (empty($data['tache_id']) || empty($data['realisation_projet_id'])) {
-            return null;
-        }
-
-        $tache = Tache::with('chapitre')->find($data['tache_id']);
-        if (!$tache || !$tache->chapitre) {
-            return null;
-        }
-
-        $realisationProjet = RealisationProjet::with('affectationProjet.projet')->find($data['realisation_projet_id']);
-        if (!$realisationProjet) {
-            return null;
-        }
-
-        // Vérification de l'état du chapitre pour cet apprenant
-        $realisationUaService = new RealisationUaService();
-        $realisationUA = $realisationUaService->getOrCreateApprenant(
-            $realisationProjet->apprenant_id,
-            $tache->chapitre->unite_apprentissage_id
-        );
-
-        $chapitreExistant = RealisationChapitre::where('chapitre_id', $tache->chapitre->id)
-            ->where('realisation_ua_id', $realisationUA->id)
-            ->first();
-
-        // Si chapitre terminé, on cherche l'état correspondant (APPROVED/DONE)
-        if ($chapitreExistant && $chapitreExistant->etatRealisationChapitre?->code === 'DONE') {
-            $formateurId = $realisationProjet->affectationProjet->projet->formateur_id ?? null;
-            if ($formateurId) {
-                $etatDone = (new \Modules\PkgRealisationTache\Services\EtatRealisationTacheService())
-                    ->getDoneEtatByFormateurId($formateurId);
-
-                return $etatDone ? $etatDone->id : null;
-            }
-        }
-
-        return null;
-    }
+   
 
     /**
      * Règle métier exécutée avant la création d'une RealisationTache.
@@ -80,7 +25,7 @@ trait RealisationTacheCrudTrait
      * @param array $data Les données pour la création.
      * @return array Les données modifiées.
      */
-    public function beforeCreateRules(array $data): array
+    public function beforeCreateRules(array &$data): void
     {
         // 1. Gestion de tache_affectation_id
         if (empty($data['tache_affectation_id']) && !empty($data['tache_id']) && !empty($data['realisation_projet_id'])) {
@@ -112,7 +57,7 @@ trait RealisationTacheCrudTrait
             $data['etat_realisation_tache_id'] = $overrideEtatId;
         }
 
-        return $data;
+
     }
 
 
@@ -380,5 +325,63 @@ trait RealisationTacheCrudTrait
         }
     }
 
+
+
+     /**
+     * Méthode helper pour créer une RealisationTache après vérification des règles :
+     * 1. Le chapitre lié ne doit pas être déjà validé (DONE).
+     * 2. La tâche ne doit pas déjà exister pour ce projet.
+     * 
+     * @param Tache $tache
+     * @param RealisationProjet $realisationProjet
+     * @param RealisationUaService $realisationUaService
+     * @param int|null $etatInitialId
+     * @param int|null $tacheAffectationId
+     * @return void
+     */
+    /**
+     * Helper pour encapsuler la logique de récupération de l'état "DONE"
+     * si le chapitre associé est terminé.
+     */
+    protected function getEtatInitialIfChapitreDone(array $data): ?int
+    {
+        if (empty($data['tache_id']) || empty($data['realisation_projet_id'])) {
+            return null;
+        }
+
+        $tache = Tache::with('chapitre')->find($data['tache_id']);
+        if (!$tache || !$tache->chapitre) {
+            return null;
+        }
+
+        $realisationProjet = RealisationProjet::with('affectationProjet.projet')->find($data['realisation_projet_id']);
+        if (!$realisationProjet) {
+            return null;
+        }
+
+        // Vérification de l'état du chapitre pour cet apprenant
+        $realisationUaService = new RealisationUaService();
+        $realisationUA = $realisationUaService->getOrCreateApprenant(
+            $realisationProjet->apprenant_id,
+            $tache->chapitre->unite_apprentissage_id
+        );
+
+        $chapitreExistant = RealisationChapitre::where('chapitre_id', $tache->chapitre->id)
+            ->where('realisation_ua_id', $realisationUA->id)
+            ->first();
+
+        // Si chapitre terminé, on cherche l'état correspondant (APPROVED/DONE)
+        if ($chapitreExistant && $chapitreExistant->etatRealisationChapitre?->code === 'DONE') {
+            $formateurId = $realisationProjet->affectationProjet->projet->formateur_id ?? null;
+            if ($formateurId) {
+                $etatDone = (new \Modules\PkgRealisationTache\Services\EtatRealisationTacheService())
+                    ->getDoneEtatByFormateurId($formateurId);
+
+                return $etatDone ? $etatDone->id : null;
+            }
+        }
+
+        return null;
+    }
 
 }
