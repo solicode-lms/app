@@ -199,8 +199,9 @@
                 
                 
                 
-                id="description"
-                placeholder="{{ __('PkgCreationTache::tache.description') }}">{{ $itemTache ? $itemTache->description : old('description') }}</textarea>
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemTache->description ?? '')) !!}
+                </textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -310,6 +311,46 @@
         placeholder="{{ __('PkgCreationTache::tache.note') }}"
         value="{{ $itemTache ? number_format($itemTache->note, 2, '.', '') : old('note') }}">
           @error('note')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="phase_projet_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="phase_projet_id" 
+              id="bulk_field_phase_projet_id" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="phase_projet_id">
+            {{ ucfirst(__('PkgCreationTache::phaseProjet.singular')) }}
+            
+          </label>
+                      <select 
+            id="phase_projet_id" 
+            
+            
+            
+            name="phase_projet_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($phaseProjets as $phaseProjet)
+                    <option value="{{ $phaseProjet->id }}"
+                        {{ (isset($itemTache) && $itemTache->phase_projet_id == $phaseProjet->id) || (old('phase_projet_id>') == $phaseProjet->id) ? 'selected' : '' }}>
+                        {{ $phaseProjet }}
+                    </option>
+                @endforeach
+            </select>
+          @error('phase_projet_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

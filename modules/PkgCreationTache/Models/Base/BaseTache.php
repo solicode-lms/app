@@ -12,6 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgCreationTache\Models\PhaseProjet;
 use Modules\PkgCompetences\Models\PhaseEvaluation;
 use Modules\PkgCompetences\Models\Chapitre;
 use Modules\PkgCreationProjet\Models\Livrable;
@@ -33,6 +34,7 @@ class BaseTache extends BaseModel
      */
     protected $with = [
       //  'projet',
+      //  'phaseProjet',
       //  'phaseEvaluation',
       //  'chapitre'
     ];
@@ -50,7 +52,7 @@ class BaseTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'priorite', 'titre', 'projet_id', 'description', 'dateDebut', 'dateFin', 'note', 'is_live_coding_task', 'phase_evaluation_id', 'chapitre_id'
+        'ordre', 'priorite', 'titre', 'projet_id', 'description', 'dateDebut', 'dateFin', 'note', 'phase_projet_id', 'is_live_coding_task', 'phase_evaluation_id', 'chapitre_id'
     ];
     public $manyToMany = [
         'Livrable' => ['relation' => 'livrables' , "foreign_key" => "livrable_id" ]
@@ -60,6 +62,11 @@ class BaseTache extends BaseModel
             'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
             'relation' => 'projets' , 
             "foreign_key" => "projet_id", 
+            ],
+        'PhaseProjet' => [
+            'model' => "Modules\\PkgCreationTache\\Models\\PhaseProjet",
+            'relation' => 'phaseProjets' , 
+            "foreign_key" => "phase_projet_id", 
             ],
         'PhaseEvaluation' => [
             'model' => "Modules\\PkgCompetences\\Models\\PhaseEvaluation",
@@ -82,6 +89,15 @@ class BaseTache extends BaseModel
     public function projet(): BelongsTo
     {
         return $this->belongsTo(Projet::class, 'projet_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour PhaseProjet.
+     *
+     * @return BelongsTo
+     */
+    public function phaseProjet(): BelongsTo
+    {
+        return $this->belongsTo(PhaseProjet::class, 'phase_projet_id', 'id');
     }
     /**
      * Relation BelongsTo pour PhaseEvaluation.

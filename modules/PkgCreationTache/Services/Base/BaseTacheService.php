@@ -33,6 +33,7 @@ class BaseTacheService extends BaseService
         'dateDebut',
         'dateFin',
         'note',
+        'phase_projet_id',
         'is_live_coding_task',
         'phase_evaluation_id',
         'chapitre_id'
@@ -126,6 +127,23 @@ class BaseTacheService extends BaseService
                         \Modules\PkgCreationProjet\Models\Projet::class, 
                         'titre',
                         $projets
+                    );
+                }
+            
+            
+                if (!array_key_exists('phase_projet_id', $scopeVariables)) {
+
+
+                    $phaseProjetService = new \Modules\PkgCreationTache\Services\PhaseProjetService();
+                    $phaseProjetIds = $this->getAvailableFilterValues('phase_projet_id');
+                    $phaseProjets = $phaseProjetService->getByIds($phaseProjetIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCreationTache::phaseProjet.plural"), 
+                        'phase_projet_id', 
+                        \Modules\PkgCreationTache\Models\PhaseProjet::class, 
+                        'nom',
+                        $phaseProjets
                     );
                 }
             
@@ -339,6 +357,7 @@ class BaseTacheService extends BaseService
             'priorite',
             'titre',
             'note',
+            'phase_projet_id',
             'livrables'
         ];
 
@@ -389,6 +408,22 @@ class BaseTacheService extends BaseService
             case 'note':
                 return $this->computeFieldMeta($e, $field, $meta, 'number');
 
+            case 'phase_projet_id':
+                 $values = (new \Modules\PkgCreationTache\Services\PhaseProjetService())
+                    ->getAllForSelect($e->phaseProjet)
+                    ->map(fn($entity) => [
+                        'value' => (int) $entity->id,
+                        'label' => (string) $entity,
+                    ])
+                    ->toArray();
+
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
+                    'required' => true,
+                    'options'  => [
+                        'source' => 'static',
+                        'values' => $values,
+                    ],
+                ]);
             case 'livrables':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
             default:
@@ -463,6 +498,18 @@ class BaseTacheService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
+                case 'phase_projet_id':
+                    $html = view('Core::fields_by_type.manytoone', [
+                        'entity' => $e,
+                        'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'phaseProjet'
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+
+
 
                 case 'livrables':
                     // fallback string simple

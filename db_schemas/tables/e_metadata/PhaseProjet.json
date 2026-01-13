@@ -342,5 +342,17 @@
         "value_boolean": 1,
         "e_data_field_reference": "phase_projets_hasMany_taches_phase_projet_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "PhaseProjet_ordre_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "PhaseProjet_ordre",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "PhaseProjet_description_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "PhaseProjet_description",
+        "e_metadata_definition_reference": "required"
     }
 ]

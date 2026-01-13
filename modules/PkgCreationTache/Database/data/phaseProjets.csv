@@ -1,1 +1,7 @@
-ordre,nom,description
+reference,nom,description,ordre
+PH_BESOINS,Besoins,"Identification et recueil des besoins clients",1
+PH_APPRENTISSAGE,Apprentissage,"Auto-formation et prise en main des technos",2
+PH_ANALYSE,Analyse,"Analyse des besoins et définition du cahier des charges",3
+PH_CONCEPTION,Conception,"Conception technique et fonctionnelle, maquettage",4
+PH_REALISATION,Réalisation,"Développement et intégration des fonctionnalités",5
+PH_PRESENTATION,Présentation,"Démonstration finale et soutenance du projet",7
