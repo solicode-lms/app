@@ -114,7 +114,8 @@
     "name": "PkgCreationTache",
     "tables": [
         "priorite_taches",
-        "taches"
+        "taches",
+        "phase_projets"
     ]
 },
 
