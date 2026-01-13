@@ -92,7 +92,7 @@ trait ProjetCrudTrait
                 // Utilisation des méthodes via ProjetRelationsTrait qui est utilisé dans le service pas le trait
                 // Important : Comme ce Trait sera utilisé dans ProjetService, $this aura accès 
                 // aux méthodes de ProjetRelationsTrait si elles sont aussi utilisées dans le Service.
-                $this->generateTasksAndMobilisations($projet, $session);
+                $this->initializeProjectStructure($projet, $session);
             }
         }
 

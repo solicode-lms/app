@@ -142,14 +142,20 @@ trait RealisationProjetActionsTrait
     }
 
     /**
-     * Propage l'ajout d'une mobilisation d'UA à toutes les réalisations de projets en cours.
-     * Cette méthode crée les RealisationUaPrototype et RealisationUaProjet manquants.
+     * Synchronise les réalisations existantes avec une nouvelle Mobilisation UA.
+     * Cette méthode est critique pour maintenir la cohérence lorsqu'une compétence est ajoutée
+     * à un projet APRES que des apprenants aient déjà commencé à travailler dessus.
      *
-     * @param int $projetId
-     * @param MobilisationUa $mobilisation
+     * Elle effectue les opérations suivantes pour chaque apprenant du projet :
+     * 1. S'assure qu'une 'RealisationUa' existe pour lier l'apprenant à la compétence.
+     * 2. Crée les entrées de notation 'RealisationUaPrototype' pour les tâches N2 existantes.
+     * 3. Crée les entrées de notation 'RealisationUaProjet' pour les tâches N3 existantes.
+     *
+     * @param int $projetId L'ID du projet modifié.
+     * @param MobilisationUa $mobilisation La nouvelle mobilisation ajoutée.
      * @return void
      */
-    public function addMobilisationToProjectRealisations(int $projetId, MobilisationUa $mobilisation): void
+    public function syncRealisationsWithNewMobilisationUa(int $projetId, MobilisationUa $mobilisation): void
     {
         // 1. Récupérer toutes les réalisations liées à ce projet
         $realisationProjets = $this->model->whereHas('affectationProjet', function ($q) use ($projetId) {

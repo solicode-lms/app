@@ -70,13 +70,19 @@ class MobilisationUaService extends BaseMobilisationUaService
     }
 
     /**
-     * Actions effectuées après la création d'une mobilisation.
+     * Actions effectuées après la création d'une Mobilisation UA.
      *
-     * 1. Génère les tâches de tutoriels (N1) associées aux chapitres de l'UA.
-     * 2. Synchronise les réalisations de projets existantes (élèves) avec cette nouvelle mobilisation.
-     * 3. Met à jour la date de modification du projet.
+     * Cette méthode orchestre les conséquences de l'ajout d'une compétence (UA) au projet :
+     * 1. **Génération des Tutoriels** : Pour chaque chapitre de l'UA, une tâche de type "Tutoriel" est créée.
+     *    Ces tâches sont assignées à la phase "Apprentissage" (APPRENTISSAGE) et au niveau d'évaluation N1.
+     * 2. **Calcul de l'Ordre** : L'ordre des nouvelles tâches est déterminé dynamiquement :
+     *    - Si des tâches existent déjà dans la phase Apprentissage, on les suit.
+     *    - Sinon, on s'insère à la suite des tâches des phases précédentes (ex: après l'Analyse), 
+     *      garantissant une continuité logique dans le workflow du projet.
+     * 3. **Synchronisation des Apprenants** : Si des élèves travaillent déjà sur le projet, leurs réalisations
+     *    sont mises à jour pour inclure ces nouvelles tâches et compétences à valider.
      *
-     * @param mixed $item La mobilisation créée.
+     * @param mixed $item La mobilisation créée (instance de MobilisationUa).
      * @return void
      */
     public function afterCreateRules($item): void
@@ -86,91 +92,60 @@ class MobilisationUaService extends BaseMobilisationUaService
             // 1. Ajouter les tâches (Tutoriels) liées aux chapitres de l'UA
             $ua = \Modules\PkgCompetences\Models\UniteApprentissage::with('chapitres')->find($item->unite_apprentissage_id);
             if ($ua && $ua->chapitres->isNotEmpty()) {
+
+                // Récupération des IDs nécessaires
                 $phaseN1Id = \Modules\PkgCompetences\Models\PhaseEvaluation::where('code', 'N1')->value('id');
+                // Récupération de la phase projet "Apprentissage" via son modèle
+                $phaseApprentissage = \Modules\PkgCreationTache\Models\PhaseProjet::where('reference', 'APPRENTISSAGE')->first();
+                $phaseProjetId = $phaseApprentissage ? $phaseApprentissage->id : null;
+
                 $tacheService = new \Modules\PkgCreationTache\Services\TacheService();
 
-                // Calculer l'ordre/priorité max actuel pour ajouter à la suite
-                // Si les compteurs sont passés dans les données "virtuelles" de l'item (non persisté), on les utilise
-                // Attention : l'item est un ORM, donc ces champs n'existent pas en BDD sur MobilisationUa.
-                // On peut cependant les passer via un mécanisme temporaire ou recalculer ici.
-
-                // Correction : Le service appelant (ProjetService) s'attend à ce que l'ordre soit continu.
-                // MAIS MobilisationUaService est indépendant.
-                // Identifier les chapitres qui nécessitent vraiment une création de tâche
-                $chapitresToAdd = $ua->chapitres->filter(function ($chapitre) use ($item) {
-                    return !\Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
+                foreach ($ua->chapitres as $chapitre) {
+                    // Vérifier si la tâche existe déjà
+                    $exists = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
                         ->where('titre', 'Tutoriel : ' . $chapitre->nom)
                         ->exists();
-                });
 
-                $count = $chapitresToAdd->count();
-
-                if ($count > 0) {
-                    // 🔍 Trouver le point d'insertion :
-                    // On doit insérer APRÈS le dernier tutoriel existant (Phase N1)
-                    // OU APRÈS 'Analyse' (Nature = Analyse) s'il n'y a pas encore de tutoriels
-
-                    // 1. Chercher la dernière tâche qui correspond à l'Analyse ou aux Tutoriels existants
-
-                    // Récupération de la configuration pour obtenir le titre exact de l'Analyse
-                    $tasksConfig = \Modules\PkgCreationProjet\Services\ProjetService::getTasksConfig(null, [], []);
-                    $analyseTaskTitles = [];
-                    foreach ($tasksConfig as $taskData) {
-                        if (is_array($taskData) && ($taskData['nature'] ?? '') === 'Analyse') {
-                            $analyseTaskTitles[] = $taskData['titre'];
+                    if (!$exists) {
+                        // Calcul de l'ordre au sein de la phase Apprentissage
+                        // On prend le max ordre des tâches de cette phase pour ce projet
+                        $maxOrdrePhase = 0;
+                        if ($phaseProjetId) {
+                            $maxOrdrePhase = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
+                                ->where('phase_projet_id', $phaseProjetId)
+                                ->max('ordre');
                         }
-                    }
 
-                    $lastPrecedingTask = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
-                        ->where(function ($query) use ($phaseN1Id, $analyseTaskTitles) {
-                            // Soit c'est une Phase N1 (Tuto existant)
-                            if ($phaseN1Id) {
-                                $query->where('phase_evaluation_id', $phaseN1Id);
+                        if ($maxOrdrePhase) {
+                            $ordre = $maxOrdrePhase + 1;
+                        } else {
+                            // Si aucune tâche dans cette phase, on prend la suite des phases précédentes
+                            $maxOrdrePrecedent = 0;
+                            if ($phaseApprentissage) {
+                                // Récupérer les ids des phases précédentes
+                                $previousPhaseIds = \Modules\PkgCreationTache\Models\PhaseProjet::where('ordre', '<', $phaseApprentissage->ordre)
+                                    ->pluck('id');
+
+                                if ($previousPhaseIds->isNotEmpty()) {
+                                    $maxOrdrePrecedent = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
+                                        ->whereIn('phase_projet_id', $previousPhaseIds)
+                                        ->max('ordre');
+                                }
                             }
-                            // Soit c'est une tâche de nature 'Analyse' (selon la config)
-                            if (!empty($analyseTaskTitles)) {
-                                $query->orWhereIn('titre', $analyseTaskTitles);
-                            }
-                        })
-                        ->orderBy('ordre', 'desc')
-                        ->first();
+                            $ordre = $maxOrdrePrecedent ? $maxOrdrePrecedent + 1 : 1;
+                        }
 
-                    if ($lastPrecedingTask) {
-                        $insertionPointOrdre = $lastPrecedingTask->ordre + 1;
-                        $insertionPointPriorite = $lastPrecedingTask->priorite + 1;
-                    } else {
-                        // Fallback (ne devrait pas arriver si Analyse existe)
-                        $insertionPointOrdre = 1;
-                        $insertionPointPriorite = 1;
-                    }
-
-                    // 🔼 DÉCALER les tâches qui sont APRÈS ce point (Prototype, Conception, etc.)
-                    \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
-                        ->where('ordre', '>=', $insertionPointOrdre)
-                        ->increment('ordre', $count);
-
-                    \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
-                        ->where('priorite', '>=', $insertionPointPriorite)
-                        ->increment('priorite', $count);
-
-
-                    $currentOrdre = $insertionPointOrdre;
-                    $currentPriorite = $insertionPointPriorite;
-
-                    // 📝 Création et insertion des tâches
-                    foreach ($chapitresToAdd as $chapitre) {
                         $tacheService->create([
                             'projet_id' => $item->projet_id,
                             'titre' => 'Tutoriel : ' . $chapitre->nom,
-                            'description' => $chapitre->description ?? '',
-                            'priorite' => $currentPriorite,
-                            'ordre' => $currentOrdre,
+                            'description' => "Tutoriel lié au chapitre : " . $chapitre->nom,
                             'phase_evaluation_id' => $phaseN1Id,
-                            'chapitre_id' => $chapitre->id
+                            'priorite' => 1, // Priorité par défaut
+                            'ordre' => $ordre,
+                            'chapitre_id' => $chapitre->id,
+                            'phase_projet_id' => $phaseProjetId
                         ]);
-
-                        $currentOrdre++;
-                        $currentPriorite++;
                     }
                 }
             }
@@ -181,9 +156,8 @@ class MobilisationUaService extends BaseMobilisationUaService
             // Cela implique de créer pour eux :
             // - Les RealisationUaPrototype (pour la phase N2 prototype)
             // - Les RealisationUaProjet (pour la phase N3 projet)
-            // ceci est géré par la méthode addMobilisationToProjectRealisations.
             $realisationProjetService = new \Modules\PkgRealisationProjets\Services\RealisationProjetService();
-            $realisationProjetService->addMobilisationToProjectRealisations($item->projet_id, $item);
+            $realisationProjetService->syncRealisationsWithNewMobilisationUa($item->projet_id, $item);
 
             // 3. Mise à jour de la date de modification du projet parent
             if (isset($item->projet)) {

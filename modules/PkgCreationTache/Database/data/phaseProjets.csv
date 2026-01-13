@@ -1,8 +1,8 @@
 reference,code,nom,description,ordre
-PH_BESOINS,BESOINS,Besoins,"Identification et recueil des besoins clients",1
-PH_APPRENTISSAGE,APPRENTISSAGE,Apprentissage,"Auto-formation et prise en main des technos",2
-PH_ANALYSE,ANALYSE,Analyse,"Analyse des besoins et définition du cahier des charges",3
-PH_PROTOTYPE,PROTOTYPE,Prototype,"Réalisation d'un prototype fonctionnel (POC)",4
-PH_CONCEPTION,CONCEPTION,Conception,"Conception technique et fonctionnelle, maquettage",5
-PH_REALISATION,REALISATION,Réalisation,"Développement et intégration des fonctionnalités",6
-PH_PRESENTATION,PRESENTATION,Présentation,"Démonstration finale et soutenance du projet",7
+BESOINS,BESOINS,Besoins,"Identification et recueil des besoins clients",1
+ANALYSE,ANALYSE,Analyse,"Analyse des besoins et définition du cahier des charges",2
+APPRENTISSAGE,APPRENTISSAGE,Apprentissage,"Auto-formation et prise en main des technos",3
+PROTOTYPE,PROTOTYPE,Prototype,"Réalisation d'un prototype fonctionnel (POC)",4
+CONCEPTION,CONCEPTION,Conception,"Conception technique et fonctionnelle, maquettage",5
+REALISATION,REALISATION,Réalisation,"Développement et intégration des fonctionnalités",6
+PRESENTATION,PRESENTATION,Présentation,"Démonstration finale et soutenance du projet",7
