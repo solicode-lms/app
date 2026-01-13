@@ -15,8 +15,6 @@ use Modules\PkgCreationTache\Models\Tache;
 trait RealisationTacheCrudTrait
 {
 
-   
-
     /**
      * Règle métier exécutée avant la création d'une RealisationTache.
      * 1. Détermine automatiquement `tache_affectation_id` si manquant.
@@ -27,37 +25,30 @@ trait RealisationTacheCrudTrait
      */
     public function beforeCreateRules(array &$data): void
     {
-        // 1. Gestion de tache_affectation_id
+        // 1. Règle métier : Lien avec l'affectation de groupe (TacheAffectation)
+        // Si `tache_affectation_id` est manquant, on doit le déduire à partir du projet et de la tâche.
+        // Cela garantit que chaque réalisation individuelle est correctement rattachée à l'affectation globale du groupe.
         if (empty($data['tache_affectation_id']) && !empty($data['tache_id']) && !empty($data['realisation_projet_id'])) {
+
             $tache = \Modules\PkgCreationTache\Models\Tache::find($data['tache_id']);
             $realisationProjet = \Modules\PkgRealisationProjets\Models\RealisationProjet::find($data['realisation_projet_id']);
 
             if ($tache && $realisationProjet && $realisationProjet->affectation_projet_id) {
                 $affectationProjetId = $realisationProjet->affectation_projet_id;
 
-                $tacheAffectation = \Modules\PkgRealisationTache\Models\TacheAffectation::where('tache_id', $tache->id)
-                    ->where('affectation_projet_id', $affectationProjetId)
-                    ->first();
-
-                if (!$tacheAffectation) {
-                    $tacheAffectation = \Modules\PkgRealisationTache\Models\TacheAffectation::create([
-                        'tache_id' => $tache->id,
-                        'affectation_projet_id' => $affectationProjetId,
-                        'date_debut' => $realisationProjet->date_debut ?? now(),
-                        'date_fin' => $realisationProjet->date_fin ?? now()->addWeek(),
-                    ]);
-                }
+                $tacheAffectationService = new \Modules\PkgRealisationTache\Services\TacheAffectationService();
+                $tacheAffectation = $tacheAffectationService->getOrCreateTacheAffectation($tache, $realisationProjet->affectationProjet);
                 $data['tache_affectation_id'] = $tacheAffectation->id;
             }
         }
 
-        // 2. Gestion automatique de l'état si Chapitre déjà terminés
+        // 2. Règle métier : Si le chapitre lié est déjà validé (DONE) pour l'apprenant,
+        // la tâche doit être initialisée automatiquement à un état validé (ex: APPROVED)
+        // pour refléter l'acquis et éviter la redondance.
         $overrideEtatId = $this->getEtatInitialIfChapitreDone($data);
         if ($overrideEtatId) {
             $data['etat_realisation_tache_id'] = $overrideEtatId;
         }
-
-
     }
 
 
@@ -327,18 +318,6 @@ trait RealisationTacheCrudTrait
 
 
 
-     /**
-     * Méthode helper pour créer une RealisationTache après vérification des règles :
-     * 1. Le chapitre lié ne doit pas être déjà validé (DONE).
-     * 2. La tâche ne doit pas déjà exister pour ce projet.
-     * 
-     * @param Tache $tache
-     * @param RealisationProjet $realisationProjet
-     * @param RealisationUaService $realisationUaService
-     * @param int|null $etatInitialId
-     * @param int|null $tacheAffectationId
-     * @return void
-     */
     /**
      * Helper pour encapsuler la logique de récupération de l'état "DONE"
      * si le chapitre associé est terminé.
