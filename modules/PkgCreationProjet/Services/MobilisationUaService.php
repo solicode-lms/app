@@ -159,9 +159,9 @@ class MobilisationUaService extends BaseMobilisationUaService
                 $item->projet->touch();
             }
 
-            // 3. Recalcul des notes des tâches N2 (Prototype) et N3 (Réalisation)
-            // Cela déclenche aussi la synchronisation des compétences (RealisationUa) via TacheService::afterUpdateRules
-            $this->updateTasksNote($item->projet_id);
+            // 3. Déclencher la synchronisation des tâches du projet
+            // Cela met à jour les notes des tâches (N2/N3) et synchronise les réalisations de compétences
+            $this->triggerTaskSynchronization($item->projet_id);
         }
     }
 
@@ -170,8 +170,8 @@ class MobilisationUaService extends BaseMobilisationUaService
         if ($item instanceof \Modules\PkgCreationProjet\Models\MobilisationUa && isset($item->projet)) {
             $item->projet->touch();
 
-            // Recalcul des notes des tâches N2 et N3
-            $this->updateTasksNote($item->projet_id);
+            // 3. Déclencher la synchronisation des tâches du projet
+            $this->triggerTaskSynchronization($item->projet_id);
         }
     }
 
@@ -208,21 +208,33 @@ class MobilisationUaService extends BaseMobilisationUaService
                 $mobilisation->projet->touch();
             }
 
-            // Recalcul des notes des tâches N2 et N3
-            $this->updateTasksNote($mobilisation->projet_id);
+            // 3. Déclencher la synchronisation des tâches du projet
+            $this->triggerTaskSynchronization($mobilisation->projet_id);
         }
 
         return $result;
     }
 
     /**
-     * Met à jour les notes des tâches d'évaluation (N2, N3) du projet.
-     * Cette méthode doit être appelée après tout changement dans les mobilisations UA.
+     * Déclenche la synchronisation des tâches du projet.
+     * 
+     * Cette méthode identifie les tâches critiques du projet (Phases N2 - Prototype et N3 - Réalisation)
+     * et initie une mise à jour sur chacune d'elles.
+     * 
+     * Cette action en cascade permet de :
+     * 1. Recalculer la note maximale de la tâche via `TacheService::beforeUpdateRules`
+     *    (basée sur la somme des barèmes des UA mobilisées).
+     * 2. Mettre à jour la phase du projet si nécessaire.
+     * 3. Synchroniser les réalisations de compétences des apprenants via `TacheService::afterUpdateRules`
+     *    (création des entrées RealisationUaPrototype/Projet).
+     * 
+     * Cette centralisation garantit la cohérence des données d'évaluation suite à toute modification
+     * des mobilisations de compétences.
      *
-     * @param int $projectId
+     * @param int $projectId L'identifiant du projet.
      * @return void
      */
-    protected function updateTasksNote($projectId)
+    protected function triggerTaskSynchronization($projectId)
     {
         if (!$projectId)
             return;

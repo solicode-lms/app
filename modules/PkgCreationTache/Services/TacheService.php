@@ -14,6 +14,15 @@ use Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService;
 use Modules\PkgEvaluateurs\Services\EvaluationRealisationTacheService;
 use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
 use Modules\PkgRealisationTache\Services\RealisationTacheService;
+use Modules\PkgCompetences\Models\PhaseEvaluation;
+use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgCreationTache\Models\PhaseProjet;
+use Modules\PkgCreationProjet\Models\MobilisationUa;
+use Modules\PkgApprentissage\Services\RealisationUaService;
+use Modules\PkgApprentissage\Services\RealisationUaProjetService;
+use Modules\PkgApprentissage\Services\RealisationUaPrototypeService;
+use Modules\PkgApprentissage\Models\RealisationUaPrototype;
+use Modules\PkgApprentissage\Models\RealisationUaProjet;
 
 /**
  * Classe TacheService pour gérer la persistance de l'entité Tache.
@@ -217,9 +226,9 @@ class TacheService extends BaseTacheService
         // Mise à jour de la date de modification du projet parent
         $tache->projet->touch();
 
-        // 3) Synchroniser les ponts de compétences (RealisationUaPrototype/Projet) si N2/N3
-        // Cela couvre le cas où la tâche est créée directement avec le bon niveau
-        $this->syncCompetenceBridges($tache);
+        // 3) Synchroniser les réalisations de compétences (RealisationUaPrototype/Projet) si N2/N3
+        // Garantit que les grilles d'évaluation de compétences sont prêtes pour les apprenants
+        $this->syncRealisationCompetences($tache);
     }
 
     /**
@@ -234,19 +243,19 @@ class TacheService extends BaseTacheService
             $tache->projet->touch();
         }
 
-        // Synchroniser les ponts de compétences si le niveau d'évaluation a changé ou si nouveau projet
-        $this->syncCompetenceBridges($tache);
+        // Synchroniser les réalisations de compétences si le niveau d'évaluation a changé ou si nouveau projet
+        $this->syncRealisationCompetences($tache);
     }
 
     /**
-     * Synchronise les ponts de compétences (RealisationUaPrototype/Projet) pour cette tâche.
-     * Crée les liens nécessaires entre les réalisations de tâche et les UA (via RealisationUa)
-     * pour les phases N2 (Prototype) et N3 (Réalisation).
+     * Synchronise les objets de réalisation de compétences (RealisationUaPrototype/Projet) pour cette tâche.
+     * Cette méthode crée les ponts nécessaires entre les réalisations de tâche (élèves) et les UA mobilisées sur le projet.
+     * Elle est déclenchée lors de la création ou mise à jour de tâches d'évaluation (N2/N3).
      *
      * @param mixed $tache La tâche concernée.
      * @return void
      */
-    public function syncCompetenceBridges($tache)
+    public function syncRealisationCompetences($tache)
     {
         // 1. Vérifier si N2 ou N3
         $tache->load('phaseEvaluation');
@@ -256,7 +265,7 @@ class TacheService extends BaseTacheService
             return;
 
         // 2. Récupérer les mobilisations du projet
-        $mobilisations = \Modules\PkgCreationProjet\Models\MobilisationUa::where('projet_id', $tache->projet_id)->get();
+        $mobilisations = MobilisationUa::where('projet_id', $tache->projet_id)->get();
         if ($mobilisations->isEmpty())
             return;
 
@@ -265,9 +274,9 @@ class TacheService extends BaseTacheService
         if ($realisationTaches->isEmpty())
             return;
 
-        $realisationUaService = new \Modules\PkgApprentissage\Services\RealisationUaService();
-        $realisationUaProjetService = app(\Modules\PkgApprentissage\Services\RealisationUaProjetService::class);
-        $realisationUaPrototypeService = app(\Modules\PkgApprentissage\Services\RealisationUaPrototypeService::class);
+        $realisationUaService = new RealisationUaService();
+        $realisationUaProjetService = app(RealisationUaProjetService::class);
+        $realisationUaPrototypeService = app(RealisationUaPrototypeService::class);
 
         foreach ($realisationTaches as $rt) {
             // Charger la relation RealisationProjet si pas chargée
@@ -289,7 +298,7 @@ class TacheService extends BaseTacheService
                 );
 
                 if ($code === 'N2') {
-                    $exists = \Modules\PkgApprentissage\Models\RealisationUaPrototype::where('realisation_tache_id', $rt->id)
+                    $exists = RealisationUaPrototype::where('realisation_tache_id', $rt->id)
                         ->where('realisation_ua_id', $realisationUA->id)
                         ->exists();
                     if (!$exists) {
@@ -300,7 +309,7 @@ class TacheService extends BaseTacheService
                         ]);
                     }
                 } elseif ($code === 'N3') {
-                    $exists = \Modules\PkgApprentissage\Models\RealisationUaProjet::where('realisation_tache_id', $rt->id)
+                    $exists = RealisationUaProjet::where('realisation_tache_id', $rt->id)
                         ->where('realisation_ua_id', $realisationUA->id)
                         ->exists();
                     if (!$exists) {
