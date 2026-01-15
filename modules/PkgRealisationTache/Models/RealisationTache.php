@@ -1,5 +1,5 @@
 <?php
- 
+
 
 namespace Modules\PkgRealisationTache\Models;
 
@@ -17,28 +17,41 @@ class RealisationTache extends BaseRealisationTache
 {
 
     protected $with = [
-       'tache.livrables',
-       'realisationProjet.apprenant',
-       'etatRealisationTache',
-       'livrablesRealisations',
+        'tache.livrables',
+        'realisationProjet.apprenant',
+        'etatRealisationTache',
+        'livrablesRealisations',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        // Colonne dynamique : formateur_name
+        $sql = "SELECT f.nom
+        FROM realisation_projets rp
+        JOIN affectation_projets ap ON ap.id = rp.affectation_projet_id
+        JOIN projets p ON p.id = ap.projet_id
+        JOIN formateurs f ON f.id = p.formateur_id
+        WHERE rp.id = realisation_taches.realisation_projet_id";
+        static::addDynamicAttribute('formateur_name', $sql);
+    }
 
     protected static function booted(): void
     {
         static::addGlobalScope('apprenant_actif', function (Builder $builder) {
-           
-           
-                $builder->whereHas('realisationProjet', function ($q) {
-        
+
+
+            $builder->whereHas('realisationProjet', function ($q) {
+
                 $q->whereHas('apprenant', function ($q) {
-                    $q->where('actif', true); 
+                    $q->where('actif', true);
                 });
-            
-            
-            
+
+
+
             });
-           
-           
+
+
         });
     }
 
@@ -47,36 +60,36 @@ class RealisationTache extends BaseRealisationTache
         return $this->hasMany(RealisationTache::class, 'tache_id', 'tache_id')
             ->whereHas('realisationProjet', function ($q) {
                 $q->where('affectation_projet_id', $this->realisationProjet->affectation_projet_id)
-                ->where('apprenant_id', '!=', $this->realisationProjet->apprenant_id);
+                    ->where('apprenant_id', '!=', $this->realisationProjet->apprenant_id);
             })
             ->where('is_live_coding', true);
     }
 
-   
-/**
- *  Remplacé par livrablesRealisations pour optimisation
- * Récupérer les réalisations des livrables associés à la tâche de cette réalisation,
- * uniquement pour l'apprenant lié à cette RealisationTache.
- *
- * @return \Illuminate\Database\Eloquent\Collection
- */
-public function getRealisationLivrable()
-{
-    return LivrablesRealisation::whereHas('livrable', function ($query) {
+
+    /**
+     *  Remplacé par livrablesRealisations pour optimisation
+     * Récupérer les réalisations des livrables associés à la tâche de cette réalisation,
+     * uniquement pour l'apprenant lié à cette RealisationTache.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getRealisationLivrable()
+    {
+        return LivrablesRealisation::whereHas('livrable', function ($query) {
             $query->whereHas('taches', function ($q) {
                 $q->where('id', $this->tache_id);
             });
         })
-        ->whereHas('realisationProjet', function ($q) {
-            $q->where('apprenant_id', $this->realisationProjet->apprenant_id);
-        })
-        ->get();
-}
+            ->whereHas('realisationProjet', function ($q) {
+                $q->where('apprenant_id', $this->realisationProjet->apprenant_id);
+            })
+            ->get();
+    }
 
-    public function livrablesRealisations():HasManyThrough
+    public function livrablesRealisations(): HasManyThrough
     {
         // dd($this->id);
-        $resultat =  $this->hasManyThrough(
+        $resultat = $this->hasManyThrough(
             LivrablesRealisation::class,
             RealisationProjet::class,
             'id', // foreign key on RealisationProjet
@@ -89,7 +102,7 @@ public function getRealisationLivrable()
 
     public function __toString()
     {
-        return ($this->tache?->titre ?? "") .  " - ". $this->realisationProjet?->apprenant ?? "";
+        return ($this->tache?->titre ?? "") . " - " . $this->realisationProjet?->apprenant ?? "";
     }
 
     // public function getRevisionsBeforePriority(): Collection
@@ -107,7 +120,7 @@ public function getRealisationLivrable()
     public function currentEvaluateurId(): ?int
     {
         $user = Auth::user();
-        if (! $user) {
+        if (!$user) {
             return null;
         }
 
@@ -147,13 +160,13 @@ public function getRealisationLivrable()
     public function getPersonalNote(): float|null
     {
         $evalId = $this->currentEvaluateurId();
-        if (! $evalId) {
+        if (!$evalId) {
             return null;
         }
 
         $eval = $this->evaluationRealisationTaches()
-                     ->where('evaluateur_id', $evalId)
-                     ->first();
+            ->where('evaluateur_id', $evalId)
+            ->first();
 
         return $eval?->note !== null
             ? round($eval->note, 2)
@@ -168,11 +181,11 @@ public function getRealisationLivrable()
     public function canEditNote(): bool
     {
         $user = Auth::user();
-        if (! $user) {
+        if (!$user) {
             return false;
         }
 
-        if (! $this->id) {
+        if (!$this->id) {
             return true;
         }
 
@@ -260,20 +273,20 @@ public function getRealisationLivrable()
     public function getPersonalMessage(): ?string
     {
         $evalId = $this->currentEvaluateurId();
-        if (! $evalId) {
+        if (!$evalId) {
             return null;
         }
 
         $eval = $this->evaluationRealisationTaches()
-                    ->where('evaluateur_id', $evalId)
-                    ->first();
+            ->where('evaluateur_id', $evalId)
+            ->first();
 
         return $eval?->message;
     }
 
     public function generateReference(): string
     {
-        return $this->realisationProjet->reference . "-" . $this->tache->reference ;
+        return $this->realisationProjet->reference . "-" . $this->tache->reference;
     }
 
 
@@ -292,7 +305,7 @@ public function getRealisationLivrable()
         $hasPrototype = $this->realisationUaPrototypes()->exists();
 
         // Si aucune UA n’existe, on retourne le barème de la tâche
-        if (! $hasProjet && ! $hasPrototype) {
+        if (!$hasProjet && !$hasPrototype) {
             return $this->tache?->note ?? 0;
         }
 

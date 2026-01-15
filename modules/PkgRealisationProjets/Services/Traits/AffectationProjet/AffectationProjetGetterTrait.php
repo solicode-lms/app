@@ -69,7 +69,9 @@ trait AffectationProjetGetterTrait
     /**
      * Trouver la liste des affectations de projets d'un apprenant donné.
      * 
-     * Recherche les affectations liées au groupe auquel appartient l'apprenant.
+     * Recherche les affectations liées au groupe auquel appartient l'apprenant
+     * OU les affectations pour lesquelles l'apprenant a déjà une réalisation de projet.
+     * Ceci permet de garder l'accès aux anciens projets même après un changement de groupe.
      *
      * @param int $apprenant_id
      * @return \Illuminate\Database\Eloquent\Collection
@@ -80,7 +82,11 @@ trait AffectationProjetGetterTrait
             $query->whereHas('apprenants', function ($q) use ($apprenant_id) {
                 $q->where('apprenants.id', $apprenant_id);
             });
-        })->get();
+        })
+            ->orWhereHas('realisationProjets', function ($query) use ($apprenant_id) {
+                $query->where('apprenant_id', $apprenant_id);
+            })
+            ->get();
     }
 
 

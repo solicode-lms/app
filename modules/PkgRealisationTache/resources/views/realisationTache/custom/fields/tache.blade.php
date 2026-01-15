@@ -12,7 +12,7 @@
                 {{ $entity->tache }}
             @endif
         </h2>
-        <small class="tache-projet">{{ $entity->projet_title }}</small>
+        <small class="tache-projet">{{ $entity->projet_title }} - {{ $entity->formateur_name }}</small>
     </header>
 
     <section class="tache-infos">
