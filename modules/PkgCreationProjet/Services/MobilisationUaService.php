@@ -101,51 +101,55 @@ class MobilisationUaService extends BaseMobilisationUaService
 
                 $tacheService = new \Modules\PkgCreationTache\Services\TacheService();
 
+                // Calcul initial de l'ordre
+                $ordre = 1;
+                $maxOrdrePhase = 0;
+
+                // 1) Vérifier s'il y a déjà des tâches dans la phase Apprentissage
+                if ($phaseProjetId) {
+                    $maxOrdrePhase = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
+                        ->where('phase_projet_id', $phaseProjetId)
+                        ->max('ordre');
+                }
+
+                if ($maxOrdrePhase) {
+                    $ordre = $maxOrdrePhase + 1;
+                } else {
+                    // 2) Sinon, prendre la suite des phases précédentes
+                    $maxOrdrePrecedent = 0;
+                    if ($phaseApprentissage) {
+                        $previousPhaseIds = \Modules\PkgCreationTache\Models\PhaseProjet::where('ordre', '<', $phaseApprentissage->ordre)
+                            ->pluck('id');
+
+                        if ($previousPhaseIds->isNotEmpty()) {
+                            $maxOrdrePrecedent = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
+                                ->whereIn('phase_projet_id', $previousPhaseIds)
+                                ->max('ordre');
+                        }
+                    }
+                    $ordre = $maxOrdrePrecedent ? $maxOrdrePrecedent + 1 : 1;
+                }
+
                 foreach ($ua->chapitres as $chapitre) {
-                    // Vérifier si la tâche existe déjà
+                    // Vérifier si la tâche existe déjà pour éviter doublon
                     $exists = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
                         ->where('titre', 'Tutoriel : ' . $chapitre->nom)
                         ->exists();
 
                     if (!$exists) {
-                        // Calcul de l'ordre au sein de la phase Apprentissage
-                        // On prend le max ordre des tâches de cette phase pour ce projet
-                        $maxOrdrePhase = 0;
-                        if ($phaseProjetId) {
-                            $maxOrdrePhase = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
-                                ->where('phase_projet_id', $phaseProjetId)
-                                ->max('ordre');
-                        }
-
-                        if ($maxOrdrePhase) {
-                            $ordre = $maxOrdrePhase + 1;
-                        } else {
-                            // Si aucune tâche dans cette phase, on prend la suite des phases précédentes
-                            $maxOrdrePrecedent = 0;
-                            if ($phaseApprentissage) {
-                                // Récupérer les ids des phases précédentes
-                                $previousPhaseIds = \Modules\PkgCreationTache\Models\PhaseProjet::where('ordre', '<', $phaseApprentissage->ordre)
-                                    ->pluck('id');
-
-                                if ($previousPhaseIds->isNotEmpty()) {
-                                    $maxOrdrePrecedent = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
-                                        ->whereIn('phase_projet_id', $previousPhaseIds)
-                                        ->max('ordre');
-                                }
-                            }
-                            $ordre = $maxOrdrePrecedent ? $maxOrdrePrecedent + 1 : 1;
-                        }
-
                         $tacheService->create([
                             'projet_id' => $item->projet_id,
                             'titre' => 'Tutoriel : ' . $chapitre->nom,
                             'description' => "Tutoriel lié au chapitre : " . $chapitre->nom,
                             'phase_evaluation_id' => $phaseN1Id,
-                            'priorite' => 1, // Priorité par défaut
+                            'priorite' => $ordre,
                             'ordre' => $ordre,
                             'chapitre_id' => $chapitre->id,
                             'phase_projet_id' => $phaseProjetId
                         ]);
+
+                        // Incrémenter l'ordre pour la prochaine tâche de la boucle
+                        $ordre++;
                     }
                 }
             }
