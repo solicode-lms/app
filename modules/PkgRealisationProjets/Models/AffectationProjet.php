@@ -19,7 +19,7 @@ class AffectationProjet extends BaseAffectationProjet
         $formateur = $this->projet->formateur ?? null;
         
         if ($formateur && $formateur->groupes->count() === 1) {
-            return (string) $this->projet->titre . "*" . $this->projet->formateur; // Afficher uniquement le projet
+            return (string) $this->projet->titre . "*" . $this->projet->formateur->nom; // Afficher uniquement le projet
         }
 
         // Sinon, afficher le projet + le groupe

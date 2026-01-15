@@ -27,7 +27,8 @@ class RealisationTache extends BaseRealisationTache
     {
         parent::__construct($attributes);
         // Colonne dynamique : formateur_name
-        $sql = "SELECT f.nom
+        // SELECT CONCAT(f.nom, ' ', f.prenom)
+        $sql = "SELECT f.nom 
         FROM realisation_projets rp
         JOIN affectation_projets ap ON ap.id = rp.affectation_projet_id
         JOIN projets p ON p.id = ap.projet_id
