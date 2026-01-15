@@ -357,7 +357,6 @@ class BaseTacheService extends BaseService
             'priorite',
             'titre',
             'note',
-            'phase_projet_id',
             'livrables'
         ];
 
@@ -408,22 +407,6 @@ class BaseTacheService extends BaseService
             case 'note':
                 return $this->computeFieldMeta($e, $field, $meta, 'number');
 
-            case 'phase_projet_id':
-                 $values = (new \Modules\PkgCreationTache\Services\PhaseProjetService())
-                    ->getAllForSelect($e->phaseProjet)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
-
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
             case 'livrables':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
             default:
@@ -498,18 +481,6 @@ class BaseTacheService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
-
-                case 'phase_projet_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'phaseProjet'
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-
-
 
                 case 'livrables':
                     // fallback string simple
