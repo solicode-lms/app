@@ -145,89 +145,13 @@ class TacheService extends BaseTacheService
             return;
         }
 
-        $notificationService = new NotificationService();
-
-        // 1) Récupérer toutes les réalisations de projet (apprenants) via les affectations de ce projet
-        $realisationProjets = $tache->projet
-            ->affectationProjets
-            ->flatMap(fn($affectation) => $affectation->realisationProjets);
-
-        $realisationTacheService = new RealisationTacheService();
-        $evaluationTacheService = new EvaluationRealisationTacheService();
-        $etatService = new EtatRealisationTacheService();
-        $evaluationProjetService = new EvaluationRealisationProjetService();
-
-        // Déterminer l'état initial selon l'utilisateur courant (s'il est formateur)
-        $formateurId = Auth::user()->hasRole(Role::FORMATEUR_ROLE)
-            ? Auth::user()->formateur?->id
-            : null;
-
-        $etatInitial = $formateurId
-            ? $etatService->getDefaultEtatByFormateurId($formateurId)
-            : null;
-
-        /** 
-         * 2) Pour chaque réalisation de projet (apprenant), créer une RealisationTache 
-         *    puis, pour chaque évaluateur affecté à l’affectation de projet, créer une EvaluationRealisationTache.
-         */
-        foreach ($realisationProjets as $realisationProjet) {
-            // 2.a) Création de la RealisationTache
-            $realisationTache = $realisationTacheService->create([
-                'tache_id' => $tache->id,
-                'realisation_projet_id' => $realisationProjet->id,
-                'etat_realisation_tache_id' => $etatInitial?->id,
-                'dateDebut' => $tache->dateDebut,
-                'dateFin' => $tache->dateFin,
-            ]);
-
-            // Si la création est annulée (ex: chapitre déjà validé), on saute cette itération
-            if (!$realisationTache) {
-                continue;
-            }
-
-            // 2.b) Notifications aux apprenants pour la nouvelle tâche
-            $userApprenantId = $realisationProjet->apprenant?->user_id;
-            if ($userApprenantId) {
-                $notificationService->sendNotificationToReadData(
-                    'realisationTache',
-                    $realisationTache->id,
-                    $userApprenantId,
-                    "Nouvelle tâche attribuée : {$tache->titre}",
-                    "Vous avez une nouvelle tâche à réaliser : {$tache->titre}",
-                    NotificationType::NOUVELLE_TACHE->value
-                );
-            }
-
-            // 2.c) Si l’affectation de projet a des évaluateurs, créer les évaluations
-            $affectation = $realisationProjet->affectationProjet;
-            if ($affectation?->evaluateurs->isNotEmpty()) {
-                foreach ($affectation->evaluateurs as $evaluateur) {
-
-
-                    // 2.c.i) Créer (ou récupérer) EvaluationRealisationProjet 
-                    $evaluationProjet = EvaluationRealisationProjet::firstWhere([
-                        'realisation_projet_id' => $realisationProjet->id,
-                        'evaluateur_id' => $evaluateur->id,
-                    ]);
-
-                    if (!empty($evaluationProjet)) {
-                        $evaluationTacheService->create([
-                            'realisation_tache_id' => $realisationTache->id,
-                            'evaluateur_id' => $evaluateur->id,
-                            'evaluation_realisation_projet_id' => $evaluationProjet->id,
-                            // 'note' et 'message' restent à remplir lors de l’évaluation
-                        ]);
-                    }
-
-                }
-            }
-        }
+        // 1) Créer les réalisations de tâches pour les apprenants
+        $this->syncRealisationTaches($tache);
 
         // Mise à jour de la date de modification du projet parent
         $tache->projet->touch();
 
-        // 3) Synchroniser les réalisations de compétences (RealisationUaPrototype/Projet) si N2/N3
-        // Garantit que les grilles d'évaluation de compétences sont prêtes pour les apprenants
+        // 2) Synchroniser les réalisations de compétences (RealisationUaPrototype/Projet) si N2/N3
         $this->syncRealisationCompetences($tache);
     }
 
@@ -243,8 +167,95 @@ class TacheService extends BaseTacheService
             $tache->projet->touch();
         }
 
-        // Synchroniser les réalisations de compétences si le niveau d'évaluation a changé ou si nouveau projet
+        // 1) Créer les réalisations de tâches manquantes (ex: nouveaux apprenants)
+        $this->syncRealisationTaches($tache);
+
+        // 2) Synchroniser les réalisations de compétences si le niveau d'évaluation a changé
         $this->syncRealisationCompetences($tache);
+    }
+
+    /**
+     * Synchronise les réalisations de tâches pour tous les apprenants du projet.
+     * Crée les RealisationTache manquantes.
+     */
+    public function syncRealisationTaches($tache)
+    {
+        $notificationService = new NotificationService();
+
+        // Récupérer toutes les réalisations de projet (apprenants) via les affectations de ce projet
+        $realisationProjets = $tache->projet
+            ->affectationProjets
+            ->flatMap(fn($affectation) => $affectation->realisationProjets);
+
+        $realisationTacheService = new RealisationTacheService();
+        $evaluationTacheService = new EvaluationRealisationTacheService();
+        $etatService = new EtatRealisationTacheService();
+        $evaluationProjetService = new EvaluationRealisationProjetService();
+
+        // Déterminer l'état initial selon l'utilisateur courant (s'il est formateur)
+        // Note: Lors d'un update, l'utilisateur est peut-être différent, mais pour la création initiale c'est ok.
+        $formateurId = $tache->projet->formateur_id; // On se base sur le formateur du projet plutôt que Auth pour la consistence en batch
+
+        $etatInitial = $formateurId
+            ? $etatService->getDefaultEtatByFormateurId($formateurId)
+            : null;
+
+        foreach ($realisationProjets as $realisationProjet) {
+            // Unicité : on vérifie si la tâche est déjà réalisée pour cet apprenant
+            $exists = $tache->realisationTaches()
+                ->where('realisation_projet_id', $realisationProjet->id)
+                ->exists();
+
+            if ($exists) {
+                continue;
+            }
+
+            // Création de la RealisationTache
+            $realisationTache = $realisationTacheService->create([
+                'tache_id' => $tache->id,
+                'realisation_projet_id' => $realisationProjet->id,
+                'etat_realisation_tache_id' => $etatInitial?->id,
+                'dateDebut' => $tache->dateDebut,
+                'dateFin' => $tache->dateFin,
+            ]);
+
+            // Si la création est annulée (ex: chapitre déjà validé), on saute cette itération
+            if (!$realisationTache) {
+                continue;
+            }
+
+            // Notifications aux apprenants pour la nouvelle tâche
+            $userApprenantId = $realisationProjet->apprenant?->user_id;
+            if ($userApprenantId) {
+                $notificationService->sendNotificationToReadData(
+                    'realisationTache',
+                    $realisationTache->id,
+                    $userApprenantId,
+                    "Nouvelle tâche attribuée : {$tache->titre}",
+                    "Vous avez une nouvelle tâche à réaliser : {$tache->titre}",
+                    NotificationType::NOUVELLE_TACHE->value
+                );
+            }
+
+            // Si l’affectation de projet a des évaluateurs, créer les évaluations
+            $affectation = $realisationProjet->affectationProjet;
+            if ($affectation?->evaluateurs->isNotEmpty()) {
+                foreach ($affectation->evaluateurs as $evaluateur) {
+                    $evaluationProjet = EvaluationRealisationProjet::firstWhere([
+                        'realisation_projet_id' => $realisationProjet->id,
+                        'evaluateur_id' => $evaluateur->id,
+                    ]);
+
+                    if (!empty($evaluationProjet)) {
+                        $evaluationTacheService->create([
+                            'realisation_tache_id' => $realisationTache->id,
+                            'evaluateur_id' => $evaluateur->id,
+                            'evaluation_realisation_projet_id' => $evaluationProjet->id,
+                        ]);
+                    }
+                }
+            }
+        }
     }
 
     /**

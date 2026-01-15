@@ -40,9 +40,15 @@ trait RealisationProjetCrudTrait
         // Étape 2 : Notification
         $this->notifierApprenant($realisationProjet);
 
-        // Étape 3 : Création des RealisationTache
-        $realisationTacheService = new RealisationTacheService();
-        $realisationTacheService->createFromRealisationProjet($realisationProjet);
+        // Étape 3 : Création des RealisationTache via la mise à jour des tâches
+        // On déclenche un update sur chaque tâche du projet pour que TacheService génère les RealisationTache manquantes
+        $projet = $realisationProjet->affectationProjet->projet;
+        if ($projet) {
+            $tacheService = new \Modules\PkgCreationTache\Services\TacheService();
+            foreach ($projet->taches as $tache) {
+                $tacheService->update($tache->id, ['id' => $tache->id]);
+            }
+        }
     }
 
     /**
