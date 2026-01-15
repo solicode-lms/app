@@ -1,7 +1,6 @@
 <?php
-
-
 namespace Modules\PkgCreationProjet\Services;
+
 use Modules\PkgCreationProjet\Services\Base\BaseMobilisationUaService;
 use Modules\PkgCompetences\Models\UniteApprentissage;
 
@@ -191,13 +190,6 @@ class MobilisationUaService extends BaseMobilisationUaService
                     ->whereIn('chapitre_id', $chapitreIds)
                     ->delete();
             }
-
-            // 2. Nettoyer les réalisations de projet
-            $realisationProjetService = new \Modules\PkgRealisationProjets\Services\RealisationProjetService();
-            $realisationProjetService->removeMobilisationFromProjectRealisations(
-                $mobilisation->projet_id,
-                $mobilisation->unite_apprentissage_id
-            );
         }
 
         $result = parent::destroy($id);

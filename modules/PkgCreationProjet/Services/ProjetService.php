@@ -36,12 +36,15 @@ class ProjetService extends BaseProjetService
      * des phases de projet définies en base de données.
      *
      * @param mixed $session La session de formation (pour les titres/descriptions dynamiques).
-     * @param array $phasesEval Les IDs des phases d'évaluation ['N1' => id, 'N2' => id, 'N3' => id].
      * @return array
      */
-    public static function getTasksConfig($session, $phasesEval)
+    public static function getTasksConfig($session)
     {
         $tasksConfig = [];
+
+        // Récupérer les phases d'évaluation nécessaires
+        $phasesEval = \Modules\PkgCompetences\Models\PhaseEvaluation::pluck('id', 'code')->toArray();
+
         // Utilisation du modèle dans PkgCreationTache comme défini par l'utilisateur
         $phasesProjet = \Modules\PkgCreationTache\Models\PhaseProjet::orderBy('ordre')->get();
 

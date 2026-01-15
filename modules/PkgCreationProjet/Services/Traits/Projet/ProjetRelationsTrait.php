@@ -19,9 +19,8 @@ trait ProjetRelationsTrait
      *
      * Cette méthode orchestre la construction initiale du projet :
      * 1. **Configuration des Tâches** : Elle récupère la séquence des tâches à créer basée sur les phases de projet actives (Analyse, Prototype, Réalisation...).
-     * 2. **Calcul des Barèmes** : Elle agrège les barèmes des compétences mobilisées pour définir les notes maximales des phases d'évaluation (Prototype N2, Projet N3).
-     * 3. **Génération Séquentielle** : Elle itère sur la configuration pour créer les tâches dans l'ordre chronologique défini.
-     * 4. **Intégration des Compétences** : Lors de la phase d'Apprentissage, elle déclenche la création des Mobilisations (UA), ce qui génère automatiquement les tâches de type "Tutoriel" via le service dédié.
+     * 2. **Génération Séquentielle** : Elle itère sur la configuration pour créer les tâches dans l'ordre chronologique défini.
+     * 3. **Intégration des Compétences** : Lors de la phase d'Apprentissage (après l'Analyse), elle déclenche la création des Mobilisations (UA), assurant un ordre et une priorité cohérents pour les tâches générées.
      *
      * @param mixed $projet Le projet cible à initialiser.
      * @param mixed $session La session de formation contenant le référentiel de compétences (Alignement des UA).
@@ -29,22 +28,12 @@ trait ProjetRelationsTrait
      */
     protected function initializeProjectStructure($projet, $session)
     {
+        $tacheService = new \Modules\PkgCreationTache\Services\TacheService();
         $priorite = 1;
         $ordre = 1;
 
-        // Récupérer les IDs des phases d'évaluation (N1, N2, N3)
-        $phaseN1 = PhaseEvaluation::where('code', 'N1')->value('id');
-        $phaseN2 = PhaseEvaluation::where('code', 'N2')->value('id');
-        $phaseN3 = PhaseEvaluation::where('code', 'N3')->value('id');
-
-        // Note : Le calcul des notes pour le prototype et la réalisation est maintenant géré dynamiquement
-        // par le TacheService lors de la création (beforeCreateRules), basé sur les Mobilisations associées.
-
         // Définition de la structure des tâches via le service
-        $tasksConfig = \Modules\PkgCreationProjet\Services\ProjetService::getTasksConfig(
-            $session,
-            ['N1' => $phaseN1, 'N2' => $phaseN2, 'N3' => $phaseN3]
-        );
+        $tasksConfig = \Modules\PkgCreationProjet\Services\ProjetService::getTasksConfig($session);
 
         // Itération sur la configuration ordonnée par les phases de projet
         foreach ($tasksConfig as $taskData) {
@@ -72,23 +61,28 @@ trait ProjetRelationsTrait
                 continue;
             }
 
-            // Création des tâches standards
-            Tache::firstOrCreate(
-                [
+            // Préparation des compteurs
+            $currentPriorite = $priorite++;
+            $currentOrdre = $ordre++;
+
+            // Création des tâches standards via le service pour appliquer les règles métier
+            $exists = Tache::where('projet_id', $projet->id)
+                ->where('titre', $taskData['titre'])
+                ->exists();
+
+            if (!$exists) {
+                $tacheService->create([
                     'projet_id' => $projet->id,
                     'titre' => $taskData['titre'],
-                ],
-                [
                     'description' => $taskData['description'],
-                    'priorite' => $priorite++,
-                    'ordre' => $ordre++,
+                    'priorite' => $currentPriorite,
+                    'ordre' => $currentOrdre,
                     'phase_evaluation_id' => $taskData['phase_evaluation_id'],
                     'chapitre_id' => null,
                     'is_live_coding_task' => false,
-                    // 'note' est calculé automatiquement dans TacheService::beforeCreateRules si null
                     'phase_projet_id' => $taskData['phase_projet_id'] ?? null,
-                ]
-            );
+                ]);
+            }
         }
     }
 
@@ -99,8 +93,8 @@ trait ProjetRelationsTrait
      * ⚠️ **Effets de bord importants déclenchés par MobilisationUaService::create** :
      * 1. **Création des Tâches Tutoriels** : Via le hook `afterCreateRules`, chaque mobilisation génère automatiquement 
      *    les tâches de type "Tutoriel" (Phase Apprentissage) associées aux chapitres de l'UA.
-     * 2. **Synchronisation des Réalisations** : Si des apprenants sont déjà sur le projet, leurs réalisations sont mises à jour
-     *    pour inclure les nouvelles compétences à valider (via `syncRealisationsWithNewMobilisationUa`).
+     * 2. **Synchronisation des Tâches** : Via `triggerTaskSynchronization`, les notes des tâches d'évaluation (N2/N3)
+     *    sont recalculées et les compétences (RealisationUaPrototype/Projet) sont synchronisées via `TacheService`.
      *
      * @param mixed $projet Le projet concerné.
      * @param mixed $session La session de formation source.

@@ -264,10 +264,9 @@ class TacheService extends BaseTacheService
         if (!in_array($code, ['N2', 'N3']))
             return;
 
-        // 2. Récupérer les mobilisations du projet
+        // 2. Récupérer les mobilisations actuelles du projet (les UA valides)
         $mobilisations = MobilisationUa::where('projet_id', $tache->projet_id)->get();
-        if ($mobilisations->isEmpty())
-            return;
+        $validUaIds = $mobilisations->pluck('unite_apprentissage_id')->toArray();
 
         // 3. Récupérer les réalisations de cette tâche
         $realisationTaches = $tache->realisationTaches;
@@ -288,10 +287,25 @@ class TacheService extends BaseTacheService
             if (!$realisationProjet)
                 continue;
 
+            // A. NETTOYAGE : Supprimer les ponts vers des UA qui ne sont plus mobilisées
+            // On supprime les entrées liées à cette réalisation de tâche dont l'UA n'est plus dans $validUaIds
+            if ($code === 'N2') {
+                RealisationUaPrototype::where('realisation_tache_id', $rt->id)
+                    ->whereHas('realisationUa', function ($q) use ($validUaIds) {
+                        $q->whereNotIn('unite_apprentissage_id', $validUaIds);
+                    })->delete();
+            } elseif ($code === 'N3') {
+                RealisationUaProjet::where('realisation_tache_id', $rt->id)
+                    ->whereHas('realisationUa', function ($q) use ($validUaIds) {
+                        $q->whereNotIn('unite_apprentissage_id', $validUaIds);
+                    })->delete();
+            }
+
+            // B. CRÉATION / MISE À JOUR : Ajouter les ponts manquants pour les mobilisations actuelles
             $apprenantId = $realisationProjet->apprenant_id;
 
             foreach ($mobilisations as $mobilisation) {
-                // Récupérer RealisationUa
+                // Récupérer ou créer RealisationUa
                 $realisationUA = $realisationUaService->getOrCreateApprenant(
                     $apprenantId,
                     $mobilisation->unite_apprentissage_id
