@@ -37,24 +37,13 @@ trait ProjetRelationsTrait
         $phaseN2 = PhaseEvaluation::where('code', 'N2')->value('id');
         $phaseN3 = PhaseEvaluation::where('code', 'N3')->value('id');
 
-        // Calculer la note pour le prototype et la réalisation
-        $notePrototype = $session->alignementUas->sum(function ($alignementUa) {
-            return $alignementUa->uniteApprentissage->critereEvaluations
-                ->filter(fn($critere) => optional($critere->phaseEvaluation)->code === 'N2')
-                ->sum('bareme');
-        });
-
-        $noteRealisation = $session->alignementUas->sum(function ($alignementUa) {
-            return $alignementUa->uniteApprentissage->critereEvaluations
-                ->filter(fn($critere) => optional($critere->phaseEvaluation)->code === 'N3')
-                ->sum('bareme');
-        });
+        // Note : Le calcul des notes pour le prototype et la réalisation est maintenant géré dynamiquement
+        // par le TacheService lors de la création (beforeCreateRules), basé sur les Mobilisations associées.
 
         // Définition de la structure des tâches via le service
         $tasksConfig = \Modules\PkgCreationProjet\Services\ProjetService::getTasksConfig(
             $session,
-            ['N1' => $phaseN1, 'N2' => $phaseN2, 'N3' => $phaseN3],
-            ['prototype' => $notePrototype, 'realisation' => $noteRealisation]
+            ['N1' => $phaseN1, 'N2' => $phaseN2, 'N3' => $phaseN3]
         );
 
         // Itération sur la configuration ordonnée par les phases de projet
@@ -96,7 +85,7 @@ trait ProjetRelationsTrait
                     'phase_evaluation_id' => $taskData['phase_evaluation_id'],
                     'chapitre_id' => null,
                     'is_live_coding_task' => false,
-                    'note' => $taskData['note'] ?? 0,
+                    // 'note' est calculé automatiquement dans TacheService::beforeCreateRules si null
                     'phase_projet_id' => $taskData['phase_projet_id'] ?? null,
                 ]
             );

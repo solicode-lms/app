@@ -37,10 +37,9 @@ class ProjetService extends BaseProjetService
      *
      * @param mixed $session La session de formation (pour les titres/descriptions dynamiques).
      * @param array $phasesEval Les IDs des phases d'évaluation ['N1' => id, 'N2' => id, 'N3' => id].
-     * @param array $notes Les notes calculées ['prototype' => float, 'realisation' => float].
      * @return array
      */
-    public static function getTasksConfig($session, $phasesEval, $notes)
+    public static function getTasksConfig($session, $phasesEval)
     {
         $tasksConfig = [];
         // Utilisation du modèle dans PkgCreationTache comme défini par l'utilisateur
@@ -53,7 +52,6 @@ class ProjetService extends BaseProjetService
                         'titre' => 'Analyse',
                         'description' => 'Analyse du projet',
                         'phase_evaluation_id' => null,
-                        'note' => null,
                         'phase_projet_id' => $phase->id,
                     ];
                     break;
@@ -70,7 +68,7 @@ class ProjetService extends BaseProjetService
                         'titre' => optional($session)->titre_prototype ? "Prototype : " . optional($session)->titre_prototype : 'Prototype',
                         'description' => trim((optional($session)->description_prototype ?? '') . "</br><b>Contraintes</b>" . (optional($session)->contraintes_prototype ?? '')),
                         'phase_evaluation_id' => $phasesEval['N2'] ?? null,
-                        'note' => $notes['prototype'] ?? 0,
+                        // Note calculée automatiquement dans TacheService
                         'phase_projet_id' => $phase->id,
                     ];
                     break;
@@ -80,7 +78,6 @@ class ProjetService extends BaseProjetService
                         'titre' => 'Conception',
                         'description' => 'Conception du projet',
                         'phase_evaluation_id' => null,
-                        'note' => null,
                         'phase_projet_id' => $phase->id,
                     ];
                     break;
@@ -90,7 +87,7 @@ class ProjetService extends BaseProjetService
                         'titre' => 'Réalisation',
                         'description' => trim((optional($session)->description_projet ?? '') . "</br><b>Contraintes</b>" . (optional($session)->contraintes_projet ?? '')),
                         'phase_evaluation_id' => $phasesEval['N3'] ?? null,
-                        'note' => $notes['realisation'] ?? 0,
+                        // Note calculée automatiquement dans TacheService
                         'phase_projet_id' => $phase->id,
                     ];
                     break;

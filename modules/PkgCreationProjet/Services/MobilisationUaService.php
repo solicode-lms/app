@@ -167,6 +167,9 @@ class MobilisationUaService extends BaseMobilisationUaService
             if (isset($item->projet)) {
                 $item->projet->touch();
             }
+
+            // 4. Recalcul des notes des tâches N2 (Prototype) et N3 (Réalisation) car le barème a pu changer
+            $this->updateTasksNote($item->projet_id);
         }
     }
 
@@ -174,6 +177,9 @@ class MobilisationUaService extends BaseMobilisationUaService
     {
         if ($item instanceof \Modules\PkgCreationProjet\Models\MobilisationUa && isset($item->projet)) {
             $item->projet->touch();
+
+            // Recalcul des notes des tâches N2 et N3
+            $this->updateTasksNote($item->projet_id);
         }
     }
 
@@ -209,9 +215,47 @@ class MobilisationUaService extends BaseMobilisationUaService
             if (isset($mobilisation->projet)) {
                 $mobilisation->projet->touch();
             }
+
+            // Recalcul des notes des tâches N2 et N3
+            $this->updateTasksNote($mobilisation->projet_id);
         }
 
         return $result;
+    }
+
+    /**
+     * Met à jour les notes des tâches d'évaluation (N2, N3) du projet.
+     * Cette méthode doit être appelée après tout changement dans les mobilisations UA.
+     *
+     * @param int $projectId
+     * @return void
+     */
+    protected function updateTasksNote($projectId)
+    {
+        if (!$projectId)
+            return;
+
+        // Trouver les IDs des phases d'évaluation N2 et N3
+        $phases = \Modules\PkgCompetences\Models\PhaseEvaluation::whereIn('code', ['N2', 'N3'])->pluck('id');
+
+        if ($phases->isEmpty())
+            return;
+
+        // Trouver les tâches correspondantes pour ce projet
+        $taches = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $projectId)
+            ->whereIn('phase_evaluation_id', $phases)
+            ->get();
+
+        if ($taches->isEmpty())
+            return;
+
+        $tacheService = new \Modules\PkgCreationTache\Services\TacheService();
+
+        foreach ($taches as $tache) {
+            // On appelle update avec juste l'ID pour déclencher la logique beforeUpdateRules
+            // qui se chargera de recalculer la note basée sur les UA actuelles.
+            $tacheService->update($tache->id, ['id' => $tache->id]);
+        }
     }
 
     /**

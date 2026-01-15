@@ -29,6 +29,83 @@ class TacheService extends BaseTacheService
 
 
     /**
+     * Hook appelé avant la création d'une tâche.
+     * Calcule automatiquement la note si c'est une tâche de type Evaluateur (N2, N3).
+     *
+     * @param array $data Les données de la tâche.
+     * @return void
+     */
+    public function beforeCreateRules(&$data)
+    {
+        $this->calculateAndSetNote($data);
+    }
+
+    /**
+     * Hook appelé avant la mise à jour d'une tâche.
+     * Recalcule la note si nécessaire (ex: modification du projet ou de la phase).
+     *
+     * @param array $data Les données à mettre à jour.
+     * @return void
+     */
+    public function beforeUpdateRules(&$data)
+    {
+        $this->calculateAndSetNote($data, true);
+    }
+
+    /**
+     * Calcule et injecte la note de la tâche en fonction des UA du projet et de la phase d'évaluation.
+     *
+     * @param array $data Données de la tâche.
+     * @param bool $isUpdate Indique si c'est une mise à jour (pour récupérer les données existantes).
+     */
+    protected function calculateAndSetNote(&$data, $isUpdate = false)
+    {
+        $projectId = $data['projet_id'] ?? null;
+        $phaseEvalId = $data['phase_evaluation_id'] ?? null;
+
+        if ($isUpdate) {
+            // En update, on doit récupérer les infos manquantes depuis l'entité existante
+            $id = $data['id'] ?? null;
+            if ($id) {
+                // On utilise find sans relations pour être léger
+                $tache = $this->model->find($id);
+                if ($tache) {
+                    $projectId = $projectId ?? $tache->projet_id;
+                    $phaseEvalId = $phaseEvalId ?? $tache->phase_evaluation_id;
+                }
+            }
+        }
+
+        if ($projectId && $phaseEvalId) {
+            // Récupérer le code de la phase d'évaluation
+            $phaseEval = \Modules\PkgCompetences\Models\PhaseEvaluation::find($phaseEvalId);
+            if (!$phaseEval)
+                return;
+
+            $code = $phaseEval->code; // N1, N2, N3
+
+            // On ne calcule que pour Prototype (N2) et Réalisation (N3)
+            if (in_array($code, ['N2', 'N3'])) {
+                // Récupérer le projet et ses mobilisations
+                // Optimisation : On ne charge que ce qui est nécessaire pour le calcul
+                $projet = \Modules\PkgCreationProjet\Models\Projet::with(['mobilisationUas.uniteApprentissage.critereEvaluations.phaseEvaluation'])->find($projectId);
+
+                if ($projet) {
+                    $note = $projet->mobilisationUas->sum(function ($mobilisation) use ($code) {
+                        if (!$mobilisation->uniteApprentissage)
+                            return 0;
+                        return $mobilisation->uniteApprentissage->critereEvaluations
+                            ->filter(fn($c) => optional($c->phaseEvaluation)->code === $code)
+                            ->sum('bareme');
+                    });
+
+                    $data['note'] = $note;
+                }
+            }
+        }
+    }
+
+    /**
      * Hook appelé après la création d’une tâche
      * pour générer les réalisations et évaluations associées.
      *
