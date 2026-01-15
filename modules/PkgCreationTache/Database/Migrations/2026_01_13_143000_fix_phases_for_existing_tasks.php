@@ -14,6 +14,12 @@ return new class extends Migration {
      */
     public function up()
     {
+        // Exécuter le seeder pour s'assurer que les phases existent
+        \Illuminate\Support\Facades\Artisan::call('db:seed', [
+            '--class' => 'Modules\\PkgCreationTache\\Database\\Seeders\\PhaseProjetSeeder',
+            '--force' => true
+        ]);
+
         // Instanciation directe du service
         $projetService = new ProjetService();
 
