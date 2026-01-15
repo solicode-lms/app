@@ -30,19 +30,19 @@ class TacheService extends BaseTacheService
 
     /**
      * Hook appelé avant la création d'une tâche.
-     * Calcule automatiquement la note si c'est une tâche de type Evaluateur (N2, N3).
+     * Applique les règles métier (Calcul note, Assignation phase).
      *
      * @param array $data Les données de la tâche.
      * @return void
      */
     public function beforeCreateRules(&$data)
     {
-        $this->calculateAndSetNote($data);
+        $this->applyBusinessRules($data);
     }
 
     /**
      * Hook appelé avant la mise à jour d'une tâche.
-     * Recalcule la note si nécessaire (ex: modification du projet ou de la phase).
+     * Applique les règles métier (Calcul note, Assignation phase).
      *
      * @param array $data Les données à mettre à jour.
      * @param mixed $id L'identifiant de la tâche.
@@ -50,26 +50,21 @@ class TacheService extends BaseTacheService
      */
     public function beforeUpdateRules(&$data, $id = null)
     {
-        $this->calculateAndSetNote($data, true, $id);
+        $this->applyBusinessRules($data, true, $id);
     }
 
     /**
-     * Calcule et injecte la note de la tâche en fonction des UA du projet et de la phase d'évaluation.
-     *
-     * @param array $data Données de la tâche.
-     * @param bool $isUpdate Indique si c'est une mise à jour (pour récupérer les données existantes).
-     * @param mixed $tacheId L'ID de la tâche (cas update).
+     * Applique l'ensemble des règles métier sur les données de la tâche.
      */
-    protected function calculateAndSetNote(&$data, $isUpdate = false, $tacheId = null)
+    protected function applyBusinessRules(&$data, $isUpdate = false, $tacheId = null)
     {
+        // Récupération des données contextuelles
         $projectId = $data['projet_id'] ?? null;
         $phaseEvalId = $data['phase_evaluation_id'] ?? null;
 
         if ($isUpdate) {
-            // En update, on doit récupérer les infos manquantes depuis l'entité existante
             $id = $tacheId ?? $data['id'] ?? null;
             if ($id) {
-                // On utilise find sans relations pour être léger
                 $tache = $this->model->find($id);
                 if ($tache) {
                     $projectId = $projectId ?? $tache->projet_id;
@@ -78,32 +73,52 @@ class TacheService extends BaseTacheService
             }
         }
 
-        if ($projectId && $phaseEvalId) {
-            // Récupérer le code de la phase d'évaluation
-            $phaseEval = \Modules\PkgCompetences\Models\PhaseEvaluation::find($phaseEvalId);
-            if (!$phaseEval)
-                return;
+        if ($phaseEvalId) {
+            $phaseEval = PhaseEvaluation::find($phaseEvalId);
+            if ($phaseEval) {
+                $code = $phaseEval->code; // N1, N2, N3
 
-            $code = $phaseEval->code; // N1, N2, N3
+                // 1. Règle : Mise à jour automatique de la phase projet
+                $this->updatePhaseProjet($data, $code);
 
-            // On ne calcule que pour Prototype (N2) et Réalisation (N3)
-            if (in_array($code, ['N2', 'N3'])) {
-                // Récupérer le projet et ses mobilisations
-                // Optimisation : On ne charge que ce qui est nécessaire pour le calcul
-                $projet = \Modules\PkgCreationProjet\Models\Projet::with(['mobilisationUas.uniteApprentissage.critereEvaluations.phaseEvaluation'])->find($projectId);
+                // 2. Règle : Calcul de la note pour Prototype (N2) et Réalisation (N3)
+                if (in_array($code, ['N2', 'N3']) && $projectId) {
+                    $projet = Projet::with(['mobilisationUas.uniteApprentissage.critereEvaluations.phaseEvaluation'])->find($projectId);
 
-                if ($projet) {
-                    $note = $projet->mobilisationUas->sum(function ($mobilisation) use ($code) {
-                        if (!$mobilisation->uniteApprentissage)
-                            return 0;
-                        return $mobilisation->uniteApprentissage->critereEvaluations
-                            ->filter(fn($c) => optional($c->phaseEvaluation)->code === $code)
-                            ->sum('bareme');
-                    });
+                    if ($projet) {
+                        $note = $projet->mobilisationUas->sum(function ($mobilisation) use ($code) {
+                            if (!$mobilisation->uniteApprentissage)
+                                return 0;
+                            return $mobilisation->uniteApprentissage->critereEvaluations
+                                ->filter(fn($c) => optional($c->phaseEvaluation)->code === $code)
+                                ->sum('bareme');
+                        });
 
-                    $data['note'] = $note;
+                        $data['note'] = $note;
+                    }
                 }
             }
+        }
+    }
+
+    /**
+     * Met à jour la phase projet en fonction du niveau d'évaluation.
+     */
+    protected function updatePhaseProjet(&$data, $phaseEvalCode)
+    {
+        // On ne surcharge la phase projet que si elle n'est pas explicitement fixée
+        // OU si on veut forcer la cohérence. Ici on force la cohérence.
+        $phaseProjet = null;
+        if ($phaseEvalCode === 'N1') {
+            $phaseProjet = PhaseProjet::where('reference', 'APPRENTISSAGE')->first();
+        } elseif ($phaseEvalCode === 'N2') {
+            $phaseProjet = PhaseProjet::where('reference', 'PROTOTYPE')->first();
+        } elseif ($phaseEvalCode === 'N3') {
+            $phaseProjet = PhaseProjet::where('reference', 'REALISATION')->first();
+        }
+
+        if ($phaseProjet) {
+            $data['phase_projet_id'] = $phaseProjet->id;
         }
     }
 
@@ -201,6 +216,10 @@ class TacheService extends BaseTacheService
 
         // Mise à jour de la date de modification du projet parent
         $tache->projet->touch();
+
+        // 3) Synchroniser les ponts de compétences (RealisationUaPrototype/Projet) si N2/N3
+        // Cela couvre le cas où la tâche est créée directement avec le bon niveau
+        $this->syncCompetenceBridges($tache);
     }
 
     /**
@@ -213,6 +232,86 @@ class TacheService extends BaseTacheService
     {
         if (isset($tache->projet)) {
             $tache->projet->touch();
+        }
+
+        // Synchroniser les ponts de compétences si le niveau d'évaluation a changé ou si nouveau projet
+        $this->syncCompetenceBridges($tache);
+    }
+
+    /**
+     * Synchronise les ponts de compétences (RealisationUaPrototype/Projet) pour cette tâche.
+     * Crée les liens nécessaires entre les réalisations de tâche et les UA (via RealisationUa)
+     * pour les phases N2 (Prototype) et N3 (Réalisation).
+     *
+     * @param mixed $tache La tâche concernée.
+     * @return void
+     */
+    public function syncCompetenceBridges($tache)
+    {
+        // 1. Vérifier si N2 ou N3
+        $tache->load('phaseEvaluation');
+        $code = $tache->phaseEvaluation?->code;
+
+        if (!in_array($code, ['N2', 'N3']))
+            return;
+
+        // 2. Récupérer les mobilisations du projet
+        $mobilisations = \Modules\PkgCreationProjet\Models\MobilisationUa::where('projet_id', $tache->projet_id)->get();
+        if ($mobilisations->isEmpty())
+            return;
+
+        // 3. Récupérer les réalisations de cette tâche
+        $realisationTaches = $tache->realisationTaches;
+        if ($realisationTaches->isEmpty())
+            return;
+
+        $realisationUaService = new \Modules\PkgApprentissage\Services\RealisationUaService();
+        $realisationUaProjetService = app(\Modules\PkgApprentissage\Services\RealisationUaProjetService::class);
+        $realisationUaPrototypeService = app(\Modules\PkgApprentissage\Services\RealisationUaPrototypeService::class);
+
+        foreach ($realisationTaches as $rt) {
+            // Charger la relation RealisationProjet si pas chargée
+            if (!$rt->relationLoaded('realisationProjet')) {
+                $rt->load('realisationProjet');
+            }
+            $realisationProjet = $rt->realisationProjet;
+
+            if (!$realisationProjet)
+                continue;
+
+            $apprenantId = $realisationProjet->apprenant_id;
+
+            foreach ($mobilisations as $mobilisation) {
+                // Récupérer RealisationUa
+                $realisationUA = $realisationUaService->getOrCreateApprenant(
+                    $apprenantId,
+                    $mobilisation->unite_apprentissage_id
+                );
+
+                if ($code === 'N2') {
+                    $exists = \Modules\PkgApprentissage\Models\RealisationUaPrototype::where('realisation_tache_id', $rt->id)
+                        ->where('realisation_ua_id', $realisationUA->id)
+                        ->exists();
+                    if (!$exists) {
+                        $realisationUaPrototypeService->create([
+                            'realisation_tache_id' => $rt->id,
+                            'realisation_ua_id' => $realisationUA->id,
+                            'bareme' => $mobilisation->bareme_evaluation_prototype ?? 0,
+                        ]);
+                    }
+                } elseif ($code === 'N3') {
+                    $exists = \Modules\PkgApprentissage\Models\RealisationUaProjet::where('realisation_tache_id', $rt->id)
+                        ->where('realisation_ua_id', $realisationUA->id)
+                        ->exists();
+                    if (!$exists) {
+                        $realisationUaProjetService->create([
+                            'realisation_tache_id' => $rt->id,
+                            'realisation_ua_id' => $realisationUA->id,
+                            'bareme' => $mobilisation->bareme_evaluation_projet ?? 0,
+                        ]);
+                    }
+                }
+            }
         }
     }
 

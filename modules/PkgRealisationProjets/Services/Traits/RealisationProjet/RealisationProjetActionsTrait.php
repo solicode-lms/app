@@ -163,63 +163,27 @@ trait RealisationProjetActionsTrait
         })->get();
 
         $realisationUaService = new RealisationUaService();
-        $realisationUaProjetService = app(RealisationUaProjetService::class);
-        $realisationUaPrototypeService = app(RealisationUaPrototypeService::class);
-        $realisationTacheService = new RealisationTacheService();
 
-
+        // Créer l'entrée de base "RealisationUa" pour chaque apprenant
         foreach ($realisationProjets as $realisationProjet) {
-
-            // 2. Créer ou récupérer l'UA pour l'apprenant (point d'entrée pour la notation)
-            $realisationUA = $realisationUaService->getOrCreateApprenant(
+            $realisationUaService->getOrCreateApprenant(
                 $realisationProjet->apprenant_id,
                 $mobilisation->unite_apprentissage_id
             );
+        }
 
-            // 2bb. LES RÉALISATIONS DE TÂCHES (N1) SONT CRÉÉES AUTOMATIQUEMENT
-            // via le hook TacheService::afterCreateRules lors de la création de la tâche elle-même.
-            // On n'a donc pas besoin de les recréer ici.
-            // $realisationTacheService->createFormMobilisation($realisationProjet, $mobilisation);
+        // 2. Déléguer la création des ponts (RealisationUaPrototype / RealisationUaProjet) au TacheService
+        // On récupère toutes les tâches N2 et N3 du projet
+        $phases = \Modules\PkgCompetences\Models\PhaseEvaluation::whereIn('code', ['N2', 'N3'])->pluck('id');
 
-            // 3. Identifier les tâches N2 (Prototype) du projet
-            $tachesN2 = $realisationProjet->realisationTaches()
-                ->whereHas('tache.phaseEvaluation', function ($q) {
-                    $q->where('code', 'N2');
-                })->get();
+        $taches = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $projetId)
+            ->whereIn('phase_evaluation_id', $phases)
+            ->get();
 
-            foreach ($tachesN2 as $realisationTache) {
-                $exists = RealisationUaPrototype::where('realisation_tache_id', $realisationTache->id)
-                    ->where('realisation_ua_id', $realisationUA->id)
-                    ->exists();
+        $tacheService = new \Modules\PkgCreationTache\Services\TacheService();
 
-                if (!$exists) {
-                    $realisationUaPrototypeService->create([
-                        'realisation_tache_id' => $realisationTache->id,
-                        'realisation_ua_id' => $realisationUA->id,
-                        'bareme' => $mobilisation->bareme_evaluation_prototype ?? 0,
-                    ]);
-                }
-            }
-
-            // 4. Identifier les tâches N3 (Projet) du projet
-            $tachesN3 = $realisationProjet->realisationTaches()
-                ->whereHas('tache.phaseEvaluation', function ($q) {
-                    $q->where('code', 'N3');
-                })->get();
-
-            foreach ($tachesN3 as $realisationTache) {
-                $exists = RealisationUaProjet::where('realisation_tache_id', $realisationTache->id)
-                    ->where('realisation_ua_id', $realisationUA->id)
-                    ->exists();
-
-                if (!$exists) {
-                    $realisationUaProjetService->create([
-                        'realisation_tache_id' => $realisationTache->id,
-                        'realisation_ua_id' => $realisationUA->id,
-                        'bareme' => $mobilisation->bareme_evaluation_projet ?? 0,
-                    ]);
-                }
-            }
+        foreach ($taches as $tache) {
+            $tacheService->syncCompetenceBridges($tache);
         }
     }
 
