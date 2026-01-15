@@ -155,7 +155,7 @@ trait RealisationProjetActionsTrait
      * @param MobilisationUa $mobilisation La nouvelle mobilisation ajoutée.
      * @return void
      */
-    public function syncRealisationsWithNewMobilisationUa(int $projetId, MobilisationUa $mobilisation): void
+    public function syncRealisationUaAndCompetenceBridges(int $projetId, MobilisationUa $mobilisation): void
     {
         // 1. Récupérer toutes les réalisations liées à ce projet
         $realisationProjets = $this->model->whereHas('affectationProjet', function ($q) use ($projetId) {

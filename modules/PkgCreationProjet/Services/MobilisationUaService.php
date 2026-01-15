@@ -154,21 +154,13 @@ class MobilisationUaService extends BaseMobilisationUaService
                 }
             }
 
-            // 2. Synchroniser avec les réalisations de projet existantes (élèves)
-            // Lorsqu'une nouvelle Mobilisation U.A est ajoutée à un projet, il faut mettre à jour
-            // les réalisations des élèves déjà affectés à ce projet. 
-            // Cela implique de créer pour eux :
-            // - Les RealisationUaPrototype (pour la phase N2 prototype)
-            // - Les RealisationUaProjet (pour la phase N3 projet)
-            $realisationProjetService = new \Modules\PkgRealisationProjets\Services\RealisationProjetService();
-            $realisationProjetService->syncRealisationsWithNewMobilisationUa($item->projet_id, $item);
-
-            // 3. Mise à jour de la date de modification du projet parent
+            // 2. Mise à jour de la date de modification du projet parent
             if (isset($item->projet)) {
                 $item->projet->touch();
             }
 
-            // 4. Recalcul des notes des tâches N2 (Prototype) et N3 (Réalisation) car le barème a pu changer
+            // 3. Recalcul des notes des tâches N2 (Prototype) et N3 (Réalisation)
+            // Cela déclenche aussi la synchronisation des compétences (RealisationUa) via TacheService::afterUpdateRules
             $this->updateTasksNote($item->projet_id);
         }
     }
