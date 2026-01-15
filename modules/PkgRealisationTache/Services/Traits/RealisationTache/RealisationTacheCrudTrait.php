@@ -43,11 +43,11 @@ trait RealisationTacheCrudTrait
         }
 
         // 2. Règle métier : Si le chapitre lié est déjà validé (DONE) pour l'apprenant,
-        // la tâche doit être initialisée automatiquement à un état validé (ex: APPROVED)
-        // pour refléter l'acquis et éviter la redondance.
-        $overrideEtatId = $this->getEtatInitialIfChapitreDone($data);
-        if ($overrideEtatId) {
-            $data['etat_realisation_tache_id'] = $overrideEtatId;
+        // on n'ajoute PAS la réalisation de tâche.
+        // On définit le flag d'annulation pour CrudCreateTrait.
+        if ($this->shouldSkipCreationIfChapitreDone($data)) {
+            $data['__abort_creation'] = true;
+            return;
         }
     }
 
@@ -140,25 +140,32 @@ trait RealisationTacheCrudTrait
                         })->value('id');
 
                         if ($etatApprovedId) {
-                            $descValidation = "Apprentissage de l'UA " . $ua->nom . " est Done";
+                            // Trouver la tâche du dernier chapitre
+                            $dernierChapitre = $ua->chapitres()->orderBy('ordre', 'desc')->first();
 
-                            // Vérification d'existence pour éviter doublons
-                            $validationExists = RealisationTache::where('tache_id', $tache->id)
-                                ->where('realisation_projet_id', $realisationProjet->id)
-                                ->where('description', $descValidation)
-                                ->exists();
+                            if ($dernierChapitre) {
+                                // On cherche la tâche principale (ou unique) liée à ce chapitre
+                                $tacheDernierChapitre = \Modules\PkgCreationTache\Models\Tache::where('chapitre_id', $dernierChapitre->id)->first();
 
-                            if (!$validationExists) {
-                                $realisationTacheService = new \Modules\PkgRealisationTache\Services\RealisationTacheService();
-                                // On crée une réalisation "fictive" mais liée à la tâche réelle
-                                $realisationTacheService->create([
-                                    'tache_id' => $tache->id,
-                                    'realisation_projet_id' => $realisationProjet->id,
-                                    'etat_realisation_tache_id' => $etatApprovedId,
-                                    'date_debut' => now(),
-                                    'date_fin' => now(),
-                                    'description' => $descValidation
-                                ]);
+                                if ($tacheDernierChapitre) {
+                                    // Vérification d'existence pour éviter doublons et boucles infinies
+                                    // On vérifie si une réalisation existe déjà pour CE projet et CETTE tâche
+                                    $exists = RealisationTache::where('tache_id', $tacheDernierChapitre->id)
+                                        ->where('realisation_projet_id', $realisationProjet->id)
+                                        ->exists();
+
+                                    if (!$exists) {
+                                        $realisationTacheService = new \Modules\PkgRealisationTache\Services\RealisationTacheService();
+                                        $realisationTacheService->create([
+                                            'tache_id' => $tacheDernierChapitre->id,
+                                            'realisation_projet_id' => $realisationProjet->id,
+                                            'etat_realisation_tache_id' => $etatApprovedId,
+                                            'date_debut' => now(),
+                                            'date_fin' => now(),
+                                            'description' => "Validation automatique via UA Completed" // Optionnel
+                                        ]);
+                                    }
+                                }
                             }
                         }
                     }
@@ -373,20 +380,23 @@ trait RealisationTacheCrudTrait
      * Helper pour encapsuler la logique de récupération de l'état "DONE"
      * si le chapitre associé est terminé.
      */
-    protected function getEtatInitialIfChapitreDone(array $data): ?int
+    /**
+     * Helper pour vérifier si le chapitre est déjà validé.
+     */
+    protected function shouldSkipCreationIfChapitreDone(array $data): bool
     {
         if (empty($data['tache_id']) || empty($data['realisation_projet_id'])) {
-            return null;
+            return false;
         }
 
         $tache = Tache::with('chapitre')->find($data['tache_id']);
         if (!$tache || !$tache->chapitre) {
-            return null;
+            return false;
         }
 
         $realisationProjet = RealisationProjet::with('affectationProjet.projet')->find($data['realisation_projet_id']);
         if (!$realisationProjet) {
-            return null;
+            return false;
         }
 
         // Vérification de l'état du chapitre pour cet apprenant
@@ -397,20 +407,7 @@ trait RealisationTacheCrudTrait
         );
 
         $realisationChapitreService = app(\Modules\PkgApprentissage\Services\RealisationChapitreService::class);
-        $chapitreEstValide = $realisationChapitreService->isChapitreAlreadyDone($tache->chapitre->id, $realisationUA->id);
-
-        // Si chapitre terminé, on cherche l'état correspondant (APPROVED/DONE)
-        if ($chapitreEstValide) {
-            $formateurId = $realisationProjet->affectationProjet->projet->formateur_id ?? null;
-            if ($formateurId) {
-                $etatDone = (new \Modules\PkgRealisationTache\Services\EtatRealisationTacheService())
-                    ->getDoneEtatByFormateurId($formateurId);
-
-                return $etatDone ? $etatDone->id : null;
-            }
-        }
-
-        return null;
+        return $realisationChapitreService->isChapitreAlreadyDone($tache->chapitre->id, $realisationUA->id);
     }
 
 }

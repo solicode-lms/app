@@ -9,18 +9,18 @@ use Illuminate\Support\Facades\DB;
 trait CrudCreateTrait
 {
 
-    
+
     public function createInstance(array $data = [])
     {
         // Créer une nouvelle instance du modèle
         $item = $this->model::make();
-    
+
         // Récupérer toutes les variables de contexte
         $contextVariables = $this->viewState->getFormVariables($this->modelName);
-    
+
         // Fusionner les données ($data a la priorité sur $contextVariables)
         $mergedData = array_merge($contextVariables, $data);
-    
+
         // Appliquer les valeurs aux champs "fillable" du modèle
         foreach ($mergedData as $key => $value) {
             if ($item->isFillable($key)) { // Vérifier si l'attribut est fillable
@@ -32,14 +32,14 @@ trait CrudCreateTrait
         // Gérer les relations ManyToMany sans les enregistrer en base
         if (property_exists($item, 'manyToMany')) {
 
-          
-            
+
+
             foreach ($item->manyToMany as $relationConfig) {
 
                 $relation = $relationConfig['relation']; // ex: 'apprenants'
                 $foreignKey = $relationConfig['foreign_key']; // ex: 'apprenant_id'
 
-                
+
                 if (isset($mergedData[$relation]) && is_array($mergedData[$relation])) {
                     // Stocker temporairement les relations sans affecter la base de données
                     $item->setRelation($relation, collect($mergedData[$relation]));
@@ -63,8 +63,12 @@ trait CrudCreateTrait
     public function create(array|object $data)
     {
         return DB::transaction(function () use ($data) {
-            
+
             $this->executeRules('before', 'create', $data, null);
+
+            if (isset($data['__abort_creation']) && $data['__abort_creation'] === true) {
+                return null;
+            }
 
             if (is_object($data) && $data instanceof Model) {
                 $data = $data->getAttributes();
@@ -103,7 +107,7 @@ trait CrudCreateTrait
             return $entity;
         });
     }
-  
+
     /**
      * Met à jour ou crée un nouvel enregistrement basé sur des critères spécifiques.
      *
@@ -125,7 +129,7 @@ trait CrudCreateTrait
         foreach ($attributes as $key => $value) {
             $query = $query->where($key, $value);
         }
-    
+
         // Rechercher l'entité existante
         $entity = $query->first();
 
