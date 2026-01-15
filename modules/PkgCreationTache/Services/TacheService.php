@@ -45,11 +45,12 @@ class TacheService extends BaseTacheService
      * Recalcule la note si nécessaire (ex: modification du projet ou de la phase).
      *
      * @param array $data Les données à mettre à jour.
+     * @param mixed $id L'identifiant de la tâche.
      * @return void
      */
-    public function beforeUpdateRules(&$data)
+    public function beforeUpdateRules(&$data, $id = null)
     {
-        $this->calculateAndSetNote($data, true);
+        $this->calculateAndSetNote($data, true, $id);
     }
 
     /**
@@ -57,15 +58,16 @@ class TacheService extends BaseTacheService
      *
      * @param array $data Données de la tâche.
      * @param bool $isUpdate Indique si c'est une mise à jour (pour récupérer les données existantes).
+     * @param mixed $tacheId L'ID de la tâche (cas update).
      */
-    protected function calculateAndSetNote(&$data, $isUpdate = false)
+    protected function calculateAndSetNote(&$data, $isUpdate = false, $tacheId = null)
     {
         $projectId = $data['projet_id'] ?? null;
         $phaseEvalId = $data['phase_evaluation_id'] ?? null;
 
         if ($isUpdate) {
             // En update, on doit récupérer les infos manquantes depuis l'entité existante
-            $id = $data['id'] ?? null;
+            $id = $tacheId ?? $data['id'] ?? null;
             if ($id) {
                 // On utilise find sans relations pour être léger
                 $tache = $this->model->find($id);
