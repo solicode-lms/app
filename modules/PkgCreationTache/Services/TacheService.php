@@ -77,6 +77,11 @@ class TacheService extends BaseTacheService
                 'dateFin' => $tache->dateFin,
             ]);
 
+            // Si la création est annulée (ex: chapitre déjà validé), on saute cette itération
+            if (!$realisationTache) {
+                continue;
+            }
+
             // 2.b) Notifications aux apprenants pour la nouvelle tâche
             $userApprenantId = $realisationProjet->apprenant?->user_id;
             if ($userApprenantId) {

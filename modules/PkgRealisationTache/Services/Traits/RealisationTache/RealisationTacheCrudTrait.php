@@ -46,6 +46,12 @@ trait RealisationTacheCrudTrait
         // on n'ajoute PAS la réalisation de tâche.
         // On définit le flag d'annulation pour CrudCreateTrait.
         if ($this->shouldSkipCreationIfChapitreDone($data)) {
+            // Même si on annule la création de cette tâche spécifique,
+            // on doit vérifier si cela complète l'UA (cas où tous les chapitres sont déjà faits).
+            if (isset($data['tache_id']) && isset($data['realisation_projet_id'])) {
+                $this->checkAndPerformUaValidationLogic($data['tache_id'], $data['realisation_projet_id']);
+            }
+
             $data['__abort_creation'] = true;
             return;
         }
@@ -385,6 +391,11 @@ trait RealisationTacheCrudTrait
      */
     protected function shouldSkipCreationIfChapitreDone(array $data): bool
     {
+        // Bypass si flag explicite (pour éviter boucle infinie lors de création automatique)
+        if (isset($data['__bypass_chapter_check']) && $data['__bypass_chapter_check'] === true) {
+            return false;
+        }
+
         if (empty($data['tache_id']) || empty($data['realisation_projet_id'])) {
             return false;
         }
@@ -408,6 +419,71 @@ trait RealisationTacheCrudTrait
 
         $realisationChapitreService = app(\Modules\PkgApprentissage\Services\RealisationChapitreService::class);
         return $realisationChapitreService->isChapitreAlreadyDone($tache->chapitre->id, $realisationUA->id);
+    }
+
+    /**
+     * Vérifie si l'UA est terminée et crée la tâche de validation du dernier chapitre si nécessaire.
+     */
+    protected function checkAndPerformUaValidationLogic(int $tacheId, int $realisationProjetId): void
+    {
+        $tache = \Modules\PkgCreationTache\Models\Tache::with('chapitre.uniteApprentissage.chapitres')->find($tacheId);
+        $realisationProjet = \Modules\PkgRealisationProjets\Models\RealisationProjet::with('apprenant')->find($realisationProjetId);
+
+        if (!$tache || !$tache->chapitre || !$realisationProjet) {
+            return;
+        }
+
+        $ua = $tache->chapitre->uniteApprentissage;
+        if ($ua) {
+            $totalChapitres = $ua->chapitres->count();
+
+            $realisationUaService = new \Modules\PkgApprentissage\Services\RealisationUaService();
+            $realisationUA = $realisationUaService->getOrCreateApprenant(
+                $realisationProjet->apprenant_id,
+                $tache->chapitre->unite_apprentissage_id
+            );
+
+            // On compte les chapitres validés pour cette UA et cet apprenant
+            $chapitresValides = \Modules\PkgApprentissage\Models\RealisationChapitre::where('realisation_ua_id', $realisationUA->id)
+                ->whereHas('etatRealisationChapitre', function ($q) {
+                    $q->where('code', 'DONE');
+                })
+                ->count();
+
+            if ($chapitresValides >= $totalChapitres) {
+                $etatApprovedId = \Modules\PkgRealisationTache\Models\EtatRealisationTache::whereHas('workflowTache', function ($q) {
+                    $q->where('code', 'APPROVED');
+                })->value('id');
+
+                if ($etatApprovedId) {
+                    // Trouver la tâche du dernier chapitre
+                    $dernierChapitre = $ua->chapitres()->orderBy('ordre', 'desc')->first();
+
+                    if ($dernierChapitre) {
+                        $tacheDernierChapitre = \Modules\PkgCreationTache\Models\Tache::where('chapitre_id', $dernierChapitre->id)->first();
+
+                        if ($tacheDernierChapitre) {
+                            $exists = RealisationTache::where('tache_id', $tacheDernierChapitre->id)
+                                ->where('realisation_projet_id', $realisationProjet->id)
+                                ->exists();
+
+                            if (!$exists) {
+                                $realisationTacheService = new \Modules\PkgRealisationTache\Services\RealisationTacheService();
+                                $realisationTacheService->create([
+                                    'tache_id' => $tacheDernierChapitre->id,
+                                    'realisation_projet_id' => $realisationProjet->id,
+                                    'etat_realisation_tache_id' => $etatApprovedId,
+                                    'date_debut' => now(),
+                                    'date_fin' => now(),
+                                    'description' => "Validation automatique via UA Completed",
+                                    '__bypass_chapter_check' => true
+                                ]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }
