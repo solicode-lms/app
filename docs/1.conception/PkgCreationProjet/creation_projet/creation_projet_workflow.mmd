@@ -3,20 +3,49 @@ sequenceDiagram
     actor Formateur
     participant Ctrl as ProjetController
     participant PS as ProjetService (PkgCreationProjet)
+    participant MS as MobilisationUaService (PkgCompetences)
+    participant TS as TacheService (PkgCreationTache)
 
-    Note over Ctrl, PS: USE CASE : Créer un Projet (Avec/Sans Session)
+    Note over Ctrl, TS: USE CASE : Création Projet (Ordonnancement Strict)
 
-    Formateur->>Ctrl: POST /projets (data)
+    Formateur->>Ctrl: POST /projets (data + uas?)
     Ctrl->>PS: create(data)
     
     activate PS
-    Note right of PS: SRP: ProjetService gère uniquement<br/>la table 'projets'.
+    PS->>PS: Insert Projet (Conteneur)
     
-    alt Avec Session (contexte fourni)
-        PS->>PS: Associer session/année (logique interne)
+    alt Si Projet Planifié (Avec Session)
+        
+        Note right of PS: Driver principal : Configuration du Projet
+        PS->>PS: $config = getTasksConfig()
+        
+        loop Pour chaque Item de la Config (Ordre Croissant)
+            
+            alt Item est une Tâche Standard (ex: Analyse)
+                PS->>TS: create(tacheData)
+                Note right of TS: Tache crée avec ordre N
+            
+            else Item est le Marqueur "MOBILISATION_UA"
+                Note right of PS: Insertion des UAs au bon moment
+                loop Pour chaque UA sélectionnée
+                    PS->>MS: create(projet_id, ua_id)
+                    activate MS
+                    Note right of MS: Hook -> Création Tâches Chapitres
+                    MS->>TS: createTasksFromUa(...)
+                    activate TS
+                    TS->>TS: Insert Tâches Chapitre (ordre N+x)
+                    TS-->>MS: OK
+                    deactivate TS
+                    MS-->>PS: OK
+                    deactivate MS
+                end
+            end
+            
+        end
+
+    else Si Projet Libre
+        Note right of PS: STOP. Pas de génération de contenu.
     end
     
-    PS->>PS: Validation Règles Métier
-    PS->>PS: DB Insert Projet
-    PS-->>Ctrl: Projet Created
+    PS-->>Ctrl: Projet Initialisé
     deactivate PS
