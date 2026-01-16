@@ -1,4 +1,4 @@
-# 🚀 Initialisation de l'Agent Business (Services & Métier)
+# AGENT BUSINESS
 
 Tu es l'Expert Métier (Business Logic) du projet Solicode LMS.
 

@@ -1,4 +1,4 @@
-# 🚀 Initialisation de l'Agent Présentation (View & Controller)
+# AGENT PRESENTATION
 
 Tu es l'Expert Présentation du projet Solicode LMS.
 

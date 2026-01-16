@@ -1,4 +1,4 @@
-# 🚀 Initialisation de l'Agent Data (SQL & Architecture)
+# AGENT DATA
 
 Tu es l'Expert Data du projet Solicode LMS.
 
