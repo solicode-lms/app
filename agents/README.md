@@ -25,34 +25,42 @@ Chaque agent chargera automatiquement son contexte et activera son mode "Apprent
 
 ---
 
-## 📡 Communication Inter-Agents (Le Protocole)
+## 📡 Communication Inter-Agents (Le BUS Automatique)
 
-Les agents sont isolés dans leurs fenêtres de discussion respectives, mais ils travaillent sur le même code source. Pour les faire collaborer efficacement, vous (le développeur) agissez comme le **bus de communication**.
+Chaque agent dispose désormais d'un fichier `communication_agent_*.md` dans son dossier. C'est sa **Boîte aux Lettres**.
 
-### Scénario Typique : Création d'une nouvelle fonctionnalité "Gestion des Cours"
+### Comment ça marche ?
 
-#### Étape 1 : Architecture des Données (Agent Data)
-1.  Ouvrez l'onglet **Agent Data**.
-2.  Demandez : *"Prépare la migration et le modèle pour la table `cours`."*
-3.  L'agent crée le fichier de migration et le modèle Eloquent.
+1.  **Au Démarrage** :
+    L'agent lit automatiquement son fichier `communication_agent_[NOM].md` pour voir si ses collègues (Data, Business, etc.) lui ont laissé des instructions ou des statuts.
 
-#### Étape 2 : Logique Métier (Agent Business)
-1.  Ouvrez l'onglet **Agent Business**.
-2.  Dites-lui : *"L'Agent Data a créé le modèle `Cours`. Crée maintenant le `CoursService` avec les méthodes `create` et `publish`."*
-3.  L'agent lit les nouveaux fichiers créés par l'Agent Data et implémente la logique.
+2.  **En Fin de Tâche** :
+    Si l'Agent Data termine de créer une table, il va (si le prompt initial est respecté) écrire un petit message dans le `communication_agent_business.md` de l'Agent Business pour le prévenir :
+    > *Écriture dans `agents/02_agent_business/communication_agent_business.md` :*
+    > `[De Agent Data] : J'ai créé la table 'cours'. Le modèle est prêt.`
 
-#### Étape 3 : Interface Utilisateur (Agent Présentation)
-1.  Ouvrez l'onglet **Agent Présentation**.
-2.  Dites-lui : *"Utilise le `CoursService` créé par l'Agent Business pour afficher la liste des cours dans un contrôleur et une vue Blade."*
-3.  L'agent connecte le tout et génère l'interface finale.
+3.  **Votre Rôle** :
+    Vous n'avez plus besoin de tout répéter. Dites simplement à l'agent : *"Vérifie tes messages et commence le travail."*
 
-### Astuce "Presse-Papier"
-Si un agent a besoin d'informations complexes produites par un autre (ex: une documentation API générée par Business pour Presentation), demandez à l'Agent Business de **générer un fichier markdown temporaire** (ex: `docs/specs_temp.md`) que l'Agent Présentation pourra lire.
+### Scénario Typique Mise à Jour
+
+#### Étape 1 : Agent Data
+Il crée la table.
+*Action* : Il écrit dans `02_agent_business/communication_agent_business.md` -> "Table OK".
+
+#### Étape 2 : Agent Business
+Vous lancez l'agent. Il lit son inbox. Il voit "Table OK".
+Il code le Service.
+*Action* : Il écrit dans `01_agent_presentation/communication_agent_presentation.md` -> "Service OK".
+
+#### Étape 3 : Agent Présentation
+Il lit son inbox. Il voit "Service OK".
+Il génère la Vue.
 
 ---
 
-## 🧠 Apprentissage Continu (Fichiers `rules.md`)
+## 🧠 Apprentissage Continu (Fichiers `rules_agent_*.md`)
 
-Chaque agent possède un fichier `rules.md` dans son dossier.
+Chaque agent possède un fichier `rules_agent_[NOM].md` dans son dossier.
 - Si vous corrigez souvent l'agent sur un point précis, il vous proposera d'ajouter une règle dans ce fichier.
 - **Acceptez sa proposition** pour qu'il ne refasse plus la même erreur la prochaine fois.
