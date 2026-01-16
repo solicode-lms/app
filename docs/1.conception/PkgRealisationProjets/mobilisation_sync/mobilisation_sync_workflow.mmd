@@ -1,0 +1,62 @@
+sequenceDiagram
+    autonumber
+    actor Formateur
+    participant Ctrl as MobilisationController
+    participant MS as MobilisationUaService
+    participant RP_S as RealisationProjetService
+    participant RTS as RealisationTacheService
+    participant TS as TacheService
+
+    Note over Ctrl, TS: Scénario 4 et 5 : Ajout/Suppression Mobilisation (Impact Dynamique)
+
+    %% AJOUTER MOBILISATION
+    Formateur->>Ctrl: POST /mobilisations (projet_id, ua_id)
+    Ctrl->>MS: create(projet_id, ua_id)
+    activate MS
+    MS->>MS: DB Insert MobilisationUa
+    
+    Note right of MS: Hook afterCreateRules : La mobilisation change le périmètre du projet.<br/>Il faut synchroniser les tâches existantes.
+    
+    MS->>RP_S: syncTasksWithMobilisation(projet_id, mobilisations)
+    activate RP_S
+    
+    RP_S->>TS: getTasksLinkedToUa(ua_id)
+    TS-->>RP_S: Collection<Tache> (Nouvelles tâches requises)
+    
+    loop Pour chaque RealisationProjet (Apprenants actifs)
+        loop Pour chaque Nouvelle Tâche
+            RP_S->>RTS: create(realisation_projet_id, tache_id)
+            Note right of RP_S: SRP: On ajoute dynamiquement<br/>les tâches de la nouvelle UA.
+        end
+    end
+    
+    RP_S-->>MS: Sync Done
+    deactivate RP_S
+    MS-->>Ctrl: Mobilisation Ajoutée + Tâches Ajoutées
+    deactivate MS
+
+    %% SUPPRIMER MOBILISATION
+    Formateur->>Ctrl: DELETE /mobilisations/{id}
+    Ctrl->>MS: delete(id)
+    activate MS
+    
+    Note right of MS: Hook beforeDeleteRules
+    MS->>RP_S: removeTasksForMobilisation(projet_id, ua_id)
+    activate RP_S
+    
+    RP_S->>TS: getTasksLinkedToUa(ua_id)
+    TS-->>RP_S: Collection<Tache> (Tâches à retirer)
+    
+    loop Pour chaque RealisationProjet
+        loop Pour chaque Tache à retirer
+            RP_S->>RTS: deleteIfStatus(realisation_projet_id, tache_id, 'TODO')
+            Note right of RP_S: Sécurité: On ne supprime que si<br/>la tâche n'est pas commencée.
+        end
+    end
+    
+    RP_S-->>MS: Sync Done
+    deactivate RP_S
+    
+    MS->>MS: DB Delete MobilisationUa
+    MS-->>Ctrl: Mobilisation & Tâches Supprimées
+    deactivate MS

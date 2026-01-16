@@ -1,0 +1,20 @@
+sequenceDiagram
+    autonumber
+    actor Formateur
+    participant Ctrl as TacheController
+    participant TS as TacheService
+    participant RTS as RealisationTacheService
+
+    Note over Ctrl, RTS: USE CASE : Modifier une Tâche
+
+    Formateur->>Ctrl: PUT /taches/{id}
+    Ctrl->>TS: update(id, data)
+    activate TS
+    TS->>TS: DB Update Tache
+    
+    alt Si changement critique (ex: date limite, livrable)
+        TS->>RTS: updateMetadataByTache(tache_id, data)
+        Note right of TS: Sync vers les réalisations existantes
+    end
+    TS-->>Ctrl: OK
+    deactivate TS

@@ -1,0 +1,22 @@
+sequenceDiagram
+    autonumber
+    actor Formateur
+    participant Ctrl as ProjetController
+    participant PS as ProjetService (PkgCreationProjet)
+
+    Note over Ctrl, PS: USE CASE : Créer un Projet (Avec/Sans Session)
+
+    Formateur->>Ctrl: POST /projets (data)
+    Ctrl->>PS: create(data)
+    
+    activate PS
+    Note right of PS: SRP: ProjetService gère uniquement<br/>la table 'projets'.
+    
+    alt Avec Session (contexte fourni)
+        PS->>PS: Associer session/année (logique interne)
+    end
+    
+    PS->>PS: Validation Règles Métier
+    PS->>PS: DB Insert Projet
+    PS-->>Ctrl: Projet Created
+    deactivate PS

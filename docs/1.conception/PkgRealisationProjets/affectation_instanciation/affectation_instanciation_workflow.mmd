@@ -1,0 +1,44 @@
+sequenceDiagram
+    autonumber
+    actor Admin
+    participant Ctrl as AffectationController
+    participant AS as AffectationProjetService
+    participant PS as ProjetService
+    participant TS as TacheService
+    participant RP_S as RealisationProjetService
+    participant RTS as RealisationTacheService
+
+    Note over Ctrl, RTS: Scénario 3 : Affectation d'un Projet à un Groupe (Le "Big Bang")
+
+    Admin->>Ctrl: POST /affectations (projet_id, groupe_id)
+    Ctrl->>AS: create(projet_id, groupe_id)
+    activate AS
+    
+    AS->>AS: DB Insert Affectation
+    
+    Note right of AS: Hook afterCreateRules
+    Note right of AS: SRP: AffectationService délègue<br/>la création des réalisations à RealisationProjetService.
+    
+    AS->>RP_S: generateRealisations(affectation_projet_id, groupe_id)
+    activate RP_S
+    
+    RP_S->>RP_S: Récupérer Apprenants du Groupe
+    
+    loop Pour chaque Apprenant
+        RP_S->>RP_S: DB Insert RealisationProjet
+        
+        Note right of RP_S: SRP: RP_S a besoin des tâches pour<br/>créer les RealisationTaches. Il appelle TacheService.
+        RP_S->>TS: getTasksForProject(projet_id)
+        TS-->>RP_S: Collection<Tache>
+        
+        loop Pour chaque Tache
+             RP_S->>RTS: create(realisation_projet_id, tacheReference)
+             Note right of RP_S: SRP: RP_S délègue l'insertion<br/>finale à RealisationTacheService.
+        end
+    end
+    
+    RP_S-->>AS: Terminé
+    deactivate RP_S
+
+    AS-->>Ctrl: Affectation Réussie (Tout est initialisé)
+    deactivate AS

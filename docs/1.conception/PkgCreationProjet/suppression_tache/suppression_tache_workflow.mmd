@@ -1,0 +1,20 @@
+sequenceDiagram
+    autonumber
+    actor Formateur
+    participant Ctrl as TacheController
+    participant TS as TacheService
+    participant RTS as RealisationTacheService
+
+    Note over Ctrl, RTS: USE CASE : Supprimer une Tâche
+
+    Formateur->>Ctrl: DELETE /taches/{id}
+    Ctrl->>TS: delete(id)
+    activate TS
+    
+    Note right of TS: Hook beforeDeleteRules
+    TS->>RTS: deleteByTache(tache_id)
+    Note right of TS: SRP: TS demande à RTS de supprimer<br/>les réalisations liées avant de se supprimer.
+    
+    TS->>TS: DB Delete Tache
+    TS-->>Ctrl: OK
+    deactivate TS
