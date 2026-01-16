@@ -97,7 +97,34 @@ trait ProjetCrudTrait
         }
 
         // 🔹 Ajout des livrables par défaut via ProjetActionsTrait
+        // 🔹 Ajout des livrables par défaut via ProjetActionsTrait
         $this->addDefaultLivrables($projet);
+
+        // 🔹 Règle de Sécurité : Réordonnancement global
+        // Garantit que l'ordre des tâches respecte l'ordre des phases (ex: Analyse < Apprentissage)
+        $this->reorderTasksByPhase($projet->id);
+    }
+
+    /**
+     * Réordonne toutes les tâches d'un projet en fonction de l'ordre de leur phase.
+     */
+    protected function reorderTasksByPhase($projetId)
+    {
+        $taches = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $projetId)
+            ->join('phase_projets', 'taches.phase_projet_id', '=', 'phase_projets.id')
+            ->orderBy('phase_projets.ordre', 'asc')
+            ->orderBy('taches.id', 'asc')
+            ->select('taches.*')
+            ->get();
+
+        $ordre = 1;
+        foreach ($taches as $tache) {
+            if ($tache->ordre !== $ordre) {
+                $tache->ordre = $ordre;
+                $tache->saveQuietly();
+            }
+            $ordre++;
+        }
     }
 
     /**

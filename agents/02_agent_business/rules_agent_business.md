@@ -9,3 +9,5 @@
     1. `{NomWorkflow}_spec.md` : Spécification textuelle.
     2. `{NomWorkflow}_workflow.mmd` : Diagramme de séquence Mermaid.
 - [Règle Granularité] : Chaque **Use Case (Cas d'Utilisation)** distinct doit être considéré comme un processus métier à part entière et posséder son propre dossier de workflow (ex: ne pas mélanger Création et Suppression dans le même fichier si la logique diffère).
+- [Règle Adaptation Code] : Lors de l'implémentation d'un diagramme de séquence, ne modifiez pas les signatures des méthodes existantes si elles sont fonctionnelles. Adaptez le workflow aux hooks (`afterCreateRules`, etc.) et paramètres disponibles.
+- [Règle Traits] : Lors de la modification d'un Service utilisant des Traits, VOUS DEVEZ LIRE toutes les méthodes de tous les Traits importés. Cela est CRITIQUE pour éviter d'écraser silencieusement des méthodes importantes (ex: `afterCreateRules`) et de briser des fonctionnalités existantes. Si une méthode est surchargée, assurez-vous de restaurer la logique du Trait (ex: via `parent::` ou appel explicite).

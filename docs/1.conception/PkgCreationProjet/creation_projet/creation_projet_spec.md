@@ -1,6 +1,8 @@
 # Spécification Technique : Cas d'Utilisation "Création Projet"
 
-**Référence Diagramme** : [`creation_projet_workflow.mmd`](./creation_projet_workflow.mmd)
+**Référence Diagrammes** : 
+- [`creation_projet_libre_workflow.mmd`](./creation_projet_libre_workflow.mmd)
+- [`creation_projet_planifie_workflow.mmd`](./creation_projet_planifie_workflow.mmd)
 **Module Responsable** : `PkgCreationProjet`
 
 ---

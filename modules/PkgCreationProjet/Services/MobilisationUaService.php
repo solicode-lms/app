@@ -88,70 +88,9 @@ class MobilisationUaService extends BaseMobilisationUaService
     {
         if ($item instanceof \Modules\PkgCreationProjet\Models\MobilisationUa) {
 
-            // 1. Ajouter les tâches (Tutoriels) liées aux chapitres de l'UA
-            $ua = \Modules\PkgCompetences\Models\UniteApprentissage::with('chapitres')->find($item->unite_apprentissage_id);
-            if ($ua && $ua->chapitres->isNotEmpty()) {
-
-                // Récupération des IDs nécessaires
-                $phaseN1Id = \Modules\PkgCompetences\Models\PhaseEvaluation::where('code', 'N1')->value('id');
-                // Récupération de la phase projet "Apprentissage" via son modèle
-                $phaseApprentissage = \Modules\PkgCreationTache\Models\PhaseProjet::where('reference', 'APPRENTISSAGE')->first();
-                $phaseProjetId = $phaseApprentissage ? $phaseApprentissage->id : null;
-
-                $tacheService = new \Modules\PkgCreationTache\Services\TacheService();
-
-                // Calcul initial de l'ordre
-                $ordre = 1;
-                $maxOrdrePhase = 0;
-
-                // 1) Vérifier s'il y a déjà des tâches dans la phase Apprentissage
-                if ($phaseProjetId) {
-                    $maxOrdrePhase = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
-                        ->where('phase_projet_id', $phaseProjetId)
-                        ->max('ordre');
-                }
-
-                if ($maxOrdrePhase) {
-                    $ordre = $maxOrdrePhase + 1;
-                } else {
-                    // 2) Sinon, prendre la suite des phases précédentes
-                    $maxOrdrePrecedent = 0;
-                    if ($phaseApprentissage) {
-                        $previousPhaseIds = \Modules\PkgCreationTache\Models\PhaseProjet::where('ordre', '<', $phaseApprentissage->ordre)
-                            ->pluck('id');
-
-                        if ($previousPhaseIds->isNotEmpty()) {
-                            $maxOrdrePrecedent = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
-                                ->whereIn('phase_projet_id', $previousPhaseIds)
-                                ->max('ordre');
-                        }
-                    }
-                    $ordre = $maxOrdrePrecedent ? $maxOrdrePrecedent + 1 : 1;
-                }
-
-                foreach ($ua->chapitres as $chapitre) {
-                    // Vérifier si la tâche existe déjà pour éviter doublon
-                    $exists = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $item->projet_id)
-                        ->where('titre', 'Tutoriel : ' . $chapitre->nom)
-                        ->exists();
-
-                    if (!$exists) {
-                        $tacheService->create([
-                            'projet_id' => $item->projet_id,
-                            'titre' => 'Tutoriel : ' . $chapitre->nom,
-                            'description' => "Tutoriel lié au chapitre : " . $chapitre->nom,
-                            'phase_evaluation_id' => $phaseN1Id,
-                            'priorite' => $ordre,
-                            'ordre' => $ordre,
-                            'chapitre_id' => $chapitre->id,
-                            'phase_projet_id' => $phaseProjetId
-                        ]);
-
-                        // Incrémenter l'ordre pour la prochaine tâche de la boucle
-                        $ordre++;
-                    }
-                }
-            }
+            // 1. Délégation SRP : Demander à TacheService de créer les tâches liées aux chapitres
+            $tacheService = new \Modules\PkgCreationTache\Services\TacheService();
+            $tacheService->createTasksFromUa($item->projet_id, $item->unite_apprentissage_id);
 
             // 2. Mise à jour de la date de modification du projet parent
             if (isset($item->projet)) {
@@ -159,7 +98,6 @@ class MobilisationUaService extends BaseMobilisationUaService
             }
 
             // 3. Déclencher la synchronisation des tâches du projet
-            // Cela met à jour les notes des tâches (N2/N3) et synchronise les réalisations de compétences
             $this->triggerTaskSynchronization($item->projet_id);
         }
     }

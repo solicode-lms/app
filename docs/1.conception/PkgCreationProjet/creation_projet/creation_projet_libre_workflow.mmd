@@ -1,0 +1,28 @@
+sequenceDiagram
+    autonumber
+    actor Formateur
+    participant Ctrl as ProjetController
+    participant PS as ProjetService
+    participant PCT as ProjetCrudTrait
+
+    Note over Ctrl, PCT: SCENARIO : Création Projet Libre (Sans Session)
+
+    Formateur->>Ctrl: POST /projets (data sans session)
+    Ctrl->>PS: create(data)
+    
+    activate PS
+    PS->>PS: Insert Projet (Conteneur)
+    
+    Note right of PS: Exécution du Hook via Trait
+    PS->>PCT: afterCreateRules($projet)
+    activate PCT
+    
+    Note right of PCT: Vérification Session
+    PCT->>PCT: if (!session_id) return
+    Note right of PCT: Pas de génération de contenu
+    
+    PCT-->>PS: Fin Hook
+    deactivate PCT
+    
+    PS-->>Ctrl: Projet Initialisé (Vide)
+    deactivate PS

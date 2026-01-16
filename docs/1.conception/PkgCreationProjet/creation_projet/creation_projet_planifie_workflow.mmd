@@ -1,0 +1,57 @@
+sequenceDiagram
+    autonumber
+    actor Formateur
+    participant Ctrl as ProjetController
+    participant PS as ProjetService
+    participant PCT as ProjetCrudTrait
+    participant PRT as ProjetRelationsTrait
+    participant MS as MobilisationUaService
+    participant TS as TacheService
+
+    Note over Ctrl, TS: SCENARIO : Création Projet Planifié (Avec Session)
+
+    Formateur->>Ctrl: POST /projets (data avec session)
+    Ctrl->>PS: create(data)
+    
+    activate PS
+    PS->>PS: Insert Projet (Conteneur)
+    
+    Note right of PS: Exécution du Hook via Trait
+    PS->>PCT: afterCreateRules($projet)
+    activate PCT
+    
+    PCT->>PRT: initializeProjectStructure($projet, $session)
+    activate PRT
+    PRT->>PS: getTasksConfig()
+    
+    loop Pour chaque Item de la Config (Ordre Croissant)
+        
+        alt Item est une Tâche Standard (ex: Analyse)
+            PRT->>TS: create(tacheData)
+        
+        else Item est le Marqueur "MOBILISATION_UA / TUTORIELS"
+            Note right of PRT: Mobilisation de TOUTES les UAs de la Session
+            PRT->>MS: create(projet_id, ua_id)
+            activate MS
+            Note right of MS: Hook afterCreateRules
+            MS->>TS: createTasksFromUa(projet_id, ua_id)
+            activate TS
+            TS->>TS: Create "Tutoriel" Tasks
+            TS-->>MS: OK
+            deactivate TS
+            MS-->>PRT: OK
+            deactivate MS
+        end
+        
+    end
+    PRT-->>PCT: Structure Initialisée
+    deactivate PRT
+
+    Note right of PCT: Ré-ordonnancement final
+    PCT->>PCT: reorderTasksByPhase($projetId)
+    
+    PCT-->>PS: Fin Hook
+    deactivate PCT
+    
+    PS-->>Ctrl: Projet Initialisé (Peuplé)
+    deactivate PS
