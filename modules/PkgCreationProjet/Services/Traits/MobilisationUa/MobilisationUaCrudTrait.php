@@ -40,7 +40,7 @@ trait MobilisationUaCrudTrait
         if ($item instanceof \Modules\PkgCreationProjet\Models\MobilisationUa) {
             // 1. Délégation : Création des tâches Tutoriels
             $tacheService = new TacheService();
-            $tacheService->createTasksFromUa($item->projet_id, $item->unite_apprentissage_id);
+            $tacheService->createN1TutorielsTasksFromUa($item->projet_id, $item->unite_apprentissage_id);
 
             // 2. Touch Projet
             if (isset($item->projet)) {

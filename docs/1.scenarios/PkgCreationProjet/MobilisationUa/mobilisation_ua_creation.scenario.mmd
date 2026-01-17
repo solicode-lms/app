@@ -19,7 +19,7 @@ sequenceDiagram
     activate MCT
 
     Note right of MCT: 1. Délégation : Création des tâches Tutoriels
-    MCT->>TS: createTasksFromUa(projet_id, ua)
+    MCT->>TS: createN1TutorielsTasksFromUa(projet_id, ua)
     activate TS
     TS-->>MCT: Tasks Created
     deactivate TS

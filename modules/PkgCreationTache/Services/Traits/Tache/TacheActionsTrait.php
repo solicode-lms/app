@@ -13,9 +13,16 @@ use Modules\PkgCreationTache\Models\Tache;
 trait TacheActionsTrait
 {
     /**
-     * Crée les tâches (Tutoriels) associées aux chapitres d'une UA.
+     * Crée les tâches de type Tutoriel (N1) associées aux chapitres d'une UA.
+     * 
+     * Cette méthode génère automatiquement une tâche N1 pour chaque chapitre de l'UA fournie.
+     * Les tâches sont créées dans la phase APPRENTISSAGE avec la phase d'évaluation N1.
+     * 
+     * @param int $projetId L'identifiant du projet.
+     * @param mixed $ua L'Unité d'Apprentissage (objet ou ID).
+     * @return void
      */
-    public function createTasksFromUa($projetId, $ua)
+    public function createN1TutorielsTasksFromUa($projetId, $ua)
     {
         if (is_numeric($ua)) {
             $ua = \Modules\PkgCompetences\Models\UniteApprentissage::with('chapitres')->find($ua);

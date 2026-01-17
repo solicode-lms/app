@@ -12,7 +12,7 @@ Le service est découpé en Traits thématiques pour respecter le principe de Re
 | **`TacheService.php`**               | **Point d'entrée** & Composition      | `index`, `show` (hérités), Configuration                                                                           |
 | **`Traits/TacheCrudTrait.php`**      | **Cycle de vie CRUD** & Règles Métier | `beforeCreateRules`, `beforeUpdateRules`, `afterCreateRules`, `destroy`, `applyBusinessRules` (Calcul Note, Phase) |
 | **`Traits/TacheRelationsTrait.php`** | **Synchronisation & Relations**       | `createRealisationTaches` (Apprenants), `syncRealisationPrototypeOrProjet` (Compétences UA)                        |
-| **`Traits/TacheActionsTrait.php`**   | **Actions Métier Spécifiques**        | `createTasksFromUa` (Génération Tutoriels)                                                                         |
+| **`Traits/TacheActionsTrait.php`**   | **Actions Métier Spécifiques**        | `createN1TutorielsTasksFromUa` (Génération Tutoriels N1)                                                           |
 | **`Traits/TacheGetterTrait.php`**    | **Lecture & Filtres**                 | `getTacheByFormateurId`, `getTacheByApprenantId`, `allQuery`                                                       |
 
 ## Flux de Données Critiques
@@ -26,5 +26,5 @@ Le service est découpé en Traits thématiques pour respecter le principe de Re
     - Appel `TacheRelationsTrait::syncRealisationPrototypeOrProjet` (Si N2/N3).
 
 ### Création depuis une Mobilisation (UA)
-1. `MobilisationUaService` appelle `TacheActionsTrait::createTasksFromUa`.
+1. `MobilisationUaService` appelle `TacheActionsTrait::createN1TutorielsTasksFromUa`.
 2. -> Génération des tâches "Tutoriels".

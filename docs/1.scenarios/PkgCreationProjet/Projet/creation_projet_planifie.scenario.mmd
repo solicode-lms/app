@@ -47,7 +47,7 @@ sequenceDiagram
             PRT->>MS: create(data)
             activate MS
             Note right of MS: Hook afterCreateRules
-            MS->>TAT: createTasksFromUa(projet_id, ua_id)
+            MS->>TAT: createN1TutorielsTasksFromUa(projet_id, ua_id)
             activate TAT
             TAT->>TAT: Create "Tutoriel" Tasks
             TAT-->>MS: OK
