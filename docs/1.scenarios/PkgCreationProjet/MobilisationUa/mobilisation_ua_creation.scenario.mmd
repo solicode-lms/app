@@ -1,28 +1,39 @@
 sequenceDiagram
     participant PS as ProjetService
     participant MS as MobilisationUaService
-    participant M as Model MobilisationUa
-    participant TAT as TacheActionsTrait
+    participant MCT as MobilisationUaCrudTrait
+    participant MDCT as MobilisationUaDataCalculTrait
+    participant MRT as MobilisationUaRelationsTrait
+    participant TS as TacheService
     
     Note over PS, MS: Processus déclenché lors de la création d'un projet ou l'ajout d'une UA
 
     PS->>MS: create(data)
-    MS->>M: create(data)
-    M-->>MS: instance created
+    MS->>MCT: beforeCreateRules(data)
+    MCT->>MDCT: enrichDataWithUaCriteriaAndBareme(data)
+    Note right of MDCT: Calcul automatique des Critères et Barèmes (N2/N3)
+    MDCT-->>MCT: data (formatted)
+    MCT-->>MS: data (ready)
 
-    MS->>MS: afterCreateRules(item)
+    Note right of MS: Sauvegarde en BDD (Standard via Eloquent)
+
+    MS->>MCT: afterCreateRules(item)
+    activate MCT
     
-    Note right of MS: 1. Génération des Tâches Tutoriels (N1)
-    MS->>TAT: createTasksFromUa(projet_id, ua)
-    activate TAT
-    Note right of TAT: Boucle sur Chapitres UA -> Création "Tutoriel : ..."
-    TAT->>TAT: create(tacheTutoriel)
-    TAT-->>MS: Tasks created
-    deactivate TAT
+    Note right of MCT: 1. Délégation : Création des tâches Tutoriels
+    MCT->>TS: createTasksFromUa(projet_id, ua)
+    activate TS
+    TS-->>MCT: Tasks Created
+    deactivate TS
 
-    Note right of MS: 2. Synchronisation des Réalisations (N2/N3)
-    MS->>MS: triggerSyncTacheEtRealisation(projet_id)
-    Note right of MS: Mise à jour des notes et réalisations UA existantes
+    Note right of MCT: 2. Sync Tâches Projet
+    MCT->>MRT: triggerSyncTacheEtRealisation(projet_id)
+    activate MRT
+    Note right of MRT: Mise à jour des notes et réalisations UA existantes
+    MRT-->>MCT: done
+    deactivate MRT
 
-    Note right of MS: 3. Maintenance
-    MS->>M: touch() (Project parent timestamp)
+    Note right of MCT: 3. Maintenance (Touch Projet)
+    
+    MCT-->>MS: Fin Hook
+    deactivate MCT

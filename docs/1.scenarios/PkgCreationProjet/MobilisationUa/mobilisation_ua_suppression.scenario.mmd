@@ -1,37 +1,33 @@
 sequenceDiagram
     participant PS as ProjetController/Service
     participant MS as MobilisationUaService
+    participant MCT as MobilisationUaCrudTrait
+    participant MRT as MobilisationUaRelationsTrait
     participant M as Model MobilisationUa
     participant TS as TacheService
-    participant TAT as TacheActionsTrait
-    participant RPS as RealisationProjetService
 
     Note over PS, MS: USE CASE : Supprimer une Mobilisation UA
 
     PS->>MS: destroy(id)
-    MS->>M: find(id)
-    M-->>MS: mobilisation
+    MS->>MCT: destroy(id)
+    activate MCT
     
-    MS->>TS: getTacheByFormateurId(projet_id, formateur_id)
-    Note right of TS: Récupère les tâches "Tutoriel" liées à cette UA (via getter)
-    TS-->>MS: Collection<Tache>
+    MCT->>M: find(id)
+    M-->>MCT: mobilisation
     
-    loop Pour chaque Tache Tutoriel trouvée
-        MS->>TS: destroy(tache_id)
-        activate TS
-        Note right of TS: Supprime la tâche et ses réalisations en cascade
-        TS->>TS: delete()
-        TS-->>MS: deleted
-        deactivate TS
-    end
+    Note right of MCT: 1. Suppression Cascade Tâches
+    MCT->>MCT: deleteAssociatedTasks(mobilisation)
+    
+    MCT->>M: delete()
+    M-->>MCT: deleted
 
-    MS->>M: delete()
-    M-->>MS: deleted
-
-    Note right of MS: Maintenance & Synchro
-    MS->>M: projet->touch()
+    Note right of MCT: 2. Maintenance & Synchro
+    MCT->>M: projet->touch()
     
-    MS->>RPS: deleteRealisationsByMobilisation(mobilisation_id)
-    Note right of RPS: Nettoie les réalisations (N2/N3) orphelines (Optionnel/Si implémenté)
+    MCT->>MRT: triggerSyncTacheEtRealisation(projet_id)
+    Note right of MRT: Recalcul Notes Globales
+    
+    MCT-->>MS: return result
+    deactivate MCT
     
     MS-->>PS: void

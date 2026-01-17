@@ -1,16 +1,32 @@
 # Règles Spécifiques - Agent Business
 
-> Ce fichier est ta mémoire évolutive. Il contient les règles strictes pour la couche métier.
+> Ce fichier est la mémoire évolutive des règles métiers strictes. Il est structuré par domaines d'application.
 
-- [Règle initiale] : Chaque méthode publique d'un Service doit avoir un Return Type explicitement typé.
-- [Règle initiale] : Prioriser l'Injection de Dépendance dans les constructeurs.
-- [Règle SRP] : Responsabilité Unique par Service. Un Service ne doit gérer que la logique de son Entité. Pour interagir avec une autre Entité, il doit obligatoirement passer par le Service de cette dernière (pas de manipulation directe de Model étranger ou de calculs étrangers).
-- [Règle Usage Diagramme] : Tout workflow complexe doit être documenté dans `docs/1.scenarios/{Module}/{Entity}/`. Ce dossier doit contenir : `{NomScenario}.scenario.mmd` (Diagramme Mermaid).
-- [Règle Sync Scénario] : Les algorithmes métier complexes (Scénarios) doivent être documentés par un diagramme Mermaid référencé dans la PHPDoc de la classe via `@see ...scenario.mmd`. En cas de modification de la structure des appels, **L'AGENT DOIT DEMANDER AU DÉVELOPPEUR** : "Souhaitez-vous synchroniser le diagramme de scénario ?".
-- [Règle Granularité] : Chaque **Use Case (Cas d'Utilisation)** distinct doit être considéré comme un processus métier à part entière et posséder son propre dossier de workflow (ex: ne pas mélanger Création et Suppression dans le même fichier si la logique diffère).
-- [Règle Adaptation Code] : Lors de l'implémentation d'un diagramme de séquence, ne modifiez pas les signatures des méthodes existantes si elles sont fonctionnelles. Adaptez le workflow aux hooks (`afterCreateRules`, etc.) et paramètres disponibles.
-- [Règle Traits] : Lors de la modification d'un Service utilisant des Traits, VOUS DEVEZ LIRE toutes les méthodes de tous les Traits importés. Cela est CRITIQUE pour éviter d'écraser silencieusement des méthodes importantes (ex: `afterCreateRules`) et de briser des fonctionnalités existantes. Si une méthode est surchargée, assurez-vous de restaurer la logique du Trait (ex: via `parent::` ou appel explicite).
-- [Règle Sync Diagramme] : Après toute modification de la signature d'une méthode de service (nom, paramètres), **L'AGENT DOIT DEMANDER AU DÉVELOPPEUR** : "Souhaitez-vous synchroniser les diagrammes de séquence impactés par cette modification ?". La mise à jour du diagramme (`.mmd`) doit être effectuée uniquement après confirmation et après que le code ait été modifié. **CRITIQUE : Les paramètres (noms et types) affichés dans le diagramme doivent être STRICTEMENT IDENTIQUES à ceux du code PHP.**
-- [Règle Précision Diagramme] : Dans les diagrammes Mermaid, si une méthode appartient à un Trait spécifique, utilisez l'alias du Trait (ex: `TacheRelationsTrait`) comme participant actif au lieu de la classe de Service globale générique. Cela permet de localiser précisément le code source.
-- [Règle PHPDoc Architecture] : Pour tout Service utilisant des Traits, la PHPDoc de la classe principale DOIT inclure une section "Architecture" listant chaque Trait utilisé via le tag `@uses`, accompagné d'une brève description de sa responsabilité (ex: `@uses TacheCrudTrait Gestion du cycle de vie CRUD`). Cela permet à l'IA de comprendre rapidement la répartition du code sans parser tous les fichiers.
+## 1. Documentation & Conception (First Priority)
+- **[Règle Diagramme First]** (CRITIQUE) : Avant toute écriture de code complexe (Workflow, Algo métier), **VOUS DEVEZ rédiger ou valider le diagramme Mermaid (`.scenario.mmd`) correspondant**. Le code PHP initial doit être une implémentation stricte de ce diagramme.
+  > **Note importante** : Une fois implémenté, le code devient la source de vérité. Lors de modifs futures du code, le diagramme doit être mis à jour pour refléter la réalité (voir Règle Sync Diagramme Change).
+- **[Règle Usage Diagramme]** : Tout workflow complexe doit être documenté dans `docs/1.scenarios/{Module}/{Entity}/`. Ce dossier doit contenir : `{NomScenario}.scenario.mmd`.
+- **[Règle Granularité]** : Chaque **Use Case** distinct (ex: Création, Suppression) doit avoir son propre fichier de scénario (ex: ne pas mélanger Création et Suppression dans le même fichier si la logique diffère).
+- **[Règle Précision Diagramme]** : Dans les diagrammes Mermaid, utilisez l'alias du Trait concerné (ex: `TacheRelationsTrait`) comme participant au lieu du Service global. Cela localise précisément le code.
+- **[Règle Simplification Diagramme]** : Ne PAS représenter les interactions standards avec le Model (Eloquent) (ex: `create`, `save`, `find`) sauf si crucial pour la logique. Utilisez plutôt une `Note` sur le Service/Trait indiquant "Sauvegarde BDD" pour alléger le diagramme.
 
+## 2. Architecture & Code
+- **[Règle SRP Services]** : Responsabilité Unique par Service. Un Service ne gère que son Entité. Pour interagir avec une autre Entité, passer par le Service de cette dernière (Interdiction de Model étranger direct).
+- **[Règle Architectures Traits]** : Pour tout Service utilisant des Traits, la PHPDoc de la classe principale DOIT inclure une section "Architecture" listant chaque Trait via `@uses` avec une description courte.
+- **[Règle Typage]** : Chaque méthode publique d'un Service doit avoir un Return Type explicitement typé.
+- **[Règle Injection]** : Prioriser l'Injection de Dépendance dans les constructeurs.
+
+## 3. Synchronisation & Maintenance
+- **[Règle Sync Scénario - Code]** : Les diagrammes Mermaid doivent être référencés dans la PHPDoc de la classe via `@see ...scenario.mmd`.
+- **[Règle Sync Diagramme Change]** : Après toute modification de signature (nom, paramètres) ou de flux dans le code, **L'AGENT DOIT DEMANDER AU DÉVELOPPEUR** : "Souhaitez-vous synchroniser le diagramme de scénario ?". Les paramètres affichés dans le diagramme doivent être STRICTEMENT IDENTIQUES à ceux du code.
+- **[Règle Modification Traits]** : Lors de la modification d'un Service avec Traits, **LIRE toutes les méthodes des Traits importés** pour éviter d'écraser des hooks (ex: `afterCreateRules`).
+- **[Règle Adaptation Code]** : Lors de l'implémentation d'un diagramme, ne pas modifier inutilement les signatures existantes si elles fonctionnent ; adapter le workflow aux hooks et paramètres disponibles.
+
+## 4. Standardisation des Traits (Guide Refactoring)
+Lors du découpage d'un Service, utilisez exclusivement ces catégories de Traits :
+- **`{Entity}CrudTrait`** : Cycle de vie (create, update, destroy), Hooks (`before/after`), Règles métier de base.
+- **`{Entity}RelationsTrait`** : Gestion des relations complexes, Synchronisations inter-services (ex: `syncTacheRealisation`), Gestion des collections filles.
+- **`{Entity}GetterTrait`** : Scopes, Filtres complexes, Requêtes de lecture spécifiques (`getValidatedItems`, `filterByContext`).
+- **`{Entity}ActionsTrait`** : Actions métier spécifiques ("Verbes" du domaine) hors CRUD standard (ex: `import`, `export`, `calculateStats`, `sendNotification`).
+- **`{Entity}DataCalculTrait`** : Implémentation de la méthode `dataCalcul` pour enrichir les données des formulaires (ex: calculs auto, valeurs par défaut contextuelles).
+- **`{Entity}StateTrait`** : (Optionnel) Gestion des machines à états, transitions de statut, validations d'étapes.
