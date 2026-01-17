@@ -24,6 +24,8 @@ trait ProjetRelationsTrait
      * @param mixed $projet Le projet cible à initialiser.
      * @param mixed $session La session de formation contenant le référentiel de compétences (Alignement des UA).
      * @return void
+     * 
+     * @see docs/1.scenarios/PkgCreationProjet/creation_projet/creation_projet_planifie.scenario.md Scénario détaillé.
      */
     protected function initializeProjectStructure($projet, $session)
     {
