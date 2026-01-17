@@ -7,6 +7,7 @@ sequenceDiagram
     participant PRT as ProjetRelationsTrait
     participant MS as MobilisationUaService
     participant TS as TacheService
+    participant TAT as TacheActionsTrait
 
     Note over Ctrl, TS: SCENARIO : Création Projet Planifié (Avec Session)
 
@@ -46,11 +47,11 @@ sequenceDiagram
             PRT->>MS: create(data)
             activate MS
             Note right of MS: Hook afterCreateRules
-            MS->>TS: createTasksFromUa(projet_id, ua_id)
-            activate TS
-            TS->>TS: Create "Tutoriel" Tasks
-            TS-->>MS: OK
-            deactivate TS
+            MS->>TAT: createTasksFromUa(projet_id, ua_id)
+            activate TAT
+            TAT->>TAT: Create "Tutoriel" Tasks
+            TAT-->>MS: OK
+            deactivate TAT
             MS->>MS: triggerSyncTacheEtRealisation(projet_id)
             MS-->>PRT: OK
             deactivate MS
