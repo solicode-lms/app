@@ -1,0 +1,37 @@
+sequenceDiagram
+    participant PS as ProjetController/Service
+    participant MS as MobilisationUaService
+    participant M as Model MobilisationUa
+    participant TS as TacheService
+    participant TAT as TacheActionsTrait
+    participant RPS as RealisationProjetService
+
+    Note over PS, MS: USE CASE : Supprimer une Mobilisation UA
+
+    PS->>MS: destroy(id)
+    MS->>M: find(id)
+    M-->>MS: mobilisation
+    
+    MS->>TS: getTacheByFormateurId(projet_id, formateur_id)
+    Note right of TS: Récupère les tâches "Tutoriel" liées à cette UA (via getter)
+    TS-->>MS: Collection<Tache>
+    
+    loop Pour chaque Tache Tutoriel trouvée
+        MS->>TS: destroy(tache_id)
+        activate TS
+        Note right of TS: Supprime la tâche et ses réalisations en cascade
+        TS->>TS: delete()
+        TS-->>MS: deleted
+        deactivate TS
+    end
+
+    MS->>M: delete()
+    M-->>MS: deleted
+
+    Note right of MS: Maintenance & Synchro
+    MS->>M: projet->touch()
+    
+    MS->>RPS: deleteRealisationsByMobilisation(mobilisation_id)
+    Note right of RPS: Nettoie les réalisations (N2/N3) orphelines (Optionnel/Si implémenté)
+    
+    MS-->>PS: void
