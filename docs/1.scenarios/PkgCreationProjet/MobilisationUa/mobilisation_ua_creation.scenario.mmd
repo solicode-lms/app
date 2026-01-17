@@ -2,24 +2,22 @@ sequenceDiagram
     participant PS as ProjetService
     participant MS as MobilisationUaService
     participant MCT as MobilisationUaCrudTrait
-    participant MDCT as MobilisationUaDataCalculTrait
     participant MRT as MobilisationUaRelationsTrait
     participant TS as TacheService
-    
+
     Note over PS, MS: Processus déclenché lors de la création d'un projet ou l'ajout d'une UA
 
     PS->>MS: create(data)
     MS->>MCT: beforeCreateRules(data)
-    MCT->>MDCT: enrichDataWithUaCriteriaAndBareme(data)
-    Note right of MDCT: Calcul automatique des Critères et Barèmes (N2/N3)
-    MDCT-->>MCT: data (formatted)
+    MCT->>MCT: enrichDataWithUaCriteriaAndBareme(data)
+    Note right of MCT: Calcul automatique des Critères et Barèmes (N2/N3)
     MCT-->>MS: data (ready)
 
     Note right of MS: Sauvegarde en BDD (Standard via Eloquent)
 
     MS->>MCT: afterCreateRules(item)
     activate MCT
-    
+
     Note right of MCT: 1. Délégation : Création des tâches Tutoriels
     MCT->>TS: createTasksFromUa(projet_id, ua)
     activate TS
@@ -34,6 +32,6 @@ sequenceDiagram
     deactivate MRT
 
     Note right of MCT: 3. Maintenance (Touch Projet)
-    
+
     MCT-->>MS: Fin Hook
     deactivate MCT
