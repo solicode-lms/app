@@ -13,6 +13,14 @@ use Modules\PkgCreationProjet\Services\Traits\Projet\ProjetCrudTrait;
 
 /**
  * Classe ProjetService pour gérer la persistance de l'entité Projet.
+ * 
+ * Architecture modulaire via Traits :
+ * @uses Traits\Projet\ProjetCrudTrait Gestion du cycle de vie CRUD et Hooks (beforeCreateRules, afterCreateRules).
+ * @uses Traits\Projet\ProjetActionsTrait Actions métier spécifiques (import, export, génération de contenu).
+ * @uses Traits\Projet\ProjetCalculTrait Calculs et enrichissement de données (statistiques, agrégations).
+ * @uses Traits\Projet\ProjetRelationsTrait Gestion des relations complexes et synchronisations avec entités liées.
+ * 
+ * @see docs/1.scenarios/PkgCreationProjet/Projet/creation_projet_libre.scenario.mmd Scénario: Création Projet Libre
  */
 class ProjetService extends BaseProjetService
 {
