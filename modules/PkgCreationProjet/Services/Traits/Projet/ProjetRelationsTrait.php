@@ -17,10 +17,9 @@ trait ProjetRelationsTrait
     /**
      * Initialise la structure complète du projet en fonction des phases définies et du contenu pédagogique.
      *
-     * Cette méthode orchestre la construction initiale du projet :
-     * 1. **Configuration des Tâches** : Elle récupère la séquence des tâches à créer basée sur les phases de projet actives (Analyse, Prototype, Réalisation...).
-     * 2. **Génération Séquentielle** : Elle itère sur la configuration pour créer les tâches dans l'ordre chronologique défini.
-     * 3. **Intégration des Compétences** : Lors de la phase d'Apprentissage (après l'Analyse), elle déclenche la création des Mobilisations (UA), assurant un ordre et une priorité cohérents pour les tâches générées.
+     * Cette méthode orchestre la construction initiale du projet en deux étapes distinctes :
+     * 1. **Création des Tâches Standards** : Itère sur la configuration pour créer les tâches structurelles (Analyse, Prototype, Réalisation...) en ignorant temporairement les tutoriels.
+     * 2. **Intégration des Compétences (Tutoriels)** : Une fois la structure de base en place, elle déclenche la création des Mobilisations (UA) et de leurs tâches associées.
      *
      * @param mixed $projet Le projet cible à initialiser.
      * @param mixed $session La session de formation contenant le référentiel de compétences (Alignement des UA).
@@ -31,41 +30,21 @@ trait ProjetRelationsTrait
         $tacheService = new \Modules\PkgCreationTache\Services\TacheService();
         $priorite = 1;
         $ordre = 1;
+        $phaseProjetApprentissageId = null;
 
         // Définition de la structure des tâches via le service
         $tasksConfig = \Modules\PkgCreationProjet\Services\ProjetService::getTasksConfig($session);
 
-        // Itération sur la configuration ordonnée par les phases de projet
+        // 1. Création des Tâches Structurelles Standards
         foreach ($tasksConfig as $taskData) {
 
-            // Cas spécial : Tutoriels / Mobilisations
+            // On ignore le marqueur 'Tutoriels', mais on capture l'ID de sa phase pour l'utiliser après
             if (isset($taskData['type']) && $taskData['type'] === 'Tutoriels') {
-                // Intégration des mobilisations (et donc des tâches Tuto/Chapitre)
-                $this->initMobilisationsUaAndTutoTasks(
-                    $projet,
-                    $session,
-                    $priorite,
-                    $ordre,
-                    $taskData['phase_projet_id'] ?? null
-                );
-
-                // Mise à jour des compteurs basés sur ce qui a été créé par le service MobilisationUa
-                $maxOrdre = Tache::where('projet_id', $projet->id)->max('ordre');
-                $maxPriorite = Tache::where('projet_id', $projet->id)->max('priorite');
-
-                if ($maxOrdre)
-                    $ordre = $maxOrdre + 1;
-                if ($maxPriorite)
-                    $priorite = $maxPriorite + 1;
-
+                $phaseProjetApprentissageId = $taskData['phase_projet_id'] ?? null;
                 continue;
             }
 
-            // Préparation des compteurs
-            $currentPriorite = $priorite++;
-            $currentOrdre = $ordre++;
-
-            // Création des tâches standards via le service pour appliquer les règles métier
+            // Création des tâches standards
             $exists = Tache::where('projet_id', $projet->id)
                 ->where('titre', $taskData['titre'])
                 ->exists();
@@ -75,35 +54,37 @@ trait ProjetRelationsTrait
                     'projet_id' => $projet->id,
                     'titre' => $taskData['titre'],
                     'description' => $taskData['description'],
-                    'priorite' => $currentPriorite,
-                    'ordre' => $currentOrdre,
+                    'priorite' => $priorite,
+                    'ordre' => $ordre,
                     'phase_evaluation_id' => $taskData['phase_evaluation_id'],
                     'chapitre_id' => null,
                     'is_live_coding_task' => false,
                     'phase_projet_id' => $taskData['phase_projet_id'] ?? null,
                 ]);
             }
+
+            // Incrémentation pour la prochaine itération
+            $priorite++;
+            $ordre++;
+        }
+
+        // 2. Intégration des Mobilisations et Tâches Tutoriels (N1)
+        // Note : L'ordre final sera recalculé par reorderTasksByPhase() après l'insertion.
+        if ($phaseProjetApprentissageId) {
+            $this->createMobilisationFromSession($projet, $session);
         }
     }
 
     /**
-     * Initialise les Mobilisations des Unités d'Apprentissage (UA) pour le projet.
+     * Crée les mobilisations UA depuis la session.
      *
-     * Cette méthode parcourt les UA définies dans la session de formation et crée les entités 'MobilisationUa' correspondantes.
-     * ⚠️ **Effets de bord importants déclenchés par MobilisationUaService::create** :
-     * 1. **Création des Tâches Tutoriels** : Via le hook `afterCreateRules`, chaque mobilisation génère automatiquement 
-     *    les tâches de type "Tutoriel" (Phase Apprentissage) associées aux chapitres de l'UA.
-     * 2. **Synchronisation des Tâches** : Via `triggerTaskSynchronization`, les notes des tâches d'évaluation (N2/N3)
-     *    sont recalculées et les compétences (RealisationUaPrototype/Projet) sont synchronisées via `TacheService`.
+     * Cette action déclenchera en cascade la création des tâches "Tutoriels" via le MobilisationUaService.
      *
-     * @param mixed $projet Le projet concerné.
-     * @param mixed $session La session de formation source.
-     * @param int $priorite (Référence) Compteur de priorité (non utilisé directement ici mais conservé pour signature).
-     * @param int $ordre (Référence) Compteur d'ordre (non utilisé directement ici mais conservé pour signature).
-     * @param int|null $phaseProjetId ID de la phase de projet "Apprentissage" à transmettre pour la création des tâches.
+     * @param mixed $projet
+     * @param mixed $session
      * @return void
      */
-    protected function initMobilisationsUaAndTutoTasks($projet, $session, &$priorite, &$ordre, $phaseProjetId = null)
+    protected function createMobilisationFromSession($projet, $session)
     {
         $mobilisationService = new \Modules\PkgCreationProjet\Services\MobilisationUaService();
 
@@ -114,9 +95,7 @@ trait ProjetRelationsTrait
                 'description' => $alignementUa->description ?? '',
             ];
 
-            // Utilisation du service pour créer la mobilisation.
-            // Le service va automatiquement calculer les critères/barèmes via sa méthode dataCalcul
-            // Le service MobilisationUaService se chargera d'ajouter les tâches N1 (Tutoriels)
+            // Déclenche le hook afterCreateRules : Création automatique des tâches N1 (Tutoriels)
             $mobilisationService->create($data);
         }
 

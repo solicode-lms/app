@@ -64,6 +64,8 @@ class TacheService extends BaseTacheService
 
     /**
      * Applique l'ensemble des règles métier sur les données de la tâche.
+     * 1. **Mise à jour automatique de la Phase Projet** : Basée sur le code de la phase d'évaluation (N1 -> Apprentissage, N2 -> Prototype, N3 -> Réalisation).
+     * 2. **Calcul de la Note (N2/N3)** : Pour les tâches d'évaluation, la note est calculée automatiquement comme la somme des barèmes des UA mobilisées sur le projet pour ce niveau.
      */
     protected function applyBusinessRules(&$data, $isUpdate = false, $tacheId = null)
     {
@@ -146,13 +148,13 @@ class TacheService extends BaseTacheService
         }
 
         // 1) Créer les réalisations de tâches pour les apprenants
-        $this->syncRealisationTaches($tache);
+        $this->createRealisationTaches($tache);
 
         // Mise à jour de la date de modification du projet parent
         $tache->projet->touch();
 
         // 2) Synchroniser les réalisations de compétences (RealisationUaPrototype/Projet) si N2/N3
-        $this->syncRealisationCompetences($tache);
+        $this->syncRealisationPrototypeOrProjet($tache);
     }
 
     /**
@@ -168,17 +170,16 @@ class TacheService extends BaseTacheService
         }
 
         // 1) Créer les réalisations de tâches manquantes (ex: nouveaux apprenants)
-        $this->syncRealisationTaches($tache);
+        $this->createRealisationTaches($tache);
 
         // 2) Synchroniser les réalisations de compétences si le niveau d'évaluation a changé
-        $this->syncRealisationCompetences($tache);
+        $this->syncRealisationPrototypeOrProjet($tache);
     }
 
     /**
-     * Synchronise les réalisations de tâches pour tous les apprenants du projet.
-     * Crée les RealisationTache manquantes.
+     * Crée les réalisations de tâches pour tous les apprenants du projet.
      */
-    public function syncRealisationTaches($tache)
+    public function createRealisationTaches($tache)
     {
         $notificationService = new NotificationService();
 
@@ -266,7 +267,7 @@ class TacheService extends BaseTacheService
      * @param mixed $tache La tâche concernée.
      * @return void
      */
-    public function syncRealisationCompetences($tache)
+    public function syncRealisationPrototypeOrProjet($tache)
     {
         // 1. Vérifier si N2 ou N3
         $tache->load('phaseEvaluation');

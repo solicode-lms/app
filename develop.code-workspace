@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": "./modules"
+		},
+		{
+			"path": "./docs/1.conception"
+		},
+		{
+			"path": "./docs/6.data"
+		},
+		{
+			"path": "./docs/7.présentation"
+		},
+		{
+			"path": "./docs/"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "solicode-lms",
+		"git.autofetch": true,
+		"liveServer.settings.port": 5501
+	}
+}

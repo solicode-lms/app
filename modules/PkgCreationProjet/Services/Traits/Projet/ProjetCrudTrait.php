@@ -9,13 +9,13 @@ use Modules\PkgSessions\Models\SessionFormation;
 trait ProjetCrudTrait
 {
     /**
-     * Crée une instance de Projet.
+     * Applique les règles métier avant la création.
      *
-     * @param array $data Données initiales.
-     * @return mixed L'instance créée.
-     * @throws BlException Si l'ID du formateur ne peut pas être récupéré.
+     * @param array $data Les données passées par référence.
+     * @return void
+     * @throws BlException
      */
-    public function createInstance(array $data = [])
+    public function beforeCreateRules(array &$data)
     {
         // Si l'utilisateur est formateur, on injecte son formateur_id
         if (Auth::check() && Auth::user()->hasRole('formateur')) {
@@ -28,40 +28,6 @@ trait ProjetCrudTrait
 
             $data['formateur_id'] = $formateurId;
         }
-
-        return parent::createInstance($data);
-    }
-
-    /**
-     * Crée un nouveau projet.
-     * 
-     * Cette méthode surcharge la méthode parente pour garantir que si l'utilisateur connecté
-     * est un formateur, le projet lui est automatiquement assigné via son ID récupéré en session.
-     *
-     * @param array|object $data Données du projet.
-     * @return mixed Le projet créé.
-     * @throws \Exception Si l'ID du formateur ne peut pas être récupéré pour un formateur connecté.
-     */
-    public function create(array|object $data)
-    {
-        // Vérifier si l'utilisateur connecté est un formateur
-        if (Auth::check() && Auth::user()->hasRole('formateur')) {
-            // Récupération sécurisée du formateur_id depuis la session
-            $formateurId = $this->sessionState->get('formateur_id');
-
-            if (!$formateurId) {
-                throw new \Exception("Impossible de récupérer l'identifiant du formateur depuis la session.");
-            }
-
-            // Forcer la valeur, peu importe ce qui est envoyé par le client
-            if (is_array($data)) {
-                $data['formateur_id'] = $formateurId;
-            } elseif (is_object($data)) {
-                $data->formateur_id = $formateurId;
-            }
-        }
-
-        return parent::create($data);
     }
 
 
@@ -119,8 +85,9 @@ trait ProjetCrudTrait
 
         $ordre = 1;
         foreach ($taches as $tache) {
-            if ($tache->ordre !== $ordre) {
+            if ($tache->ordre !== $ordre || $tache->priorite !== $ordre) {
                 $tache->ordre = $ordre;
+                $tache->priorite = $ordre;
                 $tache->saveQuietly();
             }
             $ordre++;

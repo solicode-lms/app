@@ -14,6 +14,14 @@ sequenceDiagram
     Ctrl->>PS: create(data)
     
     activate PS
+    
+    Note right of PS: Validation & Enrichissement via Trait
+    PS->>PCT: beforeCreateRules(data)
+    activate PCT
+    Note right of PCT: Injection auto formateur_id (Si Formateur)
+    PCT-->>PS: data enrichie
+    deactivate PCT
+
     PS->>PS: Insert Projet (Conteneur)
     
     Note right of PS: Exécution du Hook via Trait
@@ -24,14 +32,18 @@ sequenceDiagram
     activate PRT
     PRT->>PS: getTasksConfig()
     
-    loop Pour chaque Item de la Config (Ordre Croissant)
+    loop 1. Création des Tâches Standards (Analyse, Réalisation...)
+        opt Si Item != Tutoriels
+             PRT->>TS: create(tacheData)
+        end
+    end
+
+    opt 2. Si Marqueur "Tutoriels" détecté
+        Note right of PRT: Appel unique hors boucle
+        PRT->>PRT: createMobilisationFromSession($projet, $session)
         
-        alt Item est une Tâche Standard (ex: Analyse)
-            PRT->>TS: create(tacheData)
-        
-        else Item est le Marqueur "MOBILISATION_UA / TUTORIELS"
-            Note right of PRT: Mobilisation de TOUTES les UAs de la Session
-            PRT->>MS: create(projet_id, ua_id)
+        loop Pour chaque UA de la Session
+            PRT->>MS: create(data)
             activate MS
             Note right of MS: Hook afterCreateRules
             MS->>TS: createTasksFromUa(projet_id, ua_id)
@@ -39,13 +51,16 @@ sequenceDiagram
             TS->>TS: Create "Tutoriel" Tasks
             TS-->>MS: OK
             deactivate TS
+            MS->>MS: triggerSyncTacheEtRealisation(projet_id)
             MS-->>PRT: OK
             deactivate MS
         end
-        
     end
     PRT-->>PCT: Structure Initialisée
     deactivate PRT
+
+    Note right of PCT: Ajout des Livrables par défaut
+    PCT->>PCT: addDefaultLivrables($projet)
 
     Note right of PCT: Ré-ordonnancement final
     PCT->>PCT: reorderTasksByPhase($projetId)

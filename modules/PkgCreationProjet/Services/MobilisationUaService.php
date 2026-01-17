@@ -10,10 +10,7 @@ use Modules\PkgCompetences\Models\UniteApprentissage;
 class MobilisationUaService extends BaseMobilisationUaService
 {
     /**
-     * Enrichit les données de la mobilisation pour le formulaire.
-     * 
-     * Calcule automatiquement les critères et barèmes (Prototype & Projet)
-     * si une UA est fournie.
+     * Enrichit les données (calcul auto des critères et barèmes).
      */
     public function dataCalcul($data)
     {
@@ -39,10 +36,7 @@ class MobilisationUaService extends BaseMobilisationUaService
     }
 
     /**
-     * Règles métier à appliquer avant la création d'une mobilisation.
-     * 
-     * Calcule automatiquement les critères et barèmes (Prototype & Projet)
-     * si une UA est fournie mais que les champs sont vides.
+     * Règles métier avant création : Calcul auto des critères si manquant.
      */
     public function beforeCreateRules(&$data): array
     {
@@ -69,36 +63,26 @@ class MobilisationUaService extends BaseMobilisationUaService
     }
 
     /**
-     * Actions effectuées après la création d'une Mobilisation UA.
+     * Actions après création : Génération Tutoriels et Sync Tâches.
      *
-     * Cette méthode orchestre les conséquences de l'ajout d'une compétence (UA) au projet :
-     * 1. **Génération des Tutoriels** : Pour chaque chapitre de l'UA, une tâche de type "Tutoriel" est créée.
-     *    Ces tâches sont assignées à la phase "Apprentissage" (APPRENTISSAGE) et au niveau d'évaluation N1.
-     * 2. **Calcul de l'Ordre** : L'ordre des nouvelles tâches est déterminé dynamiquement :
-     *    - Si des tâches existent déjà dans la phase Apprentissage, on les suit.
-     *    - Sinon, on s'insère à la suite des tâches des phases précédentes (ex: après l'Analyse), 
-     *      garantissant une continuité logique dans le workflow du projet.
-     * 3. **Synchronisation des Apprenants** : Si des élèves travaillent déjà sur le projet, leurs réalisations
-     *    sont mises à jour pour inclure ces nouvelles tâches et compétences à valider.
-     *
-     * @param mixed $item La mobilisation créée (instance de MobilisationUa).
+     * @param mixed $item
      * @return void
      */
     public function afterCreateRules($item): void
     {
         if ($item instanceof \Modules\PkgCreationProjet\Models\MobilisationUa) {
 
-            // 1. Délégation SRP : Demander à TacheService de créer les tâches liées aux chapitres
+            // 1. Délégation : Création des tâches Tutoriels via TacheService
             $tacheService = new \Modules\PkgCreationTache\Services\TacheService();
             $tacheService->createTasksFromUa($item->projet_id, $item->unite_apprentissage_id);
 
-            // 2. Mise à jour de la date de modification du projet parent
+            // 2. Touch Projet
             if (isset($item->projet)) {
                 $item->projet->touch();
             }
 
-            // 3. Déclencher la synchronisation des tâches du projet
-            $this->triggerTaskSynchronization($item->projet_id);
+            // 3. Sync Tâches Projet (Modification Réalisation N2/N3)
+            $this->triggerSyncTacheEtRealisation($item->projet_id);
         }
     }
 
@@ -107,8 +91,8 @@ class MobilisationUaService extends BaseMobilisationUaService
         if ($item instanceof \Modules\PkgCreationProjet\Models\MobilisationUa && isset($item->projet)) {
             $item->projet->touch();
 
-            // 3. Déclencher la synchronisation des tâches du projet
-            $this->triggerTaskSynchronization($item->projet_id);
+            // 3. Sync Tâches Projet
+            $this->triggerSyncTacheEtRealisation($item->projet_id);
         }
     }
 
@@ -123,7 +107,7 @@ class MobilisationUaService extends BaseMobilisationUaService
             if ($ua && $ua->chapitres->isNotEmpty()) {
                 $chapitreIds = $ua->chapitres->pluck('id');
 
-                // Supprimer TOUTES les tâches liées à ces chapitres pour ce projet
+                // Supprimer les tâches N1 liées
                 \Modules\PkgCreationTache\Models\Tache::where('projet_id', $mobilisation->projet_id)
                     ->whereIn('chapitre_id', $chapitreIds)
                     ->delete();
@@ -133,38 +117,25 @@ class MobilisationUaService extends BaseMobilisationUaService
         $result = parent::destroy($id);
 
         if ($mobilisation) {
-            // Mise à jour de la date de modification du projet parent
+            // 2. Touch Projet
             if (isset($mobilisation->projet)) {
                 $mobilisation->projet->touch();
             }
 
-            // 3. Déclencher la synchronisation des tâches du projet
-            $this->triggerTaskSynchronization($mobilisation->projet_id);
+            // 3. Sync Tâches Projet
+            $this->triggerSyncTacheEtRealisation($mobilisation->projet_id);
         }
 
         return $result;
     }
 
     /**
-     * Déclenche la synchronisation des tâches du projet.
-     * 
-     * Cette méthode identifie les tâches critiques du projet (Phases N2 - Prototype et N3 - Réalisation)
-     * et initie une mise à jour sur chacune d'elles.
-     * 
-     * Cette action en cascade permet de :
-     * 1. Recalculer la note maximale de la tâche via `TacheService::beforeUpdateRules`
-     *    (basée sur la somme des barèmes des UA mobilisées).
-     * 2. Mettre à jour la phase du projet si nécessaire.
-     * 3. Synchroniser les réalisations de compétences des apprenants via `TacheService::afterUpdateRules`
-     *    (création des entrées RealisationUaPrototype/Projet).
-     * 
-     * Cette centralisation garantit la cohérence des données d'évaluation suite à toute modification
-     * des mobilisations de compétences.
+     * Déclenche la synchronisation en cascade des tâches critiques (N2/N3) du projet.
      *
-     * @param int $projectId L'identifiant du projet.
+     * @param int $projectId
      * @return void
      */
-    protected function triggerTaskSynchronization($projectId)
+    protected function triggerSyncTacheEtRealisation($projectId)
     {
         if (!$projectId)
             return;
