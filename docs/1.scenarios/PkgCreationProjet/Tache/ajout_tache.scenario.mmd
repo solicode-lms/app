@@ -1,0 +1,39 @@
+sequenceDiagram
+    autonumber
+    actor Formateur
+    participant Ctrl as TacheController
+    participant TS as TacheService
+    participant TCT as TacheCrudTrait
+    participant TRT as TacheRelationsTrait
+
+    Note over Ctrl, TRT: USE CASE : Ajouter une Tâche (Propagation aux Réalisations)
+
+    Formateur->>Ctrl: POST /taches (data)
+    Ctrl->>TS: create(data)
+    activate TS
+    
+    TS->>TCT: beforeCreateRules(data)
+    activate TCT
+    Note right of TCT: 1. Calcul Note (N2/N3) <br/>2. Assignation Phase
+    TCT-->>TS: data enrichie
+    deactivate TCT
+
+    TS->>TS: DB Insert Tache
+
+    TS->>TCT: afterCreateRules(tache)
+    activate TCT
+    
+    TCT->>TRT: createRealisationTaches(tache)
+    activate TRT
+    Note right of TRT: Boucle sur Apprenants du Projet -> Création RealisationTaches
+    TRT-->>TCT: done
+    deactivate TRT
+    
+    TCT->>TRT: syncRealisationPrototypeOrProjet(tache)
+    Note right of TRT: Sync Compétences (Si N2/N3)
+
+    TCT-->>TS: Fin Hook
+    deactivate TCT
+
+    TS-->>Ctrl: Tache Created & Propagated
+    deactivate TS

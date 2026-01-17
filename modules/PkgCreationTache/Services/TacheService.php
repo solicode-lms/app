@@ -17,8 +17,8 @@ use Modules\PkgCreationTache\Services\Traits\Tache\TacheActionsTrait;
  * @uses TacheRelationsTrait Gestion complexe des relations (Synchronisation Apprenants, Compétences/UA).
  * @uses TacheActionsTrait Actions métier spécifiques (ex: Génération de tâches depuis une UA).
  * 
- * @see docs/1.scenarios/PkgCreationProjet/creation_projet/creation_projet_planifie.scenario.mmd Scénario: Création Projet & Tâches
- * @see docs/1.scenarios/PkgCreationProjet/modification_tache/modification_tache.scenario.mmd Scénario: Modification Tâche
+ * @see docs/1.scenarios/PkgCreationProjet/Projet/creation_projet_planifie.scenario.mmd Scénario: Création Projet & Tâches
+ * @see docs/1.scenarios/PkgCreationProjet/Tache/modification_tache.scenario.mmd Scénario: Modification Tâche
  */
 class TacheService extends BaseTacheService
 {
