@@ -18,6 +18,7 @@ use Modules\PkgCreationTache\Services\Traits\Tache\TacheActionsTrait;
  * @uses TacheActionsTrait Actions métier spécifiques (ex: Génération de tâches depuis une UA).
  * 
  * @see docs/1.scenarios/PkgCreationProjet/creation_projet/creation_projet_planifie.scenario.mmd Scénario: Création Projet & Tâches
+ * @see docs/1.scenarios/PkgCreationProjet/modification_tache/modification_tache.scenario.mmd Scénario: Modification Tâche
  */
 class TacheService extends BaseTacheService
 {

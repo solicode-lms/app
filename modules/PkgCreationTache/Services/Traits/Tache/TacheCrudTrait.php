@@ -145,10 +145,9 @@ trait TacheCrudTrait
             $tache->projet->touch();
         }
 
-        // 1) Créer les réalisations de tâches manquantes (ex: nouveaux apprenants)
-        $this->createRealisationTaches($tache);
 
-        // 2) Synchroniser les réalisations de compétences si le niveau d'évaluation a changé
+
+        // 1) Synchroniser les réalisations de compétences si le niveau d'évaluation a changé
         $this->syncRealisationPrototypeOrProjet($tache);
     }
 

@@ -1,0 +1,34 @@
+sequenceDiagram
+    autonumber
+    actor Formateur
+    participant Ctrl as TacheController
+    participant TS as TacheService
+    participant TCT as TacheCrudTrait
+    participant TRT as TacheRelationsTrait
+
+    Note over Ctrl, TRT: USE CASE : Modifier une Tâche
+
+    Formateur->>Ctrl: PUT /taches/{id}
+    Ctrl->>TS: update(id, data)
+    activate TS
+    
+    TS->>TCT: beforeUpdateRules(data, id)
+    activate TCT
+    Note right of TCT: Règles Métier : <br/>1. Calcul Note (N2/N3) <br/>2. Assignation Phase
+    TCT-->>TS: data enrichie
+    deactivate TCT
+    
+    TS->>TS: DB Update Tache
+    
+    TS->>TCT: afterUpdateRules(tache)
+    activate TCT
+    
+
+    TCT->>TRT: syncRealisationPrototypeOrProjet(tache)
+    note right of TRT: 1. Sync Compétences (Si Phase Changée)
+    
+    TCT-->>TS: Fin Hook
+    deactivate TCT
+    
+    TS-->>Ctrl: OK
+    deactivate TS
