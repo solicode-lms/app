@@ -1,0 +1,28 @@
+sequenceDiagram
+    participant PS as ProjetService
+    participant MS as MobilisationUaService
+    participant M as Model MobilisationUa
+    participant TAT as TacheActionsTrait
+    
+    Note over PS, MS: Processus déclenché lors de la création d'un projet ou l'ajout d'une UA
+
+    PS->>MS: create(data)
+    MS->>M: create(data)
+    M-->>MS: instance created
+
+    MS->>MS: afterCreateRules(item)
+    
+    Note right of MS: 1. Génération des Tâches Tutoriels (N1)
+    MS->>TAT: createTasksFromUa(projet_id, ua)
+    activate TAT
+    Note right of TAT: Boucle sur Chapitres UA -> Création "Tutoriel : ..."
+    TAT->>TAT: create(tacheTutoriel)
+    TAT-->>MS: Tasks created
+    deactivate TAT
+
+    Note right of MS: 2. Synchronisation des Réalisations (N2/N3)
+    MS->>MS: triggerSyncTacheEtRealisation(projet_id)
+    Note right of MS: Mise à jour des notes et réalisations UA existantes
+
+    Note right of MS: 3. Maintenance
+    MS->>M: touch() (Project parent timestamp)
