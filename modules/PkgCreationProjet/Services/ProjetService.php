@@ -81,7 +81,16 @@ class ProjetService extends BaseProjetService
                     $tasksConfig[] = [
                         'titre' => optional($session)->titre_prototype ? "Prototype : " . optional($session)->titre_prototype : 'Prototype',
                         'description' => trim((optional($session)->description_prototype ?? '') . "</br><b>Contraintes</b>" . (optional($session)->contraintes_prototype ?? '')),
-                        'phase_evaluation_id' => $phasesEval['N2'] ?? null,
+                        'phase_evaluation_id' => null, // Pas d'évaluation sur le prototype statique seul
+                        'phase_projet_id' => $phase->id,
+                    ];
+                    break;
+
+                case 'LIVE_CODING':
+                    $tasksConfig[] = [
+                        'titre' => 'Live Coding (Prototype)',
+                        'description' => 'Validation des compétences via Live Coding sur le prototype.',
+                        'phase_evaluation_id' => $phasesEval['N2'] ?? null, // C'est ici qu'on évaluation N2 (Adapter)
                         // Note calculée automatiquement dans TacheService
                         'phase_projet_id' => $phase->id,
                     ];

@@ -99,7 +99,7 @@ trait TacheCrudTrait
         if ($phaseEvalCode === 'N1') {
             $phaseProjet = PhaseProjet::where('reference', 'APPRENTISSAGE')->first();
         } elseif ($phaseEvalCode === 'N2') {
-            $phaseProjet = PhaseProjet::where('reference', 'PROTOTYPE')->first();
+            $phaseProjet = PhaseProjet::where('reference', 'LIVE_CODING')->first();
         } elseif ($phaseEvalCode === 'N3') {
             $phaseProjet = PhaseProjet::where('reference', 'REALISATION')->first();
         }
