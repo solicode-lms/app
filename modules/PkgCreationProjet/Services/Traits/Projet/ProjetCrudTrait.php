@@ -136,15 +136,4 @@ trait ProjetCrudTrait
         }
     }
 
-
-    /**
-     * Point d'ancrage pour les règles métier après mise à jour.
-     *
-     * @param mixed $projet Le projet mis à jour.
-     * @return void
-     */
-    public function afterUpdateRules($projet)
-    {
-
-    }
 }

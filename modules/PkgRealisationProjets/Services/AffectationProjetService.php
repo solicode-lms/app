@@ -16,7 +16,9 @@ use Modules\PkgRealisationProjets\Services\Traits\AffectationProjet\AffectationP
  */
 class AffectationProjetService extends BaseAffectationProjetService
 {
-    use AffectationProjetCrudTrait, AffectationProjetJobTrait, AffectationProjetGetterTrait;
+    use AffectationProjetCrudTrait, 
+        AffectationProjetJobTrait, 
+        AffectationProjetGetterTrait;
 
     protected array $index_with_relations = [
         'evaluateurs'

@@ -24,7 +24,10 @@ use Modules\PkgCreationProjet\Services\Traits\Projet\ProjetCrudTrait;
  */
 class ProjetService extends BaseProjetService
 {
-    use ProjetCrudTrait, ProjetActionsTrait, ProjetCalculTrait, ProjetRelationsTrait;
+    use ProjetCrudTrait,
+        ProjetActionsTrait,
+        ProjetCalculTrait,
+        ProjetRelationsTrait;
 
     protected array $index_with_relations = [
         'filiere',

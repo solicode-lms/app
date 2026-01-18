@@ -6,8 +6,6 @@ use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgApprentissage\Services\RealisationUaService;
 use Modules\PkgApprentissage\Services\RealisationChapitreService;
-use Modules\PkgApprentissage\Services\RealisationUaProjetService;
-use Modules\PkgApprentissage\Services\RealisationUaPrototypeService;
 use Modules\PkgApprentissage\Models\RealisationChapitre;
 use Modules\PkgCreationProjet\Models\MobilisationUa;
 use Modules\PkgCreationTache\Models\Tache;
@@ -89,8 +87,6 @@ trait RealisationTacheCrudTrait
 
             $realisationUaService = new RealisationUaService();
             $realisationChapitreService = app(RealisationChapitreService::class);
-            $realisationUaProjetService = app(RealisationUaProjetService::class);
-            $realisationUaPrototypeService = app(RealisationUaPrototypeService::class);
 
             // 🔗 Si le chapitre existe, on lie ou crée sa RealisationChapitre
             if ($tache->chapitre) {
@@ -178,37 +174,8 @@ trait RealisationTacheCrudTrait
                 }
             }
 
-            // 🧩 Gestion des UA prototypes (N2)
-            if ($tache->phaseEvaluation?->code == "N2") {
-                foreach ($mobilisationUas as $mobilisation) {
-                    $realisationUA = $realisationUaService->getOrCreateApprenant(
-                        $realisationProjet->apprenant_id,
-                        $mobilisation->unite_apprentissage_id
-                    );
-
-                    $realisationUaPrototypeService->create([
-                        'realisation_tache_id' => $realisationTache->id,
-                        'realisation_ua_id' => $realisationUA->id,
-                        'bareme' => $mobilisation->bareme_evaluation_prototype ?? 0,
-                    ]);
-                }
-            }
-
-            // 🧩 Gestion des UA projets (N3)
-            if ($tache->phaseEvaluation?->code == "N3") {
-                foreach ($mobilisationUas as $mobilisation) {
-                    $realisationUA = $realisationUaService->getOrCreateApprenant(
-                        $realisationProjet->apprenant_id,
-                        $mobilisation->unite_apprentissage_id
-                    );
-
-                    $realisationUaProjetService->create([
-                        'realisation_tache_id' => $realisationTache->id,
-                        'realisation_ua_id' => $realisationUA->id,
-                        'bareme' => $mobilisation->bareme_evaluation_projet ?? 0,
-                    ]);
-                }
-            }
+            // 🧩 Gestion consolidée des Compétences (N2/N3) via ActionsTrait
+            $this->syncRealisationPrototypeEtProjetAvecMobilisations($realisationTache);
         }
     }
 

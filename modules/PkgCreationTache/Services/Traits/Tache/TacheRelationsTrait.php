@@ -9,12 +9,7 @@ use Modules\PkgEvaluateurs\Services\EvaluationRealisationTacheService;
 use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
 use Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService;
 use Modules\PkgEvaluateurs\Models\EvaluationRealisationProjet;
-use Modules\PkgCreationProjet\Models\MobilisationUa;
 use Modules\PkgApprentissage\Services\RealisationUaService;
-use Modules\PkgApprentissage\Services\RealisationUaProjetService;
-use Modules\PkgApprentissage\Services\RealisationUaPrototypeService;
-use Modules\PkgApprentissage\Models\RealisationUaPrototype;
-use Modules\PkgApprentissage\Models\RealisationUaProjet;
 
 /**
  * Trait TacheRelationsTrait
@@ -123,77 +118,17 @@ trait TacheRelationsTrait
         if (!in_array($code, ['N2', 'N3']))
             return;
 
-        // 2. Récupérer les mobilisations actuelles du projet (les UA valides)
-        $mobilisations = MobilisationUa::where('projet_id', $tache->projet_id)->get();
-        $validUaIds = $mobilisations->pluck('unite_apprentissage_id')->toArray();
-
-        // 3. Récupérer les réalisations de cette tâche
+        // 2. Récupérer les réalisations de cette tâche
         $realisationTaches = $tache->realisationTaches;
         if ($realisationTaches->isEmpty())
             return;
 
-        $realisationUaService = new RealisationUaService();
-        $realisationUaProjetService = app(RealisationUaProjetService::class);
-        $realisationUaPrototypeService = app(RealisationUaPrototypeService::class);
+        // Délégation du traitement au Service métier dédié (RealisationTacheService)
+        // pour éviter la duplication de logique.
+        $realisationTacheService = app(RealisationTacheService::class);
 
         foreach ($realisationTaches as $rt) {
-            // Charger la relation RealisationProjet si pas chargée
-            if (!$rt->relationLoaded('realisationProjet')) {
-                $rt->load('realisationProjet');
-            }
-            $realisationProjet = $rt->realisationProjet;
-
-            if (!$realisationProjet)
-                continue;
-
-            // A. NETTOYAGE : Supprimer les ponts vers des UA qui ne sont plus mobilisées
-            // On supprime les entrées liées à cette réalisation de tâche dont l'UA n'est plus dans $validUaIds
-            if ($code === 'N2') {
-                RealisationUaPrototype::where('realisation_tache_id', $rt->id)
-                    ->whereHas('realisationUa', function ($q) use ($validUaIds) {
-                        $q->whereNotIn('unite_apprentissage_id', $validUaIds);
-                    })->delete();
-            } elseif ($code === 'N3') {
-                RealisationUaProjet::where('realisation_tache_id', $rt->id)
-                    ->whereHas('realisationUa', function ($q) use ($validUaIds) {
-                        $q->whereNotIn('unite_apprentissage_id', $validUaIds);
-                    })->delete();
-            }
-
-            // B. CRÉATION / MISE À JOUR : Ajouter les ponts manquants pour les mobilisations actuelles
-            $apprenantId = $realisationProjet->apprenant_id;
-
-            foreach ($mobilisations as $mobilisation) {
-                // Récupérer ou créer RealisationUa
-                $realisationUA = $realisationUaService->getOrCreateApprenant(
-                    $apprenantId,
-                    $mobilisation->unite_apprentissage_id
-                );
-
-                if ($code === 'N2') {
-                    $exists = RealisationUaPrototype::where('realisation_tache_id', $rt->id)
-                        ->where('realisation_ua_id', $realisationUA->id)
-                        ->exists();
-                    if (!$exists) {
-                        $realisationUaPrototypeService->create([
-                            'realisation_tache_id' => $rt->id,
-                            'realisation_ua_id' => $realisationUA->id,
-                            'bareme' => $mobilisation->bareme_evaluation_prototype ?? 0,
-                        ]);
-                    }
-                } elseif ($code === 'N3') {
-                    $exists = RealisationUaProjet::where('realisation_tache_id', $rt->id)
-                        ->where('realisation_ua_id', $realisationUA->id)
-                        ->exists();
-                    if (!$exists) {
-                        $realisationUaProjetService->create([
-                            'realisation_tache_id' => $rt->id,
-                            'realisation_ua_id' => $realisationUA->id,
-                            'bareme' => $mobilisation->bareme_evaluation_projet ?? 0,
-                        ]);
-                    }
-                }
-            }
+            $realisationTacheService->syncRealisationPrototypeEtProjetAvecMobilisations($rt);
         }
     }
 }

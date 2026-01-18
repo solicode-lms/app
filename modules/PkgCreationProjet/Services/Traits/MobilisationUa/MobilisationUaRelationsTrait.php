@@ -32,6 +32,8 @@ trait MobilisationUaRelationsTrait
 
         // Pour chaque tâche N2/N3, déclencher un update qui activera les hooks
         // Le hook afterUpdateRules appellera automatiquement syncRealisationPrototypeOrProjet()
+        // on appelle update les tâches car il faut mettre à jour la note des tâche de N2 et N3 avant de synchoniser les objets 
+        // RealisationsUaPrototype/Projet
         foreach ($taches as $tache) {
             $tacheService->update($tache->id, [
                 'updated_at' => now() // Forcer la mise à jour pour déclencher les hooks

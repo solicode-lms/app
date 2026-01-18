@@ -153,7 +153,7 @@ trait RealisationTacheActionsTrait
     }
 
 
-    
+
     public function repartirNoteDansRealisationUaPrototypes(RealisationTache $tache): void
     {
         $this->repartirNoteDansElements($tache->realisationUaPrototypes, $tache->note ?? 0);
@@ -309,4 +309,89 @@ trait RealisationTacheActionsTrait
     }
 
 
+    /**
+     * Synchronise les objets de réalisation de compétences (RealisationUaPrototype/Projet) pour cette tâche.
+     * Cette méthode crée ou nettoie les ponts nécessaires entre la réalisation de tâche (élève) et les UA mobilisées sur le projet.
+     *
+     * @param RealisationTache $realisationTache
+     * @return void
+     */
+    public function syncRealisationPrototypeEtProjetAvecMobilisations(RealisationTache $realisationTache): void
+    {
+        // 1. Charger les relations nécessaires
+        $realisationTache->loadMissing([
+            'tache.phaseEvaluation',
+            'realisationProjet.affectationProjet.projet.mobilisationUas',
+            'realisationProjet.apprenant'
+        ]);
+
+        $tache = $realisationTache->tache;
+        if (!$tache)
+            return;
+
+        // 2. Vérifier si N2 ou N3
+        $code = $tache->phaseEvaluation?->code;
+        if (!in_array($code, ['N2', 'N3'])) {
+            return;
+        }
+
+        // 3. Récupérer les mobilisations actuelles du projet (les UA valides)
+        $mobilisations = $realisationTache->realisationProjet->affectationProjet->projet->mobilisationUas ?? collect();
+        $validUaIds = $mobilisations->pluck('unite_apprentissage_id')->toArray();
+
+        // Initialisation à la demande des services
+        $realisationUaService = app(\Modules\PkgApprentissage\Services\RealisationUaService::class);
+        $realisationUaProjetService = app(\Modules\PkgApprentissage\Services\RealisationUaProjetService::class);
+        $realisationUaPrototypeService = app(\Modules\PkgApprentissage\Services\RealisationUaPrototypeService::class);
+
+        // A. NETTOYAGE : Supprimer les ponts vers des UA qui ne sont plus mobilisées
+        if ($code === 'N2') {
+            \Modules\PkgApprentissage\Models\RealisationUaPrototype::where('realisation_tache_id', $realisationTache->id)
+                ->whereHas('realisationUa', function ($q) use ($validUaIds) {
+                    $q->whereNotIn('unite_apprentissage_id', $validUaIds);
+                })->delete();
+        } elseif ($code === 'N3') {
+            \Modules\PkgApprentissage\Models\RealisationUaProjet::where('realisation_tache_id', $realisationTache->id)
+                ->whereHas('realisationUa', function ($q) use ($validUaIds) {
+                    $q->whereNotIn('unite_apprentissage_id', $validUaIds);
+                })->delete();
+        }
+
+        // B. AJOUT : Créer les ponts manquants
+        $apprenantId = $realisationTache->realisationProjet->apprenant_id;
+
+        foreach ($mobilisations as $mobilisation) {
+            // Récupérer ou créer RealisationUa
+            $realisationUA = $realisationUaService->getOrCreateApprenant(
+                $apprenantId,
+                $mobilisation->unite_apprentissage_id
+            );
+
+            if ($code === 'N2') {
+                $exists = \Modules\PkgApprentissage\Models\RealisationUaPrototype::where('realisation_tache_id', $realisationTache->id)
+                    ->where('realisation_ua_id', $realisationUA->id)
+                    ->exists();
+
+                if (!$exists) {
+                    $realisationUaPrototypeService->create([
+                        'realisation_tache_id' => $realisationTache->id,
+                        'realisation_ua_id' => $realisationUA->id,
+                        'bareme' => $mobilisation->bareme_evaluation_prototype ?? 0,
+                    ]);
+                }
+            } elseif ($code === 'N3') {
+                $exists = \Modules\PkgApprentissage\Models\RealisationUaProjet::where('realisation_tache_id', $realisationTache->id)
+                    ->where('realisation_ua_id', $realisationUA->id)
+                    ->exists();
+
+                if (!$exists) {
+                    $realisationUaProjetService->create([
+                        'realisation_tache_id' => $realisationTache->id,
+                        'realisation_ua_id' => $realisationUA->id,
+                        'bareme' => $mobilisation->bareme_evaluation_projet ?? 0,
+                    ]);
+                }
+            }
+        }
+    }
 }
