@@ -41,17 +41,22 @@ trait RealisationTacheCrudTrait
         }
 
         // 2. Règle métier : Si le chapitre lié est déjà validé (DONE) pour l'apprenant,
-        // on n'ajoute PAS la réalisation de tâche.
-        // On définit le flag d'annulation pour CrudCreateTrait.
+        // on crée la tâche directement à l'état "APPROVED" (Validé) au lieu d'annuler.
+        // Cela permet de garder une trace et de mettre à jour la progression.
         if ($this->shouldSkipCreationIfChapitreDone($data)) {
-            // Même si on annule la création de cette tâche spécifique,
-            // on doit vérifier si cela complète l'UA (cas où tous les chapitres sont déjà faits).
-            if (isset($data['tache_id']) && isset($data['realisation_projet_id'])) {
-                $this->checkAndPerformUaValidationLogic($data['tache_id'], $data['realisation_projet_id']);
-            }
+            $etatApproved = \Modules\PkgRealisationTache\Models\EtatRealisationTache::whereHas('workflowTache', function ($q) {
+                $q->where('code', 'APPROVED');
+            })->first();
 
-            $data['__abort_creation'] = true;
-            return;
+            if ($etatApproved) {
+                $data['etat_realisation_tache_id'] = $etatApproved->id;
+                $data['date_fin'] = now();
+                $data['date_debut'] = $data['date_debut'] ?? now();
+                // On met une note par défaut si nécessaire (ex: note maximale ou note du chapitre) ??
+                // Pour l'instant on laisse la note vide ou gérée par ailleurs.
+            }
+            // On n'annule PLUS la création
+            // $data['__abort_creation'] = true; 
         }
     }
 
@@ -118,6 +123,15 @@ trait RealisationTacheCrudTrait
 
             // 🧩 Gestion consolidée des Compétences (N2/N3) via ActionsTrait
             $this->syncRealisationPrototypeEtProjetAvecMobilisations($realisationTache);
+
+            // 🎯 Mise à jour du pourcentage de réalisation dans TacheAffectation
+            if ($realisationTache->tache_affectation_id) {
+                $tacheAffectationService = new \Modules\PkgRealisationTache\Services\TacheAffectationService();
+                $tacheAffectation = $realisationTache->tacheAffectation ?? \Modules\PkgRealisationTache\Models\TacheAffectation::find($realisationTache->tache_affectation_id);
+                if ($tacheAffectation) {
+                    $tacheAffectationService->mettreAjourTacheProgression($tacheAffectation);
+                }
+            }
         }
     }
 
