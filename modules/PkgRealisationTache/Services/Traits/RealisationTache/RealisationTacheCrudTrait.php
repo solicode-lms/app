@@ -114,64 +114,6 @@ trait RealisationTacheCrudTrait
                         'realisation_ua_id' => $realisationUA->id,
                     ]);
                 }
-
-                // --- 🆕 Nouvelle Règle Métier : Validation de l'UA si tous les chapitres sont terminés ---
-                $ua = $tache->chapitre->uniteApprentissage;
-                if ($ua) {
-                    $totalChapitres = $ua->chapitres()->count();
-
-                    // On compte les chapitres validés pour cette UA et cet apprenant
-                    $chapitresValides = \Modules\PkgApprentissage\Models\RealisationChapitre::where('realisation_ua_id', $realisationUA->id)
-                        ->whereHas('etatRealisationChapitre', function ($q) {
-                            $q->where('code', 'DONE');
-                        })
-                        ->count();
-
-                    // Astuce : il faut peut-être compter le chapitre courant comme validé s'il vient d'être fait via cette tâche
-                    // Mais RealisationChapitre est créé/lié juste au-dessus. Si son état par défaut n'est pas DONE, le compte sera faux.
-                    // Hypothèse : La validation du chapitre se fait ailleurs ou on considère qu'il l'est.
-                    // Si le système valide le chapitre via l'état de la tâche, alors il faut peut-être forcer le compte +1 ou vérifier l'état de la tâche courante.
-                    // Supposons que le mécanisme est asynchrone ou géré : on vérifie >= total - 1 si le courant n'est pas encore DONE en BDD ?
-                    // Soyons stricts : on vérifie >= total. Si le chapitre courant n'est pas encore marqué DONE, ça ne déclenchera pas.
-                    // Mais l'utilisateur veut que ça se déclenche.
-
-                    if ($chapitresValides >= $totalChapitres) {
-
-                        $etatApprovedId = \Modules\PkgRealisationTache\Models\EtatRealisationTache::whereHas('workflowTache', function ($q) {
-                            $q->where('code', 'APPROVED');
-                        })->value('id');
-
-                        if ($etatApprovedId) {
-                            // Trouver la tâche du dernier chapitre
-                            $dernierChapitre = $ua->chapitres()->orderBy('ordre', 'desc')->first();
-
-                            if ($dernierChapitre) {
-                                // On cherche la tâche principale (ou unique) liée à ce chapitre
-                                $tacheDernierChapitre = \Modules\PkgCreationTache\Models\Tache::where('chapitre_id', $dernierChapitre->id)->first();
-
-                                if ($tacheDernierChapitre) {
-                                    // Vérification d'existence pour éviter doublons et boucles infinies
-                                    // On vérifie si une réalisation existe déjà pour CE projet et CETTE tâche
-                                    $exists = RealisationTache::where('tache_id', $tacheDernierChapitre->id)
-                                        ->where('realisation_projet_id', $realisationProjet->id)
-                                        ->exists();
-
-                                    if (!$exists) {
-                                        $realisationTacheService = new \Modules\PkgRealisationTache\Services\RealisationTacheService();
-                                        $realisationTacheService->create([
-                                            'tache_id' => $tacheDernierChapitre->id,
-                                            'realisation_projet_id' => $realisationProjet->id,
-                                            'etat_realisation_tache_id' => $etatApprovedId,
-                                            'date_debut' => now(),
-                                            'date_fin' => now(),
-                                            'description' => "Validation automatique via UA Completed" // Optionnel
-                                        ]);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
             }
 
             // 🧩 Gestion consolidée des Compétences (N2/N3) via ActionsTrait
@@ -427,6 +369,8 @@ trait RealisationTacheCrudTrait
                     $dernierChapitre = $ua->chapitres()->orderBy('ordre', 'desc')->first();
 
                     if ($dernierChapitre) {
+
+                        // TODO : Problème : il récupére même les tâche qui ne fait pas partie de projet courant
                         $tacheDernierChapitre = \Modules\PkgCreationTache\Models\Tache::where('chapitre_id', $dernierChapitre->id)->first();
 
                         if ($tacheDernierChapitre) {
