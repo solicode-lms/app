@@ -8,33 +8,34 @@ use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 trait MobilisationUaRelationsTrait
 {
     /**
-     * Déclenche la synchronisation entre les Tâches et les Réalisations.
+     * Synchronise les tâches N2 (Prototype) et N3 (Projet) avec les UA mobilisées.
      * 
-     * Cette méthode met à jour les indicateurs de réalisation (notes, avancement)
-     * pour les projets (N3) et prototypes (N2) impactés par la mobilisation.
-     *
+     * Cette méthode est appelée après la création, modification ou suppression d'une mobilisation UA.
+     * Elle met à jour les réalisations de compétences (RealisationUaPrototype/Projet) pour toutes
+     * les tâches N2/N3 existantes du projet en :
+     * 1. Supprimant les liens vers des UA qui ne sont plus mobilisées.
+     * 2. Ajoutant les nouveaux liens vers les UA nouvellement mobilisées.
+     * 
      * @param int $projetId L'identifiant du projet concerné.
      * @return void
      */
-    public function triggerSyncTacheEtRealisation($projetId)
+    public function syncN2N3TasksWithMobilisedUa($projetId)
     {
-        // On délègue au RealisationProjetService la logique de mise à jour des métadonnées
-        // des réalisations existantes (N2/N3) en fonction des nouvelles mobilisations.
-        $realisationProjetService = new RealisationProjetService();
+        $tacheService = new TacheService();
 
-        // Note : Cette méthode doit exister dans RealisationProjetService ou un de ses Traits
-        // pour recalculer les scores ou propager les nouvelles compétences aux projets élèves.
-        if (method_exists($realisationProjetService, 'syncRealisationProjetCalcul')) {
-            // Exemple d'appel hypothétique si la logique de calcul est centralisée là-bas
-            // $realisationProjetService->syncRealisationProjetCalcul($projetId);
+        // Récupérer toutes les tâches N2 et N3 du projet
+        $taches = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $projetId)
+            ->whereHas('phaseEvaluation', function ($q) {
+                $q->whereIn('code', ['N2', 'N3']);
+            })
+            ->get();
+
+        // Pour chaque tâche N2/N3, déclencher un update qui activera les hooks
+        // Le hook afterUpdateRules appellera automatiquement syncRealisationPrototypeOrProjet()
+        foreach ($taches as $tache) {
+            $tacheService->update($tache->id, [
+                'updated_at' => now() // Forcer la mise à jour pour déclencher les hooks
+            ]);
         }
-
-        // Logique actuelle (basée sur le code précédent) : 
-        // Il semble que l'appel précédent était `addMobilisationToProjectRealisations`.
-        // Si cette logique est maintenant gérée par des événements ou des hooks ailleurs,
-        // cette méthode sert de point d'entrée explicite.
-
-        // TODO: Vérifier si RealisationProjetService a besoin d'une méthode spécifique ici
-        // ou si le TacheService s'en charge via createRealisationTaches.
     }
 }

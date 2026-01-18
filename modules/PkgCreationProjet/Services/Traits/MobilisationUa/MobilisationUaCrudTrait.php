@@ -48,7 +48,7 @@ trait MobilisationUaCrudTrait
             }
 
             // 3. Sync Tâches Projet
-            $this->triggerSyncTacheEtRealisation($item->projet_id);
+            $this->syncN2N3TasksWithMobilisedUa($item->projet_id);
         }
     }
 
@@ -56,7 +56,7 @@ trait MobilisationUaCrudTrait
     {
         if ($item instanceof \Modules\PkgCreationProjet\Models\MobilisationUa && isset($item->projet)) {
             $item->projet->touch();
-            $this->triggerSyncTacheEtRealisation($item->projet_id);
+            $this->syncN2N3TasksWithMobilisedUa($item->projet_id);
         }
     }
 
@@ -78,7 +78,7 @@ trait MobilisationUaCrudTrait
             }
 
             // 3. Sync Tâches Projet
-            $this->triggerSyncTacheEtRealisation($mobilisation->projet_id);
+            $this->syncN2N3TasksWithMobilisedUa($mobilisation->projet_id);
         }
 
         return $result;
@@ -88,6 +88,9 @@ trait MobilisationUaCrudTrait
 
     /**
      * Supprime les tâches N1 associées à la mobilisation.
+     * 
+     * Utilise le TacheService pour garantir que les hooks de suppression
+     * (nettoyage des réalisations, notifications, etc.) sont correctement déclenchés.
      */
     protected function deleteAssociatedTasks($mobilisation)
     {
@@ -96,9 +99,16 @@ trait MobilisationUaCrudTrait
         if ($ua && $ua->chapitres->isNotEmpty()) {
             $chapitreIds = $ua->chapitres->pluck('id');
 
-            \Modules\PkgCreationTache\Models\Tache::where('projet_id', $mobilisation->projet_id)
+            // Récupérer les tâches à supprimer
+            $tachesToDelete = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $mobilisation->projet_id)
                 ->whereIn('chapitre_id', $chapitreIds)
-                ->delete();
+                ->pluck('id');
+
+            // Supprimer via le service pour déclencher les hooks
+            $tacheService = new TacheService();
+            foreach ($tachesToDelete as $tacheId) {
+                $tacheService->destroy($tacheId);
+            }
         }
     }
 

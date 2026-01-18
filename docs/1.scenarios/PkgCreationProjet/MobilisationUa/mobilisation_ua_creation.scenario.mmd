@@ -25,7 +25,7 @@ sequenceDiagram
     deactivate TS
 
     Note right of MCT: 2. Sync Tâches Projet
-    MCT->>MRT: triggerSyncTacheEtRealisation(projet_id)
+    MCT->>MRT: syncN2N3TasksWithMobilisedUa(projet_id)
     activate MRT
     Note right of MRT: Mise à jour des notes et réalisations UA existantes
     MRT-->>MCT: done
