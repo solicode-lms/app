@@ -3,20 +3,37 @@
 namespace Modules\PkgRealisationProjets\Services\Traits\RealisationProjet;
 
 use Illuminate\Support\Facades\Auth;
-use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
-use Modules\PkgNotification\Enums\NotificationType;
-use Modules\PkgRealisationTache\Services\RealisationTacheService;
+
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgAutorisation\Models\Role;
 use Illuminate\Validation\ValidationException;
+use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
 
 trait RealisationProjetCrudTrait
 {
 
     /**
+     * Règles métiers appliquées avant la création d'une réalisation de projet.
+     *
+     * @param array $data Données à insérer (passées par référence).
+     * @return void
+     */
+    public function beforeCreateRules(array &$data): void
+    {
+        // Affecter l'état "TODO" par défaut si non spécifié
+        if (empty($data['etats_realisation_projet_id'])) {
+            $etatsRealisationProjetService = app(EtatsRealisationProjetService::class);
+            $etatTodo = $etatsRealisationProjetService->getByCode('TODO');
+
+            if ($etatTodo) {
+                $data['etats_realisation_projet_id'] = $etatTodo->id;
+            }
+        }
+    }
+
+    /**
      * Actions post-création d'une réalisation de projet.
      *
-     * - Affecte l'état par défaut (TODO).
      * - Envoie une notification à l'apprenant.
      * - Génère les tâches de réalisation associées.
      *
@@ -28,15 +45,7 @@ trait RealisationProjetCrudTrait
         if (!$realisationProjet instanceof RealisationProjet) {
             return; // 🛡️ Vérification de sécurité
         }
-        // Étape 1 : Affecter l'état "TODO" s'il existe
-        if (empty($realisationProjet->etats_realisation_projet_id)) {
-            $etatTodo = EtatsRealisationProjet::where('code', 'TODO')->first();
 
-            if ($etatTodo) {
-                $realisationProjet->etats_realisation_projet_id = $etatTodo->id;
-                $realisationProjet->save();
-            }
-        }
         // Étape 2 : Notification
         $this->notifierApprenant($realisationProjet);
 
@@ -76,7 +85,8 @@ trait RealisationProjetCrudTrait
             $etatActuel = $entity->etatsRealisationProjet;
 
             // Charger le nouvel état pour validation
-            $nouvelEtat = EtatsRealisationProjet::find($nouvelEtatId);
+            $etatsRealisationProjetService = app(EtatsRealisationProjetService::class);
+            $nouvelEtat = $etatsRealisationProjetService->find($nouvelEtatId);
 
             if (!$nouvelEtat) {
                 throw ValidationException::withMessages([

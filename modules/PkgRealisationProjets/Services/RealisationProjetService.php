@@ -9,6 +9,7 @@ use Modules\PkgRealisationProjets\Services\Traits\RealisationProjet\RealisationP
 use Modules\PkgRealisationProjets\Services\Traits\RealisationProjet\RealisationProjetCalculTrait;
 use Modules\PkgRealisationProjets\Services\Traits\RealisationProjet\RealisationProjetJobTrait;
 
+
 /**
  * 
  * Classe RealisationProjetService pour gérer la persistance de l'entité RealisationProjet.
@@ -17,9 +18,10 @@ class RealisationProjetService extends BaseRealisationProjetService
 {
     use RealisationProjetGetterTrait,
         RealisationProjetCrudTrait,
+        RealisationProjetJobTrait,
         RealisationProjetActionsTrait,
-        RealisationProjetCalculTrait,
-        RealisationProjetJobTrait;
+        RealisationProjetCalculTrait;
+
 
     protected array $index_with_relations = [
         'affectationProjet',

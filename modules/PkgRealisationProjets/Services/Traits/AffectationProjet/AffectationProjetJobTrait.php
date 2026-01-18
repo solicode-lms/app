@@ -55,7 +55,7 @@ trait AffectationProjetJobTrait
                 return 'error';
             }
 
-            // 3) Récupération des tâches du projet
+            // 3) Récupération des tâches du projet pour créaton des TacheAffectations
             $taches = \Modules\PkgCreationTache\Models\Tache::query()
                 ->where('projet_id', $affectation->projet_id)
                 ->get();

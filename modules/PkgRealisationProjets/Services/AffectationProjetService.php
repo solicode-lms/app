@@ -9,6 +9,10 @@ use Modules\PkgRealisationProjets\Services\Traits\AffectationProjet\AffectationP
 
 /**
  * Classe AffectationProjetService pour gérer la persistance de l'entité AffectationProjet.
+ * 
+ * @uses AffectationProjetCrudTrait Gestion du cycle de vie (create, update, delete) et hooks CRUD.
+ * @uses AffectationProjetJobTrait Gestion des jobs asynchrones et listeners.
+ * @uses AffectationProjetGetterTrait Méthodes de récupération et scopes complexes.
  */
 class AffectationProjetService extends BaseAffectationProjetService
 {
