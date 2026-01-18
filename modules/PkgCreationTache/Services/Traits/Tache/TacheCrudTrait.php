@@ -180,29 +180,9 @@ trait TacheCrudTrait
     protected function abortCreationIfAllLearnersValidatedChapitre(array &$data)
     {
         if (isset($data['chapitre_id']) && isset($data['projet_id'])) {
-            $projectId = $data['projet_id'];
-            $chapitreId = $data['chapitre_id'];
-
-            // Récupérer tous les apprenants assignés à ce projet via les affectations
-            $apprenantsIds = \Modules\PkgRealisationProjets\Models\RealisationProjet::whereHas('affectationProjet', function ($q) use ($projectId) {
-                $q->where('projet_id', $projectId);
-            })->pluck('apprenant_id')->unique();
-
-            if ($apprenantsIds->isNotEmpty()) {
-                $totalApprenants = $apprenantsIds->count();
-
-                // Compter combien d'apprenants (distincts) ont validé ce chapitre
-                $validatedLearners = \Modules\PkgApprentissage\Models\RealisationChapitre::where('chapitre_id', $chapitreId)
-                    ->whereHas('etatRealisationChapitre', fn($q) => $q->where('code', 'DONE'))
-                    ->join('realisation_uas', 'realisation_chapitres.realisation_ua_id', '=', 'realisation_uas.id')
-                    ->whereIn('realisation_uas.apprenant_id', $apprenantsIds)
-                    ->distinct('realisation_uas.apprenant_id')
-                    ->count('realisation_uas.apprenant_id');
-
-                // Si tous les apprenants ont validé, on annule la création
-                if ($validatedLearners >= $totalApprenants) {
-                    $data['__abort_creation'] = true;
-                }
+            // Utilisation de la méthode centralisée dans TacheService
+            if ($this->checkAllLearnersValidatedChapter($data['projet_id'], $data['chapitre_id'])) {
+                $data['__abort_creation'] = true;
             }
         }
     }

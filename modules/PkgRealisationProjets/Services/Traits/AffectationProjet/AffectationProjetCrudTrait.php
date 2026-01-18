@@ -79,6 +79,33 @@ trait AffectationProjetCrudTrait
     }
 
     /**
+     * Actions post-création.
+     * 
+     * Nettoie les tâches N1 existantes si tous les apprenants (y compris ceux de ce groupe)
+     * ont déjà validé le chapitre associé.
+     *
+     * @param mixed $affectationProjet L'instance créée.
+     */
+    public function afterCreateRules($affectationProjet)
+    {
+        if ($affectationProjet->projet_id) {
+            $tacheService = new \Modules\PkgCreationTache\Services\TacheService();
+            // Récupérer les tâches liés à des chapitres pour ce projet
+            $taches = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $affectationProjet->projet_id)
+                ->whereNotNull('chapitre_id')
+                ->get();
+
+            foreach ($taches as $tache) {
+                // Utilisation de la méthode centralisée
+                if ($tacheService->checkAllLearnersValidatedChapter($affectationProjet->projet_id, $tache->chapitre_id)) {
+                    // Supprimer la tâche car redondante (tous les apprenants l'ont déjà faite)
+                    $tacheService->destroy($tache->id);
+                }
+            }
+        }
+    }
+
+    /**
      * Actions post-mise à jour.
      * 
      * Synchronise la liste des réalisations de projet si la composition

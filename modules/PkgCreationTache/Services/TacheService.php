@@ -34,4 +34,47 @@ class TacheService extends BaseTacheService
 
     protected $ordreGroupColumn = "projet_id";
 
+
+
+    /**
+     * Vérifie si tous les apprenants assignés à un projet 
+     * ont validé un chapitre donné.
+     *
+     * @param int $projectId
+     * @param int $chapitreId
+     * @return bool
+     */
+    public function checkAllLearnersValidatedChapter(int $projectId, int $chapitreId): bool
+    {
+        // Récupérer tous les apprenants assignés à ce projet via les affectations
+        // On suppose que l'agent Business sait qu'on doit interroger RealisationProjet
+        // pour connaitre les apprenants "actifs" du projet. 
+        // Note: RealisationProject est lié à AffectationProjet qui lie Groupe -> Projet.
+
+        // TODO : il faut récuperer les apprenants depuis affectation pas depuis Réalisation 
+        $apprenantsIds = \Modules\PkgRealisationProjets\Models\RealisationProjet::whereHas('affectationProjet', function ($q) use ($projectId) {
+            $q->where('projet_id', $projectId);
+        })->pluck('apprenant_id')->unique();
+
+        if ($apprenantsIds->isEmpty()) {
+            // S'il n'y a aucun apprenant, on considère que "Tous" n'ont pas validé (car "Tous" = vide).
+            // Mais contextuellement, si pas d'apprenant, pas besoin de bloquer la tâche ?
+            // Si on retourne true, on bloque la création. Si false, on crée.
+            // Si pas d'apprenant, on devrait pouvoir créer la tâche pour le futur. Donc return false.
+            return false;
+        }
+
+        $totalApprenants = $apprenantsIds->count();
+
+        // Compter combien d'apprenants (distincts) ont validé ce chapitre
+        $validatedLearners = \Modules\PkgApprentissage\Models\RealisationChapitre::where('chapitre_id', $chapitreId)
+            ->whereHas('etatRealisationChapitre', fn($q) => $q->where('code', 'DONE')) // Validation stricte
+            ->join('realisation_uas', 'realisation_chapitres.realisation_ua_id', '=', 'realisation_uas.id')
+            ->whereIn('realisation_uas.apprenant_id', $apprenantsIds)
+            ->distinct('realisation_uas.apprenant_id')
+            ->count('realisation_uas.apprenant_id');
+
+        return $validatedLearners >= $totalApprenants;
+    }
+
 }
