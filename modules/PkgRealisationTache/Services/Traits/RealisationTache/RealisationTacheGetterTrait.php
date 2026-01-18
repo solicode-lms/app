@@ -262,4 +262,18 @@ trait RealisationTacheGetterTrait
             ->orderBy('taches.ordre', 'asc') // 2️⃣ Ensuite par ordre de tâche
             ->select('realisation_taches.*'); // 🎯 Important pour éviter le problème de Model::hydrate
     }
+    /**
+     * Vérifie l'existence d'une réalisation de tâche pour une tâche et une réalisation de projet données.
+     *
+     * @param int $tacheId
+     * @param int $realisationProjetId
+     * @return bool
+     */
+    public function existsForTacheAndProject(int $tacheId, int $realisationProjetId): bool
+    {
+        return $this->allQuery()->where([
+            'tache_id' => $tacheId,
+            'realisation_projet_id' => $realisationProjetId
+        ])->exists();
+    }
 }

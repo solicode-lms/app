@@ -12,7 +12,7 @@
 
 ## 2. Architecture & Code
 - **[Règle SRP Services / No Direct Model]** : Un Service ne doit JAMAIS appeler directement le Model d'une autre entité (ex: `EtatsRealisationProjet::where`). Il DOIT utiliser le Service dédié (ex: `EtatsRealisationProjetService`). **ACTION REQUISE** : Lors de toute modification ou ajout de méthode, TOUJOURS vérifier et CORRIGER les accès directs aux models étrangers par l'injection de service.
-- **[Règle Encapsulation Query]** : Les consommateurs d'un Service (ex: un Trait d'une autre entité) ne doivent PAS construire de requêtes Eloquent (chainage `where`, usage direct de `allQuery`...) sur un service injecté. Ils doivent appeler une **méthode métier explicite** exposée par ce Service (ex: `$service->getByReference($ref)` au lieu de `$service->allQuery()->where(...)->first()`). Si la méthode n'existe pas, il faut la créer dans le Service dédié.
+- **[Règle Encapsulation Query]** : Les consommateurs d'un Service (ex: un Trait d'une autre entité) ne doivent PAS construire de requêtes Eloquent (chainage `where`, usage direct de `allQuery`...) sur un service injecté. Ils doivent appeler une **méthode métier explicite** exposée par ce Service (ex: `$service->getByReference($ref)` au lieu de `$service->allQuery()->where(...)->first()`). Si la méthode n'existe pas, il faut la créer dans le Service dédié (généralement dans `{Entity}GetterTrait`). **INTERDICTION** : `allQuery()` ne doit être utilisé qu'à l'intérieur de sa propre classe de Service ou Traits associés.
 - **[Règle Architectures Traits]** : Pour tout Service utilisant des Traits, la PHPDoc de la classe principale DOIT inclure une section "Architecture" listant chaque Trait via `@uses` avec une description courte.
 - **[Règle Typage]** : Chaque méthode publique d'un Service doit avoir un Return Type explicitement typé.
 - **[Règle Injection]** : Prioriser l'Injection de Dépendance dans les constructeurs.
@@ -34,3 +34,11 @@ Lors du découpage d'un Service, utilisez exclusivement ces catégories de Trait
 - **`{Entity}DataCalculTrait`** : Implémentation de la méthode `dataCalcul` pour enrichir les données des formulaires (ex: calculs auto, valeurs par défaut contextuelles).
 - **`{Entity}JobTrait`** : Gestion des Jobs asynchrones et listeners (ex: `ObserverJob`).
 - **`{Entity}StateTrait`** : (Optionnel) Gestion des machines à états, transitions de statut, validations d'étapes.
+
+## 5. Ordre d'Importation des Traits
+Dans la classe de Service, les traits doivent être utilisés (`use ...;`) dans cet **ordre strict** pour garantir la bonne surcharge des méthodes (notamment les Hooks) :
+1.  `{Entity}CrudTrait` (Base du cycle de vie)
+2.  `{Entity}JobTrait` (Doit pouvoir écouter/intercepter le CRUD)
+3.  `{Entity}ActionsTrait` (Logique métier spécifique)
+4.  `{Entity}GetterTrait` (Lecture seule, souvent indépendant)
+5.  `{Entity}MassCrudTrait` (Opérations de masse)

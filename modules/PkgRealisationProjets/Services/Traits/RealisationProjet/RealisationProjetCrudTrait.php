@@ -5,6 +5,10 @@ namespace Modules\PkgRealisationProjets\Services\Traits\RealisationProjet;
 use Illuminate\Support\Facades\Auth;
 
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
+use Modules\PkgRealisationTache\Services\RealisationTacheService;
+use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
+use Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService;
+use Modules\PkgEvaluateurs\Services\EvaluationRealisationTacheService;
 use Modules\PkgAutorisation\Models\Role;
 use Illuminate\Validation\ValidationException;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
@@ -49,13 +53,80 @@ trait RealisationProjetCrudTrait
         // Étape 2 : Notification
         $this->notifierApprenant($realisationProjet);
 
-        // Étape 3 : Création des RealisationTache via la mise à jour des tâches
-        // On déclenche un update sur chaque tâche du projet pour que TacheService génère les RealisationTache manquantes
-        $projet = $realisationProjet->affectationProjet->projet;
-        if ($projet) {
-            $tacheService = new \Modules\PkgCreationTache\Services\TacheService();
-            foreach ($projet->taches as $tache) {
-                $tacheService->update($tache->id, ['id' => $tache->id]);
+        // Étape 3 : Création des RealisationTache pour ce projet spécifique
+        $this->genererRealisationTaches($realisationProjet);
+    }
+
+    /**
+     * Génère les réalisations de tâches pour le projet en cours.
+     * Cette méthode remplace l'appel coûteux à TacheService::update.
+     * 
+     * @param RealisationProjet $realisationProjet
+     * @return void
+     */
+    protected function genererRealisationTaches(RealisationProjet $realisationProjet): void
+    {
+        $projet = $realisationProjet->affectationProjet->projet ?? null;
+
+        if (!$projet) {
+            return;
+        }
+
+        // Chargement des services nécessaires à la demande
+        $realisationTacheService = app(RealisationTacheService::class);
+        $etatService = app(EtatRealisationTacheService::class);
+        $evaluationTacheService = app(EvaluationRealisationTacheService::class);
+
+        // Déterminer l'état initial
+        $formateurId = $projet->formateur_id;
+        $etatInitial = $formateurId ? $etatService->getDefaultEtatByFormateurId($formateurId) : null;
+
+        // Préparer les évaluateurs si présents
+        $affectation = $realisationProjet->affectationProjet;
+        $evaluateurs = $affectation->evaluateurs ?? collect();
+
+        foreach ($projet->taches as $tache) {
+            // Vérification existence pour éviter doublons
+            // Vérification existence pour éviter doublons via méthode dédiée
+            $exists = $realisationTacheService->existsForTacheAndProject($tache->id, $realisationProjet->id);
+
+            if ($exists) {
+                continue;
+            }
+
+            // Création de la RealisationTache
+            // Note : Les hooks de RealisationTacheService (before/afterCreateRules) géreront :
+            // - La déduction de tache_affectation_id
+            // - La synchro des compétences (RealisationUaPrototype/Projet)
+            $realisationTache = $realisationTacheService->create([
+                'tache_id' => $tache->id,
+                'realisation_projet_id' => $realisationProjet->id,
+                'etat_realisation_tache_id' => $etatInitial?->id,
+                'dateDebut' => $tache->dateDebut,
+                'dateFin' => $tache->dateFin,
+            ]);
+
+            if (!$realisationTache) {
+                continue;
+            }
+
+            // Création des Évaluations liées (si évaluateurs assignés)
+            if ($evaluateurs->isNotEmpty()) {
+                foreach ($evaluateurs as $evaluateur) {
+                    // Retrouver l'évaluation projet parente
+                    $evaluationProjet = \Modules\PkgEvaluateurs\Models\EvaluationRealisationProjet::where([
+                        'realisation_projet_id' => $realisationProjet->id,
+                        'evaluateur_id' => $evaluateur->id,
+                    ])->first();
+
+                    if ($evaluationProjet) {
+                        $evaluationTacheService->create([
+                            'realisation_tache_id' => $realisationTache->id,
+                            'evaluateur_id' => $evaluateur->id,
+                            'evaluation_realisation_projet_id' => $evaluationProjet->id,
+                        ]);
+                    }
+                }
             }
         }
     }
