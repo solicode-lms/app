@@ -71,6 +71,7 @@ class BaseTacheImport implements ToModel, WithHeadingRow
              'phase_evaluation_id' => $values[11] ?? null,
              'chapitre_id' => $values[12] ?? null,
              'livrables' => $values[13] ?? null,
+             'mobilisation_ua_id' => $values[14] ?? null,
         ]);
 
 

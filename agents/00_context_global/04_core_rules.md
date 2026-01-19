@@ -1,6 +1,6 @@
 # 🛑 Règles Fondamentales (Core Rules)
 
-Ce fichier contient les règles strictes que l'agent doit respecter. Toute modification de comportement doit être enregistrée ici.
+Ce fichier contient les règles strictes que les 3 Agents du système (Business, Data, Presentation) doivent respecter. Toute modification de comportement doit être enregistrée ici et s'applique globalement.
 
 ## 1. Respect du Code Existant (Priorité Absolue)
 - **Ne pas modifier la structure du projet** sans justification claire.
@@ -27,7 +27,16 @@ Ce fichier contient les règles strictes que l'agent doit respecter. Toute modif
 - Ne pas générer de code pour des technos non utilisées (React, Symfony) sauf demande.
 - Ne pas proposer de composants UI incompatibles avec AdminLTE.
 
-## 6. Protocole de Communication Inter-Agents (Le BUS)
+## 6. Générateur Gapp & Code Maintenu
+- **Gapp Protected Files** : NE JAMAIS modifier manuellement un fichier contenant `// Ce fichier est maintenu par ESSARRAJ Fouad` au début. Ce fichier est généré automatiquement. Pour le modifier, l'utilisateur doit utiliser la commande : `php artisan gapp make:crud NomModel`.
+- **Gapp & Migrations** : NE JAMAIS exécuter les migrations (`php artisan migrate`) soi-même. C'est la responsabilité du développeur.
+- **Gapp Sequence** : Suite à une modification de structure BDD, le workflow obligatoire est : `php artisan migrate` -> `php artisan gapp meta:sync` -> `php artisan gapp make:crud NomModel`.
+- **Scope Gapp** : Le générateur gère tous les fichiers dans les sous-dossiers `Base/` (Models, Requests, Exports, Imports, Controllers) ainsi que les Vues standard.
+- **Stratégie de Modification** :
+    - **Classes** : Ne jamais modifier les classes `Base`. Utiliser l'**héritage** (override) dans la classe correspondante (ex: `Tache extends BaseTache`).
+    - **Vues** : Ne pas modifier les vues de base. Utiliser l'**héritage de vues Blade** (`@extends`, `@section`) pour personnaliser.
+
+## 7. Protocole de Communication Inter-Agents (Le BUS)
 - **Vérification Systématique** : À son réveil (initialisation), l'agent DOIT lire son fichier `communication_agent_{NOM}.md`.
     - Si des tâches sont `[EN ATTENTE]`, il doit les **lister** à l'utilisateur et demander : *"Souhaitez-vous que je traite ces tâches en attente maintenant ?"*.
     - Il NE DOIT PAS commencer le traitement sans cette **confirmation explicite**.

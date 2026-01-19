@@ -36,7 +36,8 @@ class BaseTacheService extends BaseService
         'phase_projet_id',
         'is_live_coding_task',
         'phase_evaluation_id',
-        'chapitre_id'
+        'chapitre_id',
+        'mobilisation_ua_id'
     ];
 
 
@@ -178,6 +179,23 @@ class BaseTacheService extends BaseService
                         \Modules\PkgCompetences\Models\Chapitre::class, 
                         'code',
                         $chapitres
+                    );
+                }
+            
+            
+                if (!array_key_exists('mobilisation_ua_id', $scopeVariables)) {
+
+
+                    $mobilisationUaService = new \Modules\PkgCreationProjet\Services\MobilisationUaService();
+                    $mobilisationUaIds = $this->getAvailableFilterValues('mobilisation_ua_id');
+                    $mobilisationUas = $mobilisationUaService->getByIds($mobilisationUaIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCreationProjet::mobilisationUa.plural"), 
+                        'mobilisation_ua_id', 
+                        \Modules\PkgCreationProjet\Models\MobilisationUa::class, 
+                        'id',
+                        $mobilisationUas
                     );
                 }
             
@@ -357,7 +375,8 @@ class BaseTacheService extends BaseService
             'priorite',
             'titre',
             'note',
-            'livrables'
+            'livrables',
+            'mobilisation_ua_id'
         ];
 
         // Récupération des champs autorisés par rôle via getFieldsEditable()
@@ -409,6 +428,22 @@ class BaseTacheService extends BaseService
 
             case 'livrables':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
+            case 'mobilisation_ua_id':
+                 $values = (new \Modules\PkgCreationProjet\Services\MobilisationUaService())
+                    ->getAllForSelect($e->mobilisationUa)
+                    ->map(fn($entity) => [
+                        'value' => (int) $entity->id,
+                        'label' => (string) $entity,
+                    ])
+                    ->toArray();
+
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
+                    'required' => true,
+                    'options'  => [
+                        'source' => 'static',
+                        'values' => $values,
+                    ],
+                ]);
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
         }
@@ -491,6 +526,18 @@ class BaseTacheService extends BaseService
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
+                case 'mobilisation_ua_id':
+                    $html = view('Core::fields_by_type.manytoone', [
+                        'entity' => $e,
+                        'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'mobilisationUa'
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+
+
+
 
                 default:
                     // fallback générique si champ non pris en charge

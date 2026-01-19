@@ -93,6 +93,11 @@ class BaseTacheSeeder extends Seeder
                     $chapitre_id = \Modules\PkgCompetences\Models\Chapitre::where('reference', $row["chapitre_reference"])
                         ->value('id');
                 }
+                $mobilisation_ua_id = null;
+                if (!empty($row["mobilisation_ua_reference"])) {
+                    $mobilisation_ua_id = \Modules\PkgCreationProjet\Models\MobilisationUa::where('reference', $row["mobilisation_ua_reference"])
+                        ->value('id');
+                }
 
 
                 $tacheData =[
@@ -108,6 +113,7 @@ class BaseTacheSeeder extends Seeder
                         "is_live_coding_task" => isset($row["is_live_coding_task"]) && $row["is_live_coding_task"] !== "" ? $row["is_live_coding_task"] : null,
                         "phase_evaluation_id" => $phase_evaluation_id,
                         "chapitre_id" => $chapitre_id,
+                        "mobilisation_ua_id" => $mobilisation_ua_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
 

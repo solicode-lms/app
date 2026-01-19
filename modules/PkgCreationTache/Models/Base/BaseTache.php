@@ -15,6 +15,7 @@ use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgCreationTache\Models\PhaseProjet;
 use Modules\PkgCompetences\Models\PhaseEvaluation;
 use Modules\PkgCompetences\Models\Chapitre;
+use Modules\PkgCreationProjet\Models\MobilisationUa;
 use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\PkgRealisationTache\Models\TacheAffectation;
@@ -36,7 +37,8 @@ class BaseTache extends BaseModel
       //  'projet',
       //  'phaseProjet',
       //  'phaseEvaluation',
-      //  'chapitre'
+      //  'chapitre',
+      //  'mobilisationUa'
     ];
 
 
@@ -52,7 +54,7 @@ class BaseTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'priorite', 'titre', 'projet_id', 'description', 'dateDebut', 'dateFin', 'note', 'phase_projet_id', 'is_live_coding_task', 'phase_evaluation_id', 'chapitre_id'
+        'ordre', 'priorite', 'titre', 'projet_id', 'description', 'dateDebut', 'dateFin', 'note', 'phase_projet_id', 'is_live_coding_task', 'phase_evaluation_id', 'chapitre_id', 'mobilisation_ua_id'
     ];
     public $manyToMany = [
         'Livrable' => ['relation' => 'livrables' , "foreign_key" => "livrable_id" ]
@@ -77,6 +79,11 @@ class BaseTache extends BaseModel
             'model' => "Modules\\PkgCompetences\\Models\\Chapitre",
             'relation' => 'chapitres' , 
             "foreign_key" => "chapitre_id", 
+            ],
+        'MobilisationUa' => [
+            'model' => "Modules\\PkgCreationProjet\\Models\\MobilisationUa",
+            'relation' => 'mobilisationUas' , 
+            "foreign_key" => "mobilisation_ua_id", 
             ]
     ];
 
@@ -116,6 +123,15 @@ class BaseTache extends BaseModel
     public function chapitre(): BelongsTo
     {
         return $this->belongsTo(Chapitre::class, 'chapitre_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour MobilisationUa.
+     *
+     * @return BelongsTo
+     */
+    public function mobilisationUa(): BelongsTo
+    {
+        return $this->belongsTo(MobilisationUa::class, 'mobilisation_ua_id', 'id');
     }
 
     /**

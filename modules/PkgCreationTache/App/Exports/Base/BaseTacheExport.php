@@ -46,6 +46,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'phase_evaluation_reference' => 'phase_evaluation_reference',
                 'chapitre_reference' => 'chapitre_reference',
                 'livrables' => 'livrables',
+                'mobilisation_ua_reference' => 'mobilisation_ua_reference',
             ];
         } else {
             return [
@@ -63,6 +64,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'phase_evaluation_reference' => __('PkgCompetences::phaseEvaluation.singular'),
                 'chapitre_reference' => __('PkgCompetences::chapitre.singular'),
                     'livrables' => __('PkgCreationProjet::livrable.plural'),
+                'mobilisation_ua_reference' => __('PkgCreationProjet::mobilisationUa.singular'),
             ];
         }
     }
@@ -90,6 +92,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'livrables' => $tache->livrables
                     ->pluck('reference')
                     ->implode('|'),
+                'mobilisation_ua_reference' => $tache->mobilisationUa?->reference,
             ];
         });
     }

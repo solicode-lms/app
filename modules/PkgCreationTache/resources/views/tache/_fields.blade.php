@@ -513,6 +513,46 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="mobilisation_ua_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="mobilisation_ua_id" 
+              id="bulk_field_mobilisation_ua_id" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="mobilisation_ua_id">
+            {{ ucfirst(__('PkgCreationProjet::mobilisationUa.singular')) }}
+            
+          </label>
+                      <select 
+            id="mobilisation_ua_id" 
+            
+            
+            
+            name="mobilisation_ua_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($mobilisationUas as $mobilisationUa)
+                    <option value="{{ $mobilisationUa->id }}"
+                        {{ (isset($itemTache) && $itemTache->mobilisation_ua_id == $mobilisationUa->id) || (old('mobilisation_ua_id>') == $mobilisationUa->id) ? 'selected' : '' }}>
+                        {{ $mobilisationUa }}
+                    </option>
+                @endforeach
+            </select>
+          @error('mobilisation_ua_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 
     </div>
   

@@ -6,6 +6,7 @@ namespace Modules\PkgCreationTache\Controllers\Base;
 use Modules\PkgCreationTache\Services\TacheService;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Modules\PkgCompetences\Services\ChapitreService;
+use Modules\PkgCreationProjet\Services\MobilisationUaService;
 use Modules\PkgCompetences\Services\PhaseEvaluationService;
 use Modules\PkgCreationTache\Services\PhaseProjetService;
 use Modules\PkgCreationProjet\Services\ProjetService;
@@ -29,16 +30,18 @@ class BaseTacheController extends AdminController
     protected $tacheService;
     protected $livrableService;
     protected $chapitreService;
+    protected $mobilisationUaService;
     protected $phaseEvaluationService;
     protected $phaseProjetService;
     protected $projetService;
 
-    public function __construct(TacheService $tacheService, LivrableService $livrableService, ChapitreService $chapitreService, PhaseEvaluationService $phaseEvaluationService, PhaseProjetService $phaseProjetService, ProjetService $projetService) {
+    public function __construct(TacheService $tacheService, LivrableService $livrableService, ChapitreService $chapitreService, MobilisationUaService $mobilisationUaService, PhaseEvaluationService $phaseEvaluationService, PhaseProjetService $phaseProjetService, ProjetService $projetService) {
         parent::__construct();
         $this->service  =  $tacheService;
         $this->tacheService = $tacheService;
         $this->livrableService = $livrableService;
         $this->chapitreService = $chapitreService;
+        $this->mobilisationUaService = $mobilisationUaService;
         $this->phaseEvaluationService = $phaseEvaluationService;
         $this->phaseProjetService = $phaseProjetService;
         $this->projetService = $projetService;
@@ -101,12 +104,13 @@ class BaseTacheController extends AdminController
         $phaseEvaluations = $this->phaseEvaluationService->all();
         $chapitres = $this->chapitreService->all();
         $livrables = $this->livrableService->all();
+        $mobilisationUas = $this->mobilisationUaService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCreationTache::tache._fields', compact('bulkEdit' ,'itemTache', 'livrables', 'chapitres', 'phaseEvaluations', 'phaseProjets', 'projets'));
+            return view('PkgCreationTache::tache._fields', compact('bulkEdit' ,'itemTache', 'livrables', 'chapitres', 'mobilisationUas', 'phaseEvaluations', 'phaseProjets', 'projets'));
         }
-        return view('PkgCreationTache::tache.create', compact('bulkEdit' ,'itemTache', 'livrables', 'chapitres', 'phaseEvaluations', 'phaseProjets', 'projets'));
+        return view('PkgCreationTache::tache.create', compact('bulkEdit' ,'itemTache', 'livrables', 'chapitres', 'mobilisationUas', 'phaseEvaluations', 'phaseProjets', 'projets'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -135,6 +139,7 @@ class BaseTacheController extends AdminController
         $phaseEvaluations = $this->phaseEvaluationService->getAllForSelect($itemTache->phaseEvaluation);
         $chapitres = $this->chapitreService->getAllForSelect($itemTache->chapitre);
         $livrables = $this->livrableService->getAllForSelect($itemTache->livrables);
+        $mobilisationUas = $this->mobilisationUaService->getAllForSelect($itemTache->mobilisationUa);
 
         $bulkEdit = true;
 
@@ -142,9 +147,9 @@ class BaseTacheController extends AdminController
         $itemTache = $this->tacheService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgCreationTache::tache._fields', compact('bulkEdit', 'tache_ids', 'itemTache', 'livrables', 'chapitres', 'phaseEvaluations', 'phaseProjets', 'projets'));
+            return view('PkgCreationTache::tache._fields', compact('bulkEdit', 'tache_ids', 'itemTache', 'livrables', 'chapitres', 'mobilisationUas', 'phaseEvaluations', 'phaseProjets', 'projets'));
         }
-        return view('PkgCreationTache::tache.bulk-edit', compact('bulkEdit', 'tache_ids', 'itemTache', 'livrables', 'chapitres', 'phaseEvaluations', 'phaseProjets', 'projets'));
+        return view('PkgCreationTache::tache.bulk-edit', compact('bulkEdit', 'tache_ids', 'itemTache', 'livrables', 'chapitres', 'mobilisationUas', 'phaseEvaluations', 'phaseProjets', 'projets'));
     }
     /**
      */
@@ -218,6 +223,7 @@ class BaseTacheController extends AdminController
         $phaseEvaluations = $this->phaseEvaluationService->getAllForSelect($itemTache->phaseEvaluation);
         $chapitres = $this->chapitreService->getAllForSelect($itemTache->chapitre);
         $livrables = $this->livrableService->getAllForSelect($itemTache->livrables);
+        $mobilisationUas = $this->mobilisationUaService->getAllForSelect($itemTache->mobilisationUa);
 
 
         $this->viewState->set('scope.realisationTache.tache_id', $id);
@@ -237,10 +243,10 @@ class BaseTacheController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCreationTache::tache._edit', array_merge(compact('bulkEdit' , 'itemTache','livrables', 'chapitres', 'phaseEvaluations', 'phaseProjets', 'projets'),$realisationTache_compact_value, $tacheAffectation_compact_value));
+            return view('PkgCreationTache::tache._edit', array_merge(compact('bulkEdit' , 'itemTache','livrables', 'chapitres', 'mobilisationUas', 'phaseEvaluations', 'phaseProjets', 'projets'),$realisationTache_compact_value, $tacheAffectation_compact_value));
         }
 
-        return view('PkgCreationTache::tache.edit', array_merge(compact('bulkEdit' ,'itemTache','livrables', 'chapitres', 'phaseEvaluations', 'phaseProjets', 'projets'),$realisationTache_compact_value, $tacheAffectation_compact_value));
+        return view('PkgCreationTache::tache.edit', array_merge(compact('bulkEdit' ,'itemTache','livrables', 'chapitres', 'mobilisationUas', 'phaseEvaluations', 'phaseProjets', 'projets'),$realisationTache_compact_value, $tacheAffectation_compact_value));
 
 
     }
