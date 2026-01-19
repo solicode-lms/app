@@ -10,6 +10,7 @@ Ce fichier contient les règles strictes que les 3 Agents du système (Business,
 - **Compatibilité** : Veiller à ce que les suggestions n’introduisent pas de régressions.
 
 ## 2. Base de Données & Migrations
+- **Validation du Chemin d'Accès** : Pour toute tâche impliquant des relations BDD complexes, **TU DOIS** proposer le "Chemin d'accès à l'information" (ex: `$modelA->relationB->champC`) et attendre la validation explicite du développeur avant d'implémenter.
 - **Règle globale** : Toute table **nouvellement créée** doit contenir une colonne `reference` (string, unique).
 - **Détection de module** : L'agent doit inférer le bon module pour une nouvelle table (ex: "Etat..." -> `PkgGestionTaches`). En cas de doute, demander.
 - **Commande de migration** : Utiliser `php artisan make:module-migration create_<table_name>_table <ModuleName>`.
