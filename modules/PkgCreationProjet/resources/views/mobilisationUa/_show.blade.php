@@ -64,6 +64,21 @@
                 @endif
                 </div>
             </div>
+            @if(
+                  (auth()->user()?->can('show-tache') && $itemMobilisationUa->taches->isNotEmpty())  
+                  || auth()->user()?->can('create-tache')
+                  || (auth()->user()?->can('edit-tache')  && $itemMobilisationUa->taches->isNotEmpty() )
+                  )
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationTache::tache.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgCreationTache::tache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'mobilisationUa.show_' . $itemMobilisationUa->id])
+                  </div>
+                  </div>
+            </div>
+            @endif
+
             </div>
         </div>
         <div class="card-footer">

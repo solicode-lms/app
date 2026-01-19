@@ -6,6 +6,7 @@ namespace Modules\PkgCreationProjet\Controllers\Base;
 use Modules\PkgCreationProjet\Services\MobilisationUaService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Modules\PkgCompetences\Services\UniteApprentissageService;
+use Modules\PkgCreationTache\Services\TacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -151,7 +152,7 @@ class BaseMobilisationUaController extends AdminController
 
         }
 
-        return redirect()->route('mobilisationUas.index')->with(
+        return redirect()->route('mobilisationUas.edit', ['mobilisationUa' => $mobilisationUa->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $mobilisationUa,
@@ -168,11 +169,18 @@ class BaseMobilisationUaController extends AdminController
         $itemMobilisationUa = $this->mobilisationUaService->edit($id);
 
 
+        $this->viewState->set('scope.tache.mobilisation_ua_id', $id);
+        
+
+        $tacheService =  new TacheService();
+        $taches_view_data = $tacheService->prepareDataForIndexView();
+        extract($taches_view_data);
+
         if (request()->ajax()) {
-            return view('PkgCreationProjet::mobilisationUa._show', array_merge(compact('itemMobilisationUa'),));
+            return view('PkgCreationProjet::mobilisationUa._show', array_merge(compact('itemMobilisationUa'),$tache_compact_value));
         }
 
-        return view('PkgCreationProjet::mobilisationUa.show', array_merge(compact('itemMobilisationUa'),));
+        return view('PkgCreationProjet::mobilisationUa.show', array_merge(compact('itemMobilisationUa'),$tache_compact_value));
 
     }
     /**
@@ -193,13 +201,20 @@ class BaseMobilisationUaController extends AdminController
         $projets = $this->projetService->getAllForSelect($itemMobilisationUa->projet);
 
 
+        $this->viewState->set('scope.tache.mobilisation_ua_id', $id);
+        
+
+        $tacheService =  new TacheService();
+        $taches_view_data = $tacheService->prepareDataForIndexView();
+        extract($taches_view_data);
+
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::mobilisationUa._fields', array_merge(compact('bulkEdit' , 'itemMobilisationUa','projets', 'uniteApprentissages'),));
+            return view('PkgCreationProjet::mobilisationUa._edit', array_merge(compact('bulkEdit' , 'itemMobilisationUa','projets', 'uniteApprentissages'),$tache_compact_value));
         }
 
-        return view('PkgCreationProjet::mobilisationUa.edit', array_merge(compact('bulkEdit' ,'itemMobilisationUa','projets', 'uniteApprentissages'),));
+        return view('PkgCreationProjet::mobilisationUa.edit', array_merge(compact('bulkEdit' ,'itemMobilisationUa','projets', 'uniteApprentissages'),$tache_compact_value));
 
 
     }

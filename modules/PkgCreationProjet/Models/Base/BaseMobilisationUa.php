@@ -13,6 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\UniteApprentissage;
 use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgCreationTache\Models\Tache;
 
 /**
  * Classe BaseMobilisationUa
@@ -81,6 +82,15 @@ class BaseMobilisationUa extends BaseModel
     }
 
 
+    /**
+     * Relation HasMany pour MobilisationUas.
+     *
+     * @return HasMany
+     */
+    public function taches(): HasMany
+    {
+        return $this->hasMany(Tache::class, 'mobilisation_ua_id', 'id');
+    }
 
 
 
