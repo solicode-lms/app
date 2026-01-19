@@ -59,9 +59,11 @@ class RealisationChapitreService extends BaseRealisationChapitreService
         $validatedLearners = RealisationChapitre::where('chapitre_id', $chapitreId)
             ->whereHas('etatRealisationChapitre', fn($q) => $q->where('code', 'DONE')) // Validation stricte
             ->join('realisation_uas', 'realisation_chapitres.realisation_ua_id', '=', 'realisation_uas.id')
-            ->whereIn('realisation_uas.apprenant_id', $apprenantsIds)
-            ->distinct('realisation_uas.apprenant_id')
-            ->count('realisation_uas.apprenant_id');
+            // RealisationUa n'a pas apprenant_id directement, il faut passer par realisation_micro_competences
+            ->join('realisation_micro_competences', 'realisation_uas.realisation_micro_competence_id', '=', 'realisation_micro_competences.id')
+            ->whereIn('realisation_micro_competences.apprenant_id', $apprenantsIds)
+            ->distinct('realisation_micro_competences.apprenant_id')
+            ->count('realisation_micro_competences.apprenant_id');
 
         return $validatedLearners >= $totalApprenants;
     }
