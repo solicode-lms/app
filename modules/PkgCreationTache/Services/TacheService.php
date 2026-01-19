@@ -36,6 +36,7 @@ class TacheService extends BaseTacheService
 
 
 
+    // TODO : Cette méthode soit être dans RealisationChapitreService
     /**
      * Vérifie si tous les apprenants assignés à un projet 
      * ont validé un chapitre donné.
@@ -51,10 +52,9 @@ class TacheService extends BaseTacheService
         // pour connaitre les apprenants "actifs" du projet. 
         // Note: RealisationProject est lié à AffectationProjet qui lie Groupe -> Projet.
 
-        // TODO : il faut récuperer les apprenants depuis affectation pas depuis Réalisation 
-        $apprenantsIds = \Modules\PkgRealisationProjets\Models\RealisationProjet::whereHas('affectationProjet', function ($q) use ($projectId) {
-            $q->where('projet_id', $projectId);
-        })->pluck('apprenant_id')->unique();
+        // Récuperer les apprenants depuis affectation
+        $apprenantsIds = app(\Modules\PkgRealisationProjets\Services\AffectationProjetService::class)
+            ->getApprenantsIdsByProjet($projectId);
 
         if ($apprenantsIds->isEmpty()) {
             // S'il n'y a aucun apprenant, on considère que "Tous" n'ont pas validé (car "Tous" = vide).

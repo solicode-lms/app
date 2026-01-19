@@ -164,4 +164,33 @@ trait AffectationProjetGetterTrait
 
         return $query->get();
     }
+    /**
+     * Récupère les IDs des apprenants assignés à un projet donné via les affectations.
+     * Prend en compte l'affectation au Groupe ou au Sous-Groupe.
+     *
+     * @param int $projectId
+     * @return \Illuminate\Support\Collection
+     */
+    public function getApprenantsIdsByProjet(int $projectId)
+    {
+        return AffectationProjet::where('projet_id', $projectId)
+            ->with([
+                'groupe.apprenants' => function ($q) {
+                    $q->select('apprenants.id');
+                },
+                'sousGroupe.apprenants' => function ($q) {
+                    $q->select('apprenants.id');
+                }
+            ])
+            ->get()
+            ->flatMap(function ($affectation) {
+                // Si l'affectation est sur un sous-groupe, on prend ses apprenants
+                if ($affectation->sousGroupe) {
+                    return $affectation->sousGroupe->apprenants->pluck('id');
+                }
+                // Sinon on prend ceux du groupe entier
+                return $affectation->groupe ? $affectation->groupe->apprenants->pluck('id') : collect();
+            })
+            ->unique();
+    }
 }
