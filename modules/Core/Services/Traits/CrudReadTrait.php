@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 trait CrudReadTrait
 {
-      /**
+    /**
      * Renvoie tous les éléments correspondants aux critères donnés.
      *
      * @param array $search Critères de recherche.
@@ -18,22 +18,23 @@ trait CrudReadTrait
      */
     public function all(array $columns = ['*']): Collection
     {
-        return $this->model->withScope(fn() =>  $this->model::all());
+        // return $this->model->withScope(fn() =>  $this->model::all());
+        return $this->model->withScope(fn() => $this->defaultSort($this->model::query())->get());
     }
 
 
-     /**
+    /**
      * méthode utilise pour trouver les élément à afficher dans select en cas de edit et create
      */
     public function getAllForSelect($entity): Collection
     {
-        return $this->model->withScope(fn() =>  $this->model::all());
+        return $this->model->withScope(fn() => $this->model::all());
     }
 
 
     public function count(): int
     {
-        return $this->model->withScope(fn () => $this->model::query()->count());
+        return $this->model->withScope(fn() => $this->model::query()->count());
     }
     public function getByIds(array $ids, array $columns = ['*']): \Illuminate\Support\Collection
     {
@@ -43,17 +44,18 @@ trait CrudReadTrait
     }
 
 
-        /**
+    /**
      * Récupère un élément par son identifiant.
      *
      * @param int $id Identifiant de l'élément à récupérer.
      * @param array $columns Colonnes à récupérer.
      * @return mixed
      */
-    public function find(int $id, array $columns = ['*']){
+    public function find(int $id, array $columns = ['*'])
+    {
         return $this->model->find($id, $columns);
     }
-         /**
+    /**
      * Récupère un élément à partir de sa référence unique.
      *
      * @param string $reference Le champ de référence unique.
