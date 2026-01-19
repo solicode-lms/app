@@ -5,6 +5,18 @@
 
   <section class="projet-section">
 
+    @php
+        $rawProjet   = $entity->remarque_formateur;
+        $plainProjet = trim(strip_tags($rawProjet ?? ''));
+    @endphp
+
+    @if( !empty($rawProjet) && $plainProjet != '' )
+    <section class="tache-comment mb-3" data-toggle="tooltip" title="Commentaire formateur (Projet)">
+        <i class="fas fa-user-tie text-info"></i>
+        {!! $rawProjet !!}
+    </section>
+    @endif
+
     {{-- ===================== PROTOTYPE ===================== --}}
     @php $proto = $entity->prototypeRelation ?? null; @endphp
     

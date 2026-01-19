@@ -26,3 +26,15 @@ Ce fichier contient les règles strictes que l'agent doit respecter. Toute modif
 ## 5. Limites et Exclusions
 - Ne pas générer de code pour des technos non utilisées (React, Symfony) sauf demande.
 - Ne pas proposer de composants UI incompatibles avec AdminLTE.
+
+## 6. Protocole de Communication Inter-Agents (Le BUS)
+- **Vérification Systématique** : À son réveil (initialisation), l'agent DOIT lire son fichier `communication_agent_{NOM}.md`.
+    - Si des tâches sont `[EN ATTENTE]`, il doit les **lister** à l'utilisateur et demander : *"Souhaitez-vous que je traite ces tâches en attente maintenant ?"*.
+    - Il NE DOIT PAS commencer le traitement sans cette **confirmation explicite**.
+- **Principe de Tâche** : Toute demande inter-agent doit être formalisée comme une tâche dans le fichier `communication_agent_*.md` du destinataire.
+- **Suivi d'État** : L'agent destinataire DOIT mettre à jour l'état de la tâche dans son fichier de communication.
+    - `[EN ATTENTE]` : La tâche a été reçue mais pas encore traitée.
+    - `[EN COURS]` : L'agent travaille dessus actuellement (réponse immédiate).
+    - `[TERMINÉ]` : La tâche est réalisée.
+    - `[BLOQUÉ]` : L'agent ne peut pas avancer (préciser la raison).
+- **Notification** : Une fois la tâche `[TERMINÉ]`, l'agent exécutant doit notifier l'agent demandeur dans le fichier communication de ce dernier (ex: "TÂCHE-001 Terminée").

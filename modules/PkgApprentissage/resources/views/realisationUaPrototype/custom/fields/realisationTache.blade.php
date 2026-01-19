@@ -3,6 +3,18 @@
         <h2>{{  $entity->realisationUa->uniteApprentissage }}</h2>
     </header>
     <section class="projet-section">
+
+        @php
+            $rawPrototype   = $entity->remarque_formateur;
+            $plainPrototype = trim(strip_tags($rawPrototype ?? ''));
+        @endphp
+
+        @if( !empty($rawPrototype) && $plainPrototype != '' )
+        <section class="tache-comment mb-3" data-toggle="tooltip" title="Commentaire formateur (Prototype)">
+            <i class="fas fa-user-tie text-info"></i>
+            {!! $rawPrototype !!}
+        </section>
+        @endif
  
 <div class="projet-section mt-2">
     <ul class="list-unstyled m-0">
@@ -37,28 +49,12 @@
                 @endif
             </div>
 
-            @if($plain !== '')
-                @php
-                    $excerpt    = \Illuminate\Support\Str::limit($plain, 160);
-                    $collapseId = 'rc-remarks-'.$rc->id;
-                @endphp
-
-                <small class="text-muted d-block mt-1">
-                    {{ $excerpt }}
-                    @if(\Illuminate\Support\Str::length($plain) > 160)
-                        <a class="ml-1" data-toggle="collapse" href="#{{ $collapseId }}">
-                            Afficher plus
-                        </a>
-                    @endif
-                </small>
-
-              
-                <div id="{{ $collapseId }}" class="collapse mt-1">
-                    <div class="commentaire-content border rounded p-2">
-                        {!! $raw !!}
-                    </div>
-                </div>
-            @endif
+                @if( !empty($raw) && $plain != '' )
+                <section class="tache-comment" data-toggle="tooltip" title="Commentaire formateur">
+                    <i class="fas fa-user-tie text-info"></i>
+                    {!! $raw !!}
+                </section>
+                @endif
 
              
                
