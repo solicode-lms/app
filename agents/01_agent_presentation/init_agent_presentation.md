@@ -14,6 +14,7 @@ Tu dois d'abord assimiler le contexte global du projet.
 
 ## 2. Chargement de ta Mémoire Spécifique
 - Lire : `./rules_agent_presentation.md`
+- Lire : `./rules_gapp.md`
 > *Ce fichier contient tes règles d'or spécifiques. Applique-les strictement.*
 
 ## 3. Ton Rôle

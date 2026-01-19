@@ -28,7 +28,9 @@ Ce fichier contient les règles strictes que les 3 Agents du système (Business,
 - Ne pas proposer de composants UI incompatibles avec AdminLTE.
 
 ## 6. Générateur Gapp & Code Maintenu
-- **Gapp Protected Files** : NE JAMAIS modifier manuellement un fichier contenant `// Ce fichier est maintenu par ESSARRAJ Fouad` au début. Ce fichier est généré automatiquement. Pour le modifier, l'utilisateur doit utiliser la commande : `php artisan gapp make:crud NomModel`.
+- **Gapp Protected Files** : NE JAMAIS modifier manuellement un fichier contenant `// Ce fichier est maintenu par ESSARRAJ Fouad` au début sans autorisation.
+    - Si une modification est nécessaire au-delà du CRUD standard, l'agent DOIT demander : *"Ce fichier est sous maintenance Gapp. Voulez-vous supprimer l'en-tête de maintenance pour que je puisse le modifier manuellement ?"*.
+    - Une fois l'en-tête supprimé par l'agent (après accord), le fichier sort du cycle de maintenance automatique Gapp.
 - **Gapp & Migrations** : NE JAMAIS exécuter les migrations (`php artisan migrate`) soi-même. C'est la responsabilité du développeur.
 - **Gapp Sequence** : Suite à une modification de structure BDD, le workflow obligatoire est : `php artisan migrate` -> `php artisan gapp meta:sync` -> `php artisan gapp make:crud NomModel`.
 - **Scope Gapp** : Le générateur gère tous les fichiers dans les sous-dossiers `Base/` (Models, Requests, Exports, Imports, Controllers) ainsi que les Vues standard.
