@@ -36,6 +36,37 @@ class RealisationChapitreService extends BaseRealisationChapitreService
     }
 
     /**
+     * Vérifie si tous les apprenants assignés à un projet 
+     * ont validé un chapitre donné.
+     *
+     * @param int $projectId
+     * @param int $chapitreId
+     * @return bool
+     */
+    public function checkAllLearnersValidatedChapter(int $projectId, int $chapitreId): bool
+    {
+        // Récuperer les apprenants depuis affectation
+        $apprenantsIds = app(\Modules\PkgRealisationProjets\Services\AffectationProjetService::class)
+            ->getApprenantsIdsByProjet($projectId);
+
+        if ($apprenantsIds->isEmpty()) {
+            return false;
+        }
+
+        $totalApprenants = $apprenantsIds->count();
+
+        // Compter combien d'apprenants (distincts) ont validé ce chapitre
+        $validatedLearners = RealisationChapitre::where('chapitre_id', $chapitreId)
+            ->whereHas('etatRealisationChapitre', fn($q) => $q->where('code', 'DONE')) // Validation stricte
+            ->join('realisation_uas', 'realisation_chapitres.realisation_ua_id', '=', 'realisation_uas.id')
+            ->whereIn('realisation_uas.apprenant_id', $apprenantsIds)
+            ->distinct('realisation_uas.apprenant_id')
+            ->count('realisation_uas.apprenant_id');
+
+        return $validatedLearners >= $totalApprenants;
+    }
+
+    /**
      * Job déclenché après mise à jour d’un chapitre.
      */
     public function updatedObserverJob(int $id, string $token): void

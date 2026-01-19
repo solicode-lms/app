@@ -97,7 +97,9 @@ trait AffectationProjetCrudTrait
 
             foreach ($taches as $tache) {
                 // Utilisation de la méthode centralisée
-                if ($tacheService->checkAllLearnersValidatedChapter($affectationProjet->projet_id, $tache->chapitre_id)) {
+                // Utilisation de RealisationChapitreService
+                $realisationChapitreService = app(\Modules\PkgApprentissage\Services\RealisationChapitreService::class);
+                if ($realisationChapitreService->checkAllLearnersValidatedChapter($affectationProjet->projet_id, $tache->chapitre_id)) {
                     // Supprimer la tâche car redondante (tous les apprenants l'ont déjà faite)
                     $tacheService->destroy($tache->id);
                 }

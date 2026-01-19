@@ -180,8 +180,11 @@ trait TacheCrudTrait
     protected function abortCreationIfAllLearnersValidatedChapitre(array &$data)
     {
         if (isset($data['chapitre_id']) && isset($data['projet_id'])) {
-            // Utilisation de la méthode centralisée dans TacheService
-            if ($this->checkAllLearnersValidatedChapter($data['projet_id'], $data['chapitre_id'])) {
+            // Utilisation de RealisationChapitreService
+            if (
+                app(\Modules\PkgApprentissage\Services\RealisationChapitreService::class)
+                    ->checkAllLearnersValidatedChapter($data['projet_id'], $data['chapitre_id'])
+            ) {
                 $data['__abort_creation'] = true;
             }
         }
