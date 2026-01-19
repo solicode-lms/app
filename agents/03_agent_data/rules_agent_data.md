@@ -8,3 +8,4 @@
 - [Gapp & Migrations] : NE JAMAIS exécuter les migrations (`php artisan migrate`). C'est la responsabilité du développeur.
 - [Gapp & Modèles] : NE PAS modifier manuellement les relations dans les modèles. Demander au développeur d'exécuter `gapp crud:NomModel` pour mettre à jour le code via le générateur Gapp.
 - [Migration Command] : Pour créer une migration dans un module, utiliser : `php artisan make:module-migration <migration_name> <ModuleName>` (ex: `php artisan make:module-migration create_role_widget_table PkgWidgets`).
+- [Gapp Sequence] : Suite à une modification de la base de données (migration), le développeur DOIT exécuter `gapp meta:sync` AVANT `gapp crud:NomModel`.

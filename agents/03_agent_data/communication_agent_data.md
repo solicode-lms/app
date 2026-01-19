@@ -22,6 +22,7 @@
 - [x] Migration créée : `2026_01_19_142000_add_mobilisation_ua_id_to_taches_table.php`
 - [ ] **ACTION REQUISE DÉVELOPPEUR** :
   1. Exécuter : `php artisan migrate`
-  2. Exécuter : `php artisan gapp crud:Tache`
-  3. Exécuter : `php artisan gapp crud:MobilisationUa`
+  2. Exécuter : `php artisan gapp meta:sync` (Obligatoire avant les CRUDs)
+  3. Exécuter : `php artisan gapp crud:Tache`
+  4. Exécuter : `php artisan gapp crud:MobilisationUa`
 - [ ] Vérification des modèles après exécution Gapp.
