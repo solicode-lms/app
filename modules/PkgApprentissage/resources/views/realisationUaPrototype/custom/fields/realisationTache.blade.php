@@ -39,7 +39,6 @@
 
 <div class="projet-section mt-2">
     <!-- Section: Par Chapitres -->
-    <h6 class="text-muted border-bottom pb-2 mb-2">Par Chapitres</h6>
     <ul class="list-unstyled m-0 mb-4">
         @forelse($entity->realisationUa->realisationChapitres->sortBy('chapitre.ordre') as $rc)
             <li class="projet-item py-2">
@@ -92,7 +91,7 @@
     </ul>
 
     <!-- Section: Par Tâches (Mobilisation Project) -->
-    <h6 class="text-muted border-bottom pb-2 mb-2">Par Tâches (Projet)</h6>
+    
     <ul class="list-unstyled m-0">
     @forelse($taches as $tache)
         @php
