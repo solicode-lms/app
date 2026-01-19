@@ -22,9 +22,10 @@ Le paramètre doit être un tableau JSON contenant la logique de filtrage :
 ]
 ```
 
-- **key** : Définit le scope à appliquer sur le modèle cible.
-- **value** : Le nom du champ dans le modèle source (celui qu'on édite) dont la valeur servira de filtre.
+- **key** : Définit le scope à appliquer sur le modèle cible (ex: `scope.mobilisationUa.projet_id`). Attention : le nom de la relation doit correspondre exactement à celui défini dans le modèle.
+- **value** : Le nom du champ dans le modèle source (celui qu'on édite) dont la valeur servira de filtre (ex: `projet_id`).
 - **modelName** : Le nom du modèle source en cours d'édition.
+  > **⚠️ IMPORTANT** : Le `modelName` doit être le **Nom de la Classe** uniquement (PascalCase), **SANS le namespace** (ex: `Tache` et non `Modules\PkgCreationTache\Models\Tache`).
 
 ### Exemple Concret
 
@@ -39,6 +40,11 @@ Le paramètre doit être un tableau JSON contenant la logique de filtrage :
   [
     {
       "key": "scope.livrable.projet_id",
+      "value": "projet_id",
+      "modelName": "Tache"
+    },
+    {
+      "key": "scope.mobilisationUa.projet_id",
       "value": "projet_id",
       "modelName": "Tache"
     }

@@ -13,8 +13,7 @@
                 <x-sortable-column :sortable="true" width="9"  field="priorite" modelname="tache" label="{!!ucfirst(__('PkgCreationTache::tache.priorite'))!!}" />
                 <x-sortable-column :sortable="true" width="40"  field="titre" modelname="tache" label="{!!ucfirst(__('PkgCreationTache::tache.titre'))!!}" />
                 <x-sortable-column :sortable="true" width="10"  field="note" modelname="tache" label="{!!ucfirst(__('PkgCreationTache::tache.note'))!!}" />
-                <x-sortable-column :sortable="true" width="9"  field="livrables" modelname="tache" label="{!!ucfirst(__('PkgCreationProjet::livrable.plural'))!!}" />
-                <x-sortable-column :sortable="true" width="9" field="mobilisation_ua_id" modelname="tache" label="{!!ucfirst(__('PkgCreationProjet::mobilisationUa.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="18"  field="livrables" modelname="tache" label="{!!ucfirst(__('PkgCreationProjet::livrable.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -42,16 +41,12 @@
                     <td style="max-width: 10%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="note" >
                         @include('PkgCreationTache::tache.custom.fields.note', ['entity' => $tache])
                     </td>
-                    <td style="max-width: 9%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="livrables">
+                    <td style="max-width: 18%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="livrables">
                         <ul>
                             @foreach ($tache->livrables as $livrable)
                                 <li @if(strlen($livrable) > 30) data-toggle="tooltip" title="{{$livrable}}"  @endif>@limit($livrable, 30)</li>
                             @endforeach
                         </ul>
-                    </td>
-                    <td style="max-width: 9%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="mobilisation_ua_id">
-                        {{  $tache->mobilisationUa }}
-
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 

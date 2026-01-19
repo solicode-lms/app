@@ -375,8 +375,7 @@ class BaseTacheService extends BaseService
             'priorite',
             'titre',
             'note',
-            'livrables',
-            'mobilisation_ua_id'
+            'livrables'
         ];
 
         // Récupération des champs autorisés par rôle via getFieldsEditable()
@@ -428,22 +427,6 @@ class BaseTacheService extends BaseService
 
             case 'livrables':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
-            case 'mobilisation_ua_id':
-                 $values = (new \Modules\PkgCreationProjet\Services\MobilisationUaService())
-                    ->getAllForSelect($e->mobilisationUa)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
-
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
         }
@@ -526,18 +509,6 @@ class BaseTacheService extends BaseService
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
-                case 'mobilisation_ua_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'mobilisationUa'
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-
-
-
 
                 default:
                     // fallback générique si champ non pris en charge

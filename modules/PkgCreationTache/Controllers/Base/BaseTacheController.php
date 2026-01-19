@@ -98,6 +98,10 @@ class BaseTacheController extends AdminController
         $value = $itemTache->getNestedValue('projet_id');
         $key = 'scope.livrable.projet_id';
         $this->viewState->set($key, $value);
+        // scopeDataInEditContext
+        $value = $itemTache->getNestedValue('projet_id');
+        $key = 'scope.mobilisationUa.projet_id';
+        $this->viewState->set($key, $value);
 
         $projets = $this->projetService->all();
         $phaseProjets = $this->phaseProjetService->all();
@@ -132,6 +136,10 @@ class BaseTacheController extends AdminController
         // scopeDataInEditContext
         $value = $itemTache->getNestedValue('projet_id');
         $key = 'scope.livrable.projet_id';
+        $this->viewState->set($key, $value);
+        // scopeDataInEditContext
+        $value = $itemTache->getNestedValue('projet_id');
+        $key = 'scope.mobilisationUa.projet_id';
         $this->viewState->set($key, $value);
  
         $projets = $this->projetService->getAllForSelect($itemTache->projet);
@@ -216,6 +224,10 @@ class BaseTacheController extends AdminController
         // scopeDataInEditContext
         $value = $itemTache->getNestedValue('projet_id');
         $key = 'scope.livrable.projet_id';
+        $this->viewState->set($key, $value);
+        // scopeDataInEditContext
+        $value = $itemTache->getNestedValue('projet_id');
+        $key = 'scope.mobilisationUa.projet_id';
         $this->viewState->set($key, $value);
 
         $projets = $this->projetService->getAllForSelect($itemTache->projet);
@@ -559,6 +571,10 @@ class BaseTacheController extends AdminController
         $value = $itemTache->getNestedValue('projet_id');
         $key = 'scope.livrable.projet_id';
         $this->viewState->set($key, $value);
+        // scopeDataInEditContext
+        $value = $itemTache->getNestedValue('projet_id');
+        $key = 'scope.mobilisationUa.projet_id';
+        $this->viewState->set($key, $value);
 
         $data = $this->service->buildFieldMeta($itemTache, $field);
         return response()->json(
@@ -579,6 +595,10 @@ class BaseTacheController extends AdminController
         // scopeDataInEditContext
         $value = $itemTache->getNestedValue('projet_id');
         $key = 'scope.livrable.projet_id';
+        $this->viewState->set($key, $value);
+        // scopeDataInEditContext
+        $value = $itemTache->getNestedValue('projet_id');
+        $key = 'scope.mobilisationUa.projet_id';
         $this->viewState->set($key, $value);
 
         // Vérification ETag
