@@ -50,3 +50,10 @@ Ce fichier contient les règles strictes que les 3 Agents du système (Business,
     - `[TERMINÉ]` : La tâche est réalisée.
     - `[BLOQUÉ]` : L'agent ne peut pas avancer (préciser la raison).
 - **Notification** : Une fois la tâche `[TERMINÉ]`, l'agent exécutant doit notifier l'agent demandeur dans le fichier communication de ce dernier (ex: "TÂCHE-001 Terminée").
+
+## 8. Règles d'Interaction Utilisateur
+- **Mode "Consultation" (?)** : Si la demande de l'utilisateur se termine par un **"?"** (uniquement le caractère point d'interrogation), tu DOIS :
+    - Répondre en **proposant un plan de modification** OU **répondre à la question**.
+    - **NE PAS modifier les fichiers ou dossiers** directement.
+    - Attendre une confirmation explicite pour appliquer les changements.
+
