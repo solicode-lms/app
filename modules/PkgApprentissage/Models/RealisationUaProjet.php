@@ -9,8 +9,9 @@ class RealisationUaProjet extends BaseRealisationUaProjet
 {
 
 
-     public function __construct(array $attributes = []) {
-        parent::__construct($attributes); 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
         // Colonne dynamique : realisation_projet_id
         $sql = "SELECT rt.realisation_projet_id
                 FROM realisation_taches rt
@@ -19,10 +20,10 @@ class RealisationUaProjet extends BaseRealisationUaProjet
     }
 
     protected $with = [
-    'realisationTache.etatRealisationTache.sysColor',
-    'realisationUa.realisationChapitres.chapitre',
-    'realisationUa.realisationChapitres.realisationTache.etatRealisationTache.sysColor',
-    'prototypeRelation.realisationTache',
+        'realisationTache.etatRealisationTache.sysColor',
+        'realisationUa.realisationChapitres.chapitre',
+        'realisationUa.realisationChapitres.realisationTache.etatRealisationTache.sysColor',
+        // 'prototypeRelation.realisationTache', // Retiré car hasOne simple ne garantit pas le bon prototype par apprenant
     ];
 
     protected static function booted()
@@ -35,7 +36,8 @@ class RealisationUaProjet extends BaseRealisationUaProjet
             $etat = $tache?->etatRealisationTache;
             $workflow = $etat?->workflowTache;
 
-            if (!$workflow) return;
+            if (!$workflow)
+                return;
 
             // Récupération de l’ordre de référence de IN_PROGRESS
             static $ordreInProgress = null;
@@ -60,16 +62,37 @@ class RealisationUaProjet extends BaseRealisationUaProjet
         });
     }
 
-public function prototypeRelation()
-{
-    return $this->hasOne(RealisationUaPrototype::class, 'realisation_ua_id', 'realisation_ua_id');
-}
-public function getPrototypeAttribute()
-{
-    return $this->prototypeRelation
-        ->get()
-        ->firstWhere('realisation_projet_id', $this->realisation_projet_id);
-}
+    public function prototypeRelation()
+    {
+        // Relation brute : retourne UN prototype lié à l'UA.
+        // Attention : Peut retourner le prototype d'un autre apprenant si l'UA est partagée.
+        // Utilisez l'accesseur 'prototype' pour obtenir le bon.
+        return $this->hasOne(RealisationUaPrototype::class, 'realisation_ua_id', 'realisation_ua_id');
+    }
+
+    /**
+     * Accesseur optimisé pour récupérer le prototype
+     * Utilise la collection déjà chargée si possible, sinon fait une requête ciblée.
+     */
+    public function getPrototypeAttribute()
+    {
+        // Si la relation est chargée, on filtre la collection en mémoire (plus sûr)
+        if ($this->relationLoaded('realisationUa')) {
+            $targetProjetId = $this->realisation_projet_id;
+            // On remonte à l'UA pour redescendre vers les prototypes
+            // Car prototypeRelation(hasOne) risque de n'en ramener qu'un seul (le mauvais) si pas filtré
+            return $this->realisationUa->realisationUaPrototypes
+                ->filter(function ($proto) use ($targetProjetId) {
+                    return $proto->realisation_projet_id == $targetProjetId;
+                })->first();
+        }
+
+        // Sinon fallback sur l'ancienne méthode mais optimisée
+        return \Modules\PkgApprentissage\Models\RealisationUaPrototype::where('realisation_ua_id', $this->realisation_ua_id)
+            ->whereHas('realisationTache', function ($q) {
+                $q->where('realisation_projet_id', $this->realisation_projet_id);
+            })->first();
+    }
 
 
 }

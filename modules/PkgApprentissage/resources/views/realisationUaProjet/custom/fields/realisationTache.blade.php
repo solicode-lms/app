@@ -6,22 +6,22 @@
   <section class="projet-section">
 
     @php
-        $rawProjet   = $entity->remarque_formateur;
-        $plainProjet = trim(strip_tags($rawProjet ?? ''));
+      $rawProjet = $entity->remarque_formateur;
+      $plainProjet = trim(strip_tags($rawProjet ?? ''));
 
-        // Logique récupération Tâches via Mobilisation
-        $ua = $entity->realisationUa->uniteApprentissage;
-        $realisationTacheSource = $entity->realisationTache;
-        $realisationProjet = $realisationTacheSource ? $realisationTacheSource->realisationProjet : null;
-        $projet = $realisationProjet ? ($realisationProjet->affectationProjet ? $realisationProjet->affectationProjet->projet : null) : null;
-        
-        $taches = collect();
-        if ($projet && $ua) {
-            $mobilisation = $ua->mobilisationUas->where('projet_id', $projet->id)->first();
-            if ($mobilisation) {
-                $taches = $mobilisation->taches->sortBy('ordre');
-            }
+      // Logique récupération Tâches via Mobilisation
+      $ua = $entity->realisationUa->uniteApprentissage;
+      $realisationTacheSource = $entity->realisationTache;
+      $realisationProjet = $realisationTacheSource ? $realisationTacheSource->realisationProjet : null;
+      $projet = $realisationProjet ? ($realisationProjet->affectationProjet ? $realisationProjet->affectationProjet->projet : null) : null;
+
+      $taches = collect();
+      if ($projet && $ua) {
+        $mobilisation = $ua->mobilisationUas->where('projet_id', $projet->id)->first();
+        if ($mobilisation) {
+          $taches = $mobilisation->taches->sortBy('ordre');
         }
+      }
     @endphp
 
     @if(!empty($rawProjet) && $plainProjet != '')
@@ -32,13 +32,14 @@
     @endif
 
     {{-- ===================== PROTOTYPE ===================== --}}
-    @php $proto = $entity->prototypeRelation ?? null; @endphp
+    @php $proto = $entity->prototype ?? null; @endphp
 
     @if($proto)
       <div class="item">
         {{-- Ligne 1 : Titre + État --}}
         <div class="title-line">
-          <strong title="Prototype">Prototype</strong>
+          <strong
+            title="{{ $proto->realisationTache?->tache?->titre ?? 'Prototype' }}">{{ $proto->realisationTache?->tache?->titre ?? 'Prototype' }}</strong>
           <x-badge :text="$proto->realisationTache?->etatRealisationTache?->nom ?? 'Non défini'"
             :background="$proto->realisationTache?->etatRealisationTache?->sysColor?->hex ?? '#6c757d'" />
         </div>
