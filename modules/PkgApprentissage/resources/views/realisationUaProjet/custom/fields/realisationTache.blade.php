@@ -46,9 +46,16 @@
 
         {{-- Ligne 2 : Note --}}
         <div class="line">
-          <span class="label">Note</span>
+          <span class="label">Note prototype</span>
           <span class="note-badge">
             {{ is_null($proto->note) ? '—' : number_format($proto->note, 2) }} / {{ $proto->bareme ?? 0 }}
+          </span>
+        </div>
+        <div class="line">
+          <span class="label">Proposition Projet</span>
+          <span class="note-badge text-info">
+            {{ is_null($proto->note) ? '—' : number_format(round(($proto->note / 2) * 4) / 4, 2) }} /
+            {{ ($proto->bareme ?? 0) / 2 }}
           </span>
         </div>
 
