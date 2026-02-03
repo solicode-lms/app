@@ -16,3 +16,11 @@ Solicode LMS est une plateforme de gestion de l'apprentissage (LMS) basée sur L
 2.  Maintenir une architecture modulaire propre (dossier `modules/`).
 3.  Garantir une expérience utilisateur fluide (Frontend efficace).
 4.  Respecter les bonnes pratiques Laravel modernes.
+
+## Modules Fonctionnels (Contexte Métier)
+L'application est structurée autour de modules métiers interconnectés :
+- **PkgAutorisation** : Gestion utilisateurs, rôles (Admin, Formateur, Apprenant), permissions.
+- **PkgFormation** : Organisation pédagogique (Filières, Modules, Groupes).
+- **PkgProjets** : Gestion des projets (Création, Réalisation, Validation).
+- **PkgCompetences** : Référentiels de compétences et évaluation.
+- **PkgTaches** : Workflow de tâches assignées aux apprenants.

@@ -7,6 +7,6 @@ class MobilisationUa extends BaseMobilisationUa
 {
     public function __toString()
     {
-        return $this->uniteApprentissage->__toString();
+        return $this->uniteApprentissage ? $this->uniteApprentissage->__toString() : "";
     }
 }
