@@ -1,0 +1,847 @@
+affectation_projet_evaluateur:
+- affectation_projet_id [FK->affectation_projets.id]
+- evaluateur_id [FK->evaluateurs.id]
+- created_at
+- updated_at
+affectation_projets:
+- id [PK]
+- date_debut
+- date_fin
+- annee_formation_id [FK->annee_formations.id]
+- groupe_id [FK->groupes.id]
+- projet_id [FK->projets.id]
+- is_formateur_evaluateur
+- description
+- reference [unique]
+- created_at
+- updated_at
+annee_formations:
+- id [PK]
+- titre
+- date_debut
+- date_fin
+- reference [unique]
+- created_at
+- updated_at
+apprenant_groupe:
+- created_at
+- updated_at
+- groupe_id [FK->groupes.id]
+- apprenant_id [FK->apprenants.id]
+apprenant_konosies:
+- id [PK]
+- MatriculeEtudiant [unique]
+- Nom
+- Prenom
+- Sexe
+- EtudiantActif
+- Diplome
+- Principale
+- LibelleLong
+- CodeDiplome
+- DateNaissance
+- DateInscription
+- LieuNaissance
+- CIN
+- NTelephone
+- Adresse
+- Nationalite
+- Nom_Arabe
+- Prenom_Arabe
+- NiveauScolaire
+- reference [unique]
+- created_at
+- updated_at
+apprenants:
+- id [PK]
+- nom
+- prenom
+- prenom_arab
+- nom_arab
+- tele_num
+- profile_image
+- matricule [unique]
+- sexe
+- actif
+- diplome
+- date_naissance
+- date_inscription
+- lieu_naissance
+- cin
+- adresse
+- created_at
+- updated_at
+- niveaux_scolaire_id [FK->niveaux_scolaires.id]
+- nationalite_id [FK->nationalites.id]
+- user_id [FK->users.id]
+- reference [unique]
+cache:
+- key [PK]
+- value
+- expiration
+cache_locks:
+- key [PK]
+- owner
+- expiration
+category_technologies:
+- id [PK]
+- nom
+- description
+- reference [unique]
+- created_at
+- updated_at
+chapitres:
+- id [PK]
+- nom [unique]
+- lien
+- coefficient
+- description
+- ordre
+- is_officiel
+- reference [unique]
+- formation_id [FK->formations.id]
+- niveau_competence_id [FK->niveau_competences.id]
+- formateur_id [FK->formateurs.id]
+- chapitre_officiel_id [FK->chapitres.id]
+- created_at
+- updated_at
+commentaire_realisation_taches:
+- id [PK]
+- commentaire
+- dateCommentaire
+- reference [unique]
+- realisation_tache_id [FK->realisation_taches.id]
+- formateur_id [FK->formateurs.id]
+- apprenant_id [FK->apprenants.id]
+- created_at
+- updated_at
+competence_technology:
+- created_at
+- updated_at
+- technology_id [FK->technologies.id]
+- competence_id [FK->competences.id]
+competences:
+- id [PK]
+- code
+- mini_code
+- nom
+- description
+- created_at
+- updated_at
+- module_id [FK->modules.id]
+- reference [unique]
+dependance_taches:
+- id [PK]
+- reference [unique]
+- tache_id [FK->taches.id]
+- tache_cible_id [FK->taches.id]
+- type_dependance_tache_id [FK->type_dependance_taches.id]
+- created_at
+- updated_at
+e_data_fields:
+- id [PK]
+- reference [unique]
+- name
+- column_name
+- data_type
+- field_order
+- db_nullable
+- db_primaryKey
+- db_unique
+- calculable
+- calculable_sql
+- default_value
+- description
+- e_model_id [FK->e_models.id]
+- e_relationship_id [FK->e_relationships.id]
+- created_at
+- updated_at
+e_metadata:
+- id [PK]
+- reference [unique]
+- value_boolean
+- value_string
+- value_integer
+- value_float
+- value_date
+- value_datetime
+- value_enum
+- value_json
+- value_text
+- e_model_id [FK->e_models.id]
+- e_data_field_id [FK->e_data_fields.id]
+- e_metadata_definition_id [FK->e_metadata_definitions.id]
+- created_at
+- updated_at
+e_metadata_definitions:
+- id [PK]
+- reference [unique]
+- name
+- groupe
+- type
+- scope
+- description
+- default_value
+- created_at
+- updated_at
+e_models:
+- id [PK]
+- reference [unique]
+- name
+- table_name
+- icon
+- is_pivot_table
+- description
+- e_package_id [FK->e_packages.id]
+- created_at
+- updated_at
+e_packages:
+- id [PK]
+- reference [unique]
+- name
+- description
+- created_at
+- updated_at
+e_relationships:
+- id [PK]
+- reference [unique]
+- name
+- type
+- source_e_model_id [FK->e_models.id]
+- target_e_model_id [FK->e_models.id]
+- cascade_on_delete
+- is_cascade
+- description
+- column_name
+- referenced_table
+- referenced_column
+- through
+- with_column
+- morph_name
+- created_at
+- updated_at
+etat_chapitres:
+- id [PK]
+- nom
+- is_editable_only_by_formateur
+- reference [unique]
+- workflow_chapitre_id [FK->workflow_chapitres.id]
+- description
+- formateur_id [FK->formateurs.id]
+- sys_color_id [FK->sys_colors.id]
+- created_at
+- updated_at
+etat_formations:
+- id [PK]
+- nom
+- is_editable_only_by_formateur
+- description
+- reference [unique]
+- workflow_formation_id [FK->workflow_formations.id]
+- formateur_id [FK->formateurs.id]
+- sys_color_id [FK->sys_colors.id]
+- created_at
+- updated_at
+etat_realisation_taches:
+- id [PK]
+- nom
+- description
+- is_editable_only_by_formateur
+- reference [unique]
+- formateur_id [FK->formateurs.id]
+- sys_color_id [FK->sys_colors.id]
+- created_at
+- updated_at
+- workflow_tache_id [FK->workflow_taches.id]
+etats_realisation_projets:
+- id [PK]
+- titre
+- description
+- formateur_id [FK->formateurs.id]
+- reference [unique]
+- sys_color_id [FK->sys_colors.id]
+- workflow_projet_id [FK->workflow_projets.id]
+- is_editable_by_formateur
+- created_at
+- updated_at
+evaluateurs:
+- id [PK]
+- reference [unique]
+- user_id [FK->users.id]
+- nom
+- prenom
+- email [unique]
+- telephone
+- organism
+- created_at
+- updated_at
+evaluation_realisation_taches:
+- id [PK]
+- reference [unique]
+- note
+- message
+- evaluateur_id [FK->evaluateurs.id]
+- realisation_tache_id [FK->realisation_taches.id]
+- created_at
+- updated_at
+failed_jobs:
+- id [PK]
+- uuid [unique]
+- connection
+- queue
+- payload
+- exception
+- failed_at
+feature_domains:
+- id [PK]
+- name [unique]
+- slug [unique]
+- description
+- sys_module_id [FK->sys_modules.id]
+- reference [unique]
+- created_at
+- updated_at
+feature_permission:
+- id [PK]
+- feature_id [FK->features.id]
+- permission_id [FK->permissions.id]
+- created_at
+- updated_at
+features:
+- id [PK]
+- name [unique]
+- description
+- feature_domain_id [FK->feature_domains.id]
+- reference [unique]
+- created_at
+- updated_at
+filieres:
+- id [PK]
+- code
+- nom
+- description
+- reference [unique]
+- created_at
+- updated_at
+formateur_groupe:
+- created_at
+- updated_at
+- groupe_id [FK->groupes.id]
+- formateur_id [FK->formateurs.id]
+formateur_specialite:
+- created_at
+- updated_at
+- specialite_id [FK->specialites.id]
+- formateur_id [FK->formateurs.id]
+formateurs:
+- id [PK]
+- matricule [unique]
+- nom
+- prenom
+- prenom_arab
+- nom_arab
+- email
+- tele_num
+- adresse
+- diplome
+- echelle
+- echelon
+- profile_image
+- user_id [FK->users.id]
+- reference [unique]
+- created_at
+- updated_at
+formation_technology:
+- formation_id [FK->formations.id]
+- technology_id [FK->technologies.id]
+- created_at
+- updated_at
+formations:
+- id [PK]
+- nom [unique]
+- lien
+- description
+- is_officiel
+- reference [unique]
+- formateur_id [FK->formateurs.id]
+- formation_officiel_id [FK->formations.id]
+- competence_id [FK->competences.id]
+- created_at
+- updated_at
+groupes:
+- id [PK]
+- code
+- nom
+- description
+- filiere_id [FK->filieres.id]
+- annee_formation_id [FK->annee_formations.id]
+- reference [unique]
+- created_at
+- updated_at
+historique_realisation_taches:
+- id [PK]
+- dateModification
+- changement
+- reference [unique]
+- user_id [FK->users.id]
+- isFeedback
+- realisation_tache_id [FK->realisation_taches.id]
+- created_at
+- updated_at
+job_batches:
+- id [PK]
+- name
+- total_jobs
+- pending_jobs
+- failed_jobs
+- failed_job_ids
+- options
+- cancelled_at
+- created_at
+- finished_at
+jobs:
+- id [PK]
+- queue
+- payload
+- attempts
+- reserved_at
+- available_at
+- created_at
+label_realisation_taches:
+- id [PK]
+- nom
+- description
+- reference [unique]
+- formateur_id [FK->formateurs.id]
+- sys_color_id [FK->sys_colors.id]
+- created_at
+- updated_at
+livrable_tache:
+- tache_id [FK->taches.id]
+- livrable_id [FK->livrables.id]
+- created_at
+- updated_at
+livrables:
+- id [PK]
+- titre
+- nature_livrable_id [FK->nature_livrables.id]
+- projet_id [FK->projets.id]
+- description
+- reference [unique]
+- is_affichable_seulement_par_formateur
+- created_at
+- updated_at
+livrables_realisations:
+- id [PK]
+- titre
+- description
+- lien
+- livrable_id [FK->livrables.id]
+- realisation_projet_id [FK->realisation_projets.id]
+- reference [unique]
+- created_at
+- updated_at
+migrations:
+- id [PK]
+- migration
+- batch
+model_has_permissions:
+- permission_id [FK->permissions.id]
+- model_type
+- model_id
+model_has_roles:
+- role_id [FK->roles.id]
+- model_type
+- model_id
+modules:
+- id [PK]
+- code [unique]
+- nom
+- description
+- masse_horaire
+- created_at
+- updated_at
+- filiere_id [FK->filieres.id]
+- reference [unique]
+nationalites:
+- id [PK]
+- code
+- nom
+- description
+- reference [unique]
+- created_at
+- updated_at
+nature_livrables:
+- id [PK]
+- nom
+- description
+- reference [unique]
+- created_at
+- updated_at
+niveau_competences:
+- id [PK]
+- nom
+- description
+- created_at
+- updated_at
+- competence_id [FK->competences.id]
+- reference [unique]
+niveau_difficultes:
+- id [PK]
+- nom
+- description
+- noteMin
+- noteMax
+- formateur_id [FK->formateurs.id]
+- reference [unique]
+- created_at
+- updated_at
+niveaux_scolaires:
+- id [PK]
+- code
+- nom
+- description
+- reference [unique]
+- created_at
+- updated_at
+notifications:
+- id [PK]
+- user_id [FK->users.id]
+- title
+- message
+- is_read
+- type
+- data
+- sent_at
+- created_at
+- updated_at
+password_reset_tokens:
+- email [PK]
+- token
+- created_at
+permissions:
+- id [PK]
+- name
+- guard_name
+- controller_id [FK->sys_controllers.id]
+- created_at
+- updated_at
+- reference [unique]
+priorite_taches:
+- id [PK]
+- nom
+- ordre
+- description
+- reference [unique]
+- formateur_id [FK->formateurs.id]
+- created_at
+- updated_at
+profiles:
+- id [PK]
+- user_id [FK->users.id]
+- phone
+- address
+- profile_picture
+- bio
+- created_at
+- updated_at
+projets:
+- id [PK]
+- titre
+- travail_a_faire
+- critere_de_travail
+- description
+- nombre_jour
+- formateur_id [FK->formateurs.id]
+- filiere_id [FK->filieres.id]
+- reference [unique]
+- created_at
+- updated_at
+realisation_chapitres:
+- id [PK]
+- date_debut
+- date_fin
+- reference [unique]
+- chapitre_id [FK->chapitres.id]
+- realisation_formation_id [FK->realisation_formations.id]
+- etat_chapitre_id [FK->etat_chapitres.id]
+- created_at
+- updated_at
+realisation_formations:
+- id [PK]
+- date_debut
+- date_fin
+- reference [unique]
+- formation_id [FK->formations.id]
+- apprenant_id [FK->apprenants.id]
+- etat_formation_id [FK->etat_formations.id]
+- created_at
+- updated_at
+realisation_projets:
+- id [PK]
+- date_debut
+- date_fin
+- rapport
+- etats_realisation_projet_id [FK->etats_realisation_projets.id]
+- apprenant_id [FK->apprenants.id]
+- affectation_projet_id [FK->affectation_projets.id]
+- reference [unique]
+- created_at
+- updated_at
+realisation_taches:
+- id [PK]
+- dateDebut
+- dateFin
+- reference [unique]
+- tache_id [FK->taches.id]
+- note
+- remarque_evaluateur
+- realisation_projet_id [FK->realisation_projets.id]
+- etat_realisation_tache_id [FK->etat_realisation_taches.id]
+- remarques_formateur
+- remarques_apprenant
+- created_at
+- updated_at
+resources:
+- id [PK]
+- nom
+- lien
+- description
+- projet_id [FK->projets.id]
+- reference [unique]
+- created_at
+- updated_at
+role_has_permissions:
+- permission_id [FK->permissions.id]
+- role_id [FK->roles.id]
+role_widget:
+- role_id [FK->roles.id]
+- widget_id [FK->widgets.id]
+- created_at
+- updated_at
+roles:
+- id [PK]
+- name
+- guard_name
+- created_at
+- updated_at
+- reference [unique]
+section_widgets:
+- id [PK]
+- titre
+- sous_titre
+- icone
+- ordre
+- reference [unique]
+- sys_color_id [FK->sys_colors.id]
+- created_at
+- updated_at
+sessions:
+- id [PK]
+- user_id
+- ip_address
+- user_agent
+- payload
+- last_activity
+specialites:
+- id [PK]
+- nom
+- description
+- reference [unique]
+- created_at
+- updated_at
+sys_colors:
+- id [PK]
+- name
+- hex
+- reference [unique]
+- created_at
+- updated_at
+sys_controllers:
+- id [PK]
+- sys_module_id [FK->sys_modules.id]
+- name [unique]
+- slug [unique]
+- description
+- is_active
+- reference [unique]
+- created_at
+- updated_at
+sys_models:
+- id [PK]
+- name
+- model
+- description
+- sys_module_id [FK->sys_modules.id]
+- sys_color_id [FK->sys_colors.id]
+- reference [unique]
+- icone
+- created_at
+- updated_at
+sys_modules:
+- id [PK]
+- name
+- slug
+- description
+- is_active
+- order
+- version
+- sys_color_id [FK->sys_colors.id]
+- reference [unique]
+- created_at
+- updated_at
+taches:
+- id [PK]
+- titre
+- description
+- dateDebut
+- dateFin
+- reference [unique]
+- ordre
+- projet_id [FK->projets.id]
+- note
+- priorite_tache_id [FK->priorite_taches.id]
+- created_at
+- updated_at
+technologies:
+- id [PK]
+- nom
+- description
+- created_at
+- updated_at
+- category_technology_id [FK->category_technologies.id]
+- reference [unique]
+technology_transfert_competence:
+- technology_id [FK->technologies.id]
+- transfert_competence_id [FK->transfert_competences.id]
+- created_at
+- updated_at
+transfert_competences:
+- id [PK]
+- note
+- question
+- projet_id [FK->projets.id]
+- competence_id [FK->competences.id]
+- niveau_difficulte_id [FK->niveau_difficultes.id]
+- reference [unique]
+- created_at
+- updated_at
+type_dependance_taches:
+- id [PK]
+- titre
+- description
+- reference [unique]
+- created_at
+- updated_at
+user_model_filters:
+- id [PK]
+- user_id [FK->users.id]
+- model_name
+- filters
+- created_at
+- updated_at
+users:
+- id [PK]
+- name
+- email [unique]
+- email_verified_at
+- password
+- must_change_password
+- remember_token
+- reference [unique]
+- created_at
+- updated_at
+validations:
+- id [PK]
+- note
+- message
+- is_valide
+- transfert_competence_id [FK->transfert_competences.id]
+- realisation_projet_id [FK->realisation_projets.id]
+- reference [unique]
+- created_at
+- updated_at
+villes:
+- id [PK]
+- nom
+- reference [unique]
+- created_at
+- updated_at
+widget_operations:
+- id [PK]
+- operation
+- description
+- reference [unique]
+- created_at
+- updated_at
+widget_types:
+- id [PK]
+- type
+- description
+- reference [unique]
+- created_at
+- updated_at
+widget_utilisateurs:
+- id [PK]
+- user_id [FK->users.id]
+- widget_id [FK->widgets.id]
+- ordre
+- titre
+- sous_titre
+- visible
+- created_at
+- updated_at
+widgets:
+- id [PK]
+- name
+- type_id [FK->widget_types.id]
+- model_id [FK->sys_models.id]
+- operation_id [FK->widget_operations.id]
+- color
+- icon
+- label
+- parameters
+- reference [unique]
+- section_widget_id [FK->section_widgets.id]
+- ordre
+- sys_color_id [FK->sys_colors.id]
+- created_at
+- updated_at
+workflow_chapitres:
+- id [PK]
+- code [unique]
+- titre [unique]
+- sys_color_id [FK->sys_colors.id]
+- description
+- reference [unique]
+- created_at
+- updated_at
+workflow_formations:
+- id [PK]
+- code [unique]
+- titre [unique]
+- sys_color_id [FK->sys_colors.id]
+- description
+- reference [unique]
+- created_at
+- updated_at
+workflow_projets:
+- id [PK]
+- code [unique]
+- titre
+- description
+- reference [unique]
+- ordre
+- sys_color_id [FK->sys_colors.id]
+- created_at
+- updated_at
+workflow_taches:
+- id [PK]
+- code [unique]
+- titre [unique]
+- description
+- reference [unique]
+- ordre
+- sys_color_id [FK->sys_colors.id]
+- created_at
+- updated_at
