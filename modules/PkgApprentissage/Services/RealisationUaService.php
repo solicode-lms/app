@@ -16,7 +16,7 @@ use Modules\PkgCompetences\Models\UniteApprentissage;
  */
 class RealisationUaService extends BaseRealisationUaService
 {
-  
+
 
     public function afterCreateRules(RealisationUa $realisationUa): void
     {
@@ -32,7 +32,7 @@ class RealisationUaService extends BaseRealisationUaService
                 ->where('chapitre_id', $chapitre->id)
                 ->exists();
 
-            if (! $exists) {
+            if (!$exists) {
                 $realisationChapitreService->create([
                     'realisation_ua_id' => $realisationUa->id,
                     'chapitre_id' => $chapitre->id,
@@ -68,7 +68,9 @@ class RealisationUaService extends BaseRealisationUaService
         // 1️⃣ Vérifier si la réalisation UA existe déjà pour cet apprenant
         $realisationUa = $this->model
             ->where('unite_apprentissage_id', $uniteApprentissageId)
-            ->whereHas('realisationMicroCompetence', fn ($query) =>
+            ->whereHas(
+                'realisationMicroCompetence',
+                fn($query) =>
                 $query->where('apprenant_id', $apprenantId)
             )
             ->first();
@@ -83,7 +85,7 @@ class RealisationUaService extends BaseRealisationUaService
 
         $moduleId = $ua->microCompetence?->competence?->module_id;
 
-        if (! $moduleId) {
+        if (!$moduleId) {
             throw new \RuntimeException("Impossible de déterminer le module lié à l’unité d’apprentissage #$uniteApprentissageId");
         }
 
@@ -102,7 +104,7 @@ class RealisationUaService extends BaseRealisationUaService
         // ✅ 5️⃣ Créer la Réalisation UA si elle n’existe toujours pas
         $this->model->firstOrCreate(
             [
-                'unite_apprentissage_id'          => $uniteApprentissageId,
+                'unite_apprentissage_id' => $uniteApprentissageId,
                 'realisation_micro_competence_id' => $realisationMicroCompetence->id,
             ],
             [
@@ -114,7 +116,9 @@ class RealisationUaService extends BaseRealisationUaService
         // 6️⃣ Rechercher à nouveau la réalisation UA (qu’elle vienne d’afterCreateRules ou du firstOrCreate)
         return $this->model
             ->where('unite_apprentissage_id', $uniteApprentissageId)
-            ->whereHas('realisationMicroCompetence', fn ($query) =>
+            ->whereHas(
+                'realisationMicroCompetence',
+                fn($query) =>
                 $query->where('apprenant_id', $apprenantId)
             )
             ->firstOrFail();
@@ -128,6 +132,8 @@ class RealisationUaService extends BaseRealisationUaService
             'realisationUaProjets.realisationTache.etatRealisationTache'
         ]);
 
+        $poidsPrototypes = $realisationUa->realisationChapitres->isEmpty() ? 50 : 30;
+
         // 🧮 Définition des parties et des poids associés
         $parts = [
             'chapitres' => [
@@ -136,7 +142,7 @@ class RealisationUaService extends BaseRealisationUaService
             ],
             'prototypes' => [
                 'items' => $realisationUa->realisationUaPrototypes,
-                'poids' => 30,
+                'poids' => $poidsPrototypes,
             ],
             'projets' => [
                 'items' => $realisationUa->realisationUaProjets,
@@ -160,7 +166,7 @@ class RealisationUaService extends BaseRealisationUaService
             // ✅ Séparer les tâches "activées" (≠ TODO)
             $actives = $items->filter(fn($e) => $this->isActive($e));
 
-            $countAll   = $items->count();   // total (utile pour progression réelle)
+            $countAll = $items->count();   // total (utile pour progression réelle)
             $countActif = $actives->count(); // seulement ≠ TODO
 
             // 🟢 Progression réelle (toutes les tâches comptent)
@@ -174,20 +180,20 @@ class RealisationUaService extends BaseRealisationUaService
 
             // Notes
             $bareme = $items->sum(fn($e) => $e->note !== null ? ($e->bareme ?? 0) : 0);
-            $note   = $items->sum(fn($e) => $e->note ?? 0);
-            $totalNote   += $note;
+            $note = $items->sum(fn($e) => $e->note ?? 0);
+            $totalNote += $note;
             $totalBareme += $bareme;
         }
 
-        $realisationUa->progression_cache       = (float) number_format($progressionReelle, 2, '.', '');
+        $realisationUa->progression_cache = (float) number_format($progressionReelle, 2, '.', '');
         $realisationUa->progression_ideal_cache = (float) number_format($progressionIdeale, 2, '.', '');
-        $realisationUa->note_cache              = (float) number_format($totalNote, 2, '.', '');
-        $realisationUa->bareme_cache            = (float) number_format($totalBareme, 2, '.', '');
+        $realisationUa->note_cache = (float) number_format($totalNote, 2, '.', '');
+        $realisationUa->bareme_cache = (float) number_format($totalBareme, 2, '.', '');
 
         // ✅ Taux de rythme
         $realisationUa->taux_rythme_cache = $realisationUa->progression_ideal_cache > 0
-        ? $this->formatPourcentage(($progressionReelle / $realisationUa->progression_ideal_cache) * 100)
-        : null;
+            ? $this->formatPourcentage(($progressionReelle / $realisationUa->progression_ideal_cache) * 100)
+            : null;
 
         // 🔁 Mise à jour de l’état
         $nouvelEtatCode = $this->calculerEtat($realisationUa);
@@ -224,7 +230,7 @@ class RealisationUaService extends BaseRealisationUaService
     private function isActiveProgress($item): bool
     {
         // ✅ États qui NE sont PAS en cours
-        $etatsTacheInProgress = ['READY_FOR_LIVE_CODING', 'IN_LIVE_CODING','TO_APPROVE','APPROVED'];
+        $etatsTacheInProgress = ['READY_FOR_LIVE_CODING', 'IN_LIVE_CODING', 'TO_APPROVE', 'APPROVED'];
 
         if (isset($item->realisation_tache_id)) {
             $etat = $item->realisationTache?->etatRealisationTache?->workflowTache?->code;
@@ -244,7 +250,7 @@ class RealisationUaService extends BaseRealisationUaService
     private function isActive($item): bool
     {
         // ✅ États considérés comme "inactifs"
-        $etatsInactifs = ['TODO', 'IN_PROGRESS','REVISION_NECESSAIRE'];
+        $etatsInactifs = ['TODO', 'IN_PROGRESS', 'REVISION_NECESSAIRE'];
 
         if (isset($item->realisationTache)) {
             $etat = optional($item->realisationTache?->etatRealisationTache?->workflowTache)->code;
@@ -282,17 +288,21 @@ class RealisationUaService extends BaseRealisationUaService
         $projets = $ua->realisationUaProjets;
 
         // 🎯 Cas 1 : Tous les chapitres sont TODO
-        if ($chapitres->count() > 0 &&
-            $chapitres->every(fn($c) => optional($c->etatRealisationChapitre)->code === 'TODO')) {
+        if (
+            $chapitres->count() > 0 &&
+            $chapitres->every(fn($c) => optional($c->etatRealisationChapitre)->code === 'TODO')
+        ) {
             return 'TODO';
         }
 
         // 🎯 Cas 2 : Tous chapitres, prototypes, projets = DONE
         $allChapitresDone = $chapitres->every(fn($c) => optional($c->etatRealisationChapitre)->code === 'DONE');
-        $allPrototypesDone = $prototypes->isNotEmpty() && $prototypes->every(fn($p) =>
+        $allPrototypesDone = $prototypes->isNotEmpty() && $prototypes->every(
+            fn($p) =>
             $p->realisationTache?->etatRealisationTache->workflowTache->code === 'APPROVED'
         );
-        $allProjetsDone =  $projets->isNotEmpty() && $projets->every(fn($p) =>
+        $allProjetsDone = $projets->isNotEmpty() && $projets->every(
+            fn($p) =>
             $p->realisationTache?->etatRealisationTache->workflowTache->code === 'APPROVED'
         );
 
