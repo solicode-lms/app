@@ -1,4 +1,58 @@
 {
     "files.exclude": {},
-    "files.eol": "\n"
+    "files.eol": "\n",
+    "todo-tree.filtering.excludeGlobs": [
+        "**/node_modules",
+        "**/vendor",
+        "**/10.gem-assistant.md"
+    ],
+    "todo-tree.filtering.includeHiddenFiles": true,
+    "todo-tree.general.tags": [
+        "BUG",
+        "HACK",
+        "FIXME",
+        "TODO",
+        "ai",
+        "AI",
+        "ia",
+        "IA"
+    ],
+    "todo-tree.highlights.customHighlight": {
+        "TODO": {
+            "icon": "check",
+            "foreground": "#ffcc00",
+            "type": "text"
+        },
+        "FIXME": {
+            "icon": "flame",
+            "foreground": "#ff0000",
+            "type": "text"
+        },
+        "ai": {
+            "icon": "hubot",
+            "foreground": "#d580ff",
+            "type": "text",
+            "gutterIcon": true
+        },
+        "AI": {
+            "icon": "hubot",
+            "foreground": "#d580ff",
+            "type": "text",
+            "gutterIcon": true
+        },
+        "ia": {
+            "icon": "hubot",
+            "foreground": "#d580ff",
+            "type": "text",
+            "gutterIcon": true
+        },
+        "IA": {
+            "icon": "hubot",
+            "foreground": "#d580ff",
+            "type": "text",
+            "gutterIcon": true
+        }
+    },
+    "todo-tree.tree.showCountsInTree": true,
+    "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)"
 }
