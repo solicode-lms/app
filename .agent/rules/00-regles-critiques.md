@@ -1,3 +1,7 @@
+---
+trigger: always_on
+---
+
 # 🛑 Règles Critiques (Golden Rules)
 
 Ces règles sont **INVIOLABLES**. Elles garantissent la stabilité et la maintenabilité du projet Solicode LMS.
@@ -22,6 +26,3 @@ Le projet utilise un générateur de code (Gapp).
 ## 3. Sécurité
 - **Paranoïa** : Valider toutes les entrées (FormRequests) et échapper toutes les sorties (Blade `{{ }`).
 - **Permissions** : Vérifier les droits (Spatie) avant toute action sensible.
-
-## 4. Communication Inter-Agents
-- Si une tâche dépend d'un autre agent, vérifier les fichiers de communication (`communication_agent_*.md`).

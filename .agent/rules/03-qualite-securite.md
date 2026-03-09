@@ -1,8 +1,11 @@
+---
+trigger: always_on
+---
+
 # Qualité et Sécurité
 
 ## Standards de Code
 - **PHP** : PSR-12 (Appliqué par Laravel Pint).
-- **Commits** : Conventionnal Commits (ex: `feat: ajout module auth`, `fix: correction bug login`).
 - **Nomenclature** : 
     - Classes : PascalCase.
     - Méthodes / Variables : camelCase.

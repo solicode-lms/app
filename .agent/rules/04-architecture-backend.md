@@ -1,8 +1,12 @@
+---
+trigger: always_on
+---
+
 # 🏗️ Architecture Backend & Services
 
 ## 1. Philosophie "Fat Models, Skinny Controllers" (Alternative)
 Nous utilisons une couche **Service** intermédiaire pour soulager les contrôleurs.
-**Contrôleur** -> **Service** -> **Model/Repository**
+**Contrôleur** -> **Service** -> **Model**
 
 ## 2. Structure des Services
 - **Héritage** : Tous les Services étendent `BaseService` ou le modèle parent (ex: `BaseTacheService`).
