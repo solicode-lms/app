@@ -16,6 +16,7 @@
       $projet = $realisationProjet ? ($realisationProjet->affectationProjet ? $realisationProjet->affectationProjet->projet : null) : null;
 
       $taches = collect();
+      $mobilisation = null;
       if ($projet && $ua) {
         $mobilisation = $ua->mobilisationUas->where('projet_id', $projet->id)->first();
         if ($mobilisation) {
@@ -54,8 +55,14 @@
         <div class="line">
           <span class="label">Proposition Projet</span>
           <span class="note-badge text-info">
-            {{ is_null($proto->note) ? '—' : number_format(round(($proto->note / 2) * 4) / 4, 2) }} /
-            {{ ($proto->bareme ?? 0) / 2 }}
+            @php
+              $baremeProjet = $mobilisation->bareme_evaluation_projet ?? (($proto->bareme ?? 0) / 2);
+              $noteProjet = (!is_null($proto->note) && ($proto->bareme ?? 0) > 0)
+                  ? ($proto->note / $proto->bareme) * $baremeProjet
+                  : null;
+            @endphp
+            {{ is_null($noteProjet) ? '—' : number_format(round($noteProjet * 4) / 4, 2) }} /
+            {{ $baremeProjet }}
           </span>
         </div>
 
