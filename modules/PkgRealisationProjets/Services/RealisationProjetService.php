@@ -31,4 +31,13 @@ class RealisationProjetService extends BaseRealisationProjetService
         'livrablesRealisations',
         'etatsRealisationProjet',
     ];
+
+    /**
+     * Trie par default by note_cache desc
+     * @param mixed $query
+     */
+    public function defaultSort($query)
+    {
+        return $query->orderBy('note_cache', 'desc');
+    }
 }
