@@ -842,5 +842,19 @@
         "value_float": 0,
         "e_model_reference": "realisation_modules",
         "e_metadata_definition_reference": "editOnFullScreen"
+    },
+    {
+        "reference": "RealisationModule_module_id_relationFilter",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": [
+            {
+                "path": "Module.Filiere_id",
+                "iModelName": "Filiere",
+                "relationType": "ManyToOne"
+            }
+        ],
+        "e_data_field_reference": "RealisationModule_module_id",
+        "e_metadata_definition_reference": "relationFilter"
     }
 ]

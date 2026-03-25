@@ -97,7 +97,7 @@ class BaseRealisationModuleController extends AdminController
 
 
         $itemRealisationModule = $this->realisationModuleService->createInstance();
-        
+ 
 
         $modules = $this->moduleService->all();
         $apprenants = $this->apprenantService->all();

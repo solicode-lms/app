@@ -318,8 +318,9 @@
                 
                 
                 
-                id="commentaire_formateur"
-                placeholder="{{ __('PkgApprentissage::realisationModule.commentaire_formateur') }}">{{ $itemRealisationModule ? $itemRealisationModule->commentaire_formateur : old('commentaire_formateur') }}</textarea>
+                id="commentaire_formateur">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('commentaire_formateur', $itemRealisationModule->commentaire_formateur ?? '')) !!}
+                </textarea>
           @error('commentaire_formateur')
             <div class="text-danger">{{ $message }}</div>
           @enderror

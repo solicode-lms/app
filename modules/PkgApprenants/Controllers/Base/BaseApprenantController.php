@@ -96,7 +96,7 @@ class BaseApprenantController extends AdminController
 
 
         $itemApprenant = $this->apprenantService->createInstance();
-        
+ 
 
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();

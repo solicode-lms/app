@@ -114,6 +114,20 @@ class BaseRealisationModuleService extends BaseService
         $this->fieldsFilterable = [];
         
             
+                $filiereService = new \Modules\PkgFormation\Services\FiliereService();
+                $filiereIds = $this->getAvailableFilterValues('Module.Filiere_id');
+                $filieres = $filiereService->getByIds($filiereIds);
+
+                $this->fieldsFilterable[] = $this->generateRelationFilter(
+                    __("PkgFormation::filiere.plural"),
+                    'Module.Filiere_id', 
+                    \Modules\PkgFormation\Models\Filiere::class,
+                    "id", 
+                    "id",
+                    $filieres
+                );
+            
+            
                 if (!array_key_exists('module_id', $scopeVariables)) {
 
 
