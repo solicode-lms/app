@@ -851,10 +851,30 @@
             {
                 "path": "Module.Filiere_id",
                 "iModelName": "Filiere",
-                "relationType": "ManyToOne"
+                "relationType": "ManyToOne",
+                "targetDynamicDropdown": "[name='module_id']",
+                "targetDynamicDropdownApiUrl": "route('modules.getData')",
+                "targetDynamicDropdownFilter": "filiere_id"
             }
         ],
         "e_data_field_reference": "RealisationModule_module_id",
+        "e_metadata_definition_reference": "relationFilter"
+    },
+    {
+        "reference": "RealisationModule_apprenant_id_relationFilter",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": [
+            {
+                "path": "Apprenant.groupes.id",
+                "iModelName": "Groupe",
+                "relationType": "ManyToMany",
+                "targetDynamicDropdown": "[name='apprenant_id']",
+                "targetDynamicDropdownApiUrl": "route('apprenants.getData')",
+                "targetDynamicDropdownFilter": "groupes.id"
+            }
+        ],
+        "e_data_field_reference": "RealisationModule_apprenant_id",
         "e_metadata_definition_reference": "relationFilter"
     }
 ]

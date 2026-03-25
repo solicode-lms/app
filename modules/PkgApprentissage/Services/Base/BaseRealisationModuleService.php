@@ -124,7 +124,11 @@ class BaseRealisationModuleService extends BaseService
                     \Modules\PkgFormation\Models\Filiere::class,
                     "id", 
                     "id",
-                    $filieres
+                    $filieres,
+                    "[name='module_id']",
+                    route('modules.getData'),
+                    "filiere_id"
+                    
                 );
             
             
@@ -143,6 +147,24 @@ class BaseRealisationModuleService extends BaseService
                         $modules
                     );
                 }
+            
+            
+                $groupeService = new \Modules\PkgApprenants\Services\GroupeService();
+                $groupeIds = $this->getAvailableFilterValues('Apprenant.groupes.id');
+                $groupes = $groupeService->getByIds($groupeIds);
+
+                $this->fieldsFilterable[] = $this->generateRelationFilter(
+                    __("PkgApprenants::groupe.plural"),
+                    'Apprenant.groupes.id', 
+                    \Modules\PkgApprenants\Models\Groupe::class,
+                    "id", 
+                    "id",
+                    $groupes,
+                    "[name='apprenant_id']",
+                    route('apprenants.getData'),
+                    "groupes.id"
+                    
+                );
             
             
                 if (!array_key_exists('apprenant_id', $scopeVariables)) {
