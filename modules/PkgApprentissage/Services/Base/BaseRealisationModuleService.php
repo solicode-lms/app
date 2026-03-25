@@ -125,9 +125,9 @@ class BaseRealisationModuleService extends BaseService
                     "id", 
                     "id",
                     $filieres,
-                    "[name='module_id']",
-                    route('modules.getData'),
-                    "filiere_id"
+                    "[name='module_id'],[name='Apprenant.groupes.id']",
+                    route('modules.getData') . ',' . route('groupes.getData'),
+                    "filiere_id,filiere_id"
                     
                 );
             

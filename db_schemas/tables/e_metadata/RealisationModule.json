@@ -852,9 +852,9 @@
                 "path": "Module.Filiere_id",
                 "iModelName": "Filiere",
                 "relationType": "ManyToOne",
-                "targetDynamicDropdown": "[name='module_id']",
-                "targetDynamicDropdownApiUrl": "route('modules.getData')",
-                "targetDynamicDropdownFilter": "filiere_id"
+                "targetDynamicDropdown": "[name='module_id'],[name='Apprenant.groupes.id']",
+                "targetDynamicDropdownApiUrl": "route('modules.getData') . ',' . route('groupes.getData')",
+                "targetDynamicDropdownFilter": "filiere_id,filiere_id"
             }
         ],
         "e_data_field_reference": "RealisationModule_module_id",
