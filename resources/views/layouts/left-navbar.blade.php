@@ -68,13 +68,13 @@
         </li>
         @endcan
 
-        @can('index-realisationCompetence')
+        <!-- @can('index-realisationCompetence')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
           <a href="{{ route('realisationCompetences.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgApprentissage::realisationCompetence.plural')) }}" class="nav-link">
            <i class="fas fa-award"></i>
           </a>
         </li>
-        @endcan
+        @endcan -->
 
         @endif
 

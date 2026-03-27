@@ -1,6 +1,7 @@
 <article class="realisation-ua-cadre">
   <header class="projet-titre">
-    <h2 class="mb-2">{{ $entity->realisationUa->uniteApprentissage }}</h2>
+    
+    <h2 class="mb-2" data-toggle="tooltip" title="Projet : {{ $entity->realisationTache?->realisationProjet?->affectationProjet?->projet?->titre ?? 'Projet non défini' }}">{{ $entity->realisationUa->uniteApprentissage }}</h2>
   </header>
 
   <section class="projet-section">

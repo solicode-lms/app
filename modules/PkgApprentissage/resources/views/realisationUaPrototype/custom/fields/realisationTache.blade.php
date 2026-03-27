@@ -1,6 +1,6 @@
 <article class="projet-card">
     <header class="projet-titre">
-        <h2>{{  $entity->realisationUa->uniteApprentissage }}</h2>
+        <h2 data-toggle="tooltip" title="Projet : {{ $entity->realisationTache?->realisationProjet?->affectationProjet?->projet?->titre ?? 'Projet non défini' }}">{{  $entity->realisationUa->uniteApprentissage }}</h2>
     </header>
     <section class="projet-section">
 
