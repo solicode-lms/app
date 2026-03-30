@@ -21,10 +21,10 @@ export class ShowAction extends Action {
      * Affiche les détails d'une entité dans un modal.
      * @param {number|string} id - Identifiant de l'entité à afficher.
      */
-    showEntity(id) {
+    showEntity(id, customUrl = null) {
 
 
-        let showUrl = this.getUrlWithId(this.config.showUrl, id); // Générer l'URL dynamique
+        let showUrl = customUrl ? customUrl : this.getUrlWithId(this.config.showUrl, id); // Utiliser l'URL dynamique configurée ou l'URL passée en paramètre
 
         showUrl = this.appendParamsToUrl(
             showUrl,
@@ -63,8 +63,16 @@ export class ShowAction extends Action {
     handleShowEntity() {
         EventUtil.bindEvent('click', `${this.config.crudSelector} .showEntity`, (e) => {
             e.preventDefault();
-            const id = $(e.currentTarget).data('id'); // Récupérer l'ID de l'entité
-            this.showEntity(id);
+            const target = $(e.currentTarget);
+            const id = target.data('id'); // Récupérer l'ID de l'entité
+            let href = target.attr('href');
+            
+            // Ignorer les href invalides (vides, '#', ou js)
+            if (!href || href === '#' || href.startsWith('javascript:')) {
+                href = null;
+            }
+            
+            this.showEntity(id, href);
         });
     }
 
