@@ -1104,5 +1104,47 @@
         },
         "e_data_field_reference": "RealisationMicroCompetence_progression_ideal_cache",
         "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationMicroCompetence_pourcentage_non_valide_cache_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationMicroCompetence_pourcentage_non_valide_cache",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "RealisationMicroCompetence_pourcentage_non_valide_cache_displayOrder",
+        "value_integer": 19,
+        "e_data_field_reference": "RealisationMicroCompetence_pourcentage_non_valide_cache",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationMicroCompetence_pourcentage_non_valide_cache_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationMicroCompetence_pourcentage_non_valide_cache",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationMicroCompetence_pourcentage_non_valide_cache_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationMicroCompetence_pourcentage_non_valide_cache",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationMicroCompetence_pourcentage_non_valide_cache_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationMicroCompetence_pourcentage_non_valide_cache",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationMicroCompetence_pourcentage_non_valide_cache_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationMicroCompetence_pourcentage_non_valide_cache",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationMicroCompetence_pourcentage_non_valide_cache_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationMicroCompetence_pourcentage_non_valide_cache",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

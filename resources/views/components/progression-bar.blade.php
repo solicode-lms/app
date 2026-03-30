@@ -57,6 +57,14 @@
         @endif
     </div>
 
+    @if(isset($baremeNonEvalue) && $baremeNonEvalue > 0)
+    <div class="mt-1" style="font-size: 0.75rem;">
+        <span class="text-secondary" title="Total des barèmes des tâches en attente d'évaluation" data-toggle="tooltip">
+            <i class="fas fa-hourglass-half text-warning"></i> À évaluer : <strong>{{ $baremeNonEvalue }} Pts</strong>
+        </span>
+    </div>
+    @endif
+
     {{-- <small class="text-muted">
         @if(!is_null($tauxRythme))
            ⚡ Rythme : <strong data-toggle="tooltip" title="{{ $tauxRythme }}% Rythme">{{ $tauxRythme }}%</strong>

@@ -71,6 +71,7 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
             $rmc->progression_cache = 0;
             $rmc->note_cache = 0;
             $rmc->bareme_cache = 0;
+            $rmc->bareme_non_evalue_cache = 0;
             $rmc->progression_ideal_cache = 0;
             $rmc->pourcentage_non_valide_cache = 0;
             $rmc->taux_rythme_cache = null;
@@ -81,6 +82,7 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
         // ✅ Agrégats sur les UAs
         $totalNote = $uas->sum(fn($ua) => $ua->note_cache ?? 0);
         $totalBareme = $uas->sum(fn($ua) => $ua->bareme_cache ?? 0);
+        $totalBaremeNonEvalue = $uas->sum(fn($ua) => $ua->bareme_non_evalue_cache ?? 0);
         $totalProgression = $uas->sum(fn($ua) => $ua->progression_cache ?? 0);
         $totalProgressionIdeal = $uas->sum(fn($ua) => $ua->progression_ideal_cache ?? 0);
         $totalPourcentageNonValide = $uas->sum(fn($ua) => $ua->pourcentage_non_valide_cache ?? 0);
@@ -93,6 +95,7 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
         // ✅ Notes & barèmes
         $rmc->note_cache = round($totalNote, 2);
         $rmc->bareme_cache = round($totalBareme, 2);
+        $rmc->bareme_non_evalue_cache = round($totalBaremeNonEvalue, 2);
 
         // ✅ Taux de rythme
         $rmc->taux_rythme_cache = $rmc->progression_ideal_cache > 0

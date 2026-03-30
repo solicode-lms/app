@@ -75,6 +75,7 @@ class RealisationCompetenceService extends BaseRealisationCompetenceService
             $rc->progression_cache = 0;
             $rc->note_cache = 0;
             $rc->bareme_cache = 0;
+            $rc->bareme_non_evalue_cache = 0;
             $rc->progression_ideal_cache = 0;
             $rc->pourcentage_non_valide_cache = 0;
             $rc->taux_rythme_cache = null;
@@ -85,6 +86,7 @@ class RealisationCompetenceService extends BaseRealisationCompetenceService
         // ✅ Agrégats sur les micro-compétences
         $totalNote = $rmcs->sum(fn($rmc) => $rmc->note_cache ?? 0);
         $totalBareme = $rmcs->sum(fn($rmc) => $rmc->bareme_cache ?? 0);
+        $totalBaremeNonEvalue = $rmcs->sum(fn($rmc) => $rmc->bareme_non_evalue_cache ?? 0);
         $totalProgression = $rmcs->sum(fn($rmc) => $rmc->progression_cache ?? 0);
         $totalProgressionIdeal = $rmcs->sum(fn($rmc) => $rmc->progression_ideal_cache ?? 0);
         $totalPourcentageNonValide = $rmcs->sum(fn($rmc) => $rmc->pourcentage_non_valide_cache ?? 0);
@@ -97,6 +99,7 @@ class RealisationCompetenceService extends BaseRealisationCompetenceService
         // ✅ Notes & barèmes
         $rc->note_cache = round($totalNote, 2);
         $rc->bareme_cache = round($totalBareme, 2);
+        $rc->bareme_non_evalue_cache = round($totalBaremeNonEvalue, 2);
 
         // ✅ Taux de rythme (nullable si progression idéale = 0)
         $rc->taux_rythme_cache = $rc->progression_ideal_cache > 0

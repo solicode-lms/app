@@ -152,6 +152,7 @@ class RealisationUaService extends BaseRealisationUaService
 
         $totalNote = 0;
         $totalBareme = 0;
+        $totalBaremeNonEvalue = 0;
         $progressionReelle = 0;
         $progressionIdeale = 0;
         $pourcentageNonValide = 0;
@@ -185,9 +186,12 @@ class RealisationUaService extends BaseRealisationUaService
 
             // Notes
             $bareme = $items->sum(fn($e) => $e->note !== null ? ($e->bareme ?? 0) : 0);
+            $baremeNonEvalue = $items->sum(fn($e) => $e->note === null ? ($e->bareme ?? 0) : 0);
             $note = $items->sum(fn($e) => $e->note ?? 0);
+            
             $totalNote += $note;
             $totalBareme += $bareme;
+            $totalBaremeNonEvalue += $baremeNonEvalue;
         }
 
         $realisationUa->progression_cache = (float) number_format($progressionReelle, 2, '.', '');
@@ -195,6 +199,7 @@ class RealisationUaService extends BaseRealisationUaService
         $realisationUa->pourcentage_non_valide_cache = (float) number_format($pourcentageNonValide, 2, '.', '');
         $realisationUa->note_cache = (float) number_format($totalNote, 2, '.', '');
         $realisationUa->bareme_cache = (float) number_format($totalBareme, 2, '.', '');
+        $realisationUa->bareme_non_evalue_cache = (float) number_format($totalBaremeNonEvalue, 2, '.', '');
 
         // ✅ Taux de rythme
         $realisationUa->taux_rythme_cache = $realisationUa->progression_ideal_cache > 0
