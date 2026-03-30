@@ -154,6 +154,7 @@ class RealisationUaService extends BaseRealisationUaService
         $totalBareme = 0;
         $progressionReelle = 0;
         $progressionIdeale = 0;
+        $pourcentageNonValide = 0;
 
         foreach ($parts as $part) {
             $items = $part['items'];
@@ -178,6 +179,10 @@ class RealisationUaService extends BaseRealisationUaService
                 $progressionIdeale += ($countActif / $countAll) * $poids;
             }
 
+            // ⛔ Pourcentage Non Valide
+            $nonValides = $items->filter(fn($e) => $this->isNonValide($e))->count();
+            $pourcentageNonValide += ($nonValides / $countAll) * $poids;
+
             // Notes
             $bareme = $items->sum(fn($e) => $e->note !== null ? ($e->bareme ?? 0) : 0);
             $note = $items->sum(fn($e) => $e->note ?? 0);
@@ -187,6 +192,7 @@ class RealisationUaService extends BaseRealisationUaService
 
         $realisationUa->progression_cache = (float) number_format($progressionReelle, 2, '.', '');
         $realisationUa->progression_ideal_cache = (float) number_format($progressionIdeale, 2, '.', '');
+        $realisationUa->pourcentage_non_valide_cache = (float) number_format($pourcentageNonValide, 2, '.', '');
         $realisationUa->note_cache = (float) number_format($totalNote, 2, '.', '');
         $realisationUa->bareme_cache = (float) number_format($totalBareme, 2, '.', '');
 
@@ -226,6 +232,19 @@ class RealisationUaService extends BaseRealisationUaService
         return min(100.00, $valeur);
     }
 
+
+    private function isNonValide($item): bool
+    {
+        // ✅ États considérés comme "Invalides" ou "À corriger"
+        $etatsInvalides = ['NOT_VALIDATED'];
+
+        if (isset($item->realisation_tache_id)) {
+            $etat = $item->realisationTache?->etatRealisationTache?->workflowTache?->code;
+            return $etat !== null && in_array($etat, $etatsInvalides, true);
+        }
+
+        return false;
+    }
 
     private function isActiveProgress($item): bool
     {

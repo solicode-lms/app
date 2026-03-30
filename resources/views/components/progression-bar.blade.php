@@ -1,8 +1,12 @@
 @php
     $atteint = min($progression, $progressionIdeal);
-    $retard = max(0, $progressionIdeal - $progression);
+    $retardbrut = max(0, $progressionIdeal - $progression);
     $avance = max(0, $progression - $progressionIdeal);
     $showTextThreshold = 12; // largeur min pour afficher texte %
+    
+    $nonValide = isset($pourcentageNonValide) ? $pourcentageNonValide : 0;
+    $nonValide = min($nonValide, $retardbrut); // Le non valide est extrait du retard global
+    $retard = max(0, $retardbrut - $nonValide);
 @endphp
 
 <div style="width: 100%">
@@ -17,7 +21,19 @@
             @endif
         </div>
 
-        {{-- ⚠️ Retard (idéal non atteint) --}}
+        {{-- ❌ Non valide --}}
+        @if($nonValide > 0)
+        <div class="progress-bar bg-danger" 
+             style="width: {{ $nonValide }}%;" 
+             data-toggle="tooltip"
+             title="Tâches à corriger ({{ $nonValide }}%)">
+            @if($nonValide > $showTextThreshold)
+                {{ $nonValide }}%
+            @endif
+        </div>
+        @endif
+
+        {{-- ⚠️ Retard (idéal non atteint hors non valide) --}}
         @if($retard > 0)
         <div class="progress-bar bg-warning" 
              style="width: {{ $retard }}%;" 

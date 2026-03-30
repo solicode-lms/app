@@ -98,6 +98,7 @@ class RealisationModuleService extends BaseRealisationModuleService
             $rm->note_cache = 0;
             $rm->bareme_cache = 0;
             $rm->progression_ideal_cache = 0;
+            $rm->pourcentage_non_valide_cache = 0;
             $rm->taux_rythme_cache = null;
             $rm->save();
             return;
@@ -108,10 +109,12 @@ class RealisationModuleService extends BaseRealisationModuleService
         $totalBareme = $competences->sum(fn($c) => $c->bareme_cache ?? 0);
         $totalProgression = $competences->sum(fn($c) => $c->progression_cache ?? 0);
         $totalProgressionIdeal = $competences->sum(fn($c) => $c->progression_ideal_cache ?? 0);
+        $totalPourcentageNonValide = $competences->sum(fn($c) => $c->pourcentage_non_valide_cache ?? 0);
 
         // ✅ Progressions
         $rm->progression_cache = round($totalProgression / $totalComp, 1);
         $rm->progression_ideal_cache = round($totalProgressionIdeal / $totalComp, 1);
+        $rm->pourcentage_non_valide_cache = round($totalPourcentageNonValide / $totalComp, 1);
 
         // ✅ Notes & barèmes
         $rm->note_cache = round($totalNote, 2);

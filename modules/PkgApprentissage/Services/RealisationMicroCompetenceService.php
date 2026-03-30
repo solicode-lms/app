@@ -72,6 +72,7 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
             $rmc->note_cache = 0;
             $rmc->bareme_cache = 0;
             $rmc->progression_ideal_cache = 0;
+            $rmc->pourcentage_non_valide_cache = 0;
             $rmc->taux_rythme_cache = null;
             $rmc->save();
             return;
@@ -82,10 +83,12 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
         $totalBareme = $uas->sum(fn($ua) => $ua->bareme_cache ?? 0);
         $totalProgression = $uas->sum(fn($ua) => $ua->progression_cache ?? 0);
         $totalProgressionIdeal = $uas->sum(fn($ua) => $ua->progression_ideal_cache ?? 0);
+        $totalPourcentageNonValide = $uas->sum(fn($ua) => $ua->pourcentage_non_valide_cache ?? 0);
 
         // ✅ Progressions
         $rmc->progression_cache = round($totalProgression / $totalUa, 1);
         $rmc->progression_ideal_cache = round($totalProgressionIdeal / $totalUa, 1);
+        $rmc->pourcentage_non_valide_cache = round($totalPourcentageNonValide / $totalUa, 1);
 
         // ✅ Notes & barèmes
         $rmc->note_cache = round($totalNote, 2);

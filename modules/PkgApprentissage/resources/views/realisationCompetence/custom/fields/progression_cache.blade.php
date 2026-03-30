@@ -11,6 +11,7 @@
         <x-progression-bar 
             :progression="$entity->progression_cache ?? 0" 
             :progression-ideal="$entity->progression_ideal_cache ?? 0"
+            :pourcentage-non-valide="$entity->pourcentage_non_valide_cache ?? 0"
         />
     </div>
 
