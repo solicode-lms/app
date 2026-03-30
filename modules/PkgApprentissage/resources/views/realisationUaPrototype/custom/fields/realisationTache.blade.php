@@ -1,6 +1,11 @@
 <article class="projet-card">
     <header class="projet-titre">
-        <h2 data-toggle="tooltip" title="Projet : {{ $entity->realisationTache?->realisationProjet?->affectationProjet?->projet?->titre ?? 'Projet non défini' }}">{{  $entity->realisationUa->uniteApprentissage }}</h2>
+        <h2 class="mb-1" data-toggle="tooltip" title="Projet : {{ $entity->realisationTache?->realisationProjet?->affectationProjet?->projet?->titre ?? 'Non défini' }}">{{  $entity->realisationUa->uniteApprentissage }}</h2>
+        <small class="text-muted d-block mb-3">
+            <strong>Projet :</strong> {{ $entity->realisationTache?->realisationProjet?->affectationProjet?->projet?->titre ?? 'Non défini' }} |
+            <strong>Tâche :</strong> {{ $entity->realisationTache?->tache?->titre ?? 'Non défini' }} |
+            <strong>État :</strong> {{ $entity->realisationTache?->etatRealisationTache?->nom ?? 'Non défini' }}
+        </small>
     </header>
     <section class="projet-section">
 
