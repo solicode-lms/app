@@ -16,6 +16,13 @@
         />
     </div>
 
+    @if(isset($entity->bareme_non_evalue_cache) && $entity->bareme_non_evalue_cache > 0)
+    <span class="etat-meta" title="En attente d'évaluation" data-toggle="tooltip">
+        <i class="fas fa-hourglass-half text-warning"></i>
+        À évaluer : {{ $entity->bareme_non_evalue_cache }} Pts
+    </span>
+    @endif
+
 
     @if($entity->taux_rythme_cache)
     @php

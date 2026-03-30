@@ -22,11 +22,12 @@
         </div>
 
         {{-- ❌ Non valide --}}
+    
         @if($nonValide > 0)
         <div class="progress-bar bg-danger" 
              style="width: {{ $nonValide }}%;" 
              data-toggle="tooltip"
-             title="Tâches à corriger ({{ $nonValide }}%)">
+             title="Tâches non validées ({{ $nonValide }}%)">
             @if($nonValide > $showTextThreshold)
                 {{ $nonValide }}%
             @endif
@@ -54,16 +55,8 @@
                 +{{ $avance }}%
             @endif
         </div>
-        @endif
-    </div>
-
-    @if(isset($baremeNonEvalue) && $baremeNonEvalue > 0)
-    <div class="mt-1" style="font-size: 0.75rem;">
-        <span class="text-secondary" title="Total des barèmes des tâches en attente d'évaluation" data-toggle="tooltip">
-            <i class="fas fa-hourglass-half text-warning"></i> À évaluer : <strong>{{ $baremeNonEvalue }} Pts</strong>
-        </span>
-    </div>
     @endif
+    </div>
 
     {{-- <small class="text-muted">
         @if(!is_null($tauxRythme))
