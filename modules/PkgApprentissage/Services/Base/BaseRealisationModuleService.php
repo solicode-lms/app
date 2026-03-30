@@ -32,11 +32,13 @@ class BaseRealisationModuleService extends BaseService
         'note_cache',
         'bareme_cache',
         'dernier_update',
+        'bareme_non_evalue_cache',
         'commentaire_formateur',
         'date_debut',
         'date_fin',
         'progression_ideal_cache',
-        'taux_rythme_cache'
+        'taux_rythme_cache',
+        'pourcentage_non_valide_cache'
     ];
 
 

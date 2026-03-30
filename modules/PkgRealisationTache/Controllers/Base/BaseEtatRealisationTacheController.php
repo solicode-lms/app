@@ -90,7 +90,7 @@ class BaseEtatRealisationTacheController extends AdminController
 
 
         $itemEtatRealisationTache = $this->etatRealisationTacheService->createInstance();
-        
+ 
 
         $workflowTaches = $this->workflowTacheService->all();
         $sysColors = $this->sysColorService->all();

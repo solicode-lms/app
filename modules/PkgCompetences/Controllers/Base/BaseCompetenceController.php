@@ -92,7 +92,7 @@ class BaseCompetenceController extends AdminController
 
 
         $itemCompetence = $this->competenceService->createInstance();
-        
+ 
 
         $modules = $this->moduleService->all();
 

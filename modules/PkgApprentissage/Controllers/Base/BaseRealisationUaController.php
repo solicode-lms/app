@@ -85,7 +85,7 @@ class BaseRealisationUaController extends AdminController
 
 
         $itemRealisationUa = $this->realisationUaService->createInstance();
-        
+ 
 
         $uniteApprentissages = $this->uniteApprentissageService->all();
         $realisationMicroCompetences = $this->realisationMicroCompetenceService->all();

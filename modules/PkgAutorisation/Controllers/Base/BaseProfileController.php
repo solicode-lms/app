@@ -103,7 +103,7 @@ class BaseProfileController extends AdminController
             $this->viewState->init('scope.user.apprenant.id'  , $this->sessionState->get('apprenant_id'));
         }
         $itemProfile = $this->profileService->createInstance();
-        
+ 
 
         $users = $this->userService->all();
 

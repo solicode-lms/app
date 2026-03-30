@@ -79,7 +79,7 @@ class BaseRealisationUaPrototypeController extends AdminController
 
 
         $itemRealisationUaPrototype = $this->realisationUaPrototypeService->createInstance();
-        
+ 
 
         $realisationTaches = $this->realisationTacheService->all();
         $realisationUas = $this->realisationUaService->all();

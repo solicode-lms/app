@@ -124,8 +124,9 @@
                 
                 
                 
-                id="description"
-                placeholder="{{ __('PkgApprenants::niveauxScolaire.description') }}">{{ $itemNiveauxScolaire ? $itemNiveauxScolaire->description : old('description') }}</textarea>
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemNiveauxScolaire->description ?? '')) !!}
+                </textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror

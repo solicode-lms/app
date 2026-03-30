@@ -100,7 +100,7 @@ class BaseRealisationCompetenceController extends AdminController
 
 
         $itemRealisationCompetence = $this->realisationCompetenceService->createInstance();
-        
+ 
 
         $competences = $this->competenceService->all();
         $realisationModules = $this->realisationModuleService->all();

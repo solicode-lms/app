@@ -87,7 +87,7 @@ class BaseGroupeController extends AdminController
 
 
         $itemGroupe = $this->groupeService->createInstance();
-        
+ 
 
         $filieres = $this->filiereService->all();
         $anneeFormations = $this->anneeFormationService->all();

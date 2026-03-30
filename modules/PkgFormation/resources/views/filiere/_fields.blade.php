@@ -124,8 +124,9 @@
                 
                 
                 
-                id="description"
-                placeholder="{{ __('PkgFormation::filiere.description') }}">{{ $itemFiliere ? $itemFiliere->description : old('description') }}</textarea>
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemFiliere->description ?? '')) !!}
+                </textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror

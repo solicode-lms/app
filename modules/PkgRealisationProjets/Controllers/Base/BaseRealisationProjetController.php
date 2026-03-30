@@ -99,7 +99,7 @@ class BaseRealisationProjetController extends AdminController
 
 
         $itemRealisationProjet = $this->realisationProjetService->createInstance();
-        
+ 
         // scopeDataInEditContext
         $value = $itemRealisationProjet->getNestedValue('affectationProjet.projet.formateur.id');
         $key = 'scope.etatsRealisationProjet.formateur_id';

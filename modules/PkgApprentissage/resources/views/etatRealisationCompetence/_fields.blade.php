@@ -159,8 +159,9 @@
                 
                 
                 
-                id="description"
-                placeholder="{{ __('PkgApprentissage::etatRealisationCompetence.description') }}">{{ $itemEtatRealisationCompetence ? $itemEtatRealisationCompetence->description : old('description') }}</textarea>
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemEtatRealisationCompetence->description ?? '')) !!}
+                </textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror

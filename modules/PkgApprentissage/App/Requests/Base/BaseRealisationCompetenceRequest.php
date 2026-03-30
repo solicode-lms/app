@@ -36,12 +36,14 @@ class BaseRealisationCompetenceRequest extends FormRequest
             'note_cache' => 'nullable',
             'etat_realisation_competence_id' => 'nullable',
             'bareme_cache' => 'nullable',
+            'bareme_non_evalue_cache' => 'required',
             'dernier_update' => 'nullable',
             'commentaire_formateur' => 'nullable|string',
             'date_debut' => 'nullable',
             'date_fin' => 'nullable',
             'progression_ideal_cache' => 'required',
-            'taux_rythme_cache' => 'required'
+            'taux_rythme_cache' => 'required',
+            'pourcentage_non_valide_cache' => 'required'
         ];
     }
 
@@ -60,12 +62,14 @@ class BaseRealisationCompetenceRequest extends FormRequest
             'note_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.note_cache')]),
             'etat_realisation_competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.etat_realisation_competence_id')]),
             'bareme_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.bareme_cache')]),
+            'bareme_non_evalue_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.bareme_non_evalue_cache')]),
             'dernier_update.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.dernier_update')]),
             'commentaire_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.commentaire_formateur')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.date_debut')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.date_fin')]),
             'progression_ideal_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.progression_ideal_cache')]),
-            'taux_rythme_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.taux_rythme_cache')])
+            'taux_rythme_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.taux_rythme_cache')]),
+            'pourcentage_non_valide_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.pourcentage_non_valide_cache')])
         ];
     }
 

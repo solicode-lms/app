@@ -82,7 +82,7 @@ class BaseEvaluationRealisationTacheController extends AdminController
 
 
         $itemEvaluationRealisationTache = $this->evaluationRealisationTacheService->createInstance();
-        
+ 
 
         $realisationTaches = $this->realisationTacheService->all();
         $evaluateurs = $this->evaluateurService->all();

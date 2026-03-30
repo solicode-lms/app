@@ -77,7 +77,7 @@ class BaseFeatureDomainController extends AdminController
 
 
         $itemFeatureDomain = $this->featureDomainService->createInstance();
-        
+ 
 
         $sysModules = $this->sysModuleService->all();
 

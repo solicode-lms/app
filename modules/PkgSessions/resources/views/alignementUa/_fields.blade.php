@@ -169,8 +169,9 @@
                 
                 
                 
-                id="description"
-                placeholder="{{ __('PkgSessions::alignementUa.description') }}">{{ $itemAlignementUa ? $itemAlignementUa->description : old('description') }}</textarea>
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemAlignementUa->description ?? '')) !!}
+                </textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror

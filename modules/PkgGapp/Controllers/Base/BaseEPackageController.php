@@ -74,7 +74,7 @@ class BaseEPackageController extends AdminController
 
 
         $itemEPackage = $this->ePackageService->createInstance();
-        
+ 
 
 
         $bulkEdit = false;

@@ -77,7 +77,7 @@ class BaseWorkflowTacheController extends AdminController
 
 
         $itemWorkflowTache = $this->workflowTacheService->createInstance();
-        
+ 
 
         $sysColors = $this->sysColorService->all();
 

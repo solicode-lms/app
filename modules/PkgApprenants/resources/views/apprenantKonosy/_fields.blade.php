@@ -544,8 +544,9 @@
                 
                 
                 
-                id="Adresse"
-                placeholder="{{ __('PkgApprenants::apprenantKonosy.Adresse') }}">{{ $itemApprenantKonosy ? $itemApprenantKonosy->Adresse : old('Adresse') }}</textarea>
+                id="Adresse">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('Adresse', $itemApprenantKonosy->Adresse ?? '')) !!}
+                </textarea>
           @error('Adresse')
             <div class="text-danger">{{ $message }}</div>
           @enderror

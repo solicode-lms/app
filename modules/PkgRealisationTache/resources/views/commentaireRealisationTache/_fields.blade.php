@@ -54,8 +54,9 @@
                 required
                 
                 
-                id="commentaire"
-                placeholder="{{ __('PkgRealisationTache::commentaireRealisationTache.commentaire') }}">{{ $itemCommentaireRealisationTache ? $itemCommentaireRealisationTache->commentaire : old('commentaire') }}</textarea>
+                id="commentaire">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('commentaire', $itemCommentaireRealisationTache->commentaire ?? '')) !!}
+                </textarea>
           @error('commentaire')
             <div class="text-danger">{{ $message }}</div>
           @enderror

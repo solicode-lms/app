@@ -74,7 +74,7 @@ class BaseNationaliteController extends AdminController
 
 
         $itemNationalite = $this->nationaliteService->createInstance();
-        
+ 
 
 
         $bulkEdit = false;

@@ -86,7 +86,7 @@ class BaseSysColorController extends AdminController
 
 
         $itemSysColor = $this->sysColorService->createInstance();
-        
+ 
 
 
         $bulkEdit = false;

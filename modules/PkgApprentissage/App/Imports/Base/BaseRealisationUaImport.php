@@ -63,13 +63,15 @@ class BaseRealisationUaImport implements ToModel, WithHeadingRow
              'progression_cache' => $values[3] ?? null,
              'note_cache' => $values[4] ?? null,
              'bareme_cache' => $values[5] ?? null,
-             'date_debut' => $values[6] ?? null,
-             'date_fin' => $values[7] ?? null,
-             'dernier_update' => $values[8] ?? null,
-             'commentaire_formateur' => $values[9] ?? null,
+             'bareme_non_evalue_cache' => $values[6] ?? null,
+             'date_debut' => $values[7] ?? null,
+             'date_fin' => $values[8] ?? null,
+             'dernier_update' => $values[9] ?? null,
+             'commentaire_formateur' => $values[10] ?? null,
              'reference' => $reference,
-             'progression_ideal_cache' => $values[11] ?? null,
-             'taux_rythme_cache' => $values[12] ?? null,
+             'progression_ideal_cache' => $values[12] ?? null,
+             'pourcentage_non_valide_cache' => $values[13] ?? null,
+             'taux_rythme_cache' => $values[14] ?? null,
         ]);
 
 

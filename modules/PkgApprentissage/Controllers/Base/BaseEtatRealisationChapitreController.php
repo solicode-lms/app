@@ -76,7 +76,7 @@ class BaseEtatRealisationChapitreController extends AdminController
 
 
         $itemEtatRealisationChapitre = $this->etatRealisationChapitreService->createInstance();
-        
+ 
 
         $sysColors = $this->sysColorService->all();
 

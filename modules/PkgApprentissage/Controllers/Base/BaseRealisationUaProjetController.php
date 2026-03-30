@@ -79,7 +79,7 @@ class BaseRealisationUaProjetController extends AdminController
 
 
         $itemRealisationUaProjet = $this->realisationUaProjetService->createInstance();
-        
+ 
 
         $realisationTaches = $this->realisationTacheService->all();
         $realisationUas = $this->realisationUaService->all();

@@ -74,7 +74,7 @@ class BaseNiveauxScolaireController extends AdminController
 
 
         $itemNiveauxScolaire = $this->niveauxScolaireService->createInstance();
-        
+ 
 
 
         $bulkEdit = false;

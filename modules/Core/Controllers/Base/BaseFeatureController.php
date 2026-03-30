@@ -79,7 +79,7 @@ class BaseFeatureController extends AdminController
 
 
         $itemFeature = $this->featureService->createInstance();
-        
+ 
 
         $featureDomains = $this->featureDomainService->all();
         $permissions = $this->permissionService->all();

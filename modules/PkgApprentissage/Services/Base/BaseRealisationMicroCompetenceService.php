@@ -31,6 +31,7 @@ class BaseRealisationMicroCompetenceService extends BaseService
         'note_cache',
         'etat_realisation_micro_competence_id',
         'bareme_cache',
+        'bareme_non_evalue_cache',
         'commentaire_formateur',
         'date_debut',
         'date_fin',
@@ -38,7 +39,8 @@ class BaseRealisationMicroCompetenceService extends BaseService
         'realisation_competence_id',
         'lien_livrable',
         'progression_ideal_cache',
-        'taux_rythme_cache'
+        'taux_rythme_cache',
+        'pourcentage_non_valide_cache'
     ];
 
 

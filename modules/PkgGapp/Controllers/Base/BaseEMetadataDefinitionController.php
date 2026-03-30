@@ -74,7 +74,7 @@ class BaseEMetadataDefinitionController extends AdminController
 
 
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->createInstance();
-        
+ 
 
 
         $bulkEdit = false;

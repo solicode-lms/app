@@ -78,7 +78,7 @@ class BaseMicroCompetenceController extends AdminController
 
 
         $itemMicroCompetence = $this->microCompetenceService->createInstance();
-        
+ 
 
         $competences = $this->competenceService->all();
 

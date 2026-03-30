@@ -194,8 +194,9 @@
                 
                 
                 
-                id="description"
-                placeholder="{{ __('PkgGapp::eMetadataDefinition.description') }}">{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->description : old('description') }}</textarea>
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemEMetadataDefinition->description ?? '')) !!}
+                </textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -227,8 +228,9 @@
                 
                 
                 
-                id="default_value"
-                placeholder="{{ __('PkgGapp::eMetadataDefinition.default_value') }}">{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->default_value : old('default_value') }}</textarea>
+                id="default_value">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('default_value', $itemEMetadataDefinition->default_value ?? '')) !!}
+                </textarea>
           @error('default_value')
             <div class="text-danger">{{ $message }}</div>
           @enderror

@@ -76,7 +76,7 @@ class BaseEtatRealisationUaController extends AdminController
 
 
         $itemEtatRealisationUa = $this->etatRealisationUaService->createInstance();
-        
+ 
 
         $sysColors = $this->sysColorService->all();
 

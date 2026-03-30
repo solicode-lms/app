@@ -81,7 +81,7 @@ class BaseEvaluateurController extends AdminController
 
 
         $itemEvaluateur = $this->evaluateurService->createInstance();
-        
+ 
 
         $users = $this->userService->all();
         $affectationProjets = $this->affectationProjetService->all();

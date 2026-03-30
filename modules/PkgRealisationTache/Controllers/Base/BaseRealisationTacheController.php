@@ -104,7 +104,7 @@ class BaseRealisationTacheController extends AdminController
 
 
         $itemRealisationTache = $this->realisationTacheService->createInstance();
-        
+ 
         // scopeDataInEditContext
         $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
         $key = 'scope.etatRealisationTache.formateur_id';

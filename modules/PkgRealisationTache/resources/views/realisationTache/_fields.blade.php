@@ -245,8 +245,9 @@
                 
                 
                 
-                id="remarques_formateur"
-                placeholder="{{ __('PkgRealisationTache::realisationTache.remarques_formateur') }}">{{ $itemRealisationTache ? $itemRealisationTache->remarques_formateur : old('remarques_formateur') }}</textarea>
+                id="remarques_formateur">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('remarques_formateur', $itemRealisationTache->remarques_formateur ?? '')) !!}
+                </textarea>
           @error('remarques_formateur')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -281,8 +282,9 @@
                 
                 
                 
-                id="remarques_apprenant"
-                placeholder="{{ __('PkgRealisationTache::realisationTache.remarques_apprenant') }}">{{ $itemRealisationTache ? $itemRealisationTache->remarques_apprenant : old('remarques_apprenant') }}</textarea>
+                id="remarques_apprenant">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('remarques_apprenant', $itemRealisationTache->remarques_apprenant ?? '')) !!}
+                </textarea>
           @error('remarques_apprenant')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -392,8 +394,9 @@
                 
                 
                 
-                id="remarque_evaluateur"
-                placeholder="{{ __('PkgRealisationTache::realisationTache.remarque_evaluateur') }}">{{ $itemRealisationTache ? $itemRealisationTache->remarque_evaluateur : old('remarque_evaluateur') }}</textarea>
+                id="remarque_evaluateur">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('remarque_evaluateur', $itemRealisationTache->remarque_evaluateur ?? '')) !!}
+                </textarea>
           @error('remarque_evaluateur')
             <div class="text-danger">{{ $message }}</div>
           @enderror

@@ -92,8 +92,9 @@
                 
                 
                 
-                id="remarques"
-                placeholder="{{ __('PkgSessions::sessionFormation.remarques') }}">{{ $itemSessionFormation ? $itemSessionFormation->remarques : old('remarques') }}</textarea>
+                id="remarques">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('remarques', $itemSessionFormation->remarques ?? '')) !!}
+                </textarea>
           @error('remarques')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -170,8 +171,9 @@
                 required
                 
                 
-                id="description_prototype"
-                placeholder="{{ __('PkgSessions::sessionFormation.description_prototype') }}">{{ $itemSessionFormation ? $itemSessionFormation->description_prototype : old('description_prototype') }}</textarea>
+                id="description_prototype">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description_prototype', $itemSessionFormation->description_prototype ?? '')) !!}
+                </textarea>
           @error('description_prototype')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -203,8 +205,9 @@
                 
                 
                 
-                id="contraintes_prototype"
-                placeholder="{{ __('PkgSessions::sessionFormation.contraintes_prototype') }}">{{ $itemSessionFormation ? $itemSessionFormation->contraintes_prototype : old('contraintes_prototype') }}</textarea>
+                id="contraintes_prototype">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('contraintes_prototype', $itemSessionFormation->contraintes_prototype ?? '')) !!}
+                </textarea>
           @error('contraintes_prototype')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -281,8 +284,9 @@
                 required
                 
                 
-                id="description_projet"
-                placeholder="{{ __('PkgSessions::sessionFormation.description_projet') }}">{{ $itemSessionFormation ? $itemSessionFormation->description_projet : old('description_projet') }}</textarea>
+                id="description_projet">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description_projet', $itemSessionFormation->description_projet ?? '')) !!}
+                </textarea>
           @error('description_projet')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -314,8 +318,9 @@
                 
                 
                 
-                id="contraintes_projet"
-                placeholder="{{ __('PkgSessions::sessionFormation.contraintes_projet') }}">{{ $itemSessionFormation ? $itemSessionFormation->contraintes_projet : old('contraintes_projet') }}</textarea>
+                id="contraintes_projet">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('contraintes_projet', $itemSessionFormation->contraintes_projet ?? '')) !!}
+                </textarea>
           @error('contraintes_projet')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -357,8 +362,9 @@
                 required
                 
                 
-                id="objectifs_pedagogique"
-                placeholder="{{ __('PkgSessions::sessionFormation.objectifs_pedagogique') }}">{{ $itemSessionFormation ? $itemSessionFormation->objectifs_pedagogique : old('objectifs_pedagogique') }}</textarea>
+                id="objectifs_pedagogique">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('objectifs_pedagogique', $itemSessionFormation->objectifs_pedagogique ?? '')) !!}
+                </textarea>
           @error('objectifs_pedagogique')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -614,8 +620,9 @@
                 
                 
                 
-                id="jour_feries_vacances"
-                placeholder="{{ __('PkgSessions::sessionFormation.jour_feries_vacances') }}">{{ $itemSessionFormation ? $itemSessionFormation->jour_feries_vacances : old('jour_feries_vacances') }}</textarea>
+                id="jour_feries_vacances">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('jour_feries_vacances', $itemSessionFormation->jour_feries_vacances ?? '')) !!}
+                </textarea>
           @error('jour_feries_vacances')
             <div class="text-danger">{{ $message }}</div>
           @enderror

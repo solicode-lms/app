@@ -79,7 +79,7 @@ class BaseLivrableSessionController extends AdminController
 
 
         $itemLivrableSession = $this->livrableSessionService->createInstance();
-        
+ 
 
         $sessionFormations = $this->sessionFormationService->all();
         $natureLivrables = $this->natureLivrableService->all();

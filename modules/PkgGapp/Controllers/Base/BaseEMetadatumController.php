@@ -82,7 +82,7 @@ class BaseEMetadatumController extends AdminController
 
 
         $itemEMetadatum = $this->eMetadatumService->createInstance();
-        
+ 
 
         $eModels = $this->eModelService->all();
         $eDataFields = $this->eDataFieldService->all();

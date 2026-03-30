@@ -99,7 +99,7 @@ class BaseRealisationChapitreController extends AdminController
 
 
         $itemRealisationChapitre = $this->realisationChapitreService->createInstance();
-        
+ 
 
         $chapitres = $this->chapitreService->all();
         $etatRealisationChapitres = $this->etatRealisationChapitreService->all();

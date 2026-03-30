@@ -89,8 +89,9 @@
                 required
                 
                 
-                id="intitule"
-                placeholder="{{ __('PkgCompetences::critereEvaluation.intitule') }}">{{ $itemCritereEvaluation ? $itemCritereEvaluation->intitule : old('intitule') }}</textarea>
+                id="intitule">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('intitule', $itemCritereEvaluation->intitule ?? '')) !!}
+                </textarea>
           @error('intitule')
             <div class="text-danger">{{ $message }}</div>
           @enderror

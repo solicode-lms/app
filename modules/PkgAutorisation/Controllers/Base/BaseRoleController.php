@@ -82,7 +82,7 @@ class BaseRoleController extends AdminController
 
 
         $itemRole = $this->roleService->createInstance();
-        
+ 
 
         $permissions = $this->permissionService->all();
         $widgets = $this->widgetService->all();

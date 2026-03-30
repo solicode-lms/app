@@ -38,12 +38,14 @@ class BaseRealisationUaExport implements FromCollection, WithHeadings, ShouldAut
                 'progression_cache' => 'progression_cache',
                 'note_cache' => 'note_cache',
                 'bareme_cache' => 'bareme_cache',
+                'bareme_non_evalue_cache' => 'bareme_non_evalue_cache',
                 'date_debut' => 'date_debut',
                 'date_fin' => 'date_fin',
                 'dernier_update' => 'dernier_update',
                 'commentaire_formateur' => 'commentaire_formateur',
                 'reference' => 'reference',
                 'progression_ideal_cache' => 'progression_ideal_cache',
+                'pourcentage_non_valide_cache' => 'pourcentage_non_valide_cache',
                 'taux_rythme_cache' => 'taux_rythme_cache',
             ];
         } else {
@@ -54,12 +56,14 @@ class BaseRealisationUaExport implements FromCollection, WithHeadings, ShouldAut
                 'progression_cache' => __('PkgApprentissage::realisationUa.progression_cache'),
                 'note_cache' => __('PkgApprentissage::realisationUa.note_cache'),
                 'bareme_cache' => __('PkgApprentissage::realisationUa.bareme_cache'),
+                'bareme_non_evalue_cache' => __('PkgApprentissage::realisationUa.bareme_non_evalue_cache'),
                 'date_debut' => __('PkgApprentissage::realisationUa.date_debut'),
                 'date_fin' => __('PkgApprentissage::realisationUa.date_fin'),
                 'dernier_update' => __('PkgApprentissage::realisationUa.dernier_update'),
                 'commentaire_formateur' => __('PkgApprentissage::realisationUa.commentaire_formateur'),
                 'reference' => __('Core::msg.reference'),
                 'progression_ideal_cache' => __('PkgApprentissage::realisationUa.progression_ideal_cache'),
+                'pourcentage_non_valide_cache' => __('PkgApprentissage::realisationUa.pourcentage_non_valide_cache'),
                 'taux_rythme_cache' => __('PkgApprentissage::realisationUa.taux_rythme_cache'),
             ];
         }
@@ -78,12 +82,14 @@ class BaseRealisationUaExport implements FromCollection, WithHeadings, ShouldAut
                 'progression_cache' => $realisationUa->progression_cache,
                 'note_cache' => $realisationUa->note_cache,
                 'bareme_cache' => $realisationUa->bareme_cache,
+                'bareme_non_evalue_cache' => $realisationUa->bareme_non_evalue_cache,
                 'date_debut' => $realisationUa->date_debut,
                 'date_fin' => $realisationUa->date_fin,
                 'dernier_update' => $realisationUa->dernier_update,
                 'commentaire_formateur' => $realisationUa->commentaire_formateur,
                 'reference' => $realisationUa->reference,
                 'progression_ideal_cache' => $realisationUa->progression_ideal_cache,
+                'pourcentage_non_valide_cache' => $realisationUa->pourcentage_non_valide_cache,
                 'taux_rythme_cache' => $realisationUa->taux_rythme_cache,
             ];
         });

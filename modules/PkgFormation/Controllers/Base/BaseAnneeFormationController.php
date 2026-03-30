@@ -76,7 +76,7 @@ class BaseAnneeFormationController extends AdminController
 
 
         $itemAnneeFormation = $this->anneeFormationService->createInstance();
-        
+ 
 
 
         $bulkEdit = false;

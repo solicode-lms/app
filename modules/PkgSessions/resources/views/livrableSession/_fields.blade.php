@@ -124,8 +124,9 @@
                 
                 
                 
-                id="description"
-                placeholder="{{ __('PkgSessions::livrableSession.description') }}">{{ $itemLivrableSession ? $itemLivrableSession->description : old('description') }}</textarea>
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemLivrableSession->description ?? '')) !!}
+                </textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror

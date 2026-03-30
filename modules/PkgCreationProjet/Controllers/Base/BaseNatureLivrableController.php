@@ -75,7 +75,7 @@ class BaseNatureLivrableController extends AdminController
 
 
         $itemNatureLivrable = $this->natureLivrableService->createInstance();
-        
+ 
 
 
         $bulkEdit = false;

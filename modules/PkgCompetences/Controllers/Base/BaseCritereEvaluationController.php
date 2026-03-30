@@ -79,7 +79,7 @@ class BaseCritereEvaluationController extends AdminController
 
 
         $itemCritereEvaluation = $this->critereEvaluationService->createInstance();
-        
+ 
 
         $phaseEvaluations = $this->phaseEvaluationService->all();
         $uniteApprentissages = $this->uniteApprentissageService->all();

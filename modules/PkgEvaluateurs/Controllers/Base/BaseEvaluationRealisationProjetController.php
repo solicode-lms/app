@@ -91,7 +91,7 @@ class BaseEvaluationRealisationProjetController extends AdminController
 
 
         $itemEvaluationRealisationProjet = $this->evaluationRealisationProjetService->createInstance();
-        
+ 
 
         $realisationProjets = $this->realisationProjetService->all();
         $evaluateurs = $this->evaluateurService->all();

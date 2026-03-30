@@ -160,8 +160,9 @@
                 
                 
                 
-                id="description"
-                placeholder="{{ __('PkgGapp::eModel.description') }}">{{ $itemEModel ? $itemEModel->description : old('description') }}</textarea>
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemEModel->description ?? '')) !!}
+                </textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror

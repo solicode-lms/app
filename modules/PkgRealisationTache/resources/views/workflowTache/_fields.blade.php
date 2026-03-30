@@ -159,8 +159,9 @@
                 
                 
                 
-                id="description"
-                placeholder="{{ __('PkgRealisationTache::workflowTache.description') }}">{{ $itemWorkflowTache ? $itemWorkflowTache->description : old('description') }}</textarea>
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemWorkflowTache->description ?? '')) !!}
+                </textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror

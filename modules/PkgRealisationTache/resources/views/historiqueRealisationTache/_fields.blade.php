@@ -54,8 +54,9 @@
                 required
                 
                 
-                id="changement"
-                placeholder="{{ __('PkgRealisationTache::historiqueRealisationTache.changement') }}">{{ $itemHistoriqueRealisationTache ? $itemHistoriqueRealisationTache->changement : old('changement') }}</textarea>
+                id="changement">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('changement', $itemHistoriqueRealisationTache->changement ?? '')) !!}
+                </textarea>
           @error('changement')
             <div class="text-danger">{{ $message }}</div>
           @enderror

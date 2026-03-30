@@ -14,7 +14,6 @@
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.singular')) }}</small>
 
-                   
                 {{-- Affichage texte classique --}}
                 @if($itemRealisationUaProjet->realisationUa)
                   {{ $itemRealisationUaProjet->realisationUa }}

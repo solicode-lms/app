@@ -82,7 +82,7 @@ class BasePermissionController extends AdminController
 
 
         $itemPermission = $this->permissionService->createInstance();
-        
+ 
 
         $sysControllers = $this->sysControllerService->all();
         $features = $this->featureService->all();

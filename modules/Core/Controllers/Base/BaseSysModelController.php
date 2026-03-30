@@ -80,7 +80,7 @@ class BaseSysModelController extends AdminController
 
 
         $itemSysModel = $this->sysModelService->createInstance();
-        
+ 
 
         $sysModules = $this->sysModuleService->all();
         $sysColors = $this->sysColorService->all();

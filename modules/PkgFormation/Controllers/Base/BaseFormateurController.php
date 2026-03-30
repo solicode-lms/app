@@ -86,7 +86,7 @@ class BaseFormateurController extends AdminController
 
 
         $itemFormateur = $this->formateurService->createInstance();
-        
+ 
 
         $specialites = $this->specialiteService->all();
         $groupes = $this->groupeService->all();

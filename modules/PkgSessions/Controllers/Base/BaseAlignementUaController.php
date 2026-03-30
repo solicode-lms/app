@@ -79,7 +79,7 @@ class BaseAlignementUaController extends AdminController
 
 
         $itemAlignementUa = $this->alignementUaService->createInstance();
-        
+ 
 
         $uniteApprentissages = $this->uniteApprentissageService->all();
         $sessionFormations = $this->sessionFormationService->all();

@@ -124,8 +124,9 @@
                 
                 
                 
-                id="description"
-                placeholder="{{ __('PkgApprenants::nationalite.description') }}">{{ $itemNationalite ? $itemNationalite->description : old('description') }}</textarea>
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemNationalite->description ?? '')) !!}
+                </textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror

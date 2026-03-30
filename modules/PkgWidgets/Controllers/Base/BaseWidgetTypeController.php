@@ -74,7 +74,7 @@ class BaseWidgetTypeController extends AdminController
 
 
         $itemWidgetType = $this->widgetTypeService->createInstance();
-        
+ 
 
 
         $bulkEdit = false;

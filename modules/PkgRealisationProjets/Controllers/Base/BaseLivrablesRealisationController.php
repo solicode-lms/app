@@ -87,7 +87,7 @@ class BaseLivrablesRealisationController extends AdminController
 
 
         $itemLivrablesRealisation = $this->livrablesRealisationService->createInstance();
-        
+ 
 
         $livrables = $this->livrableService->all();
         $realisationProjets = $this->realisationProjetService->all();

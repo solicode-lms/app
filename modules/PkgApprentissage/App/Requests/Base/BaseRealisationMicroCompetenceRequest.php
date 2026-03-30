@@ -35,6 +35,7 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
             'note_cache' => 'nullable',
             'etat_realisation_micro_competence_id' => 'nullable',
             'bareme_cache' => 'nullable',
+            'bareme_non_evalue_cache' => 'required',
             'commentaire_formateur' => 'nullable|string',
             'date_debut' => 'nullable',
             'date_fin' => 'nullable',
@@ -42,7 +43,8 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
             'realisation_competence_id' => 'required',
             'lien_livrable' => 'nullable|string|max:255|url',
             'progression_ideal_cache' => 'nullable',
-            'taux_rythme_cache' => 'nullable'
+            'taux_rythme_cache' => 'nullable',
+            'pourcentage_non_valide_cache' => 'required'
         ];
     }
 
@@ -60,6 +62,7 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
             'note_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.note_cache')]),
             'etat_realisation_micro_competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.etat_realisation_micro_competence_id')]),
             'bareme_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.bareme_cache')]),
+            'bareme_non_evalue_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.bareme_non_evalue_cache')]),
             'commentaire_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.commentaire_formateur')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.date_debut')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.date_fin')]),
@@ -68,7 +71,8 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
             'lien_livrable.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.lien_livrable')]),
             'lien_livrable.max' => __('validation.lien_livrableMax'),
             'progression_ideal_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.progression_ideal_cache')]),
-            'taux_rythme_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.taux_rythme_cache')])
+            'taux_rythme_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.taux_rythme_cache')]),
+            'pourcentage_non_valide_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.pourcentage_non_valide_cache')])
         ];
     }
 

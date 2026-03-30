@@ -32,12 +32,14 @@ class BaseRealisationCompetenceService extends BaseService
         'note_cache',
         'etat_realisation_competence_id',
         'bareme_cache',
+        'bareme_non_evalue_cache',
         'dernier_update',
         'commentaire_formateur',
         'date_debut',
         'date_fin',
         'progression_ideal_cache',
-        'taux_rythme_cache'
+        'taux_rythme_cache',
+        'pourcentage_non_valide_cache'
     ];
 
 

@@ -215,8 +215,9 @@
                 
                 
                 
-                id="remarque_formateur"
-                placeholder="{{ __('PkgApprentissage::realisationUaPrototype.remarque_formateur') }}">{{ $itemRealisationUaPrototype ? $itemRealisationUaPrototype->remarque_formateur : old('remarque_formateur') }}</textarea>
+                id="remarque_formateur">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('remarque_formateur', $itemRealisationUaPrototype->remarque_formateur ?? '')) !!}
+                </textarea>
           @error('remarque_formateur')
             <div class="text-danger">{{ $message }}</div>
           @enderror

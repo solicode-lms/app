@@ -39,6 +39,18 @@
 
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.bareme_non_evalue_cache')) }}</small>
+                  <span>
+                  @if(! is_null($itemRealisationMicroCompetence->bareme_non_evalue_cache))
+                  {{ number_format($itemRealisationMicroCompetence->bareme_non_evalue_cache, 2, '.', '') }}
+                  @else
+                  —
+                  @endif
+                  </span>
+                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.date_debut')) }}</small>
                   <span>
                     @if ($itemRealisationMicroCompetence->date_debut)
@@ -72,6 +84,18 @@
         <span class="text-muted">—</span>
     @endif
 
+                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.pourcentage_non_valide_cache')) }}</small>
+                  <span>
+                  @if(! is_null($itemRealisationMicroCompetence->pourcentage_non_valide_cache))
+                  {{ number_format($itemRealisationMicroCompetence->pourcentage_non_valide_cache, 2, '.', '') }}
+                  @else
+                  —
+                  @endif
+                  </span>
                 </div>
             </div>
             </div>

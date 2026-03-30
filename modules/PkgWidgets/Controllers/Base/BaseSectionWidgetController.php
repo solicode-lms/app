@@ -77,7 +77,7 @@ class BaseSectionWidgetController extends AdminController
 
 
         $itemSectionWidget = $this->sectionWidgetService->createInstance();
-        
+ 
 
         $sysColors = $this->sysColorService->all();
 

@@ -39,12 +39,14 @@ class BaseRealisationModuleExport implements FromCollection, WithHeadings, Shoul
                 'note_cache' => 'note_cache',
                 'bareme_cache' => 'bareme_cache',
                 'dernier_update' => 'dernier_update',
+                'bareme_non_evalue_cache' => 'bareme_non_evalue_cache',
                 'commentaire_formateur' => 'commentaire_formateur',
                 'date_debut' => 'date_debut',
                 'date_fin' => 'date_fin',
                 'reference' => 'reference',
                 'progression_ideal_cache' => 'progression_ideal_cache',
                 'taux_rythme_cache' => 'taux_rythme_cache',
+                'pourcentage_non_valide_cache' => 'pourcentage_non_valide_cache',
             ];
         } else {
             return [
@@ -55,12 +57,14 @@ class BaseRealisationModuleExport implements FromCollection, WithHeadings, Shoul
                 'note_cache' => __('PkgApprentissage::realisationModule.note_cache'),
                 'bareme_cache' => __('PkgApprentissage::realisationModule.bareme_cache'),
                 'dernier_update' => __('PkgApprentissage::realisationModule.dernier_update'),
+                'bareme_non_evalue_cache' => __('PkgApprentissage::realisationModule.bareme_non_evalue_cache'),
                 'commentaire_formateur' => __('PkgApprentissage::realisationModule.commentaire_formateur'),
                 'date_debut' => __('PkgApprentissage::realisationModule.date_debut'),
                 'date_fin' => __('PkgApprentissage::realisationModule.date_fin'),
                 'reference' => __('Core::msg.reference'),
                 'progression_ideal_cache' => __('PkgApprentissage::realisationModule.progression_ideal_cache'),
                 'taux_rythme_cache' => __('PkgApprentissage::realisationModule.taux_rythme_cache'),
+                'pourcentage_non_valide_cache' => __('PkgApprentissage::realisationModule.pourcentage_non_valide_cache'),
             ];
         }
     }
@@ -79,12 +83,14 @@ class BaseRealisationModuleExport implements FromCollection, WithHeadings, Shoul
                 'note_cache' => $realisationModule->note_cache,
                 'bareme_cache' => $realisationModule->bareme_cache,
                 'dernier_update' => $realisationModule->dernier_update,
+                'bareme_non_evalue_cache' => $realisationModule->bareme_non_evalue_cache,
                 'commentaire_formateur' => $realisationModule->commentaire_formateur,
                 'date_debut' => $realisationModule->date_debut,
                 'date_fin' => $realisationModule->date_fin,
                 'reference' => $realisationModule->reference,
                 'progression_ideal_cache' => $realisationModule->progression_ideal_cache,
                 'taux_rythme_cache' => $realisationModule->taux_rythme_cache,
+                'pourcentage_non_valide_cache' => $realisationModule->pourcentage_non_valide_cache,
             ];
         });
     }

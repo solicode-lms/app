@@ -79,7 +79,7 @@ class BaseChapitreController extends AdminController
 
 
         $itemChapitre = $this->chapitreService->createInstance();
-        
+ 
 
         $uniteApprentissages = $this->uniteApprentissageService->all();
         $formateurs = $this->formateurService->all();

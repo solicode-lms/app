@@ -76,7 +76,7 @@ class BaseUserModelFilterController extends AdminController
 
 
         $itemUserModelFilter = $this->userModelFilterService->createInstance();
-        
+ 
 
         $users = $this->userService->all();
 

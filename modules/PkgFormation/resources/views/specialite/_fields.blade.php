@@ -89,8 +89,9 @@
                 
                 
                 
-                id="description"
-                placeholder="{{ __('PkgFormation::specialite.description') }}">{{ $itemSpecialite ? $itemSpecialite->description : old('description') }}</textarea>
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemSpecialite->description ?? '')) !!}
+                </textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror

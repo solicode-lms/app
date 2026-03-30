@@ -108,7 +108,7 @@ class BaseProjetController extends AdminController
             $this->viewState->init('scope.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
         }
         $itemProjet = $this->projetService->createInstance();
-        
+ 
 
         $sessionFormations = $this->sessionFormationService->all();
         $filieres = $this->filiereService->all();

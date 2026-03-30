@@ -82,7 +82,7 @@ class BaseSessionFormationController extends AdminController
 
 
         $itemSessionFormation = $this->sessionFormationService->createInstance();
-        
+ 
 
         $filieres = $this->filiereService->all();
         $anneeFormations = $this->anneeFormationService->all();

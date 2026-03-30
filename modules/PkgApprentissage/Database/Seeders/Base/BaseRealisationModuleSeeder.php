@@ -33,6 +33,7 @@ class BaseRealisationModuleSeeder extends Seeder
             'Extraction' => ['import', 'export'],
             'Import' => ['import'],
             'Export' => ['export'],
+
         ];
 
     public function run(): void
@@ -99,11 +100,13 @@ class BaseRealisationModuleSeeder extends Seeder
                         "note_cache" => isset($row["note_cache"]) && $row["note_cache"] !== "" ? $row["note_cache"] : null,
                         "bareme_cache" => isset($row["bareme_cache"]) && $row["bareme_cache"] !== "" ? $row["bareme_cache"] : null,
                         "dernier_update" => isset($row["dernier_update"]) && $row["dernier_update"] !== "" ? $row["dernier_update"] : null,
+                        "bareme_non_evalue_cache" => isset($row["bareme_non_evalue_cache"]) && $row["bareme_non_evalue_cache"] !== "" ? $row["bareme_non_evalue_cache"] : null,
                         "commentaire_formateur" => isset($row["commentaire_formateur"]) && $row["commentaire_formateur"] !== "" ? $row["commentaire_formateur"] : null,
                         "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
                         "progression_ideal_cache" => isset($row["progression_ideal_cache"]) && $row["progression_ideal_cache"] !== "" ? $row["progression_ideal_cache"] : null,
                         "taux_rythme_cache" => isset($row["taux_rythme_cache"]) && $row["taux_rythme_cache"] !== "" ? $row["taux_rythme_cache"] : null,
+                        "pourcentage_non_valide_cache" => isset($row["pourcentage_non_valide_cache"]) && $row["pourcentage_non_valide_cache"] !== "" ? $row["pourcentage_non_valide_cache"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
 

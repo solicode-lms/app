@@ -78,7 +78,7 @@ class BaseModuleController extends AdminController
 
 
         $itemModule = $this->moduleService->createInstance();
-        
+ 
 
         $filieres = $this->filiereService->all();
 

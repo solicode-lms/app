@@ -100,7 +100,7 @@ class BaseRealisationMicroCompetenceController extends AdminController
 
 
         $itemRealisationMicroCompetence = $this->realisationMicroCompetenceService->createInstance();
-        
+ 
 
         $microCompetences = $this->microCompetenceService->all();
         $apprenants = $this->apprenantService->all();

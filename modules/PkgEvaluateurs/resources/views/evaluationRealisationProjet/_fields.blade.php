@@ -242,8 +242,9 @@
                 
                 
                 
-                id="remarques"
-                placeholder="{{ __('PkgEvaluateurs::evaluationRealisationProjet.remarques') }}">{{ $itemEvaluationRealisationProjet ? $itemEvaluationRealisationProjet->remarques : old('remarques') }}</textarea>
+                id="remarques">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('remarques', $itemEvaluationRealisationProjet->remarques ?? '')) !!}
+                </textarea>
           @error('remarques')
             <div class="text-danger">{{ $message }}</div>
           @enderror

@@ -79,7 +79,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
 
 
         $itemHistoriqueRealisationTache = $this->historiqueRealisationTacheService->createInstance();
-        
+ 
 
         $realisationTaches = $this->realisationTacheService->all();
         $users = $this->userService->all();

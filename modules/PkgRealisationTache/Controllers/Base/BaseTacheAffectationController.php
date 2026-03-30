@@ -80,7 +80,7 @@ class BaseTacheAffectationController extends AdminController
 
 
         $itemTacheAffectation = $this->tacheAffectationService->createInstance();
-        
+ 
 
         $taches = $this->tacheService->all();
         $affectationProjets = $this->affectationProjetService->all();

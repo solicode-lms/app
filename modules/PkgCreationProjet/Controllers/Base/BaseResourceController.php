@@ -84,7 +84,7 @@ class BaseResourceController extends AdminController
 
 
         $itemResource = $this->resourceService->createInstance();
-        
+ 
 
         $projets = $this->projetService->all();
 

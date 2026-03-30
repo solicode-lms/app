@@ -82,7 +82,7 @@ class BaseCommentaireRealisationTacheController extends AdminController
 
 
         $itemCommentaireRealisationTache = $this->commentaireRealisationTacheService->createInstance();
-        
+ 
 
         $realisationTaches = $this->realisationTacheService->all();
         $formateurs = $this->formateurService->all();

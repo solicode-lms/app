@@ -31,11 +31,13 @@ class BaseRealisationUaService extends BaseService
         'progression_cache',
         'note_cache',
         'bareme_cache',
+        'bareme_non_evalue_cache',
         'date_debut',
         'date_fin',
         'dernier_update',
         'commentaire_formateur',
         'progression_ideal_cache',
+        'pourcentage_non_valide_cache',
         'taux_rythme_cache'
     ];
 

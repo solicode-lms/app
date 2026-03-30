@@ -124,8 +124,9 @@
                 
                 
                 
-                id="description"
-                placeholder="{{ __('Core::featureDomain.description') }}">{{ $itemFeatureDomain ? $itemFeatureDomain->description : old('description') }}</textarea>
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemFeatureDomain->description ?? '')) !!}
+                </textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror

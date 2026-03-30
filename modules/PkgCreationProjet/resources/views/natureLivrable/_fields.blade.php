@@ -89,8 +89,9 @@
                 
                 
                 
-                id="description"
-                placeholder="{{ __('PkgCreationProjet::natureLivrable.description') }}">{{ $itemNatureLivrable ? $itemNatureLivrable->description : old('description') }}</textarea>
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemNatureLivrable->description ?? '')) !!}
+                </textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror

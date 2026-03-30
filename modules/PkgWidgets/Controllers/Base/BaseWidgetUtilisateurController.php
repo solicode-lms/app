@@ -114,7 +114,7 @@ class BaseWidgetUtilisateurController extends AdminController
 
 
         $itemWidgetUtilisateur = $this->widgetUtilisateurService->createInstance();
-        
+ 
 
         $users = $this->userService->all();
         $widgets = $this->widgetService->all();

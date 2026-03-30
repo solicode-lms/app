@@ -77,7 +77,7 @@ class BaseEtatEvaluationProjetController extends AdminController
 
 
         $itemEtatEvaluationProjet = $this->etatEvaluationProjetService->createInstance();
-        
+ 
 
         $sysColors = $this->sysColorService->all();
 

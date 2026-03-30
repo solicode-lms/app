@@ -176,8 +176,9 @@
                 
                 
                 
-                id="message"
-                placeholder="{{ __('PkgEvaluateurs::evaluationRealisationTache.message') }}">{{ $itemEvaluationRealisationTache ? $itemEvaluationRealisationTache->message : old('message') }}</textarea>
+                id="message">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('message', $itemEvaluationRealisationTache->message ?? '')) !!}
+                </textarea>
           @error('message')
             <div class="text-danger">{{ $message }}</div>
           @enderror

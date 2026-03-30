@@ -294,6 +294,42 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationModule" field="bareme_non_evalue_cache" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="bareme_non_evalue_cache" 
+              id="bulk_field_bareme_non_evalue_cache" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="bareme_non_evalue_cache">
+            {{ ucfirst(__('PkgApprentissage::realisationModule.bareme_non_evalue_cache')) }}
+            <span class="text-danger">*</span>
+          </label>
+              <input
+        name="bareme_non_evalue_cache"
+        type="number"
+        class="form-control"
+        required
+        
+        
+        id="bareme_non_evalue_cache"
+        step="0.01"
+        placeholder="{{ __('PkgApprentissage::realisationModule.bareme_non_evalue_cache') }}"
+        value="{{ $itemRealisationModule ? number_format($itemRealisationModule->bareme_non_evalue_cache, 2, '.', '') : old('bareme_non_evalue_cache') }}">
+          @error('bareme_non_evalue_cache')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationModule" field="commentaire_formateur" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
@@ -466,6 +502,42 @@
         placeholder="{{ __('PkgApprentissage::realisationModule.taux_rythme_cache') }}"
         value="{{ $itemRealisationModule ? number_format($itemRealisationModule->taux_rythme_cache, 2, '.', '') : old('taux_rythme_cache') }}">
           @error('taux_rythme_cache')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationModule" field="pourcentage_non_valide_cache" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="pourcentage_non_valide_cache" 
+              id="bulk_field_pourcentage_non_valide_cache" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="pourcentage_non_valide_cache">
+            {{ ucfirst(__('PkgApprentissage::realisationModule.pourcentage_non_valide_cache')) }}
+            <span class="text-danger">*</span>
+          </label>
+              <input
+        name="pourcentage_non_valide_cache"
+        type="number"
+        class="form-control"
+        required
+        
+        
+        id="pourcentage_non_valide_cache"
+        step="0.01"
+        placeholder="{{ __('PkgApprentissage::realisationModule.pourcentage_non_valide_cache') }}"
+        value="{{ $itemRealisationModule ? number_format($itemRealisationModule->pourcentage_non_valide_cache, 2, '.', '') : old('pourcentage_non_valide_cache') }}">
+          @error('pourcentage_non_valide_cache')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

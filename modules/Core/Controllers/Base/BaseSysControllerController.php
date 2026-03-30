@@ -77,7 +77,7 @@ class BaseSysControllerController extends AdminController
 
 
         $itemSysController = $this->sysControllerService->createInstance();
-        
+ 
 
         $sysModules = $this->sysModuleService->all();
 

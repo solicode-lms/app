@@ -76,7 +76,7 @@ class BaseEtatRealisationMicroCompetenceController extends AdminController
 
 
         $itemEtatRealisationMicroCompetence = $this->etatRealisationMicroCompetenceService->createInstance();
-        
+ 
 
         $sysColors = $this->sysColorService->all();
 

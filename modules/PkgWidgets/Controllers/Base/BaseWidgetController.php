@@ -92,7 +92,7 @@ class BaseWidgetController extends AdminController
 
 
         $itemWidget = $this->widgetService->createInstance();
-        
+ 
 
         $widgetTypes = $this->widgetTypeService->all();
         $sysModels = $this->sysModelService->all();

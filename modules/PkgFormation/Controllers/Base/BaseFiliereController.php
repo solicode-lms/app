@@ -77,7 +77,7 @@ class BaseFiliereController extends AdminController
 
 
         $itemFiliere = $this->filiereService->createInstance();
-        
+ 
 
 
         $bulkEdit = false;

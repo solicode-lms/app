@@ -64,13 +64,15 @@ class BaseRealisationCompetenceImport implements ToModel, WithHeadingRow
              'note_cache' => $values[4] ?? null,
              'etat_realisation_competence_id' => $values[5] ?? null,
              'bareme_cache' => $values[6] ?? null,
-             'dernier_update' => $values[7] ?? null,
-             'commentaire_formateur' => $values[8] ?? null,
-             'date_debut' => $values[9] ?? null,
-             'date_fin' => $values[10] ?? null,
+             'bareme_non_evalue_cache' => $values[7] ?? null,
+             'dernier_update' => $values[8] ?? null,
+             'commentaire_formateur' => $values[9] ?? null,
+             'date_debut' => $values[10] ?? null,
+             'date_fin' => $values[11] ?? null,
              'reference' => $reference,
-             'progression_ideal_cache' => $values[12] ?? null,
-             'taux_rythme_cache' => $values[13] ?? null,
+             'progression_ideal_cache' => $values[13] ?? null,
+             'taux_rythme_cache' => $values[14] ?? null,
+             'pourcentage_non_valide_cache' => $values[15] ?? null,
         ]);
 
 

@@ -78,7 +78,7 @@ class BaseEtatsRealisationProjetController extends AdminController
 
 
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->createInstance();
-        
+ 
 
         $sysColors = $this->sysColorService->all();
 

@@ -164,8 +164,9 @@
                 
                 
                 
-                id="description"
-                placeholder="{{ __('Core::sysController.description') }}">{{ $itemSysController ? $itemSysController->description : old('description') }}</textarea>
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemSysController->description ?? '')) !!}
+                </textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror

@@ -78,7 +78,7 @@ class BaseUniteApprentissageController extends AdminController
 
 
         $itemUniteApprentissage = $this->uniteApprentissageService->createInstance();
-        
+ 
 
         $microCompetences = $this->microCompetenceService->all();
 

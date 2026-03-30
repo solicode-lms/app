@@ -79,7 +79,7 @@ class BaseSysModuleController extends AdminController
 
 
         $itemSysModule = $this->sysModuleService->createInstance();
-        
+ 
 
         $sysColors = $this->sysColorService->all();
 

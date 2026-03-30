@@ -35,6 +35,18 @@
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.bareme_non_evalue_cache')) }}</small>
+                  <span>
+                  @if(! is_null($itemRealisationModule->bareme_non_evalue_cache))
+                  {{ number_format($itemRealisationModule->bareme_non_evalue_cache, 2, '.', '') }}
+                  @else
+                  —
+                  @endif
+                  </span>
+                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.date_debut')) }}</small>
                   <span>
                     @if ($itemRealisationModule->date_debut)
@@ -59,6 +71,18 @@
             </div>
             @endif
 
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.pourcentage_non_valide_cache')) }}</small>
+                  <span>
+                  @if(! is_null($itemRealisationModule->pourcentage_non_valide_cache))
+                  {{ number_format($itemRealisationModule->pourcentage_non_valide_cache, 2, '.', '') }}
+                  @else
+                  —
+                  @endif
+                  </span>
+                </div>
+            </div>
             </div>
         </div>
         <div class="card-footer">

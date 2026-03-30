@@ -70,6 +70,18 @@
             </div>
             @endif
 
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.bareme_non_evalue_cache')) }}</small>
+                  <span>
+                  @if(! is_null($itemRealisationUa->bareme_non_evalue_cache))
+                  {{ number_format($itemRealisationUa->bareme_non_evalue_cache, 2, '.', '') }}
+                  @else
+                  —
+                  @endif
+                  </span>
+                </div>
+            </div>
             @if(
                   (auth()->user()?->can('show-realisationUaPrototype') && $itemRealisationUa->realisationUaPrototypes->isNotEmpty())  
                   || auth()->user()?->can('create-realisationUaPrototype')
@@ -139,6 +151,18 @@
                   <span>
                   @if(! is_null($itemRealisationUa->progression_ideal_cache))
                   {{ number_format($itemRealisationUa->progression_ideal_cache, 2, '.', '') }}
+                  @else
+                  —
+                  @endif
+                  </span>
+                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.pourcentage_non_valide_cache')) }}</small>
+                  <span>
+                  @if(! is_null($itemRealisationUa->pourcentage_non_valide_cache))
+                  {{ number_format($itemRealisationUa->pourcentage_non_valide_cache, 2, '.', '') }}
                   @else
                   —
                   @endif

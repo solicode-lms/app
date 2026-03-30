@@ -269,8 +269,9 @@
                 
                 
                 
-                id="description"
-                placeholder="{{ __('PkgCompetences::microCompetence.description') }}">{{ $itemMicroCompetence ? $itemMicroCompetence->description : old('description') }}</textarea>
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemMicroCompetence->description ?? '')) !!}
+                </textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror

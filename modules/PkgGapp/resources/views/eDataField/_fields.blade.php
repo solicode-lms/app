@@ -453,8 +453,9 @@
                 
                 
                 
-                id="calculable_sql"
-                placeholder="{{ __('PkgGapp::eDataField.calculable_sql') }}">{{ $itemEDataField ? $itemEDataField->calculable_sql : old('calculable_sql') }}</textarea>
+                id="calculable_sql">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('calculable_sql', $itemEDataField->calculable_sql ?? '')) !!}
+                </textarea>
           @error('calculable_sql')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -486,8 +487,9 @@
                 
                 
                 
-                id="description"
-                placeholder="{{ __('PkgGapp::eDataField.description') }}">{{ $itemEDataField ? $itemEDataField->description : old('description') }}</textarea>
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemEDataField->description ?? '')) !!}
+                </textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror

@@ -90,7 +90,7 @@ class BaseNotificationController extends AdminController
 
 
         $itemNotification = $this->notificationService->createInstance();
-        
+ 
 
         $users = $this->userService->all();
 

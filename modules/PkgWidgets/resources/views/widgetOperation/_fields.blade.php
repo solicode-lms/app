@@ -89,8 +89,9 @@
                 
                 
                 
-                id="description"
-                placeholder="{{ __('PkgWidgets::widgetOperation.description') }}">{{ $itemWidgetOperation ? $itemWidgetOperation->description : old('description') }}</textarea>
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemWidgetOperation->description ?? '')) !!}
+                </textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror

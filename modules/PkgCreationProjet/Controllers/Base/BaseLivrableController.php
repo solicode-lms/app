@@ -91,7 +91,7 @@ class BaseLivrableController extends AdminController
 
 
         $itemLivrable = $this->livrableService->createInstance();
-        
+ 
         // scopeDataInEditContext
         $value = $itemLivrable->getNestedValue('projet_id');
         $key = 'scope.tache.projet_id';

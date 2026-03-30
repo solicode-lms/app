@@ -73,7 +73,7 @@ class BaseApprenantKonosyController extends AdminController
 
 
         $itemApprenantKonosy = $this->apprenantKonosyService->createInstance();
-        
+ 
 
 
         $bulkEdit = false;

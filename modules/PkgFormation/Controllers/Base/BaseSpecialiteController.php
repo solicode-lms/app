@@ -76,7 +76,7 @@ class BaseSpecialiteController extends AdminController
 
 
         $itemSpecialite = $this->specialiteService->createInstance();
-        
+ 
 
         $formateurs = $this->formateurService->all();
 

@@ -39,6 +39,7 @@ class BaseRealisationCompetenceExport implements FromCollection, WithHeadings, S
                 'note_cache' => 'note_cache',
                 'etat_realisation_competence_reference' => 'etat_realisation_competence_reference',
                 'bareme_cache' => 'bareme_cache',
+                'bareme_non_evalue_cache' => 'bareme_non_evalue_cache',
                 'dernier_update' => 'dernier_update',
                 'commentaire_formateur' => 'commentaire_formateur',
                 'date_debut' => 'date_debut',
@@ -46,6 +47,7 @@ class BaseRealisationCompetenceExport implements FromCollection, WithHeadings, S
                 'reference' => 'reference',
                 'progression_ideal_cache' => 'progression_ideal_cache',
                 'taux_rythme_cache' => 'taux_rythme_cache',
+                'pourcentage_non_valide_cache' => 'pourcentage_non_valide_cache',
             ];
         } else {
             return [
@@ -56,6 +58,7 @@ class BaseRealisationCompetenceExport implements FromCollection, WithHeadings, S
                 'note_cache' => __('PkgApprentissage::realisationCompetence.note_cache'),
                 'etat_realisation_competence_reference' => __('PkgApprentissage::etatRealisationCompetence.singular'),
                 'bareme_cache' => __('PkgApprentissage::realisationCompetence.bareme_cache'),
+                'bareme_non_evalue_cache' => __('PkgApprentissage::realisationCompetence.bareme_non_evalue_cache'),
                 'dernier_update' => __('PkgApprentissage::realisationCompetence.dernier_update'),
                 'commentaire_formateur' => __('PkgApprentissage::realisationCompetence.commentaire_formateur'),
                 'date_debut' => __('PkgApprentissage::realisationCompetence.date_debut'),
@@ -63,6 +66,7 @@ class BaseRealisationCompetenceExport implements FromCollection, WithHeadings, S
                 'reference' => __('Core::msg.reference'),
                 'progression_ideal_cache' => __('PkgApprentissage::realisationCompetence.progression_ideal_cache'),
                 'taux_rythme_cache' => __('PkgApprentissage::realisationCompetence.taux_rythme_cache'),
+                'pourcentage_non_valide_cache' => __('PkgApprentissage::realisationCompetence.pourcentage_non_valide_cache'),
             ];
         }
     }
@@ -81,6 +85,7 @@ class BaseRealisationCompetenceExport implements FromCollection, WithHeadings, S
                 'note_cache' => $realisationCompetence->note_cache,
                 'etat_realisation_competence_reference' => $realisationCompetence->etatRealisationCompetence?->reference,
                 'bareme_cache' => $realisationCompetence->bareme_cache,
+                'bareme_non_evalue_cache' => $realisationCompetence->bareme_non_evalue_cache,
                 'dernier_update' => $realisationCompetence->dernier_update,
                 'commentaire_formateur' => $realisationCompetence->commentaire_formateur,
                 'date_debut' => $realisationCompetence->date_debut,
@@ -88,6 +93,7 @@ class BaseRealisationCompetenceExport implements FromCollection, WithHeadings, S
                 'reference' => $realisationCompetence->reference,
                 'progression_ideal_cache' => $realisationCompetence->progression_ideal_cache,
                 'taux_rythme_cache' => $realisationCompetence->taux_rythme_cache,
+                'pourcentage_non_valide_cache' => $realisationCompetence->pourcentage_non_valide_cache,
             ];
         });
     }

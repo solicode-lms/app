@@ -159,6 +159,42 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="bareme_non_evalue_cache" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="bareme_non_evalue_cache" 
+              id="bulk_field_bareme_non_evalue_cache" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="bareme_non_evalue_cache">
+            {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.bareme_non_evalue_cache')) }}
+            <span class="text-danger">*</span>
+          </label>
+              <input
+        name="bareme_non_evalue_cache"
+        type="number"
+        class="form-control"
+        required
+        
+        
+        id="bareme_non_evalue_cache"
+        step="0.01"
+        placeholder="{{ __('PkgApprentissage::realisationMicroCompetence.bareme_non_evalue_cache') }}"
+        value="{{ $itemRealisationMicroCompetence ? number_format($itemRealisationMicroCompetence->bareme_non_evalue_cache, 2, '.', '') : old('bareme_non_evalue_cache') }}">
+          @error('bareme_non_evalue_cache')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="lien_livrable" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
@@ -188,6 +224,42 @@
                 placeholder="{{ __('PkgApprentissage::realisationMicroCompetence.lien_livrable') }}"
                 value="{{ $itemRealisationMicroCompetence ? $itemRealisationMicroCompetence->lien_livrable : old('lien_livrable') }}">
           @error('lien_livrable')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="pourcentage_non_valide_cache" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="pourcentage_non_valide_cache" 
+              id="bulk_field_pourcentage_non_valide_cache" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="pourcentage_non_valide_cache">
+            {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.pourcentage_non_valide_cache')) }}
+            <span class="text-danger">*</span>
+          </label>
+              <input
+        name="pourcentage_non_valide_cache"
+        type="number"
+        class="form-control"
+        required
+        
+        
+        id="pourcentage_non_valide_cache"
+        step="0.01"
+        placeholder="{{ __('PkgApprentissage::realisationMicroCompetence.pourcentage_non_valide_cache') }}"
+        value="{{ $itemRealisationMicroCompetence ? number_format($itemRealisationMicroCompetence->pourcentage_non_valide_cache, 2, '.', '') : old('pourcentage_non_valide_cache') }}">
+          @error('pourcentage_non_valide_cache')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

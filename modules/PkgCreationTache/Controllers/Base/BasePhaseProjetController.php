@@ -74,7 +74,7 @@ class BasePhaseProjetController extends AdminController
 
 
         $itemPhaseProjet = $this->phaseProjetService->createInstance();
-        
+ 
 
 
         $bulkEdit = false;

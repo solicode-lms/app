@@ -74,7 +74,7 @@ class BaseWidgetOperationController extends AdminController
 
 
         $itemWidgetOperation = $this->widgetOperationService->createInstance();
-        
+ 
 
 
         $bulkEdit = false;

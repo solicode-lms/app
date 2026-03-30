@@ -80,7 +80,7 @@ class BaseSousGroupeController extends AdminController
 
 
         $itemSousGroupe = $this->sousGroupeService->createInstance();
-        
+ 
 
         $groupes = $this->groupeService->all();
         $apprenants = $this->apprenantService->all();

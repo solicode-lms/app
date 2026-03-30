@@ -89,8 +89,9 @@
                 required
                 
                 
-                id="message"
-                placeholder="{{ __('PkgNotification::notification.message') }}">{{ $itemNotification ? $itemNotification->message : old('message') }}</textarea>
+                id="message">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('message', $itemNotification->message ?? '')) !!}
+                </textarea>
           @error('message')
             <div class="text-danger">{{ $message }}</div>
           @enderror
