@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'État de l’Autoformation',
-    'plural' => 'États de l’Autoformation',
+    'singular' => 'Niveau de l’Autoformation',
+    'plural' => 'Niveaux de l’Autoformation',
     'nom' => 'Nom',
     'code' => 'Code',
     'description' => 'Description',

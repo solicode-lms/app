@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'État de réalisation module',
-    'plural' => 'États de réalisation modules',
+    'singular' => 'Niveau de réalisation module',
+    'plural' => 'Niveaux de réalisation modules',
     'ordre' => 'Ordre',
     'nom' => 'Nom',
     'description' => 'Description',

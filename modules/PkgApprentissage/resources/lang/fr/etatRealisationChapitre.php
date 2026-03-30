@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'État du Chapitre',
-    'plural' => 'États des Chapitres',
+    'singular' => 'Niveau du Chapitre',
+    'plural' => 'Niveaux des Chapitres',
     'nom' => 'Nom',
     'code' => 'Code',
     'description' => 'Description',

@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'État de l’UA',
-    'plural' => 'États de l’UA',
+    'singular' => 'Niveau de l’UA',
+    'plural' => 'Niveaux de l’UA',
     'nom' => 'Nom',
     'code' => 'Code',
     'description' => 'Description',

@@ -12,7 +12,7 @@ return [
     'commentaire_formateur' => 'Commentaire du formateur',
     'realisation_micro_competence_id' => 'Réalisation de la micro-compétence',
     'unite_apprentissage_id' => 'Unité d’apprentissage',
-    'etat_realisation_ua_id' => 'État',
+    'etat_realisation_ua_id' => 'Niveau',
     'progression_ideal_cache' => 'Progression idéale',
     'taux_rythme_cache' => 'Taux de rythme',
     'dernier_update' => 'Dernière mise à jour'

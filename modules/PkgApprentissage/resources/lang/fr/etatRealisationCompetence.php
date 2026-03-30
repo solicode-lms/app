@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'État de réalisation compétence',
-    'plural' => 'États de réalisation compétences',
+    'singular' => 'Niveau de réalisation compétence',
+    'plural' => 'Niveaux de réalisation compétences',
     'ordre' => 'Ordre',
     'nom' => 'Nom',
     'description' => 'Description',
