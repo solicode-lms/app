@@ -902,5 +902,47 @@
         "value_boolean": 1,
         "e_data_field_reference": "RealisationCompetence_pourcentage_non_valide_cache",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationCompetence_bareme_non_evalue_cache_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationCompetence_bareme_non_evalue_cache",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "RealisationCompetence_bareme_non_evalue_cache_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "RealisationCompetence_bareme_non_evalue_cache",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationCompetence_bareme_non_evalue_cache_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationCompetence_bareme_non_evalue_cache",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationCompetence_bareme_non_evalue_cache_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationCompetence_bareme_non_evalue_cache",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationCompetence_bareme_non_evalue_cache_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationCompetence_bareme_non_evalue_cache",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationCompetence_bareme_non_evalue_cache_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationCompetence_bareme_non_evalue_cache",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationCompetence_bareme_non_evalue_cache_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationCompetence_bareme_non_evalue_cache",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
