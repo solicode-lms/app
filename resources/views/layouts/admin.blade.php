@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,31 +26,32 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-          @include('layouts.left-navbar')  
-      
-        
+            @include('layouts.left-navbar')
+
+
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-    
 
-              <!-- Notifications Dropdown Menu -->
-              @include('layouts.notifications')
-            
-              <li class="nav-item">
-                <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                  <i class="fas fa-expand-arrows-alt"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                role="button">
-                  <i class="fas fa-sign-out-alt"></i>
-                </a>
-               
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
-              </li>
+
+                <!-- Notifications Dropdown Menu -->
+                @include('layouts.notifications')
+
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                        role="button">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </li>
             </ul>
         </nav>
         <!-- Left side column. contains the logo and sidebar -->
@@ -68,49 +70,50 @@
         </footer>
     </div>
     @if(session('warning'))
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        {{ session('warning') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-@endif
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ session('warning') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <script>
         window.notifications = window.notifications || [];
         @if (session('info'))
-        window.notifications.push({
-            type : "info",
-            message: "{{ session('info') }}"
-        });   
+            window.notifications.push({
+                type: "info",
+                message: "{{ session('info') }}"
+            });
         @endif
         @if (session('success'))
-        window.notifications.push({
-            type : "success",
-            message: "{{ session('success') }}"
-        });   
+            window.notifications.push({
+                type: "success",
+                message: "{{ session('success') }}"
+            });
         @endif
         @if (session('warning'))
-        window.notifications.push({
-            type : "warning",
-            message: "{{ session('warning') }}"
-        });   
+            window.notifications.push({
+                type: "warning",
+                message: "{{ session('warning') }}"
+            });
         @endif
         @if (session('error'))
-        window.notifications.push({
-            type : "error",
-            message: "{{ session('error') }}"
-        });   
+            window.notifications.push({
+                type: "error",
+                message: "{{ session('error') }}"
+            });
         @endif
     </script>
     <script>
-    window.contextState = @json($contextState);
-    window.sessionState = @json($sessionState);
-    window.viewState = @json($viewState);
-    console.log("contextState");
-    console.log(window.contextState);
-    console.log("viewState");
-    console.log(window.viewState);
+        window.contextState = @json($contextState);
+        window.sessionState = @json($sessionState);
+        window.viewState = @json($viewState);
+        console.log("contextState");
+        console.log(window.contextState);
+        console.log("viewState");
+        console.log(window.viewState);
     </script>
     @stack('scripts')
 </body>
+
 </html>
