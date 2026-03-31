@@ -9,6 +9,8 @@ return [
     'progression_cache' => 'Progression',
     'note_cache' => 'Note EFM',
     'bareme_cache' => 'Barème',
+    'note_cc_cache' => 'Note CC',
+    'bareme_cc_cache' => 'Barème CC',
     'commentaire_formateur' => 'Commentaire du formateur',
     'realisation_micro_competence_id' => 'Réalisation de la micro-compétence',
     'unite_apprentissage_id' => 'Unité d’apprentissage',

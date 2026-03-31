@@ -1,52 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-etatRealisationMicroCompetence', 'index-etatRealisationUa', 'index-etatRealisationChapitre', 'index-realisationMicroCompetence', 'index-etatRealisationModule', 'index-etatRealisationCompetence', 'index-realisationModule', 'index-realisationCompetence'])
+@accessiblePermissions(['index-etatRealisationChapitre', 'index-etatRealisationCompetence', 'index-etatRealisationMicroCompetence', 'index-etatRealisationModule', 'index-etatRealisationUa', 'index-realisationCompetence', 'index-realisationMicroCompetence', 'index-realisationModule'])
 @if($accessiblePermissions->isNotEmpty())
     @if($accessiblePermissions->count() === 1)
         {{-- Cas d’un seul élément accessible --}}
-            @can('index-etatRealisationMicroCompetence')
-            <li class="nav-item" id="menu-etatRealisationMicroCompetences">
-                <a href="{{ route('etatRealisationMicroCompetences.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgApprentissage/etatRealisationMicroCompetences') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-check-square"></i>
-                    <p>{{__('PkgApprentissage::etatRealisationMicroCompetence.plural')}}</p>
-                </a>
-            </li>
-            @endcan
-            @can('index-etatRealisationUa')
-            <li class="nav-item" id="menu-etatRealisationUas">
-                <a href="{{ route('etatRealisationUas.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgApprentissage/etatRealisationUas') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-check-square"></i>
-                    <p>{{__('PkgApprentissage::etatRealisationUa.plural')}}</p>
-                </a>
-            </li>
-            @endcan
             @can('index-etatRealisationChapitre')
             <li class="nav-item" id="menu-etatRealisationChapitres">
                 <a href="{{ route('etatRealisationChapitres.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgApprentissage/etatRealisationChapitres') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-check-square"></i>
                     <p>{{__('PkgApprentissage::etatRealisationChapitre.plural')}}</p>
-                </a>
-            </li>
-            @endcan
-            @can('index-realisationMicroCompetence')
-            <li class="nav-item" id="menu-realisationMicroCompetences">
-                <a href="{{ route('realisationMicroCompetences.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgApprentissage/realisationMicroCompetences') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-certificate"></i>
-                    <p>{{__('PkgApprentissage::realisationMicroCompetence.plural')}}</p>
-                </a>
-            </li>
-            @endcan
-            @can('index-etatRealisationModule')
-            <li class="nav-item" id="menu-etatRealisationModules">
-                <a href="{{ route('etatRealisationModules.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgApprentissage/etatRealisationModules') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-check-square"></i>
-                    <p>{{__('PkgApprentissage::etatRealisationModule.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -59,12 +23,30 @@
                 </a>
             </li>
             @endcan
-            @can('index-realisationModule')
-            <li class="nav-item" id="menu-realisationModules">
-                <a href="{{ route('realisationModules.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgApprentissage/realisationModules') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-medal"></i>
-                    <p>{{__('PkgApprentissage::realisationModule.plural')}}</p>
+            @can('index-etatRealisationMicroCompetence')
+            <li class="nav-item" id="menu-etatRealisationMicroCompetences">
+                <a href="{{ route('etatRealisationMicroCompetences.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgApprentissage/etatRealisationMicroCompetences') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-check-square"></i>
+                    <p>{{__('PkgApprentissage::etatRealisationMicroCompetence.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-etatRealisationModule')
+            <li class="nav-item" id="menu-etatRealisationModules">
+                <a href="{{ route('etatRealisationModules.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgApprentissage/etatRealisationModules') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-check-square"></i>
+                    <p>{{__('PkgApprentissage::etatRealisationModule.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-etatRealisationUa')
+            <li class="nav-item" id="menu-etatRealisationUas">
+                <a href="{{ route('etatRealisationUas.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgApprentissage/etatRealisationUas') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-check-square"></i>
+                    <p>{{__('PkgApprentissage::etatRealisationUa.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -74,6 +56,24 @@
                    class="nav-link {{ Request::is('admin/PkgApprentissage/realisationCompetences') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-award"></i>
                     <p>{{__('PkgApprentissage::realisationCompetence.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-realisationMicroCompetence')
+            <li class="nav-item" id="menu-realisationMicroCompetences">
+                <a href="{{ route('realisationMicroCompetences.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgApprentissage/realisationMicroCompetences') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-certificate"></i>
+                    <p>{{__('PkgApprentissage::realisationMicroCompetence.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-realisationModule')
+            <li class="nav-item" id="menu-realisationModules">
+                <a href="{{ route('realisationModules.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgApprentissage/realisationModules') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-medal"></i>
+                    <p>{{__('PkgApprentissage::realisationModule.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -88,43 +88,11 @@
             </p>
         </a>
         <ul class="nav nav-treeview">
-            @can('index-etatRealisationMicroCompetence') 
-            <li class="nav-item" id="menu-etatRealisationMicroCompetences">
-                <a href="{{ route('etatRealisationMicroCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/etatRealisationMicroCompetences') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-check-square"></i>
-                    <p>{{__('PkgApprentissage::etatRealisationMicroCompetence.plural')}}</p>
-                </a>
-            </li>
-            @endcan
-            @can('index-etatRealisationUa') 
-            <li class="nav-item" id="menu-etatRealisationUas">
-                <a href="{{ route('etatRealisationUas.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/etatRealisationUas') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-check-square"></i>
-                    <p>{{__('PkgApprentissage::etatRealisationUa.plural')}}</p>
-                </a>
-            </li>
-            @endcan
             @can('index-etatRealisationChapitre') 
             <li class="nav-item" id="menu-etatRealisationChapitres">
                 <a href="{{ route('etatRealisationChapitres.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/etatRealisationChapitres') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-check-square"></i>
                     <p>{{__('PkgApprentissage::etatRealisationChapitre.plural')}}</p>
-                </a>
-            </li>
-            @endcan
-            @can('index-realisationMicroCompetence') 
-            <li class="nav-item" id="menu-realisationMicroCompetences">
-                <a href="{{ route('realisationMicroCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/realisationMicroCompetences') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-certificate"></i>
-                    <p>{{__('PkgApprentissage::realisationMicroCompetence.plural')}}</p>
-                </a>
-            </li>
-            @endcan
-            @can('index-etatRealisationModule') 
-            <li class="nav-item" id="menu-etatRealisationModules">
-                <a href="{{ route('etatRealisationModules.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/etatRealisationModules') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-check-square"></i>
-                    <p>{{__('PkgApprentissage::etatRealisationModule.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -136,11 +104,27 @@
                 </a>
             </li>
             @endcan
-            @can('index-realisationModule') 
-            <li class="nav-item" id="menu-realisationModules">
-                <a href="{{ route('realisationModules.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/realisationModules') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-medal"></i>
-                    <p>{{__('PkgApprentissage::realisationModule.plural')}}</p>
+            @can('index-etatRealisationMicroCompetence') 
+            <li class="nav-item" id="menu-etatRealisationMicroCompetences">
+                <a href="{{ route('etatRealisationMicroCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/etatRealisationMicroCompetences') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-check-square"></i>
+                    <p>{{__('PkgApprentissage::etatRealisationMicroCompetence.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-etatRealisationModule') 
+            <li class="nav-item" id="menu-etatRealisationModules">
+                <a href="{{ route('etatRealisationModules.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/etatRealisationModules') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-check-square"></i>
+                    <p>{{__('PkgApprentissage::etatRealisationModule.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-etatRealisationUa') 
+            <li class="nav-item" id="menu-etatRealisationUas">
+                <a href="{{ route('etatRealisationUas.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/etatRealisationUas') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-check-square"></i>
+                    <p>{{__('PkgApprentissage::etatRealisationUa.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -149,6 +133,22 @@
                 <a href="{{ route('realisationCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/realisationCompetences') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-award"></i>
                     <p>{{__('PkgApprentissage::realisationCompetence.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-realisationMicroCompetence') 
+            <li class="nav-item" id="menu-realisationMicroCompetences">
+                <a href="{{ route('realisationMicroCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/realisationMicroCompetences') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-certificate"></i>
+                    <p>{{__('PkgApprentissage::realisationMicroCompetence.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-realisationModule') 
+            <li class="nav-item" id="menu-realisationModules">
+                <a href="{{ route('realisationModules.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/realisationModules') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-medal"></i>
+                    <p>{{__('PkgApprentissage::realisationModule.plural')}}</p>
                 </a>
             </li>
             @endcan

@@ -294,6 +294,42 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="note_cc_cache" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="note_cc_cache" 
+              id="bulk_field_note_cc_cache" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="note_cc_cache">
+            {{ ucfirst(__('PkgApprentissage::realisationUa.note_cc_cache')) }}
+            
+          </label>
+              <input
+        name="note_cc_cache"
+        type="number"
+        class="form-control"
+        
+        
+        
+        id="note_cc_cache"
+        step="0.01"
+        placeholder="{{ __('PkgApprentissage::realisationUa.note_cc_cache') }}"
+        value="{{ $itemRealisationUa ? number_format($itemRealisationUa->note_cc_cache, 2, '.', '') : old('note_cc_cache') }}">
+          @error('note_cc_cache')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="date_debut" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
@@ -324,6 +360,42 @@
                 value="{{ $itemRealisationUa ? $itemRealisationUa->date_debut : old('date_debut') }}">
 
           @error('date_debut')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="bareme_cc_cache" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="bareme_cc_cache" 
+              id="bulk_field_bareme_cc_cache" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="bareme_cc_cache">
+            {{ ucfirst(__('PkgApprentissage::realisationUa.bareme_cc_cache')) }}
+            
+          </label>
+              <input
+        name="bareme_cc_cache"
+        type="number"
+        class="form-control"
+        
+        
+        
+        id="bareme_cc_cache"
+        step="0.01"
+        placeholder="{{ __('PkgApprentissage::realisationUa.bareme_cc_cache') }}"
+        value="{{ $itemRealisationUa ? number_format($itemRealisationUa->bareme_cc_cache, 2, '.', '') : old('bareme_cc_cache') }}">
+          @error('bareme_cc_cache')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
