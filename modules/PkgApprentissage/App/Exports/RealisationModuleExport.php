@@ -110,22 +110,32 @@ class RealisationModuleExport extends BaseRealisationModuleExport {
             'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => '1F3864']],
         ]);
 
-        // --- Ligne 2 : Filière (fond bleu moyen, texte blanc)
+        // --- Ligne 2 : Filière (fond blanc, texte noir)
         $sheet->getStyle("A2:B2")->applyFromArray([
-            'font' => ['bold' => true, 'size' => 11, 'color' => ['argb' => 'FFFFFF']],
-            'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => '2E75B6']],
+            'font' => ['bold' => true, 'size' => 11, 'color' => ['argb' => '000000']],
+            'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'FFFFFF']],
         ]);
 
-        // --- Ligne 3 : Groupe (fond bleu clair, texte blanc)
+        // --- Ligne 3 : Groupe (fond blanc, texte noir)
         $sheet->getStyle("A3:B3")->applyFromArray([
-            'font' => ['bold' => true, 'size' => 11, 'color' => ['argb' => 'FFFFFF']],
-            'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => '4F81BD']],
+            'font' => ['bold' => true, 'size' => 11, 'color' => ['argb' => '000000']],
+            'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'FFFFFF']],
         ]);
 
-        // --- Ligne 4 : Formateur (fond gris acier, texte blanc)
+        // --- Ligne 4 : Formateur (fond blanc, texte noir)
         $sheet->getStyle("A4:B4")->applyFromArray([
-            'font' => ['bold' => true, 'size' => 11, 'color' => ['argb' => 'FFFFFF']],
-            'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => '4472C4']],
+            'font' => ['bold' => true, 'size' => 11, 'color' => ['argb' => '000000']],
+            'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'FFFFFF']],
+        ]);
+
+        // --- Bordure noire sur tout l'en-tête du PV (A1:B4)
+        $sheet->getStyle("A1:B4")->applyFromArray([
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'color'       => ['argb' => '000000'],
+                ],
+            ],
         ]);
 
         // --- Labels A1:A4 en italique aussi
@@ -165,6 +175,10 @@ class RealisationModuleExport extends BaseRealisationModuleExport {
         foreach (range('A', $lastColumn) as $column) {
             $sheet->getColumnDimension($column)->setAutoSize(true);
         }
+
+        // --- Centrage de la colonne Note (colonne C)
+        $sheet->getStyle("C1:C{$lastRow}")->getAlignment()
+            ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
     }
 
 }

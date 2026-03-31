@@ -7,7 +7,7 @@ return [
     'date_debut' => 'Date de début',
     'date_fin' => 'Date de fin',
     'progression_cache' => 'Progression',
-    'note_cache' => 'Note',
+    'note_cache' => 'Note EFM',
     'bareme_cache' => 'Barème',
     'commentaire_formateur' => 'Commentaire du formateur',
     'realisation_micro_competence_id' => 'Réalisation de la micro-compétence',

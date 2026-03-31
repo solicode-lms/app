@@ -34,3 +34,35 @@ Les méthodes standard (`create`, `update`) du `BaseService` appellent des hooks
 ## 5. Responsabilité Unique
 - Un Service ne doit PAS faire le travail d'un autre.
 - Ex: `ProjetService` appelle `ApprenantService` pour créer un apprenant, il ne fait pas `new Apprenant()`.
+
+## 6. ViewState & Filtres Sauvegardés (Règle Critique)
+
+### Fonctionnement du ViewState
+Le `ViewStateService` organise son état par **`contextKey`**. Les filtres persistés en base de données (via `UserModelFilterService`) sont également **indexés par `contextKey`**.
+
+### ⚠️ Ordre d'Appel OBLIGATOIRE
+
+**AVANT tout appel à `loadLastFilterIfEmpty()`, il est OBLIGATOIRE d'appeler `setContextKeyIfEmpty()` sur le `ViewState`.**
+
+Sans cela, le système opère sous la clé `"default_context"` et ne retrouve **pas** les filtres sauvegardés en base de données.
+
+#### ✅ Pattern Correct
+```php
+$this->viewState->setContextKeyIfEmpty('monModel.index'); // ← 1er : définir le contexte
+$this->monService->loadLastFilterIfEmpty();               // ← 2ème : charger les filtres
+$filterVariables = $this->viewState->getFilterVariables('monModel'); // ← 3ème : lire
+```
+
+#### ❌ Pattern Interdit
+```php
+// INTERDIT : loadLastFilterIfEmpty() avant setContextKeyIfEmpty()
+$this->monService->loadLastFilterIfEmpty();  // cherche sous "default_context" → filtre vide !
+$filterVariables = $this->viewState->getFilterVariables('monModel');
+```
+
+### Cas d'Application
+Cette règle s'applique partout où les filtres sont nécessaires **hors du flux standard `index()`** :
+- Export CSV / Excel
+- Endpoints API filtrant par contexte utilisateur
+- Traitements batch ou tâches planifiées
+
