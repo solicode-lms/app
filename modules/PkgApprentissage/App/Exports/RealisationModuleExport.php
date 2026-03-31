@@ -108,7 +108,7 @@ class RealisationModuleExport extends BaseRealisationModuleExport
         }
 
         // Colonnes UA dynamiques (code UA comme en-tête)
-        $uaCodes = $this->getUnitesApprentissage()->map(fn($ua) => $ua->code ?? $ua->reference)->toArray();
+        $uaCodes = $this->getUnitesApprentissage()->map(fn($ua) => ($ua->code ?? $ua->reference) . " / 20")->toArray();
 
         return [
             ['Module :', $moduleNom],
@@ -116,7 +116,7 @@ class RealisationModuleExport extends BaseRealisationModuleExport
             ['Groupe :', $groupeCode],
             ['Formateur :', $formateurNom],
             [''],
-            array_merge(['Nom', 'Prénom'], $uaCodes, ['Note EFM / 40']),
+            array_merge(['Nom', 'Prénom'], $uaCodes, ['Moy CC / 20', 'EFM / 40', 'Note / 20']),
         ];
     }
 
@@ -138,14 +138,30 @@ class RealisationModuleExport extends BaseRealisationModuleExport
                 'prenom' => $apprenant ? $apprenant->prenom : '',
             ];
 
+            $totalCc = 0;
+            $countCc = 0;
+
             // Ajouter une colonne par UA (note CC / 20)
             foreach ($uas as $ua) {
                 $realisationUa = $this->findRealisationUa($realisationModule, $ua->id);
-                $row['ua_' . $ua->id] = $realisationUa ? $this->noteCcSur20($realisationUa) : '';
+                $noteCc = $realisationUa ? $this->noteCcSur20($realisationUa) : 0;
+                $row['ua_' . $ua->id] = $realisationUa ? $noteCc : '';
+                
+                $totalCc += $noteCc;
+                $countCc++;
             }
 
-            // Note EFM / 40 en dernière colonne
+            // Moyenne CC / 20
+            $moyenneCc = $countCc > 0 ? round($totalCc / $countCc, 2) : 0;
+            $row['moyenne_cc'] = $moyenneCc;
+
+            // Note EFM / 40
             $row['note_efm'] = $noteSur40;
+
+            // Note de Module / 20 : (EFM/40 + CC/20) / 3
+            // Le total est sur 60 (40 + 20), on divise par 3 pour ramener sur 20
+            $noteModuleSur20 = round(($noteSur40 + $moyenneCc) / 3, 2);
+            $row['note_module'] = $noteModuleSur20;
 
             return $row;
         });
@@ -231,9 +247,26 @@ class RealisationModuleExport extends BaseRealisationModuleExport
             'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['argb' => '000000']]],
         ]);
 
-        // --- Largeur automatique globale
-        foreach (range('A', $lastColumn) as $column) {
-            $sheet->getColumnDimension($column)->setAutoSize(true);
+        // --- Largeur des colonnes
+        $sheet->getColumnDimension('A')->setAutoSize(true);
+        $sheet->getColumnDimension('B')->setAutoSize(true);
+        
+        $numUas = $uas->count();
+        // Colonnes UA individuelles : Largeur compacte (8)
+        for ($i = 0; $i < $numUas; $i++) {
+            $col = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(3 + $i);
+            $sheet->getColumnDimension($col)->setAutoSize(false);
+            $sheet->getColumnDimension($col)->setWidth(12);
         }
+
+        // Colonne Moyenne CC : Plus large (auto-size)
+        $moyCcCol = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(3 + $numUas);
+        $sheet->getColumnDimension($moyCcCol)->setAutoSize(true);
+
+        // Colonnes EFM et Note finale : Largeur convenable (10)
+        $efmCol = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(4 + $numUas);
+        $noteCol = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(5 + $numUas);
+        $sheet->getColumnDimension($efmCol)->setWidth(10);
+        $sheet->getColumnDimension($noteCol)->setWidth(10);
     }
 }
