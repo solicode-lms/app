@@ -50,12 +50,16 @@ class RealisationModuleController extends BaseRealisationModuleController
         );
 
         $realisationModules_data = $this->realisationModuleService->allQuery($realisationModules_params)->get();
-        
+
         // Vérifier le format et exporter en conséquence
         if ($format === 'csv') {
-            return Excel::download(new RealisationModuleExport($realisationModules_data,'csv'), 'realisationModule_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+            return Excel::download(new RealisationModuleExport($realisationModules_data, 'csv'), 'realisationModule_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
         } elseif ($format === 'xlsx') {
-            return Excel::download(new RealisationModuleExport($realisationModules_data,'xlsx'), 'realisationModule_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+            // Eager-load des relations UA pour les colonnes CC par UA
+            $realisationModules_data->load([
+                'realisationCompetences.realisationMicroCompetences.realisationUas.uniteApprentissage',
+            ]);
+            return Excel::download(new RealisationModuleExport($realisationModules_data, 'xlsx'), 'realisationModule_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
         } else {
             return response()->json(['error' => 'Format non supporté'], 400);
         }

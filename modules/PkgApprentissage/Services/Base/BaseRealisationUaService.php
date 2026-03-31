@@ -343,7 +343,8 @@ class BaseRealisationUaService extends BaseService
             'unite_apprentissage_id',
             'etat_realisation_ua_id',
             'progression_cache',
-            'note_cache'
+            'note_cache',
+            'note_cc_cache'
         ];
 
         // Récupération des champs autorisés par rôle via getFieldsEditable()
@@ -418,6 +419,9 @@ class BaseRealisationUaService extends BaseService
                 return $this->computeFieldMeta($e, $field, $meta, 'number');
 
             case 'note_cache':
+                return $this->computeFieldMeta($e, $field, $meta, 'number');
+
+            case 'note_cc_cache':
                 return $this->computeFieldMeta($e, $field, $meta, 'number');
 
             default:
@@ -501,6 +505,14 @@ class BaseRealisationUaService extends BaseService
                     $out[$field] = ['html' => $html];
                     break;
 
+                case 'note_cc_cache':
+                    $html = view('Core::fields_by_type.integer', [
+                        'entity' => $e,
+                        'column' => $field,
+                        'nature' => ''
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
 
                 default:
                     // fallback générique si champ non pris en charge

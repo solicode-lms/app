@@ -714,7 +714,7 @@
     {
         "reference": "RealisationUa_unite_apprentissage_id_columnWidth",
         "value_boolean": 1,
-        "value_integer": 35,
+        "value_integer": 28,
         "value_float": 0,
         "e_data_field_reference": "RealisationUa_unite_apprentissage_id",
         "e_metadata_definition_reference": "columnWidth"
@@ -806,7 +806,7 @@
     {
         "reference": "RealisationUa_progression_cache_columnWidth",
         "value_boolean": 1,
-        "value_integer": 25,
+        "value_integer": 20,
         "value_float": 0,
         "e_data_field_reference": "RealisationUa_progression_cache",
         "e_metadata_definition_reference": "columnWidth"
@@ -1002,5 +1002,12 @@
         "value_boolean": 1,
         "e_data_field_reference": "RealisationUa_bareme_cc_cache",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationUa_note_cc_cache_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationUa_note_cc_cache",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

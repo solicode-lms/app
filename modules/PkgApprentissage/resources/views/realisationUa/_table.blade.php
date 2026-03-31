@@ -9,10 +9,11 @@
                     $bulkEdit = $realisationUas_permissions['edit-realisationUa'] || $realisationUas_permissions['destroy-realisationUa'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="35" field="unite_apprentissage_id" modelname="realisationUa" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="11" field="etat_realisation_ua_id" modelname="realisationUa" label="{!!ucfirst(__('PkgApprentissage::realisationUa.etat_realisation_ua_id'))!!}" />
-                <x-sortable-column :sortable="true" width="25"  field="progression_cache" modelname="realisationUa" label="{!!ucfirst(__('PkgApprentissage::realisationUa.progression_cache'))!!}" />
-                <x-sortable-column :sortable="true" width="11"  field="note_cache" modelname="realisationUa" label="{!!ucfirst(__('PkgApprentissage::realisationUa.note_cache'))!!}" />
+                <x-sortable-column :sortable="true" width="28" field="unite_apprentissage_id" modelname="realisationUa" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="11.333333333333334" field="etat_realisation_ua_id" modelname="realisationUa" label="{!!ucfirst(__('PkgApprentissage::realisationUa.etat_realisation_ua_id'))!!}" />
+                <x-sortable-column :sortable="true" width="20"  field="progression_cache" modelname="realisationUa" label="{!!ucfirst(__('PkgApprentissage::realisationUa.progression_cache'))!!}" />
+                <x-sortable-column :sortable="true" width="11.333333333333334"  field="note_cache" modelname="realisationUa" label="{!!ucfirst(__('PkgApprentissage::realisationUa.note_cache'))!!}" />
+                <x-sortable-column :sortable="true" width="11.333333333333334"  field="note_cc_cache" modelname="realisationUa" label="{!!ucfirst(__('PkgApprentissage::realisationUa.note_cc_cache'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -24,11 +25,11 @@
                 @endphp
                 <tr id="realisationUa-row-{{$realisationUa->id}}" data-id="{{$realisationUa->id}}">
                     <x-checkbox-row :item="$realisationUa" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 35%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUa->id}}" data-field="unite_apprentissage_id">
+                    <td style="max-width: 28%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUa->id}}" data-field="unite_apprentissage_id">
                         {{  $realisationUa->uniteApprentissage }}
 
                     </td>
-                    <td style="max-width: 11%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUa->id}}" data-field="etat_realisation_ua_id">
+                    <td style="max-width: 11.333333333333334%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUa->id}}" data-field="etat_realisation_ua_id">
                         @if(!empty($realisationUa->etatRealisationUa))
                         <x-badge 
                         :text="$realisationUa->etatRealisationUa" 
@@ -37,11 +38,15 @@
                         @endif
 
                     </td>
-                    <td style="max-width: 25%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUa->id}}" data-field="progression_cache" >
+                    <td style="max-width: 20%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUa->id}}" data-field="progression_cache" >
                         @include('PkgApprentissage::realisationUa.custom.fields.progression_cache', ['entity' => $realisationUa])
                     </td>
-                    <td style="max-width: 11%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUa->id}}" data-field="note_cache" >
+                    <td style="max-width: 11.333333333333334%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUa->id}}" data-field="note_cache" >
                         @include('PkgApprentissage::realisationUa.custom.fields.note_cache', ['entity' => $realisationUa])
+                    </td>
+                    <td style="max-width: 11.333333333333334%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUa->id}}" data-field="note_cc_cache">
+                        {{ $realisationUa->note_cc_cache }}
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 

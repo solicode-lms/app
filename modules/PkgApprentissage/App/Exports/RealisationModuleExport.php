@@ -3,12 +3,53 @@
 namespace Modules\PkgApprentissage\App\Exports;
 
 use Modules\PkgApprentissage\App\Exports\Base\BaseRealisationModuleExport;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
-class RealisationModuleExport extends BaseRealisationModuleExport {
-    
+class RealisationModuleExport extends BaseRealisationModuleExport
+{
     /**
-     * Résout le formateur (nom + prénom) via le dernier projet évalué.
-     * Fallback sur les formateurs du groupe.
+     * Retourne la liste ordonnée des UniteApprentissage extraites des données.
+     * Format : Collection de ['code' => ..., 'nom' => ..., 'id' => ...]
+     */
+    protected function getUnitesApprentissage(): \Illuminate\Support\Collection
+    {
+        return $this->data
+            ->flatMap(fn($rm) => $rm->realisationCompetences)
+            ->flatMap(fn($rc) => $rc->realisationMicroCompetences)
+            ->flatMap(fn($rmc) => $rmc->realisationUas)
+            ->map(fn($rua) => $rua->uniteApprentissage)
+            ->filter()
+            ->unique('id')
+            ->sortBy('id')
+            ->values();
+    }
+
+    /**
+     * Calcule la note CC sur 20 pour une RealisationUa donnée.
+     */
+    protected function noteCcSur20($realisationUa): float
+    {
+        $note   = $realisationUa->note_cc_cache ?? 0;
+        $bareme = $realisationUa->bareme_cc_cache ?? 0;
+
+        return $bareme > 0 ? round(($note / $bareme) * 20, 2) : 0;
+    }
+
+    /**
+     * Retrouve la RealisationUa d'un RealisationModule pour une UA donnée.
+     */
+    protected function findRealisationUa($realisationModule, int $uniteApprentissageId): ?\Modules\PkgApprentissage\Models\RealisationUa
+    {
+        return $realisationModule->realisationCompetences
+            ->flatMap(fn($rc) => $rc->realisationMicroCompetences)
+            ->flatMap(fn($rmc) => $rmc->realisationUas)
+            ->first(fn($rua) => $rua->unite_apprentissage_id === $uniteApprentissageId);
+    }
+
+    /**
+     * Résout le formateur via le dernier projet évalué, avec fallback groupe.
      */
     protected function resolveFormateur($realisationModule): string
     {
@@ -33,7 +74,6 @@ class RealisationModuleExport extends BaseRealisationModuleExport {
             // Silencieux : fallback ci-dessous
         }
 
-        // Fallback : formateur du groupe
         if ($realisationModule->apprenant) {
             return $realisationModule->apprenant->groupes
                 ->flatMap->formateurs
@@ -46,11 +86,11 @@ class RealisationModuleExport extends BaseRealisationModuleExport {
     }
 
     /**
-     * Génère les en-têtes du fichier exporté (4 lignes PV + ligne titres)
+     * Génère les en-têtes : 4 lignes PV + ligne vide + ligne titres avec colonnes UA dynamiques.
      */
     public function headings(): array
     {
-        $first = $this->data->first();
+        $first        = $this->data->first();
         $moduleNom    = '';
         $filiereNom   = '';
         $groupeCode   = '';
@@ -67,118 +107,133 @@ class RealisationModuleExport extends BaseRealisationModuleExport {
             }
         }
 
+        // Colonnes UA dynamiques (code UA comme en-tête)
+        $uaCodes = $this->getUnitesApprentissage()->map(fn($ua) => $ua->code ?? $ua->reference)->toArray();
+
         return [
             ['Module :', $moduleNom],
             ['Filière :', $filiereNom],
             ['Groupe :', $groupeCode],
             ['Formateur :', $formateurNom],
             [''],
-            ['Nom', 'Prénom', 'Note / 40']
+            array_merge(['Nom', 'Prénom'], $uaCodes, ['Note EFM / 40']),
         ];
     }
 
     /**
-     * Prépare les données à exporter
+     * Prépare les données : note/40 globale + note CC/20 par UA.
      */
     public function collection()
     {
-        return $this->data->map(function ($realisationModule) {
+        $uas = $this->getUnitesApprentissage();
+
+        return $this->data->map(function ($realisationModule) use ($uas) {
             $apprenant = $realisationModule->apprenant;
-            $note = $realisationModule->note_cache ?? 0;
-            $bareme = $realisationModule->bareme_cache ?? 0;
+            $note      = $realisationModule->note_cache ?? 0;
+            $bareme    = $realisationModule->bareme_cache ?? 0;
             $noteSur40 = $bareme > 0 ? round(($note / $bareme) * 40, 2) : 0;
-            
-            return [
-                'nom'    => $apprenant ? $apprenant->nom : '',
+
+            $row = [
+                'nom'    => $apprenant ? $apprenant->nom    : '',
                 'prenom' => $apprenant ? $apprenant->prenom : '',
-                'note'   => $noteSur40,
             ];
+
+            // Ajouter une colonne par UA (note CC / 20)
+            foreach ($uas as $ua) {
+                $realisationUa = $this->findRealisationUa($realisationModule, $ua->id);
+                $row['ua_' . $ua->id] = $realisationUa ? $this->noteCcSur20($realisationUa) : '';
+            }
+
+            // Note EFM / 40 en dernière colonne
+            $row['note_efm'] = $noteSur40;
+
+            return $row;
         });
     }
 
     /**
-     * Applique le style au fichier exporté (format PV)
+     * Applique le style et ajoute le tableau légende UA en bas.
      */
     public function styles(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $sheet)
     {
         $lastRow    = $sheet->getHighestRow();
         $lastColumn = $sheet->getHighestColumn();
 
-        // --- Ligne 1 : Module (fond bleu foncé, texte blanc)
+        // --- En-têtes PV (lignes 1-4)
         $sheet->getStyle("A1:B1")->applyFromArray([
             'font' => ['bold' => true, 'size' => 12, 'color' => ['argb' => 'FFFFFF']],
-            'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => '1F3864']],
+            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => '1F3864']],
         ]);
-
-        // --- Ligne 2 : Filière (fond blanc, texte noir)
-        $sheet->getStyle("A2:B2")->applyFromArray([
-            'font' => ['bold' => true, 'size' => 11, 'color' => ['argb' => '000000']],
-            'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'FFFFFF']],
-        ]);
-
-        // --- Ligne 3 : Groupe (fond blanc, texte noir)
-        $sheet->getStyle("A3:B3")->applyFromArray([
-            'font' => ['bold' => true, 'size' => 11, 'color' => ['argb' => '000000']],
-            'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'FFFFFF']],
-        ]);
-
-        // --- Ligne 4 : Formateur (fond blanc, texte noir)
-        $sheet->getStyle("A4:B4")->applyFromArray([
-            'font' => ['bold' => true, 'size' => 11, 'color' => ['argb' => '000000']],
-            'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'FFFFFF']],
-        ]);
-
-        // --- Bordure noire sur tout l'en-tête du PV (A1:B4)
+        foreach (['A2:B2', 'A3:B3', 'A4:B4'] as $range) {
+            $sheet->getStyle($range)->applyFromArray([
+                'font' => ['bold' => true, 'size' => 11, 'color' => ['argb' => '000000']],
+                'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'FFFFFF']],
+            ]);
+        }
         $sheet->getStyle("A1:B4")->applyFromArray([
-            'borders' => [
-                'allBorders' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                    'color'       => ['argb' => '000000'],
-                ],
-            ],
+            'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['argb' => '000000']]],
         ]);
+        $sheet->getStyle("A1:A4")->applyFromArray(['font' => ['italic' => true]]);
 
-        // --- Labels A1:A4 en italique aussi
-        $sheet->getStyle("A1:A4")->applyFromArray([
-            'font' => ['italic' => true],
-        ]);
-
-        // --- Ligne 6 : En-têtes des colonnes du tableau
+        // --- Ligne 6 : en-têtes de colonnes
         $sheet->getStyle("A6:{$lastColumn}6")->applyFromArray([
             'font' => ['bold' => true, 'size' => 11, 'color' => ['argb' => 'FFFFFF']],
-            'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => '1F3864']],
+            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => '1F3864']],
             'alignment' => [
-                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+                'vertical'   => Alignment::VERTICAL_CENTER,
+                'wrapText'   => true,
             ],
         ]);
 
-        // --- Données du tableau (ligne 7 et après) avec bordures et alternance de couleur
+        // --- Données (ligne 7+) : alternance + bordures
         if ($lastRow >= 7) {
             for ($row = 7; $row <= $lastRow; $row++) {
                 $color = ($row % 2 === 0) ? 'DDEEFF' : 'FFFFFF';
                 $sheet->getStyle("A{$row}:{$lastColumn}{$row}")->applyFromArray([
-                    'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => $color]],
+                    'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => $color]],
                 ]);
             }
             $sheet->getStyle("A6:{$lastColumn}{$lastRow}")->applyFromArray([
-                'borders' => [
-                    'allBorders' => [
-                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                        'color'       => ['argb' => 'AAAAAA'],
-                    ],
-                ],
+                'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['argb' => 'AAAAAA']]],
             ]);
         }
 
-        // --- Largeur automatique
+        // Centrage des colonnes UA et Note EFM (toutes à partir de C)
+        foreach (range('C', $lastColumn) as $col) {
+            $sheet->getStyle("{$col}1:{$col}{$lastRow}")->getAlignment()
+                ->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        }
+
+        // --- Tableau légende UA (2 lignes vides + tableau Code/Nom)
+        $uas       = $this->getUnitesApprentissage();
+        $legendRow = $lastRow + 2;
+
+        // En-tête légende
+        $sheet->setCellValue("A{$legendRow}", 'Code UA');
+        $sheet->setCellValue("B{$legendRow}", 'Nom de l\'unité d\'apprentissage');
+        $sheet->getStyle("A{$legendRow}:B{$legendRow}")->applyFromArray([
+            'font' => ['bold' => true, 'color' => ['argb' => 'FFFFFF']],
+            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => '2E75B6']],
+            'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+        ]);
+
+        // Lignes UA
+        foreach ($uas as $ua) {
+            $legendRow++;
+            $sheet->setCellValue("A{$legendRow}", $ua->code ?? $ua->reference ?? '');
+            $sheet->setCellValue("B{$legendRow}", $ua->nom ?? '');
+        }
+
+        // Bordures légende
+        $legendStart = $lastRow + 2;
+        $sheet->getStyle("A{$legendStart}:B{$legendRow}")->applyFromArray([
+            'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['argb' => '000000']]],
+        ]);
+
+        // --- Largeur automatique globale
         foreach (range('A', $lastColumn) as $column) {
             $sheet->getColumnDimension($column)->setAutoSize(true);
         }
-
-        // --- Centrage de la colonne Note (colonne C)
-        $sheet->getStyle("C1:C{$lastRow}")->getAlignment()
-            ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
     }
-
 }
