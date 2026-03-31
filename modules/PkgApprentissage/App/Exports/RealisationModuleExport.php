@@ -110,13 +110,21 @@ class RealisationModuleExport extends BaseRealisationModuleExport
         // Colonnes UA dynamiques (code UA comme en-tête)
         $uaCodes = $this->getUnitesApprentissage()->map(fn($ua) => ($ua->code ?? $ua->reference) . " / 20")->toArray();
 
+        // Afficher la colonne "Reste à évaluer" seulement si nécessaire
+        $hasEvaluationsMissing = $this->data->contains(fn($rm) => ($rm->bareme_non_evalue_cache ?? 0) > 0);
+        $extraHeadings = ['Moy CC / 20', 'EFM / 40', 'Note / 20', 'Note de Module / 20'];
+
+        if ($hasEvaluationsMissing) {
+            $extraHeadings[] = 'Reste à évaluer';
+        }
+
         return [
             ['Module :', $moduleNom],
             ['Filière :', $filiereNom],
             ['Groupe :', $groupeCode],
             ['Formateur :', $formateurNom],
             [''],
-            array_merge(['Nom', 'Prénom'], $uaCodes, ['Moy CC / 20', 'EFM / 40', 'Note / 20']),
+            array_merge(['Nom', 'Prénom'], $uaCodes, $extraHeadings),
         ];
     }
 
@@ -158,10 +166,15 @@ class RealisationModuleExport extends BaseRealisationModuleExport
             // Note EFM / 40
             $row['note_efm'] = $noteSur40;
 
-            // Note de Module / 20 : (EFM/40 + CC/20) / 3
-            // Le total est sur 60 (40 + 20), on divise par 3 pour ramener sur 20
+            // Note de Module / 20
             $noteModuleSur20 = round(($noteSur40 + $moyenneCc) / 3, 2);
             $row['note_module'] = $noteModuleSur20;
+
+            // Reste à évaluer seulement si nécessaire
+            $hasEvaluationsMissing = $this->data->contains(fn($rm) => ($rm->bareme_non_evalue_cache ?? 0) > 0);
+            if ($hasEvaluationsMissing) {
+                $row['reste_a_evaluer'] = $realisationModule->bareme_non_evalue_cache ?? 0;
+            }
 
             return $row;
         });
@@ -174,6 +187,7 @@ class RealisationModuleExport extends BaseRealisationModuleExport
     {
         $lastRow    = $sheet->getHighestRow();
         $lastColumn = $sheet->getHighestColumn();
+        $hasEvaluationsMissing = $this->data->contains(fn($rm) => ($rm->bareme_non_evalue_cache ?? 0) > 0);
 
         // --- En-têtes PV (lignes 1-4)
         $sheet->getStyle("A1:B1")->applyFromArray([
@@ -202,13 +216,25 @@ class RealisationModuleExport extends BaseRealisationModuleExport
             ],
         ]);
 
-        // --- Données (ligne 7+) : alternance + bordures
+        // --- Données (ligne 7+) : alternance + bordures + rouge doux si reste à évaluer
         if ($lastRow >= 7) {
+            $dataIndex = 0;
             for ($row = 7; $row <= $lastRow; $row++) {
-                $color = ($row % 2 === 0) ? 'DDEEFF' : 'FFFFFF';
+                $realisationModule = $this->data->values()->get($dataIndex);
+                $hasMissing = $realisationModule && ($realisationModule->bareme_non_evalue_cache ?? 0) > 0;
+
+                // Style par défaut ou Rouge doux
+                if ($hasMissing) {
+                    $color = 'FFD9D9'; // Rouge doux/pastel
+                } else {
+                    $color = ($row % 2 === 0) ? 'DDEEFF' : 'FFFFFF';
+                }
+
                 $sheet->getStyle("A{$row}:{$lastColumn}{$row}")->applyFromArray([
                     'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => $color]],
                 ]);
+
+                $dataIndex++;
             }
             $sheet->getStyle("A6:{$lastColumn}{$lastRow}")->applyFromArray([
                 'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['argb' => 'AAAAAA']]],
@@ -263,10 +289,18 @@ class RealisationModuleExport extends BaseRealisationModuleExport
         $moyCcCol = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(3 + $numUas);
         $sheet->getColumnDimension($moyCcCol)->setAutoSize(true);
 
-        // Colonnes EFM et Note finale : Largeur convenable (10)
-        $efmCol = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(4 + $numUas);
-        $noteCol = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(5 + $numUas);
-        $sheet->getColumnDimension($efmCol)->setWidth(10);
-        $sheet->getColumnDimension($noteCol)->setWidth(10);
+        // Colonnes EFM, Note finale et Reste à évaluer : Largeur convenable
+        $colIndex = 4 + $numUas;
+        $sheet->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex++))->setWidth(10); // Moy CC
+        $sheet->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex++))->setWidth(10); // EFM
+        $sheet->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex++))->setWidth(10); // Note / 20
+        $sheet->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex++))->setWidth(15); // Note de Module
+
+        // Colonne Reste à évaluer si présente
+        if ($hasEvaluationsMissing) {
+            $resteCol = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex);
+            $sheet->getStyle($resteCol . "1:" . $resteCol . $lastRow)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+            $sheet->getColumnDimension($resteCol)->setWidth(15);
+        }
     }
 }
