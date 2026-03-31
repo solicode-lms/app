@@ -112,7 +112,7 @@ class RealisationModuleExport extends BaseRealisationModuleExport
 
         // Afficher la colonne "Reste à évaluer" seulement si nécessaire
         $hasEvaluationsMissing = $this->data->contains(fn($rm) => ($rm->bareme_non_evalue_cache ?? 0) > 0);
-        $extraHeadings = ['Moy CC / 20', 'EFM / 40', 'Note / 20', 'Note de Module / 20'];
+        $extraHeadings = ['Moy CC / 20', 'EFM / 40', 'Note / 20'];
 
         if ($hasEvaluationsMissing) {
             $extraHeadings[] = 'Reste à évaluer';
@@ -166,7 +166,8 @@ class RealisationModuleExport extends BaseRealisationModuleExport
             // Note EFM / 40
             $row['note_efm'] = $noteSur40;
 
-            // Note de Module / 20
+            // Note / 20 (Note de Module)
+            // Le total est sur 60 (40 + 20), on divise par 3 pour ramener sur 20
             $noteModuleSur20 = round(($noteSur40 + $moyenneCc) / 3, 2);
             $row['note_module'] = $noteModuleSur20;
 
@@ -291,10 +292,9 @@ class RealisationModuleExport extends BaseRealisationModuleExport
 
         // Colonnes EFM, Note finale et Reste à évaluer : Largeur convenable
         $colIndex = 4 + $numUas;
-        $sheet->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex++))->setWidth(10); // Moy CC
+        $sheet->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex++))->setWidth(15); // Moy CC
         $sheet->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex++))->setWidth(10); // EFM
-        $sheet->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex++))->setWidth(10); // Note / 20
-        $sheet->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex++))->setWidth(15); // Note de Module
+        $sheet->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex++))->setWidth(12); // Note / 20
 
         // Colonne Reste à évaluer si présente
         if ($hasEvaluationsMissing) {
