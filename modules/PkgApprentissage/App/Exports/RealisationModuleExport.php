@@ -22,7 +22,7 @@ class RealisationModuleExport extends BaseRealisationModuleExport
             ->map(fn($rua) => $rua->uniteApprentissage)
             ->filter()
             ->unique('id')
-            ->sortBy('id')
+            ->sortBy('code')
             ->values();
     }
 

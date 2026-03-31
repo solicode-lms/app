@@ -361,5 +361,18 @@ class RealisationUaService extends BaseRealisationUaService
         return 'IN_PROGRESS_CHAPITRE';
     }
 
+    /**
+     * Trie par défaut les réalisations UA par le code de l'unité d'apprentissage.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function defaultSort($query)
+    {
+        $table = $this->model->getTable();
 
+        return $query->join('unite_apprentissages', "{$table}.unite_apprentissage_id", '=', 'unite_apprentissages.id')
+            ->orderBy('unite_apprentissages.code', 'asc')
+            ->select("{$table}.*");
+    }
 }
