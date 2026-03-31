@@ -201,6 +201,17 @@ class RealisationUaService extends BaseRealisationUaService
         $realisationUa->bareme_cache = (float) number_format($totalBareme, 2, '.', '');
         $realisationUa->bareme_non_evalue_cache = (float) number_format($totalBaremeNonEvalue, 2, '.', '');
 
+        // 🏫 Note CC (Contrôle Continu = Prototypes)
+        $prototypesItems = $realisationUa->realisationUaPrototypes;
+        $realisationUa->note_cc_cache = (float) number_format(
+            $prototypesItems->sum(fn($e) => $e->note ?? 0),
+            2, '.', ''
+        );
+        $realisationUa->bareme_cc_cache = (float) number_format(
+            $prototypesItems->sum(fn($e) => $e->note !== null ? ($e->bareme ?? 0) : 0),
+            2, '.', ''
+        );
+
         // ✅ Taux de rythme
         $realisationUa->taux_rythme_cache = $realisationUa->progression_ideal_cache > 0
             ? $this->formatPourcentage(($progressionReelle / $realisationUa->progression_ideal_cache) * 100)

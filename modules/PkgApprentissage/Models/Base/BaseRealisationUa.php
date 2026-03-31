@@ -50,7 +50,7 @@ class BaseRealisationUa extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'unite_apprentissage_id', 'realisation_micro_competence_id', 'etat_realisation_ua_id', 'progression_cache', 'note_cache', 'bareme_cache', 'bareme_non_evalue_cache', 'date_debut', 'date_fin', 'dernier_update', 'commentaire_formateur', 'progression_ideal_cache', 'pourcentage_non_valide_cache', 'taux_rythme_cache'
+        'unite_apprentissage_id', 'realisation_micro_competence_id', 'etat_realisation_ua_id', 'progression_cache', 'note_cache', 'bareme_cache', 'bareme_non_evalue_cache', 'date_debut', 'date_fin', 'dernier_update', 'commentaire_formateur', 'progression_ideal_cache', 'pourcentage_non_valide_cache', 'taux_rythme_cache', 'note_cc_cache', 'bareme_cc_cache'
     ];
     public $manyToOne = [
         'UniteApprentissage' => [
