@@ -24,8 +24,10 @@
             @foreach ($realisationModules_data as $realisationModule)
                 @php
                     $isEditable = $realisationModules_permissions['edit-realisationModule'] && $realisationModules_permissionsByItem['update'][$realisationModule->id];
+                    $hasMissingEvaluations = ($realisationModule->bareme_non_evalue_cache ?? 0) > 0;
                 @endphp
-                <tr id="realisationModule-row-{{$realisationModule->id}}" data-id="{{$realisationModule->id}}">
+                <tr id="realisationModule-row-{{ $realisationModule->id }}" data-id="{{ $realisationModule->id }}"
+                    @if ($hasMissingEvaluations) style="background-color: #f8d7da;" @endif>
                     <x-checkbox-row :item="$realisationModule" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 35%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="module_id" >
                         @include('PkgApprentissage::realisationModule.custom.fields.module', ['entity' => $realisationModule])
