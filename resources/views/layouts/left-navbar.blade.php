@@ -14,6 +14,24 @@
         </li>
         @endcan
 
+
+        @can('index-projet')
+        <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
+          <a href="{{ route(name: 'projets.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgCreationProjet::projet.plural')) }}" class="nav-link">
+            <i class="fas fa-rocket"></i>
+          </a>
+        </li>
+        @endcan
+
+
+          @can('index-realisationProjet')
+        <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
+          <a href="{{ route(name: 'realisationProjets.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.plural')) }}" class="nav-link">
+            <i class="fas fa-laptop"></i>
+          </a>
+        </li>
+        @endcan
+
         @can('index-realisationTache')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
           <a href="{{ route('realisationTaches.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgRealisationTache::realisationTache.plural')) }}" class="nav-link">
@@ -23,59 +41,12 @@
         @endcan
       
   
-       
-        {{-- @can('index-affectationProjet')
-        <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
-          <a href="{{ route(name: 'affectationProjets.index') }}" data-toggle="tooltip" title="Affectation de projets" class="nav-link">
-            <i class="fas fa-calendar-check"></i>
-          </a>
-        </li>
-        @endcan --}}
-        @can('index-realisationProjet')
-        <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
-          <a href="{{ route(name: 'realisationProjets.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.plural')) }}" class="nav-link">
-            <i class="fas fa-laptop"></i>
-          </a>
-        </li>
-        @endcan
+      
 
-     
-        @can('index-projet')
-        <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
-          <a href="{{ route(name: 'projets.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgCreationProjet::projet.plural')) }}" class="nav-link">
-            <i class="fas fa-rocket"></i>
-          </a>
-        </li>
-        @endcan
-       
-       
-        {{-- @can('index-realisationChapitre')
-        <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
-          <a href="{{ route('realisationChapitres.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgApprentissage::realisationChapitre.plural')) }}" class="nav-link">
-           <i class="fas fas fa-code"></i>
-          </a>
-        </li>
-        @endcan --}}
-       
+
+
 
         @if(!Auth::user()->hasRole('admin'))
-
-        @can('index-realisationMicroCompetence')
-        <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
-          <a href="{{ route('realisationMicroCompetences.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural')) }}" class="nav-link">
-           <i class="fas fa-certificate"></i>
-          </a>
-        </li>
-        @endcan
-
-        <!-- @can('index-realisationCompetence')
-        <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
-          <a href="{{ route('realisationCompetences.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgApprentissage::realisationCompetence.plural')) }}" class="nav-link">
-           <i class="fas fa-award"></i>
-          </a>
-        </li>
-        @endcan -->
-
         @endif
 
 

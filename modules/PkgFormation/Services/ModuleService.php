@@ -11,6 +11,8 @@ class ModuleService extends BaseModuleService
 {
     protected array $index_with_relations = ['filiere','competences'];
 
-   
-   
+    public function defaultSort($query)
+    {
+        return $query->orderBy('reference', 'asc');
+    }
 }
