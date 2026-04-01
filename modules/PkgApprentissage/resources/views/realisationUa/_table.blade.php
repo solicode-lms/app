@@ -44,9 +44,8 @@
                     <td style="max-width: 11.333333333333334%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUa->id}}" data-field="note_cache" >
                         @include('PkgApprentissage::realisationUa.custom.fields.note_cache', ['entity' => $realisationUa])
                     </td>
-                    <td style="max-width: 11.333333333333334%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUa->id}}" data-field="note_cc_cache">
-                        {{ $realisationUa->note_cc_cache }}
-
+                    <td style="max-width: 11.333333333333334%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUa->id}}" data-field="note_cc_cache" >
+                        @include('PkgApprentissage::realisationUa.custom.fields.note_cc_cache', ['entity' => $realisationUa])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 

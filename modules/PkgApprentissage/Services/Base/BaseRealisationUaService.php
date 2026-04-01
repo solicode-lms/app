@@ -506,13 +506,14 @@ class BaseRealisationUaService extends BaseService
                     break;
 
                 case 'note_cc_cache':
-                    $html = view('Core::fields_by_type.integer', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => ''
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgApprentissage::realisationUa.custom.fields.note_cc_cache', [
+                        'entity' => $e
                     ])->render();
+
                     $out[$field] = ['html' => $html];
                     break;
+
 
                 default:
                     // fallback générique si champ non pris en charge

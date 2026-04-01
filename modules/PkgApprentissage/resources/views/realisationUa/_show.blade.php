@@ -100,13 +100,7 @@
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.note_cc_cache')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationUa->note_cc_cache))
-                  {{ number_format($itemRealisationUa->note_cc_cache, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
+@include('PkgApprentissage::realisationUa.custom.fields.note_cc_cache',['entity' => $itemRealisationUa])
                 </div>
             </div>
             @if(
