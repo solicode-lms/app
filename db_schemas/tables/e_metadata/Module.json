@@ -494,5 +494,47 @@
         "value_boolean": 1,
         "e_data_field_reference": "modules_hasMany_realisation_modules_module_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Module_isHaveUa_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Module_isHaveUa",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Module_isHaveUa_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "Module_isHaveUa",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Module_isHaveUa_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Module_isHaveUa",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Module_isHaveUa_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Module_isHaveUa",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Module_isHaveUa_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Module_isHaveUa",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Module_isHaveUa_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Module_isHaveUa",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Module_isHaveUa_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Module_isHaveUa",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
