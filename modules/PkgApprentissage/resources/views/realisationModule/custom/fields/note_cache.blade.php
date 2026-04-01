@@ -12,6 +12,7 @@
         $colorClass = 'danger';
     }
 @endphp
+@if (floatval($entity->bareme_cache) > 0)
 
 <div class="d-flex flex-column align-items-center" style="min-width: 140px;">
     <div class="mb-2 w-100 d-flex flex-column align-items-center">
@@ -21,3 +22,4 @@
     
     <small class="text-{{ $colorClass }} font-weight-bold">{{ $pourcentage }}%</small>
 </div>
+@endif
