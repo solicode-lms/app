@@ -88,6 +88,7 @@ class BaseModuleSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                         "masse_horaire" => isset($row["masse_horaire"]) && $row["masse_horaire"] !== "" ? $row["masse_horaire"] : null,
                         "filiere_id" => $filiere_id,
+                        "isHaveUa" => isset($row["isHaveUa"]) && $row["isHaveUa"] !== "" ? $row["isHaveUa"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
 

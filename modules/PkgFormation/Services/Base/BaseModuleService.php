@@ -29,7 +29,8 @@ class BaseModuleService extends BaseService
         'nom',
         'description',
         'masse_horaire',
-        'filiere_id'
+        'filiere_id',
+        'isHaveUa'
     ];
 
 

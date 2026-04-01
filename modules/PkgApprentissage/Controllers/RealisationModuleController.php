@@ -37,6 +37,15 @@ class RealisationModuleController extends BaseRealisationModuleController
             );
         }
 
+        // Vérification si le module comporte des Unités d'Apprentissage (UA)
+        $module = \Modules\PkgFormation\Models\Module::find($filterVariables['module_id']);
+        if ($module && !$module->isHaveUa) {
+            return redirect()->route('realisationModules.index')->with(
+                'warning',
+                "L'export du PV est disponible uniquement pour les modules structurés en Unités d'Apprentissage (UA). Dans ce cas, le formateur peut l'extraire directement via l'affectation de projet du groupe, sous réserve que les notes d'évaluation aient été renseignées."
+            );
+        }
+
         // N'exporter que les réalisations des apprenants actifs
         $this->viewState->set('where.realisationModule.apprenant.actif', 1);
 

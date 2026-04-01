@@ -62,6 +62,7 @@ class BaseModuleImport implements ToModel, WithHeadingRow
              'description' => $values[2] ?? null,
              'masse_horaire' => $values[3] ?? null,
              'filiere_id' => $values[4] ?? null,
+             'isHaveUa' => $values[5] ?? null,
              'reference' => $reference,
         ]);
 

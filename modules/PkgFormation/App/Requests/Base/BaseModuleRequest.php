@@ -33,7 +33,8 @@ class BaseModuleRequest extends FormRequest
             'nom' => 'required|string|max:255',
             'description' => 'nullable|string',
             'masse_horaire' => 'required|string|max:255',
-            'filiere_id' => 'required'
+            'filiere_id' => 'required',
+            'isHaveUa' => 'nullable|boolean'
         ];
     }
 
@@ -52,7 +53,8 @@ class BaseModuleRequest extends FormRequest
             'description.required' => __('validation.required', ['attribute' => __('PkgFormation::Module.description')]),
             'masse_horaire.required' => __('validation.required', ['attribute' => __('PkgFormation::Module.masse_horaire')]),
             'masse_horaire.max' => __('validation.masse_horaireMax'),
-            'filiere_id.required' => __('validation.required', ['attribute' => __('PkgFormation::Module.filiere_id')])
+            'filiere_id.required' => __('validation.required', ['attribute' => __('PkgFormation::Module.filiere_id')]),
+            'isHaveUa.required' => __('validation.required', ['attribute' => __('PkgFormation::Module.isHaveUa')])
         ];
     }
 

@@ -45,7 +45,7 @@ class BaseModule extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'nom', 'description', 'masse_horaire', 'filiere_id'
+        'code', 'nom', 'description', 'masse_horaire', 'filiere_id', 'isHaveUa'
     ];
     public $manyToOne = [
         'Filiere' => [

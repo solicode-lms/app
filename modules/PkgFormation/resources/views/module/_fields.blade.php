@@ -209,6 +209,42 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemModule" field="isHaveUa" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="isHaveUa" 
+              id="bulk_field_isHaveUa" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="isHaveUa">
+            {{ ucfirst(__('PkgFormation::module.isHaveUa')) }}
+            
+          </label>
+                      <input type="hidden" name="isHaveUa" value="0">
+            <input
+                name="isHaveUa"
+                type="checkbox"
+                class="form-control d-block"
+                
+                
+                
+                id="isHaveUa"
+                value="1"
+                {{ old('isHaveUa', $itemModule ? $itemModule->isHaveUa : 0) ? 'checked' : '' }}>
+          @error('isHaveUa')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 
     </div>
   

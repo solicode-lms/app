@@ -7,4 +7,5 @@ return [
     'description' => 'Description',
     'masse_horaire' => 'Masse horaire',
     'filiere_id' => 'Identifiant de la filière',
+    'isHaveUa' => "Comporte des Unités d'Apprentissage",
 ];

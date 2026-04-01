@@ -37,6 +37,7 @@ class BaseModuleExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'description' => 'description',
                 'masse_horaire' => 'masse_horaire',
                 'filiere_reference' => 'filiere_reference',
+                'isHaveUa' => 'isHaveUa',
                 'reference' => 'reference',
             ];
         } else {
@@ -46,6 +47,7 @@ class BaseModuleExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'description' => __('PkgFormation::module.description'),
                 'masse_horaire' => __('PkgFormation::module.masse_horaire'),
                 'filiere_reference' => __('PkgFormation::filiere.singular'),
+                'isHaveUa' => __('PkgFormation::module.isHaveUa'),
                 'reference' => __('Core::msg.reference'),
             ];
         }
@@ -63,6 +65,7 @@ class BaseModuleExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'description' => $module->description,
                 'masse_horaire' => $module->masse_horaire,
                 'filiere_reference' => $module->filiere?->reference,
+                'isHaveUa' => $module->isHaveUa ? '1' : '0',
                 'reference' => $module->reference,
             ];
         });
