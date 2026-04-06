@@ -138,4 +138,76 @@ trait TacheActionsTrait
             ]);
         }
     }
+
+    /**
+     * Crée automatiquement deux tâches d'évaluation N2 et N3 lorsqu'une UA est mobilisée.
+     * N2 : Live coding
+     * N3 : Réalisation et présentation
+     */
+    public function createN2N3EvaluationTasksFromUa($projetId, $ua)
+    {
+        if (is_numeric($ua)) {
+            $ua = \Modules\PkgCompetences\Models\UniteApprentissage::find($ua);
+        }
+
+        if (!$ua) return;
+
+        $phaseN2Id = \Modules\PkgCompetences\Models\PhaseEvaluation::where('code', 'N2')->value('id');
+        $phaseN3Id = \Modules\PkgCompetences\Models\PhaseEvaluation::where('code', 'N3')->value('id');
+
+        $phaseLiveCoding = PhaseProjet::where('reference', 'LIVE_CODING')->first();
+        $phaseRealisation = PhaseProjet::where('reference', 'REALISATION')->first();
+
+        // --- Tâche N2 (Live coding) ---
+        $titreN2 = 'Live coding';
+        if (!Tache::where('projet_id', $projetId)->where('titre', $titreN2)->exists()) {
+            
+            $ordreN2 = 1;
+            if ($phaseLiveCoding) {
+                $maxO = Tache::where('projet_id', $projetId)->where('phase_projet_id', $phaseLiveCoding->id)->max('ordre');
+                if ($maxO) { $ordreN2 = $maxO + 1; }
+                else {
+                    $prevIds = PhaseProjet::where('ordre', '<', $phaseLiveCoding->ordre)->pluck('id');
+                    $maxP = Tache::where('projet_id', $projetId)->whereIn('phase_projet_id', $prevIds)->max('ordre');
+                    $ordreN2 = $maxP ? $maxP + 1 : 1;
+                }
+            }
+
+            $this->create([
+                'projet_id' => $projetId,
+                'titre' => $titreN2,
+                'description' => "Évaluation N2 (Live coding) pour l'Unité d'Apprentissage : " . $ua->nom,
+                'phase_evaluation_id' => $phaseN2Id,
+                'priorite' => $ordreN2,
+                'ordre' => $ordreN2,
+                'phase_projet_id' => $phaseLiveCoding ? $phaseLiveCoding->id : null
+            ]);
+        }
+
+        // --- Tâche N3 (Réalisation et présentation) ---
+        $titreN3 = 'Réalisation et présentation';
+        if (!Tache::where('projet_id', $projetId)->where('titre', $titreN3)->exists()) {
+            
+            $ordreN3 = 1;
+            if ($phaseRealisation) {
+                $maxO = Tache::where('projet_id', $projetId)->where('phase_projet_id', $phaseRealisation->id)->max('ordre');
+                if ($maxO) { $ordreN3 = $maxO + 1; }
+                else {
+                    $prevIds = PhaseProjet::where('ordre', '<', $phaseRealisation->ordre)->pluck('id');
+                    $maxP = Tache::where('projet_id', $projetId)->whereIn('phase_projet_id', $prevIds)->max('ordre');
+                    $ordreN3 = $maxP ? $maxP + 1 : 1;
+                }
+            }
+
+            $this->create([
+                'projet_id' => $projetId,
+                'titre' => $titreN3,
+                'description' => "Évaluation N3 (Réalisation et présentation) pour l'Unité d'Apprentissage : " . $ua->nom,
+                'phase_evaluation_id' => $phaseN3Id,
+                'priorite' => $ordreN3,
+                'ordre' => $ordreN3,
+                'phase_projet_id' => $phaseRealisation ? $phaseRealisation->id : null
+            ]);
+        }
+    }
 }

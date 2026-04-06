@@ -26,6 +26,19 @@ trait MobilisationUaCrudTrait
             $this->enrichDataWithUaCriteriaAndBareme($data);
         }
 
+        // Vérification de l'unicité : interdire la mobilisation en double d'une UA pour un même projet
+        if (!empty($data['projet_id']) && !empty($data['unite_apprentissage_id'])) {
+            $exists = $this->model->where('projet_id', $data['projet_id'])
+                ->where('unite_apprentissage_id', $data['unite_apprentissage_id'])
+                ->exists();
+
+            if ($exists) {
+                $msg = "Cette Unité d'Apprentissage est déjà mobilisée dans ce projet.";
+                $this->pushServiceMessage('danger', 'Erreur de Duplication', $msg);
+                throw new \Modules\Core\App\Exceptions\BlException($msg);
+            }
+        }
+
         // Vérification de la validité du barème après enrichissement ou saisie manuelle.
         $totalBareme = (float)($data['bareme_evaluation_prototype'] ?? 0) + (float)($data['bareme_evaluation_projet'] ?? 0);
         
@@ -56,6 +69,9 @@ trait MobilisationUaCrudTrait
                 // On crée une seule tâche d'imitation (la création du chapitre lié est gérée dans ce service)
                 $tacheService->createN1ImitationTaskFromUa($item->projet_id, $item->unite_apprentissage_id);
             }
+
+            // Génération dynamique des tâches d'évaluation N2 et N3 obligatoires pour l'UA mobilisée
+            $tacheService->createN2N3EvaluationTasksFromUa($item->projet_id, $item->unite_apprentissage_id);
 
             // 2. Touch Projet
             if (isset($item->projet)) {

@@ -157,7 +157,7 @@ class RealisationUaService extends BaseRealisationUaService
         $progressionIdeale = 0;
         $pourcentageNonValide = 0;
 
-        foreach ($parts as $part) {
+        foreach ($parts as $partName => $part) {
             $items = $part['items'];
             $poids = $part['poids'];
 
@@ -165,24 +165,44 @@ class RealisationUaService extends BaseRealisationUaService
                 continue;
             }
 
-            // ✅ Séparer les tâches "activées" (≠ TODO)
-            $actives = $items->filter(fn($e) => $this->isActive($e));
-
-            $countAll = $items->count();   // total (utile pour progression réelle)
-            $countActif = $actives->count(); // seulement ≠ TODO
-
-            // 🟢 Progression réelle (toutes les tâches comptent)
-            $termines = $items->filter(fn($e) => $this->isActiveProgress($e))->count();
-            $progressionReelle += ($termines / $countAll) * $poids;
-
-            // 🎯 Progression idéale (seules les tâches activées comptent)
-            if ($countActif > 0) {
-                $progressionIdeale += ($countActif / $countAll) * $poids;
+            // --- Validation automatique via Imitation ---
+            // Si un chapitre d'imitation est validé ('DONE' ou 'APPROVED'), il force la validation complète du bloc
+            $hasImitationValide = false;
+            if ($partName === 'chapitres') {
+                $hasImitationValide = $items->contains(function ($rc) {
+                    if ($rc->chapitre && $rc->chapitre->is_imitation_ua) {
+                        return (isset($rc->etatRealisationChapitre) && $rc->etatRealisationChapitre->code === 'DONE')
+                            || (isset($rc->realisation_tache_id) && optional($rc->realisationTache?->etatRealisationTache?->workflowTache)->code === 'APPROVED');
+                    }
+                    return false;
+                });
             }
 
-            // ⛔ Pourcentage Non Valide
-            $nonValides = $items->filter(fn($e) => $this->isNonValide($e))->count();
-            $pourcentageNonValide += ($nonValides / $countAll) * $poids;
+            $countAll = $items->count();   // total (utile pour progression réelle)
+
+            if ($hasImitationValide) {
+                // 100% de validation implicite :
+                $progressionReelle += $poids;
+                $progressionIdeale += $poids;
+                // pourcentageNonValide reste à sa valeur précédente sans s'incrémenter (0% non-valide)
+            } else {
+                // ✅ Séparer les tâches "activées" (≠ TODO)
+                $actives = $items->filter(fn($e) => $this->isActive($e));
+                $countActif = $actives->count(); // seulement ≠ TODO
+
+                // 🟢 Progression réelle (toutes les tâches comptent)
+                $termines = $items->filter(fn($e) => $this->isActiveProgress($e))->count();
+                $progressionReelle += ($termines / $countAll) * $poids;
+
+                // 🎯 Progression idéale (seules les tâches activées comptent)
+                if ($countActif > 0) {
+                    $progressionIdeale += ($countActif / $countAll) * $poids;
+                }
+
+                // ⛔ Pourcentage Non Valide
+                $nonValides = $items->filter(fn($e) => $this->isNonValide($e))->count();
+                $pourcentageNonValide += ($nonValides / $countAll) * $poids;
+            }
 
             // Notes
             $bareme = $items->sum(fn($e) => $e->note !== null ? ($e->bareme ?? 0) : 0);
