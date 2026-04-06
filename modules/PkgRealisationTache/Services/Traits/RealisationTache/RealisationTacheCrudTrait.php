@@ -110,6 +110,15 @@ trait RealisationTacheCrudTrait
                         $chapitreExistant->update([
                             'realisation_tache_id' => $realisationTache->id,
                         ]);
+                    } else {
+                        // Cas où le chapitre est déjà validé (DONE) : on informe l'utilisateur
+                        $chapitreExistant->loadMissing('realisationTache.tache', 'realisationTache.realisationProjet.affectationProjet.projet');
+                        $tacheTitre = $chapitreExistant->realisationTache?->tache?->titre ?? 'N/A';
+                        $projetTitre = $chapitreExistant->realisationTache?->realisationProjet?->affectationProjet?->projet?->titre ?? 'N/A';
+
+                        $realisationTache->update([
+                            'remarques_formateur' => "Ce chapitre est déjà validé dans la tâche : [{$tacheTitre}] du projet : [{$projetTitre}]."
+                        ]);
                     }
                 } else {
                     // Sinon, on crée une nouvelle RealisationChapitre

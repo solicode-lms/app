@@ -58,6 +58,9 @@ trait TacheActionsTrait
         }
 
         foreach ($ua->chapitres as $chapitre) {
+            if ($chapitre->is_imitation_ua) {
+                continue;
+            }
             $exists = Tache::where('projet_id', $projetId)
                 ->where('titre', 'Tutoriel : ' . $chapitre->nom)->exists();
 
@@ -65,7 +68,7 @@ trait TacheActionsTrait
                 $this->create([
                     'projet_id' => $projetId,
                     'titre' => 'Tutoriel : ' . $chapitre->nom,
-                    'description' => "Tutoriel lié au chapitre : " . $chapitre->nom,
+                    'description' => "Tutoriel lié au chapitre [" . $chapitre->nom . "]. Cette tâche est ajoutée pour les apprenants n'ayant pas encore terminé ce chapitre.",
                     'phase_evaluation_id' => $phaseN1Id,
                     'priorite' => $ordre,
                     'ordre' => $ordre,
@@ -129,7 +132,7 @@ trait TacheActionsTrait
             $this->create([
                 'projet_id' => $projetId,
                 'titre' => $titreImitation,
-                'description' => "Veuillez créer l'imitation pour cette Unité d'Apprentissage.",
+                'description' => "Cette tâche d'imitation est ajoutée pour les apprenants n'ayant pas encore terminé ce chapitre. Veuillez créer l'imitation pour cette Unité d'Apprentissage.",
                 'phase_evaluation_id' => $phaseN1Id,
                 'priorite' => $ordre,
                 'ordre' => $ordre,
@@ -160,7 +163,7 @@ trait TacheActionsTrait
 
         // --- Tâche N2 (Live coding) ---
         $titreN2 = 'Live coding';
-        if (!Tache::where('projet_id', $projetId)->where('titre', $titreN2)->exists()) {
+        if (!Tache::where('projet_id', $projetId)->where('phase_evaluation_id', $phaseN2Id)->exists()) {
             
             $ordreN2 = 1;
             if ($phaseLiveCoding) {
@@ -176,7 +179,7 @@ trait TacheActionsTrait
             $this->create([
                 'projet_id' => $projetId,
                 'titre' => $titreN2,
-                'description' => "Évaluation N2 (Live coding) pour l'Unité d'Apprentissage : " . $ua->nom,
+                'description' => "Évaluation N2 : Session de Live coding sur le prototype.",
                 'phase_evaluation_id' => $phaseN2Id,
                 'priorite' => $ordreN2,
                 'ordre' => $ordreN2,
@@ -186,7 +189,7 @@ trait TacheActionsTrait
 
         // --- Tâche N3 (Réalisation et présentation) ---
         $titreN3 = 'Réalisation et présentation';
-        if (!Tache::where('projet_id', $projetId)->where('titre', $titreN3)->exists()) {
+        if (!Tache::where('projet_id', $projetId)->where('phase_evaluation_id', $phaseN3Id)->exists()) {
             
             $ordreN3 = 1;
             if ($phaseRealisation) {
@@ -202,7 +205,7 @@ trait TacheActionsTrait
             $this->create([
                 'projet_id' => $projetId,
                 'titre' => $titreN3,
-                'description' => "Évaluation N3 (Réalisation et présentation) pour l'Unité d'Apprentissage : " . $ua->nom,
+                'description' => "Évaluation N3 : Réalisation finale et présentation du projet.",
                 'phase_evaluation_id' => $phaseN3Id,
                 'priorite' => $ordreN3,
                 'ordre' => $ordreN3,
