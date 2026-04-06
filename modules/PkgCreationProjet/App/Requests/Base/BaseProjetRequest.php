@@ -35,7 +35,8 @@ class BaseProjetRequest extends FormRequest
             'travail_a_faire' => 'required|string',
             'critere_de_travail' => 'required|string',
             'formateur_id' => 'nullable',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
+            'is_auto_insert_chapitres' => 'nullable|boolean'
         ];
     }
 
@@ -54,7 +55,8 @@ class BaseProjetRequest extends FormRequest
             'travail_a_faire.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.travail_a_faire')]),
             'critere_de_travail.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.critere_de_travail')]),
             'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.formateur_id')]),
-            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.description')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.description')]),
+            'is_auto_insert_chapitres.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.is_auto_insert_chapitres')])
         ];
     }
 

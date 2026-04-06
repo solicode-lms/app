@@ -25,6 +25,16 @@ trait MobilisationUaCrudTrait
         if (!empty($data['unite_apprentissage_id']) && empty($data['criteres_evaluation_prototype'])) {
             $this->enrichDataWithUaCriteriaAndBareme($data);
         }
+
+        // Vérification de la validité du barème après enrichissement ou saisie manuelle.
+        $totalBareme = (float)($data['bareme_evaluation_prototype'] ?? 0) + (float)($data['bareme_evaluation_projet'] ?? 0);
+        
+        if ($totalBareme <= 0) {
+            $msg = "Impossible de mobiliser une Unité d'Apprentissage avec un barème de 0. Veuillez vérifier les critères d'évaluation.";
+            $this->pushServiceMessage('danger', 'Erreur de Validation', $msg);
+            throw new \Modules\Core\App\Exceptions\BlException($msg);
+        }
+
         return $data;
     }
 
@@ -38,9 +48,14 @@ trait MobilisationUaCrudTrait
     public function afterCreateRules($item): void
     {
         if ($item instanceof \Modules\PkgCreationProjet\Models\MobilisationUa) {
-            // 1. Délégation : Création des tâches Tutoriels
+            // 1. Délégation : Création des tâches Tutoriels ou Imitation
             $tacheService = new TacheService();
-            $tacheService->createN1TutorielsTasksFromUa($item->projet_id, $item->unite_apprentissage_id);
+            if ($item->projet && $item->projet->is_auto_insert_chapitres) {
+                $tacheService->createN1TutorielsTasksFromUa($item->projet_id, $item->unite_apprentissage_id);
+            } else {
+                // On crée une seule tâche d'imitation (la création du chapitre lié est gérée dans ce service)
+                $tacheService->createN1ImitationTaskFromUa($item->projet_id, $item->unite_apprentissage_id);
+            }
 
             // 2. Touch Projet
             if (isset($item->projet)) {

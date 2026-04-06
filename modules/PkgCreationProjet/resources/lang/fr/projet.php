@@ -12,5 +12,6 @@ return [
     'date_fin' => 'Date de fin',
     'formateur_id' => 'Formateur',
     'nombre_jour' => 'Durée en jour',
-    'affectationProjets' => 'affectation'
+    'affectationProjets' => 'affectation',
+    'is_auto_insert_chapitres' => 'Insertion automatique des chapitres',
 ];

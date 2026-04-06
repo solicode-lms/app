@@ -316,6 +316,42 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="is_imitation_ua" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="is_imitation_ua" 
+              id="bulk_field_is_imitation_ua" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="is_imitation_ua">
+            {{ ucfirst(__('PkgCompetences::chapitre.is_imitation_ua')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input type="hidden" name="is_imitation_ua" value="0">
+            <input
+                name="is_imitation_ua"
+                type="checkbox"
+                class="form-control d-block"
+                required
+                
+                
+                id="is_imitation_ua"
+                value="1"
+                {{ old('is_imitation_ua', $itemChapitre ? $itemChapitre->is_imitation_ua : 0) ? 'checked' : '' }}>
+          @error('is_imitation_ua')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 
     </div>
   

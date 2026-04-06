@@ -741,5 +741,47 @@
         "value_float": 0,
         "e_model_reference": "chapitres",
         "e_metadata_definition_reference": "editOnFullScreen"
+    },
+    {
+        "reference": "Chapitre_is_imitation_ua_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_is_imitation_ua",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Chapitre_is_imitation_ua_displayOrder",
+        "value_integer": 14,
+        "e_data_field_reference": "Chapitre_is_imitation_ua",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Chapitre_is_imitation_ua_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_is_imitation_ua",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Chapitre_is_imitation_ua_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Chapitre_is_imitation_ua",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Chapitre_is_imitation_ua_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_is_imitation_ua",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Chapitre_is_imitation_ua_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_is_imitation_ua",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre_is_imitation_ua_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_is_imitation_ua",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

@@ -42,6 +42,7 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'description' => 'description',
                 'formateur_reference' => 'formateur_reference',
                 'reference' => 'reference',
+                'is_imitation_ua' => 'is_imitation_ua',
             ];
         } else {
             return [
@@ -55,6 +56,7 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'description' => __('PkgCompetences::chapitre.description'),
                 'formateur_reference' => __('PkgFormation::formateur.singular'),
                 'reference' => __('Core::msg.reference'),
+                'is_imitation_ua' => __('PkgCompetences::chapitre.is_imitation_ua'),
             ];
         }
     }
@@ -76,6 +78,7 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'description' => $chapitre->description,
                 'formateur_reference' => $chapitre->formateur?->reference,
                 'reference' => $chapitre->reference,
+                'is_imitation_ua' => $chapitre->is_imitation_ua ? '1' : '0',
             ];
         });
     }

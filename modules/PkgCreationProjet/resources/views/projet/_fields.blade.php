@@ -256,6 +256,42 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemProjet" field="is_auto_insert_chapitres" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="is_auto_insert_chapitres" 
+              id="bulk_field_is_auto_insert_chapitres" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="is_auto_insert_chapitres">
+            {{ ucfirst(__('PkgCreationProjet::projet.is_auto_insert_chapitres')) }}
+            
+          </label>
+                      <input type="hidden" name="is_auto_insert_chapitres" value="0">
+            <input
+                name="is_auto_insert_chapitres"
+                type="checkbox"
+                class="form-control d-block"
+                
+                
+                 data-store-key="Projet_is_auto_insert_chapitres" 
+                id="is_auto_insert_chapitres"
+                value="1"
+                {{ old('is_auto_insert_chapitres', $itemProjet ? $itemProjet->is_auto_insert_chapitres : 0) ? 'checked' : '' }}>
+          @error('is_auto_insert_chapitres')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 
     </div>
   

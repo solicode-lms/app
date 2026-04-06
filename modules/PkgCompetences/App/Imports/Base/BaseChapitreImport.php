@@ -67,6 +67,7 @@ class BaseChapitreImport implements ToModel, WithHeadingRow
              'description' => $values[7] ?? null,
              'formateur_id' => $values[8] ?? null,
              'reference' => $reference,
+             'is_imitation_ua' => $values[10] ?? null,
         ]);
 
 

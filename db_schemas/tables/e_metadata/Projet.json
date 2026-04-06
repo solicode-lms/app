@@ -835,5 +835,55 @@
         "value_text": "<p><br></p>",
         "e_data_field_reference": "Projet_session_formation_id",
         "e_metadata_definition_reference": "scopeDataByRole"
+    },
+    {
+        "reference": "Projet_is_auto_insert_chapitres_required",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "Projet_is_auto_insert_chapitres",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Projet_is_auto_insert_chapitres_displayOrder",
+        "value_integer": 12,
+        "e_data_field_reference": "Projet_is_auto_insert_chapitres",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Projet_is_auto_insert_chapitres_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_is_auto_insert_chapitres",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Projet_is_auto_insert_chapitres_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Projet_is_auto_insert_chapitres",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Projet_is_auto_insert_chapitres_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_is_auto_insert_chapitres",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Projet_is_auto_insert_chapitres_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_is_auto_insert_chapitres",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Projet_is_auto_insert_chapitres_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_is_auto_insert_chapitres",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Projet_is_auto_insert_chapitres_persistInLocalStorageOnCreate",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "Projet_is_auto_insert_chapitres",
+        "e_metadata_definition_reference": "persistInLocalStorageOnCreate"
     }
 ]

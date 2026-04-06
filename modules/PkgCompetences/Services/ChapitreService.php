@@ -189,7 +189,26 @@ class ChapitreService extends BaseChapitreService
     }
 
 
-        
-    
+    public function getOrCreateImitationChapitre(int $uniteApprentissageId)
+    {
+        $ua = \Modules\PkgCompetences\Models\UniteApprentissage::find($uniteApprentissageId);
+        $titre = $ua ? 'Tutoriel UA : ' . $ua->nom : 'Tutoriel UA';
+        $code = $ua ? 'TUTO-' . $ua->code : 'TUTO-UA-' . $uniteApprentissageId;
 
+        $chapitre = $this->model
+            ->where('code', $code)
+            ->first();
+
+        if (!$chapitre) {
+            $chapitre = $this->create([
+                'unite_apprentissage_id' => $uniteApprentissageId,
+                'is_imitation_ua' => true,
+                'nom' => $titre,
+                'code' => $code,
+                'description' => 'Chapitre d\'imitation de l\'unité d\'apprentissage.',
+            ]);
+        }
+
+        return $chapitre;
+    }
 }

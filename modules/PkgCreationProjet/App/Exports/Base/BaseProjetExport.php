@@ -40,6 +40,7 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'formateur_reference' => 'formateur_reference',
                 'description' => 'description',
                 'reference' => 'reference',
+                'is_auto_insert_chapitres' => 'is_auto_insert_chapitres',
             ];
         } else {
             return [
@@ -51,6 +52,7 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'formateur_reference' => __('PkgFormation::formateur.singular'),
                 'description' => __('PkgCreationProjet::projet.description'),
                 'reference' => __('Core::msg.reference'),
+                'is_auto_insert_chapitres' => __('PkgCreationProjet::projet.is_auto_insert_chapitres'),
             ];
         }
     }
@@ -70,6 +72,7 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'formateur_reference' => $projet->formateur?->reference,
                 'description' => $projet->description,
                 'reference' => $projet->reference,
+                'is_auto_insert_chapitres' => $projet->is_auto_insert_chapitres ? '1' : '0',
             ];
         });
     }

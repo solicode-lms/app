@@ -76,4 +76,66 @@ trait TacheActionsTrait
             }
         }
     }
+
+    /**
+     * Crée la tâche d'imitation (N1) associée au chapitre d'imitation d'une UA.
+     * 
+     * @param int $projetId L'identifiant du projet.
+     * @param mixed $ua L'Unité d'Apprentissage (objet ou ID).
+     * @return void
+     */
+    public function createN1ImitationTaskFromUa($projetId, $ua)
+    {
+        if (is_numeric($ua)) {
+            $ua = \Modules\PkgCompetences\Models\UniteApprentissage::find($ua);
+        }
+
+        if (!$ua) return;
+
+        $chapitreService = new \Modules\PkgCompetences\Services\ChapitreService();
+        $chapitreImitation = $chapitreService->getOrCreateImitationChapitre($ua->id);
+
+        $phaseN1Id = \Modules\PkgCompetences\Models\PhaseEvaluation::where('code', 'N1')->value('id');
+        $phaseApprentissage = PhaseProjet::where('reference', 'APPRENTISSAGE')->first();
+        $phaseProjetId = $phaseApprentissage ? $phaseApprentissage->id : null;
+
+        $ordre = 1;
+        $maxOrdrePhase = 0;
+
+        if ($phaseProjetId) {
+            $maxOrdrePhase = Tache::where('projet_id', $projetId)
+                ->where('phase_projet_id', $phaseProjetId)->max('ordre');
+        }
+
+        if ($maxOrdrePhase) {
+            $ordre = $maxOrdrePhase + 1;
+        } else {
+            $maxOrdrePrecedent = 0;
+            if ($phaseApprentissage) {
+                $previousPhaseIds = PhaseProjet::where('ordre', '<', $phaseApprentissage->ordre)->pluck('id');
+                if ($previousPhaseIds->isNotEmpty()) {
+                    $maxOrdrePrecedent = Tache::where('projet_id', $projetId)
+                        ->whereIn('phase_projet_id', $previousPhaseIds)->max('ordre');
+                }
+            }
+            $ordre = $maxOrdrePrecedent ? $maxOrdrePrecedent + 1 : 1;
+        }
+
+        $titreImitation = 'Tutoriel UA : ' . $ua->nom;
+        $exists = Tache::where('projet_id', $projetId)
+            ->where('titre', $titreImitation)->exists();
+
+        if (!$exists) {
+            $this->create([
+                'projet_id' => $projetId,
+                'titre' => $titreImitation,
+                'description' => "Veuillez créer l'imitation pour cette Unité d'Apprentissage.",
+                'phase_evaluation_id' => $phaseN1Id,
+                'priorite' => $ordre,
+                'ordre' => $ordre,
+                'chapitre_id' => $chapitreImitation->id,
+                'phase_projet_id' => $phaseProjetId
+            ]);
+        }
+    }
 }

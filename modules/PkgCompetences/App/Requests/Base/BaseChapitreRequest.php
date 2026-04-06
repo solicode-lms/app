@@ -37,7 +37,8 @@ class BaseChapitreRequest extends FormRequest
             'isOfficiel' => 'nullable|boolean',
             'lien' => 'required|string|max:255|url',
             'description' => 'nullable|string',
-            'formateur_id' => 'nullable'
+            'formateur_id' => 'nullable',
+            'is_imitation_ua' => 'required|boolean'
         ];
     }
 
@@ -60,7 +61,8 @@ class BaseChapitreRequest extends FormRequest
             'lien.required' => __('validation.required', ['attribute' => __('PkgCompetences::Chapitre.lien')]),
             'lien.max' => __('validation.lienMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Chapitre.description')]),
-            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Chapitre.formateur_id')])
+            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Chapitre.formateur_id')]),
+            'is_imitation_ua.required' => __('validation.required', ['attribute' => __('PkgCompetences::Chapitre.is_imitation_ua')])
         ];
     }
 

@@ -101,6 +101,7 @@ class BaseProjetSeeder extends Seeder
                         "critere_de_travail" => isset($row["critere_de_travail"]) && $row["critere_de_travail"] !== "" ? $row["critere_de_travail"] : null,
                         "formateur_id" => $formateur_id,
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
+                        "is_auto_insert_chapitres" => isset($row["is_auto_insert_chapitres"]) && $row["is_auto_insert_chapitres"] !== "" ? $row["is_auto_insert_chapitres"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
 

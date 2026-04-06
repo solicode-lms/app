@@ -65,6 +65,7 @@ class BaseProjetImport implements ToModel, WithHeadingRow
              'formateur_id' => $values[5] ?? null,
              'description' => $values[6] ?? null,
              'reference' => $reference,
+             'is_auto_insert_chapitres' => $values[8] ?? null,
         ]);
 
 

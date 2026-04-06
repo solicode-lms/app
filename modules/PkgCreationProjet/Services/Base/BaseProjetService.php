@@ -31,7 +31,8 @@ class BaseProjetService extends BaseService
         'travail_a_faire',
         'critere_de_travail',
         'formateur_id',
-        'description'
+        'description',
+        'is_auto_insert_chapitres'
     ];
 
 
