@@ -124,7 +124,7 @@ trait TacheActionsTrait
             $ordre = $maxOrdrePrecedent ? $maxOrdrePrecedent + 1 : 1;
         }
 
-        $titreImitation = 'Tutoriel UA : ' . $ua->nom;
+        $titreImitation = 'Tutoriel ' . $ua->code . ' : ' . $ua->nom;
         $exists = Tache::where('projet_id', $projetId)
             ->where('titre', $titreImitation)->exists();
 
