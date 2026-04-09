@@ -135,6 +135,19 @@ small.text-muted.d-block:has(+ .tache-card) {
     font-weight: 500;
 }
 
+/* Badge live coding */
+.tache-live-coding {
+    background-color: #f3f4f6;   /* gris très clair */
+    color: #4b5563;              /* gris moyen */
+    font-size: 0.7rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 500;
+}
+
 /* Footer */
 .tache-footer {
     border-top: 1px solid #f3f4f6;
