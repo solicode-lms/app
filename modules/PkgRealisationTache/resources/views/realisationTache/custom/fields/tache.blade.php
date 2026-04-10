@@ -3,6 +3,12 @@
         @php
             $realisationChapitre = $entity->realisationChapitres?->first();
             $tacheRef = $entity->tache;
+            $affectationId = $entity->realisationProjet?->affectation_projet_id;
+            $projetFilterUrl = $affectationId
+                ? route('realisationTaches.index', [
+                    'filter.realisationTache.RealisationProjet.Affectation_projet_id' => $affectationId,
+                  ])
+                : null;
         @endphp
 
         <h2 class="tache-titre">
@@ -62,7 +68,17 @@
     @endif
 
     <footer class="tache-footer flex-column align-items-start" style="gap: 0.1rem;">
-        <div class="text-muted"><i class="fas fa-project-diagram mr-1"></i> <strong>Projet :</strong> {{ $entity->projet_title }}</div>
+        <div class="text-muted">
+            <i class="fas fa-project-diagram mr-1"></i>
+            <strong>Projet :</strong>
+            @if($projetFilterUrl)
+                <a href="{{ $projetFilterUrl }}" class="text-muted context-state" data-toggle="tooltip" title="Filtrer par ce projet">
+                    {{ $entity->projet_title }}
+                </a>
+            @else
+                {{ $entity->projet_title }}
+            @endif
+        </div>
         @if($tacheRef && $tacheRef->mobilisationUa)
             <div class="text-primary mt-1"><i class="fas fa-cubes mr-1"></i> <strong>Mobilisation UA :</strong> {{ $tacheRef->mobilisationUa }}</div>
         @endif
