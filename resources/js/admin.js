@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Contexte State 
     let contextState = window.contextState;
     let sessionState = window.sessionState;
-    
+
     // Adaptation de Dashboard à l'utilisateur
     const dashboardUI = new DashboardUI(sessionState);
     dashboardUI.init();
@@ -29,13 +29,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Initialisation des UI Manager comme CrudModalmanager, ..
     InitUIManagers.init(),
 
-    // Affichage des notification global
-    window.notifications.forEach((notificationData) => {
-        new NotificationHandler(notificationData).show();
-    });
-    
+        // Affichage des notification global
+        window.notifications.forEach((notificationData) => {
+            new NotificationHandler(notificationData).show();
+        });
 
-    
+
+
     // TODO : il faut ajouter une condition pour gérer une page PageUIManager
     FormUI.initializeSelect2();
     FormUI.initSelect2Color();
@@ -68,10 +68,10 @@ document.addEventListener("DOMContentLoaded", function () {
     //         try {
     //             const response = await fetch(apiUrl);
     //             if (!response.ok) throw new Error('Erreur lors du chargement des données');
-                
+
     //             const data = await response.json();
     //             targetElement.innerHTML = ''; // Vider les anciennes options
-                
+
     //             data.forEach(item => {
     //                 const option = document.createElement('option');
     //                 option.value = item.id;
@@ -96,8 +96,8 @@ document.addEventListener("DOMContentLoaded", function () {
     //     'http://localhost/admin/PkgGestionTaches/taches/getTacheByAffectationProjetId/{id}'
     // );
 
-    
-   
+
+
 
 });
 
