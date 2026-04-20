@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'Réalisation d’UA Projet',
-    'plural' => 'Réalisations des UAs Projets',
+    'singular' => 'Evaluation d’unité d’apprentissage - Projet',
+    'plural' => 'Evaluation d’unités d’apprentissages - Projets',
     'note' => 'Note',
     'bareme' => 'Barème',
     'remarque_formateur' => 'Remarque du formateur',
