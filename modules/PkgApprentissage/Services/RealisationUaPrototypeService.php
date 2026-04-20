@@ -170,5 +170,77 @@ class RealisationUaPrototypeService extends BaseRealisationUaPrototypeService
         }
     }
 
+    /**
+     * Hook appelé après la mise à jour d'un RealisationUaPrototype
+     * Permet de mettre à jour le barème et la note de RealisationUaProjet associé.
+     *
+     * @param RealisationUaPrototype $item
+     * @return void
+     */
+    public function afterUpdateRules($item): void
+    {
+        /** @var RealisationUaPrototype $realisationUaPrototype */
+        $realisationUaPrototype = $item;
+
+        // Si la note est présente, on exécute le calcul
+        if ($realisationUaPrototype->note !== null) {
+            $realisationUa = $realisationUaPrototype->realisationUa;
+            
+            // L'attribut dynamique n'est pas forcément chargé ici, on passe par la relation
+            $realisationTache = $realisationUaPrototype->realisationTache;
+            $realisationProjetId = $realisationTache ? $realisationTache->realisation_projet_id : null;
+
+            if ($realisationUa && $realisationProjetId) {
+                // Chercher le RealisationUaProjet qui correspond au même apprenant (via realisation_projet_id) et à la même UA
+                $realisationUaProjet = \Modules\PkgApprentissage\Models\RealisationUaProjet::where('realisation_ua_id', $realisationUa->id)
+                    ->whereHas('realisationTache', function ($query) use ($realisationProjetId) {
+                        $query->where('realisation_projet_id', $realisationProjetId);
+                    })->first();
+
+                if ($realisationUaProjet && $realisationUaProjet->note === null) {
+                    $realisationProjet = \Modules\PkgRealisationProjets\Models\RealisationProjet::with('affectationProjet.projet')
+                        ->find($realisationProjetId);
+                    
+                    if ($realisationProjet && $realisationProjet->affectationProjet && $realisationProjet->affectationProjet->projet) {
+                        $projet = $realisationProjet->affectationProjet->projet;
+
+                        if ($projet->is_auto_calcule_note_realisation) {
+                            $projetId = $projet->id;
+                            $uniteApprentissageId = $realisationUa->unite_apprentissage_id;
+
+                            $mobilisationUa = \Modules\PkgCreationProjet\Models\MobilisationUa::where('projet_id', $projetId)
+                                ->where('unite_apprentissage_id', $uniteApprentissageId)
+                                ->first();
+
+                            if ($mobilisationUa) {
+                                $baremeProjet = $mobilisationUa->bareme_evaluation_projet ?? 2;
+                                $baremePrototype = $mobilisationUa->bareme_evaluation_prototype ?? 4;
+
+                                // Calculer la note RealisationUaProjet à partir de celle du Prototype
+                                if ($baremePrototype > 0 && $realisationUaPrototype->note !== null) {
+                                    $noteProjet = ($realisationUaPrototype->note / $baremePrototype) * $baremeProjet;
+                                    
+                                    // Vérification supplémentaire avant l'update
+                                    if ($realisationUaProjet->note === null) {
+                                        $realisationUaProjet->update([
+                                            'note' => round($noteProjet, 2),
+                                            'bareme' => $baremeProjet
+                                        ]);
+
+                                        $this->pushServiceMessage(
+                                            'info',
+                                            'Calcul Automatique',
+                                            "La note de réalisation du projet a été calculée et mise à jour selon la note du prototype."
+                                        );
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
 }

@@ -308,14 +308,14 @@
           @endif
           <label for="is_auto_calcule_note_realisation">
             {{ ucfirst(__('PkgCreationProjet::projet.is_auto_calcule_note_realisation')) }}
-            <span class="text-danger">*</span>
+            
           </label>
                       <input type="hidden" name="is_auto_calcule_note_realisation" value="0">
             <input
                 name="is_auto_calcule_note_realisation"
                 type="checkbox"
                 class="form-control d-block"
-                required
+                
                 
                 
                 id="is_auto_calcule_note_realisation"

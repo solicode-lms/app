@@ -37,7 +37,7 @@ class BaseProjetRequest extends FormRequest
             'formateur_id' => 'nullable',
             'description' => 'nullable|string',
             'is_auto_insert_chapitres' => 'nullable|boolean',
-            'is_auto_calcule_note_realisation' => 'required|boolean'
+            'is_auto_calcule_note_realisation' => 'nullable|boolean'
         ];
     }
 

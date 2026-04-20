@@ -888,7 +888,8 @@
     },
     {
         "reference": "Projet_is_auto_calcule_note_realisation_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Projet_is_auto_calcule_note_realisation",
         "e_metadata_definition_reference": "required"
     },
