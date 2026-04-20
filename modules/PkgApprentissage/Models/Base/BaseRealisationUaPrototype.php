@@ -20,7 +20,7 @@ use Modules\PkgApprentissage\Models\RealisationUa;
  */
 class BaseRealisationUaPrototype extends BaseModel
 {
-    use HasFactory, HasDynamicContext;
+    use HasFactory, HasDynamicContext, OwnedByUser;
 
     /**
      * Eager-load par défaut les relations belongsTo listées dans manyToOne
@@ -35,7 +35,8 @@ class BaseRealisationUaPrototype extends BaseModel
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
-        $this->isOwnedByUser =  false;
+        $this->isOwnedByUser =  true;
+        $this->ownerRelationPath = "realisationtache.realisationprojet.affectationprojet.projet.formateur.user";
         // Colonne dynamique : criteres_evaluation
         $sql = "SELECT rup.id 
         FROM realisation_ua_prototypes rup 

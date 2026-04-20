@@ -24,7 +24,7 @@
         @endcan
 
 
-          @can('index-realisationProjet')
+        @can('index-realisationProjet')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
           <a href="{{ route(name: 'realisationProjets.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.plural')) }}" class="nav-link">
             <i class="fas fa-laptop"></i>
@@ -43,10 +43,24 @@
   
       
 
+       
+       
 
 
+        @if(Auth::user()->hasRole('formateur'))
 
-        @if(!Auth::user()->hasRole('admin'))
+
+        @can('index-realisationUaPrototype')
+         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
+          <a href="{{ route('realisationUaPrototypes.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgApprentissage::realisationUaPrototype.plural')) }}" class="nav-link">
+           <i class="fas fa-cog"></i>
+          </a>
+        </li>
+        @endcan
+       
+      
+
+
         @endif
 
 

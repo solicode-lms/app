@@ -30,3 +30,14 @@
     {{-- Fallback: Aucune mobilisation trouvée ou champ vide --}}
     <em>Aucun critère défini pour ce projet.</em>
 @endif
+
+{{-- Affichage de la liste des livrables de l'apprenant pour cette réalisation de tâche --}}
+@php
+    $rt = $entity->realisationTache ?? null;
+@endphp
+@if($rt)
+    <div class="mt-4">
+        <h6 class="text-muted mb-2"><i class="fas fa-file-alt"></i> Livrables soumis :</h6>
+        @include('PkgRealisationTache::realisationTache.custom.fields.nombre_livrables', ['entity' => $rt])
+    </div>
+@endif

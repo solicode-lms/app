@@ -114,6 +114,20 @@ class BaseRealisationUaPrototypeService extends BaseService
         $this->fieldsFilterable = [];
         
             
+                $affectationProjetService = new \Modules\PkgRealisationProjets\Services\AffectationProjetService();
+                $affectationProjetIds = $this->getAvailableFilterValues('RealisationTache.RealisationProjet.Affectation_projet_id');
+                $affectationProjets = $affectationProjetService->getByIds($affectationProjetIds);
+
+                $this->fieldsFilterable[] = $this->generateRelationFilter(
+                    __("PkgRealisationProjets::affectationProjet.plural"),
+                    'RealisationTache.RealisationProjet.Affectation_projet_id', 
+                    \Modules\PkgRealisationProjets\Models\AffectationProjet::class,
+                    "id", 
+                    "id",
+                    $affectationProjets
+                );
+            
+            
                 if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
 
 
@@ -174,11 +188,25 @@ class BaseRealisationUaPrototypeService extends BaseService
 
         $stats = $this->initStats();
 
+        // Ajouter les statistiques du propriétaire
+        //$contexteState = $this->getContextState();
+        // if ($contexteState !== null) {
+        //     $stats[] = $contexteState;
+        // }
         
 
         return $stats;
     }
 
+    public function getContextState()
+    {
+        $value = $this->viewState->generateTitleFromVariables();
+        return [
+                "icon" => "fas fa-filter",
+                "label" => "Filtre",
+                "value" =>  $value
+        ];
+    }
 
 
 
