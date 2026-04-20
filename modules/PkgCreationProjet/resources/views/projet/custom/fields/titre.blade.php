@@ -70,7 +70,12 @@
                     @endphp
                     <li class="mb-1 text-truncate">
                         <i class="fas fa-check text-success mr-1" style="font-size: 0.7rem;"></i>
-                        <span class="font-weight-600 text-dark">{{ $ua ? $ua->nom : 'N/A' }}</span>
+                        @if($ua)
+                            <span class="font-weight-bold text-dark mr-1" style="font-size: 0.75rem;">{{ $ua->code }}</span>
+                            <span class="font-weight-600 text-dark">{{ $ua->nom }}</span>
+                        @else
+                            <span class="font-weight-600 text-dark">N/A</span>
+                        @endif
                         @if($comp)
                             <span class="text-muted mx-1">&middot;</span>
                             <span class="text-muted align-middle" style="font-size: 0.75rem;" data-toggle="tooltip" title="{{ $comp->nom }}">{{ $comp->code }}</span>

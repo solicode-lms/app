@@ -24,6 +24,9 @@ use Modules\PkgCreationProjet\Services\Traits\Projet\ProjetCrudTrait;
  */
 class ProjetService extends BaseProjetService
 {
+
+    protected $paginationLimit = 40;
+
     use ProjetCrudTrait,
         ProjetActionsTrait,
         ProjetCalculTrait,
