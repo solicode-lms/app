@@ -317,7 +317,7 @@
                 class="form-control d-block"
                 
                 
-                
+                 data-store-key="Projet_is_auto_calcule_note_realisation" 
                 id="is_auto_calcule_note_realisation"
                 value="1"
                 {{ old('is_auto_calcule_note_realisation', $itemProjet ? $itemProjet->is_auto_calcule_note_realisation : 0) ? 'checked' : '' }}>

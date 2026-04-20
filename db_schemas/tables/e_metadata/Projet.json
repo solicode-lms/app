@@ -928,5 +928,12 @@
         "value_boolean": 1,
         "e_data_field_reference": "Projet_is_auto_calcule_note_realisation",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Projet_is_auto_calcule_note_realisation_persistInLocalStorageOnCreate",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "Projet_is_auto_calcule_note_realisation",
+        "e_metadata_definition_reference": "persistInLocalStorageOnCreate"
     }
 ]
