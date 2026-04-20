@@ -133,18 +133,15 @@ class ProjetService extends BaseProjetService
     /**
      * Définit l'ordre de tri par défaut pour les requêtes de projets.
      *
-     * Trie les projets par la date de fin la plus récente de leurs affectations,
-     * mettant en avant les projets actifs ou récemment terminés.
+     * Trie les projets par date de création (les plus récents en premier).
      *
      * @param \Illuminate\Database\Eloquent\Builder $query La requête Eloquent.
      * @return \Illuminate\Database\Eloquent\Builder La requête triée.
      */
-    // public function defaultSort($query)
-    // {
-    //     return $query
-    //         ->withMax('affectationProjets', 'date_fin') // 🔥 Important
-    //         ->orderBy('affectation_projets_max_date_fin', 'asc');
-    // }
+    public function defaultSort($query)
+    {
+        return $query->orderBy('created_at', 'desc');
+    }
 
     /**
      * Corrige et assigne les phases de projet aux tâches existantes qui n'en ont pas.
