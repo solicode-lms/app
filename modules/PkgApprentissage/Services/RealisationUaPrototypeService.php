@@ -191,48 +191,51 @@ class RealisationUaPrototypeService extends BaseRealisationUaPrototypeService
             $realisationProjetId = $realisationTache ? $realisationTache->realisation_projet_id : null;
 
             if ($realisationUa && $realisationProjetId) {
-                // Chercher le RealisationUaProjet qui correspond au même apprenant (via realisation_projet_id) et à la même UA
+                // Chercher le RealisationUaProjet qui correspond au même apprenant et à la même UA
                 $realisationUaProjet = \Modules\PkgApprentissage\Models\RealisationUaProjet::where('realisation_ua_id', $realisationUa->id)
                     ->whereHas('realisationTache', function ($query) use ($realisationProjetId) {
                         $query->where('realisation_projet_id', $realisationProjetId);
                     })->first();
 
-                // Vérifier si la tâche est dans un état final
-                $etatService = new \Modules\PkgRealisationTache\Services\EtatRealisationTacheService();
-                $isFinal = $realisationTache && $realisationTache->etatRealisationTache 
-                    ? $etatService->isEtatFinal($realisationTache->etatRealisationTache) 
-                    : false;
+                if ($realisationUaProjet) {
+                    // Vérifier si la tâche du PROJET FINAL est dans un état final
+                    $etatService = new \Modules\PkgRealisationTache\Services\EtatRealisationTacheService();
+                    $tacheProjet = $realisationUaProjet->realisationTache;
+                    $isFinal = $tacheProjet && $tacheProjet->etatRealisationTache 
+                        ? $etatService->isEtatFinal($tacheProjet->etatRealisationTache) 
+                        : false;
 
-                if ($realisationUaProjet && !$isFinal) {
-                    $realisationProjet = \Modules\PkgRealisationProjets\Models\RealisationProjet::with('affectationProjet.projet')
-                        ->find($realisationProjetId);
-                    
-                    if ($realisationProjet && $realisationProjet->affectationProjet && $realisationProjet->affectationProjet->projet) {
-                        $projet = $realisationProjet->affectationProjet->projet;
+                    if (!$isFinal) {
+                        $realisationProjet = \Modules\PkgRealisationProjets\Models\RealisationProjet::with('affectationProjet.projet')
+                            ->find($realisationProjetId);
+                        
+                        if ($realisationProjet && $realisationProjet->affectationProjet && $realisationProjet->affectationProjet->projet) {
+                            $projet = $realisationProjet->affectationProjet->projet;
 
-                        if ($projet->is_auto_calcule_note_realisation) {
-                            $projetId = $projet->id;
-                            $uniteApprentissageId = $realisationUa->unite_apprentissage_id;
+                            if ($projet->is_auto_calcule_note_realisation) {
+                                $projetId = $projet->id;
+                                $uniteApprentissageId = $realisationUa->unite_apprentissage_id;
 
-                            $mobilisationUa = \Modules\PkgCreationProjet\Models\MobilisationUa::where('projet_id', $projetId)
-                                ->where('unite_apprentissage_id', $uniteApprentissageId)
-                                ->first();
+                                $mobilisationUa = \Modules\PkgCreationProjet\Models\MobilisationUa::where('projet_id', $projetId)
+                                    ->where('unite_apprentissage_id', $uniteApprentissageId)
+                                    ->first();
 
-                            if ($mobilisationUa) {
-                                $baremeProjet = $mobilisationUa->bareme_evaluation_projet ?? 2;
-                                $baremePrototype = $mobilisationUa->bareme_evaluation_prototype ?? 4;
+                                if ($mobilisationUa) {
+                                    $baremeProjet = $mobilisationUa->bareme_evaluation_projet ?? 2;
+                                    $baremePrototype = $mobilisationUa->bareme_evaluation_prototype ?? 4;
 
-                                // Calculer la note RealisationUaProjet à partir de celle du Prototype
-                                if ($baremePrototype > 0 && $realisationUaPrototype->note !== null) {
-                                    $noteProjet = ($realisationUaPrototype->note / $baremePrototype) * $baremeProjet;
-                                    
-                                    // Mise à jour si la note est encore modifiable (null)
-                                   
+                                    // Calculer la note RealisationUaProjet à partir de celle du Prototype
+                                    if ($baremePrototype > 0 && $realisationUaPrototype->note !== null) {
+                                        $noteProjet = ($realisationUaPrototype->note / $baremePrototype) * $baremeProjet;
+                                        
+                                        // Mise à jour de la note du projet car la tâche n'est pas encore finalisée
                                         $realisationUaProjet->update([
                                             'note' => round($noteProjet, 2),
                                             'bareme' => $baremeProjet
                                         ]);
-                                    
+
+                                      
+                                    }
                                 }
                             }
                         }
