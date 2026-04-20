@@ -58,6 +58,13 @@
         </li>
         @endcan
        
+           @can('index-realisationUaProjet')
+         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
+          <a href="{{ route('realisationUaProjets.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgApprentissage::realisationUaProjet.plural')) }}" class="nav-link">
+           <i class="fas fa-cogs"></i>
+          </a>
+        </li>
+        @endcan
       
 
 

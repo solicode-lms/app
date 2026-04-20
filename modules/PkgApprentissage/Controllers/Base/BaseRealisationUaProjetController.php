@@ -45,6 +45,10 @@ class BaseRealisationUaProjetController extends AdminController
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationUaProjet.realisationtache.realisationprojet.affectationprojet.projet.formateur.user_id') == null){
+           $this->viewState->init('filter.realisationUaProjet.realisationtache.realisationprojet.affectationprojet.projet.formateur.user_id'  , $this->sessionState->get('user_id'));
+        }
 
 
 
@@ -76,6 +80,10 @@ class BaseRealisationUaProjetController extends AdminController
     /**
      */
     public function create() {
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.realisationUaProjet.realisationtache.realisationprojet.affectationprojet.projet.formateur.user_id'  , $this->sessionState->get('user_id'));
+        }
 
 
         $itemRealisationUaProjet = $this->realisationUaProjetService->createInstance();
@@ -104,6 +112,10 @@ class BaseRealisationUaProjetController extends AdminController
 
         // Même traitement de create 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.realisationUaProjet.realisationtache.realisationprojet.affectationprojet.projet.formateur.user_id'  , $this->sessionState->get('user_id'));
+        }
  
          $itemRealisationUaProjet = $this->realisationUaProjetService->find($realisationUaProjet_ids[0]);
          
@@ -158,6 +170,7 @@ class BaseRealisationUaProjetController extends AdminController
         $this->viewState->setContextKey('realisationUaProjet.show_' . $id);
 
         $itemRealisationUaProjet = $this->realisationUaProjetService->edit($id);
+        $this->authorize('view', $itemRealisationUaProjet);
 
 
         if (request()->ajax()) {
@@ -175,6 +188,7 @@ class BaseRealisationUaProjetController extends AdminController
 
 
         $itemRealisationUaProjet = $this->realisationUaProjetService->edit($id);
+        $this->authorize('edit', $itemRealisationUaProjet);
 
 
         $realisationTaches = $this->realisationTacheService->getAllForSelect($itemRealisationUaProjet->realisationTache);
@@ -194,6 +208,9 @@ class BaseRealisationUaProjetController extends AdminController
     /**
      */
     public function update(RealisationUaProjetRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $realisationUaProjet = $this->realisationUaProjetService->find($id);
+        $this->authorize('update', $realisationUaProjet);
 
         $validatedData = $request->validated();
         $realisationUaProjet = $this->realisationUaProjetService->update($id, $validatedData);
@@ -330,6 +347,9 @@ class BaseRealisationUaProjetController extends AdminController
     /**
      */
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $realisationUaProjet = $this->realisationUaProjetService->find($id);
+        $this->authorize('delete', $realisationUaProjet);
 
         $realisationUaProjet = $this->realisationUaProjetService->destroy($id);
 
@@ -366,6 +386,9 @@ class BaseRealisationUaProjetController extends AdminController
         }
         foreach ($realisationUaProjet_ids as $id) {
             $entity = $this->realisationUaProjetService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $realisationUaProjet = $this->realisationUaProjetService->find($id);
+            $this->authorize('delete', $realisationUaProjet);
             $this->realisationUaProjetService->destroy($id);
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [

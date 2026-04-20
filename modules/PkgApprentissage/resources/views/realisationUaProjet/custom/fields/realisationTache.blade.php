@@ -2,8 +2,12 @@
   <header class="projet-titre">
     <h2 class="mb-1" data-toggle="tooltip" title="Projet : {{ $entity->realisationTache?->realisationProjet?->affectationProjet?->projet?->titre ?? 'Non défini' }}">{{ $entity->realisationUa->uniteApprentissage }}</h2>
     <small class="text-muted d-block mb-3">
-      <strong>Projet :</strong> {{ $entity->realisationTache?->realisationProjet?->affectationProjet?->projet?->titre ?? 'Non défini' }} |
-      <strong>Tâche :</strong> {{ $entity->realisationTache?->tache?->titre ?? 'Non défini' }} |
+      <strong>Apprenant :</strong> {{ $entity->realisationTache?->realisationProjet?->apprenant ?? ($entity->realisationUa?->realisationMicroCompetence?->apprenant ?? 'Non défini') }}
+      <br>
+      <strong>Projet :</strong> {{ $entity->realisationTache?->realisationProjet?->affectationProjet?->projet?->titre ?? 'Non défini' }} 
+      <br>
+      <strong>Tâche :</strong> {{ $entity->realisationTache?->tache?->titre ?? 'Non défini' }} 
+      <br>
       <strong>État :</strong> {{ $entity->realisationTache?->etatRealisationTache?->nom ?? 'Non défini' }}
     </small>
   </header>

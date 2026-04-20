@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-etatRealisationChapitre', 'index-etatRealisationCompetence', 'index-etatRealisationMicroCompetence', 'index-etatRealisationModule', 'index-etatRealisationUa', 'index-realisationCompetence', 'index-realisationMicroCompetence', 'index-realisationModule'])
+@accessiblePermissions(['index-etatRealisationChapitre', 'index-etatRealisationCompetence', 'index-etatRealisationMicroCompetence', 'index-etatRealisationModule', 'index-etatRealisationUa', 'index-realisationCompetence', 'index-realisationMicroCompetence', 'index-realisationModule', 'index-realisationUaProjet', 'index-realisationUaPrototype'])
 @if($accessiblePermissions->isNotEmpty())
     @if($accessiblePermissions->count() === 1)
         {{-- Cas d’un seul élément accessible --}}
@@ -77,6 +77,24 @@
                 </a>
             </li>
             @endcan
+            @can('index-realisationUaProjet')
+            <li class="nav-item" id="menu-realisationUaProjets">
+                <a href="{{ route('realisationUaProjets.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgApprentissage/realisationUaProjets') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-cogs"></i>
+                    <p>{{__('PkgApprentissage::realisationUaProjet.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-realisationUaPrototype')
+            <li class="nav-item" id="menu-realisationUaPrototypes">
+                <a href="{{ route('realisationUaPrototypes.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgApprentissage/realisationUaPrototypes') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-cog"></i>
+                    <p>{{__('PkgApprentissage::realisationUaPrototype.plural')}}</p>
+                </a>
+            </li>
+            @endcan
 
     @else
     <li id="menu-PkgApprentissage" class="nav-item has-treeview  {{ Request::is('admin/PkgApprentissage*') ? 'menu-open' : '' }}">
@@ -149,6 +167,22 @@
                 <a href="{{ route('realisationModules.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/realisationModules') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-medal"></i>
                     <p>{{__('PkgApprentissage::realisationModule.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-realisationUaProjet') 
+            <li class="nav-item" id="menu-realisationUaProjets">
+                <a href="{{ route('realisationUaProjets.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/realisationUaProjets') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-cogs"></i>
+                    <p>{{__('PkgApprentissage::realisationUaProjet.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-realisationUaPrototype') 
+            <li class="nav-item" id="menu-realisationUaPrototypes">
+                <a href="{{ route('realisationUaPrototypes.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/realisationUaPrototypes') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-cog"></i>
+                    <p>{{__('PkgApprentissage::realisationUaPrototype.plural')}}</p>
                 </a>
             </li>
             @endcan
