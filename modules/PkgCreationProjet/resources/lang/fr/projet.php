@@ -14,4 +14,5 @@ return [
     'nombre_jour' => 'Durée en jour',
     'affectationProjets' => 'affectation',
     'is_auto_insert_chapitres' => 'Insertion automatique des chapitres',
+    'is_auto_calcule_note_realisation' => 'Calcul automatique de la note de réalisation',
 ];

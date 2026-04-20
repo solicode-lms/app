@@ -292,6 +292,42 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemProjet" field="is_auto_calcule_note_realisation" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="is_auto_calcule_note_realisation" 
+              id="bulk_field_is_auto_calcule_note_realisation" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="is_auto_calcule_note_realisation">
+            {{ ucfirst(__('PkgCreationProjet::projet.is_auto_calcule_note_realisation')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input type="hidden" name="is_auto_calcule_note_realisation" value="0">
+            <input
+                name="is_auto_calcule_note_realisation"
+                type="checkbox"
+                class="form-control d-block"
+                required
+                
+                
+                id="is_auto_calcule_note_realisation"
+                value="1"
+                {{ old('is_auto_calcule_note_realisation', $itemProjet ? $itemProjet->is_auto_calcule_note_realisation : 0) ? 'checked' : '' }}>
+          @error('is_auto_calcule_note_realisation')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 
     </div>
   

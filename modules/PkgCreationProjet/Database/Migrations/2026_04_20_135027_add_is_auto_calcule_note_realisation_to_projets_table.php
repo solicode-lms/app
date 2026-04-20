@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('projets', function (Blueprint $table) {
-            $table->boolean('is_auto_calcule_note_realisation')->default(true);
+            $table->boolean('is_auto_calcule_note_realisation')->default(false);
         });
     }
 

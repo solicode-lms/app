@@ -66,6 +66,7 @@ class BaseProjetImport implements ToModel, WithHeadingRow
              'description' => $values[6] ?? null,
              'reference' => $reference,
              'is_auto_insert_chapitres' => $values[8] ?? null,
+             'is_auto_calcule_note_realisation' => $values[9] ?? null,
         ]);
 
 
