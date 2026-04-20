@@ -197,7 +197,13 @@ class RealisationUaPrototypeService extends BaseRealisationUaPrototypeService
                         $query->where('realisation_projet_id', $realisationProjetId);
                     })->first();
 
-                if ($realisationUaProjet && $realisationUaProjet->note === null) {
+                // Vérifier si la tâche est dans un état final
+                $etatService = new \Modules\PkgRealisationTache\Services\EtatRealisationTacheService();
+                $isFinal = $realisationTache && $realisationTache->etatRealisationTache 
+                    ? $etatService->isEtatFinal($realisationTache->etatRealisationTache) 
+                    : false;
+
+                if ($realisationUaProjet && !$isFinal) {
                     $realisationProjet = \Modules\PkgRealisationProjets\Models\RealisationProjet::with('affectationProjet.projet')
                         ->find($realisationProjetId);
                     
@@ -220,19 +226,13 @@ class RealisationUaPrototypeService extends BaseRealisationUaPrototypeService
                                 if ($baremePrototype > 0 && $realisationUaPrototype->note !== null) {
                                     $noteProjet = ($realisationUaPrototype->note / $baremePrototype) * $baremeProjet;
                                     
-                                    // Vérification supplémentaire avant l'update
-                                    if ($realisationUaProjet->note === null) {
+                                    // Mise à jour si la note est encore modifiable (null)
+                                   
                                         $realisationUaProjet->update([
                                             'note' => round($noteProjet, 2),
                                             'bareme' => $baremeProjet
                                         ]);
-
-                                        $this->pushServiceMessage(
-                                            'info',
-                                            'Calcul Automatique',
-                                            "La note de réalisation du projet a été calculée et mise à jour selon la note du prototype."
-                                        );
-                                    }
+                                    
                                 }
                             }
                         }

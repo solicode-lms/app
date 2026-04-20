@@ -209,6 +209,21 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
             ->first();
     }
 
+    /**
+     * Vérifie si l'état correspond à une phase finale (validée ou non validée).
+     * 
+     * @param \Modules\PkgRealisationTache\Models\EtatRealisationTache|null $etat
+     * @return bool
+     */
+    public function isEtatFinal($etat): bool
+    {
+        if (!$etat || !$etat->workflowTache) {
+            return false;
+        }
+
+        return in_array($etat->workflowTache->code, ['APPROVED', 'NOT_VALIDATED']);
+    }
+
 
 
 }
