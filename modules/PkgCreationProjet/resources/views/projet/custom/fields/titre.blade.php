@@ -13,12 +13,27 @@
             
             @if($entity->affectationProjets->isNotEmpty())
                 <span class="text-light">|</span>
-                <span title="Réalisation des groupes affectés" data-toggle="tooltip">
-                    <i class="fas fa-users text-info"></i> 
-                    @foreach ($entity->affectationProjets as $affectationProjet)
-                        <a href="/admin/PkgRealisationProjets/realisationProjets?filter.realisationProjet.affectation_projet_id={{ $affectationProjet->id }}" class="font-weight-600 font-italic">{{ $affectationProjet->groupe->code }}</a>{{ !$loop->last ? ',' : '' }}
-                    @endforeach
-                </span>
+                @if($entity->affectationProjets->count() == 1)
+                    @php $affectationProjet = $entity->affectationProjets->first(); @endphp
+                    <span title="Réalisation du groupe affecté" data-toggle="tooltip">
+                        <i class="fas fa-users text-info"></i> 
+                        <a href="/admin/PkgRealisationProjets/realisationProjets?filter.realisationProjet.affectation_projet_id={{ $affectationProjet->id }}" class="font-weight-600 font-italic">{{ $affectationProjet->groupe->code }}</a>
+                        @if($affectationProjet->date_debut && $affectationProjet->date_fin)
+                            <span class="badge badge-light border text-muted ml-1" style="font-size: 0.65rem;">
+                                <i class="far fa-calendar-alt"></i> {{ \Carbon\Carbon::parse($affectationProjet->date_debut)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($affectationProjet->date_fin)->format('d/m/Y') }}
+                            </span>
+                        @endif
+                    </span>
+                @else
+                    <span title="Réalisation des groupes affectés" data-toggle="tooltip">
+                        <i class="fas fa-users text-info"></i> 
+                        @foreach ($entity->affectationProjets as $affectationProjet)
+                            <span title="Du {{ $affectationProjet->date_debut ? \Carbon\Carbon::parse($affectationProjet->date_debut)->format('d/m/Y') : '--' }} au {{ $affectationProjet->date_fin ? \Carbon\Carbon::parse($affectationProjet->date_fin)->format('d/m/Y') : '--' }}">
+                                <a href="/admin/PkgRealisationProjets/realisationProjets?filter.realisationProjet.affectation_projet_id={{ $affectationProjet->id }}" class="font-weight-600 font-italic">{{ $affectationProjet->groupe->code }}</a>@if($affectationProjet->date_debut && $affectationProjet->date_fin)<span class="text-muted mx-1" style="font-size: 0.65rem;">({{ \Carbon\Carbon::parse($affectationProjet->date_debut)->format('d/m') }}-{{ \Carbon\Carbon::parse($affectationProjet->date_fin)->format('d/m') }})</span>@endif{{ !$loop->last ? ',' : '' }}
+                            </span>
+                        @endforeach
+                    </span>
+                @endif
             @endif
 
             @if($entity->formateur)
@@ -66,6 +81,8 @@
         </div>
     @endif
 
+
+
     {{-- Ressources --}}
     @if($entity->resources->isNotEmpty())
         <div class="d-flex flex-wrap align-items-center" style="gap: 4px;">
@@ -77,6 +94,9 @@
             @endforeach
         </div>
     @endif
+
+
+    
 </div>
 
 <style>
