@@ -135,7 +135,7 @@
                          @if($itemSysColor->labelProjets?->count() > 0 || auth()->user()?->can('create-labelProjet'))
                         <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-labelProjet-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-labelProjet" role="tab" aria-controls="sysColor-hasmany-tabs-labelProjet" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-tag"></i>
                                 {{ucfirst(__('PkgCreationProjet::labelProjet.plural'))}}
                             </a>
                         </li>

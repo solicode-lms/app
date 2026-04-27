@@ -31,14 +31,14 @@ return new class extends Migration
         // Table pivot pour la relation Many-to-Many entre Taches et Labels
         Schema::create('label_tache', function (Blueprint $table) {
             $table->foreignId('tache_id')->constrained('taches')->onDelete('cascade');
-            $table->foreignId('label_id')->constrained('label_projets')->onDelete('cascade');
+            $table->foreignId('label_projet_id')->constrained('label_projets')->onDelete('cascade');
             $table->timestamps();
         });
 
         // Table pivot pour la relation Many-to-Many entre RealisationTaches et Labels
         Schema::create('label_realisation_tache', function (Blueprint $table) {
             $table->foreignId('realisation_tache_id')->constrained('realisation_taches')->onDelete('cascade');
-            $table->foreignId('label_id')->constrained('label_projets')->onDelete('cascade');
+            $table->foreignId('label_projet_id')->constrained('label_projets')->onDelete('cascade');
             $table->timestamps();
         });
     }
