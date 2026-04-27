@@ -118,6 +118,15 @@ class BaseRealisationTacheSeeder extends Seeder
                 } else {
                     $realisationTache = $realisationTacheService->create($realisationTacheData);
                 }
+                if (!empty($row["labelProjets"])) {
+                    $labelProjetReferences = array_map('trim', explode('|', $row["labelProjets"]));
+                    $labelProjetIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $labelProjetReferences)->pluck('id')->toArray();
+
+                    if (!empty($labelProjetIds)) {
+                        $realisationTache->labelProjets()->sync($labelProjetIds);
+                          $realisationTache->touch(); // pour lancer Observer
+                    }
+                }
             }
         }
 

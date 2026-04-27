@@ -68,6 +68,7 @@ class BaseRealisationTacheImport implements ToModel, WithHeadingRow
              'remarques_formateur' => $values[8] ?? null,
              'remarques_apprenant' => $values[9] ?? null,
              'tache_affectation_id' => $values[10] ?? null,
+             'labelProjets' => $values[11] ?? null,
              'reference' => $reference,
         ]);
 

@@ -69,6 +69,22 @@
                 @endif
                 </div>
             </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::labelProjet.plural')) }}</small>
+                  <!-- Valeurs many-to-many -->
+                  @if($itemTache->labelProjets->isNotEmpty())
+                  <div>
+                    @foreach($itemTache->labelProjets as $labelProjet)
+                      <span class="badge badge-info mr-1">
+                        {{ $labelProjet }}
+                      </span>
+                    @endforeach
+                  </div>
+                  @else
+                  <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
             @if(
                   (auth()->user()?->can('show-tacheAffectation') && $itemTache->tacheAffectations->isNotEmpty())  
                   || auth()->user()?->can('create-tacheAffectation')

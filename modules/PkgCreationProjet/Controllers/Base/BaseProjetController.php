@@ -10,6 +10,7 @@ use Modules\PkgSessions\Services\SessionFormationService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgCreationProjet\Services\MobilisationUaService;
 use Modules\PkgCreationTache\Services\TacheService;
+use Modules\PkgCreationProjet\Services\LabelProjetService;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Modules\PkgCreationProjet\Services\ResourceService;
 use Illuminate\Http\Request;
@@ -216,6 +217,13 @@ class BaseProjetController extends AdminController
         $taches_view_data = $tacheService->prepareDataForIndexView();
         extract($taches_view_data);
 
+        $this->viewState->set('scope.labelProjet.projet_id', $id);
+        
+
+        $labelProjetService =  new LabelProjetService();
+        $labelProjets_view_data = $labelProjetService->prepareDataForIndexView();
+        extract($labelProjets_view_data);
+
         $this->viewState->set('scope.livrable.projet_id', $id);
         
 
@@ -231,10 +239,10 @@ class BaseProjetController extends AdminController
         extract($resources_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._show', array_merge(compact('itemProjet'),$mobilisationUa_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
+            return view('PkgCreationProjet::projet._show', array_merge(compact('itemProjet'),$mobilisationUa_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value));
         }
 
-        return view('PkgCreationProjet::projet.show', array_merge(compact('itemProjet'),$mobilisationUa_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
+        return view('PkgCreationProjet::projet.show', array_merge(compact('itemProjet'),$mobilisationUa_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value));
 
     }
     /**
@@ -284,6 +292,13 @@ class BaseProjetController extends AdminController
         $taches_view_data = $tacheService->prepareDataForIndexView();
         extract($taches_view_data);
 
+        $this->viewState->set('scope.labelProjet.projet_id', $id);
+        
+
+        $labelProjetService =  new LabelProjetService();
+        $labelProjets_view_data = $labelProjetService->prepareDataForIndexView();
+        extract($labelProjets_view_data);
+
         $this->viewState->set('scope.livrable.projet_id', $id);
         
 
@@ -301,10 +316,10 @@ class BaseProjetController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._edit', array_merge(compact('bulkEdit' , 'itemProjet','filieres', 'formateurs', 'sessionFormations'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
+            return view('PkgCreationProjet::projet._edit', array_merge(compact('bulkEdit' , 'itemProjet','filieres', 'formateurs', 'sessionFormations'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value));
         }
 
-        return view('PkgCreationProjet::projet.edit', array_merge(compact('bulkEdit' ,'itemProjet','filieres', 'formateurs', 'sessionFormations'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
+        return view('PkgCreationProjet::projet.edit', array_merge(compact('bulkEdit' ,'itemProjet','filieres', 'formateurs', 'sessionFormations'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value));
 
 
     }

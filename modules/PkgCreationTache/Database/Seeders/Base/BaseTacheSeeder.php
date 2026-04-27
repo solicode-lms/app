@@ -134,6 +134,15 @@ class BaseTacheSeeder extends Seeder
                           $tache->touch(); // pour lancer Observer
                     }
                 }
+                if (!empty($row["labelProjets"])) {
+                    $labelProjetReferences = array_map('trim', explode('|', $row["labelProjets"]));
+                    $labelProjetIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $labelProjetReferences)->pluck('id')->toArray();
+
+                    if (!empty($labelProjetIds)) {
+                        $tache->labelProjets()->sync($labelProjetIds);
+                          $tache->touch(); // pour lancer Observer
+                    }
+                }
             }
         }
 

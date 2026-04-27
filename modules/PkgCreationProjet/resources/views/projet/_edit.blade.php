@@ -60,6 +60,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemProjet->labelProjets?->count() > 0 || auth()->user()?->can('create-labelProjet'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="projet-hasmany-tabs-labelProjet-tab" data-toggle="pill" href="#projet-hasmany-tabs-labelProjet" role="tab" aria-controls="projet-hasmany-tabs-labelProjet" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgCreationProjet::labelProjet.plural'))}}
+                            </a>
+                        </li>
+                        @endif
                          @if($itemProjet->livrables?->count() > 0 || auth()->user()?->can('create-livrable'))
                         <li class="nav-item">
                             <a class="nav-link" id="projet-hasmany-tabs-livrable-tab" data-toggle="pill" href="#projet-hasmany-tabs-livrable" role="tab" aria-controls="projet-hasmany-tabs-livrable" aria-selected="false">
@@ -99,6 +107,11 @@
                             @if($itemProjet->taches?->count() > 0 || auth()->user()?->can('create-tache'))
                             <div class="tab-pane fade" id="projet-hasmany-tabs-tache" role="tabpanel" aria-labelledby="projet-hasmany-tabs-tache-tab">
                                 @include('PkgCreationTache::tache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])
+                            </div>
+                            @endif
+                            @if($itemProjet->labelProjets?->count() > 0 || auth()->user()?->can('create-labelProjet'))
+                            <div class="tab-pane fade" id="projet-hasmany-tabs-labelProjet" role="tabpanel" aria-labelledby="projet-hasmany-tabs-labelProjet-tab">
+                                @include('PkgCreationProjet::labelProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])
                             </div>
                             @endif
                             @if($itemProjet->livrables?->count() > 0 || auth()->user()?->can('create-livrable'))

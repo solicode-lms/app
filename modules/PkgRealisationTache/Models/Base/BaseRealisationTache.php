@@ -15,6 +15,7 @@ use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgRealisationTache\Models\TacheAffectation;
+use Modules\PkgCreationProjet\Models\LabelProjet;
 use Modules\PkgEvaluateurs\Models\EvaluationRealisationTache;
 use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
 use Modules\PkgApprentissage\Models\RealisationChapitre;
@@ -89,6 +90,9 @@ class BaseRealisationTache extends BaseModel
     protected $fillable = [
         'tache_id', 'etat_realisation_tache_id', 'realisation_projet_id', 'dateDebut', 'dateFin', 'remarque_evaluateur', 'note', 'is_live_coding', 'remarques_formateur', 'remarques_apprenant', 'tache_affectation_id'
     ];
+    public $manyToMany = [
+        'LabelProjet' => ['relation' => 'labelProjets' , "foreign_key" => "label_projet_id" ]
+    ];
     public $manyToOne = [
         'Tache' => [
             'model' => "Modules\\PkgCreationTache\\Models\\Tache",
@@ -152,6 +156,15 @@ class BaseRealisationTache extends BaseModel
         return $this->belongsTo(TacheAffectation::class, 'tache_affectation_id', 'id');
     }
 
+    /**
+     * Relation ManyToMany pour LabelProjets.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function labelProjets()
+    {
+        return $this->belongsToMany(LabelProjet::class, 'label_realisation_tache');
+    }
 
     /**
      * Relation HasMany pour RealisationTaches.

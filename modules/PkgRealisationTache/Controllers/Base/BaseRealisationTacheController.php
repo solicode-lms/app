@@ -4,6 +4,7 @@
 
 namespace Modules\PkgRealisationTache\Controllers\Base;
 use Modules\PkgRealisationTache\Services\RealisationTacheService;
+use Modules\PkgCreationProjet\Services\LabelProjetService;
 use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Modules\PkgRealisationTache\Services\TacheAffectationService;
@@ -29,15 +30,17 @@ use Modules\Core\Services\ContextState;
 class BaseRealisationTacheController extends AdminController
 {
     protected $realisationTacheService;
+    protected $labelProjetService;
     protected $etatRealisationTacheService;
     protected $realisationProjetService;
     protected $tacheAffectationService;
     protected $tacheService;
 
-    public function __construct(RealisationTacheService $realisationTacheService, EtatRealisationTacheService $etatRealisationTacheService, RealisationProjetService $realisationProjetService, TacheAffectationService $tacheAffectationService, TacheService $tacheService) {
+    public function __construct(RealisationTacheService $realisationTacheService, LabelProjetService $labelProjetService, EtatRealisationTacheService $etatRealisationTacheService, RealisationProjetService $realisationProjetService, TacheAffectationService $tacheAffectationService, TacheService $tacheService) {
         parent::__construct();
         $this->service  =  $realisationTacheService;
         $this->realisationTacheService = $realisationTacheService;
+        $this->labelProjetService = $labelProjetService;
         $this->etatRealisationTacheService = $etatRealisationTacheService;
         $this->realisationProjetService = $realisationProjetService;
         $this->tacheAffectationService = $tacheAffectationService;
@@ -114,12 +117,13 @@ class BaseRealisationTacheController extends AdminController
         $etatRealisationTaches = $this->etatRealisationTacheService->all();
         $realisationProjets = $this->realisationProjetService->all();
         $tacheAffectations = $this->tacheAffectationService->all();
+        $labelProjets = $this->labelProjetService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgRealisationTache::realisationTache._fields', compact('bulkEdit' ,'itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'));
+            return view('PkgRealisationTache::realisationTache._fields', compact('bulkEdit' ,'itemRealisationTache', 'labelProjets', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'));
         }
-        return view('PkgRealisationTache::realisationTache.create', compact('bulkEdit' ,'itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'));
+        return view('PkgRealisationTache::realisationTache.create', compact('bulkEdit' ,'itemRealisationTache', 'labelProjets', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -154,6 +158,7 @@ class BaseRealisationTacheController extends AdminController
         $etatRealisationTaches = $this->etatRealisationTacheService->getAllForSelect($itemRealisationTache->etatRealisationTache);
         $realisationProjets = $this->realisationProjetService->getAllForSelect($itemRealisationTache->realisationProjet);
         $tacheAffectations = $this->tacheAffectationService->getAllForSelect($itemRealisationTache->tacheAffectation);
+        $labelProjets = $this->labelProjetService->getAllForSelect($itemRealisationTache->labelProjets);
 
         $bulkEdit = true;
 
@@ -161,9 +166,9 @@ class BaseRealisationTacheController extends AdminController
         $itemRealisationTache = $this->realisationTacheService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgRealisationTache::realisationTache._fields', compact('bulkEdit', 'realisationTache_ids', 'itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'));
+            return view('PkgRealisationTache::realisationTache._fields', compact('bulkEdit', 'realisationTache_ids', 'itemRealisationTache', 'labelProjets', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'));
         }
-        return view('PkgRealisationTache::realisationTache.bulk-edit', compact('bulkEdit', 'realisationTache_ids', 'itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'));
+        return view('PkgRealisationTache::realisationTache.bulk-edit', compact('bulkEdit', 'realisationTache_ids', 'itemRealisationTache', 'labelProjets', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'));
     }
     /**
      */
@@ -266,6 +271,7 @@ class BaseRealisationTacheController extends AdminController
         $etatRealisationTaches = $this->etatRealisationTacheService->getAllForSelect($itemRealisationTache->etatRealisationTache);
         $realisationProjets = $this->realisationProjetService->getAllForSelect($itemRealisationTache->realisationProjet);
         $tacheAffectations = $this->tacheAffectationService->getAllForSelect($itemRealisationTache->tacheAffectation);
+        $labelProjets = $this->labelProjetService->getAllForSelect($itemRealisationTache->labelProjets);
 
 
         $this->viewState->set('scope.evaluationRealisationTache.realisation_tache_id', $id);
@@ -306,10 +312,10 @@ class BaseRealisationTacheController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgRealisationTache::realisationTache._edit', array_merge(compact('bulkEdit' , 'itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
+            return view('PkgRealisationTache::realisationTache._edit', array_merge(compact('bulkEdit' , 'itemRealisationTache','labelProjets', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
         }
 
-        return view('PkgRealisationTache::realisationTache.edit', array_merge(compact('bulkEdit' ,'itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
+        return view('PkgRealisationTache::realisationTache.edit', array_merge(compact('bulkEdit' ,'itemRealisationTache','labelProjets', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
 
 
     }

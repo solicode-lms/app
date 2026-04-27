@@ -17,6 +17,7 @@ use Modules\PkgCompetences\Models\PhaseEvaluation;
 use Modules\PkgCompetences\Models\Chapitre;
 use Modules\PkgCreationProjet\Models\MobilisationUa;
 use Modules\PkgCreationProjet\Models\Livrable;
+use Modules\PkgCreationProjet\Models\LabelProjet;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\PkgRealisationTache\Models\TacheAffectation;
 
@@ -57,7 +58,8 @@ class BaseTache extends BaseModel
         'ordre', 'priorite', 'titre', 'projet_id', 'description', 'dateDebut', 'dateFin', 'note', 'phase_projet_id', 'is_live_coding_task', 'phase_evaluation_id', 'chapitre_id', 'mobilisation_ua_id'
     ];
     public $manyToMany = [
-        'Livrable' => ['relation' => 'livrables' , "foreign_key" => "livrable_id" ]
+        'Livrable' => ['relation' => 'livrables' , "foreign_key" => "livrable_id" ],
+        'LabelProjet' => ['relation' => 'labelProjets' , "foreign_key" => "label_projet_id" ]
     ];
     public $manyToOne = [
         'Projet' => [
@@ -142,6 +144,15 @@ class BaseTache extends BaseModel
     public function livrables()
     {
         return $this->belongsToMany(Livrable::class, 'livrable_tache');
+    }
+    /**
+     * Relation ManyToMany pour LabelProjets.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function labelProjets()
+    {
+        return $this->belongsToMany(LabelProjet::class, 'label_tache');
     }
 
     /**

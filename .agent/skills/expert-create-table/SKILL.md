@@ -32,7 +32,7 @@ description: Expert en création de tables de base de données via migrations
   2. **Commande de création** : Indiquer au développeur la commande à exécuter : `php artisan make:module-migration create_[nom_table]_table [NomPackage]`.
   3. **Générer le Code** : Utiliser la `capacité-generation-migration` pour fournir le code complet de la migration (avec la gestion de `up()` et `down()`).
   4. **Mise à jour Gapp** : Insérer les noms des tables créées dans le fichier `db_schemas/modules.json` pour inscrire la table au générateur Gapp.
-  5. **Instructions de Suite** : Expliquer au développeur d'exécuter la migration (`php artisan migrate`) puis l'inviter à exécuter les commandes de création des interfaces CRUD par Gapp (`php artisan gapp meta:sync` puis `php artisan gapp make:crud [NomModel]` pour la nouvelle table **AINSI QUE pour tous les modèles en relation**, car ils sont impactés par les changements).
+  5. **Instructions de Suite** : Expliquer au développeur d'exécuter la migration (`php artisan migrate`), puis l'inviter à exécuter les commandes de création des interfaces CRUD par Gapp (`gapp meta:sync` puis `gapp make:crud [NomModel]` pour la nouvelle table **AINSI QUE pour tous les modèles en relation**, car ils sont impactés par les changements). Ensuite, lui demander d'exécuter le seeder généré pour ajouter les droits d'accès (`php artisan db:seed --class=Modules\[NomPackage]\Database\Seeders\[NomModel]Seeder`). Enfin, indiquer au développeur qu'il doit modifier le fichier de traduction (`modules\[NomPackage]\resources\lang\fr\[nomModel].php`), et rappeler que l'administrateur doit ensuite configurer les droits d'accès depuis l'interface d'administration pour pouvoir tester la nouvelle table avec les utilisateurs cibles (Apprenant, Formateur, etc.).
 
 ---
 
@@ -53,4 +53,4 @@ description: Expert en création de tables de base de données via migrations
 3. Fournir la commande : `php artisan make:module-migration create_x_table PkgY`.
 4. Fournir le code de la migration.
 5. Modifier `db_schemas/modules.json` pour y inclure la table.
-6. Dire au développeur de lancer la migration, puis `gapp make:crud` pour la nouvelle table et toutes les tables en relation.
+6. Dire au développeur de lancer la migration, puis `gapp make:crud` pour la nouvelle table et toutes les tables en relation, d'exécuter le seeder des permissions (`php artisan db:seed --class=...`), de modifier le fichier de traduction, et de configurer les droits via l'interface d'administration pour tester.

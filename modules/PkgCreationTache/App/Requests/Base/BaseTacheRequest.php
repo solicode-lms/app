@@ -42,7 +42,8 @@ class BaseTacheRequest extends FormRequest
             'phase_evaluation_id' => 'nullable',
             'chapitre_id' => 'nullable',
             'livrables' => 'nullable|array',
-            'mobilisation_ua_id' => 'nullable'
+            'mobilisation_ua_id' => 'nullable',
+            'labelProjets' => 'nullable|array'
         ];
     }
 
@@ -69,7 +70,9 @@ class BaseTacheRequest extends FormRequest
             'chapitre_id.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.chapitre_id')]),
             'livrables.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.livrables')]),
             'livrables.array' => __('validation.array', ['attribute' => __('PkgCreationTache::Tache.livrables')]),
-            'mobilisation_ua_id.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.mobilisation_ua_id')])
+            'mobilisation_ua_id.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.mobilisation_ua_id')]),
+            'labelProjets.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.labelProjets')]),
+            'labelProjets.array' => __('validation.array', ['attribute' => __('PkgCreationTache::Tache.labelProjets')])
         ];
     }
 
@@ -84,7 +87,8 @@ class BaseTacheRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'livrables' => $this->has('livrables') ? $this->livrables : []
+            'livrables' => $this->has('livrables') ? $this->livrables : [],
+            'labelProjets' => $this->has('labelProjets') ? $this->labelProjets : []
         ]);
     }
 }

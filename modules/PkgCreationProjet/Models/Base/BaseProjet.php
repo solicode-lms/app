@@ -17,6 +17,7 @@ use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgCreationProjet\Models\MobilisationUa;
 use Modules\PkgCreationTache\Models\Tache;
+use Modules\PkgCreationProjet\Models\LabelProjet;
 use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgCreationProjet\Models\Resource;
 
@@ -129,6 +130,15 @@ class BaseProjet extends BaseModel
     public function taches(): HasMany
     {
         return $this->hasMany(Tache::class, 'projet_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Projets.
+     *
+     * @return HasMany
+     */
+    public function labelProjets(): HasMany
+    {
+        return $this->hasMany(LabelProjet::class, 'projet_id', 'id');
     }
     /**
      * Relation HasMany pour Projets.

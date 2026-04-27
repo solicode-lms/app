@@ -43,6 +43,7 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
                 'remarques_formateur' => 'remarques_formateur',
                 'remarques_apprenant' => 'remarques_apprenant',
                 'tache_affectation_reference' => 'tache_affectation_reference',
+                'labelProjets' => 'labelProjets',
                 'reference' => 'reference',
             ];
         } else {
@@ -58,6 +59,7 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
                 'remarques_formateur' => __('PkgRealisationTache::realisationTache.remarques_formateur'),
                 'remarques_apprenant' => __('PkgRealisationTache::realisationTache.remarques_apprenant'),
                 'tache_affectation_reference' => __('PkgRealisationTache::tacheAffectation.singular'),
+                    'labelProjets' => __('PkgCreationProjet::labelProjet.plural'),
                 'reference' => __('Core::msg.reference'),
             ];
         }
@@ -81,6 +83,9 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
                 'remarques_formateur' => $realisationTache->remarques_formateur,
                 'remarques_apprenant' => $realisationTache->remarques_apprenant,
                 'tache_affectation_reference' => $realisationTache->tacheAffectation?->reference,
+                'labelProjets' => $realisationTache->labelProjets
+                    ->pluck('reference')
+                    ->implode('|'),
                 'reference' => $realisationTache->reference,
             ];
         });

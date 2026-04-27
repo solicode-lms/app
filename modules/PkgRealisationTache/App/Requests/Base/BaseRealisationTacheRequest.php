@@ -39,7 +39,8 @@ class BaseRealisationTacheRequest extends FormRequest
             'is_live_coding' => 'nullable|boolean',
             'remarques_formateur' => 'nullable|string',
             'remarques_apprenant' => 'nullable|string',
-            'tache_affectation_id' => 'required'
+            'tache_affectation_id' => 'required',
+            'labelProjets' => 'nullable|array'
         ];
     }
 
@@ -61,7 +62,9 @@ class BaseRealisationTacheRequest extends FormRequest
             'is_live_coding.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.is_live_coding')]),
             'remarques_formateur.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.remarques_formateur')]),
             'remarques_apprenant.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.remarques_apprenant')]),
-            'tache_affectation_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.tache_affectation_id')])
+            'tache_affectation_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.tache_affectation_id')]),
+            'labelProjets.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.labelProjets')]),
+            'labelProjets.array' => __('validation.array', ['attribute' => __('PkgRealisationTache::RealisationTache.labelProjets')])
         ];
     }
 
@@ -75,6 +78,9 @@ class BaseRealisationTacheRequest extends FormRequest
      */
     protected function prepareForValidation()
     {
+        $this->merge([
+            'labelProjets' => $this->has('labelProjets') ? $this->labelProjets : []
+        ]);
         // En création, on ne touche pas au payload (même traitement existant)
         $id = $this->route('realisationTache')
         ?? $this->route('realisation_tache')

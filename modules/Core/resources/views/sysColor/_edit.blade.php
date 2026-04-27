@@ -132,6 +132,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemSysColor->labelProjets?->count() > 0 || auth()->user()?->can('create-labelProjet'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="sysColor-hasmany-tabs-labelProjet-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-labelProjet" role="tab" aria-controls="sysColor-hasmany-tabs-labelProjet" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgCreationProjet::labelProjet.plural'))}}
+                            </a>
+                        </li>
+                        @endif
                          @if($itemSysColor->workflowTaches?->count() > 0 || auth()->user()?->can('create-workflowTache'))
                         <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-workflowTache-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowTache" role="tab" aria-controls="sysColor-hasmany-tabs-workflowTache" aria-selected="false">
@@ -208,6 +216,11 @@
                             @if($itemSysColor->widgets?->count() > 0 || auth()->user()?->can('create-widget'))
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-widget" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-widget-tab">
                                 @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
+                            </div>
+                            @endif
+                            @if($itemSysColor->labelProjets?->count() > 0 || auth()->user()?->can('create-labelProjet'))
+                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-labelProjet" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-labelProjet-tab">
+                                @include('PkgCreationProjet::labelProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
                             @endif
                             @if($itemSysColor->workflowTaches?->count() > 0 || auth()->user()?->can('create-workflowTache'))
