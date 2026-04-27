@@ -76,6 +76,49 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="labelProjets" :bulkEdit="$bulkEdit">
+      @php $canEditlabelProjets = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'formateur')) : (empty($itemRealisationTache->id) || Auth::user()->hasAnyRole(explode(',', 'formateur')) ); @endphp
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+                {{ $canEditlabelProjets ? '' : 'disabled' }}
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="labelProjets" 
+              id="bulk_field_labelProjets" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="labelProjets">
+            {{ ucfirst(__('PkgCreationProjet::labelProjet.plural')) }}
+            
+          </label>
+                      <select
+                {{ $canEditlabelProjets ? '' : 'disabled' }}
+                id="labelProjets"
+                name="labelProjets[]"
+                class="form-control select2"
+                
+                
+                multiple="multiple">
+               
+                @foreach ($labelProjets as $labelProjet)
+                    <option value="{{ $labelProjet->id }}"
+                        {{ (isset($itemRealisationTache) && $itemRealisationTache->labelProjets && $itemRealisationTache->labelProjets->contains('id', $labelProjet->id)) || (is_array(old('labelProjets')) && in_array($labelProjet->id, old('labelProjets'))) ? 'selected' : '' }}>
+                        {{ $labelProjet }}
+                    </option>
+                @endforeach
+            </select>
+          @error('labelProjets')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 
     </div>
   
@@ -423,46 +466,6 @@
 @endif
 @endif
 @endif
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="labelProjets" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="labelProjets" 
-              id="bulk_field_labelProjets" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="labelProjets">
-            {{ ucfirst(__('PkgCreationProjet::labelProjet.plural')) }}
-            
-          </label>
-                      <select
-                id="labelProjets"
-                name="labelProjets[]"
-                class="form-control select2"
-                
-                
-                multiple="multiple">
-               
-                @foreach ($labelProjets as $labelProjet)
-                    <option value="{{ $labelProjet->id }}"
-                        {{ (isset($itemRealisationTache) && $itemRealisationTache->labelProjets && $itemRealisationTache->labelProjets->contains('id', $labelProjet->id)) || (is_array(old('labelProjets')) && in_array($labelProjet->id, old('labelProjets'))) ? 'selected' : '' }}>
-                        {{ $labelProjet }}
-                    </option>
-                @endforeach
-            </select>
-          @error('labelProjets')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
 
 
     </div>

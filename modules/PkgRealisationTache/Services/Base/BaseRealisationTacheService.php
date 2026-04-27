@@ -52,7 +52,8 @@ class BaseRealisationTacheService extends BaseService
           'is_live_coding' => ['formateur', 'admin'],
           'remarques_formateur' => ['formateur'],
           'remarques_apprenant' => ['apprenant', 'formateur', 'admin'],
-          'tache_affectation_id' => ['root']
+          'tache_affectation_id' => ['root'],
+          'labelProjets' => ['formateur']
         
         ];
     }

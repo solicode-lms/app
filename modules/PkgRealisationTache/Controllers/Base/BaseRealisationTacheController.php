@@ -112,6 +112,10 @@ class BaseRealisationTacheController extends AdminController
         $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
         $key = 'scope.etatRealisationTache.formateur_id';
         $this->viewState->set($key, $value);
+        // scopeDataInEditContext
+        $value = $itemRealisationTache->getNestedValue('tache.projet_id');
+        $key = 'scope.labelProjet.projet_id';
+        $this->viewState->set($key, $value);
 
         $taches = $this->tacheService->all();
         $etatRealisationTaches = $this->etatRealisationTacheService->all();
@@ -152,6 +156,10 @@ class BaseRealisationTacheController extends AdminController
         // scopeDataInEditContext
         $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
         $key = 'scope.etatRealisationTache.formateur_id';
+        $this->viewState->set($key, $value);
+        // scopeDataInEditContext
+        $value = $itemRealisationTache->getNestedValue('tache.projet_id');
+        $key = 'scope.labelProjet.projet_id';
         $this->viewState->set($key, $value);
  
         $taches = $this->tacheService->getAllForSelect($itemRealisationTache->tache);
@@ -265,6 +273,10 @@ class BaseRealisationTacheController extends AdminController
         // scopeDataInEditContext
         $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
         $key = 'scope.etatRealisationTache.formateur_id';
+        $this->viewState->set($key, $value);
+        // scopeDataInEditContext
+        $value = $itemRealisationTache->getNestedValue('tache.projet_id');
+        $key = 'scope.labelProjet.projet_id';
         $this->viewState->set($key, $value);
 
         $taches = $this->tacheService->getAllForSelect($itemRealisationTache->tache);
@@ -637,6 +649,10 @@ class BaseRealisationTacheController extends AdminController
         $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
         $key = 'scope.etatRealisationTache.formateur_id';
         $this->viewState->set($key, $value);
+        // scopeDataInEditContext
+        $value = $itemRealisationTache->getNestedValue('tache.projet_id');
+        $key = 'scope.labelProjet.projet_id';
+        $this->viewState->set($key, $value);
 
         $data = $this->service->buildFieldMeta($itemRealisationTache, $field);
         return response()->json(
@@ -657,6 +673,10 @@ class BaseRealisationTacheController extends AdminController
         // scopeDataInEditContext
         $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
         $key = 'scope.etatRealisationTache.formateur_id';
+        $this->viewState->set($key, $value);
+        // scopeDataInEditContext
+        $value = $itemRealisationTache->getNestedValue('tache.projet_id');
+        $key = 'scope.labelProjet.projet_id';
         $this->viewState->set($key, $value);
 
         // Vérification ETag

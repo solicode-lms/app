@@ -1,1614 +1,1630 @@
 [
     {
-        "reference":  "realisation_taches_creationOrder",
-        "value_integer":  50,
-        "e_model_reference":  "realisation_taches",
-        "e_metadata_definition_reference":  "creationOrder"
+        "reference": "realisation_taches_creationOrder",
+        "value_integer": 50,
+        "e_model_reference": "realisation_taches",
+        "e_metadata_definition_reference": "creationOrder"
     },
     {
-        "reference":  "realisation_taches_displayInSideBar",
-        "value_boolean":  1,
-        "e_model_reference":  "realisation_taches",
-        "e_metadata_definition_reference":  "displayInSideBar"
+        "reference": "realisation_taches_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "realisation_taches",
+        "e_metadata_definition_reference": "displayInSideBar"
     },
     {
-        "reference":  "realisation_taches_iconModel",
-        "value_boolean":  0,
-        "value_string":  "fas fa-laptop-code",
-        "value_float":  0,
-        "e_model_reference":  "realisation_taches",
-        "e_metadata_definition_reference":  "iconModel"
+        "reference": "realisation_taches_iconModel",
+        "value_boolean": 0,
+        "value_string": "fas fa-laptop-code",
+        "value_float": 0,
+        "e_model_reference": "realisation_taches",
+        "e_metadata_definition_reference": "iconModel"
     },
     {
-        "reference":  "RealisationTache_id_required",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_id",
-        "e_metadata_definition_reference":  "required"
+        "reference": "RealisationTache_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_id",
+        "e_metadata_definition_reference": "required"
     },
     {
-        "reference":  "RealisationTache_id_displayOrder",
-        "value_boolean":  0,
-        "value_integer":  22,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_id",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache_id_displayOrder",
+        "value_boolean": 0,
+        "value_integer": 22,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_id",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache_id_displayInForm",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_id",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "RealisationTache_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_id",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "RealisationTache_id_inputMdWidth",
-        "value_integer":  6,
-        "e_data_field_reference":  "RealisationTache_id",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "RealisationTache_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationTache_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "RealisationTache_dateDebut_displayOrder",
-        "value_boolean":  0,
-        "value_integer":  7,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_dateDebut",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache_dateDebut_displayOrder",
+        "value_boolean": 0,
+        "value_integer": 7,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_dateDebut",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache_dateDebut_displayInForm",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_dateDebut",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "RealisationTache_dateDebut_displayInForm",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_dateDebut",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "RealisationTache_dateDebut_inputMdWidth",
-        "value_boolean":  0,
-        "value_integer":  3,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_dateDebut",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "RealisationTache_dateDebut_inputMdWidth",
+        "value_boolean": 0,
+        "value_integer": 3,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_dateDebut",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "RealisationTache_dateFin_displayOrder",
-        "value_boolean":  0,
-        "value_integer":  8,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_dateFin",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache_dateFin_displayOrder",
+        "value_boolean": 0,
+        "value_integer": 8,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_dateFin",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache_dateFin_displayInForm",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_dateFin",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "RealisationTache_dateFin_displayInForm",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_dateFin",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "RealisationTache_dateFin_inputMdWidth",
-        "value_boolean":  0,
-        "value_integer":  3,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_dateFin",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "RealisationTache_dateFin_inputMdWidth",
+        "value_boolean": 0,
+        "value_integer": 3,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_dateFin",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "RealisationTache_reference_required",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_reference",
-        "e_metadata_definition_reference":  "required"
+        "reference": "RealisationTache_reference_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_reference",
+        "e_metadata_definition_reference": "required"
     },
     {
-        "reference":  "RealisationTache_reference_displayOrder",
-        "value_boolean":  0,
-        "value_integer":  23,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_reference",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache_reference_displayOrder",
+        "value_boolean": 0,
+        "value_integer": 23,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_reference",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache_reference_displayInForm",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_reference",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "RealisationTache_reference_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_reference",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "RealisationTache_reference_inputMdWidth",
-        "value_integer":  6,
-        "e_data_field_reference":  "RealisationTache_reference",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "RealisationTache_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationTache_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "RealisationTache_tache_id_displayInTable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_tache_id",
-        "e_metadata_definition_reference":  "displayInTable"
+        "reference": "RealisationTache_tache_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "displayInTable"
     },
     {
-        "reference":  "RealisationTache_tache_id_required",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_tache_id",
-        "e_metadata_definition_reference":  "required"
+        "reference": "RealisationTache_tache_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "required"
     },
     {
-        "reference":  "RealisationTache_tache_id_filterable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_tache_id",
-        "e_metadata_definition_reference":  "filterable"
+        "reference": "RealisationTache_tache_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "filterable"
     },
     {
-        "reference":  "RealisationTache_tache_id_displayOrder",
-        "value_boolean":  0,
-        "value_integer":  2,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_tache_id",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache_tache_id_displayOrder",
+        "value_boolean": 0,
+        "value_integer": 2,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache_tache_id_displayInForm",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_tache_id",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "RealisationTache_tache_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "RealisationTache_tache_id_inputMdWidth",
-        "value_integer":  6,
-        "e_data_field_reference":  "RealisationTache_tache_id",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "RealisationTache_tache_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "RealisationTache_realisation_projet_id_displayInTable",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_realisation_projet_id",
-        "e_metadata_definition_reference":  "displayInTable"
+        "reference": "RealisationTache_realisation_projet_id_displayInTable",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_realisation_projet_id",
+        "e_metadata_definition_reference": "displayInTable"
     },
     {
-        "reference":  "RealisationTache_realisation_projet_id_required",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_realisation_projet_id",
-        "e_metadata_definition_reference":  "required"
+        "reference": "RealisationTache_realisation_projet_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_realisation_projet_id",
+        "e_metadata_definition_reference": "required"
     },
     {
-        "reference":  "RealisationTache_realisation_projet_id_filterable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_realisation_projet_id",
-        "e_metadata_definition_reference":  "filterable"
+        "reference": "RealisationTache_realisation_projet_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_realisation_projet_id",
+        "e_metadata_definition_reference": "filterable"
     },
     {
-        "reference":  "RealisationTache_realisation_projet_id_displayOrder",
-        "value_boolean":  0,
-        "value_integer":  6,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_realisation_projet_id",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache_realisation_projet_id_displayOrder",
+        "value_boolean": 0,
+        "value_integer": 6,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_realisation_projet_id",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache_realisation_projet_id_displayInForm",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_realisation_projet_id",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "RealisationTache_realisation_projet_id_displayInForm",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_realisation_projet_id",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "RealisationTache_realisation_projet_id_inputMdWidth",
-        "value_integer":  6,
-        "e_data_field_reference":  "RealisationTache_realisation_projet_id",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "RealisationTache_realisation_projet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationTache_realisation_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "RealisationTache_etat_realisation_tache_id_displayInTable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_etat_realisation_tache_id",
-        "e_metadata_definition_reference":  "displayInTable"
+        "reference": "RealisationTache_etat_realisation_tache_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "displayInTable"
     },
     {
-        "reference":  "RealisationTache_etat_realisation_tache_id_filterable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_etat_realisation_tache_id",
-        "e_metadata_definition_reference":  "filterable"
+        "reference": "RealisationTache_etat_realisation_tache_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "filterable"
     },
     {
-        "reference":  "RealisationTache_etat_realisation_tache_id_displayOrder",
-        "value_integer":  4,
-        "e_data_field_reference":  "RealisationTache_etat_realisation_tache_id",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache_etat_realisation_tache_id_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache_etat_realisation_tache_id_displayInForm",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_etat_realisation_tache_id",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "RealisationTache_etat_realisation_tache_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "RealisationTache_etat_realisation_tache_id_inputMdWidth",
-        "value_integer":  6,
-        "e_data_field_reference":  "RealisationTache_etat_realisation_tache_id",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "RealisationTache_etat_realisation_tache_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "RealisationTache_created_at_displayOrder",
-        "value_boolean":  0,
-        "value_integer":  24,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_created_at",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache_created_at_displayOrder",
+        "value_boolean": 0,
+        "value_integer": 24,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_created_at",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache_created_at_displayInForm",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_created_at",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "RealisationTache_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_created_at",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "RealisationTache_created_at_inputMdWidth",
-        "value_integer":  6,
-        "e_data_field_reference":  "RealisationTache_created_at",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "RealisationTache_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationTache_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "RealisationTache_updated_at_displayOrder",
-        "value_boolean":  0,
-        "value_integer":  25,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_updated_at",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache_updated_at_displayOrder",
+        "value_boolean": 0,
+        "value_integer": 25,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache_updated_at_displayInForm",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_updated_at",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "RealisationTache_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "RealisationTache_updated_at_inputMdWidth",
-        "value_integer":  6,
-        "e_data_field_reference":  "RealisationTache_updated_at",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "RealisationTache_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationTache_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id_editHasMany",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id",
-        "e_metadata_definition_reference":  "editHasMany"
+        "reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id_editHasMany",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "editHasMany"
     },
     {
-        "reference":  "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id_displayOrder",
-        "value_integer":  19,
-        "e_data_field_reference":  "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id_displayOrder",
+        "value_integer": 19,
+        "e_data_field_reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id_inputMdWidth",
-        "value_integer":  6,
-        "e_data_field_reference":  "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_editHasMany",
-        "value_boolean":  1,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
-        "e_metadata_definition_reference":  "editHasMany"
+        "reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_editHasMany",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "editHasMany"
     },
     {
-        "reference":  "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_displayOrder",
-        "value_integer":  17,
-        "e_data_field_reference":  "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_displayOrder",
+        "value_integer": 17,
+        "e_data_field_reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_inputMdWidth",
-        "value_boolean":  0,
-        "value_integer":  12,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_inputMdWidth",
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "realisation_taches_ownedByUser",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  [
-                           {
-                               "role":  "formateur",
-                               "dataScope":  "filter",
-                               "userModelName":  "Formateur",
-                               "ownerRelationPath":  "RealisationProjet.AffectationProjet.Projet.Formateur.user"
-                           },
-                           {
-                               "role":  "apprenant",
-                               "dataScope":  "filter",
-                               "userModelName":  "Apprenant",
-                               "ownerRelationPath":  "RealisationProjet.Apprenant.user"
-                           }
-                       ],
-        "e_model_reference":  "realisation_taches",
-        "e_metadata_definition_reference":  "ownedByUser"
+        "reference": "realisation_taches_ownedByUser",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "role": "formateur",
+                "dataScope": "filter",
+                "userModelName": "Formateur",
+                "ownerRelationPath": "RealisationProjet.AffectationProjet.Projet.Formateur.user"
+            },
+            {
+                "role": "apprenant",
+                "dataScope": "filter",
+                "userModelName": "Apprenant",
+                "ownerRelationPath": "RealisationProjet.Apprenant.user"
+            }
+        ],
+        "e_model_reference": "realisation_taches",
+        "e_metadata_definition_reference": "ownedByUser"
     },
     {
-        "reference":  "RealisationTache_dateDebut_required",
-        "value_boolean":  1,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_dateDebut",
-        "e_metadata_definition_reference":  "required"
+        "reference": "RealisationTache_dateDebut_required",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_dateDebut",
+        "e_metadata_definition_reference": "required"
     },
     {
-        "reference":  "RealisationTache_dateFin_required",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_dateFin",
-        "e_metadata_definition_reference":  "required"
+        "reference": "RealisationTache_dateFin_required",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_dateFin",
+        "e_metadata_definition_reference": "required"
     },
     {
-        "reference":  "RealisationTache_tache_id_editableByRoles",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  {
-                           "roles":  "admin"
-                       },
-        "e_data_field_reference":  "RealisationTache_tache_id",
-        "e_metadata_definition_reference":  "editableByRoles"
+        "reference": "RealisationTache_tache_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "editableByRoles"
     },
     {
-        "reference":  "RealisationTache_realisation_projet_id_editableByRoles",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  {
-                           "roles":  "admin"
-                       },
-        "e_data_field_reference":  "RealisationTache_realisation_projet_id",
-        "e_metadata_definition_reference":  "editableByRoles"
+        "reference": "RealisationTache_realisation_projet_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "RealisationTache_realisation_projet_id",
+        "e_metadata_definition_reference": "editableByRoles"
     },
     {
-        "reference":  "realisation_taches_computableFields",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  [
-
-                       ],
-        "e_model_reference":  "realisation_taches",
-        "e_metadata_definition_reference":  "computableFields"
+        "reference": "realisation_taches_computableFields",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [],
+        "e_model_reference": "realisation_taches",
+        "e_metadata_definition_reference": "computableFields"
     },
     {
-        "reference":  "RealisationTache_etat_realisation_tache_id_scopeDataInEditContext",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  [
-                           {
-                               "key":  "scope.etatRealisationTache.formateur_id",
-                               "value":  "tache.projet.formateur_id",
-                               "modelName":  "RealisationTache"
-                           }
-                       ],
-        "e_data_field_reference":  "RealisationTache_etat_realisation_tache_id",
-        "e_metadata_definition_reference":  "scopeDataInEditContext"
+        "reference": "RealisationTache_etat_realisation_tache_id_scopeDataInEditContext",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "key": "scope.etatRealisationTache.formateur_id",
+                "value": "tache.projet.formateur_id",
+                "modelName": "RealisationTache"
+            }
+        ],
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "scopeDataInEditContext"
     },
     {
-        "reference":  "RealisationTache_remarques_formateur_displayOrder",
-        "value_integer":  12,
-        "e_data_field_reference":  "RealisationTache_remarques_formateur",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache_remarques_formateur_displayOrder",
+        "value_integer": 12,
+        "e_data_field_reference": "RealisationTache_remarques_formateur",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache_remarques_formateur_displayInForm",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_remarques_formateur",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "RealisationTache_remarques_formateur_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarques_formateur",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "RealisationTache_remarques_formateur_inputMdWidth",
-        "value_boolean":  0,
-        "value_integer":  6,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_remarques_formateur",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "RealisationTache_remarques_formateur_inputMdWidth",
+        "value_boolean": 0,
+        "value_integer": 6,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_remarques_formateur",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "RealisationTache_remarques_apprenant_displayOrder",
-        "value_integer":  13,
-        "e_data_field_reference":  "RealisationTache_remarques_apprenant",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache_remarques_apprenant_displayOrder",
+        "value_integer": 13,
+        "e_data_field_reference": "RealisationTache_remarques_apprenant",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache_remarques_apprenant_displayInForm",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_remarques_apprenant",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "RealisationTache_remarques_apprenant_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarques_apprenant",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "RealisationTache_remarques_apprenant_inputMdWidth",
-        "value_boolean":  0,
-        "value_integer":  6,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_remarques_apprenant",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "RealisationTache_remarques_apprenant_inputMdWidth",
+        "value_boolean": 0,
+        "value_integer": 6,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_remarques_apprenant",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "RealisationTache_remarques_formateur_editableByRoles",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  {
-                           "roles":  "formateur"
-                       },
-        "e_data_field_reference":  "RealisationTache_remarques_formateur",
-        "e_metadata_definition_reference":  "editableByRoles"
+        "reference": "RealisationTache_remarques_formateur_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "formateur"
+        },
+        "e_data_field_reference": "RealisationTache_remarques_formateur",
+        "e_metadata_definition_reference": "editableByRoles"
     },
     {
-        "reference":  "realisation_taches_editOnFullScreen",
-        "value_boolean":  1,
-        "value_float":  0,
-        "e_model_reference":  "realisation_taches",
-        "e_metadata_definition_reference":  "editOnFullScreen"
+        "reference": "realisation_taches_editOnFullScreen",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_model_reference": "realisation_taches",
+        "e_metadata_definition_reference": "editOnFullScreen"
     },
     {
-        "reference":  "RealisationTache_remarques_formateur_isRichText",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_remarques_formateur",
-        "e_metadata_definition_reference":  "isRichText"
+        "reference": "RealisationTache_remarques_formateur_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarques_formateur",
+        "e_metadata_definition_reference": "isRichText"
     },
     {
-        "reference":  "RealisationTache_remarques_apprenant_isRichText",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_remarques_apprenant",
-        "e_metadata_definition_reference":  "isRichText"
+        "reference": "RealisationTache_remarques_apprenant_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarques_apprenant",
+        "e_metadata_definition_reference": "isRichText"
     },
     {
-        "reference":  "RealisationTache_etat_realisation_tache_id_nature",
-        "value_json":  {
-                           "nature":  "badge"
-                       },
-        "e_data_field_reference":  "RealisationTache_etat_realisation_tache_id",
-        "e_metadata_definition_reference":  "nature"
+        "reference": "RealisationTache_etat_realisation_tache_id_nature",
+        "value_json": {
+            "nature": "badge"
+        },
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "nature"
     },
     {
-        "reference":  "realisation_taches_linkAction",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  [
-                           {
-                               "icon":  "fas fa-file-alt",
-                               "class":  "btn btn-default btn-sm context-state actionEntity showIndex",
-                               "ordre":  1,
-                               "route":  "livrablesRealisations.index",
-                               "params":  {
-                                              "showIndex":  true,
-                                              "contextKey":  "\u0027livrablesRealisation.index\u0027",
-                                              "scope.livrable.projet_id":  "$realisationTache-\u003erealisationProjet-\u003eaffectationProjet-\u003eprojet_id",
-                                              "scope.livrablesRealisation.realisation_projet_id":  "$realisationTache-\u003erealisation_projet_id"
-                                          },
-                               "tooltip":  "Livrables",
-                               "actionName":  "livrablesRealisations",
-                               "permission":  "index-livrablesRealisation"
-                           }
-                       ],
-        "value_text":  "\u003cp\u003e\u003cbr\u003e\u003c/p\u003e",
-        "e_model_reference":  "realisation_taches",
-        "e_metadata_definition_reference":  "linksAction"
+        "reference": "realisation_taches_linkAction",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "icon": "fas fa-file-alt",
+                "class": "btn btn-default btn-sm context-state actionEntity showIndex",
+                "ordre": 1,
+                "route": "livrablesRealisations.index",
+                "params": {
+                    "showIndex": true,
+                    "contextKey": "'livrablesRealisation.index'",
+                    "scope.livrable.projet_id": "$realisationTache->realisationProjet->affectationProjet->projet_id",
+                    "scope.livrablesRealisation.realisation_projet_id": "$realisationTache->realisation_projet_id"
+                },
+                "tooltip": "Livrables",
+                "actionName": "livrablesRealisations",
+                "permission": "index-livrablesRealisation"
+            }
+        ],
+        "value_text": "<p><br></p>",
+        "e_model_reference": "realisation_taches",
+        "e_metadata_definition_reference": "linksAction"
     },
     {
-        "reference":  "RealisationTache-nombre_livrables_required",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache-nombre_livrables",
-        "e_metadata_definition_reference":  "required"
+        "reference": "RealisationTache-nombre_livrables_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache-nombre_livrables",
+        "e_metadata_definition_reference": "required"
     },
     {
-        "reference":  "RealisationTache-nombre_livrables_displayOrder",
-        "value_boolean":  0,
-        "value_integer":  5,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache-nombre_livrables",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache-nombre_livrables_displayOrder",
+        "value_boolean": 0,
+        "value_integer": 5,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-nombre_livrables",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache-nombre_livrables_displayInTable",
-        "value_boolean":  1,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache-nombre_livrables",
-        "e_metadata_definition_reference":  "displayInTable"
+        "reference": "RealisationTache-nombre_livrables_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-nombre_livrables",
+        "e_metadata_definition_reference": "displayInTable"
     },
     {
-        "reference":  "RealisationTache_tache_id_columnWidth",
-        "value_boolean":  1,
-        "value_integer":  40,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_tache_id",
-        "e_metadata_definition_reference":  "columnWidth"
+        "reference": "RealisationTache_tache_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 40,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "columnWidth"
     },
     {
-        "reference":  "RealisationTache_etat_realisation_tache_id_columnWidth",
-        "value_boolean":  1,
-        "value_integer":  20,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_etat_realisation_tache_id",
-        "e_metadata_definition_reference":  "columnWidth"
+        "reference": "RealisationTache_etat_realisation_tache_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 20,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "columnWidth"
     },
     {
-        "reference":  "RealisationTache-nom_prenom_apprenant_required",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache-nom_prenom_apprenant",
-        "e_metadata_definition_reference":  "required"
+        "reference": "RealisationTache-nom_prenom_apprenant_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache-nom_prenom_apprenant",
+        "e_metadata_definition_reference": "required"
     },
     {
-        "reference":  "RealisationTache-nom_prenom_apprenant_displayOrder",
-        "value_boolean":  0,
-        "value_integer":  3,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache-nom_prenom_apprenant",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache-nom_prenom_apprenant_displayOrder",
+        "value_boolean": 0,
+        "value_integer": 3,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-nom_prenom_apprenant",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache-nom_prenom_apprenant_displayInTable",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache-nom_prenom_apprenant",
-        "e_metadata_definition_reference":  "displayInTable"
+        "reference": "RealisationTache-nom_prenom_apprenant_displayInTable",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-nom_prenom_apprenant",
+        "e_metadata_definition_reference": "displayInTable"
     },
     {
-        "reference":  "RealisationTache-nom_prenom_apprenant_columnWidth",
-        "value_boolean":  1,
-        "value_integer":  14,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache-nom_prenom_apprenant",
-        "e_metadata_definition_reference":  "columnWidth"
+        "reference": "RealisationTache-nom_prenom_apprenant_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 14,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-nom_prenom_apprenant",
+        "e_metadata_definition_reference": "columnWidth"
     },
     {
-        "reference":  "RealisationTache-projet_title_required",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache-projet_title",
-        "e_metadata_definition_reference":  "required"
+        "reference": "RealisationTache-projet_title_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache-projet_title",
+        "e_metadata_definition_reference": "required"
     },
     {
-        "reference":  "RealisationTache-projet_title_displayOrder",
-        "value_integer":  1,
-        "e_data_field_reference":  "RealisationTache-projet_title",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache-projet_title_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "RealisationTache-projet_title",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache-projet_title_displayInTable",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache-projet_title",
-        "e_metadata_definition_reference":  "displayInTable"
+        "reference": "RealisationTache-projet_title_displayInTable",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-projet_title",
+        "e_metadata_definition_reference": "displayInTable"
     },
     {
-        "reference":  "RealisationTache_realisation_projet_id_columnWidth",
-        "value_boolean":  1,
-        "value_integer":  20,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_realisation_projet_id",
-        "e_metadata_definition_reference":  "columnWidth"
+        "reference": "RealisationTache_realisation_projet_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 20,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_realisation_projet_id",
+        "e_metadata_definition_reference": "columnWidth"
     },
     {
-        "reference":  "RealisationTache_tache_id_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_tache_id",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache_tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache_realisation_projet_id_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_realisation_projet_id",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache_realisation_projet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_realisation_projet_id",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache_etat_realisation_tache_id_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_etat_realisation_tache_id",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache_etat_realisation_tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache_remarques_formateur_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_remarques_formateur",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache_remarques_formateur_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarques_formateur",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache_remarques_apprenant_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_remarques_apprenant",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache_remarques_apprenant_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarques_apprenant",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache_id_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_id",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_id",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache_dateDebut_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_dateDebut",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache_dateDebut_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_dateDebut",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache_dateFin_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_dateFin",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache_dateFin_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_dateFin",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache_reference_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_reference",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_reference",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache_created_at_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_created_at",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_created_at",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache_updated_at_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_updated_at",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_updated_at",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache-nombre_livrables_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache-nombre_livrables",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache-nombre_livrables_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache-nombre_livrables",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache-nom_prenom_apprenant_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache-nom_prenom_apprenant",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache-nom_prenom_apprenant_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache-nom_prenom_apprenant",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache-projet_title_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache-projet_title",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache-projet_title_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache-projet_title",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache_etat_realisation_tache_id_sortByPath",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  {
-                           "path":  "etatRealisationTache.workflowTache.ordre"
-                       },
-        "e_data_field_reference":  "RealisationTache_etat_realisation_tache_id",
-        "e_metadata_definition_reference":  "sortByPath"
+        "reference": "RealisationTache_etat_realisation_tache_id_sortByPath",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "path": "etatRealisationTache.workflowTache.ordre"
+        },
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "sortByPath"
     },
     {
-        "reference":  "RealisationTache_tache_id_readOnly",
-        "value_boolean":  1,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_tache_id",
-        "e_metadata_definition_reference":  "readOnly"
+        "reference": "RealisationTache_tache_id_readOnly",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "readOnly"
     },
     {
-        "reference":  "RealisationTache_tache_id_sortByPath",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  {
-                           "path":  "priorite"
-                       },
-        "e_data_field_reference":  "RealisationTache_tache_id",
-        "e_metadata_definition_reference":  "sortByPath"
+        "reference": "RealisationTache_tache_id_sortByPath",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "path": "priorite"
+        },
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "sortByPath"
     },
     {
-        "reference":  "RealisationTache-deadline_displayInTable",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache-deadline",
-        "e_metadata_definition_reference":  "displayInTable"
+        "reference": "RealisationTache-deadline_displayInTable",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-deadline",
+        "e_metadata_definition_reference": "displayInTable"
     },
     {
-        "reference":  "RealisationTache-deadline_displayOrder",
-        "value_integer":  14,
-        "e_data_field_reference":  "RealisationTache-deadline",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache-deadline_displayOrder",
+        "value_integer": 14,
+        "e_data_field_reference": "RealisationTache-deadline",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache-deadline_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache-deadline",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache-deadline_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache-deadline",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache-deadline_nature",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  {
-                           "nature":  "deadline"
-                       },
-        "e_data_field_reference":  "RealisationTache-deadline",
-        "e_metadata_definition_reference":  "nature"
+        "reference": "RealisationTache-deadline_nature",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "nature": "deadline"
+        },
+        "e_data_field_reference": "RealisationTache-deadline",
+        "e_metadata_definition_reference": "nature"
     },
     {
-        "reference":  "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_displayInForm",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_displayInForm",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "realisation_taches_view.form.grid",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  {
-                           "gutter":  "g-3",
-                           "columns":  {
-                                           "md":  2
-                                       }
-                       },
-        "e_model_reference":  "realisation_taches",
-        "e_metadata_definition_reference":  "viewFormGrid"
+        "reference": "realisation_taches_view.form.grid",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "gutter": "g-3",
+            "columns": {
+                "md": 2
+            }
+        },
+        "e_model_reference": "realisation_taches",
+        "e_metadata_definition_reference": "viewFormGrid"
     },
     {
-        "reference":  "realisation_taches_viewFormGroups",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  {
-                           "État":  {
-                                         "label":  "État",
-                                         "order":  3
-                                     },
-                           "Remarques":  {
-                                             "label":  "Remarques",
-                                             "order":  4
-                                         },
-                           "Historique":  {
-                                              "label":  "Historique",
-                                              "order":  6
-                                          },
-                           "Suivi et évaluation":  {
-                                                        "label":  "Suivi et évaluation",
-                                                        "order":  5
-                                                    },
-                           "Dates de réalisation":  {
-                                                         "label":  "Dates de réalisation",
-                                                         "order":  2
-                                                     },
-                           "Informations générales":  {
-                                                            "label":  "Informations générales",
-                                                            "order":  1
-                                                        }
-                       },
-        "e_model_reference":  "realisation_taches",
-        "e_metadata_definition_reference":  "viewFormGroups"
+        "reference": "realisation_taches_viewFormGroups",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "État": {
+                "label": "État",
+                "order": 3
+            },
+            "Remarques": {
+                "label": "Remarques",
+                "order": 4
+            },
+            "Historique": {
+                "label": "Historique",
+                "order": 6
+            },
+            "Suivi et évaluation": {
+                "label": "Suivi et évaluation",
+                "order": 5
+            },
+            "Dates de réalisation": {
+                "label": "Dates de réalisation",
+                "order": 2
+            },
+            "Informations générales": {
+                "label": "Informations générales",
+                "order": 1
+            }
+        },
+        "e_model_reference": "realisation_taches",
+        "e_metadata_definition_reference": "viewFormGroups"
     },
     {
-        "reference":  "RealisationTache-projet_title_viewFormFieldGroup",
-        "value_boolean":  1,
-        "value_string":  "Informations générales",
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache-projet_title",
-        "e_metadata_definition_reference":  "viewFormFieldGroup"
+        "reference": "RealisationTache-projet_title_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Informations générales",
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-projet_title",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     },
     {
-        "reference":  "RealisationTache_tache_id_viewFormFieldGroup",
-        "value_boolean":  1,
-        "value_string":  "Informations générales",
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_tache_id",
-        "e_metadata_definition_reference":  "viewFormFieldGroup"
+        "reference": "RealisationTache_tache_id_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Informations générales",
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     },
     {
-        "reference":  "RealisationTache_dateDebut_viewFormFieldGroup",
-        "value_boolean":  1,
-        "value_string":  "Dates de réalisation",
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_dateDebut",
-        "e_metadata_definition_reference":  "viewFormFieldGroup"
+        "reference": "RealisationTache_dateDebut_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Dates de réalisation",
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_dateDebut",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     },
     {
-        "reference":  "RealisationTache_dateFin_viewFormFieldGroup",
-        "value_boolean":  1,
-        "value_string":  "Dates de réalisation",
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_dateFin",
-        "e_metadata_definition_reference":  "viewFormFieldGroup"
+        "reference": "RealisationTache_dateFin_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Dates de réalisation",
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_dateFin",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     },
     {
-        "reference":  "RealisationTache_etat_realisation_tache_id_viewFormFieldGroup",
-        "value_boolean":  1,
-        "value_string":  "État",
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_etat_realisation_tache_id",
-        "e_metadata_definition_reference":  "viewFormFieldGroup"
+        "reference": "RealisationTache_etat_realisation_tache_id_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "État",
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     },
     {
-        "reference":  "RealisationTache_remarques_formateur_viewFormFieldGroup",
-        "value_boolean":  1,
-        "value_string":  "Remarques",
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_remarques_formateur",
-        "e_metadata_definition_reference":  "viewFormFieldGroup"
+        "reference": "RealisationTache_remarques_formateur_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Remarques",
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_remarques_formateur",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     },
     {
-        "reference":  "RealisationTache_remarques_apprenant_viewFormFieldGroup",
-        "value_boolean":  1,
-        "value_string":  "Remarques",
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_remarques_apprenant",
-        "e_metadata_definition_reference":  "viewFormFieldGroup"
+        "reference": "RealisationTache_remarques_apprenant_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Remarques",
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_remarques_apprenant",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     },
     {
-        "reference":  "RealisationTache_realisation_projet_id_viewFormFieldGroup",
-        "value_boolean":  1,
-        "value_string":  "Informations générales",
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_realisation_projet_id",
-        "e_metadata_definition_reference":  "viewFormFieldGroup"
+        "reference": "RealisationTache_realisation_projet_id_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Informations générales",
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_realisation_projet_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     },
     {
-        "reference":  "RealisationTache_id_viewFormFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_id",
-        "e_metadata_definition_reference":  "viewFormFieldVisible"
+        "reference": "RealisationTache_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference":  "RealisationTache_id_viewShowFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_id",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "RealisationTache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "RealisationTache_dateDebut_viewFormFieldVisible",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_dateDebut",
-        "e_metadata_definition_reference":  "viewFormFieldVisible"
+        "reference": "RealisationTache_dateDebut_viewFormFieldVisible",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_dateDebut",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference":  "RealisationTache_dateDebut_viewShowFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_dateDebut",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "RealisationTache_dateDebut_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_dateDebut",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "RealisationTache_dateFin_viewFormFieldVisible",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_dateFin",
-        "e_metadata_definition_reference":  "viewFormFieldVisible"
+        "reference": "RealisationTache_dateFin_viewFormFieldVisible",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_dateFin",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference":  "RealisationTache_dateFin_viewShowFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_dateFin",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "RealisationTache_dateFin_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_dateFin",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "RealisationTache_reference_viewFormFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_reference",
-        "e_metadata_definition_reference":  "viewFormFieldVisible"
+        "reference": "RealisationTache_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference":  "RealisationTache_reference_viewShowFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_reference",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "RealisationTache_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "RealisationTache_tache_id_viewFormFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_tache_id",
-        "e_metadata_definition_reference":  "viewFormFieldVisible"
+        "reference": "RealisationTache_tache_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference":  "RealisationTache_tache_id_viewShowFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_tache_id",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "RealisationTache_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "RealisationTache_realisation_projet_id_viewFormFieldVisible",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_realisation_projet_id",
-        "e_metadata_definition_reference":  "viewFormFieldVisible"
+        "reference": "RealisationTache_realisation_projet_id_viewFormFieldVisible",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_realisation_projet_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference":  "RealisationTache_realisation_projet_id_viewShowFieldVisible",
-        "value_boolean":  0,
-        "value_float":  0,
-        "value_text":  "\u003cp\u003e\u003cbr\u003e\u003c/p\u003e",
-        "e_data_field_reference":  "RealisationTache_realisation_projet_id",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "RealisationTache_realisation_projet_id_viewShowFieldVisible",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
+        "e_data_field_reference": "RealisationTache_realisation_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "RealisationTache_etat_realisation_tache_id_viewFormFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_etat_realisation_tache_id",
-        "e_metadata_definition_reference":  "viewFormFieldVisible"
+        "reference": "RealisationTache_etat_realisation_tache_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference":  "RealisationTache_etat_realisation_tache_id_viewShowFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_etat_realisation_tache_id",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "RealisationTache_etat_realisation_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "RealisationTache_remarques_formateur_viewFormFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_remarques_formateur",
-        "e_metadata_definition_reference":  "viewFormFieldVisible"
+        "reference": "RealisationTache_remarques_formateur_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarques_formateur",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference":  "RealisationTache_remarques_formateur_viewShowFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_remarques_formateur",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "RealisationTache_remarques_formateur_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarques_formateur",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "RealisationTache_remarques_apprenant_viewFormFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_remarques_apprenant",
-        "e_metadata_definition_reference":  "viewFormFieldVisible"
+        "reference": "RealisationTache_remarques_apprenant_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarques_apprenant",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference":  "RealisationTache_remarques_apprenant_viewShowFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_remarques_apprenant",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "RealisationTache_remarques_apprenant_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarques_apprenant",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "RealisationTache_created_at_viewFormFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_created_at",
-        "e_metadata_definition_reference":  "viewFormFieldVisible"
+        "reference": "RealisationTache_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference":  "RealisationTache_created_at_viewShowFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_created_at",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "RealisationTache_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "RealisationTache_updated_at_viewFormFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_updated_at",
-        "e_metadata_definition_reference":  "viewFormFieldVisible"
+        "reference": "RealisationTache_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference":  "RealisationTache_updated_at_viewShowFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_updated_at",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "RealisationTache_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id_viewShowFieldVisible",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id_viewShowFieldVisible",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_viewShowFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "RealisationTache-deadline_columnWidth",
-        "value_boolean":  1,
-        "value_integer":  9,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache-deadline",
-        "e_metadata_definition_reference":  "columnWidth"
+        "reference": "RealisationTache-deadline_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 9,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-deadline",
+        "e_metadata_definition_reference": "columnWidth"
     },
     {
-        "reference":  "RealisationTache-projet_title_columnWidth",
-        "value_boolean":  1,
-        "value_integer":  12,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache-projet_title",
-        "e_metadata_definition_reference":  "columnWidth"
+        "reference": "RealisationTache-projet_title_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 12,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-projet_title",
+        "e_metadata_definition_reference": "columnWidth"
     },
     {
-        "reference":  "RealisationTache_note_displayInTable",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_note",
-        "e_metadata_definition_reference":  "displayInTable"
+        "reference": "RealisationTache_note_displayInTable",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_note",
+        "e_metadata_definition_reference": "displayInTable"
     },
     {
-        "reference":  "RealisationTache_note_displayOrder",
-        "value_integer":  10,
-        "e_data_field_reference":  "RealisationTache_note",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache_note_displayOrder",
+        "value_integer": 10,
+        "e_data_field_reference": "RealisationTache_note",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache_note_displayInForm",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_note",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "RealisationTache_note_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_note",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "RealisationTache_note_inputMdWidth",
-        "value_integer":  6,
-        "e_data_field_reference":  "RealisationTache_note",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "RealisationTache_note_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationTache_note",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "RealisationTache_note_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_note",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache_note_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_note",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache_note_viewFormFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_note",
-        "e_metadata_definition_reference":  "viewFormFieldVisible"
+        "reference": "RealisationTache_note_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_note",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference":  "RealisationTache_note_viewShowFieldVisible",
-        "value_boolean":  0,
-        "value_float":  0,
-        "value_text":  "\u003cp\u003e\u003cbr\u003e\u003c/p\u003e",
-        "e_data_field_reference":  "RealisationTache_note",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "RealisationTache_note_viewShowFieldVisible",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
+        "e_data_field_reference": "RealisationTache_note",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id_editHasMany",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id",
-        "e_metadata_definition_reference":  "editHasMany"
+        "reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id_editHasMany",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "editHasMany"
     },
     {
-        "reference":  "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id_displayOrder",
-        "value_integer":  16,
-        "e_data_field_reference":  "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id_displayOrder",
+        "value_integer": 16,
+        "e_data_field_reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id_inputMdWidth",
-        "value_boolean":  0,
-        "value_integer":  12,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id_inputMdWidth",
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id_viewShowFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "RealisationTache_note_viewFormFieldGroup",
-        "value_boolean":  1,
-        "value_string":  "État",
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_note",
-        "e_metadata_definition_reference":  "viewFormFieldGroup"
+        "reference": "RealisationTache_note_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "État",
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_note",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     },
     {
-        "reference":  "RealisationTache_note_editableByRoles",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  {
-                           "roles":  "formateur,evaluateur"
-                       },
-        "e_data_field_reference":  "RealisationTache_note",
-        "e_metadata_definition_reference":  "editableByRoles"
+        "reference": "RealisationTache_note_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "formateur,evaluateur"
+        },
+        "e_data_field_reference": "RealisationTache_note",
+        "e_metadata_definition_reference": "editableByRoles"
     },
     {
-        "reference":  "realisation_taches_viewType",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  {
-                           "types":  [
-                                         {
-                                             "icon":  "fas fa-table",
-                                             "type":  "table",
-                                             "label":  "Vue Tableau"
-                                         },
-                                         {
-                                             "icon":  "fas fa-clipboard-check",
-                                             "type":  "table-evaluation",
-                                             "label":  "Vue évaluation"
-                                         }
-                                     ],
-                           "default":  "table"
-                       },
-        "e_model_reference":  "realisation_taches",
-        "e_metadata_definition_reference":  "viewType"
+        "reference": "realisation_taches_viewType",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "types": [
+                {
+                    "icon": "fas fa-table",
+                    "type": "table",
+                    "label": "Vue Tableau"
+                },
+                {
+                    "icon": "fas fa-clipboard-check",
+                    "type": "table-evaluation",
+                    "label": "Vue évaluation"
+                }
+            ],
+            "default": "table"
+        },
+        "e_model_reference": "realisation_taches",
+        "e_metadata_definition_reference": "viewType"
     },
     {
-        "reference":  "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id_viewFormFieldVisible",
-        "value_boolean":  1,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id",
-        "e_metadata_definition_reference":  "viewFormFieldVisible"
+        "reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference":  "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id_displayInForm",
-        "value_boolean":  1,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id_displayInForm",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "RealisationTache_dateDebut_editableByRoles",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  {
-                           "roles":  "admin"
-                       },
-        "e_data_field_reference":  "RealisationTache_dateDebut",
-        "e_metadata_definition_reference":  "editableByRoles"
+        "reference": "RealisationTache_dateDebut_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "RealisationTache_dateDebut",
+        "e_metadata_definition_reference": "editableByRoles"
     },
     {
-        "reference":  "RealisationTache_dateFin_editableByRoles",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  {
-                           "roles":  "admin"
-                       },
-        "e_data_field_reference":  "RealisationTache_dateFin",
-        "e_metadata_definition_reference":  "editableByRoles"
+        "reference": "RealisationTache_dateFin_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "RealisationTache_dateFin",
+        "e_metadata_definition_reference": "editableByRoles"
     },
     {
-        "reference":  "RealisationTache_remarques_apprenant_editableByRoles",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  {
-                           "roles":  "apprenant,formateur,admin"
-                       },
-        "e_data_field_reference":  "RealisationTache_remarques_apprenant",
-        "e_metadata_definition_reference":  "editableByRoles"
+        "reference": "RealisationTache_remarques_apprenant_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "apprenant,formateur,admin"
+        },
+        "e_data_field_reference": "RealisationTache_remarques_apprenant",
+        "e_metadata_definition_reference": "editableByRoles"
     },
     {
-        "reference":  "RealisationTache_etat_realisation_tache_id_editableByRoles",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  {
-                           "roles":  "apprenant,formateur,admin"
-                       },
-        "e_data_field_reference":  "RealisationTache_etat_realisation_tache_id",
-        "e_metadata_definition_reference":  "editableByRoles"
+        "reference": "RealisationTache_etat_realisation_tache_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "apprenant,formateur,admin"
+        },
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "editableByRoles"
     },
     {
-        "reference":  "RealisationTache_remarque_evaluateur_displayOrder",
-        "value_integer":  9,
-        "e_data_field_reference":  "RealisationTache_remarque_evaluateur",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache_remarque_evaluateur_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "RealisationTache_remarque_evaluateur",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache_remarque_evaluateur_displayInForm",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_remarque_evaluateur",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "RealisationTache_remarque_evaluateur_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarque_evaluateur",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "RealisationTache_remarque_evaluateur_inputMdWidth",
-        "value_integer":  12,
-        "e_data_field_reference":  "RealisationTache_remarque_evaluateur",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "RealisationTache_remarque_evaluateur_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "RealisationTache_remarque_evaluateur",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "RealisationTache_remarque_evaluateur_isRichText",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_remarque_evaluateur",
-        "e_metadata_definition_reference":  "isRichText"
+        "reference": "RealisationTache_remarque_evaluateur_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarque_evaluateur",
+        "e_metadata_definition_reference": "isRichText"
     },
     {
-        "reference":  "RealisationTache_remarque_evaluateur_viewFormFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_remarque_evaluateur",
-        "e_metadata_definition_reference":  "viewFormFieldVisible"
+        "reference": "RealisationTache_remarque_evaluateur_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarque_evaluateur",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference":  "RealisationTache_remarque_evaluateur_viewShowFieldVisible",
-        "value_boolean":  0,
-        "value_float":  0,
-        "value_text":  "\u003cp\u003e\u003cbr\u003e\u003c/p\u003e",
-        "e_data_field_reference":  "RealisationTache_remarque_evaluateur",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "RealisationTache_remarque_evaluateur_viewShowFieldVisible",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
+        "e_data_field_reference": "RealisationTache_remarque_evaluateur",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "RealisationTache_etat_realisation_tache_id_required",
-        "value_boolean":  1,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_etat_realisation_tache_id",
-        "e_metadata_definition_reference":  "required"
+        "reference": "RealisationTache_etat_realisation_tache_id_required",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "required"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_editHasMany",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
-        "e_metadata_definition_reference":  "editHasMany"
+        "reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_editHasMany",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
+        "e_metadata_definition_reference": "editHasMany"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_displayOrder",
-        "value_integer":  18,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_displayOrder",
+        "value_integer": 18,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_inputMdWidth",
-        "value_boolean":  0,
-        "value_integer":  12,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_inputMdWidth",
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_viewShowFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_editHasMany",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
-        "e_metadata_definition_reference":  "editHasMany"
+        "reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_editHasMany",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
+        "e_metadata_definition_reference": "editHasMany"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_displayOrder",
-        "value_integer":  20,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_displayOrder",
+        "value_integer": 20,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_inputMdWidth",
-        "value_boolean":  0,
-        "value_integer":  12,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_inputMdWidth",
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_viewShowFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_editHasMany",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
-        "e_metadata_definition_reference":  "editHasMany"
+        "reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_editHasMany",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
+        "e_metadata_definition_reference": "editHasMany"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_displayOrder",
-        "value_integer":  21,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_displayOrder",
+        "value_integer": 21,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_inputMdWidth",
-        "value_boolean":  0,
-        "value_integer":  12,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_inputMdWidth",
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_viewShowFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_displayInForm",
-        "value_boolean":  1,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_displayInForm",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_displayInForm",
-        "value_boolean":  1,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_displayInForm",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_displayInForm",
-        "value_boolean":  1,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_displayInForm",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_viewFormFieldGroup",
-        "value_boolean":  1,
-        "value_string":  "Suivi et évaluation",
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
-        "e_metadata_definition_reference":  "viewFormFieldGroup"
+        "reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Suivi et évaluation",
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_viewFormFieldGroup",
-        "value_boolean":  1,
-        "value_string":  "Suivi et évaluation",
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
-        "e_metadata_definition_reference":  "viewFormFieldGroup"
+        "reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Suivi et évaluation",
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_viewFormFieldGroup",
-        "value_boolean":  1,
-        "value_string":  "Suivi et évaluation",
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
-        "e_metadata_definition_reference":  "viewFormFieldGroup"
+        "reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Suivi et évaluation",
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     },
     {
-        "reference":  "RealisationTache_note_dataCalcul",
-        "value_boolean":  1,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_note",
-        "e_metadata_definition_reference":  "dataCalcul"
+        "reference": "RealisationTache_note_dataCalcul",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_note",
+        "e_metadata_definition_reference": "dataCalcul"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_dataCalcul",
-        "value_boolean":  1,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
-        "e_metadata_definition_reference":  "dataCalcul"
+        "reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_dataCalcul",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
+        "e_metadata_definition_reference": "dataCalcul"
     },
     {
-        "reference":  "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_dataCalcul",
-        "value_boolean":  1,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
-        "e_metadata_definition_reference":  "dataCalcul"
+        "reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_dataCalcul",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
+        "e_metadata_definition_reference": "dataCalcul"
     },
     {
-        "reference":  "RealisationTache_is_live_coding_required",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_is_live_coding",
-        "e_metadata_definition_reference":  "required"
+        "reference": "RealisationTache_is_live_coding_required",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_is_live_coding",
+        "e_metadata_definition_reference": "required"
     },
     {
-        "reference":  "RealisationTache_is_live_coding_displayOrder",
-        "value_integer":  11,
-        "e_data_field_reference":  "RealisationTache_is_live_coding",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache_is_live_coding_displayOrder",
+        "value_integer": 11,
+        "e_data_field_reference": "RealisationTache_is_live_coding",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache_is_live_coding_displayInForm",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_is_live_coding",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "RealisationTache_is_live_coding_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_is_live_coding",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "RealisationTache_is_live_coding_inputMdWidth",
-        "value_integer":  6,
-        "e_data_field_reference":  "RealisationTache_is_live_coding",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "RealisationTache_is_live_coding_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationTache_is_live_coding",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "RealisationTache_is_live_coding_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_is_live_coding",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache_is_live_coding_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_is_live_coding",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache_is_live_coding_viewFormFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_is_live_coding",
-        "e_metadata_definition_reference":  "viewFormFieldVisible"
+        "reference": "RealisationTache_is_live_coding_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_is_live_coding",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference":  "RealisationTache_is_live_coding_viewShowFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_is_live_coding",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "RealisationTache_is_live_coding_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_is_live_coding",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "RealisationTache_tache_affectation_id_displayInTable",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_tache_affectation_id",
-        "e_metadata_definition_reference":  "displayInTable"
+        "reference": "RealisationTache_tache_affectation_id_displayInTable",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_tache_affectation_id",
+        "e_metadata_definition_reference": "displayInTable"
     },
     {
-        "reference":  "RealisationTache_tache_affectation_id_required",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_tache_affectation_id",
-        "e_metadata_definition_reference":  "required"
+        "reference": "RealisationTache_tache_affectation_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_tache_affectation_id",
+        "e_metadata_definition_reference": "required"
     },
     {
-        "reference":  "RealisationTache_tache_affectation_id_filterable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_tache_affectation_id",
-        "e_metadata_definition_reference":  "filterable"
+        "reference": "RealisationTache_tache_affectation_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_tache_affectation_id",
+        "e_metadata_definition_reference": "filterable"
     },
     {
-        "reference":  "RealisationTache_tache_affectation_id_displayOrder",
-        "value_integer":  15,
-        "e_data_field_reference":  "RealisationTache_tache_affectation_id",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache_tache_affectation_id_displayOrder",
+        "value_integer": 15,
+        "e_data_field_reference": "RealisationTache_tache_affectation_id",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache_tache_affectation_id_displayInForm",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_tache_affectation_id",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "RealisationTache_tache_affectation_id_displayInForm",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_tache_affectation_id",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "RealisationTache_tache_affectation_id_inputMdWidth",
-        "value_integer":  6,
-        "e_data_field_reference":  "RealisationTache_tache_affectation_id",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "RealisationTache_tache_affectation_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationTache_tache_affectation_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "RealisationTache_tache_affectation_id_sortable",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_tache_affectation_id",
-        "e_metadata_definition_reference":  "sortable"
+        "reference": "RealisationTache_tache_affectation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_tache_affectation_id",
+        "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference":  "RealisationTache_tache_affectation_id_viewFormFieldVisible",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_tache_affectation_id",
-        "e_metadata_definition_reference":  "viewFormFieldVisible"
+        "reference": "RealisationTache_tache_affectation_id_viewFormFieldVisible",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_tache_affectation_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference":  "RealisationTache_tache_affectation_id_viewShowFieldVisible",
-        "value_boolean":  0,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_tache_affectation_id",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "RealisationTache_tache_affectation_id_viewShowFieldVisible",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_tache_affectation_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "RealisationTache_tache_affectation_id_editableByRoles",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  {
-                           "roles":  "root"
-                       },
-        "e_data_field_reference":  "RealisationTache_tache_affectation_id",
-        "e_metadata_definition_reference":  "editableByRoles"
+        "reference": "RealisationTache_tache_affectation_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationTache_tache_affectation_id",
+        "e_metadata_definition_reference": "editableByRoles"
     },
     {
-        "reference":  "RealisationTache_is_live_coding_editableByRoles",
-        "value_boolean":  1,
-        "value_float":  0,
-        "value_json":  {
-                           "roles":  "formateur,admin"
-                       },
-        "e_data_field_reference":  "RealisationTache_is_live_coding",
-        "e_metadata_definition_reference":  "editableByRoles"
+        "reference": "RealisationTache_is_live_coding_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "formateur,admin"
+        },
+        "e_data_field_reference": "RealisationTache_is_live_coding",
+        "e_metadata_definition_reference": "editableByRoles"
     },
     {
-        "reference":  "RealisationTache_is_live_coding_viewFormFieldGroup",
-        "value_boolean":  1,
-        "value_string":  "État",
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_is_live_coding",
-        "e_metadata_definition_reference":  "viewFormFieldGroup"
+        "reference": "RealisationTache_is_live_coding_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "État",
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_is_live_coding",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     },
     {
-        "reference":  "RealisationTache_etat_realisation_tache_id_metaLabel",
-        "value_boolean":  1,
-        "value_string":  "etat_realisation_tache_id",
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_etat_realisation_tache_id",
-        "e_metadata_definition_reference":  "metaLabel"
+        "reference": "RealisationTache_etat_realisation_tache_id_metaLabel",
+        "value_boolean": 1,
+        "value_string": "etat_realisation_tache_id",
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "metaLabel"
     },
     {
-        "reference":  "RealisationTache-nombre_livrables_columnWidth",
-        "value_boolean":  1,
-        "value_integer":  20,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache-nombre_livrables",
-        "e_metadata_definition_reference":  "columnWidth"
+        "reference": "RealisationTache-nombre_livrables_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 20,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-nombre_livrables",
+        "e_metadata_definition_reference": "columnWidth"
     },
     {
-        "reference":  "RealisationTache_travail_a_faire_required",
-        "value_boolean":  0,
-        "value_float":  0,
-        "value_text":  "\u003cp\u003e\u003cbr\u003e\u003c/p\u003e",
-        "e_data_field_reference":  "RealisationTache_travail_a_faire",
-        "e_metadata_definition_reference":  "required"
+        "reference": "RealisationTache_travail_a_faire_required",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_text": "<p><br></p>",
+        "e_data_field_reference": "RealisationTache_travail_a_faire",
+        "e_metadata_definition_reference": "required"
     },
     {
-        "reference":  "RealisationTache_travail_a_faire_displayOrder",
-        "value_integer":  10,
-        "e_data_field_reference":  "RealisationTache_travail_a_faire",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "RealisationTache_travail_a_faire_displayOrder",
+        "value_integer": 10,
+        "e_data_field_reference": "RealisationTache_travail_a_faire",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "RealisationTache_travail_a_faire_isRichText",
-        "value_boolean":  1,
-        "e_data_field_reference":  "RealisationTache_travail_a_faire",
-        "e_metadata_definition_reference":  "isRichText"
+        "reference": "RealisationTache_travail_a_faire_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_travail_a_faire",
+        "e_metadata_definition_reference": "isRichText"
     },
     {
-        "reference":  "RealisationTache_travail_a_faire_viewShowFieldVisible",
-        "value_boolean":  1,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_travail_a_faire",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "RealisationTache_travail_a_faire_viewShowFieldVisible",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_travail_a_faire",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "RealisationTache_travail_a_faire_inputMdWidth",
-        "value_boolean":  1,
-        "value_integer":  12,
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_travail_a_faire",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "RealisationTache_travail_a_faire_inputMdWidth",
+        "value_boolean": 1,
+        "value_integer": 12,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_travail_a_faire",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "RealisationTache_travail_a_faire_viewShowFieldGroup",
-        "value_boolean":  1,
-        "value_string":  "Informations générales",
-        "value_float":  0,
-        "e_data_field_reference":  "RealisationTache_travail_a_faire",
-        "e_metadata_definition_reference":  "viewShowFieldGroup"
+        "reference": "RealisationTache_travail_a_faire_viewShowFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Informations générales",
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_travail_a_faire",
+        "e_metadata_definition_reference": "viewShowFieldGroup"
     },
     {
-        "reference":  "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_displayOrder",
-        "value_integer":  19,
-        "e_data_field_reference":  "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
-        "e_metadata_definition_reference":  "displayOrder"
+        "reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_displayOrder",
+        "value_integer": 19,
+        "e_data_field_reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference":  "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_displayInForm",
-        "value_boolean":  1,
-        "e_data_field_reference":  "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
-        "e_metadata_definition_reference":  "displayInForm"
+        "reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference":  "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_inputMdWidth",
-        "value_integer":  6,
-        "e_data_field_reference":  "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
-        "e_metadata_definition_reference":  "inputMdWidth"
+        "reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference":  "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_viewFormFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
-        "e_metadata_definition_reference":  "viewFormFieldVisible"
+        "reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference":  "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_viewShowFieldVisible",
-        "value_boolean":  1,
-        "e_data_field_reference":  "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
-        "e_metadata_definition_reference":  "viewShowFieldVisible"
+        "reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference":  "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_filterable",
-        "value_boolean":  1,
-        "value_float":  0,
-        "e_data_field_reference":  "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
-        "e_metadata_definition_reference":  "filterable"
+        "reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_filterable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "filterable"
     },
     {
-        "e_data_field_reference":  "RealisationTache_label_projet_id",
-        "reference":  "RealisationTache_label_projet_id_scopeDataInEditContext",
-        "value_boolean":  1,
-        "value_float":  0,
-        "e_metadata_definition_reference":  "scopeDataInEditContext",
-        "value_json":  [
-                           {
-                               "key":  "scope.labelProjet.projet_id",
-                               "value":  "tache.projet_id",
-                               "modelName":  "RealisationTache"
-                           }
-                       ]
+        "reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_scopeDataInEditContext",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": [
+            {
+                "key": "scope.labelProjet.projet_id",
+                "value": "tache.projet_id",
+                "modelName": "RealisationTache"
+            }
+        ],
+        "e_data_field_reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "scopeDataInEditContext"
+    },
+    {
+        "reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_editableByRoles",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": {
+            "roles": "formateur"
+        },
+        "e_data_field_reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "Informations générales",
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     }
 ]
