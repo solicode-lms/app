@@ -194,6 +194,22 @@ class BaseRealisationTacheService extends BaseService
                     );
                 }
             
+            
+                if (!array_key_exists('labelProjets', $scopeVariables)) {
+
+                    $labelProjetService = new \Modules\PkgCreationProjet\Services\LabelProjetService();
+                    $labelProjetIds = $this->getAvailableFilterValues('labelProjets.id');
+                    $labelProjets = $labelProjetService->getByIds($labelProjetIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToManyFilter(
+                        __("PkgCreationProjet::labelProjet.plural"), 
+                        'label_projet_id', 
+                        \Modules\PkgCreationProjet\Models\LabelProjet::class, 
+                        'nom',
+                        $labelProjets
+                    );
+                }
+            
 
 
 

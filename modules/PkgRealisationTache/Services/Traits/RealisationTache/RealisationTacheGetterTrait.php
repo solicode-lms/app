@@ -110,9 +110,9 @@ trait RealisationTacheGetterTrait
             "id",
             "id",
             $affectationProjets,
-            "[name='tache_id'],[name='etat_realisation_tache_id']",
-            route('taches.getData') . "," . route('etatRealisationTaches.getData'),
-            "projet.affectationProjets.id,formateur.projets.affectationProjets.id"
+            "[name='tache_id'],[name='etat_realisation_tache_id'],[name='label_projet_id']",
+            route('taches.getData') . "," . route('etatRealisationTaches.getData') . "," . route('labelProjets.getData'),
+            "projet.affectationProjets.id,formateur.projets.affectationProjets.id,projet.affectationProjets.id"
         );
 
         // --- ETAT REALISATION TACHE : choix selon AffectationProjet, Formateur ou Apprenant ---
@@ -204,6 +204,24 @@ trait RealisationTacheGetterTrait
             'titre',
             $taches
         );
+
+
+
+         if (!array_key_exists('labelProjets', $scopeVariables)) {
+
+                    $labelProjetService = new \Modules\PkgCreationProjet\Services\LabelProjetService();
+                    $labelProjetIds = $this->getAvailableFilterValues('labelProjets.id');
+                    $labelProjets = $labelProjetService->getByIds($labelProjetIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToManyFilter(
+                        __("PkgCreationProjet::labelProjet.plural"), 
+                        'label_projet_id', 
+                        \Modules\PkgCreationProjet\Models\LabelProjet::class, 
+                        'nom',
+                        $labelProjets
+                    );
+            }
+
 
     }
 

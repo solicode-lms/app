@@ -20,14 +20,15 @@ $table->foreignId('projet_id')->constrained('projets')->onDelete('cascade');
 ## 3. Relations Many-To-Many (Table Pivot)
 Les tables pivot (ex: `label_tache`) ont des règles strictes :
 - **AUCUN id** : Ne pas mettre `$table->id();`.
-- Les clés étrangères doivent pointer vers les tables cibles.
+- **Nommage des clés étrangères** : Le nom de la clé étrangère doit correspondre exactement au nom du modèle de la table cible en snake_case (ex: `label_projet_id` pour la table `label_projets`, et non pas `label_id`).
+- Les clés étrangères doivent pointer vers les tables cibles en utilisant `constrained()`.
 - Les timestamps sont nécessaires.
 
 Exemple :
 ```php
 Schema::create('label_tache', function (Blueprint $table) {
     $table->foreignId('tache_id')->constrained('taches')->onDelete('cascade');
-    $table->foreignId('label_id')->constrained('label_projets')->onDelete('cascade');
+    $table->foreignId('label_projet_id')->constrained('label_projets')->onDelete('cascade');
     $table->timestamps();
 });
 ```

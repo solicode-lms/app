@@ -54,48 +54,6 @@
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference": "LabelTache_label_id_required",
-        "value_boolean": 1,
-        "e_data_field_reference": "LabelTache_label_id",
-        "e_metadata_definition_reference": "required"
-    },
-    {
-        "reference": "LabelTache_label_id_displayOrder",
-        "value_integer": 2,
-        "e_data_field_reference": "LabelTache_label_id",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "LabelTache_label_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "LabelTache_label_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "LabelTache_label_id_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "LabelTache_label_id",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
-        "reference": "LabelTache_label_id_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "LabelTache_label_id",
-        "e_metadata_definition_reference": "sortable"
-    },
-    {
-        "reference": "LabelTache_label_id_viewFormFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "LabelTache_label_id",
-        "e_metadata_definition_reference": "viewFormFieldVisible"
-    },
-    {
-        "reference": "LabelTache_label_id_viewShowFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "LabelTache_label_id",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
         "reference": "LabelTache_created_at_displayOrder",
         "value_integer": 3,
         "e_data_field_reference": "LabelTache_created_at",
@@ -165,6 +123,48 @@
         "reference": "LabelTache_updated_at_viewShowFieldVisible",
         "value_boolean": 1,
         "e_data_field_reference": "LabelTache_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LabelTache_label_projet_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelTache_label_projet_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "LabelTache_label_projet_id_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "LabelTache_label_projet_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LabelTache_label_projet_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelTache_label_projet_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LabelTache_label_projet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LabelTache_label_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LabelTache_label_projet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelTache_label_projet_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LabelTache_label_projet_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelTache_label_projet_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LabelTache_label_projet_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelTache_label_projet_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
