@@ -977,5 +977,35 @@
         ],
         "e_data_field_reference": "Tache_mobilisation_ua_id",
         "e_metadata_definition_reference": "scopeDataInEditContext"
+    },
+    {
+        "reference": "taches_label_projets_label_tache_m2m_m2m_displayOrder",
+        "value_integer": 18,
+        "e_data_field_reference": "taches_label_projets_label_tache_m2m_m2m",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "taches_label_projets_label_tache_m2m_m2m_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "taches_label_projets_label_tache_m2m_m2m",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "taches_label_projets_label_tache_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "taches_label_projets_label_tache_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "taches_label_projets_label_tache_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "taches_label_projets_label_tache_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "taches_label_projets_label_tache_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "taches_label_projets_label_tache_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

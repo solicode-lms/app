@@ -1,0 +1,436 @@
+[
+    {
+        "reference": "label_projets_creationOrder",
+        "value_integer": 96,
+        "e_model_reference": "label_projets",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "label_projets_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "label_projets",
+        "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "label_projets_iconModel",
+        "value_string": "fas fa-table",
+        "e_model_reference": "label_projets",
+        "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "LabelProjet_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "LabelProjet_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "LabelProjet_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LabelProjet_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LabelProjet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LabelProjet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LabelProjet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LabelProjet_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LabelProjet_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LabelProjet_nom_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_nom",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "LabelProjet_nom_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_nom",
+        "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "LabelProjet_nom_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_nom",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "LabelProjet_nom_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "LabelProjet_nom",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LabelProjet_nom_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_nom",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LabelProjet_nom_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LabelProjet_nom",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LabelProjet_nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LabelProjet_nom_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_nom",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LabelProjet_nom_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_nom",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LabelProjet_description_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "LabelProjet_description",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LabelProjet_description_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_description",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LabelProjet_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "LabelProjet_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LabelProjet_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_description",
+        "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "LabelProjet_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LabelProjet_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LabelProjet_projet_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_projet_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "LabelProjet_projet_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_projet_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "LabelProjet_projet_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_projet_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "LabelProjet_projet_id_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "LabelProjet_projet_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LabelProjet_projet_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_projet_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LabelProjet_projet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LabelProjet_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LabelProjet_projet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_projet_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LabelProjet_projet_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_projet_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LabelProjet_projet_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LabelProjet_sys_color_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_sys_color_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "LabelProjet_sys_color_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_sys_color_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "LabelProjet_sys_color_id_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "LabelProjet_sys_color_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LabelProjet_sys_color_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_sys_color_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LabelProjet_sys_color_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LabelProjet_sys_color_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LabelProjet_sys_color_id_nature",
+        "value_json": {
+            "nature": "couleur"
+        },
+        "e_data_field_reference": "LabelProjet_sys_color_id",
+        "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "LabelProjet_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LabelProjet_sys_color_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_sys_color_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LabelProjet_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LabelProjet_reference_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_reference",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "LabelProjet_reference_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "LabelProjet_reference",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LabelProjet_reference_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_reference",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LabelProjet_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LabelProjet_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LabelProjet_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LabelProjet_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LabelProjet_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LabelProjet_created_at_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "LabelProjet_created_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LabelProjet_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_created_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LabelProjet_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LabelProjet_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LabelProjet_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LabelProjet_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LabelProjet_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LabelProjet_updated_at_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "LabelProjet_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LabelProjet_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LabelProjet_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LabelProjet_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LabelProjet_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LabelProjet_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LabelProjet_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelProjet_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "label_projets_realisation_taches_label_realisation_tache_m2m_m2m_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "label_projets_realisation_taches_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "label_projets_realisation_taches_label_realisation_tache_m2m_m2m_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "label_projets_realisation_taches_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "label_projets_realisation_taches_label_realisation_tache_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "label_projets_realisation_taches_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "label_projets_realisation_taches_label_realisation_tache_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "label_projets_realisation_taches_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "label_projets_realisation_taches_label_realisation_tache_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "label_projets_realisation_taches_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "label_projets_taches_label_tache_m2m_m2m_displayOrder",
+        "value_integer": 10,
+        "e_data_field_reference": "label_projets_taches_label_tache_m2m_m2m",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "label_projets_taches_label_tache_m2m_m2m_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "label_projets_taches_label_tache_m2m_m2m",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "label_projets_taches_label_tache_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "label_projets_taches_label_tache_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "label_projets_taches_label_tache_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "label_projets_taches_label_tache_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "label_projets_taches_label_tache_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "label_projets_taches_label_tache_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    }
+]

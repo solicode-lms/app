@@ -1557,5 +1557,35 @@
         "value_float": 0,
         "e_data_field_reference": "RealisationTache_travail_a_faire",
         "e_metadata_definition_reference": "viewShowFieldGroup"
+    },
+    {
+        "reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_displayOrder",
+        "value_integer": 19,
+        "e_data_field_reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
