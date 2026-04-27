@@ -49,7 +49,7 @@
        $titre = __("PkgCreationProjet::labelProjet.singular");
     @endphp
     <x-crud-header 
-        id="labelProjet-crud-header" icon="fas fa-table"  
+        id="labelProjet-crud-header" icon="fas fa-tag"  
         iconColor="text-info"
         title="{{ $labelProjet_title }}"
         :breadcrumbs="[
