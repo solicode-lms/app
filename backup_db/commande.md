@@ -1,6 +1,9 @@
 
 ```bash
-y
+[System.Text.Encoding]::Default
+$OutputEncoding = [System.Text.Encoding]::UTF8
+Get-Content .\solilms-2025_24_04_26.sql -Raw -Encoding UTF8 | mysql -u root -p solicode_lms
+
 ```
 
 Pour supprimer tous les tables 
