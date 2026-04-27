@@ -132,5 +132,17 @@
                 {{ $entity->nom_prenom_apprenant }}
             @endif
         </div>
+
+        {{-- Labels --}}
+        @if($entity->labelProjets && $entity->labelProjets->count() > 0)
+            <div class="mt-2 d-flex flex-wrap gap-1">
+                @foreach($entity->labelProjets as $label)
+                    <x-badge 
+                        :text="$label->nom" 
+                        :background="$label->sysColor?->hex ?? '#6c757d'" 
+                    />
+                @endforeach
+            </div>
+        @endif
     </footer>
 </article>

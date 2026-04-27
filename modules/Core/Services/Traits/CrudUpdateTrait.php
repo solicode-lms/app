@@ -44,6 +44,8 @@ trait CrudUpdateTrait
             
             $entity->update($data_fillable);
 
+            $this->syncManyToManyRelations($entity, $data);
+
             $this->executeRules('after', 'update', $entity, $id);
                 $this->executeJob('after', 'create', $entity->id);
             return $entity;
