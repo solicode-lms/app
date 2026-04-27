@@ -91,7 +91,10 @@
         "projets",
         "resources",
         "livrables",
-        "mobilisation_uas"
+        "mobilisation_uas",
+        "label_projets",
+        "label_tache",
+        "label_realisation_tache"
     ]
 
 },
