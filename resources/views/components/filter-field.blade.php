@@ -62,6 +62,7 @@
         @break
         @case('ManyToMany')
             <select id="filter_{{ $field }}"  
+            data-label="{{$label}}" 
             name="{{ $field }}" 
             @if(!empty($targetDynamicDropdown)) data-target-dynamic-dropdown="{{ $targetDynamicDropdown }}" @endif
             @if(!empty($targetDynamicDropdownApiUrl)) data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' @endif
