@@ -98,15 +98,33 @@ export class BulkAction extends CrudAction {
                             this.tableUI.indexUI.formUI.disableRequiredAttributes();
 
                             // Active la checkbox correspondante à tout champ modifié
-                            EventUtil.bindEvent('change', `${this.config.formSelector} input, ${this.config.formSelector} select, ${this.config.formSelector} textarea`, (event) => {
+                            EventUtil.bindEvent('input change', `${this.config.formSelector} input, ${this.config.formSelector} select, ${this.config.formSelector} textarea`, (event) => {
                                 const input = event.currentTarget;
                                 const fieldName = input.name?.replace('[]', '');
+
+                              
+
+                                let isChanged = false;
+                                if (input.type === 'checkbox' || input.type === 'radio') {
+                                    isChanged = input.checked !== input.defaultChecked;
+                                } else if (input.tagName.toLowerCase() === 'select') {
+                                    const options = Array.from(input.options);
+                                    const hasDefaultSelected = options.some(opt => opt.defaultSelected);
+                                    isChanged = options.some(opt => {
+                                        if (!hasDefaultSelected && opt.index === 0 && opt.selected) {
+                                            return false;
+                                        }
+                                        return opt.selected !== opt.defaultSelected;
+                                    });
+                                } else {
+                                    isChanged = input.value !== input.defaultValue;
+                                }
 
                                 // Si le champ a un nom et une case à cocher correspondante
                                 if (fieldName) {
                                     const checkbox = document.getElementById(`bulk_field_${fieldName}`);
                                     if (checkbox) {
-                                        checkbox.checked = true;
+                                        checkbox.checked = isChanged;
                                     }
                                 }
                             });

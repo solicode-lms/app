@@ -1,3 +1,4 @@
+
 @php
     use Illuminate\Support\Facades\Auth;
 
@@ -21,9 +22,12 @@
     $inputValue = old('note', $myNote !== null ? number_format($myNote, 2, '.', '') : '');
 @endphp
 
-@if($canEditnote && $maxNote > 0)
+
+@if($canEditnote && ($maxNote === null || $maxNote > 0))
+ 
 <div class="form-group col-12 col-md-6">
     @if ($bulkEdit)
+        
         <div class="bulk-check">
             <input type="checkbox"
                    class="check-input"
@@ -47,10 +51,10 @@
         type="number"
         class="form-control"
         min="0"
-        max="{{ $maxNote }}"
+        @if($maxNote !== null) max="{{ $maxNote }}" @endif
         id="note"
         data-calcul='true'
-        {{ $canEditnote && $maxNote > 0 ? '' : 'disabled' }}
+        {{ $canEditnote && ($maxNote === null || $maxNote > 0) ? '' : 'disabled' }}
         step="0.25"
         value="{{ $inputValue }}"
     >
