@@ -23,6 +23,14 @@ trait RealisationTacheCrudTrait
      */
     public function beforeCreateRules(array &$data): void
     {
+        // 🛡️ Plafonnement de la note par rapport au barème de la tâche
+        if (isset($data['note']) && !empty($data['tache_id'])) {
+            $tache = \Modules\PkgCreationTache\Models\Tache::find($data['tache_id']);
+            if ($tache && $tache->note !== null && $data['note'] > $tache->note) {
+                $data['note'] = $tache->note;
+            }
+        }
+
         // 1. Règle métier : Lien avec l'affectation de groupe (TacheAffectation)
         // Si `tache_affectation_id` est manquant, on doit le déduire à partir du projet et de la tâche.
         // Cela garantit que chaque réalisation individuelle est correctement rattachée à l'affectation globale du groupe.
@@ -158,6 +166,13 @@ trait RealisationTacheCrudTrait
 
         $realisationTache = $this->find($id);
 
+        // 🛡️ Plafonnement de la note par rapport au barème de la tâche
+        if (isset($data['note'])) {
+            $tache = $realisationTache->tache;
+            if ($tache && $tache->note !== null && $data['note'] > $tache->note) {
+                $data['note'] = $tache->note;
+            }
+        }
 
         // ❌ Bloquer l'état si la tâche ou ses micro-compétences associées ont des livrables manquants
         if (
