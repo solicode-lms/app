@@ -228,9 +228,12 @@ class RealisationUaPrototypeService extends BaseRealisationUaPrototypeService
                                     if ($baremePrototype > 0 && $realisationUaPrototype->note !== null) {
                                         $noteProjet = ($realisationUaPrototype->note / $baremePrototype) * $baremeProjet;
                                         
+                                        // La note doit être un multiple de 0.25
+                                        $noteProjet = round($noteProjet * 4) / 4;
+
                                         // Mise à jour de la note du projet car la tâche n'est pas encore finalisée
                                         $realisationUaProjet->update([
-                                            'note' => round($noteProjet, 2),
+                                            'note' => $noteProjet,
                                             'bareme' => $baremeProjet
                                         ]);
 
