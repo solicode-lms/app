@@ -39,9 +39,9 @@
         type="number"
         class="form-control"
         min="0"
-        max="{{ $maxNote }}"
+        @if($maxNote !== null) max="{{ $maxNote }}" @endif
         id="note"
-        {{ $canEditnote ? '' : 'disabled' }}
+        {{ $canEditnote && ($maxNote === null || $maxNote > 0) ? '' : 'disabled' }}
         step="0.25"
         value="{{ $inputValue }}"
     >
