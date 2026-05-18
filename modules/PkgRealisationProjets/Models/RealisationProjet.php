@@ -61,6 +61,11 @@ class RealisationProjet extends BaseRealisationProjet
         //    note_redim = noteBrute * echelle / baremeTotal
         $noteRedim = ($noteBrute * $echelle) / $baremeTotal;
 
+        // Règle spécifique : si l'échelle est sur 4, la note doit être un multiple de 0.25
+        if ($echelle == 4) {
+            $noteRedim = round($noteRedim * 4) / 4; // Équivalent à round($noteRedim / 0.25) * 0.25
+        }
+
         // 5. Arrondi final à 2 décimales
         return round($noteRedim, 2);
     }
