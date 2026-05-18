@@ -39,10 +39,10 @@ class RealisationProjet extends BaseRealisationProjet
     public function calculerNoteAvecEchelle(): float
     {
         // 1. Note brute (somme des notes de realisation_taches)
-        $noteBrute   = (float) ($this->note ?? 0);
+        $noteBrute   = (float) ($this->note_cache ?? 0);
 
         // 2. Barème total (somme des baremes de chaque tache)
-        $baremeTotal = (float) ($this->bareme_note ?? 0);
+        $baremeTotal = (float) ($this->bareme_cache ?? 0);
 
         // Si aucun barème total ou nul, on renvoie la note brute arrondie
         if ($baremeTotal <= 0) {
