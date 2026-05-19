@@ -10,6 +10,103 @@ use Modules\PkgApprentissage\Services\Base\BaseRealisationModuleService;
 
 class RealisationModuleService extends BaseRealisationModuleService
 {
+    public function initFieldsFilterable()
+    {
+        // Initialiser les filtres configurables dynamiquement
+        $scopeVariables = $this->viewState->getScopeVariables('realisationModule');
+        $this->fieldsFilterable = [];
+        
+        $filiereService = new \Modules\PkgFormation\Services\FiliereService();
+        $filiereIds = $this->getAvailableFilterValues('Module.Filiere_id');
+        $filieres = $filiereService->getByIds($filiereIds);
+
+        $this->fieldsFilterable[] = $this->generateRelationFilter(
+            __("PkgFormation::filiere.plural"),
+            'Module.Filiere_id', 
+            \Modules\PkgFormation\Models\Filiere::class,
+            "id", 
+            "id",
+            $filieres,
+            "[name='module_id'],[name='Apprenant.groupes.id']",
+            route('modules.getData') . ',' . route('groupes.getData'),
+            "filiere_id,filiere_id"
+        );
+    
+        if (!array_key_exists('module_id', $scopeVariables)) {
+            $moduleService = new \Modules\PkgFormation\Services\ModuleService();
+            
+            // 🎯 OVERRIDE : Filtrer les modules enseignés par le formateur connecté
+            $user = \Illuminate\Support\Facades\Auth::user();
+            if ($user && $user->hasRole('formateur') && $user->formateurs()->exists()) {
+                $formateur = $user->formateurs()->first();
+             
+                // 🎯 Ajout du scope dans le viewState pour filtrer dynamiquement lors des appels AJAX (getData)
+                $this->viewState->set('scope.module.competences.microCompetences.uniteApprentissages.mobilisationUas.projet.formateur_id', $formateur->id);
+
+                // Modules dont les UA sont mobilisées dans les projets créés/liés au formateur
+                $moduleIds = \Modules\PkgFormation\Models\Module::whereHas('competences.microCompetences.uniteApprentissages.mobilisationUas.projet', function($query) use ($formateur) {
+                    $query->where('formateur_id', $formateur->id);
+                })->pluck('id')->toArray();
+            } else {
+                $moduleIds = $this->getAvailableFilterValues('module_id');
+            }
+
+            $modules = $moduleService->getByIds($moduleIds);
+ 
+            $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                __("PkgFormation::module.plural"), 
+                'module_id', 
+                \Modules\PkgFormation\Models\Module::class, 
+                'code',
+                $modules
+            );
+        }
+    
+        $groupeService = new \Modules\PkgApprenants\Services\GroupeService();
+        $groupeIds = $this->getAvailableFilterValues('Apprenant.groupes.id');
+        $groupes = $groupeService->getByIds($groupeIds);
+
+        $this->fieldsFilterable[] = $this->generateRelationFilter(
+            __("PkgApprenants::groupe.plural"),
+            'Apprenant.groupes.id', 
+            \Modules\PkgApprenants\Models\Groupe::class,
+            "id", 
+            "id",
+            $groupes,
+            "[name='apprenant_id']",
+            route('apprenants.getData'),
+            "groupes.id"
+        );
+    
+        if (!array_key_exists('apprenant_id', $scopeVariables)) {
+            $apprenantService = new \Modules\PkgApprenants\Services\ApprenantService();
+            $apprenantIds = $this->getAvailableFilterValues('apprenant_id');
+            $apprenants = $apprenantService->getByIds($apprenantIds);
+
+            $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                __("PkgApprenants::apprenant.plural"), 
+                'apprenant_id', 
+                \Modules\PkgApprenants\Models\Apprenant::class, 
+                'nom',
+                $apprenants
+            );
+        }
+    
+        if (!array_key_exists('etat_realisation_module_id', $scopeVariables)) {
+            $etatRealisationModuleService = new \Modules\PkgApprentissage\Services\EtatRealisationModuleService();
+            $etatRealisationModuleIds = $this->getAvailableFilterValues('etat_realisation_module_id');
+            $etatRealisationModules = $etatRealisationModuleService->getByIds($etatRealisationModuleIds);
+
+            $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                __("PkgApprentissage::etatRealisationModule.plural"), 
+                'etat_realisation_module_id', 
+                \Modules\PkgApprentissage\Models\EtatRealisationModule::class, 
+                'code',
+                $etatRealisationModules
+            );
+        }
+    }
+
     /**
      * Création avec état par défaut si non fourni
      */

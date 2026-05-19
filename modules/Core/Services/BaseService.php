@@ -177,16 +177,17 @@ abstract class BaseService implements ServiceInterface
 
     public function getData(string $filter, $value)
     {
-        //  TODO : $query = $this->newQuery();
-        $query = $this->allQuery(); // Créer une nouvelle requête
+        return $this->model::withScope(function () use ($filter, $value) {
+            $query = $this->allQuery(); // Créer une nouvelle requête
 
-        // Construire le tableau de filtres pour la méthode `filter()`
-        $filters = [$filter => $value];
+            // Construire le tableau de filtres pour la méthode `filter()`
+            $filters = [$filter => $value];
 
-        // Appliquer le filtre existant du service
-        $this->filter($query, $this->model, $filters);
+            // Appliquer le filtre existant du service
+            $this->filter($query, $this->model, $filters);
 
-        return $query->get();
+            return $query->get();
+        });
     }
 
 
