@@ -44,7 +44,7 @@ class BaseEtatRealisationModule extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'code', 'nom', 'description', 'sys_color_id'
+        'ordre', 'code', 'reference', 'nom', 'description', 'sys_color_id'
     ];
     public $manyToOne = [
         'SysColor' => [

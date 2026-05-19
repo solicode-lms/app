@@ -29,6 +29,7 @@ class BaseEtatsRealisationProjetService extends BaseService
         'titre',
         'code',
         'description',
+        'reference',
         'sys_color_id',
         'is_editable_by_formateur'
     ];

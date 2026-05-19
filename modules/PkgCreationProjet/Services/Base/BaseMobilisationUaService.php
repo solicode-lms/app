@@ -31,7 +31,8 @@ class BaseMobilisationUaService extends BaseService
         'criteres_evaluation_prototype',
         'criteres_evaluation_projet',
         'description',
-        'projet_id'
+        'projet_id',
+        'reference'
     ];
 
 

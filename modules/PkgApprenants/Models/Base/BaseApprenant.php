@@ -87,7 +87,7 @@ class BaseApprenant extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'nom_arab', 'prenom', 'prenom_arab', 'profile_image', 'cin', 'date_naissance', 'sexe', 'nationalite_id', 'lieu_naissance', 'diplome', 'adresse', 'niveaux_scolaire_id', 'tele_num', 'user_id', 'matricule', 'date_inscription', 'actif'
+        'nom', 'nom_arab', 'prenom', 'prenom_arab', 'profile_image', 'cin', 'date_naissance', 'sexe', 'nationalite_id', 'lieu_naissance', 'diplome', 'adresse', 'niveaux_scolaire_id', 'tele_num', 'user_id', 'reference', 'matricule', 'date_inscription', 'actif'
     ];
     public $manyToMany = [
         'SousGroupe' => ['relation' => 'sousGroupes' , "foreign_key" => "sous_groupe_id" ],

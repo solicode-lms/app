@@ -41,6 +41,7 @@ class BaseSessionFormationService extends BaseService
         'date_debut',
         'date_fin',
         'jour_feries_vacances',
+        'reference',
         'annee_formation_id'
     ];
 

@@ -40,6 +40,7 @@ class BaseApprenantService extends BaseService
         'niveaux_scolaire_id',
         'tele_num',
         'user_id',
+        'reference',
         'matricule',
         'date_inscription',
         'actif'

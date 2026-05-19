@@ -32,6 +32,7 @@ class BaseAffectationProjetService extends BaseService
         'date_debut',
         'date_fin',
         'is_formateur_evaluateur',
+        'reference',
         'echelle_note_cible',
         'description'
     ];

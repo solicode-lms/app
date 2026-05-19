@@ -35,7 +35,7 @@ class BaseNatureLivrable extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'description'
+        'nom', 'description', 'reference'
     ];
 
 

@@ -27,6 +27,7 @@ class BaseEtatRealisationCompetenceService extends BaseService
     protected $fieldsSearchable = [
         'ordre',
         'code',
+        'reference',
         'nom',
         'description',
         'sys_color_id'

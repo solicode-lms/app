@@ -34,7 +34,8 @@ class BaseRealisationProjetService extends BaseService
         'date_fin',
         'bareme_cache',
         'progression_execution_cache',
-        'rapport'
+        'rapport',
+        'reference'
     ];
 
 

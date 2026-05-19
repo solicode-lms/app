@@ -88,7 +88,7 @@ class BaseRealisationTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'tache_id', 'etat_realisation_tache_id', 'realisation_projet_id', 'dateDebut', 'dateFin', 'remarque_evaluateur', 'note', 'is_live_coding', 'remarques_formateur', 'remarques_apprenant', 'tache_affectation_id'
+        'tache_id', 'etat_realisation_tache_id', 'realisation_projet_id', 'dateDebut', 'dateFin', 'remarque_evaluateur', 'note', 'is_live_coding', 'remarques_formateur', 'remarques_apprenant', 'tache_affectation_id', 'reference'
     ];
     public $manyToMany = [
         'LabelProjet' => ['relation' => 'labelProjets' , "foreign_key" => "label_projet_id" ]

@@ -31,7 +31,8 @@ class BaseRealisationUaPrototypeService extends BaseService
         'note',
         'remarque_formateur',
         'date_debut',
-        'date_fin'
+        'date_fin',
+        'reference'
     ];
 
 

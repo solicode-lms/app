@@ -46,7 +46,7 @@ class BaseSysModel extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'model', 'sys_module_id', 'sys_color_id', 'icone', 'description'
+        'name', 'model', 'sys_module_id', 'sys_color_id', 'reference', 'icone', 'description'
     ];
     public $manyToOne = [
         'SysModule' => [

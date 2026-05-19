@@ -30,7 +30,8 @@ class BaseEtatRealisationMicroCompetenceService extends BaseService
         'code',
         'sys_color_id',
         'is_editable_only_by_formateur',
-        'description'
+        'description',
+        'reference'
     ];
 
 

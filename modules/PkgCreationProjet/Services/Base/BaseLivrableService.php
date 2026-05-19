@@ -29,6 +29,7 @@ class BaseLivrableService extends BaseService
         'titre',
         'projet_id',
         'description',
+        'reference',
         'is_affichable_seulement_par_formateur'
     ];
 

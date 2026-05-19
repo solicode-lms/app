@@ -38,6 +38,7 @@ class BaseRealisationUaService extends BaseService
         'date_fin',
         'dernier_update',
         'commentaire_formateur',
+        'reference',
         'progression_ideal_cache',
         'pourcentage_non_valide_cache',
         'taux_rythme_cache'

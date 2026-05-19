@@ -27,7 +27,8 @@ class BaseNationaliteService extends BaseService
     protected $fieldsSearchable = [
         'code',
         'nom',
-        'description'
+        'description',
+        'reference'
     ];
 
 

@@ -29,7 +29,8 @@ class BaseSysControllerService extends BaseService
         'name',
         'slug',
         'description',
-        'is_active'
+        'is_active',
+        'reference'
     ];
 
 

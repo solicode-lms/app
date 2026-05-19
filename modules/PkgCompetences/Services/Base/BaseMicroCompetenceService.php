@@ -31,7 +31,8 @@ class BaseMicroCompetenceService extends BaseService
         'sous_titre',
         'competence_id',
         'lien',
-        'description'
+        'description',
+        'reference'
     ];
 
 

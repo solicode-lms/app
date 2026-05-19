@@ -44,7 +44,7 @@ class BaseFeature extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'feature_domain_id'
+        'name', 'description', 'feature_domain_id', 'reference'
     ];
     public $manyToMany = [
         'Permission' => ['relation' => 'permissions' , "foreign_key" => "permission_id" ]

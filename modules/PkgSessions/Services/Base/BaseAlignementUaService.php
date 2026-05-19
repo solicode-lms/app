@@ -28,7 +28,8 @@ class BaseAlignementUaService extends BaseService
         'ordre',
         'unite_apprentissage_id',
         'session_formation_id',
-        'description'
+        'description',
+        'reference'
     ];
 
 

@@ -47,7 +47,7 @@ class BaseLabelProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'description', 'projet_id', 'sys_color_id'
+        'nom', 'description', 'projet_id', 'sys_color_id', 'reference'
     ];
     public $manyToMany = [
         'RealisationTache' => ['relation' => 'realisationTaches' , "foreign_key" => "realisation_tache_id" ],

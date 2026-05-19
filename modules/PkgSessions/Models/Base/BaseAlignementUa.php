@@ -45,7 +45,7 @@ class BaseAlignementUa extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'unite_apprentissage_id', 'session_formation_id', 'description'
+        'ordre', 'unite_apprentissage_id', 'session_formation_id', 'description', 'reference'
     ];
     public $manyToOne = [
         'UniteApprentissage' => [

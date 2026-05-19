@@ -44,7 +44,7 @@ class BaseFeatureDomain extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'description', 'sys_module_id'
+        'name', 'slug', 'description', 'sys_module_id', 'reference'
     ];
     public $manyToOne = [
         'SysModule' => [

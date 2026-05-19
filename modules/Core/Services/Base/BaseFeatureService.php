@@ -27,7 +27,8 @@ class BaseFeatureService extends BaseService
     protected $fieldsSearchable = [
         'name',
         'description',
-        'feature_domain_id'
+        'feature_domain_id',
+        'reference'
     ];
 
 

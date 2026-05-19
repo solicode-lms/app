@@ -31,7 +31,8 @@ class BaseSysModuleService extends BaseService
         'description',
         'is_active',
         'version',
-        'sys_color_id'
+        'sys_color_id',
+        'reference'
     ];
 
 

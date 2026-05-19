@@ -29,7 +29,8 @@ class BaseEvaluationRealisationProjetService extends BaseService
         'evaluateur_id',
         'date_evaluation',
         'etat_evaluation_projet_id',
-        'remarques'
+        'remarques',
+        'reference'
     ];
 
 

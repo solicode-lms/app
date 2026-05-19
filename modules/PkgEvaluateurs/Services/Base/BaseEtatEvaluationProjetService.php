@@ -29,6 +29,7 @@ class BaseEtatEvaluationProjetService extends BaseService
         'code',
         'titre',
         'description',
+        'reference',
         'sys_color_id'
     ];
 

@@ -53,7 +53,7 @@ class BaseMicroCompetence extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'code', 'titre', 'sous_titre', 'competence_id', 'lien', 'description'
+        'ordre', 'code', 'titre', 'sous_titre', 'competence_id', 'lien', 'description', 'reference'
     ];
     public $manyToOne = [
         'Competence' => [

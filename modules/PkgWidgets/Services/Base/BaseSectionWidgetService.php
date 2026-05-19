@@ -29,7 +29,8 @@ class BaseSectionWidgetService extends BaseService
         'icone',
         'titre',
         'sous_titre',
-        'sys_color_id'
+        'sys_color_id',
+        'reference'
     ];
 
 

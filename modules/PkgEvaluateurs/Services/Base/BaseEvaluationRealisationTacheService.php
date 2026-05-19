@@ -29,7 +29,8 @@ class BaseEvaluationRealisationTacheService extends BaseService
         'evaluateur_id',
         'note',
         'message',
-        'evaluation_realisation_projet_id'
+        'evaluation_realisation_projet_id',
+        'reference'
     ];
 
 

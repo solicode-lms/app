@@ -26,7 +26,8 @@ class BaseNatureLivrableService extends BaseService
      */
     protected $fieldsSearchable = [
         'nom',
-        'description'
+        'description',
+        'reference'
     ];
 
 

@@ -25,6 +25,7 @@ class BaseSousGroupeService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'reference',
         'nom',
         'description',
         'groupe_id'

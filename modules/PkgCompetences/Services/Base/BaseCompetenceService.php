@@ -29,7 +29,8 @@ class BaseCompetenceService extends BaseService
         'mini_code',
         'nom',
         'module_id',
-        'description'
+        'description',
+        'reference'
     ];
 
 

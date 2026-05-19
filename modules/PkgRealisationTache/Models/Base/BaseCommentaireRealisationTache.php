@@ -47,7 +47,7 @@ class BaseCommentaireRealisationTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'commentaire', 'dateCommentaire', 'realisation_tache_id', 'formateur_id', 'apprenant_id'
+        'commentaire', 'dateCommentaire', 'reference', 'realisation_tache_id', 'formateur_id', 'apprenant_id'
     ];
     public $manyToOne = [
         'RealisationTache' => [

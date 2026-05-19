@@ -26,6 +26,7 @@ class BasePhaseEvaluationService extends BaseService
      */
     protected $fieldsSearchable = [
         'ordre',
+        'reference',
         'code',
         'libelle',
         'coefficient',

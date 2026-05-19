@@ -51,7 +51,7 @@ class BaseRealisationUaProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'realisation_tache_id', 'realisation_ua_id', 'note', 'bareme', 'remarque_formateur', 'date_debut', 'date_fin'
+        'realisation_tache_id', 'realisation_ua_id', 'note', 'bareme', 'remarque_formateur', 'date_debut', 'date_fin', 'reference'
     ];
     public $manyToOne = [
         'RealisationTache' => [

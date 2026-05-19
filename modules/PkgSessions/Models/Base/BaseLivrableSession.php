@@ -45,7 +45,7 @@ class BaseLivrableSession extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'titre', 'description', 'session_formation_id', 'nature_livrable_id'
+        'ordre', 'reference', 'titre', 'description', 'session_formation_id', 'nature_livrable_id'
     ];
     public $manyToOne = [
         'SessionFormation' => [

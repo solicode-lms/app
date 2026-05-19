@@ -36,7 +36,7 @@ class BaseAnneeFormation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'titre', 'date_debut', 'date_fin'
+        'titre', 'date_debut', 'date_fin', 'reference'
     ];
 
 

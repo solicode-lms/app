@@ -28,7 +28,8 @@ class BaseResourceService extends BaseService
         'nom',
         'lien',
         'description',
-        'projet_id'
+        'projet_id',
+        'reference'
     ];
 
 

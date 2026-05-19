@@ -29,7 +29,8 @@ class BaseLivrablesRealisationService extends BaseService
         'lien',
         'titre',
         'description',
-        'realisation_projet_id'
+        'realisation_projet_id',
+        'reference'
     ];
 
 

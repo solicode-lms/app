@@ -43,7 +43,8 @@ class BaseApprenantKonosyService extends BaseService
         'Nationalite',
         'Nom_Arabe',
         'Prenom_Arabe',
-        'NiveauScolaire'
+        'NiveauScolaire',
+        'reference'
     ];
 
 

@@ -46,7 +46,7 @@ class BaseSysModule extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'name', 'slug', 'description', 'is_active', 'version', 'sys_color_id'
+        'ordre', 'name', 'slug', 'description', 'is_active', 'version', 'sys_color_id', 'reference'
     ];
     public $manyToOne = [
         'SysColor' => [

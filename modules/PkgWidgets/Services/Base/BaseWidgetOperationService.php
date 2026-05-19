@@ -26,7 +26,8 @@ class BaseWidgetOperationService extends BaseService
      */
     protected $fieldsSearchable = [
         'operation',
-        'description'
+        'description',
+        'reference'
     ];
 
 

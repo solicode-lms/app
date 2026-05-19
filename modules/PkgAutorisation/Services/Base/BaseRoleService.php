@@ -26,7 +26,8 @@ class BaseRoleService extends BaseService
      */
     protected $fieldsSearchable = [
         'name',
-        'guard_name'
+        'guard_name',
+        'reference'
     ];
 
 

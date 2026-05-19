@@ -37,7 +37,8 @@ class BaseFormateurService extends BaseService
         'echelle',
         'echelon',
         'profile_image',
-        'user_id'
+        'user_id',
+        'reference'
     ];
 
 

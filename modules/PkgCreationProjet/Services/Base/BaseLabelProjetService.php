@@ -28,7 +28,8 @@ class BaseLabelProjetService extends BaseService
         'nom',
         'description',
         'projet_id',
-        'sys_color_id'
+        'sys_color_id',
+        'reference'
     ];
 
 

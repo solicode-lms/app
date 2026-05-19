@@ -28,7 +28,8 @@ class BaseFeatureDomainService extends BaseService
         'name',
         'slug',
         'description',
-        'sys_module_id'
+        'sys_module_id',
+        'reference'
     ];
 
 

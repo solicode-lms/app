@@ -30,7 +30,8 @@ class BaseEvaluateurService extends BaseService
         'email',
         'organism',
         'telephone',
-        'user_id'
+        'user_id',
+        'reference'
     ];
 
 

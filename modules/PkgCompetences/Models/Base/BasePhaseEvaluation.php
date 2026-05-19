@@ -35,7 +35,7 @@ class BasePhaseEvaluation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'code', 'libelle', 'coefficient', 'description'
+        'ordre', 'reference', 'code', 'libelle', 'coefficient', 'description'
     ];
 
 

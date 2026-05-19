@@ -24,4 +24,5 @@ return [
     'Nom_Arabe' => 'Nom_Arabe',
     'Prenom_Arabe' => 'Prenom_Arabe',
     'NiveauScolaire' => 'NiveauScolaire',
+    'reference' => 'reference',
 ];

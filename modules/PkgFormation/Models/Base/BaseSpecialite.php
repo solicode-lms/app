@@ -34,7 +34,7 @@ class BaseSpecialite extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'description'
+        'nom', 'description', 'reference'
     ];
     public $manyToMany = [
         'Formateur' => ['relation' => 'formateurs' , "foreign_key" => "formateur_id" ]

@@ -30,6 +30,7 @@ class BaseEtatRealisationTacheService extends BaseService
         'workflow_tache_id',
         'sys_color_id',
         'is_editable_only_by_formateur',
+        'reference',
         'formateur_id',
         'description'
     ];

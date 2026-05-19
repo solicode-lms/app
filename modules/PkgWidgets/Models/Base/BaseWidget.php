@@ -59,7 +59,7 @@ class BaseWidget extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'icon', 'name', 'label', 'type_id', 'model_id', 'operation_id', 'color', 'sys_color_id', 'section_widget_id', 'parameters'
+        'ordre', 'icon', 'name', 'label', 'type_id', 'model_id', 'operation_id', 'color', 'sys_color_id', 'reference', 'section_widget_id', 'parameters'
     ];
     public $manyToMany = [
         'Role' => ['relation' => 'roles' , "foreign_key" => "role_id" ]

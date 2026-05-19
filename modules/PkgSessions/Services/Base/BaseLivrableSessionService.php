@@ -26,6 +26,7 @@ class BaseLivrableSessionService extends BaseService
      */
     protected $fieldsSearchable = [
         'ordre',
+        'reference',
         'titre',
         'description',
         'session_formation_id',

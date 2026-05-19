@@ -45,7 +45,7 @@ class BaseCritereEvaluation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'intitule', 'bareme', 'phase_evaluation_id', 'unite_apprentissage_id','reference'
+        'ordre', 'reference', 'intitule', 'bareme', 'phase_evaluation_id', 'unite_apprentissage_id'
     ];
     public $manyToOne = [
         'PhaseEvaluation' => [

@@ -25,6 +25,7 @@ class BaseERelationshipService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'reference',
         'name',
         'type',
         'source_e_model_id',

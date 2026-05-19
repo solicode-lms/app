@@ -36,6 +36,7 @@ class BaseRealisationModuleService extends BaseService
         'commentaire_formateur',
         'date_debut',
         'date_fin',
+        'reference',
         'progression_ideal_cache',
         'taux_rythme_cache',
         'pourcentage_non_valide_cache'

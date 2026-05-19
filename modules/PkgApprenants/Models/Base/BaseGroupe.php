@@ -49,7 +49,7 @@ class BaseGroupe extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'nom', 'description', 'filiere_id', 'annee_formation_id'
+        'code', 'nom', 'description', 'filiere_id', 'annee_formation_id', 'reference'
     ];
     public $manyToMany = [
         'Apprenant' => ['relation' => 'apprenants' , "foreign_key" => "apprenant_id" ],

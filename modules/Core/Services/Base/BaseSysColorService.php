@@ -26,7 +26,8 @@ class BaseSysColorService extends BaseService
      */
     protected $fieldsSearchable = [
         'name',
-        'hex'
+        'hex',
+        'reference'
     ];
 
 

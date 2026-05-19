@@ -29,6 +29,7 @@ class BaseHistoriqueRealisationTacheService extends BaseService
         'dateModification',
         'realisation_tache_id',
         'user_id',
+        'reference',
         'isFeedback'
     ];
 

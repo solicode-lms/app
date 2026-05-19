@@ -32,6 +32,7 @@ class BaseEDataFieldService extends BaseService
         'column_name',
         'e_relationship_id',
         'field_order',
+        'reference',
         'db_primaryKey',
         'db_nullable',
         'db_unique',

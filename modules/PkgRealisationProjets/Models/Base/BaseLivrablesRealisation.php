@@ -46,7 +46,7 @@ class BaseLivrablesRealisation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'livrable_id', 'lien', 'titre', 'description', 'realisation_projet_id'
+        'livrable_id', 'lien', 'titre', 'description', 'realisation_projet_id', 'reference'
     ];
     public $manyToOne = [
         'Livrable' => [

@@ -29,6 +29,7 @@ class BaseSysModelService extends BaseService
         'model',
         'sys_module_id',
         'sys_color_id',
+        'reference',
         'icone',
         'description'
     ];

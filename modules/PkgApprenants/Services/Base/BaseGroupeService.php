@@ -29,7 +29,8 @@ class BaseGroupeService extends BaseService
         'nom',
         'description',
         'filiere_id',
-        'annee_formation_id'
+        'annee_formation_id',
+        'reference'
     ];
 
 

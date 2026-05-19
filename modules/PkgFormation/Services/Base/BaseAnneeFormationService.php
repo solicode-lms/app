@@ -27,7 +27,8 @@ class BaseAnneeFormationService extends BaseService
     protected $fieldsSearchable = [
         'titre',
         'date_debut',
-        'date_fin'
+        'date_fin',
+        'reference'
     ];
 
 

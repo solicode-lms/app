@@ -8,4 +8,5 @@ return [
     'code' => 'code',
     'nom' => 'nom',
     'description' => 'description',
+    'reference' => 'reference',
 ];

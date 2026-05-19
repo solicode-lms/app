@@ -27,6 +27,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
     protected $fieldsSearchable = [
         'commentaire',
         'dateCommentaire',
+        'reference',
         'realisation_tache_id',
         'formateur_id',
         'apprenant_id'

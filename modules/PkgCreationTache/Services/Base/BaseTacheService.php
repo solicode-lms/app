@@ -32,6 +32,7 @@ class BaseTacheService extends BaseService
         'description',
         'dateDebut',
         'dateFin',
+        'reference',
         'note',
         'phase_projet_id',
         'is_live_coding_task',

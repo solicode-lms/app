@@ -45,7 +45,7 @@ class BaseSousGroupe extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'description', 'groupe_id'
+        'reference', 'nom', 'description', 'groupe_id'
     ];
     public $manyToMany = [
         'Apprenant' => ['relation' => 'apprenants' , "foreign_key" => "apprenant_id" ]

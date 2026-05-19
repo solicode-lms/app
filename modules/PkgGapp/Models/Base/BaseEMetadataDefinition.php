@@ -34,7 +34,7 @@ class BaseEMetadataDefinition extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'groupe', 'type', 'scope', 'description', 'default_value'
+        'reference', 'name', 'groupe', 'type', 'scope', 'description', 'default_value'
     ];
 
 

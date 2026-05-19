@@ -46,7 +46,7 @@ class BaseEvaluateur extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'prenom', 'email', 'organism', 'telephone', 'user_id'
+        'nom', 'prenom', 'email', 'organism', 'telephone', 'user_id', 'reference'
     ];
     public $manyToMany = [
         'AffectationProjet' => ['relation' => 'affectationProjets' , "foreign_key" => "affectation_projet_id" ]

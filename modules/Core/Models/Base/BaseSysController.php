@@ -44,7 +44,7 @@ class BaseSysController extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'sys_module_id', 'name', 'slug', 'description', 'is_active'
+        'sys_module_id', 'name', 'slug', 'description', 'is_active', 'reference'
     ];
     public $manyToOne = [
         'SysModule' => [

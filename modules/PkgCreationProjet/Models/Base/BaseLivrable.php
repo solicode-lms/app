@@ -48,7 +48,7 @@ class BaseLivrable extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nature_livrable_id', 'titre', 'projet_id', 'description', 'is_affichable_seulement_par_formateur'
+        'nature_livrable_id', 'titre', 'projet_id', 'description', 'reference', 'is_affichable_seulement_par_formateur'
     ];
     public $manyToMany = [
         'Tache' => ['relation' => 'taches' , "foreign_key" => "tache_id" ]

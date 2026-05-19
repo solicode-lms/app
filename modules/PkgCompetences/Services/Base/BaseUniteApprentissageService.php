@@ -30,7 +30,8 @@ class BaseUniteApprentissageService extends BaseService
         'nom',
         'micro_competence_id',
         'lien',
-        'description'
+        'description',
+        'reference'
     ];
 
 

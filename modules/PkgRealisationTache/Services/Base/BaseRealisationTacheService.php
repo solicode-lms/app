@@ -35,7 +35,8 @@ class BaseRealisationTacheService extends BaseService
         'is_live_coding',
         'remarques_formateur',
         'remarques_apprenant',
-        'tache_affectation_id'
+        'tache_affectation_id',
+        'reference'
     ];
 
 

@@ -36,7 +36,7 @@ class BaseRole extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'guard_name'
+        'name', 'guard_name', 'reference'
     ];
     public $manyToMany = [
         'Permission' => ['relation' => 'permissions' , "foreign_key" => "permission_id" ],

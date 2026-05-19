@@ -46,7 +46,7 @@ class BaseCompetence extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'mini_code', 'nom', 'module_id', 'description'
+        'code', 'mini_code', 'nom', 'module_id', 'description', 'reference'
     ];
     public $manyToOne = [
         'Module' => [

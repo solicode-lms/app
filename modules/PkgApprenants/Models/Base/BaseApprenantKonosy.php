@@ -34,7 +34,7 @@ class BaseApprenantKonosy extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'MatriculeEtudiant', 'Nom', 'Prenom', 'Sexe', 'EtudiantActif', 'Diplome', 'Principale', 'LibelleLong', 'CodeDiplome', 'DateNaissance', 'DateInscription', 'LieuNaissance', 'CIN', 'NTelephone', 'Adresse', 'Nationalite', 'Nom_Arabe', 'Prenom_Arabe', 'NiveauScolaire'
+        'MatriculeEtudiant', 'Nom', 'Prenom', 'Sexe', 'EtudiantActif', 'Diplome', 'Principale', 'LibelleLong', 'CodeDiplome', 'DateNaissance', 'DateInscription', 'LieuNaissance', 'CIN', 'NTelephone', 'Adresse', 'Nationalite', 'Nom_Arabe', 'Prenom_Arabe', 'NiveauScolaire', 'reference'
     ];
 
 

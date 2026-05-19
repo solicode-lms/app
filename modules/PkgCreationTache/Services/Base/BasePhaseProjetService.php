@@ -28,7 +28,8 @@ class BasePhaseProjetService extends BaseService
         'ordre',
         'nom',
         'description',
-        'code'
+        'code',
+        'reference'
     ];
 
 

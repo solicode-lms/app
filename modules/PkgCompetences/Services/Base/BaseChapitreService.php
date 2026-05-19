@@ -34,6 +34,7 @@ class BaseChapitreService extends BaseService
         'lien',
         'description',
         'formateur_id',
+        'reference',
         'is_imitation_ua'
     ];
 

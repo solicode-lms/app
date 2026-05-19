@@ -57,7 +57,7 @@ class BaseUniteApprentissage extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'code', 'nom', 'micro_competence_id', 'lien', 'description'
+        'ordre', 'code', 'nom', 'micro_competence_id', 'lien', 'description', 'reference'
     ];
     public $manyToOne = [
         'MicroCompetence' => [

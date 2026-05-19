@@ -44,7 +44,7 @@ class BaseSectionWidget extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'icone', 'titre', 'sous_titre', 'sys_color_id'
+        'ordre', 'icone', 'titre', 'sous_titre', 'sys_color_id', 'reference'
     ];
     public $manyToOne = [
         'SysColor' => [

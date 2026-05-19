@@ -26,6 +26,7 @@ class BaseCritereEvaluationService extends BaseService
      */
     protected $fieldsSearchable = [
         'ordre',
+        'reference',
         'intitule',
         'bareme',
         'phase_evaluation_id',

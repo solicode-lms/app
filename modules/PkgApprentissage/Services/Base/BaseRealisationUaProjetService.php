@@ -31,7 +31,8 @@ class BaseRealisationUaProjetService extends BaseService
         'bareme',
         'remarque_formateur',
         'date_debut',
-        'date_fin'
+        'date_fin',
+        'reference'
     ];
 
 

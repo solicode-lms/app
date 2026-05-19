@@ -37,7 +37,7 @@ class BaseFiliere extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'nom', 'description'
+        'code', 'nom', 'description', 'reference'
     ];
 
 

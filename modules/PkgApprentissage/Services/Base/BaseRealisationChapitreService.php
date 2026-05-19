@@ -32,7 +32,8 @@ class BaseRealisationChapitreService extends BaseService
         'dernier_update',
         'realisation_ua_id',
         'realisation_tache_id',
-        'commentaire_formateur'
+        'commentaire_formateur',
+        'reference'
     ];
 
 

@@ -44,7 +44,7 @@ class BaseResource extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'lien', 'description', 'projet_id'
+        'nom', 'lien', 'description', 'projet_id', 'reference'
     ];
     public $manyToOne = [
         'Projet' => [
