@@ -11,7 +11,7 @@ trait HasReference
      *
      * @var bool
      */
-    protected bool $allowReferenceUpdate = true;
+    protected bool $allowReferenceUpdate = false;
 
     /**
      * Boot le trait pour gérer les événements du modèle.
@@ -25,13 +25,13 @@ trait HasReference
         });
 
         static::updating(function ($model) {
-            if ($model->hasColumn('reference') && $model->shouldUpdateReference()) {
+            if ($model->hasColumn('reference') && empty($model->reference) && $model->shouldUpdateReference()) {
                 $model->reference = $model->generateReference();
             }
         });
 
         static::saving(function ($model) {
-            if ($model->exists && $model->hasColumn('reference') && $model->shouldUpdateReference()) {
+            if ($model->exists && $model->hasColumn('reference') && empty($model->reference) && $model->shouldUpdateReference()) {
                 $model->reference = $model->generateReference();
             }
         });
