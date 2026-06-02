@@ -986,7 +986,7 @@
     },
     {
         "reference": "taches_label_projets_label_tache_m2m_m2m_displayInForm",
-        "value_boolean": 0,
+        "value_boolean": 1,
         "value_float": 0,
         "e_data_field_reference": "taches_label_projets_label_tache_m2m_m2m",
         "e_metadata_definition_reference": "displayInForm"

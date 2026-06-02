@@ -15,6 +15,10 @@ class GenericPolicy
      */
     public function create(User $user, $model): bool
     {
+        if ($user->hasRole(User::ADMIN)) {
+            return true;
+        }
+
         // Vérifie si le modèle utilise le trait OwnedByUser
         if ($this->hasTrait($model, 'App\Traits\OwnedByUser')) {
             $owners = $model->getUserOwners(); // Retourne un tableau d'utilisateurs
@@ -67,6 +71,10 @@ class GenericPolicy
      */
     protected function hasOwnership(User $user, $model): bool
     {
+        if ($user->hasRole(User::ADMIN)) {
+            return true;
+        }
+
         if ($model->isOwnedByUser) {
             $owners = $model->getUserOwners();
             return in_array($user->id, array_map(fn($owner) => $owner->id, $owners));

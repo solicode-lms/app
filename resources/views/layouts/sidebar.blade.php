@@ -17,6 +17,15 @@
                     {{ Auth::user()->name }} 
                 @endif
               </a>
+              @if (Auth::check() && Auth::user()->roles)
+                <div class="mt-1 d-flex flex-wrap">
+                    @foreach(Auth::user()->roles as $role)
+                        <span class="badge badge-info text-xs mr-1 mb-1">
+                            {{ \Illuminate\Support\Facades\Lang::has('PkgAutorisation::role.' . $role->name) ? __('PkgAutorisation::role.' . $role->name) : ucfirst($role->name) }}
+                        </span>
+                    @endforeach
+                </div>
+              @endif
             </div>
         </div>
         <nav class="mt-2">
