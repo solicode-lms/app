@@ -306,6 +306,46 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="evaluateurs" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="evaluateurs" 
+              id="bulk_field_evaluateurs" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="evaluateurs">
+            {{ ucfirst(__('PkgEvaluateurs::evaluateur.plural')) }}
+            
+          </label>
+                      <select
+                id="evaluateurs"
+                name="evaluateurs[]"
+                class="form-control select2"
+                
+                
+                multiple="multiple">
+               
+                @foreach ($evaluateurs as $evaluateur)
+                    <option value="{{ $evaluateur->id }}"
+                        {{ (isset($itemAffectationProjet) && $itemAffectationProjet->evaluateurs && $itemAffectationProjet->evaluateurs->contains('id', $evaluateur->id)) || (is_array(old('evaluateurs')) && in_array($evaluateur->id, old('evaluateurs'))) ? 'selected' : '' }}>
+                        {{ $evaluateur }}
+                    </option>
+                @endforeach
+            </select>
+          @error('evaluateurs')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="description" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">

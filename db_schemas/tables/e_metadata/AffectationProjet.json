@@ -670,7 +670,7 @@
     },
     {
         "reference": "affectation_projets_evaluateurs_affectation_projet_evaluateur_m2m_m2m_displayInForm",
-        "value_boolean": 0,
+        "value_boolean": 1,
         "value_float": 0,
         "e_data_field_reference": "affectation_projets_evaluateurs_affectation_projet_evaluateur_m2m_m2m",
         "e_metadata_definition_reference": "displayInForm"

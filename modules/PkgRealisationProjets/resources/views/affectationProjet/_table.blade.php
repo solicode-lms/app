@@ -44,7 +44,7 @@
                     <td style="max-width: 13.666666666666666%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="date_fin">
                         <x-deadline-display :value="$affectationProjet->date_fin" />
                     </td>
-                    <td style="max-width: 13.666666666666666%;white-space: normal;" class=" text-truncate" data-id="{{$affectationProjet->id}}" data-field="evaluateurs">
+                    <td style="max-width: 13.666666666666666%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="evaluateurs">
                         <ul>
                             @foreach ($affectationProjet->evaluateurs as $evaluateur)
                                 <li @if(strlen($evaluateur) > 30) data-toggle="tooltip" title="{{$evaluateur}}"  @endif>@limit($evaluateur, 30)</li>
