@@ -219,7 +219,7 @@ class BaseEvaluationRealisationProjetController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgEvaluateurs::evaluationRealisationProjet._fields', array_merge(compact('bulkEdit' , 'itemEvaluationRealisationProjet','etatEvaluationProjets', 'evaluateurs', 'realisationProjets'),$evaluationRealisationTache_compact_value));
+            return view('PkgEvaluateurs::evaluationRealisationProjet._edit', array_merge(compact('bulkEdit' , 'itemEvaluationRealisationProjet','etatEvaluationProjets', 'evaluateurs', 'realisationProjets'),$evaluationRealisationTache_compact_value));
         }
 
         return view('PkgEvaluateurs::evaluationRealisationProjet.edit', array_merge(compact('bulkEdit' ,'itemEvaluationRealisationProjet','etatEvaluationProjets', 'evaluateurs', 'realisationProjets'),$evaluationRealisationTache_compact_value));
