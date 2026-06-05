@@ -3,17 +3,16 @@
 namespace Modules\PkgEvaluateurs\Services;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-use Modules\PkgRealisationTache\Services\RealisationTacheService;
+use Illuminate\Validation\ValidationException;
 use Modules\PkgEvaluateurs\Models\EtatEvaluationProjet;
 use Modules\PkgEvaluateurs\Services\Base\BaseEvaluationRealisationTacheService;
+use Modules\PkgRealisationTache\Services\RealisationTacheService;
 
 /**
  * Classe EvaluationRealisationTacheService pour gérer la persistance de l'entité EvaluationRealisationTache.
  */
 class EvaluationRealisationTacheService extends BaseEvaluationRealisationTacheService
 {
-
     protected array $index_with_relations = [
         'evaluateur',
         'realisationTache', // relation directe avec realisation_taches
@@ -22,26 +21,53 @@ class EvaluationRealisationTacheService extends BaseEvaluationRealisationTacheSe
         'realisationTache.realisationProjet.apprenant', // pour CONCAT nom + prénom
         'realisationTache.realisationProjet.apprenant.groupes', // pour récupérer le groupe
         'realisationTache.realisationProjet.apprenant.groupes.filiere', // pour nom_filiere
-        'realisationTache.livrablesRealisations.livrable.taches'
+        'realisationTache.livrablesRealisations.livrable.taches',
     ];
-   /**
+
+    /**
+     * Règles métier appliquées avant la mise à jour de l'évaluation de réalisation de tâche.
+     *
+     * @param  array  $data  Données soumises pour la modification.
+     * @param  int  $id  Identifiant de l'entité.
+     * @return void
+     *
+     * @throws ValidationException
+     */
+    public function beforeUpdateRules(array &$data, $id)
+    {
+        if (isset($data['note']) && $data['note'] !== null) {
+            $evaluationRealisationTache = $this->find($id);
+            if ($evaluationRealisationTache) {
+                // S'assurer que les relations sont chargées pour calculer le barème max
+                $evaluationRealisationTache->loadMissing('realisationTache.tache');
+
+                $maxNote = $evaluationRealisationTache->getMaxNote();
+                if ($maxNote !== null && $data['note'] > $maxNote) {
+                    throw ValidationException::withMessages([
+                        'note' => __('La note ne doit pas dépasser le barème de la tâche (max : :max).', ['max' => $maxNote]),
+                    ]);
+                }
+            }
+        }
+    }
+
+    /**
      * Met à jour la note de la réalisation de tâche et l'état de la réalisation du projet
      * après la modification d'une évaluation de tâche.
      *
-     * @param \App\Models\EvaluationRealisationTache $evaluationRealisationTache
+     * @param  \App\Models\EvaluationRealisationTache  $evaluationRealisationTache
      * @return void
      */
     public function afterUpdateRules($evaluationRealisationTache)
     {
         DB::transaction(function () use ($evaluationRealisationTache) {
 
-
-            $realisationTacheService = new RealisationTacheService();
-            $evaluationRealisationProjetService = new EvaluationRealisationProjetService();
+            $realisationTacheService = new RealisationTacheService;
+            $evaluationRealisationProjetService = new EvaluationRealisationProjetService;
             // Charger toutes les relations nécessaires d’un seul coup
             $evaluationRealisationTache->loadMissing([
                 'realisationTache.evaluationRealisationTaches',
-                'evaluationRealisationProjet.evaluationRealisationTaches'
+                'evaluationRealisationProjet.evaluationRealisationTaches',
             ]);
 
             $realisationTache = $evaluationRealisationTache->realisationTache;
@@ -51,10 +77,9 @@ class EvaluationRealisationTacheService extends BaseEvaluationRealisationTacheSe
 
             // Mise à jour directe de la note de la tâche
 
-            $realisationTacheService->update($realisationTache,[
+            $realisationTacheService->update($realisationTache, [
                 'note' => $averageNote,
-            ] );
-           
+            ]);
 
             // Récupération du projet via les relations chargées
             $evaluationRealisationProjet = $evaluationRealisationTache->evaluationRealisationProjet;
@@ -63,14 +88,14 @@ class EvaluationRealisationTacheService extends BaseEvaluationRealisationTacheSe
             $evaluationRealisationTaches = $evaluationRealisationProjet->evaluationRealisationTaches;
 
             // Vérifications des états
-            $allNotesNull = $evaluationRealisationTaches->every(fn($t) => is_null($t->note));
-            $allEvaluated = $evaluationRealisationTaches->every(fn($t) => !is_null($t->note));
+            $allNotesNull = $evaluationRealisationTaches->every(fn ($t) => is_null($t->note));
+            $allEvaluated = $evaluationRealisationTaches->every(fn ($t) => ! is_null($t->note));
 
             // Détermination du nouvel état
-            $newEtatCode = $allNotesNull ? 'TODO' : ($allEvaluated ? 'APPROVED' : 'IN_PROGRESS');
+            $newEtatCode = $allNotesNull ? 'A_FAIRE' : ($allEvaluated ? 'TERMINEE' : 'EN_VALIDATION');
 
             // Mise à jour de l’état du projet
-            $evaluationRealisationProjetService->update($evaluationRealisationProjet,[
+            $evaluationRealisationProjetService->update($evaluationRealisationProjet, [
                 'etat_evaluation_projet_id' => $this->getEtatEvaluationProjetByCode($newEtatCode)->id,
             ]);
         });
@@ -86,7 +111,6 @@ class EvaluationRealisationTacheService extends BaseEvaluationRealisationTacheSe
         return $cache[$code] ??= EtatEvaluationProjet::where('code', $code)->firstOrFail();
     }
 
-
     public function defaultSort($query)
     {
         $model = $query->getModel();
@@ -98,7 +122,4 @@ class EvaluationRealisationTacheService extends BaseEvaluationRealisationTacheSe
             ->join('taches as t', 't.id', '=', 'rt.tache_id')
             ->orderBy('t.ordre', 'asc');
     }
-
-    
-   
 }
