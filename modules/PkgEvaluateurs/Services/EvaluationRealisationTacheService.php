@@ -33,23 +33,23 @@ class EvaluationRealisationTacheService extends BaseEvaluationRealisationTacheSe
      *
      * @throws ValidationException
      */
-    public function beforeUpdateRules(array &$data, $id)
-    {
-        if (isset($data['note']) && $data['note'] !== null) {
-            $evaluationRealisationTache = $this->find($id);
-            if ($evaluationRealisationTache) {
-                // S'assurer que les relations sont chargées pour calculer le barème max
-                $evaluationRealisationTache->loadMissing('realisationTache.tache');
+    // public function beforeUpdateRules(array &$data, $id)
+    // {
+    //     if (isset($data['note']) && $data['note'] !== null) {
+    //         $evaluationRealisationTache = $this->find($id);
+    //         if ($evaluationRealisationTache) {
+    //             // S'assurer que les relations sont chargées pour calculer le barème max
+    //             $evaluationRealisationTache->loadMissing('realisationTache.tache');
 
-                $maxNote = $evaluationRealisationTache->getMaxNote();
-                if ($maxNote !== null && $data['note'] > $maxNote) {
-                    throw ValidationException::withMessages([
-                        'note' => __('La note ne doit pas dépasser le barème de la tâche (max : :max).', ['max' => $maxNote]),
-                    ]);
-                }
-            }
-        }
-    }
+    //             $maxNote = $evaluationRealisationTache->getMaxNote();
+    //             if ($maxNote !== null && $data['note'] > $maxNote) {
+    //                 throw ValidationException::withMessages([
+    //                     'note' => __('La note ne doit pas dépasser le barème de la tâche (max : :max).', ['max' => $maxNote]),
+    //                 ]);
+    //             }
+    //         }
+    //     }
+    // }
 
     /**
      * Met à jour la note de la réalisation de tâche et l'état de la réalisation du projet
