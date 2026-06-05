@@ -3,6 +3,7 @@
     $noteFmt    = $entity->note !== null ? number_format($entity->note, 2, '.', '') : '—';
     $avgNote    = $entity->realisationTache?->note;
     $bareme        = $entity->realisationTache?->tache?->note;
+  
     $baremeFmt = $bareme !== null ? number_format($bareme, 2, '.', '') : null;
     $avgNoteFmt = $avgNote !== null ? number_format($avgNote, 2, '.', '') : null;
 @endphp
@@ -16,3 +17,6 @@
         @endif
     </div>
 </div>
+
+
+

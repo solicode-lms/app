@@ -1,4 +1,3 @@
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 /**
  * Contrat attendu pour un éditeur :
@@ -106,6 +105,11 @@ fieldRegistry.register('number', (props) => {
            
             // appliquer les règles de validation HTML5
             applyHtmlValidation(input, meta.html_attrs || {});
+
+            // Afficher la valeur maximale autorisée (barème) sous forme de placeholder si présente
+            if (meta.html_attrs && meta.html_attrs.max !== undefined && meta.html_attrs.max !== null) {
+                input.placeholder = `Max: ${meta.html_attrs.max}`;
+            }
 
             input.addEventListener('keydown', e => {
                 if (e.key === 'Escape') onCancel();
