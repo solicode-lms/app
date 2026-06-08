@@ -39,7 +39,8 @@ class BaseTache extends BaseModel
       //  'phaseProjet',
       //  'phaseEvaluation',
       //  'chapitre',
-      //  'mobilisationUa'
+      //  'mobilisationUa',
+      //  'projetOrigineNote'
     ];
 
 
@@ -55,37 +56,42 @@ class BaseTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'priorite', 'titre', 'projet_id', 'description', 'dateDebut', 'dateFin', 'reference', 'note', 'phase_projet_id', 'is_live_coding_task', 'phase_evaluation_id', 'chapitre_id', 'mobilisation_ua_id'
+        'ordre', 'priorite', 'titre', 'projet_id', 'description', 'dateDebut', 'dateFin', 'reference', 'note', 'phase_projet_id', 'is_live_coding_task', 'phase_evaluation_id', 'chapitre_id', 'mobilisation_ua_id', 'projet_origine_note_id'
     ];
     public $manyToMany = [
         'Livrable' => ['relation' => 'livrables' , "foreign_key" => "livrable_id" ],
         'LabelProjet' => ['relation' => 'labelProjets' , "foreign_key" => "label_projet_id" ]
     ];
     public $manyToOne = [
-        'Projet' => [
+        'projet' => [
             'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
-            'relation' => 'projets' , 
+            'relation' => 'projet' , 
             "foreign_key" => "projet_id", 
             ],
-        'PhaseProjet' => [
+        'phaseProjet' => [
             'model' => "Modules\\PkgCreationTache\\Models\\PhaseProjet",
-            'relation' => 'phaseProjets' , 
+            'relation' => 'phaseProjet' , 
             "foreign_key" => "phase_projet_id", 
             ],
-        'PhaseEvaluation' => [
+        'phaseEvaluation' => [
             'model' => "Modules\\PkgCompetences\\Models\\PhaseEvaluation",
-            'relation' => 'phaseEvaluations' , 
+            'relation' => 'phaseEvaluation' , 
             "foreign_key" => "phase_evaluation_id", 
             ],
-        'Chapitre' => [
+        'chapitre' => [
             'model' => "Modules\\PkgCompetences\\Models\\Chapitre",
-            'relation' => 'chapitres' , 
+            'relation' => 'chapitre' , 
             "foreign_key" => "chapitre_id", 
             ],
-        'MobilisationUa' => [
+        'mobilisationUa' => [
             'model' => "Modules\\PkgCreationProjet\\Models\\MobilisationUa",
-            'relation' => 'mobilisationUas' , 
+            'relation' => 'mobilisationUa' , 
             "foreign_key" => "mobilisation_ua_id", 
+            ],
+        'projetOrigineNote' => [
+            'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
+            'relation' => 'projetOrigineNote' , 
+            "foreign_key" => "projet_origine_note_id", 
             ]
     ];
 
@@ -134,6 +140,15 @@ class BaseTache extends BaseModel
     public function mobilisationUa(): BelongsTo
     {
         return $this->belongsTo(MobilisationUa::class, 'mobilisation_ua_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Projet.
+     *
+     * @return BelongsTo
+     */
+    public function projetOrigineNote(): BelongsTo
+    {
+        return $this->belongsTo(Projet::class, 'projet_origine_note_id', 'id');
     }
 
     /**

@@ -47,6 +47,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'chapitre_reference' => 'chapitre_reference',
                 'livrables' => 'livrables',
                 'mobilisation_ua_reference' => 'mobilisation_ua_reference',
+                'projet_origine_note_reference' => 'projet_reference',
                 'labelProjets' => 'labelProjets',
             ];
         } else {
@@ -66,6 +67,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'chapitre_reference' => __('PkgCompetences::chapitre.singular'),
                     'livrables' => __('PkgCreationProjet::livrable.plural'),
                 'mobilisation_ua_reference' => __('PkgCreationProjet::mobilisationUa.singular'),
+                'projet_origine_note_reference' => __('PkgCreationProjet::projet.singular'),
                     'labelProjets' => __('PkgCreationProjet::labelProjet.plural'),
             ];
         }
@@ -95,6 +97,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                     ->pluck('reference')
                     ->implode('|'),
                 'mobilisation_ua_reference' => $tache->mobilisationUa?->reference,
+                'projet_reference' => $tache->projetOrigineNote?->reference,
                 'labelProjets' => $tache->labelProjets
                     ->pluck('reference')
                     ->implode('|'),

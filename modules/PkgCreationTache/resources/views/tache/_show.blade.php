@@ -71,6 +71,18 @@
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.projet_origine_note')) }}</small>
+
+                {{-- Affichage texte classique --}}
+                @if($itemTache->projetOrigineNote)
+                  {{ $itemTache->projetOrigineNote }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::labelProjet.plural')) }}</small>
                   <!-- Valeurs many-to-many -->
                   @if($itemTache->labelProjets->isNotEmpty())

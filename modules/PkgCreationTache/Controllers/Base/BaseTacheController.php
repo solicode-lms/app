@@ -110,15 +110,16 @@ class BaseTacheController extends AdminController
         $phaseProjets = $this->phaseProjetService->all();
         $phaseEvaluations = $this->phaseEvaluationService->all();
         $chapitres = $this->chapitreService->all();
-        $livrables = $this->livrableService->all();
         $mobilisationUas = $this->mobilisationUaService->all();
+        $projetOrigineNotes = $this->projetService->all();
+        $livrables = $this->livrableService->all();
         $labelProjets = $this->labelProjetService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCreationTache::tache._fields', compact('bulkEdit' ,'itemTache', 'labelProjets', 'livrables', 'chapitres', 'mobilisationUas', 'phaseEvaluations', 'phaseProjets', 'projets'));
+            return view('PkgCreationTache::tache._fields', compact('bulkEdit' ,'itemTache', 'projets', 'phaseProjets', 'phaseEvaluations', 'chapitres', 'mobilisationUas', 'projetOrigineNotes', 'livrables', 'labelProjets'));
         }
-        return view('PkgCreationTache::tache.create', compact('bulkEdit' ,'itemTache', 'labelProjets', 'livrables', 'chapitres', 'mobilisationUas', 'phaseEvaluations', 'phaseProjets', 'projets'));
+        return view('PkgCreationTache::tache.create', compact('bulkEdit' ,'itemTache', 'projets', 'phaseProjets', 'phaseEvaluations', 'chapitres', 'mobilisationUas', 'projetOrigineNotes', 'livrables', 'labelProjets'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -152,6 +153,7 @@ class BaseTacheController extends AdminController
         $chapitres = $this->chapitreService->getAllForSelect($itemTache->chapitre);
         $livrables = $this->livrableService->getAllForSelect($itemTache->livrables);
         $mobilisationUas = $this->mobilisationUaService->getAllForSelect($itemTache->mobilisationUa);
+        $projetOrigineNotes = $this->projetService->getAllForSelect($itemTache->projetOrigineNote);
         $labelProjets = $this->labelProjetService->getAllForSelect($itemTache->labelProjets);
 
         $bulkEdit = true;
@@ -160,9 +162,9 @@ class BaseTacheController extends AdminController
         $itemTache = $this->tacheService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgCreationTache::tache._fields', compact('bulkEdit', 'tache_ids', 'itemTache', 'labelProjets', 'livrables', 'chapitres', 'mobilisationUas', 'phaseEvaluations', 'phaseProjets', 'projets'));
+            return view('PkgCreationTache::tache._fields', compact('bulkEdit', 'tache_ids', 'itemTache', 'projets', 'phaseProjets', 'phaseEvaluations', 'chapitres', 'mobilisationUas', 'projetOrigineNotes', 'livrables', 'labelProjets'));
         }
-        return view('PkgCreationTache::tache.bulk-edit', compact('bulkEdit', 'tache_ids', 'itemTache', 'labelProjets', 'livrables', 'chapitres', 'mobilisationUas', 'phaseEvaluations', 'phaseProjets', 'projets'));
+        return view('PkgCreationTache::tache.bulk-edit', compact('bulkEdit', 'tache_ids', 'itemTache', 'projets', 'phaseProjets', 'phaseEvaluations', 'chapitres', 'mobilisationUas', 'projetOrigineNotes', 'livrables', 'labelProjets'));
     }
     /**
      */
@@ -241,6 +243,7 @@ class BaseTacheController extends AdminController
         $chapitres = $this->chapitreService->getAllForSelect($itemTache->chapitre);
         $livrables = $this->livrableService->getAllForSelect($itemTache->livrables);
         $mobilisationUas = $this->mobilisationUaService->getAllForSelect($itemTache->mobilisationUa);
+        $projetOrigineNotes = $this->projetService->getAllForSelect($itemTache->projetOrigineNote);
         $labelProjets = $this->labelProjetService->getAllForSelect($itemTache->labelProjets);
 
 
@@ -261,10 +264,10 @@ class BaseTacheController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCreationTache::tache._edit', array_merge(compact('bulkEdit' , 'itemTache','labelProjets', 'livrables', 'chapitres', 'mobilisationUas', 'phaseEvaluations', 'phaseProjets', 'projets'),$realisationTache_compact_value, $tacheAffectation_compact_value));
+            return view('PkgCreationTache::tache._edit', array_merge(compact('bulkEdit' , 'itemTache','projets', 'phaseProjets', 'phaseEvaluations', 'chapitres', 'mobilisationUas', 'projetOrigineNotes', 'livrables', 'labelProjets'),$realisationTache_compact_value, $tacheAffectation_compact_value));
         }
 
-        return view('PkgCreationTache::tache.edit', array_merge(compact('bulkEdit' ,'itemTache','labelProjets', 'livrables', 'chapitres', 'mobilisationUas', 'phaseEvaluations', 'phaseProjets', 'projets'),$realisationTache_compact_value, $tacheAffectation_compact_value));
+        return view('PkgCreationTache::tache.edit', array_merge(compact('bulkEdit' ,'itemTache','projets', 'phaseProjets', 'phaseEvaluations', 'chapitres', 'mobilisationUas', 'projetOrigineNotes', 'livrables', 'labelProjets'),$realisationTache_compact_value, $tacheAffectation_compact_value));
 
 
     }

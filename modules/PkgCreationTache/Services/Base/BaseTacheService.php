@@ -38,7 +38,8 @@ class BaseTacheService extends BaseService
         'is_live_coding_task',
         'phase_evaluation_id',
         'chapitre_id',
-        'mobilisation_ua_id'
+        'mobilisation_ua_id',
+        'projet_origine_note_id'
     ];
 
 
@@ -197,6 +198,23 @@ class BaseTacheService extends BaseService
                         \Modules\PkgCreationProjet\Models\MobilisationUa::class, 
                         'id',
                         $mobilisationUas
+                    );
+                }
+            
+            
+                if (!array_key_exists('projet_origine_note_id', $scopeVariables)) {
+
+
+                    $projetService = new \Modules\PkgCreationProjet\Services\ProjetService();
+                    $projetIds = $this->getAvailableFilterValues('projet_origine_note_id');
+                    $projets = $projetService->getByIds($projetIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCreationProjet::projet.plural"), 
+                        'projet_origine_note_id', 
+                        \Modules\PkgCreationProjet\Models\Projet::class, 
+                        'titre',
+                        $projets
                     );
                 }
             

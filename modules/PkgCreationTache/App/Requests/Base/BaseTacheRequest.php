@@ -43,6 +43,7 @@ class BaseTacheRequest extends FormRequest
             'chapitre_id' => 'nullable',
             'livrables' => 'nullable|array',
             'mobilisation_ua_id' => 'nullable',
+            'projet_origine_note_id' => 'nullable',
             'labelProjets' => 'nullable|array'
         ];
     }
@@ -71,6 +72,7 @@ class BaseTacheRequest extends FormRequest
             'livrables.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.livrables')]),
             'livrables.array' => __('validation.array', ['attribute' => __('PkgCreationTache::Tache.livrables')]),
             'mobilisation_ua_id.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.mobilisation_ua_id')]),
+            'projet_origine_note_id.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.projet_origine_note_id')]),
             'labelProjets.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.labelProjets')]),
             'labelProjets.array' => __('validation.array', ['attribute' => __('PkgCreationTache::Tache.labelProjets')])
         ];
