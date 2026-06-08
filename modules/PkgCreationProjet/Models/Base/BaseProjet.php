@@ -57,19 +57,19 @@ class BaseProjet extends BaseModel
         'session_formation_id', 'filiere_id', 'titre', 'travail_a_faire', 'critere_de_travail', 'formateur_id', 'description', 'reference', 'is_auto_insert_chapitres', 'is_auto_calcule_note_realisation'
     ];
     public $manyToOne = [
-        'SessionFormation' => [
+        'sessionFormation' => [
             'model' => "Modules\\PkgSessions\\Models\\SessionFormation",
-            'relation' => 'sessionFormations' , 
+            'relation' => 'sessionFormation' , 
             "foreign_key" => "session_formation_id", 
             ],
-        'Filiere' => [
+        'filiere' => [
             'model' => "Modules\\PkgFormation\\Models\\Filiere",
-            'relation' => 'filieres' , 
+            'relation' => 'filiere' , 
             "foreign_key" => "filiere_id", 
             ],
-        'Formateur' => [
+        'formateur' => [
             'model' => "Modules\\PkgFormation\\Models\\Formateur",
-            'relation' => 'formateurs' , 
+            'relation' => 'formateur' , 
             "foreign_key" => "formateur_id", 
             ]
     ];
@@ -157,6 +157,15 @@ class BaseProjet extends BaseModel
     public function resources(): HasMany
     {
         return $this->hasMany(Resource::class, 'projet_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Projets.
+     *
+     * @return HasMany
+     */
+    public function projetOrigineNoteIdTaches(): HasMany
+    {
+        return $this->hasMany(Tache::class, 'projet_origine_note_id', 'id');
     }
 
 

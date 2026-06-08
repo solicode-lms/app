@@ -117,9 +117,9 @@ class BaseProjetController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._fields', compact('bulkEdit' ,'itemProjet', 'filieres', 'formateurs', 'sessionFormations'));
+            return view('PkgCreationProjet::projet._fields', compact('bulkEdit' ,'itemProjet', 'sessionFormations', 'filieres', 'formateurs'));
         }
-        return view('PkgCreationProjet::projet.create', compact('bulkEdit' ,'itemProjet', 'filieres', 'formateurs', 'sessionFormations'));
+        return view('PkgCreationProjet::projet.create', compact('bulkEdit' ,'itemProjet', 'sessionFormations', 'filieres', 'formateurs'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -159,9 +159,9 @@ class BaseProjetController extends AdminController
         $itemProjet = $this->projetService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._fields', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'formateurs', 'sessionFormations'));
+            return view('PkgCreationProjet::projet._fields', compact('bulkEdit', 'projet_ids', 'itemProjet', 'sessionFormations', 'filieres', 'formateurs'));
         }
-        return view('PkgCreationProjet::projet.bulk-edit', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'formateurs', 'sessionFormations'));
+        return view('PkgCreationProjet::projet.bulk-edit', compact('bulkEdit', 'projet_ids', 'itemProjet', 'sessionFormations', 'filieres', 'formateurs'));
     }
     /**
      */
@@ -316,10 +316,10 @@ class BaseProjetController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._edit', array_merge(compact('bulkEdit' , 'itemProjet','filieres', 'formateurs', 'sessionFormations'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value));
+            return view('PkgCreationProjet::projet._edit', array_merge(compact('bulkEdit' , 'itemProjet','sessionFormations', 'filieres', 'formateurs'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value));
         }
 
-        return view('PkgCreationProjet::projet.edit', array_merge(compact('bulkEdit' ,'itemProjet','filieres', 'formateurs', 'sessionFormations'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value));
+        return view('PkgCreationProjet::projet.edit', array_merge(compact('bulkEdit' ,'itemProjet','sessionFormations', 'filieres', 'formateurs'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value));
 
 
     }
