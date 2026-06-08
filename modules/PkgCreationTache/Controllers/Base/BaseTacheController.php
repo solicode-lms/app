@@ -64,6 +64,10 @@ class BaseTacheController extends AdminController
 
 
 
+        // scopeDataByRole
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
 
          // Extraire les paramètres de recherche, pagination, filtres
         $taches_params = array_merge(
@@ -95,6 +99,9 @@ class BaseTacheController extends AdminController
     public function create() {
 
 
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
         $itemTache = $this->tacheService->createInstance();
  
         // scopeDataInEditContext
@@ -136,6 +143,9 @@ class BaseTacheController extends AdminController
         // Même traitement de create 
 
  
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
          $itemTache = $this->tacheService->find($tache_ids[0]);
          
         // scopeDataInEditContext
@@ -225,6 +235,9 @@ class BaseTacheController extends AdminController
 
         $this->viewState->setContextKey('tache.edit_' . $id);
 
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->set('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
 
         $itemTache = $this->tacheService->edit($id);
 

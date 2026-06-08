@@ -1065,5 +1065,19 @@
         "value_float": 0,
         "e_data_field_reference": "Tache_projet_origine_note_id",
         "e_metadata_definition_reference": "metaLabel"
+    },
+    {
+        "reference": "Tache_projet_origine_note_id_scopeDataByRole",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": [
+            {
+                "key": "scope.projet.formateur_id",
+                "role": "formateur",
+                "value": "formateur_id"
+            }
+        ],
+        "e_data_field_reference": "Tache_projet_origine_note_id",
+        "e_metadata_definition_reference": "scopeDataByRole"
     }
 ]
