@@ -14,6 +14,12 @@ use Modules\PkgCreationTache\Models\PhaseProjet;
 trait TacheCrudTrait
 {
     /**
+     * Garde statique pour éviter les boucles récursives lors de la mise à jour des notes de tâches.
+     *
+     * @var array
+     */
+    protected static array $processingProjectNotes = [];
+    /**
      * Hook appelé avant la création d'une tâche.
      * Applique les règles métier (Calcul note, Assignation phase).
      *
@@ -171,10 +177,34 @@ trait TacheCrudTrait
             $tache->projet->touch();
         }
 
-
-
         // 1) Synchroniser les réalisations de compétences si le niveau d'évaluation a changé
         $this->syncRealisationPrototypeOrProjet($tache);
+
+        // 2) Si la note de la tâche a été modifiée, on met à jour la note des tâches en relation avec son projet (projetOrigineNote)
+        if ($tache->wasChanged('note') && !empty($tache->projet_id)) {
+            $projectId = $tache->projet_id;
+
+            if (!in_array($projectId, self::$processingProjectNotes)) {
+                self::$processingProjectNotes[] = $projectId;
+
+                try {
+                    $tachesDependantes = $this->model->where('projet_origine_note_id', $projectId)->get();
+
+                    if ($tachesDependantes->isNotEmpty()) {
+                        $projetService = app(\Modules\PkgCreationProjet\Services\ProjetService::class);
+                        $nouveauBareme = $projetService->getBareme($projectId);
+
+                        $tacheService = app(\Modules\PkgCreationTache\Services\TacheService::class);
+
+                        foreach ($tachesDependantes as $tacheDep) {
+                            $tacheService->update($tacheDep->id, ['note' => $nouveauBareme]);
+                        }
+                    }
+                } finally {
+                    self::$processingProjectNotes = array_diff(self::$processingProjectNotes, [$projectId]);
+                }
+            }
+        }
     }
 
     /**

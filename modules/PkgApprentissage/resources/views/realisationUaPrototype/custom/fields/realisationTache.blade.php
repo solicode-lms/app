@@ -6,6 +6,8 @@
             <br>
             <strong>Projet :</strong> {{ $entity->realisationTache?->realisationProjet?->affectationProjet?->projet?->titre ?? 'Non défini' }} 
             <br>
+            <strong>Formateur :</strong> {{ $entity->realisationTache?->realisationProjet?->affectationProjet?->projet?->formateur ?? 'Non défini' }} 
+            <br>
             <strong>Tâche :</strong> {{ $entity->realisationTache?->tache?->titre ?? 'Non défini' }} 
             <br>
             <strong>État :</strong> {{ $entity->realisationTache?->etatRealisationTache?->nom ?? 'Non défini' }}

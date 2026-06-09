@@ -54,4 +54,20 @@ class Projet extends BaseProjet
     {
        return $this->titre . (!empty($this->formateur) ? '-' . $this->formateur->reference : '');
     }
+
+    /**
+     * Méthode __toString pour représenter le modèle sous forme de chaîne.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        $titre = $this->titre ?? "";
+        if (\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->hasAnyRole(['admin-formateur', 'admin'])) {
+            if ($this->formateur) {
+                return $titre . " [ " . $this->formateur . "]";
+            }
+        }
+        return $titre;
+    }
 }

@@ -17,12 +17,30 @@ trait RealisationTacheCrudTrait
      * Règle métier exécutée avant la création d'une RealisationTache.
      * 1. Détermine automatiquement `tache_affectation_id` si manquant.
      * 2. Ajuste `etat_realisation_tache_id` si le chapitre est déjà validé.
-     * 
-     * @param array $data Les données pour la création.
-     * @return array Les données modifiées.
      */
     public function beforeCreateRules(array &$data): void
     {
+        // Règle : Assigner la note du projet d'origine si la tâche a projet_origine_note_id
+        if (!empty($data['tache_id']) && !empty($data['realisation_projet_id'])) {
+            $tache = \Modules\PkgCreationTache\Models\Tache::find($data['tache_id']);
+            if ($tache && !empty($tache->projet_origine_note_id)) {
+                $realisationProjet = \Modules\PkgRealisationProjets\Models\RealisationProjet::find($data['realisation_projet_id']);
+                if ($realisationProjet) {
+                    $apprenantId = $realisationProjet->apprenant_id;
+                    $projetOrigineNoteId = $tache->projet_origine_note_id;
+
+                    $realisationProjetOrigine = \Modules\PkgRealisationProjets\Models\RealisationProjet::where('apprenant_id', $apprenantId)
+                        ->whereHas('affectationProjet', function ($q) use ($projetOrigineNoteId) {
+                            $q->where('projet_id', $projetOrigineNoteId);
+                        })->first();
+
+                    if ($realisationProjetOrigine) {
+                        $data['note'] = $realisationProjetOrigine->calculerNoteAvecEchelle();
+                    }
+                }
+            }
+        }
+
         // 🛡️ Plafonnement de la note par rapport au barème de la tâche
         if (isset($data['note']) && !empty($data['tache_id'])) {
             $tache = \Modules\PkgCreationTache\Models\Tache::find($data['tache_id']);
@@ -152,8 +170,6 @@ trait RealisationTacheCrudTrait
         }
     }
 
-
-
     /**
      * Méthode contient les règles métier qui sont appliquer avant l'édition
      * il est utilisée avec tous les méthode qui font update
@@ -163,8 +179,17 @@ trait RealisationTacheCrudTrait
      */
     public function beforeUpdateRules(array &$data, $id)
     {
-
         $realisationTache = $this->find($id);
+
+        // 🛡️ Empêcher la modification de la note si la tâche est en relation avec un projet d'origine note
+        if (array_key_exists('note', $data) && $realisationTache->tache && !empty($realisationTache->tache->projet_origine_note_id)) {
+            if ($data['note'] != $realisationTache->note) {
+                $projetOrigineNom = $realisationTache->tache->projetOrigineNote?->titre ?? 'N/A';
+                throw \Illuminate\Validation\ValidationException::withMessages([
+                    'note' => "La note de cette tâche est liée au projet d'origine [{$projetOrigineNom}] et ne peut pas être modifiée directement."
+                ]);
+            }
+        }
 
         // 🛡️ Plafonnement de la note par rapport au barème de la tâche
         if (isset($data['note'])) {
