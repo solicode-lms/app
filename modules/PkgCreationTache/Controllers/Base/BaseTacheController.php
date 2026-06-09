@@ -99,8 +99,9 @@ class BaseTacheController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->init('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->set('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
         $itemTache = $this->tacheService->createInstance();
  
