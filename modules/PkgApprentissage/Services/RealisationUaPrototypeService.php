@@ -104,6 +104,9 @@ class RealisationUaPrototypeService extends BaseRealisationUaPrototypeService
             Auth::user()->hasRole(Role::APPRENANT_ROLE) => (new ApprenantService())->getApprenantsDeGroupe($this->sessionState->get("apprenant_id")),
             default => Apprenant::all(),
         };
+
+        // TODO : pour rédoufre le probl_me de foramteur Imane : il faut affiche la liste de tous les apprenant pour que les autre formateur permettre de modifier la note 
+        $apprenants = Apprenant::all();
         $this->fieldsFilterable[] = $this->generateRelationFilter(
             __("PkgApprenants::apprenant.plural"),
             'RealisationUa.RealisationMicroCompetence.Apprenant_id',
