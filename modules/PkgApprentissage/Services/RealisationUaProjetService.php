@@ -71,20 +71,20 @@ class RealisationUaProjetService extends BaseRealisationUaProjetService
 
         $affectationProjetId = AffectationProjet::find($affectationProjetId) ? $affectationProjetId : null;
 
-         if (!empty($affectationProjetId)) {
+        if (!empty($affectationProjetId)) {
             $affectationProjet = clone $affectationProjets->firstWhere('id', $affectationProjetId);
             if (!$affectationProjet) {
                 $affectationProjet = (new AffectationProjetService())->find($affectationProjetId);
             }
             if ($affectationProjet && $affectationProjet->projet) {
-                $uniteApprentissages = $affectationProjet->projet->mobilisationUas->map(function($mobilisation) {
+                $uniteApprentissages = $affectationProjet->projet->mobilisationUas->map(function ($mobilisation) {
                     return $mobilisation->uniteApprentissage;
                 })->filter()->unique('id');
             } else {
-                 $uniteApprentissages = collect();
+                $uniteApprentissages = collect();
             }
         } else {
-             $uniteApprentissages = UniteApprentissage::all();
+            $uniteApprentissages = UniteApprentissage::all();
         }
 
         $this->fieldsFilterable[] = $this->generateRelationFilter(
@@ -102,6 +102,11 @@ class RealisationUaProjetService extends BaseRealisationUaProjetService
             Auth::user()->hasRole(Role::APPRENANT_ROLE) => (new ApprenantService())->getApprenantsDeGroupe($this->sessionState->get("apprenant_id")),
             default => Apprenant::all(),
         };
+
+        // TODO : pour rédoufre le probl_me de foramteur Imane : il faut affiche la liste de tous les apprenant pour que les autre formateur permettre de modifier la note 
+        $apprenants = Apprenant::all();
+
+
         $this->fieldsFilterable[] = $this->generateRelationFilter(
             __("PkgApprenants::apprenant.plural"),
             'RealisationUa.RealisationMicroCompetence.Apprenant_id',
@@ -120,14 +125,14 @@ class RealisationUaProjetService extends BaseRealisationUaProjetService
             ->orderBy('unite_apprentissages.ordre', 'asc')
             ->select('realisation_ua_projets.*');
     }
-    
+
     public function updatedObserverJob(int $id, string $token): void
     {
         $jobManager = new JobManager($token);
         $changedFields = $jobManager->getChangedFields();
 
         $realisationUaProjet = $this->find($id);
-        if (! $realisationUaProjet) {
+        if (!$realisationUaProjet) {
             return;
         }
 
@@ -153,5 +158,5 @@ class RealisationUaProjetService extends BaseRealisationUaProjetService
         $jobManager->finish();
     }
 
- 
+
 }
