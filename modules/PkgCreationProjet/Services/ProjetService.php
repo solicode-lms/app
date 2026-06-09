@@ -214,4 +214,19 @@ class ProjetService extends BaseProjetService
 
         // Optionnel : Cas par défaut pour tout ce qui reste -> BESOINS ou autre ?
     }
+
+    /**
+     * Calcule le barème du projet (somme des notes de ses tâches).
+     *
+     * @param int $projetId
+     * @return float
+     */
+    public function getBareme(int $projetId): float
+    {
+        $projet = $this->model->find($projetId);
+        if ($projet) {
+            return (float) $projet->taches()->sum('note');
+        }
+        return 0.0;
+    }
 }

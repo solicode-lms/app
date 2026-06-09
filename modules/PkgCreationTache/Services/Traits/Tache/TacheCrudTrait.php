@@ -49,6 +49,8 @@ trait TacheCrudTrait
         // Récupération des données contextuelles
         $projectId = $data['projet_id'] ?? null;
         $phaseEvalId = $data['phase_evaluation_id'] ?? null;
+        $projetOrigineNoteId = $data['projet_origine_note_id'] ?? null;
+        $projetOrigineNoteChanged = false;
 
         if ($isUpdate) {
             $id = $tacheId ?? $data['id'] ?? null;
@@ -57,9 +59,32 @@ trait TacheCrudTrait
                 if ($tache) {
                     $projectId = $projectId ?? $tache->projet_id;
                     $phaseEvalId = $phaseEvalId ?? $tache->phase_evaluation_id;
+
+                    if (array_key_exists('projet_origine_note_id', $data)) {
+                        if ($data['projet_origine_note_id'] != $tache->projet_origine_note_id) {
+                            $projetOrigineNoteChanged = true;
+                            $projetOrigineNoteId = $data['projet_origine_note_id'];
+                        }
+                    } else {
+                        $projetOrigineNoteId = $tache->projet_origine_note_id;
+                    }
                 }
             }
+        } else {
+            // Création
+            if (isset($data['projet_origine_note_id'])) {
+                $projetOrigineNoteId = $data['projet_origine_note_id'];
+                $projetOrigineNoteChanged = true;
+            }
         }
+
+        // Si la relation projetOrigineNote est modifiée ou définie à la création
+        if ($projetOrigineNoteChanged && !empty($projetOrigineNoteId)) {
+            $projetService = app(\Modules\PkgCreationProjet\Services\ProjetService::class);
+            $data['note'] = $projetService->getBareme((int) $projetOrigineNoteId);
+        }
+
+        $hasProjetOrigineNote = !empty($projetOrigineNoteId);
 
         if ($phaseEvalId) {
             $phaseEval = PhaseEvaluation::find($phaseEvalId);
@@ -70,7 +95,7 @@ trait TacheCrudTrait
                 $this->updatePhaseProjet($data, $code);
 
                 // 2. Règle : Calcul de la note pour Prototype (N2) et Réalisation (N3)
-                if (in_array($code, ['N2', 'N3']) && $projectId) {
+                if (in_array($code, ['N2', 'N3']) && $projectId && !$hasProjetOrigineNote) {
                     $projet = Projet::with(['mobilisationUas.uniteApprentissage.critereEvaluations.phaseEvaluation'])->find($projectId);
 
                     if ($projet) {
