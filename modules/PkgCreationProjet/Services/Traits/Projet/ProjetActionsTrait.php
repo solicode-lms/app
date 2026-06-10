@@ -33,7 +33,7 @@ trait ProjetActionsTrait
     public function clonerProjet(int $projetId)
     {
         $formateurId = null;
-        if (Auth::user()->hasRole('formateur')) {
+        if (Auth::user()->hasAnyRole(['formateur', 'admin-formateur'])) {
             // Récupère l’id du formateur depuis la session utilisateur
             $formateurId = $this->sessionState->get('formateur_id');
             if (!$formateurId) {
@@ -41,8 +41,8 @@ trait ProjetActionsTrait
                 throw new \Exception("Impossible de récupérer l'identifiant du formateur depuis la session.");
             }
         } else {
-            // Gestion si l’utilisateur n’est pas formateur
-            throw new BlException("Seuls les formateurs peuvent cloner un projet.");
+            // Gestion si l’utilisateur n’est ni formateur ni admin-formateur
+            throw new BlException("Seuls les formateurs et admin-formateurs peuvent cloner un projet.");
         }
 
 
