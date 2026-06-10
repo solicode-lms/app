@@ -2,7 +2,6 @@
 
 namespace Modules\PkgCreationProjet\Services\Traits\Projet;
 
-use Illuminate\Support\Facades\Auth;
 use Modules\Core\App\Exceptions\BlException;
 use Modules\PkgSessions\Models\SessionFormation;
 
@@ -11,25 +10,21 @@ trait ProjetCrudTrait
     /**
      * Applique les règles métier avant la création.
      *
-     * @param array $data Les données passées par référence.
+     * @param  array  $data  Les données passées par référence.
      * @return void
+     *
      * @throws BlException
      */
     public function beforeCreateRules(array &$data)
     {
-        // Si l'utilisateur est formateur, on injecte son formateur_id
-        if (Auth::check() && Auth::user()->hasRole('formateur')) {
-            // Récupération sécurisée du formateur_id depuis la session
+        // Si formateur_id n'est pas spécifié, on le lit depuis sessionState (hérité de BaseService)
+        if (empty($data['formateur_id'])) {
             $formateurId = $this->sessionState->get('formateur_id');
-
-            if (!$formateurId) {
-                throw new BlException("Impossible de récupérer l'identifiant du formateur depuis la session.");
+            if ($formateurId) {
+                $data['formateur_id'] = $formateurId;
             }
-
-            $data['formateur_id'] = $formateurId;
         }
     }
-
 
     /**
      * Exécute les actions nécessaires après la création d'un projet.
@@ -39,24 +34,24 @@ trait ProjetCrudTrait
      * - Création automatique de l'arbre des tâches (Analyse, Tutos, Prototype, etc.).
      * - Ajout des livrables par défaut.
      *
-     * @param mixed $projet Le projet fraîchement créé.
+     * @param  mixed  $projet  Le projet fraîchement créé.
      * @return void
      */
     public function afterCreateRules($projet)
     {
-        if (!$projet || !$projet->id) {
+        if (! $projet || ! $projet->id) {
             return;
         }
 
         if ($projet->session_formation_id) {
             $session = SessionFormation::with([
                 'alignementUas.uniteApprentissage.critereEvaluations.phaseEvaluation',
-                'alignementUas.uniteApprentissage.chapitres'
+                'alignementUas.uniteApprentissage.chapitres',
             ])->find($projet->session_formation_id);
 
             if ($session) {
                 // Utilisation des méthodes via ProjetRelationsTrait qui est utilisé dans le service pas le trait
-                // Important : Comme ce Trait sera utilisé dans ProjetService, $this aura accès 
+                // Important : Comme ce Trait sera utilisé dans ProjetService, $this aura accès
                 // aux méthodes de ProjetRelationsTrait si elles sont aussi utilisées dans le Service.
                 $this->initializeProjectStructure($projet, $session);
             }
@@ -100,9 +95,10 @@ trait ProjetCrudTrait
      * Empêche la suppression si le projet est déjà affecté à des groupes
      * pour garantir l'intégrité des données historiques.
      *
-     * @param mixed $projet Le projet à supprimer.
-     * @throws BlException Si le projet a des affectations actives.
+     * @param  mixed  $projet  Le projet à supprimer.
      * @return void
+     *
+     * @throws BlException Si le projet a des affectations actives.
      */
     public function beforeDeleteRules($projet)
     {
@@ -114,16 +110,16 @@ trait ProjetCrudTrait
         }
     }
 
-
     /**
      * Vérifie les règles métier avant la mise à jour d'un projet.
      *
      * Interdit la modification de la session de formation une fois
      * que celle-ci a été définie lors de la création.
      *
-     * @param array $projet Les données du projet à mettre à jour.
-     * @throws BlException Si on tente de changer la session de formation.
+     * @param  array  $projet  Les données du projet à mettre à jour.
      * @return void
+     *
+     * @throws BlException Si on tente de changer la session de formation.
      */
     public function beforeUpdateRules($projet)
     {
@@ -135,5 +131,4 @@ trait ProjetCrudTrait
             }
         }
     }
-
 }

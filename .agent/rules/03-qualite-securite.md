@@ -18,6 +18,4 @@ trigger: always_on
 - **Données Sensibles** : Ne jamais commiter de secrets (.env).
 
 ## Workflow de Développement (Git)
-1. Créer une branche pour chaque fonctionnalité/fix.
-2. Tester localement (Unit & Dusk si possible).
-3. Soumettre une PR (ou merge request) pour review.
+2. Ne PAS exécuter de tests unitaires ou de navigateur (PHPUnit, Dusk) après la modification de code. L'exécution des tests est réservée à l'utilisateur.
