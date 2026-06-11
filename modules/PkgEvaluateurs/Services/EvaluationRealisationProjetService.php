@@ -248,23 +248,28 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
     }
 
 
-   public function afterCreateRules($evaluationRealisationProjet, $id)
-{
-    // 1) Récupérer toutes les RealisationTache liées au même project
-    $realisationTaches = RealisationTache::where('realisation_projet_id', $evaluationRealisationProjet->realisation_projet_id)
-                       ->get();
+    public function afterCreateRules($evaluationRealisationProjet, $id)
+    {
+        // 1) Récupérer toutes les RealisationTache liées au même projet avec leurs relations tache chargées
+        $realisationTaches = RealisationTache::with('tache')
+            ->where('realisation_projet_id', $evaluationRealisationProjet->realisation_projet_id)
+            ->get();
 
-    // 2) Pour chaque RealisationTache, créer un EvaluationRealisationTache avec note = null
-    foreach ($realisationTaches as $tache) {
-        (new EvaluationRealisationTacheService)->create([
-            'evaluation_realisation_projet_id' => $evaluationRealisationProjet->id,
-            'realisation_tache_id'             => $tache->id,
-            'evaluateur_id'                    => $evaluationRealisationProjet->evaluateur_id,
-            'note'                             => null,
-            'message'                          => null,
-        ]);
+        // 2) Pour chaque RealisationTache, créer un EvaluationRealisationTache avec note = null si la tâche n'a pas de projet d'origine note
+        foreach ($realisationTaches as $tache) {
+            if ($tache->tache && !empty($tache->tache->projet_origine_note_id)) {
+                continue;
+            }
+
+            (new EvaluationRealisationTacheService)->create([
+                'evaluation_realisation_projet_id' => $evaluationRealisationProjet->id,
+                'realisation_tache_id'             => $tache->id,
+                'evaluateur_id'                    => $evaluationRealisationProjet->evaluateur_id,
+                'note'                             => null,
+                'message'                          => null,
+            ]);
+        }
     }
-}
 
 
 

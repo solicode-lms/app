@@ -86,8 +86,7 @@ trait TacheCrudTrait
 
         // Si la relation projetOrigineNote est modifiée ou définie à la création
         if ($projetOrigineNoteChanged && !empty($projetOrigineNoteId)) {
-            $projetService = app(\Modules\PkgCreationProjet\Services\ProjetService::class);
-            $data['note'] = $projetService->getBareme((int) $projetOrigineNoteId);
+            $data['note'] = $this->getBaremeProjetOrigine((int) $projetOrigineNoteId);
         }
 
         $hasProjetOrigineNote = !empty($projetOrigineNoteId);
@@ -142,6 +141,27 @@ trait TacheCrudTrait
     }
 
     /**
+     * Calcule le barème d'un projet d'origine en prenant en compte l'échelle de l'affectation si définie.
+     *
+     * @param int $projetOrigineId
+     * @return float
+     */
+    protected function getBaremeProjetOrigine(int $projetOrigineId): float
+    {
+        $projetService = app(\Modules\PkgCreationProjet\Services\ProjetService::class);
+        $projetOrigine = \Modules\PkgCreationProjet\Models\Projet::with('affectationProjets')->find($projetOrigineId);
+
+        if ($projetOrigine) {
+            $echelle = $projetOrigine->affectationProjets->whereNotNull('echelle_note_cible')->first()?->echelle_note_cible;
+            if ($echelle) {
+                return (float) $echelle;
+            }
+        }
+
+        return $projetService->getBareme($projetOrigineId);
+    }
+
+    /**
      * Hook appelé après la création d’une tâche
      * pour générer les réalisations et évaluations associées.
      *
@@ -191,8 +211,7 @@ trait TacheCrudTrait
                     $tachesDependantes = $this->model->where('projet_origine_note_id', $projectId)->get();
 
                     if ($tachesDependantes->isNotEmpty()) {
-                        $projetService = app(\Modules\PkgCreationProjet\Services\ProjetService::class);
-                        $nouveauBareme = $projetService->getBareme($projectId);
+                        $nouveauBareme = $this->getBaremeProjetOrigine($projectId);
 
                         $tacheService = app(\Modules\PkgCreationTache\Services\TacheService::class);
 

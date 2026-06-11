@@ -167,6 +167,52 @@ trait RealisationTacheCrudTrait
                     $tacheAffectationService->mettreAjourTacheProgression($tacheAffectation);
                 }
             }
+
+            // Mettre à jour la réalisation de projet, les UAs et les chapitres si l'état ou la note est fourni(e) pendant la création
+            if ($realisationTache->note !== null || !empty($realisationTache->etat_realisation_tache_id)) {
+                if ($realisationProjet) {
+                    $realisationProjetService = app(\Modules\PkgRealisationProjets\Services\RealisationProjetService::class);
+                    $realisationProjetService->mettreAJourEtatDepuisRealisationTaches($realisationProjet);
+                    $realisationProjetService->mettreAJourProgressionDepuisEtatDesTaches($realisationProjet);
+                    if ($realisationTache->note !== null) {
+                        $realisationProjetService->calculerNoteEtBaremeDepuisTaches($realisationProjet);
+                    }
+                }
+
+                $realisationTache->loadMissing(['realisationUaPrototypes', 'realisationUaProjets', 'realisationChapitres']);
+
+                $uaIds = collect();
+                foreach ($realisationTache->realisationUaPrototypes as $proto) {
+                    if ($proto->realisation_ua_id) {
+                        $uaIds->push($proto->realisation_ua_id);
+                    }
+                }
+                foreach ($realisationTache->realisationUaProjets as $protoProjet) {
+                    if ($protoProjet->realisation_ua_id) {
+                        $uaIds->push($protoProjet->realisation_ua_id);
+                    }
+                }
+                $uaIds = $uaIds->unique()->filter();
+
+                if ($uaIds->isNotEmpty()) {
+                    $realisationUaService = new RealisationUaService();
+                    $uas = \Modules\PkgApprentissage\Models\RealisationUa::whereIn('id', $uaIds)->get();
+                    foreach ($uas as $ua) {
+                        $realisationUaService->calculerProgression($ua);
+                    }
+                }
+
+                if (!$realisationTache->realisationChapitres->isEmpty()) {
+                    $realisationChapitreService = new RealisationChapitreService();
+                    $realisationChapitreService->calculerProgression($realisationTache);
+                }
+
+                if ($realisationTache->tacheAffectation) {
+                    $tacheAffectationService = app(\Modules\PkgRealisationTache\Services\TacheAffectationService::class);
+                    $tacheAffectationService->mettreAjourTacheProgression($realisationTache->tacheAffectation);
+                    $tacheAffectationService->lancerLiveCodingSiEligible($realisationTache->tacheAffectation);
+                }
+            }
         }
     }
 
