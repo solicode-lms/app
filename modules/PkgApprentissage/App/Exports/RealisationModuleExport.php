@@ -6,9 +6,27 @@ use Modules\PkgApprentissage\App\Exports\Base\BaseRealisationModuleExport;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 
-class RealisationModuleExport extends BaseRealisationModuleExport
+class RealisationModuleExport extends BaseRealisationModuleExport implements WithStrictNullComparison
 {
+    public function __construct($data, $format)
+    {
+        // Trier les données par nom puis par prénom d'apprenant
+        $sortedData = $data->sort(function ($a, $b) {
+            $nomA = $a->apprenant?->nom ?? '';
+            $nomB = $b->apprenant?->nom ?? '';
+            $cmp = strcasecmp($nomA, $nomB);
+            if ($cmp !== 0) {
+                return $cmp;
+            }
+            $prenomA = $a->apprenant?->prenom ?? '';
+            $prenomB = $b->apprenant?->prenom ?? '';
+            return strcasecmp($prenomA, $prenomB);
+        })->values();
+
+        parent::__construct($sortedData, $format);
+    }
     /**
      * Retourne la liste ordonnée des UniteApprentissage extraites des données.
      * Format : Collection de ['code' => ..., 'nom' => ..., 'id' => ...]
@@ -86,6 +104,30 @@ class RealisationModuleExport extends BaseRealisationModuleExport
     }
 
     /**
+     * Répartit les unités d'apprentissage en 2 ou 3 groupes (CC1, CC2, CC3).
+     * @return array Tableau de collections d'UAs
+     */
+    protected function getCcGroups(): array
+    {
+        $uas = $this->getUnitesApprentissage();
+        $numUas = $uas->count();
+        $numGroups = $numUas >= 3 ? 3 : 2;
+
+        $groups = [];
+        $baseSize = floor($numUas / $numGroups);
+        $extra = $numUas % $numGroups;
+        $startIndex = 0;
+
+        for ($i = 0; $i < $numGroups; $i++) {
+            $size = $baseSize + ($i < $extra ? 1 : 0);
+            $groups[$i] = $uas->slice($startIndex, $size);
+            $startIndex += $size;
+        }
+
+        return $groups;
+    }
+
+    /**
      * Génère les en-têtes : 4 lignes PV + ligne vide + ligne titres avec colonnes UA dynamiques.
      */
     public function headings(): array
@@ -107,8 +149,19 @@ class RealisationModuleExport extends BaseRealisationModuleExport
             }
         }
 
-        // Colonnes UA dynamiques (code UA comme en-tête)
-        $uaCodes = $this->getUnitesApprentissage()->map(fn($ua) => ($ua->code ?? $ua->reference) . " / 20")->toArray();
+        // Colonnes UA dynamiques et CC intercalés
+        $ccGroups = $this->getCcGroups();
+        $dynamicHeadings = [];
+
+        foreach ($ccGroups as $index => $groupUas) {
+            $ccNum = $index + 1;
+            // Ajouter les en-têtes d'UA pour ce groupe
+            foreach ($groupUas as $ua) {
+                $dynamicHeadings[] = ($ua->code ?? $ua->reference) . " / 20";
+            }
+            // Ajouter la colonne CC associée
+            $dynamicHeadings[] = "CC" . $ccNum;
+        }
 
         // Afficher la colonne "Reste à évaluer" seulement si nécessaire
         $hasEvaluationsMissing = $this->data->contains(fn($rm) => ($rm->bareme_non_evalue_cache ?? 0) > 0);
@@ -124,7 +177,7 @@ class RealisationModuleExport extends BaseRealisationModuleExport
             ['Groupe :', $groupeCode],
             ['Formateur :', $formateurNom],
             [''],
-            array_merge(['Nom', 'Prénom'], $uaCodes, $extraHeadings),
+            array_merge(['Nom', 'Prénom'], $dynamicHeadings, $extraHeadings),
         ];
     }
 
@@ -133,9 +186,9 @@ class RealisationModuleExport extends BaseRealisationModuleExport
      */
     public function collection()
     {
-        $uas = $this->getUnitesApprentissage();
+        $ccGroups = $this->getCcGroups();
 
-        return $this->data->map(function ($realisationModule) use ($uas) {
+        return $this->data->map(function ($realisationModule) use ($ccGroups) {
             $apprenant = $realisationModule->apprenant;
             $note      = $realisationModule->note_cache ?? 0;
             $bareme    = $realisationModule->bareme_cache ?? 0;
@@ -149,14 +202,26 @@ class RealisationModuleExport extends BaseRealisationModuleExport
             $totalCc = 0;
             $countCc = 0;
 
-            // Ajouter une colonne par UA (note CC / 20)
-            foreach ($uas as $ua) {
-                $realisationUa = $this->findRealisationUa($realisationModule, $ua->id);
-                $noteCc = $realisationUa ? $this->noteCcSur20($realisationUa) : 0;
-                $row['ua_' . $ua->id] = $realisationUa ? $noteCc : '';
-                
-                $totalCc += $noteCc;
-                $countCc++;
+            // Parcourir chaque groupe de CC pour insérer les notes d'UA et calculer le CC associé
+            foreach ($ccGroups as $index => $groupUas) {
+                $ccNum = $index + 1;
+                $totalCcGroup = 0;
+                $countCcGroup = 0;
+
+                foreach ($groupUas as $ua) {
+                    $realisationUa = $this->findRealisationUa($realisationModule, $ua->id);
+                    $noteCc = $realisationUa ? $this->noteCcSur20($realisationUa) : 0;
+                    $row['ua_' . $ua->id] = $realisationUa ? $noteCc : '';
+
+                    $totalCcGroup += $noteCc;
+                    $countCcGroup++;
+
+                    $totalCc += $noteCc;
+                    $countCc++;
+                }
+
+                // Calculer le CC (moyenne des UAs participantes)
+                $row['cc_' . $ccNum] = $countCcGroup > 0 ? round($totalCcGroup / $countCcGroup, 2) : 0;
             }
 
             // Moyenne CC / 20
@@ -278,23 +343,32 @@ class RealisationModuleExport extends BaseRealisationModuleExport
         $sheet->getColumnDimension('A')->setAutoSize(true);
         $sheet->getColumnDimension('B')->setAutoSize(true);
         
+        $ccGroups = $this->getCcGroups();
+        $numCcGroups = count($ccGroups);
         $numUas = $uas->count();
-        // Colonnes UA individuelles : Largeur compacte (8)
-        for ($i = 0; $i < $numUas; $i++) {
+        $totalDynamicCols = $numUas + $numCcGroups;
+
+        // Colonnes UA et CC dynamiques : Largeur fixe (12)
+        for ($i = 0; $i < $totalDynamicCols; $i++) {
             $col = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(3 + $i);
             $sheet->getColumnDimension($col)->setAutoSize(false);
             $sheet->getColumnDimension($col)->setWidth(12);
         }
 
-        // Colonne Moyenne CC : Plus large (auto-size)
-        $moyCcCol = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(3 + $numUas);
+        // Colonnes suivantes : Moy CC, EFM, Note / 20, Reste à évaluer
+        $colIndex = 3 + $totalDynamicCols; // Commence juste après les colonnes UA + CC
+
+        // Moy CC / 20
+        $moyCcCol = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex++);
         $sheet->getColumnDimension($moyCcCol)->setAutoSize(true);
 
-        // Colonnes EFM, Note finale et Reste à évaluer : Largeur convenable
-        $colIndex = 4 + $numUas;
-        $sheet->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex++))->setWidth(15); // Moy CC
-        $sheet->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex++))->setWidth(10); // EFM
-        $sheet->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex++))->setWidth(12); // Note / 20
+        // EFM / 40
+        $efmCol = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex++);
+        $sheet->getColumnDimension($efmCol)->setWidth(12);
+
+        // Note / 20
+        $noteCol = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex++);
+        $sheet->getColumnDimension($noteCol)->setWidth(12);
 
         // Colonne Reste à évaluer si présente
         if ($hasEvaluationsMissing) {
