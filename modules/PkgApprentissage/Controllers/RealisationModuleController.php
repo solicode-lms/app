@@ -68,11 +68,10 @@ class RealisationModuleController extends BaseRealisationModuleController
         $groupeId = $filterVariables['Apprenant.groupes.id'] ?? $filterVariables['Apprenant_groupes_id'] ?? null;
         $groupe = $groupeId ? \Modules\PkgApprenants\Models\Groupe::with('anneeFormation')->find($groupeId) : null;
 
-        $moduleNom = $module ? $module->nom : 'Module';
-        $groupeNom = $groupe ? $groupe->code : 'Groupe';
-        $anneeFormation = $groupe && $groupe->anneeFormation ? $groupe->anneeFormation->reference : '';
+        $moduleCode = $module ? $module->code : 'Module';
+        $groupeCode = $groupe ? $groupe->code : 'Groupe';
 
-        $filename = 'Canevas - ' . trim(implode(' - ', array_filter([$moduleNom, $groupeNom, $anneeFormation])));
+        $filename = trim(implode('-', array_filter([$groupeCode, $moduleCode])));
         $filename = str_replace(['\\', '/', ':', '*', '?', '"', '<', '>', '|'], '_', $filename);
 
         return Excel::download(new RealisationModuleCanevasExport($realisationModules_data), $filename . '.xlsx', \Maatwebsite\Excel\Excel::XLSX);
