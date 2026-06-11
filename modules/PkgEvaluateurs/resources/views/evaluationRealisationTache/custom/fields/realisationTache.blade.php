@@ -4,8 +4,7 @@
     <header class="projet-titre">
         <h2>{{ $entity->realisationTache->tache }}</h2>
         <p>
-            
-            {!! Str::limit(strip_tags($entity->realisationTache->tache->description), 500) !!}
+            {!! $entity->realisationTache->tache->description !!}
         </p>
     </header>
 
