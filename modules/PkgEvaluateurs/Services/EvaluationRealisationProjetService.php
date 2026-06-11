@@ -22,7 +22,7 @@ use Modules\PkgEvaluateurs\Services\Base\BaseEvaluationRealisationProjetService;
  */
 class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjetService
 {
-   protected array $index_with_relations = [
+    protected array $index_with_relations = [
         'realisationProjet',
         'realisationProjet.apprenant',
         'realisationProjet.affectationProjet',
@@ -34,23 +34,23 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
     {
 
 
-         // Initialiser les filtres configurables dynamiquement
+        // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('evaluationRealisationProjet');
         $this->fieldsFilterable = [];
         $sessionState = $this->sessionState;
 
-      
+
 
 
         // Groupe 
-        if(Auth::user()->hasRole(Role::ADMIN_ROLE) || !Auth::user()->hasAnyRole(Role::EVALUATEUR_ROLE) || !empty($this->viewState->get("filter.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Groupe_id") ) ) {
+        if (Auth::user()->hasRole(Role::ADMIN_ROLE) || !Auth::user()->hasAnyRole(Role::EVALUATEUR_ROLE) || !empty($this->viewState->get("filter.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Groupe_id"))) {
             // Affichage de l'état de solicode
             $groupeService = new GroupeService();
             $groupes = $groupeService->getGroupesAvecAffectationProjetEvaluateurs();
             $this->fieldsFilterable[] = $this->generateRelationFilter(
-                __("PkgApprenants::Groupe.plural"), 
-                'RealisationProjet.AffectationProjet.Groupe_id', 
-                Groupe::class, 
+                __("PkgApprenants::Groupe.plural"),
+                'RealisationProjet.AffectationProjet.Groupe_id',
+                Groupe::class,
                 "code",
                 "id",
                 $groupes,
@@ -64,14 +64,15 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
         $affectationProjetService = new AffectationProjetService();
         $affectationProjets = match (true) {
             Auth::user()->hasRole(Role::EVALUATEUR_ROLE) => $affectationProjetService->getAffectationProjetsByEvaluateurId($sessionState->get("evaluateur_id")),
-            default =>  $affectationProjetService->getAffectationProjetsAvecEvaluateurs(),
+            default => $affectationProjetService->getAffectationProjetsAvecEvaluateurs(),
         };
         $this->fieldsFilterable[] = $this->generateRelationFilter(
-            __("PkgRealisationProjets::affectationProjet.plural"), 
-            'RealisationProjet.Affectation_projet_id', 
-            AffectationProjet::class, 
-            "id","id",
-            $affectationProjets, 
+            __("PkgRealisationProjets::affectationProjet.plural"),
+            'RealisationProjet.Affectation_projet_id',
+            AffectationProjet::class,
+            "id",
+            "id",
+            $affectationProjets,
             "[name='RealisationProjet.Apprenant_id'],[name='etat_realisation_tache_id']",
             route('apprenants.getData') . "," . route('etatRealisationTaches.getData'),
             "groupes.affectationProjets.id,formateur.projets.affectationProjets.id"
@@ -85,21 +86,23 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
         };
 
         $this->fieldsFilterable[] = $this->generateRelationFilter(
-            __("PkgApprenants::apprenant.plural"), 
-            'RealisationProjet.Apprenant_id', 
+            __("PkgApprenants::apprenant.plural"),
+            'RealisationProjet.Apprenant_id',
             \Modules\PkgApprenants\Models\Apprenant::class,
-            "id","id",
-            $apprenants);
+            "id",
+            "id",
+            $apprenants
+        );
 
-       
-       
+
+
         // // --- ETAT REALISATION TACHE : choix selon AffectationProjet, Formateur ou Apprenant ---
         // $affectationProjetId = $this->viewState->get(
         //     'filter.realisationTache.RealisationProjet.Affectation_projet_id'
         // );
 
         // $affectationProjetId = AffectationProjet::find($affectationProjetId) ? $affectationProjetId : null;
-       
+
         // $etatService = new EtatRealisationTacheService();
 
         // if (!empty($affectationProjetId)) {
@@ -129,7 +132,7 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
         //     'nom',
         //     $etats
         // );
-      
+
         // // Affiche  WorkflowTache
         // // Afficher si le filtre est selectionné
         // // ou si le l'affectation de projet n'est pas selectionné et que l'acteur n'est pas formateur
@@ -139,10 +142,10 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
         //     'filter.realisationTache.etatRealisationTache.WorkflowTache.Code'
         // );
 
-      
+
         // $workflowService = new WorkflowTacheService();
         // $workflows = $workflowService->all();
-    
+
         // // Génération du filtre Relation pour WorkflowTache
         // $this->fieldsFilterable[] = $this->generateRelationFilter(
         //         __('PkgRealisationTache::workflowTache.plural'),
@@ -152,10 +155,10 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
         //         'code',
         //         $workflows
         // );
-        
 
 
-        
+
+
 
         // // Tâches
         // $tacheService = new TacheService();
@@ -171,16 +174,16 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
         //     'titre',
         //     $taches
         // );
-        
-    if (!array_key_exists('evaluateur_id', $scopeVariables)) {
+
+        if (!array_key_exists('evaluateur_id', $scopeVariables)) {
             $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgEvaluateurs::evaluateur.plural"), 'evaluateur_id', \Modules\PkgEvaluateurs\Models\Evaluateur::class, 'nom');
-            }
+        }
 
-            if (!array_key_exists('etat_evaluation_projet_id', $scopeVariables)) {
+        if (!array_key_exists('etat_evaluation_projet_id', $scopeVariables)) {
             $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgEvaluateurs::etatEvaluationProjet.plural"), 'etat_evaluation_projet_id', \Modules\PkgEvaluateurs\Models\EtatEvaluationProjet::class, 'code');
-            }
+        }
 
-        
+
     }
 
     /**
@@ -215,20 +218,15 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
                 ->keyBy('evaluateur_id');
 
             // 5) Synchroniser pour cette réalisation
-            DB::transaction(function() use (
-                $realisationProjetId,
-                $evaluateursAssignes,
-                $existingRecords,
-                $defaultEtatId
-            ) {
+            DB::transaction(function () use ($realisationProjetId, $evaluateursAssignes, $existingRecords, $defaultEtatId) {
                 // 5.a) Ajouter les évaluateurs manquants
                 foreach ($evaluateursAssignes as $evalId) {
-                    if (! isset($existingRecords[$evalId])) {
+                    if (!isset($existingRecords[$evalId])) {
 
                         $this->create([
-                            'realisation_projet_id'      => $realisationProjetId,
-                            'evaluateur_id'              => $evalId,
-                            'etat_evaluation_projet_id'  => $defaultEtatId,
+                            'realisation_projet_id' => $realisationProjetId,
+                            'evaluateur_id' => $evalId,
+                            'etat_evaluation_projet_id' => $defaultEtatId,
                             'date_evaluation' => now()
                         ]);
                     }
@@ -237,7 +235,7 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
                 // 5.b) Supprimer les évaluateurs retirés
                 $evaluateursExistants = $existingRecords->keys()->toArray();
                 $toDelete = array_diff($evaluateursExistants, $evaluateursAssignes);
-                if (! empty($toDelete)) {
+                if (!empty($toDelete)) {
                     EvaluationRealisationProjet::query()
                         ->where('realisation_projet_id', $realisationProjetId)
                         ->whereIn('evaluateur_id', $toDelete)
@@ -263,16 +261,16 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
 
             (new EvaluationRealisationTacheService)->create([
                 'evaluation_realisation_projet_id' => $evaluationRealisationProjet->id,
-                'realisation_tache_id'             => $tache->id,
-                'evaluateur_id'                    => $evaluationRealisationProjet->evaluateur_id,
-                'note'                             => null,
-                'message'                          => null,
+                'realisation_tache_id' => $tache->id,
+                'evaluateur_id' => $evaluationRealisationProjet->evaluateur_id,
+                'note' => null,
+                'message' => null,
             ]);
         }
     }
 
 
 
-   
-   
+
+
 }
