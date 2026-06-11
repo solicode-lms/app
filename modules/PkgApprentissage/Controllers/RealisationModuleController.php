@@ -19,8 +19,11 @@ class RealisationModuleController extends BaseRealisationModuleController
         return parent::index($request);
     }
 
+  
     /**
-     * Exporte un fichier canevas Excel pour la saisie des notes avec les colonnes CEF, Nom, Prénom, CC1, CC2, CC3, EFM.
+     * @DynamicPermissionIgnore
+     * Marque toutes les notifications de l'utilisateur courant comme lues.
+     *  * Exporte un fichier canevas Excel pour la saisie des notes avec les colonnes CEF, Nom, Prénom, CC1, CC2, CC3, EFM.
      */
     public function exportCanevas(Request $request)
     {
