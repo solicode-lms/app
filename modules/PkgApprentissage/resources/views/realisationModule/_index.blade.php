@@ -76,6 +76,11 @@
                             <div class="d-flex align-items-center justify-content-end">
                         
                                 <div class="actions d-flex align-items-center crud-action">
+                                    @can("export-realisationModule")
+                                    <a href="{{ route('realisationModules.exportCanevas') }}" data-toggle="tooltip" title="Exporter avec Canevas" class="btn btn-sm btn-outline-info context-state  mr-2 ">
+                                        <i class="fas fa-file-excel"></i>
+                                    </a>
+                                    @endcan
                                 </div>
                                 <x-crud-actions
                                     :instanceItem="$realisationModule_instance"

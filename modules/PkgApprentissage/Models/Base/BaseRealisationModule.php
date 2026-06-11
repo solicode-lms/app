@@ -52,19 +52,19 @@ class BaseRealisationModule extends BaseModel
         'module_id', 'apprenant_id', 'progression_cache', 'etat_realisation_module_id', 'note_cache', 'bareme_cache', 'dernier_update', 'bareme_non_evalue_cache', 'commentaire_formateur', 'date_debut', 'date_fin', 'reference', 'progression_ideal_cache', 'taux_rythme_cache', 'pourcentage_non_valide_cache'
     ];
     public $manyToOne = [
-        'Module' => [
+        'module' => [
             'model' => "Modules\\PkgFormation\\Models\\Module",
-            'relation' => 'modules' , 
+            'relation' => 'module' , 
             "foreign_key" => "module_id", 
             ],
-        'Apprenant' => [
+        'apprenant' => [
             'model' => "Modules\\PkgApprenants\\Models\\Apprenant",
-            'relation' => 'apprenants' , 
+            'relation' => 'apprenant' , 
             "foreign_key" => "apprenant_id", 
             ],
-        'EtatRealisationModule' => [
+        'etatRealisationModule' => [
             'model' => "Modules\\PkgApprentissage\\Models\\EtatRealisationModule",
-            'relation' => 'etatRealisationModules' , 
+            'relation' => 'etatRealisationModule' , 
             "foreign_key" => "etat_realisation_module_id", 
             ]
     ];

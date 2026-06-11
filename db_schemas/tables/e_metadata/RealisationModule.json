@@ -960,5 +960,21 @@
         "value_boolean": 1,
         "e_data_field_reference": "RealisationModule_bareme_non_evalue_cache",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "realisation_modules_indexActions",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": [
+            {
+                "icon": "fas fa-file-excel",
+                "route": "realisationModules.exportCanevas",
+                "title": "Exporter avec Canevas",
+                "action": "exportCanevas",
+                "permission": "export-realisationModule"
+            }
+        ],
+        "e_model_reference": "realisation_modules",
+        "e_metadata_definition_reference": "indexActions"
     }
 ]

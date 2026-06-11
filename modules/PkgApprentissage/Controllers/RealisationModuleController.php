@@ -6,6 +6,7 @@ use Modules\PkgApprentissage\Controllers\Base\BaseRealisationModuleController;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgApprentissage\App\Exports\RealisationModuleExport;
+use Modules\PkgApprentissage\App\Exports\RealisationModuleCanevasExport;
 
 class RealisationModuleController extends BaseRealisationModuleController
 {
@@ -17,6 +18,63 @@ class RealisationModuleController extends BaseRealisationModuleController
 
         return parent::index($request);
     }
+
+    /**
+     * Exporte un fichier canevas Excel pour la saisie des notes avec les colonnes CEF, Nom, Prénom, CC1, CC2, CC3, EFM.
+     */
+    public function exportCanevas(Request $request)
+    {
+        $this->viewState->setContextKeyIfEmpty('realisationModule.index');
+
+        // Charger le dernier filtre sauvegardé en base de données
+        $this->realisationModuleService->loadLastFilterIfEmpty();
+
+        // Validation des filtres Module et Groupe
+        $filterVariables = $this->viewState->getFilterVariables('realisationModule');
+        $hasModule = !empty($filterVariables['module_id']);
+        $hasGroupe = !empty($filterVariables['Apprenant.groupes.id']) || !empty($filterVariables['Apprenant_groupes_id']);
+
+        if (!$hasModule || !$hasGroupe) {
+            return redirect()->route('realisationModules.index')->with(
+                'warning',
+                'Veuillez choisir un Module et un Groupe dans les filtres de recherche avant d\'exporter le canevas.'
+            );
+        }
+
+        // N'exporter que les réalisations des apprenants actifs
+        $this->viewState->set('where.realisationModule.apprenant.actif', 1);
+
+        $realisationModules_params = array_merge(
+            ['search' => $request->get(
+                'realisationModules_search',
+                $this->viewState->get("filter.realisationModule.realisationModules_search")
+            )],
+            $request->except(['realisationModules_search', 'page'])
+        );
+
+        $realisationModules_data = $this->realisationModuleService->allQuery($realisationModules_params)->get();
+
+        // Eager-load relations utiles
+        $realisationModules_data->load([
+            'apprenant',
+            'realisationCompetences.realisationMicroCompetences.realisationUas.uniteApprentissage',
+        ]);
+
+        // Récupérer les informations pour nommer le fichier d'export
+        $module = \Modules\PkgFormation\Models\Module::find($filterVariables['module_id']);
+        $groupeId = $filterVariables['Apprenant.groupes.id'] ?? $filterVariables['Apprenant_groupes_id'] ?? null;
+        $groupe = $groupeId ? \Modules\PkgApprenants\Models\Groupe::with('anneeFormation')->find($groupeId) : null;
+
+        $moduleNom = $module ? $module->nom : 'Module';
+        $groupeNom = $groupe ? $groupe->code : 'Groupe';
+        $anneeFormation = $groupe && $groupe->anneeFormation ? $groupe->anneeFormation->reference : '';
+
+        $filename = 'Canevas - ' . trim(implode(' - ', array_filter([$moduleNom, $groupeNom, $anneeFormation])));
+        $filename = str_replace(['\\', '/', ':', '*', '?', '"', '<', '>', '|'], '_', $filename);
+
+        return Excel::download(new RealisationModuleCanevasExport($realisationModules_data), $filename . '.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+    }
+
 
     public function export($format)
     {

@@ -16,6 +16,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('realisationModules/{id}/inline', [RealisationModuleController::class, 'patchInline'])
             ->name('realisationModules.patchInline');
 
+         Route::get('realisationModules/exportCanevas', [RealisationModuleController::class, 'exportCanevas'])->name('realisationModules.exportCanevas');
         Route::get('realisationModules/getData', [RealisationModuleController::class, 'getData'])->name('realisationModules.getData');
         // ✅ Route JSON
         Route::get('realisationModules/json/{id}', [RealisationModuleController::class, 'getRealisationModule'])
