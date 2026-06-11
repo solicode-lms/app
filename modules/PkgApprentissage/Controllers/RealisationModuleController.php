@@ -60,15 +60,27 @@ class RealisationModuleController extends BaseRealisationModuleController
 
         $realisationModules_data = $this->realisationModuleService->allQuery($realisationModules_params)->get();
 
+        // Récupérer les informations pour nommer le fichier d'export
+        $module = \Modules\PkgFormation\Models\Module::find($filterVariables['module_id']);
+        $groupeId = $filterVariables['Apprenant.groupes.id'] ?? $filterVariables['Apprenant_groupes_id'] ?? null;
+        $groupe = $groupeId ? \Modules\PkgApprenants\Models\Groupe::with('anneeFormation')->find($groupeId) : null;
+
+        $moduleNom = $module ? $module->nom : 'Module';
+        $groupeNom = $groupe ? $groupe->code : 'Groupe';
+        $anneeFormation = $groupe && $groupe->anneeFormation ? $groupe->anneeFormation->reference : '';
+
+        $filename = trim(implode(' - ', array_filter([$moduleNom, $groupeNom, $anneeFormation])));
+        $filename = str_replace(['\\', '/', ':', '*', '?', '"', '<', '>', '|'], '_', $filename);
+
         // Vérifier le format et exporter en conséquence
         if ($format === 'csv') {
-            return Excel::download(new RealisationModuleExport($realisationModules_data, 'csv'), 'realisationModule_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+            return Excel::download(new RealisationModuleExport($realisationModules_data, 'csv'), $filename . '.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
         } elseif ($format === 'xlsx') {
             // Eager-load des relations UA pour les colonnes CC par UA
             $realisationModules_data->load([
                 'realisationCompetences.realisationMicroCompetences.realisationUas.uniteApprentissage',
             ]);
-            return Excel::download(new RealisationModuleExport($realisationModules_data, 'xlsx'), 'realisationModule_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+            return Excel::download(new RealisationModuleExport($realisationModules_data, 'xlsx'), $filename . '.xlsx', \Maatwebsite\Excel\Excel::XLSX);
         } else {
             return response()->json(['error' => 'Format non supporté'], 400);
         }

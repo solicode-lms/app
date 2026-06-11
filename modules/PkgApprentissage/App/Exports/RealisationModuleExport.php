@@ -7,9 +7,20 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
+use Maatwebsite\Excel\Concerns\WithTitle;
 
-class RealisationModuleExport extends BaseRealisationModuleExport implements WithStrictNullComparison
+class RealisationModuleExport extends BaseRealisationModuleExport implements WithStrictNullComparison, WithTitle
 {
+    public function title(): string
+    {
+        $first = $this->data->first();
+        if ($first && $first->module) {
+            // Nettoyer les caractères interdits pour les noms d'onglets Excel (comme \ / ? * : [ ])
+            $title = str_replace(['\\', '/', '?', '*', ':', '[', ']'], '', $first->module->nom);
+            return substr($title, 0, 31);
+        }
+        return 'PV';
+    }
     public function __construct($data, $format)
     {
         // Trier les données par nom puis par prénom d'apprenant
@@ -111,17 +122,26 @@ class RealisationModuleExport extends BaseRealisationModuleExport implements Wit
     {
         $uas = $this->getUnitesApprentissage();
         $numUas = $uas->count();
-        $numGroups = $numUas >= 3 ? 3 : 2;
+
+        if ($numUas >= 3) {
+            $numGroups = 3;
+        } elseif ($numUas === 2) {
+            $numGroups = 2;
+        } else {
+            $numGroups = $numUas > 0 ? 1 : 0;
+        }
 
         $groups = [];
-        $baseSize = floor($numUas / $numGroups);
-        $extra = $numUas % $numGroups;
-        $startIndex = 0;
+        if ($numGroups > 0) {
+            $baseSize = floor($numUas / $numGroups);
+            $extra = $numUas % $numGroups;
+            $startIndex = 0;
 
-        for ($i = 0; $i < $numGroups; $i++) {
-            $size = $baseSize + ($i < $extra ? 1 : 0);
-            $groups[$i] = $uas->slice($startIndex, $size);
-            $startIndex += $size;
+            for ($i = 0; $i < $numGroups; $i++) {
+                $size = $baseSize + ($i < $extra ? 1 : 0);
+                $groups[$i] = $uas->slice($startIndex, $size);
+                $startIndex += $size;
+            }
         }
 
         return $groups;
@@ -159,8 +179,8 @@ class RealisationModuleExport extends BaseRealisationModuleExport implements Wit
             foreach ($groupUas as $ua) {
                 $dynamicHeadings[] = ($ua->code ?? $ua->reference) . " / 20";
             }
-            // Ajouter la colonne CC associée
-            $dynamicHeadings[] = "CC" . $ccNum;
+            // Ajouter la colonne CC associée avec le barème / 20
+            $dynamicHeadings[] = "CC" . $ccNum . " / 20";
         }
 
         // Afficher la colonne "Reste à évaluer" seulement si nécessaire
@@ -210,22 +230,29 @@ class RealisationModuleExport extends BaseRealisationModuleExport implements Wit
 
                 foreach ($groupUas as $ua) {
                     $realisationUa = $this->findRealisationUa($realisationModule, $ua->id);
-                    $noteCc = $realisationUa ? $this->noteCcSur20($realisationUa) : 0;
-                    $row['ua_' . $ua->id] = $realisationUa ? $noteCc : '';
+                    $isNoted = $realisationUa && ($realisationUa->bareme_cc_cache ?? 0) > 0;
 
-                    $totalCcGroup += $noteCc;
-                    $countCcGroup++;
+                    if ($isNoted) {
+                        $noteCc = $this->noteCcSur20($realisationUa);
+                        $row['ua_' . $ua->id] = $noteCc;
 
-                    $totalCc += $noteCc;
-                    $countCc++;
+                        $totalCcGroup += $noteCc;
+                        $countCcGroup++;
+
+                        $totalCc += $noteCc;
+                        $countCc++;
+                    } else {
+                        // L'UA sans note s'affiche vide et n'entre pas dans le calcul
+                        $row['ua_' . $ua->id] = '';
+                    }
                 }
 
                 // Calculer le CC (moyenne des UAs participantes)
-                $row['cc_' . $ccNum] = $countCcGroup > 0 ? round($totalCcGroup / $countCcGroup, 2) : 0;
+                $row['cc_' . $ccNum] = $countCcGroup > 0 ? round($totalCcGroup / $countCcGroup, 2) : '';
             }
 
             // Moyenne CC / 20
-            $moyenneCc = $countCc > 0 ? round($totalCc / $countCc, 2) : 0;
+            $moyenneCc = $countCc > 0 ? round($totalCc / $countCc, 2) : '';
             $row['moyenne_cc'] = $moyenneCc;
 
             // Note EFM / 40
@@ -233,7 +260,7 @@ class RealisationModuleExport extends BaseRealisationModuleExport implements Wit
 
             // Note / 20 (Note de Module)
             // Le total est sur 60 (40 + 20), on divise par 3 pour ramener sur 20
-            $noteModuleSur20 = round(($noteSur40 + $moyenneCc) / 3, 2);
+            $noteModuleSur20 = round(($noteSur40 + ($moyenneCc !== '' ? $moyenneCc : 0)) / 3, 2);
             $row['note_module'] = $noteModuleSur20;
 
             // Reste à évaluer seulement si nécessaire
@@ -282,6 +309,23 @@ class RealisationModuleExport extends BaseRealisationModuleExport implements Wit
             ],
         ]);
 
+        // Calcul des lettres de colonnes pour les CC et EFM
+        $uas = $this->getUnitesApprentissage();
+        $ccGroups = $this->getCcGroups();
+        $ccColLetters = [];
+        $colIndex = 3; // Commence à C
+
+        foreach ($ccGroups as $groupUas) {
+            $colIndex += $groupUas->count();
+            $ccColLetters[] = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex);
+            $colIndex++;
+        }
+
+        $numCcGroups = count($ccGroups);
+        $numUas = $uas->count();
+        $totalDynamicCols = $numUas + $numCcGroups;
+        $efmColLetter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(3 + $totalDynamicCols + 1);
+
         // --- Données (ligne 7+) : alternance + bordures + rouge doux si reste à évaluer
         if ($lastRow >= 7) {
             $dataIndex = 0;
@@ -300,12 +344,36 @@ class RealisationModuleExport extends BaseRealisationModuleExport implements Wit
                     'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => $color]],
                 ]);
 
+                // Surcharger la couleur des cellules pour les colonnes de CC
+                foreach ($ccColLetters as $col) {
+                    $sheet->getStyle("{$col}{$row}")->applyFromArray([
+                        'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'E2EFDA']], // Vert d'eau très doux
+                    ]);
+                }
+
+                // Surcharger la couleur de la cellule pour la colonne EFM
+                $sheet->getStyle("{$efmColLetter}{$row}")->applyFromArray([
+                    'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'FCE4D6']], // Pêche très doux
+                ]);
+
                 $dataIndex++;
             }
             $sheet->getStyle("A6:{$lastColumn}{$lastRow}")->applyFromArray([
                 'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['argb' => 'AAAAAA']]],
             ]);
         }
+
+        // Colorer les cellules d'en-tête (ligne 6) pour CC et EFM
+        foreach ($ccColLetters as $col) {
+            $sheet->getStyle("{$col}6")->applyFromArray([
+                'font' => ['bold' => true, 'size' => 11, 'color' => ['argb' => '000000']],
+                'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'C6E0B4']], // Vert d'eau un peu plus prononcé
+            ]);
+        }
+        $sheet->getStyle("{$efmColLetter}6")->applyFromArray([
+            'font' => ['bold' => true, 'size' => 11, 'color' => ['argb' => '000000']],
+            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'F8CBAD']], // Pêche un peu plus prononcé
+        ]);
 
         // Centrage des colonnes UA et Note EFM (toutes à partir de C)
         foreach (range('C', $lastColumn) as $col) {
