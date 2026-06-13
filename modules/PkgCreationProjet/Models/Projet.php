@@ -63,7 +63,8 @@ class Projet extends BaseProjet
     public function __toString()
     {
         $titre = $this->titre ?? "";
-        if (\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->hasAnyRole(['admin-formateur', 'admin'])) {
+        $user = \Illuminate\Support\Facades\Auth::user();
+        if (!$user || !$user->hasRole('formateur')) {
             if ($this->formateur) {
                 return $titre . " [ " . $this->formateur . "]";
             }
