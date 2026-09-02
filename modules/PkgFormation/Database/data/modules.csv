@@ -1,28 +1,28 @@
-"code","nom","description","masse_horaire","filiere_reference","reference"
-"M105","Initiation à l’environnement du développement mobile par la pédagogie active","Initiation à l’environnement du développement mobile par la pédagogie active&nbsp;","70","DMB","DMB-M105"
-"M106","Maquettage d’une application mobile","<p>&nbsp;</p>","50","DMB","DMB-M106"
-"M107","Gestion de projet","","50","DMB","DMB-M107"
-"M108","Manipulation d’une base de données","","80","DMB","DMB-M108"
-"M109","Développement de la partie back-end","","160","DMB","DMB-M109"
-"M110","Développement d’une application mobile","","225","DMB","DMB-M110"
-"M111","Déploiement d’une application web et d’une application mobile","","100","DMB","DMB-M111"
-"M105","Initiation à l’environnement du développement web","","70","DWB","DWB-M105"
-"M106","Maquettage et UX/UI d'un projet d’application web","","70","DWB","DWB-M106"
-"M107","Gestion de projet","","80","DWB","DWB-M107"
-"M108","Intégration front-end d'un projet d’application web","","210","DWB","DWB-M108"
-"M109","Développement backend d'un projet d’application web","","165","DWB","DWB-M109"
-"M110","Réaliser une application web avec un CMS","","120","DWB","DWB-M110"
-"M111","Veille et adaptation aux technologies de l’entreprise","","80","DWB","DWB-M111"
-"M112","Projet de fin de formation","","120","DWB","DWB-M112"
-"M113","Initiation au milieu de travail (Stage)","","120","DWB","DWB-M113"
-"M101","Français","","30","DWB","DWB-M101"
-"M102","Anglais technique","","30","DWB","DWB-M102"
-"M103","Culture d'entreprenariat","","30","DWB","DWB-M103"
-"M104","Compétences comportementales et social (ex Soft Skills)","","45","DWB","DWB-M104"
-"M112","Veille et adaptation aux technologies de l’entreprise","","60","DMB","DMB-M112"
-"M113","Projet de fin de formation","","120","DMB","DMB-M113"
-"M101","Français","","30","DMB","DMB-M101"
-"M102","Anglais technique","","30","DMB","DMB-M102"
-"M103","Culture d'entreprenariat","","30","DMB","DMB-M103"
-"M104","Compétences comportementales et social (ex Soft Skills)","","45","DMB","DMB-M104"
-"M114","Stage en entreprise","","120","DMB","DMB-M114"
+"code","nom","description","masse_horaire","filiere_reference","reference",isHaveUa
+"M105","Initiation à l’environnement du développement mobile par la pédagogie active","Initiation à l’environnement du développement mobile par la pédagogie active&nbsp;","70","DMB","DMB-M105",0
+"M106","Maquettage d’une application mobile","<p>&nbsp;</p>","50","DMB","DMB-M106",0
+"M107","Gestion de projet",,"50","DMB","DMB-M107",0
+"M108","Manipulation d’une base de données",,"80","DMB","DMB-M108",0
+"M109","Développement de la partie back-end",,"160","DMB","DMB-M109",0
+"M110","Développement d’une application mobile",,"225","DMB","DMB-M110",0
+"M111","Déploiement d’une application web et d’une application mobile",,"100","DMB","DMB-M111",0
+"M105","Initiation à l’environnement du développement web",,"70","DWB","DWB-M105",0
+"M106","Maquettage et UX/UI d'un projet d’application web",,"70","DWB","DWB-M106",0
+"M107","Gestion de projet",,"80","DWB","DWB-M107",0
+"M108","Intégration front-end d'un projet d’application web",,"210","DWB","DWB-M108",0
+"M109","Développement backend d'un projet d’application web",,"165","DWB","DWB-M109",0
+"M110","Réaliser une application web avec un CMS",,"120","DWB","DWB-M110",0
+"M111","Veille et adaptation aux technologies de l’entreprise",,"80","DWB","DWB-M111",0
+"M112","Projet de fin de formation",,"120","DWB","DWB-M112",0
+"M113","Initiation au milieu de travail (Stage)",,"120","DWB","DWB-M113",0
+"M101","Français",,"30","DWB","DWB-M101",0
+"M102","Anglais technique",,"30","DWB","DWB-M102",0
+"M103","Culture d'entreprenariat",,"30","DWB","DWB-M103",0
+"M104","Compétences comportementales et social (ex Soft Skills)",,"45","DWB","DWB-M104",0
+"M112","Veille et adaptation aux technologies de l’entreprise",,"60","DMB","DMB-M112",0
+"M113","Projet de fin de formation",,"120","DMB","DMB-M113",0
+"M101","Français",,"30","DMB","DMB-M101",0
+"M102","Anglais technique",,"30","DMB","DMB-M102",0
+"M103","Culture d'entreprenariat",,"30","DMB","DMB-M103",0
+"M104","Compétences comportementales et social (ex Soft Skills)",,"45","DMB","DMB-M104",0
+"M114","Stage en entreprise",,"120","DMB","DMB-M114",0

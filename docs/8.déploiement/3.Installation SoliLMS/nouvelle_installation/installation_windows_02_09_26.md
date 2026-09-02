@@ -25,24 +25,13 @@ php artisan key:generate
 > En dev, la commande suivante **réinitialise** la base (supprime et recrée les tables).
 
 ```bash
+
+php artisan migrate
+
 php artisan migrate:fresh
 ```
 
-Laravel va :
-
-1. **Charger le dump de schéma** (`database/schema/mysql-schema.dump`),
-2. Exécuter **uniquement les migrations postérieures au dump**.
-
 ### d) Injecter des données (seed)
-
-* Pendant le développement, vous pouvez activer/désactiver les seeders **module par module** via le fichier `modules-config.json` (ou `modules.json` selon votre repo).
-* **Modules obligatoires** à prévoir d’office :
-
-  * `Core`
-  * `PkgAutorisation`
-  * `PkgWidgets`
-
-Lancement générique :
 
 ```bash
 php artisan db:seed
