@@ -43,9 +43,14 @@ trait MobilisationUaCrudTrait
         $totalBareme = (float)($data['bareme_evaluation_prototype'] ?? 0) + (float)($data['bareme_evaluation_projet'] ?? 0);
         
         if ($totalBareme <= 0) {
-            $msg = "Impossible de mobiliser une Unité d'Apprentissage avec un barème de 0. Veuillez vérifier les critères d'évaluation.";
-            $this->pushServiceMessage('danger', 'Erreur de Validation', $msg);
-            throw new \Modules\Core\App\Exceptions\BlException($msg);
+
+            // Si les barème ne sont pas intialiser, i faut les créer.
+            $data['bareme_evaluation_prototype'] = 4;
+            $data['bareme_evaluation_projet'] = 2;
+
+            // $msg = "Impossible de mobiliser une Unité d'Apprentissage avec un barème de 0. Veuillez vérifier les critères d'évaluation.";
+            // $this->pushServiceMessage('danger', 'Erreur de Validation', $msg);
+            // throw new \Modules\Core\App\Exceptions\BlException($msg);
         }
 
         return $data;
