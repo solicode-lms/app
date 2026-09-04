@@ -15,6 +15,7 @@ class ChapitreService extends BaseChapitreService
     public function __construct()
     {
         parent::__construct();
+        // cette information doit être inject avant de creéation d'un chapitre pour que l'ordre soit calculé correctement
         $this->ordreGroupColumn = 'micro_competence_id'; // Permet de calculer l'ordre par micro_compétence
     }
 
