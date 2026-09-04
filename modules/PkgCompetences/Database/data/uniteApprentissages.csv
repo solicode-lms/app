@@ -1,5 +1,5 @@
 "ordre","code","nom","micro_competence_reference","lien","description","reference"
-"5","125.21","Déboguer un programme JavaScript","DWB-D.125.2","","Apprendre à trouver une erreur dans un programme JavaScript en l’exécutant ligne par ligne avec VS Code.","DWB-125.21"
+"5","UA.125.21","Déboguer un programme JavaScript","DWB-D.125.2","","Apprendre à trouver une erreur dans un programme JavaScript en l’exécutant ligne par ligne avec VS Code.","DWB-UA.125.21"
 "7","UA.111.11","Identifier le contexte et les acteurs","DWB-D.111.1","","Analyser un support fonctionnel fourni afin d’identifier la finalité générale de l’application son domaine fonctionnel son périmètre et les différents acteurs concernés.","DWB-UA.111.11"
 "8","UA.112.11","Comprendre le rôle des données dans une application","DWB-D.112.1","","Comprendre pourquoi une application informatique a besoin de données structurées et identifier les principales données nécessaires à son fonctionnement.","DWB-UA.112.11"
 "6","UA.121.11","Manipuler les variables et les entrées-sorties","DWB-D.121.1","","Construire un traitement JavaScript simple permettant de stocker des valeurs recevoir des données et produire un résultat observable.","DWB-UA.121.11"

@@ -1,4 +1,15 @@
 
+
+## Init Application
+
+
+```bash
+php artisan migrate
+php artisan migrate:fresh
+php artisan db:seed
+```
+
+
 ## Modification des mot de passe de 
 
 - root
@@ -16,3 +27,6 @@
 
 
 php artisan db:seed --class=Modules\PkgCompetences\Database\Seeders\MicroCompetenceSeeder
+
+
+
