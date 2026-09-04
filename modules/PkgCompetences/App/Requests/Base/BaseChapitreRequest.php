@@ -38,7 +38,7 @@ class BaseChapitreRequest extends FormRequest
             'lien' => 'required|string|max:255|url',
             'description' => 'nullable|string',
             'formateur_id' => 'nullable',
-            'is_imitation_ua' => 'required|boolean'
+            'is_imitation_ua' => 'nullable|boolean'
         ];
     }
 

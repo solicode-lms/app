@@ -8,6 +8,7 @@ namespace Modules\PkgApprenants\Services;
 use Modules\PkgApprenants\Models\ApprenantKonosy;
 use Modules\Core\Services\BaseService;
 use Carbon\Carbon;
+use Modules\PkgApprenants\Services\Base\BaseApprenantKonosyService;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgFormation\Models\AnneeFormation;
@@ -17,7 +18,7 @@ use Modules\PkgFormation\Services\FiliereService;
 /**
  * Classe ApprenantKonosyService pour gérer la persistance de l'entité ApprenantKonosy.
  */
-class ApprenantKonosyService extends BaseService
+class ApprenantKonosyService extends BaseApprenantKonosyService
 {
     /**
      * Les champs de recherche disponibles pour apprenantKonosies.

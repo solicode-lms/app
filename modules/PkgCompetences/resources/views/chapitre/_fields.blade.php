@@ -332,14 +332,14 @@
           @endif
           <label for="is_imitation_ua">
             {{ ucfirst(__('PkgCompetences::chapitre.is_imitation_ua')) }}
-            <span class="text-danger">*</span>
+            
           </label>
                       <input type="hidden" name="is_imitation_ua" value="0">
             <input
                 name="is_imitation_ua"
                 type="checkbox"
                 class="form-control d-block"
-                required
+                
                 
                 
                 id="is_imitation_ua"

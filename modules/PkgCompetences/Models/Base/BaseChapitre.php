@@ -50,14 +50,14 @@ class BaseChapitre extends BaseModel
         'ordre', 'code', 'nom', 'unite_apprentissage_id', 'duree_en_heure', 'isOfficiel', 'lien', 'description', 'formateur_id', 'reference', 'is_imitation_ua'
     ];
     public $manyToOne = [
-        'UniteApprentissage' => [
+        'uniteApprentissage' => [
             'model' => "Modules\\PkgCompetences\\Models\\UniteApprentissage",
-            'relation' => 'uniteApprentissages' , 
+            'relation' => 'uniteApprentissage' , 
             "foreign_key" => "unite_apprentissage_id", 
             ],
-        'Formateur' => [
+        'formateur' => [
             'model' => "Modules\\PkgFormation\\Models\\Formateur",
-            'relation' => 'formateurs' , 
+            'relation' => 'formateur' , 
             "foreign_key" => "formateur_id", 
             ]
     ];

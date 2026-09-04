@@ -78,6 +78,7 @@ class BaseChapitreController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemChapitre = $this->chapitreService->createInstance();
  
 
@@ -86,9 +87,9 @@ class BaseChapitreController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCompetences::chapitre._fields', compact('bulkEdit' ,'itemChapitre', 'formateurs', 'uniteApprentissages'));
+            return view('PkgCompetences::chapitre._fields', compact('bulkEdit' ,'itemChapitre', 'uniteApprentissages', 'formateurs'));
         }
-        return view('PkgCompetences::chapitre.create', compact('bulkEdit' ,'itemChapitre', 'formateurs', 'uniteApprentissages'));
+        return view('PkgCompetences::chapitre.create', compact('bulkEdit' ,'itemChapitre', 'uniteApprentissages', 'formateurs'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -117,9 +118,9 @@ class BaseChapitreController extends AdminController
         $itemChapitre = $this->chapitreService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgCompetences::chapitre._fields', compact('bulkEdit', 'chapitre_ids', 'itemChapitre', 'formateurs', 'uniteApprentissages'));
+            return view('PkgCompetences::chapitre._fields', compact('bulkEdit', 'chapitre_ids', 'itemChapitre', 'uniteApprentissages', 'formateurs'));
         }
-        return view('PkgCompetences::chapitre.bulk-edit', compact('bulkEdit', 'chapitre_ids', 'itemChapitre', 'formateurs', 'uniteApprentissages'));
+        return view('PkgCompetences::chapitre.bulk-edit', compact('bulkEdit', 'chapitre_ids', 'itemChapitre', 'uniteApprentissages', 'formateurs'));
     }
     /**
      */
@@ -184,10 +185,10 @@ class BaseChapitreController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCompetences::chapitre._fields', array_merge(compact('bulkEdit' , 'itemChapitre','formateurs', 'uniteApprentissages'),));
+            return view('PkgCompetences::chapitre._fields', array_merge(compact('bulkEdit' , 'itemChapitre','uniteApprentissages', 'formateurs'),));
         }
 
-        return view('PkgCompetences::chapitre.edit', array_merge(compact('bulkEdit' ,'itemChapitre','formateurs', 'uniteApprentissages'),));
+        return view('PkgCompetences::chapitre.edit', array_merge(compact('bulkEdit' ,'itemChapitre','uniteApprentissages', 'formateurs'),));
 
 
     }
