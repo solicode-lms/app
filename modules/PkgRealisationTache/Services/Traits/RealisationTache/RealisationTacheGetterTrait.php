@@ -206,21 +206,21 @@ trait RealisationTacheGetterTrait
         );
 
 
+        // TODO : Il générer une exception "<" : Problème de falback ajax, il retourne une page avec etteur de getData
+        //  if (!array_key_exists('labelProjets', $scopeVariables)) {
 
-         if (!array_key_exists('labelProjets', $scopeVariables)) {
+        //             $labelProjetService = new \Modules\PkgCreationProjet\Services\LabelProjetService();
+        //             $labelProjetIds = $this->getAvailableFilterValues('labelProjets.id');
+        //             $labelProjets = $labelProjetService->getByIds($labelProjetIds);
 
-                    $labelProjetService = new \Modules\PkgCreationProjet\Services\LabelProjetService();
-                    $labelProjetIds = $this->getAvailableFilterValues('labelProjets.id');
-                    $labelProjets = $labelProjetService->getByIds($labelProjetIds);
-
-                    $this->fieldsFilterable[] = $this->generateManyToManyFilter(
-                        __("PkgCreationProjet::labelProjet.plural"), 
-                        'label_projet_id', 
-                        \Modules\PkgCreationProjet\Models\LabelProjet::class, 
-                        'nom',
-                        $labelProjets
-                    );
-            }
+        //             $this->fieldsFilterable[] = $this->generateManyToManyFilter(
+        //                 __("PkgCreationProjet::labelProjet.plural"), 
+        //                 'label_projet_id', 
+        //                 \Modules\PkgCreationProjet\Models\LabelProjet::class, 
+        //                 'nom',
+        //                 $labelProjets
+        //             );
+        //     }
 
 
     }
