@@ -43,14 +43,15 @@
             $lienMicroCompetence = $premierChapitre->realisationUa->realisationMicroCompetence->lien_livrable ?? null;
             $microCompetence = $premierChapitre->realisationUa->realisationMicroCompetence->microCompetence;
 
-            if ($microCompetence) {
-                $livrablesAttendus->push((object) [
-                    'id' => 'micro_competence_livrable',
-                    'titre' =>  $microCompetence->titre,
-                    'natureLivrable' => (object) ['nom' => 'code-chapitre'],
-                    'is_affichable_seulement_par_formateur' => false
-                ]);
-            }
+            // On va pas utiliser les livrable de micro competence pour le moment, car on veut juste afficher le lien vers le livrable de la micro competence
+            // if ($microCompetence) {
+            //     $livrablesAttendus->push((object) [
+            //         'id' => 'micro_competence_livrable',
+            //         'titre' =>  $microCompetence->titre,
+            //         'natureLivrable' => (object) ['nom' => 'code-chapitre'],
+            //         'is_affichable_seulement_par_formateur' => false
+            //     ]);
+            // }
         }
 
         $realises = $entity->livrablesRealisations

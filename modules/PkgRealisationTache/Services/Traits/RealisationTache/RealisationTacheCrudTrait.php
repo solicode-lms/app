@@ -245,7 +245,9 @@ trait RealisationTacheCrudTrait
             }
         }
 
+
         // ❌ Bloquer l'état si la tâche ou ses micro-compétences associées ont des livrables manquants
+        // on ne bloque que pour les livravle de la tache, on va pas utiliser les livrable des micro compétences
         if (
             !\Illuminate\Support\Facades\Auth::user()->hasRole(\Modules\PkgAutorisation\Models\Role::FORMATEUR_ROLE) &&
             isset($data["etat_realisation_tache_id"]) &&
@@ -275,22 +277,21 @@ trait RealisationTacheCrudTrait
             }
 
             // 2️⃣ Livrables attendus côté micro-compétences
-            $realisationMicro = $realisationTache->realisationChapitres
-                ->map(fn($rc) => $rc->realisationUa?->realisationMicroCompetence) // un seul UA par chapitre
-                ->filter(); // enlève les null
+            // $realisationMicro = $realisationTache->realisationChapitres
+            //     ->map(fn($rc) => $rc->realisationUa?->realisationMicroCompetence) // un seul UA par chapitre
+            //     ->filter(); // enlève les null
 
-            $livrablesManquantsMicro = $realisationMicro
-                ->filter(fn($rmc) => empty($rmc->lien_livrable))
-                ->map(fn($rmc) => "Autoformation : " . ($rmc->microCompetence?->titre ?? "Sans titre"));
+            // $livrablesManquantsMicro = $realisationMicro
+            //     ->filter(fn($rmc) => empty($rmc->lien_livrable))
+            //     ->map(fn($rmc) => "Autoformation : " . ($rmc->microCompetence?->titre ?? "Sans titre"));
 
 
             // 3️⃣ Si livrables manquants → bloquer
             if (
-                ($livrablesManquantsTache->isNotEmpty() || $livrablesManquantsMicro->isNotEmpty()) &&
+                ($livrablesManquantsTache->isNotEmpty()) &&
                 in_array($etatCode, $etatsInterdits)
             ) {
                 $listeManquants = $livrablesManquantsTache
-                    ->merge($livrablesManquantsMicro)
                     ->map(fn($titre) => "<li>" . e($titre) . "</li>")
                     ->join('');
 
