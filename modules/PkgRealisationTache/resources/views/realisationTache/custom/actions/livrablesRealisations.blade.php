@@ -2,7 +2,7 @@
             $realisationChapitre = $entity->realisationChapitres?->first();
 @endphp
 
-@if($realisationChapitre && empty($realisationChapitre->realisationUa->realisationMicroCompetence->lien_livrable))
+{{-- @if($realisationChapitre && empty($realisationChapitre->realisationUa->realisationMicroCompetence->lien_livrable))
  <a
     data-toggle="tooltip"
     title="Autoformation"
@@ -15,7 +15,7 @@
     data-id="{{ $entity->id }}">
     <i class="fas fa-certificate"></i>
 </a>
-@endif
+@endif --}}
 
 @if($entity->tache->livrables->isNotEmpty())
 <a
