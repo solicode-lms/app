@@ -58,19 +58,19 @@
             ->filter(fn($r) => $r->livrable?->taches->pluck('id')->contains($entity->tache_id))
             ?? collect();
 
-        if ($lienMicroCompetence && $microCompetence) {
-            $realises->push((object) [
-                'livrable' => (object) [
-                    'id' => 'micro_competence_livrable',
-                    'titre' => $microCompetence->titre,
-                    'natureLivrable' => (object) ['nom' => 'code-chapitre'],
-                    'is_affichable_seulement_par_formateur' => false
-                ],
-                'livrable_id' => 'micro_competence_livrable',
-                'titre' => null,
-                'lien' => $lienMicroCompetence
-            ]);
-        }
+        // if ($lienMicroCompetence && $microCompetence) {
+        //     $realises->push((object) [
+        //         'livrable' => (object) [
+        //             'id' => 'micro_competence_livrable',
+        //             'titre' => $microCompetence->titre,
+        //             'natureLivrable' => (object) ['nom' => 'code-chapitre'],
+        //             'is_affichable_seulement_par_formateur' => false
+        //         ],
+        //         'livrable_id' => 'micro_competence_livrable',
+        //         'titre' => null,
+        //         'lien' => $lienMicroCompetence
+        //     ]);
+        // }
 
         $livrablesRealises = $realises->pluck('livrable_id')->toArray();
         $livrablesManquants = collect();
