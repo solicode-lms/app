@@ -70,3 +70,8 @@ Chaque *tâche doit être affectée au livrable correspondant*.
 Si tous les formateurs adoptent *la même organisation des livrables*, cette opération pourra être *automatisée pour les sessions suivantes*, afin de faciliter et d’accélérer leur préparation.
 
 ⚠️ *Important :* les apprenants ne peuvent plus modifier les *micro-compétences* qui leur sont affectées.
+
+---
+
+// TODO : 
+Il reste à retirer les droit d'accès depuis le fichier deeed d'initialiser de l'application 
