@@ -9,5 +9,6 @@ php artisan db:seed --class=Modules\PkgApprenants\Database\Seeders\ApprenantKono
 
  
 ```
-sudo php artisan db:seed --class=Modules\\PkgApprenants\\Database\\Seeders\\Base\\ApprenantKonosySeeder
+ sudo php artisan db:seed --class=Modules\\PkgApprenants\\Database\\Seeders\\ApprenantKonosySeeder
 ```
+
