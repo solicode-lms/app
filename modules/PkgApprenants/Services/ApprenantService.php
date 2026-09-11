@@ -64,10 +64,42 @@ class ApprenantService extends BaseApprenantService
         return $this->model::withoutGlobalScope('inactif')->findOrFail($id);
     }
 
+    private function createApprenantUser(Apprenant $apprenant)
+    {
+        if ($apprenant->user_id) {
+            return;
+        }
 
+        $userService = new UserService();
+        $email = $apprenant->matricule 
+            ? strtolower(trim($apprenant->matricule)) . "@ofppt-edu.ma"
+            : strtolower(trim(str_replace(' ', '-', $apprenant->nom))) . "." . strtolower(trim(str_replace(' ', '-', $apprenant->prenom))) . "@ofppt-edu.ma";
+            
+        // Check if user exists
+        $user = $userService->model->where('email', $email)->first();
+
+        if (!$user) {
+            $userData = [
+                'name' => strtoupper($apprenant->nom ?? '') . " " . ucfirst($apprenant->prenom ?? ''),
+                'email' => $email,
+                'password' => \Illuminate\Support\Facades\Hash::make("12345678"),
+            ];
+            $user = $userService->create($userData);
+            if ($user) {
+                $user->assignRole(Role::APPRENANT_ROLE);
+            }
+        }
+
+        if ($user) {
+            $apprenant->user_id = $user->id;
+            $apprenant->save();
+        }
+    }
 
     public function afterCreateRules(Apprenant $apprenant): void
     {
+        // Création d'un utilisateur pour l'apprenant si non existant
+        $this->createApprenantUser($apprenant);
 
         // Création de réalisations de micro-compétences pour l'apprenant
         // Maintenant, nous allons créer des réalisations de micro-compétences pour l'apprenant à la création 
@@ -112,6 +144,11 @@ class ApprenantService extends BaseApprenantService
         // }
     }
 
+    public function afterUpdateRules(Apprenant $apprenant): void
+    {
+        // Création d'un utilisateur pour l'apprenant si non existant
+        $this->createApprenantUser($apprenant);
+    }
 
     private function getEtatIdByReference(string $reference): int
     {
