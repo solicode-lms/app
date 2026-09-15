@@ -101,15 +101,16 @@ trait TacheCrudTrait
 
                 // 2. Règle : Calcul de la note pour Prototype (N2) et Réalisation (N3)
                 if (in_array($code, ['N2', 'N3']) && $projectId && !$hasProjetOrigineNote) {
-                    $projet = Projet::with(['mobilisationUas.uniteApprentissage.critereEvaluations.phaseEvaluation'])->find($projectId);
+                    $projet = Projet::with(['mobilisationUas'])->find($projectId);
 
                     if ($projet) {
                         $note = $projet->mobilisationUas->sum(function ($mobilisation) use ($code) {
-                            if (!$mobilisation->uniteApprentissage)
-                                return 0;
-                            return $mobilisation->uniteApprentissage->critereEvaluations
-                                ->filter(fn($c) => optional($c->phaseEvaluation)->code === $code)
-                                ->sum('bareme');
+                            if ($code === 'N2') {
+                                return $mobilisation->bareme_evaluation_prototype ?? 0;
+                            } elseif ($code === 'N3') {
+                                return $mobilisation->bareme_evaluation_projet ?? 0;
+                            }
+                            return 0;
                         });
 
                         $data['note'] = $note;

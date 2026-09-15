@@ -54,5 +54,6 @@
         }
     },
     "todo-tree.tree.showCountsInTree": true,
-    "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)"
+    "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)",
+    "folder-color.pathColors": []
 }
