@@ -1,5 +1,4 @@
 "ordre","code","nom","unite_apprentissage_reference","duree_en_heure","isOfficiel","lien","description","formateur_reference","reference","is_imitation_ua"
-"1","T.201.111","Définir une donnée et un dictionnaire de données","DMB-UA.201.11","1","1","https://solicode-web-mobile.github.io/autoformations-web/tutos/definir-donnee-dictionnaire-donnees/","","","DMB-T.201.111","0"
 "1","T.224.131","Consommer une API structurée","DMB-UA.224.13","1","1","https://solicode-web-mobile.github.io/autoformations-web/tutos/consommer-api-structuree/","","","DMB-T.224.131","0"
 "1","T.201.121","De la répétition à la dépendance fonctionnelle","DMB-UA.201.12","1","1","https://solicode-web-mobile.github.io/autoformations-web/tutos/comprendre-d%C3%A9pendances-fonctionnelles/","","","DMB-T.201.121","0"
 "1","T.224.121","Gérer les états d’une opération asynchrone","DMB-UA.224.12","1","1","https://solicode-web-mobile.github.io/autoformations-web/tutos/gerer-etats-operation-asynchrone/","","","DMB-T.224.121","0"
@@ -35,7 +34,6 @@
 "2","T.224.112","Communiquer avec une API avec Fetch","DMB-UA.224.11","1","1","https://solicode-web-mobile.github.io/autoformations-web/tutos/communiquer-api-fetch/","","","DMB-T.224.112","0"
 "2","T.201.122","Décomposer les données","DMB-UA.201.12","1","1","https://solicode-web-mobile.github.io/autoformations-web/tutos/decomposer-donnees/","","","DMB-T.201.122","0"
 "2","T.224.122","Donner un retour à l’utilisateur","DMB-UA.224.12","1","1","https://solicode-web-mobile.github.io/autoformations-web/tutos/donner-retour-utilisateur/","","","DMB-T.224.122","0"
-"2","T.201.112","Créer le dictionnaire de données d’un Blog","DMB-UA.201.11","1","1","https://solicode-web-mobile.github.io/autoformations-web/tutos/creer-dictionnaire-donnees-blog/","","","DMB-T.201.112","0"
 "2","T.224.132","Organiser le code JavaScript d’une interface dynamique","DMB-UA.224.13","1","1","https://solicode-web-mobile.github.io/autoformations-web/tutos/organiser-code-javascript-interface/","","","DMB-T.224.132","0"
 "2","T.213.112","Définir la communication (HTTP & API)","DMB-UA.213.11","1","1","https://solicode-web-mobile.github.io/autoformations-web/tutos/definir-communication-composants/","","","DMB-T.213.112","0"
 "2","T.225.112","Mettre en forme les composants de l'interface","DMB-UA.225.11","1","1","https://solicode-web-mobile.github.io/autoformations-web/tutos/mettre-en-forme-composants-interface-tailwind/","","","DMB-T.225.112","0"
