@@ -1,0 +1,9 @@
+code,mini_code,nom,module_reference,description,reference
+"C.201","","Rappel - Réaliser une fonctionnalité Web simple","","Réaliser une fonctionnalité Web simple à partir d’un besoin représenté, en identifiant les données, en construisant le modèle de données, en développant les traitements nécessaires et en vérifiant leur bon fonctionnement.",""
+"C.211","","Formaliser une fonctionnalité","DMB-M201","Formaliser une fonctionnalité déjà identifiée en précisant le système, les acteurs, les cas d’utilisation et les scénarios attendus.","DMB-M201-C.211"
+"C.212","","Traduire le modèle relationnel en modèle objet","DMB-M201","Traduire un MLD en modèle objet en établissant les correspondances entre tables, attributs, identifiants, relations, classes et associations.","DMB-M201-C.212"
+"C.213","","Structurer l’application en composants","DMB-M201","Structurer une application en séparant le Frontend et le Backend et en définissant leur communication à travers une API.","DMB-M201-C.213"
+"C.221","","Développer une fonctionnalité en programmation orientée objet","DMB-M202","Réaliser une fonctionnalité complète en PHP orienté objet en créant, manipulant et faisant collaborer des objets.","DMB-M202-C.221"
+"C.222","","Répartir les responsabilités entre les classes","DMB-M202","Analyser les responsabilités d’une fonctionnalité et les répartir entre plusieurs classes cohérentes en appliquant le principe de responsabilité unique.","DMB-M202-C.222"
+"C.223","","Organiser l’application en couches","DMB-M202","Structurer une fonctionnalité selon une architecture en couches Présentation, Traitement et Data, isoler l’accès aux données et rendre sa source remplaçable.","DMB-M202-C.223"
+"C.251","","Organiser et suivre le travail d’un projet","DMB-M205","Décomposer une fonctionnalité en tâches réalisables, organiser leur ordre et leurs dépendances, puis suivre leur avancement et leur validation avec GitHub.","DMB-M205-C.251"
