@@ -12,6 +12,10 @@ copier le fichier .env.example en .env
 
 ```bash
 composer install
+# problème de version de php  
+composer install --ignore-platform-req=php 
+
+
 npm install
 php artisan key:generate
 ```

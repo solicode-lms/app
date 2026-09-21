@@ -25,9 +25,13 @@ class ChapitreService extends BaseChapitreService
     public function create(array|object $data)
     {
         // Injecter micro_competence_id via unite_apprentissage
+        // La clé DOIT toujours exister dans $data car CrudCreateTrait y accède directement
+        // via $data[$this->ordreGroupColumn] (ordreGroupColumn = 'micro_competence_id')
         if (isset($data['unite_apprentissage_id'])) {
             $ua = UniteApprentissage::find($data['unite_apprentissage_id']);
             $data['micro_competence_id'] = $ua?->micro_competence_id;
+        } else {
+            $data['micro_competence_id'] = $data['micro_competence_id'] ?? null;
         }
 
         $chapitre = parent::create($data);

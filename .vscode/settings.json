@@ -1,5 +1,11 @@
 {
-    "files.exclude": {},
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true
+    },
     "files.eol": "\n",
     "todo-tree.filtering.excludeGlobs": [
         "**/node_modules",
@@ -55,5 +61,6 @@
     },
     "todo-tree.tree.showCountsInTree": true,
     "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)",
-    "folder-color.pathColors": []
+    "folder-color.pathColors": [],
+    "hide-files.files": []
 }
