@@ -3,10 +3,7 @@
 Cette capacité définit les standards de code pour les fichiers de migration dans le projet Solicode LMS.
 
 ## 1. Structure de Table Principale
-Toute nouvelle table principale doit obligatoirement inclure :
-- Un id classique (`$table->id();`).
-- Un champ `reference` unique (`$table->string('reference')->unique();`).
-- Les timestamps (`$table->timestamps();`).
+Se référer à `capacité-regles-table.md` pour connaître les champs obligatoires (ex: `reference`). Dans la migration, implémentez ces champs correctement.
 
 ## 2. Relations Many-To-One
 Les clés étrangères doivent utiliser la méthode `foreignId` avec `constrained`.
@@ -18,11 +15,9 @@ $table->foreignId('projet_id')->constrained('projets')->onDelete('cascade');
 ```
 
 ## 3. Relations Many-To-Many (Table Pivot)
-Les tables pivot (ex: `label_tache`) ont des règles strictes :
-- **AUCUN id** : Ne pas mettre `$table->id();`.
-- **Nommage des clés étrangères** : Le nom de la clé étrangère doit correspondre exactement au nom du modèle de la table cible en snake_case (ex: `label_projet_id` pour la table `label_projets`, et non pas `label_id`).
-- Les clés étrangères doivent pointer vers les tables cibles en utilisant `constrained()`.
-- Les timestamps sont nécessaires.
+Se référer à `capacité-regles-table.md` pour les interdictions d'ID et le nommage des clés. Dans la migration :
+- Utilisez `foreignId()->constrained()->onDelete('cascade')` pour chaque clé.
+- Ajoutez `$table->timestamps();`.
 
 Exemple :
 ```php

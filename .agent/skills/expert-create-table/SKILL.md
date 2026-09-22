@@ -19,6 +19,7 @@ description: Expert en création de tables de base de données via migrations
 ### Action A : Générer Migration pour Nouvelle Table
 > **Description** : Analyse la demande, propose la commande de génération de migration, génère le code de migration selon les standards du projet, met à jour `modules.json` et guide le développeur pour la suite.
 - **Capacités Utilisées** :
+  - `capacités/capacité-regles-table.md`
   - `capacités/capacité-generation-migration.md`
 - **Entrées** : `Nom de la table`, `Champs/Relations demandés`
 - **Sorties** : `Code de la migration`, `Mise à jour de db_schemas/modules.json`
@@ -51,18 +52,43 @@ description: Expert en création de tables de base de données via migrations
   3. **Générer le Code** : Utiliser la `capacité-migration-relation` pour fournir le code complet de la migration.
   4. **Instructions de Suite** : Expliquer au développeur d'exécuter la migration (`php artisan migrate`), puis de synchroniser et régénérer les CRUD avec Gapp (`php artisan gapp meta:sync` puis `php artisan gapp make:crud [NomModel]`).
 
+### Action C : Analyser et Générer depuis un diagramme UML
+> **Description** : Lit un fichier Mermaid pour en extraire la structure de la base de données, détermine l'ordre chronologique de création, et pilote itérativement les Actions A et B pour générer les migrations complètes.
+- **Capacités Utilisées** :
+  - `capacités/capacité-analyse-uml.md`
+- **Entrées** : `Chemin du fichier .mmd`
+- **Sorties** : `Plan de création` et `Génération des migrations (via Actions A et B)`
+- **✅ Points de Contrôle** :
+  - L'ordre chronologique de création est strictement respecté.
+  - S'assurer que chaque nouvelle table est inscrite dans `db_schemas/modules.json` sous son package respectif (indispensable pour Gapp).
+- **📝 Instructions d'Orchestration** :
+  1. Utiliser `capacité-analyse-uml` pour extraire les entités et définir l'ordre chronologique de création.
+  2. Afficher un résumé des tables et relations trouvées pour validation par le développeur.
+  3. Une fois validé, exécuter itérativement l'Action A pour créer chaque table en y incluant directement ses clés étrangères.
+  4. Exécuter l'Action B pour générer les relations ManyToMany (tables pivots).
+  5. Fournir à l'utilisateur le récapitulatif global des commandes générées.
+  6. Rappeler ou effectuer la mise à jour de `db_schemas/modules.json`.
+
 ---
 
 ## 🛠️ Capacités (Savoir-Faire Technique)
 *Documentation des fichiers situés dans le dossier `capacités/`*
 
-### 1. `capacité-generation-migration.md`
-- **Rôle** : Standards de syntaxe pour la création de tables et de relations.
-- **Règles Clés** : Présence du champ reference, typage des relations ManyToOne et ManyToMany (sans ID pour les tables pivots).
+### 1. `capacité-regles-table.md`
+- **Rôle** : Définition des règles métiers, standards structurels (champs obligatoires comme reference) et conventions de nommage pour toute table (principale ou pivot) du projet.
+- **Règles Clés** : Clés primaires, références uniques, traçabilité, standards Gapp.
 
-### 2. `capacité-migration-relation.md`
+### 2. `capacité-generation-migration.md`
+- **Rôle** : Standards de syntaxe PHP/Laravel pour la création des fichiers de migration.
+- **Règles Clés** : Syntaxe des clés étrangères et tables pivots, déroulement de up() et down().
+
+### 3. `capacité-migration-relation.md`
 - **Rôle** : Standards de syntaxe pour l'ajout de relations (clés étrangères ou pivot) entre tables existantes.
 - **Règles Clés** : Utilisation correcte de Schema::table(), suppression des contraintes foreign dans down(), synchronisation Gapp.
+
+### 4. `capacité-analyse-uml.md`
+- **Rôle** : Standards de lecture et d'analyse des diagrammes UML (Mermaid).
+- **Règles Clés** : Ordre chronologique de création, conventions de nommage Laravel, cas spécifiques des relations implicites.
 
 ---
 
@@ -82,3 +108,10 @@ description: Expert en création de tables de base de données via migrations
 3. Fournir la commande : `php artisan make:module-migration add_x_to_y_table PkgZ`.
 4. Fournir le code de la migration en se basant sur `capacité-migration-relation.md`.
 5. Expliquer au développeur comment exécuter la migration, synchroniser Gapp et régénérer les CRUD.
+
+### Scénario : Action C (Génération depuis UML)
+1. L'utilisateur invoque l'expert avec un fichier UML (ex: `14.PkgQcm.mmd`).
+2. Appliquer le protocole de `capacité-analyse-uml` pour parser le document.
+3. Présenter le plan de création chronologique pour validation.
+4. Une fois validé, orchestrer itérativement les Actions A et B pour générer toutes les migrations.
+5. Finaliser avec le rappel impératif de mettre à jour `modules.json`.
