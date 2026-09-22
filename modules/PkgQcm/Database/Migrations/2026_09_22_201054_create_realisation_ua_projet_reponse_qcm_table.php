@@ -9,12 +9,24 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('realisation_ua_projet_reponse_qcm', function (Blueprint $table) {
-            $table->foreignId('realisation_ua_projet_id')
-                ->constrained('realisation_ua_projets')
+            $table->foreignId('realisation_ua_projet_id');
+
+            $table->foreignId('reponse_qcm_id');
+
+            $table->foreign(
+                'realisation_ua_projet_id',
+                'ruprq_realisation_ua_projet_fk'
+            )
+                ->references('id')
+                ->on('realisation_ua_projets')
                 ->onDelete('cascade');
 
-            $table->foreignId('reponse_qcm_id')
-                ->constrained('reponse_qcms')
+            $table->foreign(
+                'reponse_qcm_id',
+                'ruprq_reponse_qcm_fk'
+            )
+                ->references('id')
+                ->on('reponse_qcms')
                 ->onDelete('cascade');
 
             $table->timestamps();

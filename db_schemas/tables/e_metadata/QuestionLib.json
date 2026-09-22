@@ -1,0 +1,440 @@
+[
+    {
+        "reference": "question_libs_creationOrder",
+        "value_integer": 103,
+        "e_model_reference": "question_libs",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "question_libs_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "question_libs",
+        "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "question_libs_iconModel",
+        "value_string": "fas fa-table",
+        "e_model_reference": "question_libs",
+        "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "QuestionLib_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "QuestionLib_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "QuestionLib_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "QuestionLib_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "QuestionLib_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "QuestionLib_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "QuestionLib_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "QuestionLib_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_reference_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_reference",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "QuestionLib_reference_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "QuestionLib_reference",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "QuestionLib_reference_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_reference",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "QuestionLib_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "QuestionLib_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "QuestionLib_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "QuestionLib_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_enonce_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_enonce",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "QuestionLib_enonce_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "QuestionLib_enonce",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "QuestionLib_enonce_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_enonce",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "QuestionLib_enonce_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "QuestionLib_enonce",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "QuestionLib_enonce_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_enonce",
+        "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "QuestionLib_enonce_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_enonce",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_enonce_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_enonce",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_type_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_type",
+        "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "QuestionLib_type_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_type",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "QuestionLib_type_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "QuestionLib_type",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "QuestionLib_type_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_type",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "QuestionLib_type_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "QuestionLib_type",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "QuestionLib_type_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_type",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "QuestionLib_type_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_type",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_type_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_type",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_explication_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "QuestionLib_explication",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "QuestionLib_explication_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_explication",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "QuestionLib_explication_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "QuestionLib_explication",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "QuestionLib_explication_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_explication",
+        "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "QuestionLib_explication_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_explication",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_explication_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_explication",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_is_actif_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_is_actif",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "QuestionLib_is_actif_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "QuestionLib_is_actif",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "QuestionLib_is_actif_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_is_actif",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "QuestionLib_is_actif_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "QuestionLib_is_actif",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "QuestionLib_is_actif_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_is_actif",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "QuestionLib_is_actif_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_is_actif",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_is_actif_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_is_actif",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_unite_apprentissage_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_unite_apprentissage_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "QuestionLib_unite_apprentissage_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_unite_apprentissage_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "QuestionLib_unite_apprentissage_id_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "QuestionLib_unite_apprentissage_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "QuestionLib_unite_apprentissage_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_unite_apprentissage_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "QuestionLib_unite_apprentissage_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "QuestionLib_unite_apprentissage_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "QuestionLib_unite_apprentissage_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_unite_apprentissage_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "QuestionLib_unite_apprentissage_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_unite_apprentissage_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_unite_apprentissage_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_unite_apprentissage_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_created_at_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "QuestionLib_created_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "QuestionLib_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_created_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "QuestionLib_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "QuestionLib_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "QuestionLib_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "QuestionLib_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_updated_at_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "QuestionLib_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "QuestionLib_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "QuestionLib_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "QuestionLib_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "QuestionLib_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "QuestionLib_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "QuestionLib_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "question_libs_hasMany_proposition_reponses_question_lib_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "question_libs_hasMany_proposition_reponses_question_lib_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "question_libs_hasMany_proposition_reponses_question_lib_id_displayOrder",
+        "value_integer": 10,
+        "e_data_field_reference": "question_libs_hasMany_proposition_reponses_question_lib_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "question_libs_hasMany_proposition_reponses_question_lib_id_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "question_libs_hasMany_proposition_reponses_question_lib_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "question_libs_hasMany_proposition_reponses_question_lib_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "question_libs_hasMany_proposition_reponses_question_lib_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "question_libs_hasMany_question_qcms_question_lib_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "question_libs_hasMany_question_qcms_question_lib_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "question_libs_hasMany_question_qcms_question_lib_id_displayOrder",
+        "value_integer": 11,
+        "e_data_field_reference": "question_libs_hasMany_question_qcms_question_lib_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "question_libs_hasMany_question_qcms_question_lib_id_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "question_libs_hasMany_question_qcms_question_lib_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "question_libs_hasMany_question_qcms_question_lib_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "question_libs_hasMany_question_qcms_question_lib_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    }
+]

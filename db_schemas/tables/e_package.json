@@ -126,5 +126,13 @@
         "description": "Automatically generated package for PkgStatistiques",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 17,
+        "reference": "PkgQcm",
+        "name": "PkgQcm",
+        "description": "Automatically generated package for PkgQcm",
+        "created_at": null,
+        "updated_at": null
     }
 ]
