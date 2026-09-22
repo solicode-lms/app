@@ -1,0 +1,23 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+
+
+@accessiblePermissions([])
+@if($accessiblePermissions->isNotEmpty())
+    @if($accessiblePermissions->count() === 1)
+        {{-- Cas d’un seul élément accessible --}}
+
+    @else
+    <li id="menu-PkgQcm" class="nav-item has-treeview  {{ Request::is('admin/PkgQcm*') ? 'menu-open' : '' }}">
+        <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgQcm*') ? 'active' : '' }}">
+            <i class="nav-icon {{__('PkgQcm::PkgQcm.icon')}}"></i>
+            <p>
+                {{__('PkgQcm::PkgQcm.name')}}
+                <i class="fas fa-angle-left right"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+        </ul>
+    </li>
+  @endif
+@endif
+

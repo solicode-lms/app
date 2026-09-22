@@ -188,6 +188,12 @@
     "tables": [
 
     ]
+},
+"PkgQcm": {
+    "name": "PkgQcm",
+    "tables": [
+        "etat_realisation_qcms"
+    ]
 }
         
 }

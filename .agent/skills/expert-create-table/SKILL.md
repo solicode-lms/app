@@ -11,6 +11,7 @@ description: Expert en création de tables de base de données via migrations
 ### 🚫 Interdictions Globales (Règles d'Or)
 1. **Pas d'Exécution de Migration** : Ne JAMAIS exécuter la commande de migration (`php artisan migrate`). Il faut toujours demander à l'utilisateur de le faire.
 2. **Identification du Package Obligatoire** : Ne pas générer de migration sans avoir identifié ou demandé explicitement le package de destination.
+3. **Création Table par Table** : Lors d'une génération depuis un plan (Action C), NE JAMAIS générer plusieurs migrations d'un coup. Traiter **une seule table à la fois**, puis **STOPPER et attendre l'accord explicite du développeur** avant de passer à la suivante.
 
 ---
 
@@ -29,9 +30,10 @@ description: Expert en création de tables de base de données via migrations
   - Chaque table principale doit avoir un champ `reference` (`$table->string('reference')->unique();`).
   - L'ajout dans `modules.json` est correctement formaté.
 - **📝 Instructions d'Orchestration** :
-  1. **Déterminer le Package** : Analyser le contexte pour trouver le package de la table. Si introuvable, poser la question au développeur et arrêter l'exécution.
-  2. **Commande de création** : Indiquer au développeur la commande à exécuter : `php artisan make:module-migration create_[nom_table]_table [NomPackage]`.
-  3. **Générer le Code** : Utiliser la `capacité-generation-migration` pour fournir le code complet de la migration (avec la gestion de `up()` et `down()`).
+  1. **Vérifier l'existence du Module** : Avant toute chose, vérifier si le dossier `modules/[NomPackage]/` existe. Si le module n'existe pas encore, indiquer au développeur d'exécuter la commande Gapp de création du module : `gapp make:module "[NomPackage]"` (ex: `gapp make:module "PkgQcm"`) et **STOPPER** en attendant la confirmation que c'est fait, avant de continuer.
+  2. **Déterminer le Package** : Analyser le contexte pour trouver le package de la table. Si introuvable, poser la question au développeur et arrêter l'exécution.
+  3. **Commande de création** : Indiquer au développeur la commande à exécuter : `php artisan make:module-migration create_[nom_table]_table [NomPackage]`.
+  4. **Générer le Code** : Utiliser la `capacité-generation-migration` pour fournir le code complet de la migration (avec la gestion de `up()` et `down()`).
   4. **Mise à jour Gapp** : Insérer les noms des tables créées dans le fichier `db_schemas/modules.json` pour inscrire la table au générateur Gapp.
   5. **Instructions de Suite** : Expliquer au développeur d'exécuter la migration (`php artisan migrate`), puis l'inviter à exécuter les commandes de création des interfaces CRUD par Gapp (`gapp meta:sync` puis `gapp make:crud [NomModel]` pour la nouvelle table **AINSI QUE pour tous les modèles en relation**, car ils sont impactés par les changements). Ensuite, lui demander d'exécuter le seeder généré pour ajouter les droits d'accès (`php artisan db:seed --class=Modules\[NomPackage]\Database\Seeders\[NomModel]Seeder`). Ensuite, indiquer au développeur qu'il doit modifier le fichier de traduction (`modules\[NomPackage]\resources\lang\fr\[nomModel].php`), et rappeler que l'administrateur doit configurer les droits d'accès depuis l'interface d'administration. **Enfin, si la table implique des relations ManyToOne ou ManyToMany nécessitant un filtrage dynamique en cascade, demander au développeur d'ajouter la configuration `scopeDataInEditContext` directement dans la partie administration de Gapp (App Web), et LUI FOURNIR le bout de code JSON exact à copier-coller (ex: `[{"key": "scope.nomModeleFiltre.champ_id", "value": "relationCourante.champ_id", "modelName": "NomDuModelCourant"}]`).**
 
@@ -63,11 +65,13 @@ description: Expert en création de tables de base de données via migrations
   - S'assurer que chaque nouvelle table est inscrite dans `db_schemas/modules.json` sous son package respectif (indispensable pour Gapp).
 - **📝 Instructions d'Orchestration** :
   1. Utiliser `capacité-analyse-uml` pour extraire les entités et définir l'ordre chronologique de création.
-  2. Afficher un résumé des tables et relations trouvées pour validation par le développeur.
-  3. Une fois validé, exécuter itérativement l'Action A pour créer chaque table en y incluant directement ses clés étrangères.
-  4. Exécuter l'Action B pour générer les relations ManyToMany (tables pivots).
-  5. Fournir à l'utilisateur le récapitulatif global des commandes générées.
-  6. Rappeler ou effectuer la mise à jour de `db_schemas/modules.json`.
+  2. Afficher un résumé du plan de toutes les tables et relations trouvées pour validation par le développeur.
+  3. Une fois le plan validé, **traiter UNE SEULE table à la fois** :
+     a. Appeler l'Action A pour générer le code de migration de la table en cours (avec ses clés étrangères).
+     b. **STOPPER et demander au développeur** : *"La migration pour `[nom_table]` est prête. Veuillez exécuter `php artisan migrate`, puis confirmez pour passer à la table suivante : `[nom_table_suivante]`."*
+     c. Attendre la confirmation explicite avant de passer à l'étape suivante.
+  4. Pour les tables pivots (ManyToMany), appliquer le même protocole via l'Action B.
+  5. Finaliser avec le rappel impératif de mettre à jour `db_schemas/modules.json` pour toutes les nouvelles tables.
 
 ---
 
@@ -112,6 +116,10 @@ description: Expert en création de tables de base de données via migrations
 ### Scénario : Action C (Génération depuis UML)
 1. L'utilisateur invoque l'expert avec un fichier UML (ex: `14.PkgQcm.mmd`).
 2. Appliquer le protocole de `capacité-analyse-uml` pour parser le document.
-3. Présenter le plan de création chronologique pour validation.
-4. Une fois validé, orchestrer itérativement les Actions A et B pour générer toutes les migrations.
-5. Finaliser avec le rappel impératif de mettre à jour `modules.json`.
+3. Présenter le plan de création chronologique complet (liste de toutes les tables dans l'ordre) pour validation.
+4. **Une fois validé, traiter UNE table à la fois** :
+   - Générer la commande et le code de migration pour la table courante (Action A ou B).
+   - Indiquer : *"✅ Migration pour `[nom_table]` générée. Próchaine étape : `[nom_table_suivante]`. Confirmez après avoir exécuté `php artisan migrate`."*
+   - **STOPPER. Attendre la confirmation avant de continuer.**
+5. Répéter l'étape 4 pour chaque table du plan.
+6. Finaliser avec le rappel impératif de mettre à jour `modules.json`.
