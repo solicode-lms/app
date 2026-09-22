@@ -16,13 +16,12 @@ php artisan db:seed --class=Modules\PkgSessions\Database\Seeders\AlignementUaSee
 
 
  
-```
- sudo php artisan db:seed --class=Modules\\PkgCompetences\\Database\\Seeders\\CompetenceSeeder
-  sudo php artisan db:seed --class=Modules\\PkgCompetences\\Database\\Seeders\\MicroCompetenceSeeder
-    sudo php artisan db:seed --class=Modules\\PkgCompetences\\Database\\Seeders\\UniteApprentissageSeeder
-  sudo php artisan db:seed --class=Modules\\PkgCompetences\\Database\\Seeders\\ChapitreSeeder
-    sudo php artisan db:seed --class=Modules\\PkgSessions\\Database\\Seeders\\SessionFormationSeeder
-
-    sudo php artisan db:seed --class=Modules\\PkgSessions\\Database\\Seeders\\AlignementUaSeeder
+```bash
+sudo php artisan db:seed --class=Modules\\PkgCompetences\\Database\\Seeders\\CompetenceSeeder
+sudo php artisan db:seed --class=Modules\\PkgCompetences\\Database\\Seeders\\MicroCompetenceSeeder
+sudo php artisan db:seed --class=Modules\\PkgCompetences\\Database\\Seeders\\UniteApprentissageSeeder
+sudo php artisan db:seed --class=Modules\\PkgCompetences\\Database\\Seeders\\ChapitreSeeder
+sudo php artisan db:seed --class=Modules\\PkgSessions\\Database\\Seeders\\SessionFormationSeeder
+sudo php artisan db:seed --class=Modules\\PkgSessions\\Database\\Seeders\\AlignementUaSeeder
     ```
 
