@@ -56,8 +56,8 @@
                   <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetType.singular')) }}</small>
 
                 {{-- Affichage texte classique --}}
-                @if($itemWidget->widgetType)
-                  {{ $itemWidget->widgetType }}
+                @if($itemWidget->type)
+                  {{ $itemWidget->type }}
                 @else
                   <span class="text-muted">—</span>
                 @endif
@@ -68,8 +68,8 @@
                   <small class="text-muted d-block">{{ ucfirst(__('Core::sysModel.singular')) }}</small>
 
                 {{-- Affichage texte classique --}}
-                @if($itemWidget->sysModel)
-                  {{ $itemWidget->sysModel }}
+                @if($itemWidget->model)
+                  {{ $itemWidget->model }}
                 @else
                   <span class="text-muted">—</span>
                 @endif
@@ -80,8 +80,8 @@
                   <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}</small>
 
                 {{-- Affichage texte classique --}}
-                @if($itemWidget->widgetOperation)
-                  {{ $itemWidget->widgetOperation }}
+                @if($itemWidget->operation)
+                  {{ $itemWidget->operation }}
                 @else
                   <span class="text-muted">—</span>
                 @endif

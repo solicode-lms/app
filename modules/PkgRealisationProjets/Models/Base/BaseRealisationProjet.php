@@ -54,19 +54,19 @@ class BaseRealisationProjet extends BaseModel
         'affectation_projet_id', 'apprenant_id', 'etats_realisation_projet_id', 'progression_validation_cache', 'note_cache', 'date_debut', 'date_fin', 'bareme_cache', 'progression_execution_cache', 'rapport', 'reference'
     ];
     public $manyToOne = [
-        'AffectationProjet' => [
+        'affectationProjet' => [
             'model' => "Modules\\PkgRealisationProjets\\Models\\AffectationProjet",
-            'relation' => 'affectationProjets' , 
+            'relation' => 'affectationProjet' , 
             "foreign_key" => "affectation_projet_id", 
             ],
-        'Apprenant' => [
+        'apprenant' => [
             'model' => "Modules\\PkgApprenants\\Models\\Apprenant",
-            'relation' => 'apprenants' , 
+            'relation' => 'apprenant' , 
             "foreign_key" => "apprenant_id", 
             ],
-        'EtatsRealisationProjet' => [
+        'etatsRealisationProjet' => [
             'model' => "Modules\\PkgRealisationProjets\\Models\\EtatsRealisationProjet",
-            'relation' => 'etatsRealisationProjets' , 
+            'relation' => 'etatsRealisationProjet' , 
             "foreign_key" => "etats_realisation_projet_id", 
             ]
     ];

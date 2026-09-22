@@ -48,14 +48,14 @@ class BaseLivrableSession extends BaseModel
         'ordre', 'reference', 'titre', 'description', 'session_formation_id', 'nature_livrable_id'
     ];
     public $manyToOne = [
-        'SessionFormation' => [
+        'sessionFormation' => [
             'model' => "Modules\\PkgSessions\\Models\\SessionFormation",
-            'relation' => 'sessionFormations' , 
+            'relation' => 'sessionFormation' , 
             "foreign_key" => "session_formation_id", 
             ],
-        'NatureLivrable' => [
+        'natureLivrable' => [
             'model' => "Modules\\PkgCreationProjet\\Models\\NatureLivrable",
-            'relation' => 'natureLivrables' , 
+            'relation' => 'natureLivrable' , 
             "foreign_key" => "nature_livrable_id", 
             ]
     ];

@@ -77,6 +77,7 @@ class BaseEtatsRealisationProjetController extends AdminController
         // ownedByUser
 
 
+        // scopeDataByRole
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->createInstance();
  
 

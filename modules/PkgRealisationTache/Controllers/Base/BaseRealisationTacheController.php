@@ -106,6 +106,7 @@ class BaseRealisationTacheController extends AdminController
         }
 
 
+        // scopeDataByRole
         $itemRealisationTache = $this->realisationTacheService->createInstance();
  
         // scopeDataInEditContext
@@ -125,9 +126,9 @@ class BaseRealisationTacheController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgRealisationTache::realisationTache._fields', compact('bulkEdit' ,'itemRealisationTache', 'labelProjets', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'));
+            return view('PkgRealisationTache::realisationTache._fields', compact('bulkEdit' ,'itemRealisationTache', 'taches', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'labelProjets'));
         }
-        return view('PkgRealisationTache::realisationTache.create', compact('bulkEdit' ,'itemRealisationTache', 'labelProjets', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'));
+        return view('PkgRealisationTache::realisationTache.create', compact('bulkEdit' ,'itemRealisationTache', 'taches', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'labelProjets'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -174,9 +175,9 @@ class BaseRealisationTacheController extends AdminController
         $itemRealisationTache = $this->realisationTacheService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgRealisationTache::realisationTache._fields', compact('bulkEdit', 'realisationTache_ids', 'itemRealisationTache', 'labelProjets', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'));
+            return view('PkgRealisationTache::realisationTache._fields', compact('bulkEdit', 'realisationTache_ids', 'itemRealisationTache', 'taches', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'labelProjets'));
         }
-        return view('PkgRealisationTache::realisationTache.bulk-edit', compact('bulkEdit', 'realisationTache_ids', 'itemRealisationTache', 'labelProjets', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'));
+        return view('PkgRealisationTache::realisationTache.bulk-edit', compact('bulkEdit', 'realisationTache_ids', 'itemRealisationTache', 'taches', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'labelProjets'));
     }
     /**
      */
@@ -324,10 +325,10 @@ class BaseRealisationTacheController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgRealisationTache::realisationTache._edit', array_merge(compact('bulkEdit' , 'itemRealisationTache','labelProjets', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
+            return view('PkgRealisationTache::realisationTache._edit', array_merge(compact('bulkEdit' , 'itemRealisationTache','taches', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'labelProjets'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
         }
 
-        return view('PkgRealisationTache::realisationTache.edit', array_merge(compact('bulkEdit' ,'itemRealisationTache','labelProjets', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'taches'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
+        return view('PkgRealisationTache::realisationTache.edit', array_merge(compact('bulkEdit' ,'itemRealisationTache','taches', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'labelProjets'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
 
 
     }

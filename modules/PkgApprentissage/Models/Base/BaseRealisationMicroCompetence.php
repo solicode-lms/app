@@ -54,24 +54,24 @@ class BaseRealisationMicroCompetence extends BaseModel
         'micro_competence_id', 'apprenant_id', 'progression_cache', 'note_cache', 'etat_realisation_micro_competence_id', 'bareme_cache', 'bareme_non_evalue_cache', 'commentaire_formateur', 'date_debut', 'date_fin', 'dernier_update', 'realisation_competence_id', 'reference', 'lien_livrable', 'progression_ideal_cache', 'taux_rythme_cache', 'pourcentage_non_valide_cache'
     ];
     public $manyToOne = [
-        'MicroCompetence' => [
+        'microCompetence' => [
             'model' => "Modules\\PkgCompetences\\Models\\MicroCompetence",
-            'relation' => 'microCompetences' , 
+            'relation' => 'microCompetence' , 
             "foreign_key" => "micro_competence_id", 
             ],
-        'Apprenant' => [
+        'apprenant' => [
             'model' => "Modules\\PkgApprenants\\Models\\Apprenant",
-            'relation' => 'apprenants' , 
+            'relation' => 'apprenant' , 
             "foreign_key" => "apprenant_id", 
             ],
-        'EtatRealisationMicroCompetence' => [
+        'etatRealisationMicroCompetence' => [
             'model' => "Modules\\PkgApprentissage\\Models\\EtatRealisationMicroCompetence",
-            'relation' => 'etatRealisationMicroCompetences' , 
+            'relation' => 'etatRealisationMicroCompetence' , 
             "foreign_key" => "etat_realisation_micro_competence_id", 
             ],
-        'RealisationCompetence' => [
+        'realisationCompetence' => [
             'model' => "Modules\\PkgApprentissage\\Models\\RealisationCompetence",
-            'relation' => 'realisationCompetences' , 
+            'relation' => 'realisationCompetence' , 
             "foreign_key" => "realisation_competence_id", 
             ]
     ];

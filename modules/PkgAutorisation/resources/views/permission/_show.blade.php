@@ -31,8 +31,8 @@
                   <small class="text-muted d-block">{{ ucfirst(__('Core::sysController.singular')) }}</small>
 
                 {{-- Affichage texte classique --}}
-                @if($itemPermission->sysController)
-                  {{ $itemPermission->sysController }}
+                @if($itemPermission->controller)
+                  {{ $itemPermission->controller }}
                 @else
                   <span class="text-muted">—</span>
                 @endif

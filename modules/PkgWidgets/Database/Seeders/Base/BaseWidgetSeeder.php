@@ -76,17 +76,17 @@ class BaseWidgetSeeder extends Seeder
 
 
                 $type_id = null;
-                if (!empty($row["widget_type_reference"])) {
+                if (!empty($row["type_reference"])) {
                     $type_id = \Modules\PkgWidgets\Models\WidgetType::where('reference', $row["widget_type_reference"])
                         ->value('id');
                 }
                 $model_id = null;
-                if (!empty($row["sys_model_reference"])) {
+                if (!empty($row["model_reference"])) {
                     $model_id = \Modules\Core\Models\SysModel::where('reference', $row["sys_model_reference"])
                         ->value('id');
                 }
                 $operation_id = null;
-                if (!empty($row["widget_operation_reference"])) {
+                if (!empty($row["operation_reference"])) {
                     $operation_id = \Modules\PkgWidgets\Models\WidgetOperation::where('reference', $row["widget_operation_reference"])
                         ->value('id');
                 }

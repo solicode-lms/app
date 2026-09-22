@@ -51,14 +51,14 @@ class BaseSessionFormation extends BaseModel
         'ordre', 'titre', 'code', 'thematique', 'filiere_id', 'objectifs_pedagogique', 'titre_prototype', 'description_prototype', 'contraintes_prototype', 'titre_projet', 'description_projet', 'contraintes_projet', 'remarques', 'date_debut', 'date_fin', 'jour_feries_vacances', 'reference', 'annee_formation_id'
     ];
     public $manyToOne = [
-        'Filiere' => [
+        'filiere' => [
             'model' => "Modules\\PkgFormation\\Models\\Filiere",
-            'relation' => 'filieres' , 
+            'relation' => 'filiere' , 
             "foreign_key" => "filiere_id", 
             ],
-        'AnneeFormation' => [
+        'anneeFormation' => [
             'model' => "Modules\\PkgFormation\\Models\\AnneeFormation",
-            'relation' => 'anneeFormations' , 
+            'relation' => 'anneeFormation' , 
             "foreign_key" => "annee_formation_id", 
             ]
     ];

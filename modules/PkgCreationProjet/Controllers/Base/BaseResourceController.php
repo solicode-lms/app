@@ -83,6 +83,7 @@ class BaseResourceController extends AdminController
         }
 
 
+        // scopeDataByRole
         $itemResource = $this->resourceService->createInstance();
  
 

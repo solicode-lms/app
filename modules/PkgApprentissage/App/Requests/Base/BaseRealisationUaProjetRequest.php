@@ -35,7 +35,8 @@ class BaseRealisationUaProjetRequest extends FormRequest
             'bareme' => 'required',
             'remarque_formateur' => 'nullable|string',
             'date_debut' => 'nullable',
-            'date_fin' => 'nullable'
+            'date_fin' => 'nullable',
+            'reponseQcms' => 'nullable|array'
         ];
     }
 
@@ -53,7 +54,9 @@ class BaseRealisationUaProjetRequest extends FormRequest
             'bareme.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaProjet.bareme')]),
             'remarque_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaProjet.remarque_formateur')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaProjet.date_debut')]),
-            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaProjet.date_fin')])
+            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaProjet.date_fin')]),
+            'reponseQcms.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaProjet.reponseQcms')]),
+            'reponseQcms.array' => __('validation.array', ['attribute' => __('PkgApprentissage::RealisationUaProjet.reponseQcms')])
         ];
     }
 
@@ -67,6 +70,9 @@ class BaseRealisationUaProjetRequest extends FormRequest
      */
     protected function prepareForValidation()
     {
+        $this->merge([
+            'reponseQcms' => $this->has('reponseQcms') ? $this->reponseQcms : []
+        ]);
         // En création, on ne touche pas au payload (même traitement existant)
         $id = $this->route('realisationUaProjet')
         ?? $this->route('realisation_ua_projet')

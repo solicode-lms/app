@@ -75,6 +75,7 @@ class BaseUserModelFilterController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemUserModelFilter = $this->userModelFilterService->createInstance();
  
 

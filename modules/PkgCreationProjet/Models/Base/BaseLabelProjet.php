@@ -54,14 +54,14 @@ class BaseLabelProjet extends BaseModel
         'Tache' => ['relation' => 'taches' , "foreign_key" => "tache_id" ]
     ];
     public $manyToOne = [
-        'Projet' => [
+        'projet' => [
             'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
-            'relation' => 'projets' , 
+            'relation' => 'projet' , 
             "foreign_key" => "projet_id", 
             ],
-        'SysColor' => [
+        'sysColor' => [
             'model' => "Modules\\Core\\Models\\SysColor",
-            'relation' => 'sysColors' , 
+            'relation' => 'sysColor' , 
             "foreign_key" => "sys_color_id", 
             ]
     ];

@@ -75,6 +75,7 @@ class BaseEtatRealisationChapitreController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemEtatRealisationChapitre = $this->etatRealisationChapitreService->createInstance();
  
 

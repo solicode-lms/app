@@ -60,6 +60,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemApprenant->realisationQcms?->count() > 0 || auth()->user()?->can('create-realisationQcm'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="apprenant-hasmany-tabs-realisationQcm-tab" data-toggle="pill" href="#apprenant-hasmany-tabs-realisationQcm" role="tab" aria-controls="apprenant-hasmany-tabs-realisationQcm" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgQcm::realisationQcm.plural'))}}
+                            </a>
+                        </li>
+                        @endif
 
                        
                         </ul>
@@ -83,6 +91,11 @@
                             @if($itemApprenant->realisationModules?->count() > 0 || auth()->user()?->can('create-realisationModule'))
                             <div class="tab-pane fade" id="apprenant-hasmany-tabs-realisationModule" role="tabpanel" aria-labelledby="apprenant-hasmany-tabs-realisationModule-tab">
                                 @include('PkgApprentissage::realisationModule._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'apprenant.edit_' . $itemApprenant->id])
+                            </div>
+                            @endif
+                            @if($itemApprenant->realisationQcms?->count() > 0 || auth()->user()?->can('create-realisationQcm'))
+                            <div class="tab-pane fade" id="apprenant-hasmany-tabs-realisationQcm" role="tabpanel" aria-labelledby="apprenant-hasmany-tabs-realisationQcm-tab">
+                                @include('PkgQcm::realisationQcm._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'apprenant.edit_' . $itemApprenant->id])
                             </div>
                             @endif
 

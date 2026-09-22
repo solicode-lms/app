@@ -98,6 +98,7 @@ class BaseRealisationChapitreController extends AdminController
         }
 
 
+        // scopeDataByRole
         $itemRealisationChapitre = $this->realisationChapitreService->createInstance();
  
 
@@ -108,9 +109,9 @@ class BaseRealisationChapitreController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationChapitre._fields', compact('bulkEdit' ,'itemRealisationChapitre', 'etatRealisationChapitres', 'chapitres', 'realisationTaches', 'realisationUas'));
+            return view('PkgApprentissage::realisationChapitre._fields', compact('bulkEdit' ,'itemRealisationChapitre', 'chapitres', 'etatRealisationChapitres', 'realisationUas', 'realisationTaches'));
         }
-        return view('PkgApprentissage::realisationChapitre.create', compact('bulkEdit' ,'itemRealisationChapitre', 'etatRealisationChapitres', 'chapitres', 'realisationTaches', 'realisationUas'));
+        return view('PkgApprentissage::realisationChapitre.create', compact('bulkEdit' ,'itemRealisationChapitre', 'chapitres', 'etatRealisationChapitres', 'realisationUas', 'realisationTaches'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -148,9 +149,9 @@ class BaseRealisationChapitreController extends AdminController
         $itemRealisationChapitre = $this->realisationChapitreService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationChapitre._fields', compact('bulkEdit', 'realisationChapitre_ids', 'itemRealisationChapitre', 'etatRealisationChapitres', 'chapitres', 'realisationTaches', 'realisationUas'));
+            return view('PkgApprentissage::realisationChapitre._fields', compact('bulkEdit', 'realisationChapitre_ids', 'itemRealisationChapitre', 'chapitres', 'etatRealisationChapitres', 'realisationUas', 'realisationTaches'));
         }
-        return view('PkgApprentissage::realisationChapitre.bulk-edit', compact('bulkEdit', 'realisationChapitre_ids', 'itemRealisationChapitre', 'etatRealisationChapitres', 'chapitres', 'realisationTaches', 'realisationUas'));
+        return view('PkgApprentissage::realisationChapitre.bulk-edit', compact('bulkEdit', 'realisationChapitre_ids', 'itemRealisationChapitre', 'chapitres', 'etatRealisationChapitres', 'realisationUas', 'realisationTaches'));
     }
     /**
      */
@@ -219,10 +220,10 @@ class BaseRealisationChapitreController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationChapitre._fields', array_merge(compact('bulkEdit' , 'itemRealisationChapitre','etatRealisationChapitres', 'chapitres', 'realisationTaches', 'realisationUas'),));
+            return view('PkgApprentissage::realisationChapitre._fields', array_merge(compact('bulkEdit' , 'itemRealisationChapitre','chapitres', 'etatRealisationChapitres', 'realisationUas', 'realisationTaches'),));
         }
 
-        return view('PkgApprentissage::realisationChapitre.edit', array_merge(compact('bulkEdit' ,'itemRealisationChapitre','etatRealisationChapitres', 'chapitres', 'realisationTaches', 'realisationUas'),));
+        return view('PkgApprentissage::realisationChapitre.edit', array_merge(compact('bulkEdit' ,'itemRealisationChapitre','chapitres', 'etatRealisationChapitres', 'realisationUas', 'realisationTaches'),));
 
 
     }

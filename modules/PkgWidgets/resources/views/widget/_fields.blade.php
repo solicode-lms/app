@@ -196,7 +196,7 @@
             name="type_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
-                @foreach ($widgetTypes as $widgetType)
+                @foreach ($types as $widgetType)
                     <option value="{{ $widgetType->id }}"
                         {{ (isset($itemWidget) && $itemWidget->type_id == $widgetType->id) || (old('type_id>') == $widgetType->id) ? 'selected' : '' }}>
                         {{ $widgetType }}
@@ -236,7 +236,7 @@
             name="model_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
-                @foreach ($sysModels as $sysModel)
+                @foreach ($models as $sysModel)
                     <option value="{{ $sysModel->id }}"
                         {{ (isset($itemWidget) && $itemWidget->model_id == $sysModel->id) || (old('model_id>') == $sysModel->id) ? 'selected' : '' }}>
                         {{ $sysModel }}
@@ -276,7 +276,7 @@
             name="operation_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
-                @foreach ($widgetOperations as $widgetOperation)
+                @foreach ($operations as $widgetOperation)
                     <option value="{{ $widgetOperation->id }}"
                         {{ (isset($itemWidget) && $itemWidget->operation_id == $widgetOperation->id) || (old('operation_id>') == $widgetOperation->id) ? 'selected' : '' }}>
                         {{ $widgetOperation }}

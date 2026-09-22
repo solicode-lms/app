@@ -81,6 +81,7 @@ class BaseEMetadatumController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemEMetadatum = $this->eMetadatumService->createInstance();
  
 
@@ -90,9 +91,9 @@ class BaseEMetadatumController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._fields', compact('bulkEdit' ,'itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+            return view('PkgGapp::eMetadatum._fields', compact('bulkEdit' ,'itemEMetadatum', 'eModels', 'eDataFields', 'eMetadataDefinitions'));
         }
-        return view('PkgGapp::eMetadatum.create', compact('bulkEdit' ,'itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+        return view('PkgGapp::eMetadatum.create', compact('bulkEdit' ,'itemEMetadatum', 'eModels', 'eDataFields', 'eMetadataDefinitions'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -122,9 +123,9 @@ class BaseEMetadatumController extends AdminController
         $itemEMetadatum = $this->eMetadatumService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._fields', compact('bulkEdit', 'eMetadatum_ids', 'itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+            return view('PkgGapp::eMetadatum._fields', compact('bulkEdit', 'eMetadatum_ids', 'itemEMetadatum', 'eModels', 'eDataFields', 'eMetadataDefinitions'));
         }
-        return view('PkgGapp::eMetadatum.bulk-edit', compact('bulkEdit', 'eMetadatum_ids', 'itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+        return view('PkgGapp::eMetadatum.bulk-edit', compact('bulkEdit', 'eMetadatum_ids', 'itemEMetadatum', 'eModels', 'eDataFields', 'eMetadataDefinitions'));
     }
     /**
      */
@@ -190,10 +191,10 @@ class BaseEMetadatumController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._fields', array_merge(compact('bulkEdit' , 'itemEMetadatum','eDataFields', 'eMetadataDefinitions', 'eModels'),));
+            return view('PkgGapp::eMetadatum._fields', array_merge(compact('bulkEdit' , 'itemEMetadatum','eModels', 'eDataFields', 'eMetadataDefinitions'),));
         }
 
-        return view('PkgGapp::eMetadatum.edit', array_merge(compact('bulkEdit' ,'itemEMetadatum','eDataFields', 'eMetadataDefinitions', 'eModels'),));
+        return view('PkgGapp::eMetadatum.edit', array_merge(compact('bulkEdit' ,'itemEMetadatum','eModels', 'eDataFields', 'eMetadataDefinitions'),));
 
 
     }

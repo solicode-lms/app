@@ -73,6 +73,7 @@ class BaseEMetadataDefinitionController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->createInstance();
  
 

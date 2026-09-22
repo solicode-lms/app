@@ -40,6 +40,7 @@ class BaseRealisationUaProjetExport implements FromCollection, WithHeadings, Sho
                 'date_debut' => 'date_debut',
                 'date_fin' => 'date_fin',
                 'reference' => 'reference',
+                'reponseQcms' => 'reponseQcms',
             ];
         } else {
             return [
@@ -51,6 +52,7 @@ class BaseRealisationUaProjetExport implements FromCollection, WithHeadings, Sho
                 'date_debut' => __('PkgApprentissage::realisationUaProjet.date_debut'),
                 'date_fin' => __('PkgApprentissage::realisationUaProjet.date_fin'),
                 'reference' => __('Core::msg.reference'),
+                    'reponseQcms' => __('PkgQcm::reponseQcm.plural'),
             ];
         }
     }
@@ -70,6 +72,9 @@ class BaseRealisationUaProjetExport implements FromCollection, WithHeadings, Sho
                 'date_debut' => $realisationUaProjet->date_debut,
                 'date_fin' => $realisationUaProjet->date_fin,
                 'reference' => $realisationUaProjet->reference,
+                'reponseQcms' => $realisationUaProjet->reponseQcms
+                    ->pluck('reference')
+                    ->implode('|'),
             ];
         });
     }

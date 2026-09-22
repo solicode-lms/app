@@ -91,6 +91,7 @@ class BaseCompetenceController extends AdminController
         }
 
 
+        // scopeDataByRole
         $itemCompetence = $this->competenceService->createInstance();
  
 

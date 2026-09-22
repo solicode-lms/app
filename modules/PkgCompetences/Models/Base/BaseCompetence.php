@@ -49,9 +49,9 @@ class BaseCompetence extends BaseModel
         'code', 'mini_code', 'nom', 'module_id', 'description', 'reference'
     ];
     public $manyToOne = [
-        'Module' => [
+        'module' => [
             'model' => "Modules\\PkgFormation\\Models\\Module",
-            'relation' => 'modules' , 
+            'relation' => 'module' , 
             "foreign_key" => "module_id", 
             ]
     ];

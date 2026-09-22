@@ -52,6 +52,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemUniteApprentissage->questionLibs?->count() > 0 || auth()->user()?->can('create-questionLib'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="uniteApprentissage-hasmany-tabs-questionLib-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-questionLib" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-questionLib" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgQcm::questionLib.plural'))}}
+                            </a>
+                        </li>
+                        @endif
 
                        
                         </ul>
@@ -70,6 +78,11 @@
                             @if($itemUniteApprentissage->critereEvaluations?->count() > 0 || auth()->user()?->can('create-critereEvaluation'))
                             <div class="tab-pane fade" id="uniteApprentissage-hasmany-tabs-critereEvaluation" role="tabpanel" aria-labelledby="uniteApprentissage-hasmany-tabs-critereEvaluation-tab">
                                 @include('PkgCompetences::critereEvaluation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.edit_' . $itemUniteApprentissage->id])
+                            </div>
+                            @endif
+                            @if($itemUniteApprentissage->questionLibs?->count() > 0 || auth()->user()?->can('create-questionLib'))
+                            <div class="tab-pane fade" id="uniteApprentissage-hasmany-tabs-questionLib" role="tabpanel" aria-labelledby="uniteApprentissage-hasmany-tabs-questionLib-tab">
+                                @include('PkgQcm::questionLib._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.edit_' . $itemUniteApprentissage->id])
                             </div>
                             @endif
 

@@ -78,6 +78,7 @@ class BaseLivrableSessionController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemLivrableSession = $this->livrableSessionService->createInstance();
  
 
@@ -86,9 +87,9 @@ class BaseLivrableSessionController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgSessions::livrableSession._fields', compact('bulkEdit' ,'itemLivrableSession', 'natureLivrables', 'sessionFormations'));
+            return view('PkgSessions::livrableSession._fields', compact('bulkEdit' ,'itemLivrableSession', 'sessionFormations', 'natureLivrables'));
         }
-        return view('PkgSessions::livrableSession.create', compact('bulkEdit' ,'itemLivrableSession', 'natureLivrables', 'sessionFormations'));
+        return view('PkgSessions::livrableSession.create', compact('bulkEdit' ,'itemLivrableSession', 'sessionFormations', 'natureLivrables'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -117,9 +118,9 @@ class BaseLivrableSessionController extends AdminController
         $itemLivrableSession = $this->livrableSessionService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgSessions::livrableSession._fields', compact('bulkEdit', 'livrableSession_ids', 'itemLivrableSession', 'natureLivrables', 'sessionFormations'));
+            return view('PkgSessions::livrableSession._fields', compact('bulkEdit', 'livrableSession_ids', 'itemLivrableSession', 'sessionFormations', 'natureLivrables'));
         }
-        return view('PkgSessions::livrableSession.bulk-edit', compact('bulkEdit', 'livrableSession_ids', 'itemLivrableSession', 'natureLivrables', 'sessionFormations'));
+        return view('PkgSessions::livrableSession.bulk-edit', compact('bulkEdit', 'livrableSession_ids', 'itemLivrableSession', 'sessionFormations', 'natureLivrables'));
     }
     /**
      */
@@ -184,10 +185,10 @@ class BaseLivrableSessionController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgSessions::livrableSession._fields', array_merge(compact('bulkEdit' , 'itemLivrableSession','natureLivrables', 'sessionFormations'),));
+            return view('PkgSessions::livrableSession._fields', array_merge(compact('bulkEdit' , 'itemLivrableSession','sessionFormations', 'natureLivrables'),));
         }
 
-        return view('PkgSessions::livrableSession.edit', array_merge(compact('bulkEdit' ,'itemLivrableSession','natureLivrables', 'sessionFormations'),));
+        return view('PkgSessions::livrableSession.edit', array_merge(compact('bulkEdit' ,'itemLivrableSession','sessionFormations', 'natureLivrables'),));
 
 
     }

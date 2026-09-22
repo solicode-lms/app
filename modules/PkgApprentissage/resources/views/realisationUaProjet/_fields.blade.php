@@ -186,6 +186,46 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaProjet" field="reponseQcms" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="reponseQcms" 
+              id="bulk_field_reponseQcms" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="reponseQcms">
+            {{ ucfirst(__('PkgQcm::reponseQcm.plural')) }}
+            
+          </label>
+                      <select
+                id="reponseQcms"
+                name="reponseQcms[]"
+                class="form-control select2"
+                
+                
+                multiple="multiple">
+               
+                @foreach ($reponseQcms as $reponseQcm)
+                    <option value="{{ $reponseQcm->id }}"
+                        {{ (isset($itemRealisationUaProjet) && $itemRealisationUaProjet->reponseQcms && $itemRealisationUaProjet->reponseQcms->contains('id', $reponseQcm->id)) || (is_array(old('reponseQcms')) && in_array($reponseQcm->id, old('reponseQcms'))) ? 'selected' : '' }}>
+                        {{ $reponseQcm }}
+                    </option>
+                @endforeach
+            </select>
+          @error('reponseQcms')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 
     </div>
   

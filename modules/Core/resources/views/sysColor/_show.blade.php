@@ -192,6 +192,21 @@
             @endif
 
             @if(
+                  (auth()->user()?->can('show-etatRealisationQcm') && $itemSysColor->etatRealisationQcms->isNotEmpty())  
+                  || auth()->user()?->can('create-etatRealisationQcm')
+                  || (auth()->user()?->can('edit-etatRealisationQcm')  && $itemSysColor->etatRealisationQcms->isNotEmpty() )
+                  )
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgQcm::etatRealisationQcm.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgQcm::etatRealisationQcm._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.show_' . $itemSysColor->id])
+                  </div>
+                  </div>
+            </div>
+            @endif
+
+            @if(
                   (auth()->user()?->can('show-widget') && $itemSysColor->widgets->isNotEmpty())  
                   || auth()->user()?->can('create-widget')
                   || (auth()->user()?->can('edit-widget')  && $itemSysColor->widgets->isNotEmpty() )

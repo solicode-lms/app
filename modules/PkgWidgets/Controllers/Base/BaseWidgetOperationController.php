@@ -73,6 +73,7 @@ class BaseWidgetOperationController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemWidgetOperation = $this->widgetOperationService->createInstance();
  
 

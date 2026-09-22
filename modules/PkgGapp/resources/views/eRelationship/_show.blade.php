@@ -31,8 +31,8 @@
                   <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eModel.singular')) }}</small>
 
                 {{-- Affichage texte classique --}}
-                @if($itemERelationship->eModel)
-                  {{ $itemERelationship->eModel }}
+                @if($itemERelationship->sourceEModel)
+                  {{ $itemERelationship->sourceEModel }}
                 @else
                   <span class="text-muted">—</span>
                 @endif
@@ -43,8 +43,8 @@
                   <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eModel.singular')) }}</small>
 
                 {{-- Affichage texte classique --}}
-                @if($itemERelationship->eModel)
-                  {{ $itemERelationship->eModel }}
+                @if($itemERelationship->targetEModel)
+                  {{ $itemERelationship->targetEModel }}
                 @else
                   <span class="text-muted">—</span>
                 @endif

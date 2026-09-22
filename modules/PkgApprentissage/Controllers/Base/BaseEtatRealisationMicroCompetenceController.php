@@ -75,6 +75,7 @@ class BaseEtatRealisationMicroCompetenceController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemEtatRealisationMicroCompetence = $this->etatRealisationMicroCompetenceService->createInstance();
  
 

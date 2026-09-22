@@ -124,6 +124,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemSysColor->etatRealisationQcms?->count() > 0 || auth()->user()?->can('create-etatRealisationQcm'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="sysColor-hasmany-tabs-etatRealisationQcm-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatRealisationQcm" role="tab" aria-controls="sysColor-hasmany-tabs-etatRealisationQcm" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgQcm::etatRealisationQcm.plural'))}}
+                            </a>
+                        </li>
+                        @endif
                          @if($itemSysColor->widgets?->count() > 0 || auth()->user()?->can('create-widget'))
                         <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-widget-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-widget" role="tab" aria-controls="sysColor-hasmany-tabs-widget" aria-selected="false">
@@ -211,6 +219,11 @@
                             @if($itemSysColor->sectionWidgets?->count() > 0 || auth()->user()?->can('create-sectionWidget'))
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-sectionWidget" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-sectionWidget-tab">
                                 @include('PkgWidgets::sectionWidget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
+                            </div>
+                            @endif
+                            @if($itemSysColor->etatRealisationQcms?->count() > 0 || auth()->user()?->can('create-etatRealisationQcm'))
+                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatRealisationQcm" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatRealisationQcm-tab">
+                                @include('PkgQcm::etatRealisationQcm._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
                             @endif
                             @if($itemSysColor->widgets?->count() > 0 || auth()->user()?->can('create-widget'))

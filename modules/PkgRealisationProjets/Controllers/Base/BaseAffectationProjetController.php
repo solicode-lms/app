@@ -10,6 +10,7 @@ use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Modules\PkgApprenants\Services\SousGroupeService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
+use Modules\PkgQcm\Services\AffectationQcmProjetService;
 use Modules\PkgRealisationTache\Services\TacheAffectationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -104,11 +105,12 @@ class BaseAffectationProjetController extends AdminController
         }
 
 
+        // scopeDataByRole
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->init('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->set('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->init('scope.groupe.formateurs.formateur_id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->set('scope.groupe.formateurs.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
         $itemAffectationProjet = $this->affectationProjetService->createInstance();
  
@@ -121,9 +123,9 @@ class BaseAffectationProjetController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._fields', compact('bulkEdit' ,'itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets', 'sousGroupes'));
+            return view('PkgRealisationProjets::affectationProjet._fields', compact('bulkEdit' ,'itemAffectationProjet', 'projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs'));
         }
-        return view('PkgRealisationProjets::affectationProjet.create', compact('bulkEdit' ,'itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets', 'sousGroupes'));
+        return view('PkgRealisationProjets::affectationProjet.create', compact('bulkEdit' ,'itemAffectationProjet', 'projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -165,9 +167,9 @@ class BaseAffectationProjetController extends AdminController
         $itemAffectationProjet = $this->affectationProjetService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._fields', compact('bulkEdit', 'affectationProjet_ids', 'itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets', 'sousGroupes'));
+            return view('PkgRealisationProjets::affectationProjet._fields', compact('bulkEdit', 'affectationProjet_ids', 'itemAffectationProjet', 'projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs'));
         }
-        return view('PkgRealisationProjets::affectationProjet.bulk-edit', compact('bulkEdit', 'affectationProjet_ids', 'itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets', 'sousGroupes'));
+        return view('PkgRealisationProjets::affectationProjet.bulk-edit', compact('bulkEdit', 'affectationProjet_ids', 'itemAffectationProjet', 'projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs'));
     }
     /**
      */
@@ -220,6 +222,13 @@ class BaseAffectationProjetController extends AdminController
         $realisationProjets_view_data = $realisationProjetService->prepareDataForIndexView();
         extract($realisationProjets_view_data);
 
+        $this->viewState->set('scope.affectationQcmProjet.affectation_projet_id', $id);
+        
+
+        $affectationQcmProjetService =  new AffectationQcmProjetService();
+        $affectationQcmProjets_view_data = $affectationQcmProjetService->prepareDataForIndexView();
+        extract($affectationQcmProjets_view_data);
+
         $this->viewState->set('scope.tacheAffectation.affectation_projet_id', $id);
         
 
@@ -228,10 +237,10 @@ class BaseAffectationProjetController extends AdminController
         extract($tacheAffectations_view_data);
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._show', array_merge(compact('itemAffectationProjet'),$realisationProjet_compact_value, $tacheAffectation_compact_value));
+            return view('PkgRealisationProjets::affectationProjet._show', array_merge(compact('itemAffectationProjet'),$realisationProjet_compact_value, $affectationQcmProjet_compact_value, $tacheAffectation_compact_value));
         }
 
-        return view('PkgRealisationProjets::affectationProjet.show', array_merge(compact('itemAffectationProjet'),$realisationProjet_compact_value, $tacheAffectation_compact_value));
+        return view('PkgRealisationProjets::affectationProjet.show', array_merge(compact('itemAffectationProjet'),$realisationProjet_compact_value, $affectationQcmProjet_compact_value, $tacheAffectation_compact_value));
 
     }
     /**
@@ -269,6 +278,13 @@ class BaseAffectationProjetController extends AdminController
         $realisationProjets_view_data = $realisationProjetService->prepareDataForIndexView();
         extract($realisationProjets_view_data);
 
+        $this->viewState->set('scope.affectationQcmProjet.affectation_projet_id', $id);
+        
+
+        $affectationQcmProjetService =  new AffectationQcmProjetService();
+        $affectationQcmProjets_view_data = $affectationQcmProjetService->prepareDataForIndexView();
+        extract($affectationQcmProjets_view_data);
+
         $this->viewState->set('scope.tacheAffectation.affectation_projet_id', $id);
         
 
@@ -279,10 +295,10 @@ class BaseAffectationProjetController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._edit', array_merge(compact('bulkEdit' , 'itemAffectationProjet','evaluateurs', 'anneeFormations', 'groupes', 'projets', 'sousGroupes'),$realisationProjet_compact_value, $tacheAffectation_compact_value));
+            return view('PkgRealisationProjets::affectationProjet._edit', array_merge(compact('bulkEdit' , 'itemAffectationProjet','projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs'),$realisationProjet_compact_value, $affectationQcmProjet_compact_value, $tacheAffectation_compact_value));
         }
 
-        return view('PkgRealisationProjets::affectationProjet.edit', array_merge(compact('bulkEdit' ,'itemAffectationProjet','evaluateurs', 'anneeFormations', 'groupes', 'projets', 'sousGroupes'),$realisationProjet_compact_value, $tacheAffectation_compact_value));
+        return view('PkgRealisationProjets::affectationProjet.edit', array_merge(compact('bulkEdit' ,'itemAffectationProjet','projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs'),$realisationProjet_compact_value, $affectationQcmProjet_compact_value, $tacheAffectation_compact_value));
 
 
     }

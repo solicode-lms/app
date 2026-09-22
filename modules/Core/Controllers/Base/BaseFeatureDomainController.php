@@ -76,6 +76,7 @@ class BaseFeatureDomainController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemFeatureDomain = $this->featureDomainService->createInstance();
  
 

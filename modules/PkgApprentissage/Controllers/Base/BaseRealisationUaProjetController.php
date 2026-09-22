@@ -4,6 +4,7 @@
 
 namespace Modules\PkgApprentissage\Controllers\Base;
 use Modules\PkgApprentissage\Services\RealisationUaProjetService;
+use Modules\PkgQcm\Services\ReponseQcmService;
 use Modules\PkgRealisationTache\Services\RealisationTacheService;
 use Modules\PkgApprentissage\Services\RealisationUaService;
 use Illuminate\Http\Request;
@@ -22,13 +23,15 @@ use Modules\Core\Services\ContextState;
 class BaseRealisationUaProjetController extends AdminController
 {
     protected $realisationUaProjetService;
+    protected $reponseQcmService;
     protected $realisationTacheService;
     protected $realisationUaService;
 
-    public function __construct(RealisationUaProjetService $realisationUaProjetService, RealisationTacheService $realisationTacheService, RealisationUaService $realisationUaService) {
+    public function __construct(RealisationUaProjetService $realisationUaProjetService, ReponseQcmService $reponseQcmService, RealisationTacheService $realisationTacheService, RealisationUaService $realisationUaService) {
         parent::__construct();
         $this->service  =  $realisationUaProjetService;
         $this->realisationUaProjetService = $realisationUaProjetService;
+        $this->reponseQcmService = $reponseQcmService;
         $this->realisationTacheService = $realisationTacheService;
         $this->realisationUaService = $realisationUaService;
     }
@@ -86,17 +89,19 @@ class BaseRealisationUaProjetController extends AdminController
         }
 
 
+        // scopeDataByRole
         $itemRealisationUaProjet = $this->realisationUaProjetService->createInstance();
  
 
         $realisationTaches = $this->realisationTacheService->all();
         $realisationUas = $this->realisationUaService->all();
+        $reponseQcms = $this->reponseQcmService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationUaProjet._fields', compact('bulkEdit' ,'itemRealisationUaProjet', 'realisationTaches', 'realisationUas'));
+            return view('PkgApprentissage::realisationUaProjet._fields', compact('bulkEdit' ,'itemRealisationUaProjet', 'realisationTaches', 'realisationUas', 'reponseQcms'));
         }
-        return view('PkgApprentissage::realisationUaProjet.create', compact('bulkEdit' ,'itemRealisationUaProjet', 'realisationTaches', 'realisationUas'));
+        return view('PkgApprentissage::realisationUaProjet.create', compact('bulkEdit' ,'itemRealisationUaProjet', 'realisationTaches', 'realisationUas', 'reponseQcms'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -122,6 +127,7 @@ class BaseRealisationUaProjetController extends AdminController
  
         $realisationTaches = $this->realisationTacheService->getAllForSelect($itemRealisationUaProjet->realisationTache);
         $realisationUas = $this->realisationUaService->getAllForSelect($itemRealisationUaProjet->realisationUa);
+        $reponseQcms = $this->reponseQcmService->getAllForSelect($itemRealisationUaProjet->reponseQcms);
 
         $bulkEdit = true;
 
@@ -129,9 +135,9 @@ class BaseRealisationUaProjetController extends AdminController
         $itemRealisationUaProjet = $this->realisationUaProjetService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationUaProjet._fields', compact('bulkEdit', 'realisationUaProjet_ids', 'itemRealisationUaProjet', 'realisationTaches', 'realisationUas'));
+            return view('PkgApprentissage::realisationUaProjet._fields', compact('bulkEdit', 'realisationUaProjet_ids', 'itemRealisationUaProjet', 'realisationTaches', 'realisationUas', 'reponseQcms'));
         }
-        return view('PkgApprentissage::realisationUaProjet.bulk-edit', compact('bulkEdit', 'realisationUaProjet_ids', 'itemRealisationUaProjet', 'realisationTaches', 'realisationUas'));
+        return view('PkgApprentissage::realisationUaProjet.bulk-edit', compact('bulkEdit', 'realisationUaProjet_ids', 'itemRealisationUaProjet', 'realisationTaches', 'realisationUas', 'reponseQcms'));
     }
     /**
      */
@@ -193,15 +199,16 @@ class BaseRealisationUaProjetController extends AdminController
 
         $realisationTaches = $this->realisationTacheService->getAllForSelect($itemRealisationUaProjet->realisationTache);
         $realisationUas = $this->realisationUaService->getAllForSelect($itemRealisationUaProjet->realisationUa);
+        $reponseQcms = $this->reponseQcmService->getAllForSelect($itemRealisationUaProjet->reponseQcms);
 
 
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationUaProjet._fields', array_merge(compact('bulkEdit' , 'itemRealisationUaProjet','realisationTaches', 'realisationUas'),));
+            return view('PkgApprentissage::realisationUaProjet._fields', array_merge(compact('bulkEdit' , 'itemRealisationUaProjet','realisationTaches', 'realisationUas', 'reponseQcms'),));
         }
 
-        return view('PkgApprentissage::realisationUaProjet.edit', array_merge(compact('bulkEdit' ,'itemRealisationUaProjet','realisationTaches', 'realisationUas'),));
+        return view('PkgApprentissage::realisationUaProjet.edit', array_merge(compact('bulkEdit' ,'itemRealisationUaProjet','realisationTaches', 'realisationUas', 'reponseQcms'),));
 
 
     }

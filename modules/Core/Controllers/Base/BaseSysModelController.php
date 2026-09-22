@@ -79,6 +79,7 @@ class BaseSysModelController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemSysModel = $this->sysModelService->createInstance();
  
 
@@ -87,9 +88,9 @@ class BaseSysModelController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('Core::sysModel._fields', compact('bulkEdit' ,'itemSysModel', 'sysColors', 'sysModules'));
+            return view('Core::sysModel._fields', compact('bulkEdit' ,'itemSysModel', 'sysModules', 'sysColors'));
         }
-        return view('Core::sysModel.create', compact('bulkEdit' ,'itemSysModel', 'sysColors', 'sysModules'));
+        return view('Core::sysModel.create', compact('bulkEdit' ,'itemSysModel', 'sysModules', 'sysColors'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -118,9 +119,9 @@ class BaseSysModelController extends AdminController
         $itemSysModel = $this->sysModelService->createInstance();
         
         if (request()->ajax()) {
-            return view('Core::sysModel._fields', compact('bulkEdit', 'sysModel_ids', 'itemSysModel', 'sysColors', 'sysModules'));
+            return view('Core::sysModel._fields', compact('bulkEdit', 'sysModel_ids', 'itemSysModel', 'sysModules', 'sysColors'));
         }
-        return view('Core::sysModel.bulk-edit', compact('bulkEdit', 'sysModel_ids', 'itemSysModel', 'sysColors', 'sysModules'));
+        return view('Core::sysModel.bulk-edit', compact('bulkEdit', 'sysModel_ids', 'itemSysModel', 'sysModules', 'sysColors'));
     }
     /**
      */
@@ -199,10 +200,10 @@ class BaseSysModelController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('Core::sysModel._edit', array_merge(compact('bulkEdit' , 'itemSysModel','sysColors', 'sysModules'),$widget_compact_value));
+            return view('Core::sysModel._edit', array_merge(compact('bulkEdit' , 'itemSysModel','sysModules', 'sysColors'),$widget_compact_value));
         }
 
-        return view('Core::sysModel.edit', array_merge(compact('bulkEdit' ,'itemSysModel','sysColors', 'sysModules'),$widget_compact_value));
+        return view('Core::sysModel.edit', array_merge(compact('bulkEdit' ,'itemSysModel','sysModules', 'sysColors'),$widget_compact_value));
 
 
     }

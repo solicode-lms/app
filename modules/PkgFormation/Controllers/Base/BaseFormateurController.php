@@ -9,6 +9,7 @@ use Modules\PkgFormation\Services\SpecialiteService;
 use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgCompetences\Services\ChapitreService;
 use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
+use Modules\PkgQcm\Services\QcmService;
 use Modules\PkgRealisationTache\Services\CommentaireRealisationTacheService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Illuminate\Http\Request;
@@ -85,18 +86,19 @@ class BaseFormateurController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemFormateur = $this->formateurService->createInstance();
  
 
+        $users = $this->userService->all();
         $specialites = $this->specialiteService->all();
         $groupes = $this->groupeService->all();
-        $users = $this->userService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._fields', compact('bulkEdit' ,'itemFormateur', 'groupes', 'specialites', 'users'));
+            return view('PkgFormation::formateur._fields', compact('bulkEdit' ,'itemFormateur', 'users', 'specialites', 'groupes'));
         }
-        return view('PkgFormation::formateur.create', compact('bulkEdit' ,'itemFormateur', 'groupes', 'specialites', 'users'));
+        return view('PkgFormation::formateur.create', compact('bulkEdit' ,'itemFormateur', 'users', 'specialites', 'groupes'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -126,9 +128,9 @@ class BaseFormateurController extends AdminController
         $itemFormateur = $this->formateurService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._fields', compact('bulkEdit', 'formateur_ids', 'itemFormateur', 'groupes', 'specialites', 'users'));
+            return view('PkgFormation::formateur._fields', compact('bulkEdit', 'formateur_ids', 'itemFormateur', 'users', 'specialites', 'groupes'));
         }
-        return view('PkgFormation::formateur.bulk-edit', compact('bulkEdit', 'formateur_ids', 'itemFormateur', 'groupes', 'specialites', 'users'));
+        return view('PkgFormation::formateur.bulk-edit', compact('bulkEdit', 'formateur_ids', 'itemFormateur', 'users', 'specialites', 'groupes'));
     }
     /**
      */
@@ -197,11 +199,18 @@ class BaseFormateurController extends AdminController
         $projets_view_data = $projetService->prepareDataForIndexView();
         extract($projets_view_data);
 
+        $this->viewState->set('scope.qcm.formateur_id', $id);
+        
+
+        $qcmService =  new QcmService();
+        $qcms_view_data = $qcmService->prepareDataForIndexView();
+        extract($qcms_view_data);
+
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._show', array_merge(compact('itemFormateur'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $projet_compact_value));
+            return view('PkgFormation::formateur._show', array_merge(compact('itemFormateur'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $projet_compact_value, $qcm_compact_value));
         }
 
-        return view('PkgFormation::formateur.show', array_merge(compact('itemFormateur'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $projet_compact_value));
+        return view('PkgFormation::formateur.show', array_merge(compact('itemFormateur'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $projet_compact_value, $qcm_compact_value));
 
     }
     /**
@@ -233,13 +242,20 @@ class BaseFormateurController extends AdminController
         $etatRealisationTaches_view_data = $etatRealisationTacheService->prepareDataForIndexView();
         extract($etatRealisationTaches_view_data);
 
+        $this->viewState->set('scope.qcm.formateur_id', $id);
+        
+
+        $qcmService =  new QcmService();
+        $qcms_view_data = $qcmService->prepareDataForIndexView();
+        extract($qcms_view_data);
+
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._edit', array_merge(compact('bulkEdit' , 'itemFormateur','groupes', 'specialites', 'users'),$chapitre_compact_value, $etatRealisationTache_compact_value));
+            return view('PkgFormation::formateur._edit', array_merge(compact('bulkEdit' , 'itemFormateur','users', 'specialites', 'groupes'),$chapitre_compact_value, $etatRealisationTache_compact_value, $qcm_compact_value));
         }
 
-        return view('PkgFormation::formateur.edit', array_merge(compact('bulkEdit' ,'itemFormateur','groupes', 'specialites', 'users'),$chapitre_compact_value, $etatRealisationTache_compact_value));
+        return view('PkgFormation::formateur.edit', array_merge(compact('bulkEdit' ,'itemFormateur','users', 'specialites', 'groupes'),$chapitre_compact_value, $etatRealisationTache_compact_value, $qcm_compact_value));
 
 
     }

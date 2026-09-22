@@ -89,6 +89,7 @@ class BaseEtatRealisationTacheController extends AdminController
         }
 
 
+        // scopeDataByRole
         $itemEtatRealisationTache = $this->etatRealisationTacheService->createInstance();
  
 
@@ -98,9 +99,9 @@ class BaseEtatRealisationTacheController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgRealisationTache::etatRealisationTache._fields', compact('bulkEdit' ,'itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
+            return view('PkgRealisationTache::etatRealisationTache._fields', compact('bulkEdit' ,'itemEtatRealisationTache', 'workflowTaches', 'sysColors', 'formateurs'));
         }
-        return view('PkgRealisationTache::etatRealisationTache.create', compact('bulkEdit' ,'itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
+        return view('PkgRealisationTache::etatRealisationTache.create', compact('bulkEdit' ,'itemEtatRealisationTache', 'workflowTaches', 'sysColors', 'formateurs'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -134,9 +135,9 @@ class BaseEtatRealisationTacheController extends AdminController
         $itemEtatRealisationTache = $this->etatRealisationTacheService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgRealisationTache::etatRealisationTache._fields', compact('bulkEdit', 'etatRealisationTache_ids', 'itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
+            return view('PkgRealisationTache::etatRealisationTache._fields', compact('bulkEdit', 'etatRealisationTache_ids', 'itemEtatRealisationTache', 'workflowTaches', 'sysColors', 'formateurs'));
         }
-        return view('PkgRealisationTache::etatRealisationTache.bulk-edit', compact('bulkEdit', 'etatRealisationTache_ids', 'itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
+        return view('PkgRealisationTache::etatRealisationTache.bulk-edit', compact('bulkEdit', 'etatRealisationTache_ids', 'itemEtatRealisationTache', 'workflowTaches', 'sysColors', 'formateurs'));
     }
     /**
      */
@@ -204,10 +205,10 @@ class BaseEtatRealisationTacheController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgRealisationTache::etatRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemEtatRealisationTache','formateurs', 'sysColors', 'workflowTaches'),));
+            return view('PkgRealisationTache::etatRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemEtatRealisationTache','workflowTaches', 'sysColors', 'formateurs'),));
         }
 
-        return view('PkgRealisationTache::etatRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemEtatRealisationTache','formateurs', 'sysColors', 'workflowTaches'),));
+        return view('PkgRealisationTache::etatRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemEtatRealisationTache','workflowTaches', 'sysColors', 'formateurs'),));
 
 
     }

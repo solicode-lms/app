@@ -240,6 +240,21 @@
             </div>
             @endif
 
+            @if(
+                  (auth()->user()?->can('show-qcm') && $itemFormateur->qcms->isNotEmpty())  
+                  || auth()->user()?->can('create-qcm')
+                  || (auth()->user()?->can('edit-qcm')  && $itemFormateur->qcms->isNotEmpty() )
+                  )
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgQcm::qcm.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgQcm::qcm._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+                  </div>
+                  </div>
+            </div>
+            @endif
+
             </div>
         </div>
         <div class="card-footer">

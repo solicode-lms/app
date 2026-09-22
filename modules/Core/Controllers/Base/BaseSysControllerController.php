@@ -76,6 +76,7 @@ class BaseSysControllerController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemSysController = $this->sysControllerService->createInstance();
  
 

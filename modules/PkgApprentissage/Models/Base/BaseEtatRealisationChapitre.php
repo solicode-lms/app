@@ -47,9 +47,9 @@ class BaseEtatRealisationChapitre extends BaseModel
         'ordre', 'nom', 'code', 'sys_color_id', 'is_editable_only_by_formateur', 'description', 'reference'
     ];
     public $manyToOne = [
-        'SysColor' => [
+        'sysColor' => [
             'model' => "Modules\\Core\\Models\\SysColor",
-            'relation' => 'sysColors' , 
+            'relation' => 'sysColor' , 
             "foreign_key" => "sys_color_id", 
             ]
     ];

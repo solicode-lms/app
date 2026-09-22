@@ -72,6 +72,7 @@ class BaseApprenantKonosyController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemApprenantKonosy = $this->apprenantKonosyService->createInstance();
  
 

@@ -84,6 +84,7 @@ class BaseLabelProjetController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemLabelProjet = $this->labelProjetService->createInstance();
  
 
@@ -94,9 +95,9 @@ class BaseLabelProjetController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCreationProjet::labelProjet._fields', compact('bulkEdit' ,'itemLabelProjet', 'realisationTaches', 'taches', 'projets', 'sysColors'));
+            return view('PkgCreationProjet::labelProjet._fields', compact('bulkEdit' ,'itemLabelProjet', 'projets', 'sysColors', 'realisationTaches', 'taches'));
         }
-        return view('PkgCreationProjet::labelProjet.create', compact('bulkEdit' ,'itemLabelProjet', 'realisationTaches', 'taches', 'projets', 'sysColors'));
+        return view('PkgCreationProjet::labelProjet.create', compact('bulkEdit' ,'itemLabelProjet', 'projets', 'sysColors', 'realisationTaches', 'taches'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -127,9 +128,9 @@ class BaseLabelProjetController extends AdminController
         $itemLabelProjet = $this->labelProjetService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgCreationProjet::labelProjet._fields', compact('bulkEdit', 'labelProjet_ids', 'itemLabelProjet', 'realisationTaches', 'taches', 'projets', 'sysColors'));
+            return view('PkgCreationProjet::labelProjet._fields', compact('bulkEdit', 'labelProjet_ids', 'itemLabelProjet', 'projets', 'sysColors', 'realisationTaches', 'taches'));
         }
-        return view('PkgCreationProjet::labelProjet.bulk-edit', compact('bulkEdit', 'labelProjet_ids', 'itemLabelProjet', 'realisationTaches', 'taches', 'projets', 'sysColors'));
+        return view('PkgCreationProjet::labelProjet.bulk-edit', compact('bulkEdit', 'labelProjet_ids', 'itemLabelProjet', 'projets', 'sysColors', 'realisationTaches', 'taches'));
     }
     /**
      */
@@ -196,10 +197,10 @@ class BaseLabelProjetController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::labelProjet._fields', array_merge(compact('bulkEdit' , 'itemLabelProjet','realisationTaches', 'taches', 'projets', 'sysColors'),));
+            return view('PkgCreationProjet::labelProjet._fields', array_merge(compact('bulkEdit' , 'itemLabelProjet','projets', 'sysColors', 'realisationTaches', 'taches'),));
         }
 
-        return view('PkgCreationProjet::labelProjet.edit', array_merge(compact('bulkEdit' ,'itemLabelProjet','realisationTaches', 'taches', 'projets', 'sysColors'),));
+        return view('PkgCreationProjet::labelProjet.edit', array_merge(compact('bulkEdit' ,'itemLabelProjet','projets', 'sysColors', 'realisationTaches', 'taches'),));
 
 
     }

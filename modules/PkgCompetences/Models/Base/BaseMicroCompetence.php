@@ -56,9 +56,9 @@ class BaseMicroCompetence extends BaseModel
         'ordre', 'code', 'titre', 'sous_titre', 'competence_id', 'lien', 'description', 'reference'
     ];
     public $manyToOne = [
-        'Competence' => [
+        'competence' => [
             'model' => "Modules\\PkgCompetences\\Models\\Competence",
-            'relation' => 'competences' , 
+            'relation' => 'competence' , 
             "foreign_key" => "competence_id", 
             ]
     ];
