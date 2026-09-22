@@ -8,7 +8,7 @@
 			"path": "."
 		},
 		{
-			"path": "E:/laravel-builders/gapp3"
+			"path": "D:/laravel-builders/gapp3"
 		},
 		{
 			"path": "./db_schemas/",
@@ -24,11 +24,11 @@
 			"path": "./agent-soli-lms"
 		},
 		{
-			"path": "E:/solicode-lms/docs"
+			"path": "D:/solicode-lms/docs"
 		},
 		
 		{
-			"path": "E:/solicode-lms/modelisation"
+			"path": "D:/solicode-lms/modelisation"
 		}
 	],
 	"settings": {
