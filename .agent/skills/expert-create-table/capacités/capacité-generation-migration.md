@@ -5,6 +5,14 @@ Cette capacité définit les standards de code pour les fichiers de migration da
 ## 1. Structure de Table Principale
 Se référer à `capacité-regles-table.md` pour connaître les champs obligatoires (ex: `reference`). Dans la migration, implémentez ces champs correctement.
 
+## 2. Typage des Champs Texte
+Le choix du type pour un champ texte est **critique** :
+- **`string`** : Pour les courtes chaînes de caractères (titre, nom, code, etc.) — max 255 caractères.
+- **`text`** : Pour les textes simples et moyennement longs (commentaires courts, notes).
+- **`longText`** : Pour tout champ susceptible de contenir du **texte riche** (HTML, Markdown, éditeur WYSIWYG), comme une description de projet, des consignes, des critères, une explication de question QCM, etc.
+
+> **Règle** : En cas de doute sur la longueur ou si le champ sera affiché dans un éditeur riche (ex: CodeJar, TinyMCE), préférer `longText`.
+
 ## 2. Relations Many-To-One
 Les clés étrangères doivent utiliser la méthode `foreignId` avec `constrained`.
 Exemple de relation :
