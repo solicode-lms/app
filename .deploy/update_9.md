@@ -25,8 +25,7 @@ php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\AffectationQcmProjet
 php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\EtatRealisationQcmSeeder
 php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\PropositionReponseSeeder
 php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\QcmSeeder
-php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\QuestionLibSeeder
-php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\QuestionQcmSeeder
+php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\QuestionSeeder
 php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\RealisationQcmSeeder
 php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\ReponseQcmSeeder
 
@@ -49,8 +48,7 @@ sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\Affectation
 sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\EtatRealisationQcmSeeder
 sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\PropositionReponseSeeder
 sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\QcmSeeder
-sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\QuestionLibSeeder
-sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\QuestionQcmSeeder
+sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\QuestionSeeder
 sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\RealisationQcmSeeder
 sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\ReponseQcmSeeder
 ````
@@ -62,11 +60,9 @@ sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\ReponseQcmS
 
 ### Role formateur  - Edition
 - QCM
-- Questions
+- Question
 - AffectationQcmProjet
 - PropositionReponse
-- QuestionLib
-- QuestionQcm
 
 
 ### Role formateur 
