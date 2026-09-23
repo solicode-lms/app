@@ -9,7 +9,9 @@
                     $bulkEdit = $questionLibs_permissions['edit-questionLib'] || $questionLibs_permissions['destroy-questionLib'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="82" field="unite_apprentissage_id" modelname="questionLib" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.singular'))!!}" />
+                <x-sortable-column :sortable="false" width="27.333333333333332"  field="enonce" modelname="questionLib" label="{!!ucfirst(__('PkgQcm::questionLib.enonce'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="type" modelname="questionLib" label="{!!ucfirst(__('PkgQcm::questionLib.type'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="unite_apprentissage_id" modelname="questionLib" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -21,7 +23,17 @@
                 @endphp
                 <tr id="questionLib-row-{{$questionLib->id}}" data-id="{{$questionLib->id}}">
                     <x-checkbox-row :item="$questionLib" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 82%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$questionLib->id}}" data-field="unite_apprentissage_id">
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$questionLib->id}}" data-field="enonce">
+                  
+                        {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($questionLib->enonce, 30) !!}
+                   
+
+                    </td>
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$questionLib->id}}" data-field="type">
+                        {{ $questionLib->type }}
+
+                    </td>
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$questionLib->id}}" data-field="unite_apprentissage_id">
                         {{  $questionLib->uniteApprentissage }}
 
                     </td>

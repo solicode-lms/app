@@ -297,7 +297,7 @@ class BasePropositionReponseService extends BaseService
         $inlineFields = [
             'ordre',
             'libelle',
-            'question_lib_id'
+            'is_correcte'
         ];
 
         // Récupération des champs autorisés par rôle via getFieldsEditable()
@@ -342,22 +342,9 @@ class BasePropositionReponseService extends BaseService
             case 'libelle':
                 return $this->computeFieldMeta($e, $field, $meta, 'text');
 
-            case 'question_lib_id':
-                 $values = (new \Modules\PkgQcm\Services\QuestionLibService())
-                    ->getAllForSelect($e->questionLib)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
+            case 'is_correcte':
+                return $this->computeFieldMeta($e, $field, $meta, 'boolean');
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
         }
@@ -413,18 +400,14 @@ class BasePropositionReponseService extends BaseService
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
-                case 'question_lib_id':
-                    $html = view('Core::fields_by_type.manytoone', [
+                case 'is_correcte':
+                    $html = view('Core::fields_by_type.boolean', [
                         'entity' => $e,
                         'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'questionLib'
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
-
-
-
 
                 default:
                     // fallback générique si champ non pris en charge

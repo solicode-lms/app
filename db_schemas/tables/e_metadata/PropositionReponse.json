@@ -7,7 +7,8 @@
     },
     {
         "reference": "proposition_reponses_displayInSideBar",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_model_reference": "proposition_reponses",
         "e_metadata_definition_reference": "displayInSideBar"
     },
@@ -159,7 +160,8 @@
     },
     {
         "reference": "PropositionReponse_is_correcte_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "PropositionReponse_is_correcte",
         "e_metadata_definition_reference": "required"
     },
@@ -257,7 +259,8 @@
     },
     {
         "reference": "PropositionReponse_question_lib_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "PropositionReponse_question_lib_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -389,7 +392,8 @@
     },
     {
         "reference": "proposition_reponses_reponse_qcms_proposition_reponse_reponse_qcm_m2m_m2m_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "proposition_reponses_reponse_qcms_proposition_reponse_reponse_qcm_m2m_m2m",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -410,5 +414,12 @@
         "value_boolean": 1,
         "e_data_field_reference": "proposition_reponses_reponse_qcms_proposition_reponse_reponse_qcm_m2m_m2m",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "PropositionReponse_is_correcte_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "PropositionReponse_is_correcte",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

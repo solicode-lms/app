@@ -201,7 +201,8 @@
     },
     {
         "reference": "QuestionLib_explication_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "QuestionLib_explication",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -393,7 +394,8 @@
     },
     {
         "reference": "question_libs_hasMany_proposition_reponses_question_lib_id_editHasMany",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "question_libs_hasMany_proposition_reponses_question_lib_id",
         "e_metadata_definition_reference": "editHasMany"
     },
@@ -417,7 +419,8 @@
     },
     {
         "reference": "question_libs_hasMany_question_qcms_question_lib_id_editHasMany",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "question_libs_hasMany_question_qcms_question_lib_id",
         "e_metadata_definition_reference": "editHasMany"
     },
@@ -438,5 +441,26 @@
         "value_boolean": 1,
         "e_data_field_reference": "question_libs_hasMany_question_qcms_question_lib_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "QuestionLib_enonce_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "QuestionLib_enonce",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "QuestionLib_type_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "QuestionLib_type",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "question_libs_hasMany_proposition_reponses_question_lib_id_displayInForm",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "question_libs_hasMany_proposition_reponses_question_lib_id",
+        "e_metadata_definition_reference": "displayInForm"
     }
 ]

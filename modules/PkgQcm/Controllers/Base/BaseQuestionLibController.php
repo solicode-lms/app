@@ -199,20 +199,13 @@ class BaseQuestionLibController extends AdminController
         $propositionReponses_view_data = $propositionReponseService->prepareDataForIndexView();
         extract($propositionReponses_view_data);
 
-        $this->viewState->set('scope.questionQcm.question_lib_id', $id);
-        
-
-        $questionQcmService =  new QuestionQcmService();
-        $questionQcms_view_data = $questionQcmService->prepareDataForIndexView();
-        extract($questionQcms_view_data);
-
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgQcm::questionLib._edit', array_merge(compact('bulkEdit' , 'itemQuestionLib','uniteApprentissages'),$propositionReponse_compact_value, $questionQcm_compact_value));
+            return view('PkgQcm::questionLib._fields', array_merge(compact('bulkEdit' , 'itemQuestionLib','uniteApprentissages'),$propositionReponse_compact_value));
         }
 
-        return view('PkgQcm::questionLib.edit', array_merge(compact('bulkEdit' ,'itemQuestionLib','uniteApprentissages'),$propositionReponse_compact_value, $questionQcm_compact_value));
+        return view('PkgQcm::questionLib.edit', array_merge(compact('bulkEdit' ,'itemQuestionLib','uniteApprentissages'),$propositionReponse_compact_value));
 
 
     }

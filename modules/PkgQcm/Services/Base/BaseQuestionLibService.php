@@ -90,6 +90,7 @@ class BaseQuestionLibService extends BaseService
         if (!empty($questionLib->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
             $questionLib->hasManyInputsToUpdate = [
+                    'propositionReponses' => 'propositionReponse-crud',
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
@@ -296,6 +297,8 @@ class BaseQuestionLibService extends BaseService
     {
         // Champs considérés comme inline
         $inlineFields = [
+            'enonce',
+            'type',
             'unite_apprentissage_id'
         ];
 
@@ -335,6 +338,11 @@ class BaseQuestionLibService extends BaseService
         ];
 
        switch ($field) {
+            case 'enonce':
+                return $this->computeFieldMeta($e, $field, $meta, 'text');
+
+            case 'type':
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'unite_apprentissage_id':
                  $values = (new \Modules\PkgCompetences\Services\UniteApprentissageService())
                     ->getAllForSelect($e->uniteApprentissage)
@@ -390,6 +398,22 @@ class BaseQuestionLibService extends BaseService
 
         foreach ($fields as $field) {
             switch ($field) {
+                case 'enonce':
+                    $html = view('Core::fields_by_type.text', [
+                        'entity' => $e,
+                        'column' => $field,
+                        'nature' => ''
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'type':
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                        'nature' => ''
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
                 case 'unite_apprentissage_id':
                     $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,

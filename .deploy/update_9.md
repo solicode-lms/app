@@ -59,9 +59,19 @@ sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\ReponseQcmS
 
 ## Affectation des droits d'accès 
 
-### Role formateur 
+
+### Role formateur  - Edition
 - QCM
 - Questions
+- AffectationQcmProjet
+- PropositionReponse
+- QuestionLib
+- QuestionQcm
+
+
+### Role formateur 
+
+
 - Propositions de réponse
 - Réalisation QCM
 - Affectation QCM Projet

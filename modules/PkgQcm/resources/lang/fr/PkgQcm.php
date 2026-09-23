@@ -3,5 +3,5 @@
 
 return [
     'name' => 'Module QCM',
-    'icon' => 'fa-table'
+    'icon' => 'fas fa-graduation-cap'
 ];

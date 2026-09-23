@@ -47,7 +47,7 @@
                          @if($itemQcm->questionQcms?->count() > 0 || auth()->user()?->can('create-questionQcm'))
                         <li class="nav-item">
                             <a class="nav-link" id="qcm-hasmany-tabs-questionQcm-tab" data-toggle="pill" href="#qcm-hasmany-tabs-questionQcm" role="tab" aria-controls="qcm-hasmany-tabs-questionQcm" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-chalkboard"></i>
                                 {{ucfirst(__('PkgQcm::questionQcm.plural'))}}
                             </a>
                         </li>
@@ -55,7 +55,7 @@
                          @if($itemQcm->realisationQcms?->count() > 0 || auth()->user()?->can('create-realisationQcm'))
                         <li class="nav-item">
                             <a class="nav-link" id="qcm-hasmany-tabs-realisationQcm-tab" data-toggle="pill" href="#qcm-hasmany-tabs-realisationQcm" role="tab" aria-controls="qcm-hasmany-tabs-realisationQcm" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-cog"></i>
                                 {{ucfirst(__('PkgQcm::realisationQcm.plural'))}}
                             </a>
                         </li>

@@ -150,14 +150,14 @@
           @endif
           <label for="is_duree_limitee">
             {{ ucfirst(__('PkgQcm::qcm.is_duree_limitee')) }}
-            <span class="text-danger">*</span>
+            
           </label>
                       <input type="hidden" name="is_duree_limitee" value="0">
             <input
                 name="is_duree_limitee"
                 type="checkbox"
                 class="form-control d-block"
-                required
+                
                 
                 
                 id="is_duree_limitee"
@@ -186,14 +186,14 @@
           @endif
           <label for="is_publie">
             {{ ucfirst(__('PkgQcm::qcm.is_publie')) }}
-            <span class="text-danger">*</span>
+            
           </label>
                       <input type="hidden" name="is_publie" value="0">
             <input
                 name="is_publie"
                 type="checkbox"
                 class="form-control d-block"
-                required
+                
                 
                 
                 id="is_publie"

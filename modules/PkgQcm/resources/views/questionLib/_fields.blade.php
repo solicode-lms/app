@@ -99,40 +99,6 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemQuestionLib" field="explication" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-12">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="explication" 
-              id="bulk_field_explication" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="explication">
-            {{ ucfirst(__('PkgQcm::questionLib.explication')) }}
-            
-          </label>
-                      <textarea rows="" cols=""
-                name="explication"
-                class="form-control richText"
-                
-                
-                
-                id="explication">
-                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('explication', $itemQuestionLib->explication ?? '')) !!}
-                </textarea>
-          @error('explication')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemQuestionLib" field="is_actif" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
@@ -208,6 +174,26 @@
       </div>
   
 </x-form-field>
+
+
+@if($itemQuestionLib->id)
+@if(
+  (auth()->user()?->can('show-propositionReponse') && $itemQuestionLib->propositionReponses->isNotEmpty())  
+  || auth()->user()?->can('create-propositionReponse')
+  || (auth()->user()?->can('edit-propositionReponse')  && $itemQuestionLib->propositionReponses->isNotEmpty() )
+  )
+@if (empty($bulkEdit))
+<div class="col-12 col-md-12">
+   <label for="PropositionReponse">
+            {{ ucfirst(__('PkgQcm::propositionReponse.plural')) }}
+            
+    </label>
+
+  @include('PkgQcm::propositionReponse._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => false ,"parent_manager_id" => "questionLib-crud","contextKey" => 'questionLib.edit_' . $itemQuestionLib->id])
+</div>
+@endif
+@endif
+@endif
 
 
     </div>

@@ -31,7 +31,7 @@ class BasePropositionReponseRequest extends FormRequest
         return [
             'ordre' => 'nullable|integer',
             'libelle' => 'required|string',
-            'is_correcte' => 'required|boolean',
+            'is_correcte' => 'nullable|boolean',
             'question_lib_id' => 'required',
             'reponseQcms' => 'nullable|array'
         ];
