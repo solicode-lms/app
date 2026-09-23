@@ -723,5 +723,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "users_hasMany_evaluateurs_user_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "users_hasMany_realisation_qcms_apprenant_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_hasMany_realisation_qcms_apprenant_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "users_hasMany_realisation_qcms_apprenant_id_displayOrder",
+        "value_integer": 17,
+        "e_data_field_reference": "users_hasMany_realisation_qcms_apprenant_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "users_hasMany_realisation_qcms_apprenant_id_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "users_hasMany_realisation_qcms_apprenant_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "users_hasMany_realisation_qcms_apprenant_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_hasMany_realisation_qcms_apprenant_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
