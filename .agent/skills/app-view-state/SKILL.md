@@ -1,5 +1,5 @@
 ---
-name: expert-view-state
+name: app-view-state
 description: Expertise dans la manipulation, le filtrage et la configuration du ViewState dans Gapp.
 ---
 
@@ -46,3 +46,4 @@ description: Expertise dans la manipulation, le filtrage et la configuration du 
 ### Scénario 1 : Intervention Unitaire
 1. Identifier si le filtre concerne un appel statique ou un appel AJAX (`getData`).
 2. Appliquer l'Action A selon le contexte.
+

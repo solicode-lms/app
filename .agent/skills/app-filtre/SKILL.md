@@ -1,5 +1,5 @@
 ---
-name: expert-filtre
+name: app-filtre
 description: Expert de l'ajout et de la configuration des filtres de données (Via Gapp ou Classe métier).
 ---
 
@@ -63,3 +63,4 @@ description: Expert de l'ajout et de la configuration des filtres de données (V
 3. **Réponse Développeur** :
    - *Via Gapp* : Configurer et afficher le JSON (Action B).
    - *Via Code* : Éditer la classe Service ciblée avec le code approprié (Action C).
+

@@ -1,5 +1,5 @@
 ---
-name: expert-deploy-update
+name: sys-deploy-update
 description: >
   Expert en déploiement des mises à jour de données Solicode LMS.
   Permet de mettre à jour les fichiers CSV dans les dossiers data/ des modules
@@ -197,3 +197,4 @@ Le script Node.js se trouve dans :
 | `--dry-run`         | Simulation sans modification                     |
 | `--app-root <path>` | Chemin racine de l'app (auto-détecté sinon)     |
 | `--help`            | Afficher l'aide                                  |
+

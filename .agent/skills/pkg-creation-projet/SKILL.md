@@ -1,5 +1,5 @@
 ---
-name: expert-mobilisation-affectation
+name: pkg-creation-projet
 description: Expert de la gestion des affectations de projets et de la mobilisation des Unités d'Apprentissage (UA).
 ---
 
@@ -70,3 +70,4 @@ La mobilisation d'une UA est le pivot de la génération d'activités pour l'app
 ### Scénario 3 : "Un projet créé par session n'a pas ses tâches"
 1. Vérifier `initializeProjectStructure` dans `ProjetRelationsTrait`.
 2. Vérifier que la session a bien des `alignementUas` configurés.
+

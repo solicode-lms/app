@@ -1,5 +1,5 @@
 ---
-name: db-savoir
+name: app-db-savoir
 description: Compétence pour explorer la structure de la base de données via des ressources locales (db.sql, yaml) sans scanner tout le projet.
 ---
 
@@ -36,3 +36,4 @@ Pour trouver le chemin entre la Table A (ex: `projets`) et la Table B (ex: `comp
 ## 3. Contraintes
 - **NE PAS scanner** les dossiers `modules/` ou `app/` pour trouver des relations, sauf si les fichiers ressources sont muets ou incohérents.
 - Se fier à `db.sql` comme vérité terrain pour les noms de colonnes.
+

@@ -1,5 +1,5 @@
 ---
-name: expert-service-layer
+name: app-service-layer
 description: "Expertise de l'architecture modulaire de la couche Service, des Traits et des règles de modification (gapp)."
 ---
 
@@ -144,3 +144,4 @@ Dans les classes de service finales (`[Model]Service`), le code métier complexe
    - Utiliser l'**Action D** pour insérer la logique dans le bon hook (ex: `beforeDeleteRules`).
    - S'appuyer sur la section *Gestion des Messages* pour lever une `BlException` avec le message d'erreur approprié.
 4. **Validation** : Présenter la modification et expliquer les conditions de déclenchement de l'erreur.
+

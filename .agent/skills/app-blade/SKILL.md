@@ -1,5 +1,5 @@
 ---
-name: expert-blade
+name: app-blade
 description: Expert de l'architecture et de la personnalisation des vues Blade sous le générateur Gapp.
 ---
 
@@ -75,3 +75,4 @@ description: Expert de l'architecture et de la personnalisation des vues Blade s
 ## 🔄 Scénarios d'Exécution (Algorithmes)
 - Si personnalisation basique d'affichage -> Intervenir dans `fields/` ou `forms/`.
 - Si changement lourd d'UI -> Intervenir sur le fichier `custom/_table.blade.php` principal ou `custom/_fields.blade.php` en enlevant le commentaire de Gapp.
+

@@ -1,5 +1,5 @@
 ---
-name: expert-create-table
+name: app-create-table
 description: Expert en création de tables de base de données via migrations
 ---
 
@@ -123,3 +123,4 @@ description: Expert en création de tables de base de données via migrations
    - **STOPPER. Attendre la confirmation avant de continuer.**
 5. Répéter l'étape 4 pour chaque table du plan.
 6. Finaliser avec le rappel impératif de mettre à jour `modules.json`.
+

@@ -1,5 +1,5 @@
 ---
-name: expert-agent
+name: sys-agent
 description: Expert unifié de la gestion, création et maintenance des composants de l'agent (Skills, Rules).
 ---
 
@@ -94,8 +94,12 @@ description: Expert unifié de la gestion, création et maintenance des composan
    - Un **Skill** est constitué d'un ensemble d'**Actions** (tâches exécutables).
    - Chaque **Action** peut mobiliser une ou plusieurs **Capacités** (fichiers de savoir-faire technique ou méthodologique).
    - Une **Capacité** peut être réutilisée par plusieurs Actions ou Skills.
-2. **Architecture** : `.agent/` est le seul domaine d'intervention.
+2. **Typologie des Skills** : L'écosystème est organisé autour de deux grands types de skills :
+   - **Skills de la couche applicative** : Ces experts maîtrisent une brique technique transversale de l'architecture (ex: `expert-blade`, `expert-service-layer`, `expert-create-table`, `expert-view-state`).
+   - **Skills par package (Métier)** : Ces experts maîtrisent les règles de gestion, l'architecture des données et la logique spécifique d'un package donné. Idéalement, il doit y avoir un expert par package (ex: `expert-apprentissage` pour PkgApprentissage).
+3. **Architecture** : `.agent/` est le seul domaine d'intervention.
 3. **Nomenclature** : Tout en `kebab-case` (dossiers et fichiers).
 4. **Séparation des Préoccupations (SoC)** :
    - **SKILL.md** : Orchestration, Entrées/Sorties, Algorithmes de haut niveau.
    - **capacités/*.md** : Règles métier détaillées, Logic complexe, Templates, Protocoles techniques.
+

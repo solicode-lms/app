@@ -1,5 +1,5 @@
 ---
-name: expert-inline-edit
+name: app-inline-edit
 description: Expert de la configuration et de la validation des champs d'édition en ligne (Inline Edit).
 ---
 
@@ -48,3 +48,4 @@ description: Expert de la configuration et de la validation des champs d'éditio
 1. Ouvrir le fichier FormRequest lié (ex: `[Model]Request.php`) et surcharger la méthode `rules()`.
 2. Utiliser le helper `request()` en cas d'instanciation manuelle pour retrouver le modèle en cours d'édition.
 3. Appliquer la règle de validation au champ cible dans le tableau `$rules`.
+

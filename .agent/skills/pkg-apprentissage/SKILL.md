@@ -1,5 +1,5 @@
 ---
-name: expert-apprentissage
+name: pkg-apprentissage
 description: Expert du module PkgApprentissage — architecture de données, calculs de notes/progression en cascade, et affichage Blade.
 ---
 
@@ -80,3 +80,4 @@ description: Expert du module PkgApprentissage — architecture de données, cal
 1. Lire `capacité-affichage-blade.md`.
 2. Vérifier que la variable `$realisationModule` (ou le niveau ciblé) est bien passée à la vue.
 3. Utiliser les colonnes `_cache` comme source de données.
+

@@ -1,5 +1,5 @@
 ---
-name: expert-gapp-metadata
+name: app-gapp-metadata
 description: Expert pour déterminer et générer la configuration JSON des métadonnées Gapp (scopeDataInEditContext, scopeDataByRole, ownedByUser).
 ---
 
@@ -88,3 +88,4 @@ description: Expert pour déterminer et générer la configuration JSON des mét
 3. **Analyse des relations** : Exécuter l'étape 1 de la capacité sélectionnée (déterminer le chemin des données).
 4. **Génération** : Exécuter l'étape 2 (génération finale de la configuration JSON).
 5. **Rapport** : Présenter la configuration avec les instructions d'intégration dans Gapp.
+

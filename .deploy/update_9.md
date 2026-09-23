@@ -7,70 +7,73 @@
 
 ## Migration
 
+
 ````bash
 php artisan migrate
 sudo php artisan migrate
 ````
 
-## Ajouter le package Autoformation à la table sys_modules
 
-### Sur Linux
-
-````bash
-sudo php artisan db:seed --class=Modules\\Core\\Database\\Seeders\\Base\\BaseSysModuleSeeder
-sudo php artisan db:seed --class=Modules\\PkgAutoformation\\Database\\Seeders\\ChapitreSeeder
-sudo php artisan db:seed --class=Modules\\PkgAutoformation\\Database\\Seeders\\EtatChapitreSeeder
-sudo php artisan db:seed --class=Modules\\PkgAutoformation\\Database\\Seeders\\EtatFormationSeeder
-sudo php artisan db:seed --class=Modules\\PkgAutoformation\\Database\\Seeders\\FormationSeeder
-sudo php artisan db:seed --class=Modules\\PkgAutoformation\\Database\\Seeders\\RealisationChapitreSeeder
-sudo php artisan db:seed --class=Modules\\PkgAutoformation\\Database\\Seeders\\RealisationFormationSeeder
-sudo php artisan db:seed --class=Modules\\PkgAutoformation\\Database\\Seeders\\WorkflowChapitreSeeder
-sudo php artisan db:seed --class=Modules\\PkgAutoformation\\Database\\Seeders\\WorkflowFormationSeeder
-
-# ajoute les état par défaut pour tous les formateurs 
-sudo php artisan db:seed --class=Modules\\PkgAutoformation\\Database\\Seeders\\AddDefaultEtatFormationSeeder
-sudo php artisan db:seed --class=Modules\\PkgAutoformation\\Database\\Seeders\\AddDefaultEtatChapitreSeeder
-````
 
 ### Sur Windows 
 
 ````bash
-php artisan db:seed --class=Modules\Core\Database\Seeders\Base\BaseSysModuleSeeder
-php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\ChapitreSeeder
-php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\EtatChapitreSeeder
-php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\EtatFormationSeeder
-php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\FormationSeeder
-php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\RealisationChapitreSeeder
-php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\RealisationFormationSeeder
-php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\WorkflowChapitreSeeder
-php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\WorkflowFormationSeeder
+php artisan db:seed --class=Modules\Core\Database\Seeders\SysModuleSeeder
 
-# ajoute les état par défaut pour tous les formateurs 
-php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\AddDefaultEtatFormationSeeder
-php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\AddDefaultEtatChapitreSeeder
+
+php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\AffectationQcmProjetSeeder
+php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\EtatRealisationQcmSeeder
+php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\PropositionReponseSeeder
+php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\QcmSeeder
+php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\QuestionLibSeeder
+php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\QuestionQcmSeeder
+php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\RealisationQcmSeeder
+php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\ReponseQcmSeeder
+
+
 
 ````
+
+
+
+
+## Ajouter le package QCM à la table sys_modules
+
+### Sur Linux
+
+````bash
+sudo php artisan db:seed --class=Modules\\Core\\Database\\Seeders\\SysModuleSeeder
+
+
+sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\AffectationQcmProjetSeeder
+sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\EtatRealisationQcmSeeder
+sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\PropositionReponseSeeder
+sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\QcmSeeder
+sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\QuestionLibSeeder
+sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\QuestionQcmSeeder
+sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\RealisationQcmSeeder
+sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\ReponseQcmSeeder
+````
+
+
 
 ## Affectation des droits d'accès 
 
 ### Role formateur 
-- Etat des chapitre
-- Etat des formation
-- Formation
-- Chapitre
-- Realisation chapitre
-- Realisation formation
+- QCM
+- Questions
+- Propositions de réponse
+- Réalisation QCM
+- Affectation QCM Projet
 
 ### Rôle apprenant 
 
-- Lecture : Formation
-- Realisation formation 
-- Realisatio chapitre
+- Lecture : QCM
+- Réalisation QCM
 
-### Rôle : Admin foramteur
+### Rôle : Admin formateur
 
 - Ajouter le rôle : admin-formateur 
 - 
-- Création des formations officiel
-- Créatiopn des chapitre offciel
-- Gestion des technologie
+- Création des QCM officiels
+- Gestion des banques de questions
