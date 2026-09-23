@@ -21,6 +21,7 @@ use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgApprentissage\Models\RealisationCompetence;
 use Modules\PkgApprentissage\Models\RealisationMicroCompetence;
 use Modules\PkgApprentissage\Models\RealisationModule;
+use Modules\PkgQcm\Models\RealisationQcm;
 
 /**
  * Classe BaseApprenant
@@ -203,6 +204,15 @@ class BaseApprenant extends BaseModel
     public function realisationModules(): HasMany
     {
         return $this->hasMany(RealisationModule::class, 'apprenant_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Apprenants.
+     *
+     * @return HasMany
+     */
+    public function realisationQcms(): HasMany
+    {
+        return $this->hasMany(RealisationQcm::class, 'apprenant_id', 'id');
     }
 
 

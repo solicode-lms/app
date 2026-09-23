@@ -76,14 +76,6 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemUser->realisationQcms?->count() > 0 || auth()->user()?->can('create-realisationQcm'))
-                        <li class="nav-item">
-                            <a class="nav-link" id="user-hasmany-tabs-realisationQcm-tab" data-toggle="pill" href="#user-hasmany-tabs-realisationQcm" role="tab" aria-controls="user-hasmany-tabs-realisationQcm" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
-                                {{ucfirst(__('PkgQcm::realisationQcm.plural'))}}
-                            </a>
-                        </li>
-                        @endif
 
                        
                         </ul>
@@ -117,11 +109,6 @@
                             @if($itemUser->notifications?->count() > 0 || auth()->user()?->can('create-notification'))
                             <div class="tab-pane fade" id="user-hasmany-tabs-notification" role="tabpanel" aria-labelledby="user-hasmany-tabs-notification-tab">
                                 @include('PkgNotification::notification._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
-                            </div>
-                            @endif
-                            @if($itemUser->realisationQcms?->count() > 0 || auth()->user()?->can('create-realisationQcm'))
-                            <div class="tab-pane fade" id="user-hasmany-tabs-realisationQcm" role="tabpanel" aria-labelledby="user-hasmany-tabs-realisationQcm-tab">
-                                @include('PkgQcm::realisationQcm._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
                             </div>
                             @endif
 

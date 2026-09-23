@@ -204,21 +204,6 @@
                   <span class="text-muted">—</span>
                   @endif                </div>
             </div>
-            @if(
-                  (auth()->user()?->can('show-realisationQcm') && $itemUser->realisationQcms->isNotEmpty())  
-                  || auth()->user()?->can('create-realisationQcm')
-                  || (auth()->user()?->can('edit-realisationQcm')  && $itemUser->realisationQcms->isNotEmpty() )
-                  )
-            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
-                  <div class="border rounded p-2 h-100 " >
-                  <small class="text-muted d-block">  {{ ucfirst(__('PkgQcm::realisationQcm.plural')) }}</small>
-                  <div class="pt-2">
-                        @include('PkgQcm::realisationQcm._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.show_' . $itemUser->id])
-                  </div>
-                  </div>
-            </div>
-            @endif
-
             </div>
         </div>
         <div class="card-footer">

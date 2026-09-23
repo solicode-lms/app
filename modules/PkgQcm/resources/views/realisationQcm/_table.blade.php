@@ -11,7 +11,7 @@
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="10.25" field="affectation_qcm_projet_id" modelname="realisationQcm" label="{!!ucfirst(__('PkgQcm::affectationQcmProjet.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="10.25" field="qcm_id" modelname="realisationQcm" label="{!!ucfirst(__('PkgQcm::qcm.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="10.25" field="apprenant_id" modelname="realisationQcm" label="{!!ucfirst(__('PkgAutorisation::user.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="10.25" field="apprenant_id" modelname="realisationQcm" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="10.25" field="etat_realisation_qcm_id" modelname="realisationQcm" label="{!!ucfirst(__('PkgQcm::etatRealisationQcm.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="10.25"  field="date_debut" modelname="realisationQcm" label="{!!ucfirst(__('PkgQcm::realisationQcm.date_debut'))!!}" />
                 <x-sortable-column :sortable="true" width="10.25"  field="date_fin" modelname="realisationQcm" label="{!!ucfirst(__('PkgQcm::realisationQcm.date_fin'))!!}" />

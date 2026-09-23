@@ -150,16 +150,16 @@ class BaseRealisationQcmService extends BaseService
                 if (!array_key_exists('apprenant_id', $scopeVariables)) {
 
 
-                    $userService = new \Modules\PkgAutorisation\Services\UserService();
-                    $userIds = $this->getAvailableFilterValues('apprenant_id');
-                    $users = $userService->getByIds($userIds);
+                    $apprenantService = new \Modules\PkgApprenants\Services\ApprenantService();
+                    $apprenantIds = $this->getAvailableFilterValues('apprenant_id');
+                    $apprenants = $apprenantService->getByIds($apprenantIds);
 
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgAutorisation::user.plural"), 
+                        __("PkgApprenants::apprenant.plural"), 
                         'apprenant_id', 
-                        \Modules\PkgAutorisation\Models\User::class, 
-                        'name',
-                        $users
+                        \Modules\PkgApprenants\Models\Apprenant::class, 
+                        'nom',
+                        $apprenants
                     );
                 }
             
@@ -431,7 +431,7 @@ class BaseRealisationQcmService extends BaseService
                     ],
                 ]);
             case 'apprenant_id':
-                 $values = (new \Modules\PkgAutorisation\Services\UserService())
+                 $values = (new \Modules\PkgApprenants\Services\ApprenantService())
                     ->getAllForSelect($e->apprenant)
                     ->map(fn($entity) => [
                         'value' => (int) $entity->id,

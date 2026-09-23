@@ -5,7 +5,7 @@
 namespace Modules\PkgQcm\Controllers\Base;
 use Modules\PkgQcm\Services\RealisationQcmService;
 use Modules\PkgQcm\Services\AffectationQcmProjetService;
-use Modules\PkgAutorisation\Services\UserService;
+use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgQcm\Services\EtatRealisationQcmService;
 use Modules\PkgQcm\Services\QcmService;
 use Modules\PkgQcm\Services\ReponseQcmService;
@@ -26,16 +26,16 @@ class BaseRealisationQcmController extends AdminController
 {
     protected $realisationQcmService;
     protected $affectationQcmProjetService;
-    protected $userService;
+    protected $apprenantService;
     protected $etatRealisationQcmService;
     protected $qcmService;
 
-    public function __construct(RealisationQcmService $realisationQcmService, AffectationQcmProjetService $affectationQcmProjetService, UserService $userService, EtatRealisationQcmService $etatRealisationQcmService, QcmService $qcmService) {
+    public function __construct(RealisationQcmService $realisationQcmService, AffectationQcmProjetService $affectationQcmProjetService, ApprenantService $apprenantService, EtatRealisationQcmService $etatRealisationQcmService, QcmService $qcmService) {
         parent::__construct();
         $this->service  =  $realisationQcmService;
         $this->realisationQcmService = $realisationQcmService;
         $this->affectationQcmProjetService = $affectationQcmProjetService;
-        $this->userService = $userService;
+        $this->apprenantService = $apprenantService;
         $this->etatRealisationQcmService = $etatRealisationQcmService;
         $this->qcmService = $qcmService;
     }
@@ -91,7 +91,7 @@ class BaseRealisationQcmController extends AdminController
 
         $affectationQcmProjets = $this->affectationQcmProjetService->all();
         $qcms = $this->qcmService->all();
-        $apprenants = $this->userService->all();
+        $apprenants = $this->apprenantService->all();
         $etatRealisationQcms = $this->etatRealisationQcmService->all();
 
         $bulkEdit = false;
@@ -120,7 +120,7 @@ class BaseRealisationQcmController extends AdminController
  
         $affectationQcmProjets = $this->affectationQcmProjetService->getAllForSelect($itemRealisationQcm->affectationQcmProjet);
         $qcms = $this->qcmService->getAllForSelect($itemRealisationQcm->qcm);
-        $apprenants = $this->userService->getAllForSelect($itemRealisationQcm->apprenant);
+        $apprenants = $this->apprenantService->getAllForSelect($itemRealisationQcm->apprenant);
         $etatRealisationQcms = $this->etatRealisationQcmService->getAllForSelect($itemRealisationQcm->etatRealisationQcm);
 
         $bulkEdit = true;
@@ -198,7 +198,7 @@ class BaseRealisationQcmController extends AdminController
 
         $affectationQcmProjets = $this->affectationQcmProjetService->getAllForSelect($itemRealisationQcm->affectationQcmProjet);
         $qcms = $this->qcmService->getAllForSelect($itemRealisationQcm->qcm);
-        $apprenants = $this->userService->getAllForSelect($itemRealisationQcm->apprenant);
+        $apprenants = $this->apprenantService->getAllForSelect($itemRealisationQcm->apprenant);
         $etatRealisationQcms = $this->etatRealisationQcmService->getAllForSelect($itemRealisationQcm->etatRealisationQcm);
 
 

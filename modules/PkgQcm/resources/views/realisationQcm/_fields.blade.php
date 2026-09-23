@@ -125,7 +125,7 @@
           </div>
           @endif
           <label for="apprenant_id">
-            {{ ucfirst(__('PkgAutorisation::user.singular')) }}
+            {{ ucfirst(__('PkgApprenants::apprenant.singular')) }}
             <span class="text-danger">*</span>
           </label>
                       <select 
@@ -136,10 +136,10 @@
             name="apprenant_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
-                @foreach ($apprenants as $user)
-                    <option value="{{ $user->id }}"
-                        {{ (isset($itemRealisationQcm) && $itemRealisationQcm->apprenant_id == $user->id) || (old('apprenant_id>') == $user->id) ? 'selected' : '' }}>
-                        {{ $user }}
+                @foreach ($apprenants as $apprenant)
+                    <option value="{{ $apprenant->id }}"
+                        {{ (isset($itemRealisationQcm) && $itemRealisationQcm->apprenant_id == $apprenant->id) || (old('apprenant_id>') == $apprenant->id) ? 'selected' : '' }}>
+                        {{ $apprenant }}
                     </option>
                 @endforeach
             </select>

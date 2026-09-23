@@ -87,7 +87,7 @@ class BaseRealisationQcmSeeder extends Seeder
                 }
                 $apprenant_id = null;
                 if (!empty($row["apprenant_reference"])) {
-                    $apprenant_id = \Modules\PkgAutorisation\Models\User::where('reference', $row["user_reference"])
+                    $apprenant_id = \Modules\PkgApprenants\Models\Apprenant::where('reference', $row["apprenant_reference"])
                         ->value('id');
                 }
                 $etat_realisation_qcm_id = null;

@@ -10,7 +10,6 @@ use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgEvaluateurs\Services\EvaluateurService;
 use Modules\PkgAutorisation\Services\ProfileService;
 use Modules\PkgNotification\Services\NotificationService;
-use Modules\PkgQcm\Services\RealisationQcmService;
 use Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService;
 use Modules\Core\Services\UserModelFilterService;
 use Modules\PkgWidgets\Services\WidgetUtilisateurService;
@@ -221,18 +220,11 @@ class BaseUserController extends AdminController
         $widgetUtilisateurs_view_data = $widgetUtilisateurService->prepareDataForIndexView();
         extract($widgetUtilisateurs_view_data);
 
-        $this->viewState->set('scope.realisationQcm.apprenant_id', $id);
-        
-
-        $realisationQcmService =  new RealisationQcmService();
-        $realisationQcms_view_data = $realisationQcmService->prepareDataForIndexView();
-        extract($realisationQcms_view_data);
-
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._show', array_merge(compact('itemUser'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value, $realisationQcm_compact_value));
+            return view('PkgAutorisation::user._show', array_merge(compact('itemUser'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
         }
 
-        return view('PkgAutorisation::user.show', array_merge(compact('itemUser'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value, $realisationQcm_compact_value));
+        return view('PkgAutorisation::user.show', array_merge(compact('itemUser'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
 
     }
     /**
@@ -283,20 +275,13 @@ class BaseUserController extends AdminController
         $notifications_view_data = $notificationService->prepareDataForIndexView();
         extract($notifications_view_data);
 
-        $this->viewState->set('scope.realisationQcm.apprenant_id', $id);
-        
-
-        $realisationQcmService =  new RealisationQcmService();
-        $realisationQcms_view_data = $realisationQcmService->prepareDataForIndexView();
-        extract($realisationQcms_view_data);
-
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._edit', array_merge(compact('bulkEdit' , 'itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $notification_compact_value, $realisationQcm_compact_value));
+            return view('PkgAutorisation::user._edit', array_merge(compact('bulkEdit' , 'itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $notification_compact_value));
         }
 
-        return view('PkgAutorisation::user.edit', array_merge(compact('bulkEdit' ,'itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $notification_compact_value, $realisationQcm_compact_value));
+        return view('PkgAutorisation::user.edit', array_merge(compact('bulkEdit' ,'itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $notification_compact_value));
 
 
     }

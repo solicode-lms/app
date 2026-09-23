@@ -13,7 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgQcm\Models\AffectationQcmProjet;
 use Modules\PkgQcm\Models\Qcm;
-use Modules\PkgAutorisation\Models\User;
+use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgQcm\Models\EtatRealisationQcm;
 use Modules\PkgQcm\Models\ReponseQcm;
 
@@ -64,7 +64,7 @@ class BaseRealisationQcm extends BaseModel
             "foreign_key" => "qcm_id", 
             ],
         'apprenant' => [
-            'model' => "Modules\\PkgAutorisation\\Models\\User",
+            'model' => "Modules\\PkgApprenants\\Models\\Apprenant",
             'relation' => 'apprenant' , 
             "foreign_key" => "apprenant_id", 
             ],
@@ -95,13 +95,13 @@ class BaseRealisationQcm extends BaseModel
         return $this->belongsTo(Qcm::class, 'qcm_id', 'id');
     }
     /**
-     * Relation BelongsTo pour User.
+     * Relation BelongsTo pour Apprenant.
      *
      * @return BelongsTo
      */
     public function apprenant(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'apprenant_id', 'id');
+        return $this->belongsTo(Apprenant::class, 'apprenant_id', 'id');
     }
     /**
      * Relation BelongsTo pour EtatRealisationQcm.
