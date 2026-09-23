@@ -15,3 +15,4 @@
 "7","Création des tâches","PkgCreationTache","Contient les tables PkgCreationTache","1","1","danger","PkgCreationTache"
 "4","Suivi des apprentissages","PkgApprentissage","Contient les tables PkgApprentissage","1","1","danger","PkgApprentissage"
 "5","Gestion des sessions","PkgSessions","Contient les tables liées aux sessions, livrables et alignements UA","1","1","primary","PkgSessions"
+"20","PkgQcm","PkgQcm","","1","1","dark","PkgQcm"
