@@ -10,22 +10,25 @@
         title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
     </div>
     @endif
-    <label for="type">
+    <label>
         {{ ucfirst(__('PkgQcm::questionLib.type')) }}
         <span class="text-danger">*</span>
     </label>
-    <select
-        name="type"
-        class="form-control"
-        required
-        id="type">
-        <option value="">{{ __('Core::msg.select') }}</option>
+    <div class="pt-2">
         @foreach(\Modules\PkgQcm\Models\Enums\QuestionTypeEnum::cases() as $enum)
-            <option value="{{ $enum->value }}" {{ old('type', isset($itemQuestionLib) && $itemQuestionLib->type ? $itemQuestionLib->type->value : '') == $enum->value ? 'selected' : '' }}>
-                {{ $enum->label() }}
-            </option>
+            <div class="icheck-primary d-inline mr-3">
+                <input type="radio" 
+                       id="type_{{ $enum->value }}" 
+                       name="type" 
+                       value="{{ $enum->value }}" 
+                       {{ old('type', isset($itemQuestionLib) && $itemQuestionLib->type ? $itemQuestionLib->type->value : '') == $enum->value ? 'checked' : '' }}
+                       required>
+                <label for="type_{{ $enum->value }}">
+                    {{ $enum->label() }}
+                </label>
+            </div>
         @endforeach
-    </select>
+    </div>
     @error('type')
         <div class="text-danger">{{ $message }}</div>
     @enderror
