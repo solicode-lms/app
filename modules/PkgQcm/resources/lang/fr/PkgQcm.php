@@ -1,8 +1,7 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'name' => 'PkgQcm',
+    'name' => 'Module QCM',
     'icon' => 'fa-table'
 ];

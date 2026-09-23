@@ -1,14 +1,13 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'QuestionLib',
-    'plural' => 'QuestionLibs',
-    'reference' => 'reference',
-    'enonce' => 'enonce',
-    'type' => 'type',
-    'explication' => 'explication',
-    'is_actif' => 'is_actif',
-    'unite_apprentissage_id' => 'unite_apprentissage_id',
+    'singular' => 'Question',
+    'plural' => 'Questions',
+    'reference' => 'Référence',
+    'enonce' => 'Énoncé',
+    'type' => 'Type',
+    'explication' => 'Explication',
+    'is_actif' => 'Actif',
+    'unite_apprentissage_id' => 'Unité d\'apprentissage',
 ];

@@ -1,18 +1,17 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'RealisationQcm',
-    'plural' => 'RealisationQcms',
-    'reference' => 'reference',
-    'date_debut' => 'date_debut',
-    'date_fin' => 'date_fin',
-    'date_soumission' => 'date_soumission',
-    'statut' => 'statut',
-    'date_validation' => 'date_validation',
-    'affectation_qcm_projet_id' => 'affectation_qcm_projet_id',
-    'etat_realisation_qcm_id' => 'etat_realisation_qcm_id',
-    'qcm_id' => 'qcm_id',
-    'apprenant_id' => 'apprenant_id',
+    'singular' => 'Réalisation QCM',
+    'plural' => 'Réalisations QCM',
+    'reference' => 'Référence',
+    'date_debut' => 'Date de début',
+    'date_fin' => 'Date de fin',
+    'date_soumission' => 'Date de soumission',
+    'statut' => 'Statut',
+    'date_validation' => 'Date de validation',
+    'affectation_qcm_projet_id' => 'Affectation QCM projet',
+    'etat_realisation_qcm_id' => 'État de réalisation',
+    'qcm_id' => 'QCM',
+    'apprenant_id' => 'Apprenant',
 ];

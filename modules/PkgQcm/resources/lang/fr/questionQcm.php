@@ -1,13 +1,12 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'QuestionQcm',
-    'plural' => 'QuestionQcms',
-    'ordre' => 'ordre',
-    'reference' => 'reference',
-    'bareme' => 'bareme',
-    'qcm_id' => 'qcm_id',
-    'question_lib_id' => 'question_lib_id',
+    'singular' => 'Question QCM',
+    'plural' => 'Questions QCM',
+    'ordre' => 'Ordre',
+    'reference' => 'Référence',
+    'bareme' => 'Barème',
+    'qcm_id' => 'QCM',
+    'question_lib_id' => 'Question',
 ];
