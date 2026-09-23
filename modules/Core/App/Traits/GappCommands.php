@@ -26,43 +26,43 @@ trait GappCommands
     /**
      * Environnement utilisé par Gapp.
      */
-    private function getGappEnvironment(): array
-    {
-        $userProfile = 'C:\\Users\\essarraj';
+    // private function getGappEnvironment(): array
+    // {
+    //     $userProfile = 'C:\\Users\\essarraj';
 
-        $npmPath =
-            $userProfile .
-            '\\AppData\\Roaming\\npm';
+    //     $npmPath =
+    //         $userProfile .
+    //         '\\AppData\\Roaming\\npm';
 
-        $nodePath =
-            'C:\\Program Files\\nodejs';
+    //     $nodePath =
+    //         'C:\\Program Files\\nodejs';
 
-        $currentPath = getenv('PATH') ?: '';
+    //     $currentPath = getenv('PATH') ?: '';
 
-        return [
-            'USERPROFILE' => $userProfile,
-            'HOME' => $userProfile,
+    //     return [
+    //         'USERPROFILE' => $userProfile,
+    //         'HOME' => $userProfile,
 
-            'APPDATA' =>
-                $userProfile .
-                '\\AppData\\Roaming',
+    //         'APPDATA' =>
+    //             $userProfile .
+    //             '\\AppData\\Roaming',
 
-            'LOCALAPPDATA' =>
-                $userProfile .
-                '\\AppData\\Local',
+    //         'LOCALAPPDATA' =>
+    //             $userProfile .
+    //             '\\AppData\\Local',
 
-            'npm_config_cache' =>
-                $userProfile .
-                '\\AppData\\Local\\npm-cache',
+    //         'npm_config_cache' =>
+    //             $userProfile .
+    //             '\\AppData\\Local\\npm-cache',
 
-            'PATH' =>
-                $nodePath .
-                ';' .
-                $npmPath .
-                ';' .
-                $currentPath,
-        ];
-    }
+    //         'PATH' =>
+    //             $nodePath .
+    //             ';' .
+    //             $npmPath .
+    //             ';' .
+    //             $currentPath,
+    //     ];
+    // }
 
     /**
      * Construit une commande Gapp.
@@ -99,7 +99,7 @@ trait GappCommands
                 'Gapp meta:export'
             );
         } else {
-            $this->executeCommandAsync(
+            $this->executeCommandSync(
                 $command,
                 'Gapp meta:export'
             );
@@ -240,7 +240,7 @@ trait GappCommands
             );
 
             $result = Process::path(base_path())
-                ->env($this->getGappEnvironment())
+                // ->env($this->getGappEnvironment())
                 ->timeout(300)
                 ->run($command);
 
@@ -301,7 +301,7 @@ trait GappCommands
             );
 
             Process::path(base_path())
-                ->env($this->getGappEnvironment())
+                // ->env($this->getGappEnvironment())
                 ->timeout(300)
                 ->start($command);
 

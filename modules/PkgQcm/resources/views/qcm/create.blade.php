@@ -13,7 +13,7 @@
                     <div class="card card-info">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <i class="nav-icon fas f"></i>
+                                <i class="nav-icon ee"></i>
                                 {{ curd_index_add_label('PkgQcm::qcm') }}
                             </h3>
                         </div>

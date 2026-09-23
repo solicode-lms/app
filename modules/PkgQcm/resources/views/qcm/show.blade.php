@@ -13,7 +13,7 @@
                     <div class="card card-info crud-show">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <i class="nav-icon fas f"></i>
+                                <i class="nav-icon ee"></i>
                                  {{__("Core::msg.show") . " : " . __("PkgQcm::qcm.singular") }} - {{ $itemQcm }}
                             </h3>
                         </div>
