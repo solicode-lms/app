@@ -1,4 +1,4 @@
-# Issue : Typage du champ 'type' de Question (ISSUE-002)
+# Issue : Typage du champ 'type' de Question (ISSUE-002) [FERMÉ]
 
 ## Contexte
 Actuellement, dans le diagramme de classe (`pkg_qcm_classes.mmd`), l'attribut `type` de l'entité `Question` est défini comme un simple `string`.

@@ -3,7 +3,7 @@ classDiagram
 
     namespace PkgQcm {
         class Qcm
-        class Question
+        class QuestionLib
         class Proposition
         class QuestionQcm
         class RealisationQcm
@@ -51,10 +51,10 @@ classDiagram
     }
 
 
-    class Question {
+    class QuestionLib {
         +id: bigint
         +enonce: text
-        +type: string
+        +type: enum
         +explication: text
         +is_actif: boolean
     }
@@ -87,13 +87,13 @@ classDiagram
     }
 
     %% Banque des questions
-    Question "1" --> "*" Proposition
-    Question "*" --> "1" UniteApprentissage
+    QuestionLib "1" --> "*" Proposition
+    QuestionLib "*" --> "1" UniteApprentissage
 
     %% Création de QCM par formateur
     Qcm "*" --> "1" Formateur
     Qcm "1" --> "*" QuestionQcm
-    QuestionQcm "*" --> "1" Question : appartient
+    QuestionQcm "*" --> "1" QuestionLib : appartient
 
     %% Affectation de QCM au AffectationQcmProjet
     AffectationProjet "1" --> "*" AffectationQcmProjet
