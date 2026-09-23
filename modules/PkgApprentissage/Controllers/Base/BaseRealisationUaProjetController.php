@@ -86,6 +86,7 @@ class BaseRealisationUaProjetController extends AdminController
         }
 
 
+        // scopeDataByRole
         $itemRealisationUaProjet = $this->realisationUaProjetService->createInstance();
  
 

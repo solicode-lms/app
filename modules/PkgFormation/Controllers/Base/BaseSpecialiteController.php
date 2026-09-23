@@ -75,6 +75,7 @@ class BaseSpecialiteController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemSpecialite = $this->specialiteService->createInstance();
  
 

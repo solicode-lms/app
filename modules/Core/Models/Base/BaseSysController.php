@@ -47,9 +47,9 @@ class BaseSysController extends BaseModel
         'sys_module_id', 'name', 'slug', 'description', 'is_active', 'reference'
     ];
     public $manyToOne = [
-        'SysModule' => [
+        'sysModule' => [
             'model' => "Modules\\Core\\Models\\SysModule",
-            'relation' => 'sysModules' , 
+            'relation' => 'sysModule' , 
             "foreign_key" => "sys_module_id", 
             ]
     ];

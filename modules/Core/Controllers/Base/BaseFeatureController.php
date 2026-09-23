@@ -78,6 +78,7 @@ class BaseFeatureController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemFeature = $this->featureService->createInstance();
  
 
@@ -86,9 +87,9 @@ class BaseFeatureController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('Core::feature._fields', compact('bulkEdit' ,'itemFeature', 'permissions', 'featureDomains'));
+            return view('Core::feature._fields', compact('bulkEdit' ,'itemFeature', 'featureDomains', 'permissions'));
         }
-        return view('Core::feature.create', compact('bulkEdit' ,'itemFeature', 'permissions', 'featureDomains'));
+        return view('Core::feature.create', compact('bulkEdit' ,'itemFeature', 'featureDomains', 'permissions'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -117,9 +118,9 @@ class BaseFeatureController extends AdminController
         $itemFeature = $this->featureService->createInstance();
         
         if (request()->ajax()) {
-            return view('Core::feature._fields', compact('bulkEdit', 'feature_ids', 'itemFeature', 'permissions', 'featureDomains'));
+            return view('Core::feature._fields', compact('bulkEdit', 'feature_ids', 'itemFeature', 'featureDomains', 'permissions'));
         }
-        return view('Core::feature.bulk-edit', compact('bulkEdit', 'feature_ids', 'itemFeature', 'permissions', 'featureDomains'));
+        return view('Core::feature.bulk-edit', compact('bulkEdit', 'feature_ids', 'itemFeature', 'featureDomains', 'permissions'));
     }
     /**
      */
@@ -184,10 +185,10 @@ class BaseFeatureController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('Core::feature._fields', array_merge(compact('bulkEdit' , 'itemFeature','permissions', 'featureDomains'),));
+            return view('Core::feature._fields', array_merge(compact('bulkEdit' , 'itemFeature','featureDomains', 'permissions'),));
         }
 
-        return view('Core::feature.edit', array_merge(compact('bulkEdit' ,'itemFeature','permissions', 'featureDomains'),));
+        return view('Core::feature.edit', array_merge(compact('bulkEdit' ,'itemFeature','featureDomains', 'permissions'),));
 
 
     }

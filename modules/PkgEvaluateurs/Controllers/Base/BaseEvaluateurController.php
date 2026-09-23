@@ -80,6 +80,7 @@ class BaseEvaluateurController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemEvaluateur = $this->evaluateurService->createInstance();
  
 
@@ -88,9 +89,9 @@ class BaseEvaluateurController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgEvaluateurs::evaluateur._fields', compact('bulkEdit' ,'itemEvaluateur', 'affectationProjets', 'users'));
+            return view('PkgEvaluateurs::evaluateur._fields', compact('bulkEdit' ,'itemEvaluateur', 'users', 'affectationProjets'));
         }
-        return view('PkgEvaluateurs::evaluateur.create', compact('bulkEdit' ,'itemEvaluateur', 'affectationProjets', 'users'));
+        return view('PkgEvaluateurs::evaluateur.create', compact('bulkEdit' ,'itemEvaluateur', 'users', 'affectationProjets'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -119,9 +120,9 @@ class BaseEvaluateurController extends AdminController
         $itemEvaluateur = $this->evaluateurService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgEvaluateurs::evaluateur._fields', compact('bulkEdit', 'evaluateur_ids', 'itemEvaluateur', 'affectationProjets', 'users'));
+            return view('PkgEvaluateurs::evaluateur._fields', compact('bulkEdit', 'evaluateur_ids', 'itemEvaluateur', 'users', 'affectationProjets'));
         }
-        return view('PkgEvaluateurs::evaluateur.bulk-edit', compact('bulkEdit', 'evaluateur_ids', 'itemEvaluateur', 'affectationProjets', 'users'));
+        return view('PkgEvaluateurs::evaluateur.bulk-edit', compact('bulkEdit', 'evaluateur_ids', 'itemEvaluateur', 'users', 'affectationProjets'));
     }
     /**
      */
@@ -207,10 +208,10 @@ class BaseEvaluateurController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgEvaluateurs::evaluateur._edit', array_merge(compact('bulkEdit' , 'itemEvaluateur','affectationProjets', 'users'),$evaluationRealisationProjet_compact_value));
+            return view('PkgEvaluateurs::evaluateur._edit', array_merge(compact('bulkEdit' , 'itemEvaluateur','users', 'affectationProjets'),$evaluationRealisationProjet_compact_value));
         }
 
-        return view('PkgEvaluateurs::evaluateur.edit', array_merge(compact('bulkEdit' ,'itemEvaluateur','affectationProjets', 'users'),$evaluationRealisationProjet_compact_value));
+        return view('PkgEvaluateurs::evaluateur.edit', array_merge(compact('bulkEdit' ,'itemEvaluateur','users', 'affectationProjets'),$evaluationRealisationProjet_compact_value));
 
 
     }

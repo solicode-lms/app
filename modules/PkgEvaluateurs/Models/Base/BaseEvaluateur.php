@@ -52,9 +52,9 @@ class BaseEvaluateur extends BaseModel
         'AffectationProjet' => ['relation' => 'affectationProjets' , "foreign_key" => "affectation_projet_id" ]
     ];
     public $manyToOne = [
-        'User' => [
+        'user' => [
             'model' => "Modules\\PkgAutorisation\\Models\\User",
-            'relation' => 'users' , 
+            'relation' => 'user' , 
             "foreign_key" => "user_id", 
             ]
     ];

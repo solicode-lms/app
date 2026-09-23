@@ -76,6 +76,7 @@ class BaseSectionWidgetController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemSectionWidget = $this->sectionWidgetService->createInstance();
  
 

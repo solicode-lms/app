@@ -126,7 +126,7 @@
             name="controller_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
-                @foreach ($sysControllers as $sysController)
+                @foreach ($controllers as $sysController)
                     <option value="{{ $sysController->id }}"
                         {{ (isset($itemPermission) && $itemPermission->controller_id == $sysController->id) || (old('controller_id>') == $sysController->id) ? 'selected' : '' }}>
                         {{ $sysController }}

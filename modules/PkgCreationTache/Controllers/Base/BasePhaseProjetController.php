@@ -73,6 +73,7 @@ class BasePhaseProjetController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemPhaseProjet = $this->phaseProjetService->createInstance();
  
 

@@ -76,12 +76,12 @@ class BaseERelationshipSeeder extends Seeder
 
 
                 $source_e_model_id = null;
-                if (!empty($row["e_model_reference"])) {
+                if (!empty($row["source_e_model_reference"])) {
                     $source_e_model_id = \Modules\PkgGapp\Models\EModel::where('reference', $row["e_model_reference"])
                         ->value('id');
                 }
                 $target_e_model_id = null;
-                if (!empty($row["e_model_reference"])) {
+                if (!empty($row["target_e_model_reference"])) {
                     $target_e_model_id = \Modules\PkgGapp\Models\EModel::where('reference', $row["e_model_reference"])
                         ->value('id');
                 }

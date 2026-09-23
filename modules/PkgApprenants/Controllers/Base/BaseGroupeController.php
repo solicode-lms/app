@@ -86,6 +86,7 @@ class BaseGroupeController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemGroupe = $this->groupeService->createInstance();
  
 
@@ -96,9 +97,9 @@ class BaseGroupeController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._fields', compact('bulkEdit' ,'itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres'));
+            return view('PkgApprenants::groupe._fields', compact('bulkEdit' ,'itemGroupe', 'filieres', 'anneeFormations', 'apprenants', 'formateurs'));
         }
-        return view('PkgApprenants::groupe.create', compact('bulkEdit' ,'itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres'));
+        return view('PkgApprenants::groupe.create', compact('bulkEdit' ,'itemGroupe', 'filieres', 'anneeFormations', 'apprenants', 'formateurs'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -129,9 +130,9 @@ class BaseGroupeController extends AdminController
         $itemGroupe = $this->groupeService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._fields', compact('bulkEdit', 'groupe_ids', 'itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres'));
+            return view('PkgApprenants::groupe._fields', compact('bulkEdit', 'groupe_ids', 'itemGroupe', 'filieres', 'anneeFormations', 'apprenants', 'formateurs'));
         }
-        return view('PkgApprenants::groupe.bulk-edit', compact('bulkEdit', 'groupe_ids', 'itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres'));
+        return view('PkgApprenants::groupe.bulk-edit', compact('bulkEdit', 'groupe_ids', 'itemGroupe', 'filieres', 'anneeFormations', 'apprenants', 'formateurs'));
     }
     /**
      */
@@ -226,10 +227,10 @@ class BaseGroupeController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._edit', array_merge(compact('bulkEdit' , 'itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value, $sousGroupe_compact_value));
+            return view('PkgApprenants::groupe._edit', array_merge(compact('bulkEdit' , 'itemGroupe','filieres', 'anneeFormations', 'apprenants', 'formateurs'),$affectationProjet_compact_value, $sousGroupe_compact_value));
         }
 
-        return view('PkgApprenants::groupe.edit', array_merge(compact('bulkEdit' ,'itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value, $sousGroupe_compact_value));
+        return view('PkgApprenants::groupe.edit', array_merge(compact('bulkEdit' ,'itemGroupe','filieres', 'anneeFormations', 'apprenants', 'formateurs'),$affectationProjet_compact_value, $sousGroupe_compact_value));
 
 
     }

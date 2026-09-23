@@ -47,9 +47,9 @@ class BaseWorkflowTache extends BaseModel
         'ordre', 'code', 'titre', 'description', 'is_editable_only_by_formateur', 'reference', 'sys_color_id'
     ];
     public $manyToOne = [
-        'SysColor' => [
+        'sysColor' => [
             'model' => "Modules\\Core\\Models\\SysColor",
-            'relation' => 'sysColors' , 
+            'relation' => 'sysColor' , 
             "foreign_key" => "sys_color_id", 
             ]
     ];

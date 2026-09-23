@@ -20,6 +20,7 @@ use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
 use Modules\PkgNotification\Models\Notification;
 use Modules\Core\Models\UserModelFilter;
 use Modules\PkgWidgets\Models\WidgetUtilisateur;
+use Modules\PkgQcm\Models\RealisationQcm;
 
 /**
  * Classe BaseUser
@@ -131,6 +132,15 @@ class BaseUser extends BaseModel
     public function widgetUtilisateurs(): HasMany
     {
         return $this->hasMany(WidgetUtilisateur::class, 'user_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Users.
+     *
+     * @return HasMany
+     */
+    public function apprenantIdRealisationQcms(): HasMany
+    {
+        return $this->hasMany(RealisationQcm::class, 'apprenant_id', 'id');
     }
 
 

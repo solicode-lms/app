@@ -48,15 +48,15 @@ class BaseERelationship extends BaseModel
         'reference', 'name', 'type', 'source_e_model_id', 'target_e_model_id', 'cascade_on_delete', 'is_cascade', 'description', 'column_name', 'referenced_table', 'referenced_column', 'through', 'with_column', 'morph_name'
     ];
     public $manyToOne = [
-        'EModel' => [
+        'sourceEModel' => [
             'model' => "Modules\\PkgGapp\\Models\\EModel",
-            'relation' => 'eModels' , 
-            "foreign_key" => "e_model_id", 
+            'relation' => 'sourceEModel' , 
+            "foreign_key" => "source_e_model_id", 
             ],
-        'EModel' => [
+        'targetEModel' => [
             'model' => "Modules\\PkgGapp\\Models\\EModel",
-            'relation' => 'eModels' , 
-            "foreign_key" => "e_model_id", 
+            'relation' => 'targetEModel' , 
+            "foreign_key" => "target_e_model_id", 
             ]
     ];
 

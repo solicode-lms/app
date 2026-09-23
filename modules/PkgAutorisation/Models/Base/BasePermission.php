@@ -52,10 +52,10 @@ class BasePermission extends BaseModel
         'Role' => ['relation' => 'roles' , "foreign_key" => "role_id" ]
     ];
     public $manyToOne = [
-        'SysController' => [
+        'controller' => [
             'model' => "Modules\\Core\\Models\\SysController",
-            'relation' => 'sysControllers' , 
-            "foreign_key" => "sys_controller_id", 
+            'relation' => 'controller' , 
+            "foreign_key" => "controller_id", 
             ]
     ];
 

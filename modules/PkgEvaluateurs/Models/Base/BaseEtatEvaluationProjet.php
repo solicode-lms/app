@@ -47,9 +47,9 @@ class BaseEtatEvaluationProjet extends BaseModel
         'ordre', 'code', 'titre', 'description', 'reference', 'sys_color_id'
     ];
     public $manyToOne = [
-        'SysColor' => [
+        'sysColor' => [
             'model' => "Modules\\Core\\Models\\SysColor",
-            'relation' => 'sysColors' , 
+            'relation' => 'sysColor' , 
             "foreign_key" => "sys_color_id", 
             ]
     ];

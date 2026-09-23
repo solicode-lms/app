@@ -35,7 +35,8 @@ class BaseRealisationUaPrototypeRequest extends FormRequest
             'note' => 'nullable',
             'remarque_formateur' => 'nullable|string',
             'date_debut' => 'nullable',
-            'date_fin' => 'nullable'
+            'date_fin' => 'nullable',
+            'reponseQcms' => 'nullable|array'
         ];
     }
 
@@ -53,7 +54,9 @@ class BaseRealisationUaPrototypeRequest extends FormRequest
             'note.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.note')]),
             'remarque_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.remarque_formateur')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.date_debut')]),
-            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.date_fin')])
+            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.date_fin')]),
+            'reponseQcms.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.reponseQcms')]),
+            'reponseQcms.array' => __('validation.array', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.reponseQcms')])
         ];
     }
 
@@ -67,6 +70,9 @@ class BaseRealisationUaPrototypeRequest extends FormRequest
      */
     protected function prepareForValidation()
     {
+        $this->merge([
+            'reponseQcms' => $this->has('reponseQcms') ? $this->reponseQcms : []
+        ]);
         // En création, on ne touche pas au payload (même traitement existant)
         $id = $this->route('realisationUaPrototype')
         ?? $this->route('realisation_ua_prototype')

@@ -50,9 +50,9 @@ class BaseFeature extends BaseModel
         'Permission' => ['relation' => 'permissions' , "foreign_key" => "permission_id" ]
     ];
     public $manyToOne = [
-        'FeatureDomain' => [
+        'featureDomain' => [
             'model' => "Modules\\Core\\Models\\FeatureDomain",
-            'relation' => 'featureDomains' , 
+            'relation' => 'featureDomain' , 
             "foreign_key" => "feature_domain_id", 
             ]
     ];

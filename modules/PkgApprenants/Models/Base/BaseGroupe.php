@@ -56,14 +56,14 @@ class BaseGroupe extends BaseModel
         'Formateur' => ['relation' => 'formateurs' , "foreign_key" => "formateur_id" ]
     ];
     public $manyToOne = [
-        'Filiere' => [
+        'filiere' => [
             'model' => "Modules\\PkgFormation\\Models\\Filiere",
-            'relation' => 'filieres' , 
+            'relation' => 'filiere' , 
             "foreign_key" => "filiere_id", 
             ],
-        'AnneeFormation' => [
+        'anneeFormation' => [
             'model' => "Modules\\PkgFormation\\Models\\AnneeFormation",
-            'relation' => 'anneeFormations' , 
+            'relation' => 'anneeFormation' , 
             "foreign_key" => "annee_formation_id", 
             ]
     ];

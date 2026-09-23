@@ -40,6 +40,7 @@ class BaseRealisationUaPrototypeExport implements FromCollection, WithHeadings, 
                 'date_debut' => 'date_debut',
                 'date_fin' => 'date_fin',
                 'reference' => 'reference',
+                'reponseQcms' => 'reponseQcms',
             ];
         } else {
             return [
@@ -51,6 +52,7 @@ class BaseRealisationUaPrototypeExport implements FromCollection, WithHeadings, 
                 'date_debut' => __('PkgApprentissage::realisationUaPrototype.date_debut'),
                 'date_fin' => __('PkgApprentissage::realisationUaPrototype.date_fin'),
                 'reference' => __('Core::msg.reference'),
+                    'reponseQcms' => __('PkgQcm::reponseQcm.plural'),
             ];
         }
     }
@@ -70,6 +72,9 @@ class BaseRealisationUaPrototypeExport implements FromCollection, WithHeadings, 
                 'date_debut' => $realisationUaPrototype->date_debut,
                 'date_fin' => $realisationUaPrototype->date_fin,
                 'reference' => $realisationUaPrototype->reference,
+                'reponseQcms' => $realisationUaPrototype->reponseQcms
+                    ->pluck('reference')
+                    ->implode('|'),
             ];
         });
     }

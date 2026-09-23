@@ -44,6 +44,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemAffectationProjet->affectationQcmProjets?->count() > 0 || auth()->user()?->can('create-affectationQcmProjet'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="affectationProjet-hasmany-tabs-affectationQcmProjet-tab" data-toggle="pill" href="#affectationProjet-hasmany-tabs-affectationQcmProjet" role="tab" aria-controls="affectationProjet-hasmany-tabs-affectationQcmProjet" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgQcm::affectationQcmProjet.plural'))}}
+                            </a>
+                        </li>
+                        @endif
                          @if($itemAffectationProjet->tacheAffectations?->count() > 0 || auth()->user()?->can('create-tacheAffectation'))
                         <li class="nav-item">
                             <a class="nav-link" id="affectationProjet-hasmany-tabs-tacheAffectation-tab" data-toggle="pill" href="#affectationProjet-hasmany-tabs-tacheAffectation" role="tab" aria-controls="affectationProjet-hasmany-tabs-tacheAffectation" aria-selected="false">
@@ -65,6 +73,11 @@
                             @if($itemAffectationProjet->realisationProjets?->count() > 0 || auth()->user()?->can('create-realisationProjet'))
                             <div class="tab-pane fade" id="affectationProjet-hasmany-tabs-realisationProjet" role="tabpanel" aria-labelledby="affectationProjet-hasmany-tabs-realisationProjet-tab">
                                 @include('PkgRealisationProjets::realisationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'affectationProjet.edit_' . $itemAffectationProjet->id])
+                            </div>
+                            @endif
+                            @if($itemAffectationProjet->affectationQcmProjets?->count() > 0 || auth()->user()?->can('create-affectationQcmProjet'))
+                            <div class="tab-pane fade" id="affectationProjet-hasmany-tabs-affectationQcmProjet" role="tabpanel" aria-labelledby="affectationProjet-hasmany-tabs-affectationQcmProjet-tab">
+                                @include('PkgQcm::affectationQcmProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'affectationProjet.edit_' . $itemAffectationProjet->id])
                             </div>
                             @endif
                             @if($itemAffectationProjet->tacheAffectations?->count() > 0 || auth()->user()?->can('create-tacheAffectation'))

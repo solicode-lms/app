@@ -47,9 +47,9 @@ class BaseResource extends BaseModel
         'nom', 'lien', 'description', 'projet_id', 'reference'
     ];
     public $manyToOne = [
-        'Projet' => [
+        'projet' => [
             'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
-            'relation' => 'projets' , 
+            'relation' => 'projet' , 
             "foreign_key" => "projet_id", 
             ]
     ];

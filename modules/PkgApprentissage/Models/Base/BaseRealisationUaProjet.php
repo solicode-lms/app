@@ -54,14 +54,14 @@ class BaseRealisationUaProjet extends BaseModel
         'realisation_tache_id', 'realisation_ua_id', 'note', 'bareme', 'remarque_formateur', 'date_debut', 'date_fin', 'reference'
     ];
     public $manyToOne = [
-        'RealisationTache' => [
+        'realisationTache' => [
             'model' => "Modules\\PkgRealisationTache\\Models\\RealisationTache",
-            'relation' => 'realisationTaches' , 
+            'relation' => 'realisationTache' , 
             "foreign_key" => "realisation_tache_id", 
             ],
-        'RealisationUa' => [
+        'realisationUa' => [
             'model' => "Modules\\PkgApprentissage\\Models\\RealisationUa",
-            'relation' => 'realisationUas' , 
+            'relation' => 'realisationUa' , 
             "foreign_key" => "realisation_ua_id", 
             ]
     ];

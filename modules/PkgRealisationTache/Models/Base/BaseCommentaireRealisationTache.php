@@ -50,19 +50,19 @@ class BaseCommentaireRealisationTache extends BaseModel
         'commentaire', 'dateCommentaire', 'reference', 'realisation_tache_id', 'formateur_id', 'apprenant_id'
     ];
     public $manyToOne = [
-        'RealisationTache' => [
+        'realisationTache' => [
             'model' => "Modules\\PkgRealisationTache\\Models\\RealisationTache",
-            'relation' => 'realisationTaches' , 
+            'relation' => 'realisationTache' , 
             "foreign_key" => "realisation_tache_id", 
             ],
-        'Formateur' => [
+        'formateur' => [
             'model' => "Modules\\PkgFormation\\Models\\Formateur",
-            'relation' => 'formateurs' , 
+            'relation' => 'formateur' , 
             "foreign_key" => "formateur_id", 
             ],
-        'Apprenant' => [
+        'apprenant' => [
             'model' => "Modules\\PkgApprenants\\Models\\Apprenant",
-            'relation' => 'apprenants' , 
+            'relation' => 'apprenant' , 
             "foreign_key" => "apprenant_id", 
             ]
     ];

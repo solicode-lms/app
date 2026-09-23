@@ -95,6 +95,7 @@ class BaseApprenantController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemApprenant = $this->apprenantService->createInstance();
  
 
@@ -106,9 +107,9 @@ class BaseApprenantController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', compact('bulkEdit' ,'itemApprenant', 'groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'));
+            return view('PkgApprenants::apprenant._fields', compact('bulkEdit' ,'itemApprenant', 'nationalites', 'niveauxScolaires', 'users', 'sousGroupes', 'groupes'));
         }
-        return view('PkgApprenants::apprenant.create', compact('bulkEdit' ,'itemApprenant', 'groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'));
+        return view('PkgApprenants::apprenant.create', compact('bulkEdit' ,'itemApprenant', 'nationalites', 'niveauxScolaires', 'users', 'sousGroupes', 'groupes'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -140,9 +141,9 @@ class BaseApprenantController extends AdminController
         $itemApprenant = $this->apprenantService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', compact('bulkEdit', 'apprenant_ids', 'itemApprenant', 'groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'));
+            return view('PkgApprenants::apprenant._fields', compact('bulkEdit', 'apprenant_ids', 'itemApprenant', 'nationalites', 'niveauxScolaires', 'users', 'sousGroupes', 'groupes'));
         }
-        return view('PkgApprenants::apprenant.bulk-edit', compact('bulkEdit', 'apprenant_ids', 'itemApprenant', 'groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'));
+        return view('PkgApprenants::apprenant.bulk-edit', compact('bulkEdit', 'apprenant_ids', 'itemApprenant', 'nationalites', 'niveauxScolaires', 'users', 'sousGroupes', 'groupes'));
     }
     /**
      */
@@ -259,10 +260,10 @@ class BaseApprenantController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._edit', array_merge(compact('bulkEdit' , 'itemApprenant','groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'),$realisationCompetence_compact_value, $realisationMicroCompetence_compact_value, $realisationModule_compact_value));
+            return view('PkgApprenants::apprenant._edit', array_merge(compact('bulkEdit' , 'itemApprenant','nationalites', 'niveauxScolaires', 'users', 'sousGroupes', 'groupes'),$realisationCompetence_compact_value, $realisationMicroCompetence_compact_value, $realisationModule_compact_value));
         }
 
-        return view('PkgApprenants::apprenant.edit', array_merge(compact('bulkEdit' ,'itemApprenant','groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'),$realisationCompetence_compact_value, $realisationMicroCompetence_compact_value, $realisationModule_compact_value));
+        return view('PkgApprenants::apprenant.edit', array_merge(compact('bulkEdit' ,'itemApprenant','nationalites', 'niveauxScolaires', 'users', 'sousGroupes', 'groupes'),$realisationCompetence_compact_value, $realisationMicroCompetence_compact_value, $realisationModule_compact_value));
 
 
     }

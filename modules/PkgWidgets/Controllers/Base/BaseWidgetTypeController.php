@@ -73,6 +73,7 @@ class BaseWidgetTypeController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemWidgetType = $this->widgetTypeService->createInstance();
  
 

@@ -48,14 +48,14 @@ class BaseAlignementUa extends BaseModel
         'ordre', 'unite_apprentissage_id', 'session_formation_id', 'description', 'reference'
     ];
     public $manyToOne = [
-        'UniteApprentissage' => [
+        'uniteApprentissage' => [
             'model' => "Modules\\PkgCompetences\\Models\\UniteApprentissage",
-            'relation' => 'uniteApprentissages' , 
+            'relation' => 'uniteApprentissage' , 
             "foreign_key" => "unite_apprentissage_id", 
             ],
-        'SessionFormation' => [
+        'sessionFormation' => [
             'model' => "Modules\\PkgSessions\\Models\\SessionFormation",
-            'relation' => 'sessionFormations' , 
+            'relation' => 'sessionFormation' , 
             "foreign_key" => "session_formation_id", 
             ]
     ];

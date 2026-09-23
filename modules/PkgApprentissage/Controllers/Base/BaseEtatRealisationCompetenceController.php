@@ -76,6 +76,7 @@ class BaseEtatRealisationCompetenceController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemEtatRealisationCompetence = $this->etatRealisationCompetenceService->createInstance();
  
 

@@ -49,14 +49,14 @@ class BaseMobilisationUa extends BaseModel
         'unite_apprentissage_id', 'bareme_evaluation_prototype', 'bareme_evaluation_projet', 'criteres_evaluation_prototype', 'criteres_evaluation_projet', 'description', 'projet_id', 'reference'
     ];
     public $manyToOne = [
-        'UniteApprentissage' => [
+        'uniteApprentissage' => [
             'model' => "Modules\\PkgCompetences\\Models\\UniteApprentissage",
-            'relation' => 'uniteApprentissages' , 
+            'relation' => 'uniteApprentissage' , 
             "foreign_key" => "unite_apprentissage_id", 
             ],
-        'Projet' => [
+        'projet' => [
             'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
-            'relation' => 'projets' , 
+            'relation' => 'projet' , 
             "foreign_key" => "projet_id", 
             ]
     ];

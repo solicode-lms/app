@@ -79,6 +79,7 @@ class BaseMobilisationUaController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemMobilisationUa = $this->mobilisationUaService->createInstance();
  
         // scopeDataInEditContext
@@ -91,9 +92,9 @@ class BaseMobilisationUaController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCreationProjet::mobilisationUa._fields', compact('bulkEdit' ,'itemMobilisationUa', 'projets', 'uniteApprentissages'));
+            return view('PkgCreationProjet::mobilisationUa._fields', compact('bulkEdit' ,'itemMobilisationUa', 'uniteApprentissages', 'projets'));
         }
-        return view('PkgCreationProjet::mobilisationUa.create', compact('bulkEdit' ,'itemMobilisationUa', 'projets', 'uniteApprentissages'));
+        return view('PkgCreationProjet::mobilisationUa.create', compact('bulkEdit' ,'itemMobilisationUa', 'uniteApprentissages', 'projets'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -126,9 +127,9 @@ class BaseMobilisationUaController extends AdminController
         $itemMobilisationUa = $this->mobilisationUaService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgCreationProjet::mobilisationUa._fields', compact('bulkEdit', 'mobilisationUa_ids', 'itemMobilisationUa', 'projets', 'uniteApprentissages'));
+            return view('PkgCreationProjet::mobilisationUa._fields', compact('bulkEdit', 'mobilisationUa_ids', 'itemMobilisationUa', 'uniteApprentissages', 'projets'));
         }
-        return view('PkgCreationProjet::mobilisationUa.bulk-edit', compact('bulkEdit', 'mobilisationUa_ids', 'itemMobilisationUa', 'projets', 'uniteApprentissages'));
+        return view('PkgCreationProjet::mobilisationUa.bulk-edit', compact('bulkEdit', 'mobilisationUa_ids', 'itemMobilisationUa', 'uniteApprentissages', 'projets'));
     }
     /**
      */
@@ -211,10 +212,10 @@ class BaseMobilisationUaController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::mobilisationUa._edit', array_merge(compact('bulkEdit' , 'itemMobilisationUa','projets', 'uniteApprentissages'),$tache_compact_value));
+            return view('PkgCreationProjet::mobilisationUa._edit', array_merge(compact('bulkEdit' , 'itemMobilisationUa','uniteApprentissages', 'projets'),$tache_compact_value));
         }
 
-        return view('PkgCreationProjet::mobilisationUa.edit', array_merge(compact('bulkEdit' ,'itemMobilisationUa','projets', 'uniteApprentissages'),$tache_compact_value));
+        return view('PkgCreationProjet::mobilisationUa.edit', array_merge(compact('bulkEdit' ,'itemMobilisationUa','uniteApprentissages', 'projets'),$tache_compact_value));
 
 
     }

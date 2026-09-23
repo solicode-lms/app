@@ -61,24 +61,24 @@ class BaseRealisationChapitre extends BaseModel
         'chapitre_id', 'etat_realisation_chapitre_id', 'date_debut', 'date_fin', 'dernier_update', 'realisation_ua_id', 'realisation_tache_id', 'commentaire_formateur', 'reference'
     ];
     public $manyToOne = [
-        'Chapitre' => [
+        'chapitre' => [
             'model' => "Modules\\PkgCompetences\\Models\\Chapitre",
-            'relation' => 'chapitres' , 
+            'relation' => 'chapitre' , 
             "foreign_key" => "chapitre_id", 
             ],
-        'EtatRealisationChapitre' => [
+        'etatRealisationChapitre' => [
             'model' => "Modules\\PkgApprentissage\\Models\\EtatRealisationChapitre",
-            'relation' => 'etatRealisationChapitres' , 
+            'relation' => 'etatRealisationChapitre' , 
             "foreign_key" => "etat_realisation_chapitre_id", 
             ],
-        'RealisationUa' => [
+        'realisationUa' => [
             'model' => "Modules\\PkgApprentissage\\Models\\RealisationUa",
-            'relation' => 'realisationUas' , 
+            'relation' => 'realisationUa' , 
             "foreign_key" => "realisation_ua_id", 
             ],
-        'RealisationTache' => [
+        'realisationTache' => [
             'model' => "Modules\\PkgRealisationTache\\Models\\RealisationTache",
-            'relation' => 'realisationTaches' , 
+            'relation' => 'realisationTache' , 
             "foreign_key" => "realisation_tache_id", 
             ]
     ];

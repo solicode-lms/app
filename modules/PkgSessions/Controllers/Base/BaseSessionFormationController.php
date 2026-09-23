@@ -81,6 +81,7 @@ class BaseSessionFormationController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemSessionFormation = $this->sessionFormationService->createInstance();
  
 
@@ -89,9 +90,9 @@ class BaseSessionFormationController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgSessions::sessionFormation._fields', compact('bulkEdit' ,'itemSessionFormation', 'anneeFormations', 'filieres'));
+            return view('PkgSessions::sessionFormation._fields', compact('bulkEdit' ,'itemSessionFormation', 'filieres', 'anneeFormations'));
         }
-        return view('PkgSessions::sessionFormation.create', compact('bulkEdit' ,'itemSessionFormation', 'anneeFormations', 'filieres'));
+        return view('PkgSessions::sessionFormation.create', compact('bulkEdit' ,'itemSessionFormation', 'filieres', 'anneeFormations'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -120,9 +121,9 @@ class BaseSessionFormationController extends AdminController
         $itemSessionFormation = $this->sessionFormationService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgSessions::sessionFormation._fields', compact('bulkEdit', 'sessionFormation_ids', 'itemSessionFormation', 'anneeFormations', 'filieres'));
+            return view('PkgSessions::sessionFormation._fields', compact('bulkEdit', 'sessionFormation_ids', 'itemSessionFormation', 'filieres', 'anneeFormations'));
         }
-        return view('PkgSessions::sessionFormation.bulk-edit', compact('bulkEdit', 'sessionFormation_ids', 'itemSessionFormation', 'anneeFormations', 'filieres'));
+        return view('PkgSessions::sessionFormation.bulk-edit', compact('bulkEdit', 'sessionFormation_ids', 'itemSessionFormation', 'filieres', 'anneeFormations'));
     }
     /**
      */
@@ -229,10 +230,10 @@ class BaseSessionFormationController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgSessions::sessionFormation._edit', array_merge(compact('bulkEdit' , 'itemSessionFormation','anneeFormations', 'filieres'),$alignementUa_compact_value, $livrableSession_compact_value, $projet_compact_value));
+            return view('PkgSessions::sessionFormation._edit', array_merge(compact('bulkEdit' , 'itemSessionFormation','filieres', 'anneeFormations'),$alignementUa_compact_value, $livrableSession_compact_value, $projet_compact_value));
         }
 
-        return view('PkgSessions::sessionFormation.edit', array_merge(compact('bulkEdit' ,'itemSessionFormation','anneeFormations', 'filieres'),$alignementUa_compact_value, $livrableSession_compact_value, $projet_compact_value));
+        return view('PkgSessions::sessionFormation.edit', array_merge(compact('bulkEdit' ,'itemSessionFormation','filieres', 'anneeFormations'),$alignementUa_compact_value, $livrableSession_compact_value, $projet_compact_value));
 
 
     }

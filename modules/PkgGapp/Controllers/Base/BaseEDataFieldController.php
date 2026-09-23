@@ -79,6 +79,7 @@ class BaseEDataFieldController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemEDataField = $this->eDataFieldService->createInstance();
  
 

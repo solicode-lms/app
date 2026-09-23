@@ -81,18 +81,19 @@ class BasePermissionController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemPermission = $this->permissionService->createInstance();
  
 
-        $sysControllers = $this->sysControllerService->all();
+        $controllers = $this->sysControllerService->all();
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgAutorisation::permission._fields', compact('bulkEdit' ,'itemPermission', 'features', 'roles', 'sysControllers'));
+            return view('PkgAutorisation::permission._fields', compact('bulkEdit' ,'itemPermission', 'controllers', 'features', 'roles'));
         }
-        return view('PkgAutorisation::permission.create', compact('bulkEdit' ,'itemPermission', 'features', 'roles', 'sysControllers'));
+        return view('PkgAutorisation::permission.create', compact('bulkEdit' ,'itemPermission', 'controllers', 'features', 'roles'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -112,7 +113,7 @@ class BasePermissionController extends AdminController
          $itemPermission = $this->permissionService->find($permission_ids[0]);
          
  
-        $sysControllers = $this->sysControllerService->getAllForSelect($itemPermission->controller);
+        $controllers = $this->sysControllerService->getAllForSelect($itemPermission->controller);
         $features = $this->featureService->getAllForSelect($itemPermission->features);
         $roles = $this->roleService->getAllForSelect($itemPermission->roles);
 
@@ -122,9 +123,9 @@ class BasePermissionController extends AdminController
         $itemPermission = $this->permissionService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgAutorisation::permission._fields', compact('bulkEdit', 'permission_ids', 'itemPermission', 'features', 'roles', 'sysControllers'));
+            return view('PkgAutorisation::permission._fields', compact('bulkEdit', 'permission_ids', 'itemPermission', 'controllers', 'features', 'roles'));
         }
-        return view('PkgAutorisation::permission.bulk-edit', compact('bulkEdit', 'permission_ids', 'itemPermission', 'features', 'roles', 'sysControllers'));
+        return view('PkgAutorisation::permission.bulk-edit', compact('bulkEdit', 'permission_ids', 'itemPermission', 'controllers', 'features', 'roles'));
     }
     /**
      */
@@ -182,7 +183,7 @@ class BasePermissionController extends AdminController
         $itemPermission = $this->permissionService->edit($id);
 
 
-        $sysControllers = $this->sysControllerService->getAllForSelect($itemPermission->controller);
+        $controllers = $this->sysControllerService->getAllForSelect($itemPermission->controller);
         $features = $this->featureService->getAllForSelect($itemPermission->features);
         $roles = $this->roleService->getAllForSelect($itemPermission->roles);
 
@@ -190,10 +191,10 @@ class BasePermissionController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::permission._fields', array_merge(compact('bulkEdit' , 'itemPermission','features', 'roles', 'sysControllers'),));
+            return view('PkgAutorisation::permission._fields', array_merge(compact('bulkEdit' , 'itemPermission','controllers', 'features', 'roles'),));
         }
 
-        return view('PkgAutorisation::permission.edit', array_merge(compact('bulkEdit' ,'itemPermission','features', 'roles', 'sysControllers'),));
+        return view('PkgAutorisation::permission.edit', array_merge(compact('bulkEdit' ,'itemPermission','controllers', 'features', 'roles'),));
 
 
     }

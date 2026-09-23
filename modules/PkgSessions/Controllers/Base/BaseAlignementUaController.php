@@ -78,6 +78,7 @@ class BaseAlignementUaController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemAlignementUa = $this->alignementUaService->createInstance();
  
 
@@ -86,9 +87,9 @@ class BaseAlignementUaController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgSessions::alignementUa._fields', compact('bulkEdit' ,'itemAlignementUa', 'sessionFormations', 'uniteApprentissages'));
+            return view('PkgSessions::alignementUa._fields', compact('bulkEdit' ,'itemAlignementUa', 'uniteApprentissages', 'sessionFormations'));
         }
-        return view('PkgSessions::alignementUa.create', compact('bulkEdit' ,'itemAlignementUa', 'sessionFormations', 'uniteApprentissages'));
+        return view('PkgSessions::alignementUa.create', compact('bulkEdit' ,'itemAlignementUa', 'uniteApprentissages', 'sessionFormations'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -117,9 +118,9 @@ class BaseAlignementUaController extends AdminController
         $itemAlignementUa = $this->alignementUaService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgSessions::alignementUa._fields', compact('bulkEdit', 'alignementUa_ids', 'itemAlignementUa', 'sessionFormations', 'uniteApprentissages'));
+            return view('PkgSessions::alignementUa._fields', compact('bulkEdit', 'alignementUa_ids', 'itemAlignementUa', 'uniteApprentissages', 'sessionFormations'));
         }
-        return view('PkgSessions::alignementUa.bulk-edit', compact('bulkEdit', 'alignementUa_ids', 'itemAlignementUa', 'sessionFormations', 'uniteApprentissages'));
+        return view('PkgSessions::alignementUa.bulk-edit', compact('bulkEdit', 'alignementUa_ids', 'itemAlignementUa', 'uniteApprentissages', 'sessionFormations'));
     }
     /**
      */
@@ -184,10 +185,10 @@ class BaseAlignementUaController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgSessions::alignementUa._fields', array_merge(compact('bulkEdit' , 'itemAlignementUa','sessionFormations', 'uniteApprentissages'),));
+            return view('PkgSessions::alignementUa._fields', array_merge(compact('bulkEdit' , 'itemAlignementUa','uniteApprentissages', 'sessionFormations'),));
         }
 
-        return view('PkgSessions::alignementUa.edit', array_merge(compact('bulkEdit' ,'itemAlignementUa','sessionFormations', 'uniteApprentissages'),));
+        return view('PkgSessions::alignementUa.edit', array_merge(compact('bulkEdit' ,'itemAlignementUa','uniteApprentissages', 'sessionFormations'),));
 
 
     }

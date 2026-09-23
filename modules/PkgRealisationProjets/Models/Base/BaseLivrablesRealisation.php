@@ -49,14 +49,14 @@ class BaseLivrablesRealisation extends BaseModel
         'livrable_id', 'lien', 'titre', 'description', 'realisation_projet_id', 'reference'
     ];
     public $manyToOne = [
-        'Livrable' => [
+        'livrable' => [
             'model' => "Modules\\PkgCreationProjet\\Models\\Livrable",
-            'relation' => 'livrables' , 
+            'relation' => 'livrable' , 
             "foreign_key" => "livrable_id", 
             ],
-        'RealisationProjet' => [
+        'realisationProjet' => [
             'model' => "Modules\\PkgRealisationProjets\\Models\\RealisationProjet",
-            'relation' => 'realisationProjets' , 
+            'relation' => 'realisationProjet' , 
             "foreign_key" => "realisation_projet_id", 
             ]
     ];

@@ -77,6 +77,7 @@ class BaseMicroCompetenceController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemMicroCompetence = $this->microCompetenceService->createInstance();
  
 

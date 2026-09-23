@@ -96,11 +96,12 @@ class BaseProfileController extends AdminController
         }
 
 
+        // scopeDataByRole
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->init('scope.user.formateur.id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->set('scope.user.formateur.id'  , $this->sessionState->get('formateur_id'));
         }
         if(Auth::user()->hasRole('apprenant')){
-            $this->viewState->init('scope.user.apprenant.id'  , $this->sessionState->get('apprenant_id'));
+            $this->viewState->set('scope.user.apprenant.id'  , $this->sessionState->get('apprenant_id'));
         }
         $itemProfile = $this->profileService->createInstance();
  

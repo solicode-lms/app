@@ -104,6 +104,15 @@ class BaseRealisationUaPrototypeSeeder extends Seeder
                 } else {
                     $realisationUaPrototype = $realisationUaPrototypeService->create($realisationUaPrototypeData);
                 }
+                if (!empty($row["reponseQcms"])) {
+                    $reponseQcmReferences = array_map('trim', explode('|', $row["reponseQcms"]));
+                    $reponseQcmIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $reponseQcmReferences)->pluck('id')->toArray();
+
+                    if (!empty($reponseQcmIds)) {
+                        $realisationUaPrototype->reponseQcms()->sync($reponseQcmIds);
+                          $realisationUaPrototype->touch(); // pour lancer Observer
+                    }
+                }
             }
         }
 

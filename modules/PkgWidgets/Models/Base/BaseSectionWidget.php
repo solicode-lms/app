@@ -47,9 +47,9 @@ class BaseSectionWidget extends BaseModel
         'ordre', 'icone', 'titre', 'sous_titre', 'sys_color_id', 'reference'
     ];
     public $manyToOne = [
-        'SysColor' => [
+        'sysColor' => [
             'model' => "Modules\\Core\\Models\\SysColor",
-            'relation' => 'sysColors' , 
+            'relation' => 'sysColor' , 
             "foreign_key" => "sys_color_id", 
             ]
     ];

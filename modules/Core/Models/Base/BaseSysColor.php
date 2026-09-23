@@ -22,6 +22,7 @@ use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\PkgApprentissage\Models\EtatRealisationModule;
 use Modules\PkgApprentissage\Models\EtatRealisationUa;
 use Modules\PkgWidgets\Models\SectionWidget;
+use Modules\PkgQcm\Models\EtatRealisationQcm;
 use Modules\PkgWidgets\Models\Widget;
 use Modules\PkgCreationProjet\Models\LabelProjet;
 use Modules\PkgRealisationTache\Models\WorkflowTache;
@@ -151,6 +152,15 @@ class BaseSysColor extends BaseModel
     public function sectionWidgets(): HasMany
     {
         return $this->hasMany(SectionWidget::class, 'sys_color_id', 'id');
+    }
+    /**
+     * Relation HasMany pour SysColors.
+     *
+     * @return HasMany
+     */
+    public function etatRealisationQcms(): HasMany
+    {
+        return $this->hasMany(EtatRealisationQcm::class, 'sys_color_id', 'id');
     }
     /**
      * Relation HasMany pour SysColors.

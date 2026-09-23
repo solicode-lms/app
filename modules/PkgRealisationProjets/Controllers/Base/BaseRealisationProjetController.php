@@ -98,6 +98,7 @@ class BaseRealisationProjetController extends AdminController
         }
 
 
+        // scopeDataByRole
         $itemRealisationProjet = $this->realisationProjetService->createInstance();
  
         // scopeDataInEditContext

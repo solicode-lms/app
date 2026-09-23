@@ -47,9 +47,9 @@ class BaseNotification extends BaseModel
         'title', 'type', 'message', 'sent_at', 'is_read', 'user_id', 'data'
     ];
     public $manyToOne = [
-        'User' => [
+        'user' => [
             'model' => "Modules\\PkgAutorisation\\Models\\User",
-            'relation' => 'users' , 
+            'relation' => 'user' , 
             "foreign_key" => "user_id", 
             ]
     ];
