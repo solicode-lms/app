@@ -1,5 +1,5 @@
 ---
-name: app-service-layer
+name: app-service
 description: "Expertise de l'architecture modulaire de la couche Service, des Traits et des règles de modification (gapp)."
 ---
 

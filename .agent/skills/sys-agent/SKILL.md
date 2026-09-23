@@ -28,8 +28,8 @@ description: Expert unifié de la gestion, création et maintenance des composan
   - **Nommage** : Le nom est un **Rôle Humain** (ex: `analyste-uml`).
   - Le fichier respecte la structure `template-skill.md`.
   - Le dossier du skill est créé en `kebab-case`.
-  - **Capacités génériques** : Les fichiers de savoir-faire (Standards, Règles) doivent être dans le dossier `capacités/` et non dans `resources/` (voir `capacités-skill.md`).
-  - **Déport des Contraintes** : Les instructions complexes, templates spécifiques et règles détaillées DOIVENT être dans un fichier de capacité (`capacités/capacité-[nom].md`) et non dans le SKILL.md.
+  - **Capacités génériques** : Les fichiers de savoir-faire (Standards, Règles, Listes exhaustives, Checklists) doivent être dans le dossier `capacités/` et non dans `resources/` (voir `capacités-skill.md`).
+  - **Déport structuré des connaissances (RÈGLE STRICTE)** : Il faut élargir les actions d'un skill en créant des capacités, de façon logique et structurée. Le fichier `SKILL.md` doit rester concis et centré sur l'orchestration. Toute règle complexe, checklist détaillée ou liste exhaustive de composants doit impérativement être déportée dans un fichier de capacité dédié (`capacités/capacité-[nom].md`).
 - **📝 Instructions Détaillées** :
   1. **Lire** la capacité : `capacités/capacités-skill.md`.
   2. **Si Création** :

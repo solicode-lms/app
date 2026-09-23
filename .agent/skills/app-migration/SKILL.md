@@ -1,5 +1,5 @@
 ---
-name: app-create-table
+name: app-migration
 description: Expert en création de tables de base de données via migrations
 ---
 

@@ -56,10 +56,38 @@ description: Expert de l'architecture et de la personnalisation des vues Blade s
 - **❌ Interdictions Spécifiques** : 
   - Toujours supprimer le commentaire "maintenu par ESSARRAJ Fouad".
 
+### Action E : Ajout et Configuration de Filtres
+> **Description** : Guider et accompagner le développeur dans la mise en place de filtres sur les listes (index).
+- **Capacités Utilisées** :
+  - `capacités/capacité-filtres-donnees.md`
+- **Entrées** : `Modèle cible`, `Filtre désiré`
+- **Sorties** : `Bloc JSON Gapp` ou `Instructions de modification de Service`
+- **📝 Instructions d'Orchestration** :
+  1. Lire `capacité-filtres-donnees.md`.
+  2. Déterminer si le besoin est basique (relation, métadonnée JSON) ou complexe (surcharge Service `initFieldsFilterable`).
+  3. Fournir la solution correspondante sans jamais écraser soi-même les fichiers JSON de métadonnées de Gapp.
+
+### Action F : Configurer l'édition en ligne (Inline Edit)
+> **Description** : Configurer la visibilité et la validation d'un champ éditable en ligne.
+- **Capacités Utilisées** :
+  - `capacités/capacité-validation-inline.md`
+- **Entrées** : `Nom de l'entité`, `Nom du champ`, `Règles de validation`
+- **Sorties** : Fichiers modifiés `[Model]Request.php` et `[Model]Service.php`
+- **📝 Instructions d'Orchestration** :
+  1. Utiliser `capacité-validation-inline` pour configurer le FormRequest avec la validation dynamique et le mécanisme de repli (fallback) sur la requête globale.
+  2. S'assurer que le service métier surcharge `beforeUpdateRules` pour jeter une `ValidationException` en cas de dépassement.
+
+### Action G : Initialiser et Exploiter le ViewState (Vues)
+> **Description** : S'assurer que la vue exploite correctement les paramètres d'état (ViewState).
+- **Capacités Utilisées** :
+  - `capacités/capacité-view-state.md`
+- **Entrées** : `Nom de la vue`, `Variables d'état requises`
+- **Sorties** : Modification du rendu conditionnel ou des appels AJAX dans la vue Blade.
+
 ---
 
 ## 🛠️ Capacités (Savoir-Faire Technique)
-*Documentation des fichiers situés dans le dossier `.agent/skills/expert-blade/capacités/`*
+*Documentation des fichiers situés dans le dossier `.agent/skills/app-blade/capacités/`*
 
 ### 1. `capacité-blade-architecture.md`
 - **Rôle** : Connaissance de la hiérarchie globale (Héritage `_*.blade.php` → `custom/_*.blade.php`).
@@ -69,6 +97,15 @@ description: Expert de l'architecture et de la personnalisation des vues Blade s
 
 ### 3. `capacité-blade-form-fields.md`
 - **Rôle** : Logique de la surcharge des champs de formulaire via le composant XML `<x-form-field>`.
+
+### 4. `capacité-filtres-donnees.md`
+- **Rôle** : Méthodes et règles pour ajouter des filtres de recherche (JSON Gapp ou Service).
+
+### 5. `capacité-validation-inline.md`
+- **Rôle** : Méthode technique pour ajouter la validation dynamique sur un champ éditable en ligne en gérant les particularités d'instanciation de Gapp.
+
+### 6. `capacité-view-state.md`
+- **Rôle** : Base de connaissances sur la manipulation du ViewState côté frontend (impact sur Select2 et datatables).
 
 ---
 

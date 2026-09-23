@@ -10,8 +10,8 @@ description: Expert de l'analyse métier, de la conception architecturale, et de
 
 ## 🚫 Interdictions Globales
 1. **Dossier Cible** : Ne jamais modifier de code source PHP/Blade. Ce skill opère **uniquement** sur les fichiers Markdown (`.md`) et les schémas du dossier `cahiers-charges/` (ou équivalents de documentation de conception).
-2. **Cohérence UML/Texte** : Ne jamais ajouter une règle métier dans le texte sans vérifier qu'elle se reflète dans le diagramme de classes (et inversement), à l'exception des évolutions non développées.
-3. **Miroir du Code (RÈGLE STRICTE)** : Le diagramme de classe Mermaid doit refléter **strictement** le code réel existant de l'application. Ne jamais modifier le diagramme pour y ajouter des concepts futurs. La modification du diagramme se fait *uniquement* après la réalisation effective de l'évolution dans le code. Les propositions d'évolutions doivent être documentées dans un dossier de type `demandes-evolutions`.
+2. **Cohérence UML/Texte** : Ne jamais ajouter une règle métier dans le texte sans vérifier qu'elle se reflète dans le diagramme de classes (et inversement), à l'exception des issues non développées.
+3. **Miroir du Code (RÈGLE STRICTE)** : Le diagramme de classe Mermaid doit refléter **strictement** le code réel existant de l'application. Ne jamais modifier le diagramme pour y ajouter des concepts futurs. La modification du diagramme se fait *uniquement* après la réalisation effective de l'issue dans le code. Les propositions de modifications doivent être documentées dans un dossier nommé `issues`.
 4. **Format des Diagrammes** : Toujours utiliser le format **Mermaid** (`classDiagram`) pour dessiner ou modifier les diagrammes de classes, afin de garantir leur rendu natif dans les fichiers Markdown.
 
 ## ⚡ Actions (Orchestration)
@@ -37,6 +37,20 @@ description: Expert de l'analyse métier, de la conception architecturale, et de
   - Une introduction et l'objectif du module.
   - Un diagramme de classe complet (Mermaid).
   - Le dictionnaire des données et règles de gestion.
+
+### Action C : Rédaction d'une Issue (Demande de modification)
+> **Description** : Documenter une demande de modification de l'application ou du modèle de données avant son développement.
+
+- **Points de Contrôle & Checklist des Composants** :
+  - Lors de la création d'un fichier d'issue (ex: `ISSUE-002-Type-Question-Enum.md`), le concepteur **doit analyser l'impact de la modification sur tous les composants de l'application**.
+  - Il est **obligatoire** de lister les skills nécessaires pour réaliser l'issue en se basant sur la grille d'analyse documentée dans la capacité `capacités/capacité-architecture-composants.md`.
+  - Décrire clairement le contexte, les modifications demandées par composant, et les actions post-développement (mise à jour du diagramme).
+
+## 🛠️ Capacités (Savoir-Faire Technique)
+*Documentation des fichiers situés dans le dossier `capacités/`*
+
+### 1. `capacité-architecture-composants.md`
+- **Rôle** : Fournit la liste exhaustive des composants de l'application et de leurs skills associés, indispensable pour déterminer l'impact transverse d'une issue.
 
 ## 🔄 Scénarios d'Exécution
 

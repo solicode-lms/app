@@ -1,5 +1,5 @@
 ---
-name: app-gapp-metadata
+name: sys-gapp
 description: Expert pour déterminer et générer la configuration JSON des métadonnées Gapp (scopeDataInEditContext, scopeDataByRole, ownedByUser).
 ---
 
