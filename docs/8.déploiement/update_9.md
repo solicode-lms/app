@@ -1,12 +1,16 @@
 # Création de package QCM 
 
-Exemple 
 
+
+## Création des Tables 
 
 
 ## Migration
 
+````bash
 php artisan migrate
+sudo php artisan migrate
+````
 
 ## Ajouter le package Autoformation à la table sys_modules
 
