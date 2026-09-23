@@ -10,8 +10,9 @@ description: Expert de l'analyse métier, de la conception architecturale, et de
 
 ## 🚫 Interdictions Globales
 1. **Dossier Cible** : Ne jamais modifier de code source PHP/Blade. Ce skill opère **uniquement** sur les fichiers Markdown (`.md`) et les schémas du dossier `cahiers-charges/` (ou équivalents de documentation de conception).
-2. **Cohérence UML/Texte** : Ne jamais ajouter une règle métier dans le texte sans vérifier qu'elle se reflète dans le diagramme de classes (et inversement).
-3. **Format des Diagrammes** : Toujours utiliser le format **Mermaid** (`classDiagram`) pour dessiner ou modifier les diagrammes de classes, afin de garantir leur rendu natif dans les fichiers Markdown.
+2. **Cohérence UML/Texte** : Ne jamais ajouter une règle métier dans le texte sans vérifier qu'elle se reflète dans le diagramme de classes (et inversement), à l'exception des évolutions non développées.
+3. **Miroir du Code (RÈGLE STRICTE)** : Le diagramme de classe Mermaid doit refléter **strictement** le code réel existant de l'application. Ne jamais modifier le diagramme pour y ajouter des concepts futurs. La modification du diagramme se fait *uniquement* après la réalisation effective de l'évolution dans le code. Les propositions d'évolutions doivent être documentées dans un dossier de type `demandes-evolutions`.
+4. **Format des Diagrammes** : Toujours utiliser le format **Mermaid** (`classDiagram`) pour dessiner ou modifier les diagrammes de classes, afin de garantir leur rendu natif dans les fichiers Markdown.
 
 ## ⚡ Actions (Orchestration)
 
