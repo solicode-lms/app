@@ -1,0 +1,110 @@
+classDiagram
+    direction LR
+
+    namespace PkgQcm {
+        class Qcm
+        class Question
+        class Proposition
+        class RealisationQcm
+        class ReponseQcm
+        class AffectationQcmProjet
+        class EtatRealisationQcm
+    }
+
+    class EtatRealisationQcm {
+        +id: int
+        +titre: string
+        +description: string
+        +sys_color_id: int
+        +is_editable_by_formateur: boolean
+    }
+
+    namespace PkgApprentissage {
+        class RealisationUaPrototype
+    }
+
+    namespace PkgApprenants {
+        class Apprenant
+    }
+
+    namespace PkgCompetences {
+        class UniteApprentissage
+    }
+
+    namespace PkgFormation {
+        class Formateur
+    }
+
+    namespace PkgRealisationProjets {
+        class AffectationProjet
+    }
+
+
+    class Qcm {
+        +id: bigint
+        +titre: string
+        +description: text
+        +duree_minutes: integer
+        +is_duree_limitee: boolean
+        +is_publie: boolean
+    }
+
+
+    class Question {
+        +id: bigint
+        +enonce: text
+        +type: enum
+        +explication: text
+        +is_actif: boolean
+        +ordre: integer
+        +bareme: float
+    }
+
+    class Proposition {
+        +id: bigint
+        +libelle: text
+        +is_correcte: boolean
+        +ordre: integer
+    }
+
+    class RealisationQcm {
+        +id: bigint
+        +date_debut: datetime
+        +date_fin: datetime
+        +date_soumission: datetime
+        +statut: string
+        +date_validation: datetime
+    }
+
+    class ReponseQcm {
+        +id: bigint
+        +date_reponse: datetime
+    }
+
+    %% Questions
+    Question "1" --> "*" Proposition
+    Question "*" --> "1" UniteApprentissage
+
+    %% Création de QCM par formateur
+    Qcm "*" --> "1" Formateur
+    Qcm "1" --> "*" Question
+
+    %% Affectation de QCM au AffectationQcmProjet
+    AffectationProjet "1" --> "*" AffectationQcmProjet
+    AffectationQcmProjet "*" --> "1" Qcm
+    AffectationQcmProjet "1" --> "*" RealisationQcm
+    RealisationQcm "*" --> "1" Apprenant
+    RealisationQcm "*" --> "1" EtatRealisationQcm
+
+
+    %% Un QCM peut être affecter directement à un apprenant
+    Qcm "1" --> "*" RealisationQcm
+
+    %% Réalisation de QCP par les Apprenants
+    RealisationQcm "1" --> "*" ReponseQcm
+
+    %% Relation avec ReponseQcm et RealisationUaPrototype
+    ReponseQcm "*" --> "*" RealisationUaPrototype : alimente après validation
+
+    ReponseQcm "*" --> "1" Question
+    ReponseQcm "*"  --> "*" Proposition
