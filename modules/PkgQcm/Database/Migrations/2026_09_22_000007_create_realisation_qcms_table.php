@@ -9,7 +9,7 @@ return new class extends Migration {
             $table->string('reference')->unique();
             $table->foreignId('affectation_qcm_projet_id')->nullable()->constrained('affectation_qcm_projets')->onDelete('cascade');
             $table->foreignId('qcm_id')->nullable()->constrained('qcms')->onDelete('cascade');
-            $table->foreignId('apprenant_id')->constrained('users')->onDelete('cascade'); // Assuming apprenant_id links to users or apprenants
+            $table->foreignId('apprenant_id')->constrained('apprenants')->onDelete('cascade');
             $table->foreignId('etat_realisation_qcm_id')->nullable()->constrained('etat_realisation_qcms')->onDelete('set null');
             $table->dateTime('date_debut')->nullable();
             $table->dateTime('date_fin')->nullable();
