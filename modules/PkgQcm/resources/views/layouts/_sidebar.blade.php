@@ -54,7 +54,7 @@
             <li class="nav-item" id="menu-questionQcms">
                 <a href="{{ route('questionQcms.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgQcm/questionQcms') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-table"></i>
+                    <i class="nav-icon fas fa-chalkboard"></i>
                     <p>{{__('PkgQcm::questionQcm.plural')}}</p>
                 </a>
             </li>
@@ -63,7 +63,7 @@
             <li class="nav-item" id="menu-realisationQcms">
                 <a href="{{ route('realisationQcms.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgQcm/realisationQcms') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-table"></i>
+                    <i class="nav-icon fas fa-cog"></i>
                     <p>{{__('PkgQcm::realisationQcm.plural')}}</p>
                 </a>
             </li>
@@ -72,7 +72,7 @@
             <li class="nav-item" id="menu-reponseQcms">
                 <a href="{{ route('reponseQcms.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgQcm/reponseQcms') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-table"></i>
+                    <i class="nav-icon fas fa-file-alt"></i>
                     <p>{{__('PkgQcm::reponseQcm.plural')}}</p>
                 </a>
             </li>
@@ -131,7 +131,7 @@
             @can('index-questionQcm') 
             <li class="nav-item" id="menu-questionQcms">
                 <a href="{{ route('questionQcms.index') }}" class="nav-link {{ Request::is('admin/PkgQcm/questionQcms') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-table"></i>
+                    <i class="nav-icon fas fa-chalkboard"></i>
                     <p>{{__('PkgQcm::questionQcm.plural')}}</p>
                 </a>
             </li>
@@ -139,7 +139,7 @@
             @can('index-realisationQcm') 
             <li class="nav-item" id="menu-realisationQcms">
                 <a href="{{ route('realisationQcms.index') }}" class="nav-link {{ Request::is('admin/PkgQcm/realisationQcms') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-table"></i>
+                    <i class="nav-icon fas fa-cog"></i>
                     <p>{{__('PkgQcm::realisationQcm.plural')}}</p>
                 </a>
             </li>
@@ -147,7 +147,7 @@
             @can('index-reponseQcm') 
             <li class="nav-item" id="menu-reponseQcms">
                 <a href="{{ route('reponseQcms.index') }}" class="nav-link {{ Request::is('admin/PkgQcm/reponseQcms') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-table"></i>
+                    <i class="nav-icon fas fa-file-alt"></i>
                     <p>{{__('PkgQcm::reponseQcm.plural')}}</p>
                 </a>
             </li>
