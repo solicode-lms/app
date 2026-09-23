@@ -13,6 +13,7 @@ description: Expert unifié de la gestion, création et maintenance des composan
 2. **Langue** : Tout le contenu généré (Descriptions, Instructions) doit être impérativement en **Français**.
 3. **Source de Vérité** : Les fichiers dans `capacités/` (Standards) sont la loi absolue.
 4. **Templates** : Interdiction de créer un fichier "from scratch" ; toujours instancier le template correspondant dans `resources/`.
+5. **Workflows** : Ne pas créer de fichier de workflow (ex: `/w-mon-skill.md`) pour chaque nouveau skill. L'agent travaille avec les skills directement (sans workflow), sauf si un workflow existe déjà ou si sa création est explicitement demandée.
 
 ---
 
