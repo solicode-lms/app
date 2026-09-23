@@ -194,14 +194,13 @@
     "tables": [
         "etat_realisation_qcms",
         "qcms",
-        "question_libs",
+        "questions",
         "proposition_reponses",
-        "question_qcms",
         "affectation_qcm_projets",
         "realisation_qcms",
         "reponse_qcms",
         "proposition_reponse_reponse_qcm",
-        "realisation_ua_projet_reponse_qcm"
+        "realisation_ua_prototype_reponse_qcm"
     ]
 }
         

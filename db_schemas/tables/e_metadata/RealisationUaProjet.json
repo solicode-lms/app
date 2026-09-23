@@ -628,35 +628,5 @@
         ],
         "e_model_reference": "realisation_ua_projets",
         "e_metadata_definition_reference": "ownedByUser"
-    },
-    {
-        "reference": "realisation_ua_projets_reponse_qcms_realisation_ua_projet_reponse_qcm_m2m_m2m_displayOrder",
-        "value_integer": 12,
-        "e_data_field_reference": "realisation_ua_projets_reponse_qcms_realisation_ua_projet_reponse_qcm_m2m_m2m",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "realisation_ua_projets_reponse_qcms_realisation_ua_projet_reponse_qcm_m2m_m2m_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "realisation_ua_projets_reponse_qcms_realisation_ua_projet_reponse_qcm_m2m_m2m",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "realisation_ua_projets_reponse_qcms_realisation_ua_projet_reponse_qcm_m2m_m2m_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "realisation_ua_projets_reponse_qcms_realisation_ua_projet_reponse_qcm_m2m_m2m",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
-        "reference": "realisation_ua_projets_reponse_qcms_realisation_ua_projet_reponse_qcm_m2m_m2m_viewFormFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "realisation_ua_projets_reponse_qcms_realisation_ua_projet_reponse_qcm_m2m_m2m",
-        "e_metadata_definition_reference": "viewFormFieldVisible"
-    },
-    {
-        "reference": "realisation_ua_projets_reponse_qcms_realisation_ua_projet_reponse_qcm_m2m_m2m_viewShowFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "realisation_ua_projets_reponse_qcms_realisation_ua_projet_reponse_qcm_m2m_m2m",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

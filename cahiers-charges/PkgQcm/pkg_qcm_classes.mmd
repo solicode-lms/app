@@ -3,9 +3,8 @@ classDiagram
 
     namespace PkgQcm {
         class Qcm
-        class QuestionLib
+        class Question
         class Proposition
-        class QuestionQcm
         class RealisationQcm
         class ReponseQcm
         class AffectationQcmProjet
@@ -21,7 +20,7 @@ classDiagram
     }
 
     namespace PkgApprentissage {
-        class RealisationUAProjet
+        class RealisationUaPrototype
     }
 
     namespace PkgApprenants {
@@ -51,12 +50,14 @@ classDiagram
     }
 
 
-    class QuestionLib {
+    class Question {
         +id: bigint
         +enonce: text
         +type: enum
         +explication: text
         +is_actif: boolean
+        +ordre: integer
+        +bareme: float
     }
 
     class Proposition {
@@ -64,12 +65,6 @@ classDiagram
         +libelle: text
         +is_correcte: boolean
         +ordre: integer
-    }
-
-    class QuestionQcm {
-        +id: bigint
-        +ordre: integer
-        +bareme: float
     }
 
     class RealisationQcm {
@@ -86,14 +81,13 @@ classDiagram
         +date_reponse: datetime
     }
 
-    %% Banque des questions
-    QuestionLib "1" --> "*" Proposition
-    QuestionLib "*" --> "1" UniteApprentissage
+    %% Questions
+    Question "1" --> "*" Proposition
+    Question "*" --> "1" UniteApprentissage
 
     %% Création de QCM par formateur
     Qcm "*" --> "1" Formateur
-    Qcm "1" --> "*" QuestionQcm
-    QuestionQcm "*" --> "1" QuestionLib : appartient
+    Qcm "1" --> "*" Question
 
     %% Affectation de QCM au AffectationQcmProjet
     AffectationProjet "1" --> "*" AffectationQcmProjet
@@ -109,8 +103,8 @@ classDiagram
     %% Réalisation de QCP par les Apprenants
     RealisationQcm "1" --> "*" ReponseQcm
 
-    %% Relation avec ReponseQcm et RealisationUAProjet
-    ReponseQcm "*" --> "*" RealisationUAProjet : alimente après validation
+    %% Relation avec ReponseQcm et RealisationUaPrototype
+    ReponseQcm "*" --> "*" RealisationUaPrototype : alimente après validation
 
-    ReponseQcm "*" --> "1" QuestionQcm
+    ReponseQcm "*" --> "1" Question
     ReponseQcm "*"  --> "*" Proposition
