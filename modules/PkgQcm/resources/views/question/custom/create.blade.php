@@ -1,3 +1,3 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@extends('PkgQcm::questionLib.create')
+@extends('PkgQcm::question.create')

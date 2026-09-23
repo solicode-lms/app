@@ -1,3 +1,3 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@extends('PkgQcm::questionLib._index')
+@extends('PkgQcm::question._index')

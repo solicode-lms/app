@@ -13,6 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\PkgApprentissage\Models\RealisationUa;
+use Modules\PkgQcm\Models\ReponseQcm;
 
 /**
  * Classe BaseRealisationUaPrototype
@@ -53,6 +54,9 @@ class BaseRealisationUaPrototype extends BaseModel
     protected $fillable = [
         'realisation_tache_id', 'realisation_ua_id', 'bareme', 'note', 'remarque_formateur', 'date_debut', 'date_fin', 'reference'
     ];
+    public $manyToMany = [
+        'ReponseQcm' => ['relation' => 'reponseQcms' , "foreign_key" => "reponse_qcm_id" ]
+    ];
     public $manyToOne = [
         'realisationTache' => [
             'model' => "Modules\\PkgRealisationTache\\Models\\RealisationTache",
@@ -86,6 +90,15 @@ class BaseRealisationUaPrototype extends BaseModel
         return $this->belongsTo(RealisationUa::class, 'realisation_ua_id', 'id');
     }
 
+    /**
+     * Relation ManyToMany pour ReponseQcms.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function reponseQcms()
+    {
+        return $this->belongsToMany(ReponseQcm::class, 'realisation_ua_prototype_reponse_qcm');
+    }
 
 
 

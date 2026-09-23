@@ -104,15 +104,6 @@ class BaseRealisationUaProjetSeeder extends Seeder
                 } else {
                     $realisationUaProjet = $realisationUaProjetService->create($realisationUaProjetData);
                 }
-                if (!empty($row["reponseQcms"])) {
-                    $reponseQcmReferences = array_map('trim', explode('|', $row["reponseQcms"]));
-                    $reponseQcmIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $reponseQcmReferences)->pluck('id')->toArray();
-
-                    if (!empty($reponseQcmIds)) {
-                        $realisationUaProjet->reponseQcms()->sync($reponseQcmIds);
-                          $realisationUaProjet->touch(); // pour lancer Observer
-                    }
-                }
             }
         }
 

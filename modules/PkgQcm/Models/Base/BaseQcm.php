@@ -13,7 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgQcm\Models\AffectationQcmProjet;
-use Modules\PkgQcm\Models\QuestionQcm;
+use Modules\PkgQcm\Models\Question;
 use Modules\PkgQcm\Models\RealisationQcm;
 
 /**
@@ -83,9 +83,9 @@ class BaseQcm extends BaseModel
      *
      * @return HasMany
      */
-    public function questionQcms(): HasMany
+    public function questions(): HasMany
     {
-        return $this->hasMany(QuestionQcm::class, 'qcm_id', 'id');
+        return $this->hasMany(Question::class, 'qcm_id', 'id');
     }
     /**
      * Relation HasMany pour Qcms.

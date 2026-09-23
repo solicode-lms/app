@@ -52,11 +52,11 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemUniteApprentissage->questionLibs?->count() > 0 || auth()->user()?->can('create-questionLib'))
+                         @if($itemUniteApprentissage->questions?->count() > 0 || auth()->user()?->can('create-question'))
                         <li class="nav-item">
-                            <a class="nav-link" id="uniteApprentissage-hasmany-tabs-questionLib-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-questionLib" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-questionLib" aria-selected="false">
+                            <a class="nav-link" id="uniteApprentissage-hasmany-tabs-question-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-question" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-question" aria-selected="false">
                                 <i class="nav-icon fas fa-table"></i>
-                                {{ucfirst(__('PkgQcm::questionLib.plural'))}}
+                                {{ucfirst(__('PkgQcm::question.plural'))}}
                             </a>
                         </li>
                         @endif
@@ -80,9 +80,9 @@
                                 @include('PkgCompetences::critereEvaluation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.edit_' . $itemUniteApprentissage->id])
                             </div>
                             @endif
-                            @if($itemUniteApprentissage->questionLibs?->count() > 0 || auth()->user()?->can('create-questionLib'))
-                            <div class="tab-pane fade" id="uniteApprentissage-hasmany-tabs-questionLib" role="tabpanel" aria-labelledby="uniteApprentissage-hasmany-tabs-questionLib-tab">
-                                @include('PkgQcm::questionLib._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.edit_' . $itemUniteApprentissage->id])
+                            @if($itemUniteApprentissage->questions?->count() > 0 || auth()->user()?->can('create-question'))
+                            <div class="tab-pane fade" id="uniteApprentissage-hasmany-tabs-question" role="tabpanel" aria-labelledby="uniteApprentissage-hasmany-tabs-question-tab">
+                                @include('PkgQcm::question._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.edit_' . $itemUniteApprentissage->id])
                             </div>
                             @endif
 

@@ -70,46 +70,6 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemReponseQcm" field="question_qcm_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="question_qcm_id" 
-              id="bulk_field_question_qcm_id" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="question_qcm_id">
-            {{ ucfirst(__('PkgQcm::questionQcm.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="question_qcm_id" 
-            required
-            
-            
-            name="question_qcm_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($questionQcms as $questionQcm)
-                    <option value="{{ $questionQcm->id }}"
-                        {{ (isset($itemReponseQcm) && $itemReponseQcm->question_qcm_id == $questionQcm->id) || (old('question_qcm_id>') == $questionQcm->id) ? 'selected' : '' }}>
-                        {{ $questionQcm }}
-                    </option>
-                @endforeach
-            </select>
-          @error('question_qcm_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemReponseQcm" field="date_reponse" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
@@ -140,6 +100,46 @@
                 value="{{ $itemReponseQcm ? $itemReponseQcm->date_reponse : old('date_reponse') }}">
 
           @error('date_reponse')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemReponseQcm" field="question_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="question_id" 
+              id="bulk_field_question_id" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="question_id">
+            {{ ucfirst(__('PkgQcm::question.singular')) }}
+            
+          </label>
+                      <select 
+            id="question_id" 
+            
+            
+            
+            name="question_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($questions as $question)
+                    <option value="{{ $question->id }}"
+                        {{ (isset($itemReponseQcm) && $itemReponseQcm->question_id == $question->id) || (old('question_id>') == $question->id) ? 'selected' : '' }}>
+                        {{ $question }}
+                    </option>
+                @endforeach
+            </select>
+          @error('question_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -186,7 +186,7 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemReponseQcm" field="realisationUaProjets" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemReponseQcm" field="realisationUaPrototypes" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -195,31 +195,31 @@
               type="checkbox" 
               class="check-input" 
               name="fields_modifiables[]" 
-              value="realisationUaProjets" 
-              id="bulk_field_realisationUaProjets" 
+              value="realisationUaPrototypes" 
+              id="bulk_field_realisationUaPrototypes" 
               title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="realisationUaProjets">
-            {{ ucfirst(__('PkgApprentissage::realisationUaProjet.plural')) }}
+          <label for="realisationUaPrototypes">
+            {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.plural')) }}
             
           </label>
                       <select
-                id="realisationUaProjets"
-                name="realisationUaProjets[]"
+                id="realisationUaPrototypes"
+                name="realisationUaPrototypes[]"
                 class="form-control select2"
                 
                 
                 multiple="multiple">
                
-                @foreach ($realisationUaProjets as $realisationUaProjet)
-                    <option value="{{ $realisationUaProjet->id }}"
-                        {{ (isset($itemReponseQcm) && $itemReponseQcm->realisationUaProjets && $itemReponseQcm->realisationUaProjets->contains('id', $realisationUaProjet->id)) || (is_array(old('realisationUaProjets')) && in_array($realisationUaProjet->id, old('realisationUaProjets'))) ? 'selected' : '' }}>
-                        {{ $realisationUaProjet }}
+                @foreach ($realisationUaPrototypes as $realisationUaPrototype)
+                    <option value="{{ $realisationUaPrototype->id }}"
+                        {{ (isset($itemReponseQcm) && $itemReponseQcm->realisationUaPrototypes && $itemReponseQcm->realisationUaPrototypes->contains('id', $realisationUaPrototype->id)) || (is_array(old('realisationUaPrototypes')) && in_array($realisationUaPrototype->id, old('realisationUaPrototypes'))) ? 'selected' : '' }}>
+                        {{ $realisationUaPrototype }}
                     </option>
                 @endforeach
             </select>
-          @error('realisationUaProjets')
+          @error('realisationUaPrototypes')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

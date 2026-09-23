@@ -18,18 +18,6 @@
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgQcm::questionQcm.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemReponseQcm->questionQcm)
-                  {{ $itemReponseQcm->questionQcm }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
-                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgQcm::reponseQcm.date_reponse')) }}</small>
                   <span>
                     @if ($itemReponseQcm->date_reponse)
@@ -38,6 +26,18 @@
                     —
                     @endif
                   </span>                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgQcm::question.singular')) }}</small>
+
+                {{-- Affichage texte classique --}}
+                @if($itemReponseQcm->question)
+                  {{ $itemReponseQcm->question }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
@@ -57,13 +57,13 @@
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUaProjet.plural')) }}</small>
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUaPrototype.plural')) }}</small>
                   <!-- Valeurs many-to-many -->
-                  @if($itemReponseQcm->realisationUaProjets->isNotEmpty())
+                  @if($itemReponseQcm->realisationUaPrototypes->isNotEmpty())
                   <div>
-                    @foreach($itemReponseQcm->realisationUaProjets as $realisationUaProjet)
+                    @foreach($itemReponseQcm->realisationUaPrototypes as $realisationUaPrototype)
                       <span class="badge badge-info mr-1">
-                        {{ $realisationUaProjet }}
+                        {{ $realisationUaPrototype }}
                       </span>
                     @endforeach
                   </div>

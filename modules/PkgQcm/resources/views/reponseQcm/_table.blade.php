@@ -10,7 +10,7 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="41" field="realisation_qcm_id" modelname="reponseQcm" label="{!!ucfirst(__('PkgQcm::realisationQcm.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="41" field="question_qcm_id" modelname="reponseQcm" label="{!!ucfirst(__('PkgQcm::questionQcm.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="41" field="question_id" modelname="reponseQcm" label="{!!ucfirst(__('PkgQcm::question.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -26,8 +26,8 @@
                         {{  $reponseQcm->realisationQcm }}
 
                     </td>
-                    <td style="max-width: 41%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$reponseQcm->id}}" data-field="question_qcm_id">
-                        {{  $reponseQcm->questionQcm }}
+                    <td style="max-width: 41%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$reponseQcm->id}}" data-field="question_id">
+                        {{  $reponseQcm->question }}
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

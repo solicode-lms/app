@@ -1,40 +1,40 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('questionLib-table')
-<div class="card-body p-0 crud-card-body" id="questionLibs-crud-card-body">
+@section('question-table')
+<div class="card-body p-0 crud-card-body" id="questions-crud-card-body">
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $questionLibs_permissions['edit-questionLib'] || $questionLibs_permissions['destroy-questionLib'];
+                    $bulkEdit = $questions_permissions['edit-question'] || $questions_permissions['destroy-question'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="false" width="27.333333333333332"  field="enonce" modelname="questionLib" label="{!!ucfirst(__('PkgQcm::questionLib.enonce'))!!}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="type" modelname="questionLib" label="{!!ucfirst(__('PkgQcm::questionLib.type'))!!}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="unite_apprentissage_id" modelname="questionLib" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="question" label="{!!ucfirst(__('PkgQcm::question.ordre'))!!}" />
+                <x-sortable-column :sortable="true" width="39" field="unite_apprentissage_id" modelname="question" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="39" field="qcm_id" modelname="question" label="{!!ucfirst(__('PkgQcm::qcm.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
-            @section('questionLib-table-tbody')
-            @foreach ($questionLibs_data as $questionLib)
+            @section('question-table-tbody')
+            @foreach ($questions_data as $question)
                 @php
-                    $isEditable = $questionLibs_permissions['edit-questionLib'] && $questionLibs_permissionsByItem['update'][$questionLib->id];
+                    $isEditable = $questions_permissions['edit-question'] && $questions_permissionsByItem['update'][$question->id];
                 @endphp
-                <tr id="questionLib-row-{{$questionLib->id}}" data-id="{{$questionLib->id}}">
-                    <x-checkbox-row :item="$questionLib" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$questionLib->id}}" data-field="enonce">
-                  
-                        {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($questionLib->enonce, 30) !!}
-                   
+                <tr id="question-row-{{$question->id}}" data-id="{{$question->id}}">
+                    <x-checkbox-row :item="$question" :bulkEdit="$bulkEdit" />
+                    <td style="max-width: 4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$question->id}}" data-field="ordre">
+                            <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
+                            <i class="fas fa-th-list" title="{{ $question->ordre }}"  data-toggle="tooltip" ></i>  
+                        </div>
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$questionLib->id}}" data-field="type">
-                        {{ $questionLib->type }}
+                    <td style="max-width: 39%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$question->id}}" data-field="unite_apprentissage_id">
+                        {{  $question->uniteApprentissage }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$questionLib->id}}" data-field="unite_apprentissage_id">
-                        {{  $questionLib->uniteApprentissage }}
+                    <td style="max-width: 39%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$question->id}}" data-field="qcm_id">
+                        {{  $question->qcm }}
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
@@ -42,32 +42,32 @@
 
                        
 
-                        @if($questionLibs_permissions['edit-questionLib'])
-                        <x-action-button :entity="$questionLib" actionName="edit">
-                        @if($questionLibs_permissionsByItem['update'][$questionLib->id])
-                            <a href="{{ route('questionLibs.edit', ['questionLib' => $questionLib->id]) }}" data-id="{{$questionLib->id}}" class="btn btn-sm btn-default context-state editEntity">
+                        @if($questions_permissions['edit-question'])
+                        <x-action-button :entity="$question" actionName="edit">
+                        @if($questions_permissionsByItem['update'][$question->id])
+                            <a href="{{ route('questions.edit', ['question' => $question->id]) }}" data-id="{{$question->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
                         </x-action-button>
                         @endif
-                        @if($questionLibs_permissions['show-questionLib'])
-                        <x-action-button :entity="$questionLib" actionName="show">
-                        @if($questionLibs_permissionsByItem['view'][$questionLib->id])
-                            <a href="{{ route('questionLibs.show', ['questionLib' => $questionLib->id]) }}" data-id="{{$questionLib->id}}" class="btn btn-default btn-sm context-state showEntity">
+                        @if($questions_permissions['show-question'])
+                        <x-action-button :entity="$question" actionName="show">
+                        @if($questions_permissionsByItem['view'][$question->id])
+                            <a href="{{ route('questions.show', ['question' => $question->id]) }}" data-id="{{$question->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
                         </x-action-button>
                         @endif
 
-                        <x-action-button :entity="$questionLib" actionName="delete">
-                        @if($questionLibs_permissions['destroy-questionLib'])
-                        @if($questionLibs_permissionsByItem['delete'][$questionLib->id])
-                            <form class="context-state" action="{{ route('questionLibs.destroy',['questionLib' => $questionLib->id]) }}" method="POST" style="display: inline;">
+                        <x-action-button :entity="$question" actionName="delete">
+                        @if($questions_permissions['destroy-question'])
+                        @if($questions_permissionsByItem['delete'][$question->id])
+                            <form class="context-state" action="{{ route('questions.destroy',['question' => $question->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$questionLib->id}}">
+                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$question->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
@@ -84,9 +84,9 @@
 @show
 
 <div class="card-footer">
-    @section('questionLib-crud-pagination')
+    @section('question-crud-pagination')
     <ul class="pagination m-0 d-flex justify-content-center">
-        {{ $questionLibs_data->onEachSide(1)->links() }}
+        {{ $questions_data->onEachSide(1)->links() }}
     </ul>
     @show
 </div>

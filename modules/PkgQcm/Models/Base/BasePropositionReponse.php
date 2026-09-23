@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgQcm\Models\QuestionLib;
+use Modules\PkgQcm\Models\Question;
 use Modules\PkgQcm\Models\ReponseQcm;
 
 /**
@@ -51,7 +51,7 @@ class BasePropositionReponse extends BaseModel
     ];
     public $manyToOne = [
         'questionLib' => [
-            'model' => "Modules\\PkgQcm\\Models\\QuestionLib",
+            'model' => "Modules\\PkgQcm\\Models\\Question",
             'relation' => 'questionLib' , 
             "foreign_key" => "question_lib_id", 
             ]
@@ -59,13 +59,13 @@ class BasePropositionReponse extends BaseModel
 
 
     /**
-     * Relation BelongsTo pour QuestionLib.
+     * Relation BelongsTo pour Question.
      *
      * @return BelongsTo
      */
     public function questionLib(): BelongsTo
     {
-        return $this->belongsTo(QuestionLib::class, 'question_lib_id', 'id');
+        return $this->belongsTo(Question::class, 'question_lib_id', 'id');
     }
 
     /**

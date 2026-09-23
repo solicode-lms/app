@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('layouts.admin')
-@section('title', __('Core::msg.show') . ' ' . __('PkgQcm::questionLib.singular'))
+@section('title', __('Core::msg.show') . ' ' . __('PkgQcm::question.singular'))
  
 @section('content')
     <div class="content-header">
@@ -13,12 +13,12 @@
                     <div class="card card-info crud-show">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-cube"></i>
-                                 {{__("Core::msg.show") . " : " . __("PkgQcm::questionLib.singular") }} - {{ $itemQuestionLib }}
+                                <i class="nav-icon fas fa-table"></i>
+                                 {{__("Core::msg.show") . " : " . __("PkgQcm::question.singular") }} - {{ $itemQuestion }}
                             </h3>
                         </div>
                         <!-- Inclure le formulaire -->
-                        @include('PkgQcm::questionLib._show')
+                        @include('PkgQcm::question._show')
                     </div>
                 </div>
             </div>

@@ -150,7 +150,7 @@
           </div>
           @endif
           <label for="question_lib_id">
-            {{ ucfirst(__('PkgQcm::questionLib.singular')) }}
+            {{ ucfirst(__('PkgQcm::question.singular')) }}
             <span class="text-danger">*</span>
           </label>
                       <select 
@@ -161,10 +161,10 @@
             name="question_lib_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
-                @foreach ($questionLibs as $questionLib)
-                    <option value="{{ $questionLib->id }}"
-                        {{ (isset($itemPropositionReponse) && $itemPropositionReponse->question_lib_id == $questionLib->id) || (old('question_lib_id>') == $questionLib->id) ? 'selected' : '' }}>
-                        {{ $questionLib }}
+                @foreach ($questionLibs as $question)
+                    <option value="{{ $question->id }}"
+                        {{ (isset($itemPropositionReponse) && $itemPropositionReponse->question_lib_id == $question->id) || (old('question_lib_id>') == $question->id) ? 'selected' : '' }}>
+                        {{ $question }}
                     </option>
                 @endforeach
             </select>

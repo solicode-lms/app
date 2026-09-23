@@ -110,16 +110,16 @@ class BasePropositionReponseService extends BaseService
                 if (!array_key_exists('question_lib_id', $scopeVariables)) {
 
 
-                    $questionLibService = new \Modules\PkgQcm\Services\QuestionLibService();
-                    $questionLibIds = $this->getAvailableFilterValues('question_lib_id');
-                    $questionLibs = $questionLibService->getByIds($questionLibIds);
+                    $questionService = new \Modules\PkgQcm\Services\QuestionService();
+                    $questionIds = $this->getAvailableFilterValues('question_lib_id');
+                    $questions = $questionService->getByIds($questionIds);
 
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgQcm::questionLib.plural"), 
+                        __("PkgQcm::question.plural"), 
                         'question_lib_id', 
-                        \Modules\PkgQcm\Models\QuestionLib::class, 
+                        \Modules\PkgQcm\Models\Question::class, 
                         'type',
-                        $questionLibs
+                        $questions
                     );
                 }
             

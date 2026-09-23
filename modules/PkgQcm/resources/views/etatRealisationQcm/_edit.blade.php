@@ -39,7 +39,7 @@
                          @if($itemEtatRealisationQcm->realisationQcms?->count() > 0 || auth()->user()?->can('create-realisationQcm'))
                         <li class="nav-item">
                             <a class="nav-link" id="etatRealisationQcm-hasmany-tabs-realisationQcm-tab" data-toggle="pill" href="#etatRealisationQcm-hasmany-tabs-realisationQcm" role="tab" aria-controls="etatRealisationQcm-hasmany-tabs-realisationQcm" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-cog"></i>
                                 {{ucfirst(__('PkgQcm::realisationQcm.plural'))}}
                             </a>
                         </li>

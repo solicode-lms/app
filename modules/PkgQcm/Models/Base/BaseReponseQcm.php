@@ -12,9 +12,9 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgQcm\Models\RealisationQcm;
-use Modules\PkgQcm\Models\QuestionQcm;
+use Modules\PkgQcm\Models\Question;
 use Modules\PkgQcm\Models\PropositionReponse;
-use Modules\PkgApprentissage\Models\RealisationUaProjet;
+use Modules\PkgApprentissage\Models\RealisationUaPrototype;
 
 /**
  * Classe BaseReponseQcm
@@ -31,7 +31,7 @@ class BaseReponseQcm extends BaseModel
      */
     protected $with = [
       //  'realisationQcm',
-      //  'questionQcm'
+      //  'question'
     ];
 
 
@@ -47,11 +47,11 @@ class BaseReponseQcm extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'reference', 'realisation_qcm_id', 'question_qcm_id', 'date_reponse'
+        'reference', 'realisation_qcm_id', 'date_reponse', 'question_id'
     ];
     public $manyToMany = [
         'PropositionReponse' => ['relation' => 'propositionReponses' , "foreign_key" => "proposition_reponse_id" ],
-        'RealisationUaProjet' => ['relation' => 'realisationUaProjets' , "foreign_key" => "realisation_ua_projet_id" ]
+        'RealisationUaPrototype' => ['relation' => 'realisationUaPrototypes' , "foreign_key" => "realisation_ua_prototype_id" ]
     ];
     public $manyToOne = [
         'realisationQcm' => [
@@ -59,10 +59,10 @@ class BaseReponseQcm extends BaseModel
             'relation' => 'realisationQcm' , 
             "foreign_key" => "realisation_qcm_id", 
             ],
-        'questionQcm' => [
-            'model' => "Modules\\PkgQcm\\Models\\QuestionQcm",
-            'relation' => 'questionQcm' , 
-            "foreign_key" => "question_qcm_id", 
+        'question' => [
+            'model' => "Modules\\PkgQcm\\Models\\Question",
+            'relation' => 'question' , 
+            "foreign_key" => "question_id", 
             ]
     ];
 
@@ -77,13 +77,13 @@ class BaseReponseQcm extends BaseModel
         return $this->belongsTo(RealisationQcm::class, 'realisation_qcm_id', 'id');
     }
     /**
-     * Relation BelongsTo pour QuestionQcm.
+     * Relation BelongsTo pour Question.
      *
      * @return BelongsTo
      */
-    public function questionQcm(): BelongsTo
+    public function question(): BelongsTo
     {
-        return $this->belongsTo(QuestionQcm::class, 'question_qcm_id', 'id');
+        return $this->belongsTo(Question::class, 'question_id', 'id');
     }
 
     /**
@@ -96,13 +96,13 @@ class BaseReponseQcm extends BaseModel
         return $this->belongsToMany(PropositionReponse::class, 'proposition_reponse_reponse_qcm');
     }
     /**
-     * Relation ManyToMany pour RealisationUaProjets.
+     * Relation ManyToMany pour RealisationUaPrototypes.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function realisationUaProjets()
+    public function realisationUaPrototypes()
     {
-        return $this->belongsToMany(RealisationUaProjet::class, 'realisation_ua_projet_reponse_qcm');
+        return $this->belongsToMany(RealisationUaPrototype::class, 'realisation_ua_prototype_reponse_qcm');
     }
 
 

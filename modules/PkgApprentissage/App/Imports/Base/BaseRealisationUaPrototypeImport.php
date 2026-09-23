@@ -65,6 +65,7 @@ class BaseRealisationUaPrototypeImport implements ToModel, WithHeadingRow
              'date_debut' => $values[5] ?? null,
              'date_fin' => $values[6] ?? null,
              'reference' => $reference,
+             'reponseQcms' => $values[8] ?? null,
         ]);
 
 

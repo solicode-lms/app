@@ -27,8 +27,8 @@ class BaseReponseQcmService extends BaseService
     protected $fieldsSearchable = [
         'reference',
         'realisation_qcm_id',
-        'question_qcm_id',
-        'date_reponse'
+        'date_reponse',
+        'question_id'
     ];
 
 
@@ -123,19 +123,19 @@ class BaseReponseQcmService extends BaseService
                 }
             
             
-                if (!array_key_exists('question_qcm_id', $scopeVariables)) {
+                if (!array_key_exists('question_id', $scopeVariables)) {
 
 
-                    $questionQcmService = new \Modules\PkgQcm\Services\QuestionQcmService();
-                    $questionQcmIds = $this->getAvailableFilterValues('question_qcm_id');
-                    $questionQcms = $questionQcmService->getByIds($questionQcmIds);
+                    $questionService = new \Modules\PkgQcm\Services\QuestionService();
+                    $questionIds = $this->getAvailableFilterValues('question_id');
+                    $questions = $questionService->getByIds($questionIds);
 
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgQcm::questionQcm.plural"), 
-                        'question_qcm_id', 
-                        \Modules\PkgQcm\Models\QuestionQcm::class, 
-                        'id',
-                        $questionQcms
+                        __("PkgQcm::question.plural"), 
+                        'question_id', 
+                        \Modules\PkgQcm\Models\Question::class, 
+                        'type',
+                        $questions
                     );
                 }
             
@@ -312,7 +312,7 @@ class BaseReponseQcmService extends BaseService
         // Champs considérés comme inline
         $inlineFields = [
             'realisation_qcm_id',
-            'question_qcm_id'
+            'question_id'
         ];
 
         // Récupération des champs autorisés par rôle via getFieldsEditable()
@@ -367,9 +367,9 @@ class BaseReponseQcmService extends BaseService
                         'values' => $values,
                     ],
                 ]);
-            case 'question_qcm_id':
-                 $values = (new \Modules\PkgQcm\Services\QuestionQcmService())
-                    ->getAllForSelect($e->questionQcm)
+            case 'question_id':
+                 $values = (new \Modules\PkgQcm\Services\QuestionService())
+                    ->getAllForSelect($e->question)
                     ->map(fn($entity) => [
                         'value' => (int) $entity->id,
                         'label' => (string) $entity,
@@ -434,12 +434,12 @@ class BaseReponseQcmService extends BaseService
 
 
 
-                case 'question_qcm_id':
+                case 'question_id':
                     $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
                         'column' => $field,
                         'nature' => '',
-                        'relationName' => 'questionQcm'
+                        'relationName' => 'question'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;

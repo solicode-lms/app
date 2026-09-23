@@ -47,7 +47,7 @@
                          @if($itemAffectationProjet->affectationQcmProjets?->count() > 0 || auth()->user()?->can('create-affectationQcmProjet'))
                         <li class="nav-item">
                             <a class="nav-link" id="affectationProjet-hasmany-tabs-affectationQcmProjet-tab" data-toggle="pill" href="#affectationProjet-hasmany-tabs-affectationQcmProjet" role="tab" aria-controls="affectationProjet-hasmany-tabs-affectationQcmProjet" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-desktop"></i>
                                 {{ucfirst(__('PkgQcm::affectationQcmProjet.plural'))}}
                             </a>
                         </li>

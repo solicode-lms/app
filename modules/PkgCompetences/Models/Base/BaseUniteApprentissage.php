@@ -17,7 +17,7 @@ use Modules\PkgCompetences\Models\Chapitre;
 use Modules\PkgCompetences\Models\CritereEvaluation;
 use Modules\PkgApprentissage\Models\RealisationUa;
 use Modules\PkgCreationProjet\Models\MobilisationUa;
-use Modules\PkgQcm\Models\QuestionLib;
+use Modules\PkgQcm\Models\Question;
 
 /**
  * Classe BaseUniteApprentissage
@@ -130,9 +130,9 @@ class BaseUniteApprentissage extends BaseModel
      *
      * @return HasMany
      */
-    public function questionLibs(): HasMany
+    public function questions(): HasMany
     {
-        return $this->hasMany(QuestionLib::class, 'unite_apprentissage_id', 'id');
+        return $this->hasMany(Question::class, 'unite_apprentissage_id', 'id');
     }
 
 

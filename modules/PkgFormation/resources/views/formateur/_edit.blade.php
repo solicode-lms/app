@@ -55,7 +55,7 @@
                          @if($itemFormateur->qcms?->count() > 0 || auth()->user()?->can('create-qcm'))
                         <li class="nav-item">
                             <a class="nav-link" id="formateur-hasmany-tabs-qcm-tab" data-toggle="pill" href="#formateur-hasmany-tabs-qcm" role="tab" aria-controls="formateur-hasmany-tabs-qcm" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-graduation-cap"></i>
                                 {{ucfirst(__('PkgQcm::qcm.plural'))}}
                             </a>
                         </li>

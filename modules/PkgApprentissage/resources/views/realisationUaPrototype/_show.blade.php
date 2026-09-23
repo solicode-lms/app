@@ -38,6 +38,22 @@
                     @endif
                   </span>                </div>
             </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgQcm::reponseQcm.plural')) }}</small>
+                  <!-- Valeurs many-to-many -->
+                  @if($itemRealisationUaPrototype->reponseQcms->isNotEmpty())
+                  <div>
+                    @foreach($itemRealisationUaPrototype->reponseQcms as $reponseQcm)
+                      <span class="badge badge-info mr-1">
+                        {{ $reponseQcm }}
+                      </span>
+                    @endforeach
+                  </div>
+                  @else
+                  <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
             </div>
         </div>
         <div class="card-footer">

@@ -44,11 +44,11 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemQcm->questionQcms?->count() > 0 || auth()->user()?->can('create-questionQcm'))
+                         @if($itemQcm->questions?->count() > 0 || auth()->user()?->can('create-question'))
                         <li class="nav-item">
-                            <a class="nav-link" id="qcm-hasmany-tabs-questionQcm-tab" data-toggle="pill" href="#qcm-hasmany-tabs-questionQcm" role="tab" aria-controls="qcm-hasmany-tabs-questionQcm" aria-selected="false">
-                                <i class="nav-icon fas fa-chalkboard"></i>
-                                {{ucfirst(__('PkgQcm::questionQcm.plural'))}}
+                            <a class="nav-link" id="qcm-hasmany-tabs-question-tab" data-toggle="pill" href="#qcm-hasmany-tabs-question" role="tab" aria-controls="qcm-hasmany-tabs-question" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgQcm::question.plural'))}}
                             </a>
                         </li>
                         @endif
@@ -75,9 +75,9 @@
                                 @include('PkgQcm::affectationQcmProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'qcm.edit_' . $itemQcm->id])
                             </div>
                             @endif
-                            @if($itemQcm->questionQcms?->count() > 0 || auth()->user()?->can('create-questionQcm'))
-                            <div class="tab-pane fade" id="qcm-hasmany-tabs-questionQcm" role="tabpanel" aria-labelledby="qcm-hasmany-tabs-questionQcm-tab">
-                                @include('PkgQcm::questionQcm._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'qcm.edit_' . $itemQcm->id])
+                            @if($itemQcm->questions?->count() > 0 || auth()->user()?->can('create-question'))
+                            <div class="tab-pane fade" id="qcm-hasmany-tabs-question" role="tabpanel" aria-labelledby="qcm-hasmany-tabs-question-tab">
+                                @include('PkgQcm::question._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'qcm.edit_' . $itemQcm->id])
                             </div>
                             @endif
                             @if($itemQcm->realisationQcms?->count() > 0 || auth()->user()?->can('create-realisationQcm'))
