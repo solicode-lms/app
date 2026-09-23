@@ -23,46 +23,6 @@ trait GappCommands
         return $path;
     }
 
-    /**
-     * Environnement utilisé par Gapp.
-     */
-    // private function getGappEnvironment(): array
-    // {
-    //     $userProfile = 'C:\\Users\\essarraj';
-
-    //     $npmPath =
-    //         $userProfile .
-    //         '\\AppData\\Roaming\\npm';
-
-    //     $nodePath =
-    //         'C:\\Program Files\\nodejs';
-
-    //     $currentPath = getenv('PATH') ?: '';
-
-    //     return [
-    //         'USERPROFILE' => $userProfile,
-    //         'HOME' => $userProfile,
-
-    //         'APPDATA' =>
-    //             $userProfile .
-    //             '\\AppData\\Roaming',
-
-    //         'LOCALAPPDATA' =>
-    //             $userProfile .
-    //             '\\AppData\\Local',
-
-    //         'npm_config_cache' =>
-    //             $userProfile .
-    //             '\\AppData\\Local\\npm-cache',
-
-    //         'PATH' =>
-    //             $nodePath .
-    //             ';' .
-    //             $npmPath .
-    //             ';' .
-    //             $currentPath,
-    //     ];
-    // }
 
     /**
      * Construit une commande Gapp.
@@ -130,7 +90,7 @@ trait GappCommands
                 'Gapp meta:seed'
             );
         } else {
-            $this->executeCommandAsync(
+            $this->executeCommandSync(
                 $command,
                 'Gapp meta:seed'
             );
@@ -164,7 +124,7 @@ trait GappCommands
                 'Gapp meta:seedDataField'
             );
         } else {
-            $this->executeCommandAsync(
+            $this->executeCommandSync(
                 $command,
                 'Gapp meta:seedDataField'
             );
@@ -215,7 +175,7 @@ trait GappCommands
         );
 
         if ($success) {
-            $this->executeCommandAsync(
+            $this->executeCommandSync(
                 $metaExportCommand,
                 'Gapp meta:export'
             );
@@ -280,40 +240,6 @@ trait GappCommands
             );
 
             return false;
-        }
-    }
-
-    /**
-     * Exécution ASYNCHRONE.
-     */
-    private function executeCommandAsync(
-        array $command,
-        string $logMessage = ''
-    ): void {
-        try {
-            Log::info(
-                'Exécution ASYNCHRONE Gapp',
-                [
-                    'command' => $command,
-                    'message' => $logMessage,
-                    'path' => base_path(),
-                ]
-            );
-
-            Process::path(base_path())
-                // ->env($this->getGappEnvironment())
-                ->timeout(300)
-                ->start($command);
-
-        } catch (\Throwable $e) {
-
-            Log::error(
-                'Exception démarrage Gapp',
-                [
-                    'command' => $command,
-                    'error' => $e->getMessage(),
-                ]
-            );
         }
     }
 }

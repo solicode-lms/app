@@ -36,7 +36,7 @@
             <li class="nav-item" id="menu-qcms">
                 <a href="{{ route('qcms.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgQcm/qcms') ? 'active' : '' }}">
-                    <i class="nav-icon ee"></i>
+                    <i class="nav-icon fas fa-coffee"></i>
                     <p>{{__('PkgQcm::qcm.plural')}}</p>
                 </a>
             </li>
@@ -115,7 +115,7 @@
             @can('index-qcm') 
             <li class="nav-item" id="menu-qcms">
                 <a href="{{ route('qcms.index') }}" class="nav-link {{ Request::is('admin/PkgQcm/qcms') ? 'active' : '' }}">
-                    <i class="nav-icon ee"></i>
+                    <i class="nav-icon fas fa-coffee"></i>
                     <p>{{__('PkgQcm::qcm.plural')}}</p>
                 </a>
             </li>
