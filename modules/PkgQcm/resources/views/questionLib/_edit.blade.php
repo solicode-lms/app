@@ -29,7 +29,7 @@
                         <ul class="nav nav-tabs mr-auto" id="edit-questionLib-tab" role="tablist">
                         <li class="pt-2 px-3">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-cube"></i>
                             </h3>
                         </li>
                         <li class="nav-item">
@@ -39,7 +39,7 @@
                          @if($itemQuestionLib->propositionReponses?->count() > 0 || auth()->user()?->can('create-propositionReponse'))
                         <li class="nav-item">
                             <a class="nav-link" id="questionLib-hasmany-tabs-propositionReponse-tab" data-toggle="pill" href="#questionLib-hasmany-tabs-propositionReponse" role="tab" aria-controls="questionLib-hasmany-tabs-propositionReponse" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-list"></i>
                                 {{ucfirst(__('PkgQcm::propositionReponse.plural'))}}
                             </a>
                         </li>

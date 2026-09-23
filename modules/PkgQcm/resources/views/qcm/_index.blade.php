@@ -49,7 +49,7 @@
        $titre = __("PkgQcm::qcm.singular");
     @endphp
     <x-crud-header 
-        id="qcm-crud-header" icon="fas fa-coffee"  
+        id="qcm-crud-header" icon="fas fa-graduation-cap"  
         iconColor="text-info"
         title="{{ $qcm_title }}"
         :breadcrumbs="[

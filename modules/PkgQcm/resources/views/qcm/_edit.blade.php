@@ -29,7 +29,7 @@
                         <ul class="nav nav-tabs mr-auto" id="edit-qcm-tab" role="tablist">
                         <li class="pt-2 px-3">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-coffee"></i>
+                                <i class="nav-icon fas fa-graduation-cap"></i>
                             </h3>
                         </li>
                         <li class="nav-item">
@@ -39,7 +39,7 @@
                          @if($itemQcm->affectationQcmProjets?->count() > 0 || auth()->user()?->can('create-affectationQcmProjet'))
                         <li class="nav-item">
                             <a class="nav-link" id="qcm-hasmany-tabs-affectationQcmProjet-tab" data-toggle="pill" href="#qcm-hasmany-tabs-affectationQcmProjet" role="tab" aria-controls="qcm-hasmany-tabs-affectationQcmProjet" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-desktop"></i>
                                 {{ucfirst(__('PkgQcm::affectationQcmProjet.plural'))}}
                             </a>
                         </li>

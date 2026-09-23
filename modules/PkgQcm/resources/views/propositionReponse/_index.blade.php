@@ -49,7 +49,7 @@
        $titre = __("PkgQcm::propositionReponse.singular");
     @endphp
     <x-crud-header 
-        id="propositionReponse-crud-header" icon="fas fa-table"  
+        id="propositionReponse-crud-header" icon="fas fa-list"  
         iconColor="text-info"
         title="{{ $propositionReponse_title }}"
         :breadcrumbs="[

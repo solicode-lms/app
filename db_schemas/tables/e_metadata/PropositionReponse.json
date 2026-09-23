@@ -13,7 +13,9 @@
     },
     {
         "reference": "proposition_reponses_iconModel",
-        "value_string": "fas fa-table",
+        "value_boolean": 0,
+        "value_string": "fas fa-list",
+        "value_float": 0,
         "e_model_reference": "proposition_reponses",
         "e_metadata_definition_reference": "iconModel"
     },
