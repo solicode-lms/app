@@ -5,22 +5,20 @@
 ## Création des Tables 
 
 
-## Migration
-
-
 ````bash
 php artisan migrate
+````
+
+````bash
 sudo php artisan migrate
 ````
 
 
-
-### Sur Windows 
+## Insertion de Module et Droit d'accès
 
 ````bash
-php artisan db:seed --class=Modules\Core\Database\Seeders\SysModuleSeeder
-
-
+# on BaseSysModuleSeeder car SysModuleSeeder n'ajoute pas Data "sysModules.csv" dans la base de données
+php artisan db:seed --class=Modules\Core\Database\Seeders\Base\BaseSysModuleSeeder
 php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\AffectationQcmProjetSeeder
 php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\EtatRealisationQcmSeeder
 php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\PropositionReponseSeeder
@@ -28,22 +26,11 @@ php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\QcmSeeder
 php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\QuestionSeeder
 php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\RealisationQcmSeeder
 php artisan db:seed --class=Modules\PkgQcm\Database\Seeders\ReponseQcmSeeder
-
-
-
 ````
 
 
-
-
-## Ajouter le package QCM à la table sys_modules
-
-### Sur Linux
-
 ````bash
-sudo php artisan db:seed --class=Modules\\Core\\Database\\Seeders\\SysModuleSeeder
-
-
+sudo php artisan db:seed --class=Modules\\Core\\Database\\Seeders\\Base\\BaseSysModuleSeeder
 sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\AffectationQcmProjetSeeder
 sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\EtatRealisationQcmSeeder
 sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\PropositionReponseSeeder
@@ -53,33 +40,29 @@ sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\Realisation
 sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\ReponseQcmSeeder
 ````
 
+## Donner doit d'accès au Apprenant et Formateur 
 
 
-## Affectation des droits d'accès 
+### Formateur 
+
+- AffectationQcmProjet - Édition
+- EtatRealisationQcm - Lecture
+- PropositionReponse - Édition
+- Qcm - Édition
+- Question - Édition
+- Question - Extraction
+- Question - Import 
+- Question - Export
+- RealisationQcm - Édition
+- ReponseQcm - Lecture
 
 
-### Role formateur  - Edition
-- QCM
-- Question
-- AffectationQcmProjet
-- PropositionReponse
+### Apprenant 
 
-
-### Role formateur 
-
-
-- Propositions de réponse
-- Réalisation QCM
-- Affectation QCM Projet
-
-### Rôle apprenant 
-
-- Lecture : QCM
-- Réalisation QCM
-
-### Rôle : Admin formateur
-
-- Ajouter le rôle : admin-formateur 
-- 
-- Création des QCM officiels
-- Gestion des banques de questions
+- AffectationQcmProjet - Afficher
+- EtatRealisationQcm - Afficher
+- PropositionReponse - Afficher 
+- Qcm - Afficher
+- Question - Afficher 
+- RealisationQcm - Lecture
+- ReponseQcm - Édition sans Ajouter

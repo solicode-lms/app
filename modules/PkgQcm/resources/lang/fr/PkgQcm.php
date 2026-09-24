@@ -4,5 +4,5 @@
 
 return [
     'name' => 'PkgQcm',
-    'icon' => 'fa-table'
+    'icon' => 'fas fa-table'
 ];
