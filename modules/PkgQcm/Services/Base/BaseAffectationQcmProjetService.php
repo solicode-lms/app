@@ -230,6 +230,7 @@ class BaseAffectationQcmProjetService extends BaseService
         $this->viewState->set('stats.affectationQcmProjet.stats', $affectationQcmProjets_stats);
     
         $affectationQcmProjets_permissions = [
+            'edit-affectationQcmProjet' => Auth::user()->can('edit-affectationQcmProjet'),
 
             'edit-affectationQcmProjet' => Auth::user()->can('edit-affectationQcmProjet'),
             'destroy-affectationQcmProjet' => Auth::user()->can('destroy-affectationQcmProjet'),

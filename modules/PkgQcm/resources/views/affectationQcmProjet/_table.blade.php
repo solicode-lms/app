@@ -31,6 +31,21 @@
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
+                        @if($affectationQcmProjets_permissions['edit-affectationQcmProjet'])
+                        <x-action-button :entity="$affectationQcmProjet" actionName="">
+                            <a
+                                data-toggle="tooltip"
+                                title="Générer un prompt IA"
+                                href="{{ route('affectationQcmProjets.prompt', [
+                                        'id' => $affectationQcmProjet->id,
+                                        'showIndex' => true,
+                                ]) }}"
+                                class="btn btn-default btn-sm showIndex"
+                                data-id="{{ $affectationQcmProjet->id }}">
+                                <i class="fas fa-robot"></i>
+                            </a>
+                        </x-action-button>
+                        @endif
 
 
                        

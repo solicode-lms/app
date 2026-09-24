@@ -29,6 +29,22 @@ description: Expert de l'architecture des Contrôleurs, FormRequests, Web routes
   - Surcharger les méthodes dans les contrôleurs enfants (qui héritent de `Base...Controller`) plutôt que de modifier les fichiers de base générés.
   - L'en-tête de protection Gapp (`// Ce fichier est maintenu par ESSARRAJ Fouad`) ne doit être supprimé que si une modification directe est inévitable et validée par l'utilisateur.
 
+### 5. Gestion des Permissions (Nouvelles Méthodes)
+- Lors de l'ajout d'une nouvelle méthode personnalisée dans un contrôleur, le Middleware de vérification dynamique des permissions cherche une permission correspondante qui n'existe potentiellement pas.
+- **Règle** : Il faut toujours ignorer la permission dynamique pour la nouvelle méthode via l'annotation PHPDoc `@DynamicPermissionIgnore`.
+- **Ensuite** : Relier manuellement la méthode à une permission existante (la plus proche fonctionnellement) via `$this->authorizeAction('nom_action');` (ex: `update`, `view`, `create`).
+
+**Exemple :**
+```php
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+        // ... logique
+    }
+```
+
 ---
 
 ## ⚡ Actions (Orchestration)

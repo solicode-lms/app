@@ -385,5 +385,26 @@
         "value_boolean": 1,
         "e_data_field_reference": "AffectationQcmProjet_saise_automatique_note_qcm",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "affectation_qcm_projets_linksAction",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": [
+            {
+                "icon": "fas fa-robot",
+                "class": "btn btn-default btn-sm showIndex",
+                "ordre": 1,
+                "route": "affectationQcmProjets.prompt",
+                "params": {
+                    "id": "$affectationQcmProjet->id",
+                    "showIndex": true
+                },
+                "tooltip": "Générer un prompt IA",
+                "permission": "edit-affectationQcmProjet"
+            }
+        ],
+        "e_model_reference": "affectation_qcm_projets",
+        "e_metadata_definition_reference": "linksAction"
     }
 ]
