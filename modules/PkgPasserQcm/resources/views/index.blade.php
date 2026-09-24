@@ -52,7 +52,7 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </button>
             
-            <button x-show="$store.qcm.activeUaIndex === $store.qcm.uas.length - 1" class="px-6 py-3 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 transition-colors shadow-sm focus:ring-4 focus:ring-emerald-200 flex items-center gap-2">
+            <button x-show="$store.qcm.activeUaIndex === $store.qcm.uas.length - 1" @click="$store.qcm.submit()" class="px-6 py-3 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 transition-colors shadow-sm focus:ring-4 focus:ring-emerald-200 flex items-center gap-2">
                 Soumettre le QCM
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
             </button>
@@ -65,7 +65,11 @@
     // 1. Initialisation des variables PHP dans l'objet global
     window.QcmData = {
         uas: @json($dataUaGrouped),
-        timeRemaining: {{ ($realisationQcm->qcm->duree_minutes ?? 60) * 60 }}
+        timeRemaining: {{ ($realisationQcm->qcm->duree_minutes ?? 60) * 60 }},
+        csrfToken: '{{ csrf_token() }}',
+        saveUrl: '{{ route('passerQcm.save-incremental', $realisationQcm->id) }}',
+        submitUrl: '{{ route('passerQcm.submit', $realisationQcm->id) }}',
+        redirectUrl: '{{ route('realisationQcms.index') }}'
     };
 </script>
 

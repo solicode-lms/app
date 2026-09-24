@@ -45,10 +45,10 @@ Pour bien isoler cette logique d'interface spécifique, un nouveau module sans b
 - [x] Création et activation du composant Timer.
 
 ### Sprint 6 : Soumission et Sauvegarde (Backend)
-- [ ] Ajout de la méthode de soumission dans le `PasserQcmController`.
-- [ ] Gestion de la validation de la requête.
-- [ ] Sauvegarde des réponses de l'apprenant via les services (`RealisationQcmService`, etc.).
-- [ ] Redirection et feedback (QCM terminé).
+- [x] Ajout de la méthode de soumission dans le `PasserQcmController`.
+- [x] Gestion de la validation de la requête.
+- [x] Sauvegarde des réponses de l'apprenant via les services (`RealisationQcmService`, etc.).
+- [x] Redirection et feedback (QCM terminé).
 
 ## Skills Requis pour la Réalisation
 - `app2-front-end` : Pour la conception de l'interface V2 avec Tailwind CSS et l'architecture des composants Alpine.js.

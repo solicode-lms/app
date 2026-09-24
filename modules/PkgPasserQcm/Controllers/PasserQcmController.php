@@ -42,7 +42,7 @@ class PasserQcmController extends Controller
                         'propositions' => $q->propositionReponses->map(function ($p) {
                             return [
                                 'id' => $p->id,
-                                'texte' => $p->libelle
+                                'libelle' => $p->libelle
                             ];
                         })->values()->toArray()
                     ];
@@ -54,5 +54,56 @@ class PasserQcmController extends Controller
 
         // Pour ce Sprint 3, on affiche juste la vue avec le dump des données
         return view('PkgPasserQcm::index', compact('realisationQcm', 'dataUaGrouped'));
+    }
+
+    public function saveIncremental(Request $request, $realisation_qcm_id)
+    {
+        $realisationQcm = RealisationQcm::findOrFail($realisation_qcm_id);
+        
+        // TODO: Vérification d'autorisation
+        
+        $reponses = $request->input('reponses', []);
+        
+        foreach ($reponses as $questionId => $propositionIds) {
+            // Création ou mise à jour de la réponse pour cette question
+            $reponseQcm = \Modules\PkgQcm\Models\ReponseQcm::updateOrCreate(
+                [
+                    'realisation_qcm_id' => $realisationQcm->id,
+                    'question_id' => $questionId
+                ],
+                [
+                    'date_reponse' => now()
+                ]
+            );
+            
+            // Attacher les propositions (un tableau est attendu par sync)
+            $propositionIdsArray = is_array($propositionIds) ? $propositionIds : [$propositionIds];
+            $reponseQcm->propositionReponses()->sync($propositionIdsArray);
+        }
+        
+        return response()->json(['success' => true]);
+    }
+    
+    public function submit(Request $request, $realisation_qcm_id)
+    {
+        $realisationQcm = RealisationQcm::findOrFail($realisation_qcm_id);
+        
+        // Sauvegarde de la dernière page
+        $this->saveIncremental($request, $realisation_qcm_id);
+        
+        // Trouver l'état "Soumis"
+        $etatSoumis = \Modules\PkgQcm\Models\EtatRealisationQcm::where('reference', 'SOUMIS')->first();
+        
+        if ($etatSoumis) {
+            $realisationQcm->etat_realisation_qcm_id = $etatSoumis->id;
+        }
+        
+        $realisationQcm->date_soumission = now();
+        $realisationQcm->save();
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'QCM soumis avec succès.'
+        ]);
     }
 }

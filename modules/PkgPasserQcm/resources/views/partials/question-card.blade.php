@@ -23,7 +23,7 @@
                     <span class="flex flex-col">
                         <span class="block text-sm font-medium" 
                               :class="isSelected(proposition.id) ? 'text-indigo-900' : 'text-gray-900'"
-                              x-text="proposition.texte"></span>
+                              x-text="proposition.libelle"></span>
                     </span>
                 </span>
                 

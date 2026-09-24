@@ -5,9 +5,59 @@ document.addEventListener('alpine:init', () => {
         reponses: {},
         timeRemaining: window.QcmData.timeRemaining || 3600,
         
-        next() {
+        async saveCurrentUa() {
+            const currentUa = this.uas[this.activeUaIndex];
+            if (!currentUa || !currentUa.questions) return;
+            
+            // On ne récupère que les réponses de la page courante
+            const reponsesToSave = {};
+            currentUa.questions.forEach(q => {
+                if (this.reponses[q.id] !== undefined) {
+                    reponsesToSave[q.id] = this.reponses[q.id];
+                }
+            });
+            
+            try {
+                await fetch(window.QcmData.saveUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': window.QcmData.csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ reponses: reponsesToSave })
+                });
+            } catch (e) {
+                console.error("Erreur lors de la sauvegarde incrémentale", e);
+            }
+        },
+
+        async next() {
+            await this.saveCurrentUa();
             if (this.activeUaIndex < this.uas.length - 1) {
                 this.activeUaIndex++;
+            }
+        },
+        
+        async submit() {
+            await this.saveCurrentUa();
+            
+            try {
+                const response = await fetch(window.QcmData.submitUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': window.QcmData.csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ reponses: this.reponses })
+                });
+                
+                if (response.ok) {
+                    window.location.href = window.QcmData.redirectUrl;
+                }
+            } catch (e) {
+                console.error("Erreur lors de la soumission", e);
             }
         },
         
