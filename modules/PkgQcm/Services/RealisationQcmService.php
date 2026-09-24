@@ -80,8 +80,36 @@ class RealisationQcmService extends BaseRealisationQcmService
                     }
                     
                     $rup->save();
+                    
+                    // Déclencher le recalcul en cascade pour mettre à jour note_cache de RealisationUA
+                    if ($rup->realisationUa) {
+                        $realisationUaService = app(\Modules\PkgApprentissage\Services\RealisationUaService::class);
+                        $realisationUaService->calculerProgression($rup->realisationUa);
+                    }
                 }
             }
+        } // Fermeture du foreach($realisationUaPrototypes as $rup)
+        
+        // Enregistrement de la note globale du QCM
+        $noteTotaleQcm = 0;
+        $qcm = $item->qcm;
+        if ($qcm) {
+            foreach($qcm->questions as $question) {
+                $reponse = $item->reponseQcms()->where('question_id', $question->id)->first();
+                if ($reponse) {
+                    $propositionsCorrectes = $question->propositionReponses()->where('is_correcte', true)->pluck('id')->toArray();
+                    $propositionsChoisies = $reponse->propositionReponses()->pluck('id')->toArray();
+                    
+                    sort($propositionsCorrectes);
+                    sort($propositionsChoisies);
+                    
+                    if (!empty($propositionsCorrectes) && $propositionsCorrectes == $propositionsChoisies) {
+                        $noteTotaleQcm += $question->bareme;
+                    }
+                }
+            }
+            $item->note_obtenu = $noteTotaleQcm;
+            $item->save();
         }
     }
 

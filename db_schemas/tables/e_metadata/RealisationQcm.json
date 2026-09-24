@@ -312,7 +312,8 @@
     },
     {
         "reference": "RealisationQcm_date_debut_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationQcm_date_debut",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -354,7 +355,8 @@
     },
     {
         "reference": "RealisationQcm_date_fin_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationQcm_date_fin",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -432,7 +434,8 @@
     },
     {
         "reference": "RealisationQcm_date_validation_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationQcm_date_validation",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -510,7 +513,8 @@
     },
     {
         "reference": "RealisationQcm_statut_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationQcm_statut",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -522,7 +526,8 @@
     },
     {
         "reference": "RealisationQcm_statut_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationQcm_statut",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -546,7 +551,8 @@
     },
     {
         "reference": "RealisationQcm_statut_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationQcm_statut",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -703,5 +709,12 @@
         ],
         "e_model_reference": "realisation_qcms",
         "e_metadata_definition_reference": "entityActions"
+    },
+    {
+        "reference": "RealisationQcm_note_obtenu_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationQcm_note_obtenu",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

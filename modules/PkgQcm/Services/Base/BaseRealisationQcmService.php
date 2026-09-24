@@ -382,10 +382,7 @@ class BaseRealisationQcmService extends BaseService
             'qcm_id',
             'apprenant_id',
             'etat_realisation_qcm_id',
-            'date_debut',
-            'date_fin',
-            'date_validation',
-            'statut'
+            'note_obtenu'
         ];
 
         // Récupération des champs autorisés par rôle via getFieldsEditable()
@@ -488,17 +485,9 @@ class BaseRealisationQcmService extends BaseService
                         'values' => $values,
                     ],
                 ]);
-            case 'date_debut':
-                return $this->computeFieldMeta($e, $field, $meta, 'date', $validationRules);
-            
-            case 'date_fin':
-                return $this->computeFieldMeta($e, $field, $meta, 'date', $validationRules);
-            
-            case 'date_validation':
-                return $this->computeFieldMeta($e, $field, $meta, 'date', $validationRules);
-            
-            case 'statut':
-                return $this->computeFieldMeta($e, $field, $meta, 'string');
+            case 'note_obtenu':
+                return $this->computeFieldMeta($e, $field, $meta, 'number');
+
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
         }
@@ -586,32 +575,8 @@ class BaseRealisationQcmService extends BaseService
 
 
 
-                case 'date_debut':
-                    $html = view('Core::fields_by_type.date', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => ''
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-                case 'date_fin':
-                    $html = view('Core::fields_by_type.date', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => ''
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-                case 'date_validation':
-                    $html = view('Core::fields_by_type.date', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => ''
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-                case 'statut':
-                    $html = view('Core::fields_by_type.string', [
+                case 'note_obtenu':
+                    $html = view('Core::fields_by_type.integer', [
                         'entity' => $e,
                         'column' => $field,
                         'nature' => ''

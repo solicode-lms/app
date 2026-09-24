@@ -370,41 +370,6 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationQcm" field="statut" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="statut" 
-              id="bulk_field_statut" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="statut">
-            {{ ucfirst(__('PkgQcm::realisationQcm.statut')) }}
-            
-          </label>
-           <input
-                name="statut"
-                type="input"
-                class="form-control"
-                
-                
-                
-                id="statut"
-                placeholder="{{ __('PkgQcm::realisationQcm.statut') }}"
-                value="{{ $itemRealisationQcm ? $itemRealisationQcm->statut : old('statut') }}">
-          @error('statut')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 
     </div>
   
