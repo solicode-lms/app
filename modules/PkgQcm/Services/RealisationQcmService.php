@@ -39,46 +39,59 @@ class RealisationQcmService extends BaseRealisationQcmService
         return $value;
     }
 
+    public function evaluerQcm($item)
+    {
+        $affectationQcmProjet = $item->affectationQcmProjet;
+        if (!$affectationQcmProjet) return;
+
+        $affectationProjet = $affectationQcmProjet->affectationProjet;
+        if (!$affectationProjet) return;
+
+        // Trouver la RealisationProjet
+        $realisationProjet = RealisationProjet::where('affectation_projet_id', $affectationProjet->id)
+            ->where('apprenant_id', $item->apprenant_id)
+            ->first();
+            
+        if (!$realisationProjet) return;
+
+        // Trouver les RealisationUaPrototypes liées
+        $realisationTachesIds = $realisationProjet->realisationTaches()->pluck('id');
+        if ($realisationTachesIds->isEmpty()) return;
+
+        $realisationUaPrototypes = RealisationUaPrototype::whereIn('realisation_tache_id', $realisationTachesIds)->get();
+
+        foreach($realisationUaPrototypes as $rup) {
+            $uniteApprentissageId = $rup->realisationUa->unite_apprentissage_id ?? null;
+            
+            if ($uniteApprentissageId) {
+                $resultat = $this->calculerNoteUa($item, $uniteApprentissageId);
+                
+                // On attribue la note uniquement si l'UA est évaluée dans ce QCM (barème > 0)
+                if ($resultat['bareme'] > 0) {
+                    $rup->note_qcm = $resultat['note'];
+                    $rup->barem_qcm = $resultat['bareme'];
+                    
+                    if ($affectationQcmProjet->saise_automatique_note_qcm) {
+                        // Adapter la note selon le barème du RealisationUaPrototype (Règle de 3)
+                        $baremePrototype = $rup->bareme ?? 20; // 20 par défaut si non défini
+                        $noteAdaptee = ($resultat['note'] / $resultat['bareme']) * $baremePrototype;
+                        
+                        $rup->note = $noteAdaptee;
+                    }
+                    
+                    $rup->save();
+                }
+            }
+        }
+    }
+
     public function afterUpdateRules($item, array $data)
     {
         // 1. Vérifier si l'état est "VALIDE"
         $etatValide = EtatRealisationQcm::where('reference', 'VALIDE')->first();
         
         if ($etatValide && $item->etat_realisation_qcm_id == $etatValide->id) {
-            $affectationQcmProjet = $item->affectationQcmProjet;
-            if (!$affectationQcmProjet) return;
-
-            $affectationProjet = $affectationQcmProjet->affectationProjet;
-            if (!$affectationProjet) return;
-
-            // Trouver la RealisationProjet
-            $realisationProjet = RealisationProjet::where('affectation_projet_id', $affectationProjet->id)
-                ->where('apprenant_id', $item->apprenant_id)
-                ->first();
-                
-            if (!$realisationProjet) return;
-
-            // Trouver les RealisationUaPrototypes liées
-            $realisationTachesIds = $realisationProjet->realisationTaches()->pluck('id');
-            if ($realisationTachesIds->isEmpty()) return;
-
-            $realisationUaPrototypes = RealisationUaPrototype::whereIn('realisation_tache_id', $realisationTachesIds)->get();
-
-            foreach($realisationUaPrototypes as $rup) {
-                $uniteApprentissageId = $rup->realisationUa->unite_apprentissage_id ?? null;
-                
-                if ($uniteApprentissageId) {
-                    $resultat = $this->calculerNoteUa($item, $uniteApprentissageId);
-                    $rup->note_qcm = $resultat['note'];
-                    $rup->barem_qcm = $resultat['bareme'];
-                    
-                    if ($affectationQcmProjet->saise_automatique_note_qcm) {
-                        $rup->note = ($rup->note ?? 0) + $resultat['note'];
-                    }
-                    
-                    $rup->save();
-                }
-            }
+            $this->evaluerQcm($item);
         }
     }
 

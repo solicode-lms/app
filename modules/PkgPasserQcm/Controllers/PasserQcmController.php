@@ -159,6 +159,10 @@ class PasserQcmController extends Controller
         $realisationQcm->date_soumission = now();
         $realisationQcm->save();
         
+        // Déclenchement manuel du calcul de note après soumission
+        $realisationQcmService = app(\Modules\PkgQcm\Services\RealisationQcmService::class);
+        $realisationQcmService->evaluerQcm($realisationQcm);
+        
         return response()->json([
             'success' => true,
             'message' => 'QCM soumis avec succès.'
