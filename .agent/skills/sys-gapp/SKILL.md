@@ -12,6 +12,7 @@ description: Expert pour déterminer et générer la configuration JSON des mét
 1. **Validation Métier** : Ne jamais inventer des relations ou des chemins d'attributs. **OBLIGATION** d'utiliser le skill [db-savoir](/skills/db-savoir/SKILL.md) pour trouver le chemin des relations et comprendre la structure exacte de la base de données.
 2. **Langue** : Toutes les explications et la documentation générées pour le développeur doivent être en **Français**.
 3. **Format Strict** : Fournir uniquement du code JSON valide pour la configuration des métadonnées afin d'éviter tout dysfonctionnement du générateur Gapp.
+4. **Interdiction de modification directe (RÈGLE CRITIQUE)** : Ce skill **ne doit JAMAIS** modifier les fichiers JSON de Gapp ni générer le code CRUD directement. Les fichiers Gapp sont protégés par un en-tête limitant les modifications manuelles. L'agent doit **uniquement informer** le développeur en lui fournissant la configuration JSON, accompagnée des commandes à exécuter (ex: `php artisan gapp meta:sync`, `php artisan gapp make:crud NomModel`) après chaque modification nécessitant une mise à jour du CRUD standard.
 
 ---
 

@@ -1,0 +1,233 @@
+[
+  {
+    "question": "Quelle façade Laravel est principalement utilisée pour effectuer des requêtes HTTP vers une API ?",
+    "reponses": [
+      "Request",
+      "Http",
+      "Client",
+      "Api"
+    ],
+    "bonneReponse": 2,
+    "points": 1
+  },
+  {
+    "question": "Quelle méthode permet de convertir la réponse d'une API directement en tableau PHP ?",
+    "reponses": [
+      "toArray()",
+      "body()",
+      "json()",
+      "collect()"
+    ],
+    "bonneReponse": 3,
+    "points": 1
+  },
+  {
+    "question": "Comment vérifier si une requête API a retourné un code d'erreur (4xx ou 5xx) ?",
+    "reponses": [
+      "$response->error()",
+      "$response->failed()",
+      "$response->isBad()",
+      "$response->status(500)"
+    ],
+    "bonneReponse": 2,
+    "points": 1
+  },
+  {
+    "question": "Quelle méthode est utilisée pour envoyer des paramètres dans une requête GET ?",
+    "reponses": [
+      "Http::get('url', ['key' => 'val'])",
+      "Http::withParams(['key' => 'val'])->get('url')",
+      "Http::query(['key' => 'val'])->get('url')",
+      "Http::get('url?key=val')"
+    ],
+    "bonneReponse": 1,
+    "points": 1
+  },
+  {
+    "question": "Quelle méthode permet de déclencher une exception automatiquement si la requête API échoue ?",
+    "reponses": [
+      "throw()",
+      "exception()",
+      "error()",
+      "fail()"
+    ],
+    "bonneReponse": 1,
+    "points": 1
+  },
+  {
+    "question": "Quelle méthode permet de définir un délai d'attente (timeout) pour une requête ?",
+    "reponses": [
+      "wait()",
+      "timeout()",
+      "delay()",
+      "stopAfter()"
+    ],
+    "bonneReponse": 2,
+    "points": 1
+  },
+  {
+    "question": "Comment vérifier si le code de statut d'une réponse est exactement 200 ?",
+    "reponses": [
+      "$response->ok()",
+      "$response->is200()",
+      "$response->successful()",
+      "$response->status() == 200"
+    ],
+    "bonneReponse": 4,
+    "points": 1
+  },
+  {
+    "question": "Quelle commande Artisan installe NativePHP dans un projet Laravel ?",
+    "reponses": [
+      "php artisan native:install",
+      "php artisan make:native",
+      "php artisan native:setup",
+      "php artisan init:native"
+    ],
+    "bonneReponse": 1,
+    "points": 1
+  },
+  {
+    "question": "Dans quel fichier se trouve la configuration principale de NativePHP ?",
+    "reponses": [
+      "config/app.php",
+      "config/nativephp.php",
+      "config/native-php.php",
+      "native/config.php"
+    ],
+    "bonneReponse": 2,
+    "points": 1
+  },
+  {
+    "question": "Quel 'Provider' est utilisé pour configurer le démarrage de l'application native ?",
+    "reponses": [
+      "AppServiceProvider",
+      "NativeServiceProvider",
+      "NativeAppServiceProvider",
+      "DesktopServiceProvider"
+    ],
+    "bonneReponse": 3,
+    "points": 1
+  },
+  {
+    "question": "Où sont généralement stockées les icônes de l'application dans NativePHP ?",
+    "reponses": [
+      "public/images",
+      "resources/icons",
+      "storage/app/icons",
+      "native/resources/icons"
+    ],
+    "bonneReponse": 2,
+    "points": 1
+  },
+  {
+    "question": "Comment définit-on le titre d'une fenêtre NativePHP ?",
+    "reponses": [
+      "Window::open()->title('Mon App')",
+      "Window::title('Mon App')",
+      "Window::open()->withTitle('Mon App')",
+      "Window::open()->label('Mon App')"
+    ],
+    "bonneReponse": 1,
+    "points": 1
+  },
+  {
+    "question": "Quelle méthode permet de fixer une taille précise à une fenêtre ?",
+    "reponses": [
+      "size(800, 600)",
+      "width(800)->height(600)",
+      "resize(800, 600)",
+      "dimension(800, 600)"
+    ],
+    "bonneReponse": 2,
+    "points": 1
+  },
+  {
+    "question": "NativePHP utilise quel moteur par défaut pour afficher l'interface sous Windows ?",
+    "reponses": [
+      "Chromium",
+      "Webview2",
+      "Safari",
+      "Firefox"
+    ],
+    "bonneReponse": 1,
+    "points": 1
+  },
+  {
+    "question": "Quelle commande permet de générer l'exécutable final de l'application ?",
+    "reponses": [
+      "php artisan native:compile",
+      "php artisan native:build",
+      "php artisan native:dist",
+      "php artisan native:make"
+    ],
+    "bonneReponse": 2,
+    "points": 1
+  },
+  {
+    "question": "Dans le fichier config/native-php.php, que définit la clé 'id' ?",
+    "reponses": [
+      "L'identifiant unique de l'application (Bundle ID)",
+      "Le mot de passe de la base de données",
+      "L'ID de l'utilisateur Windows",
+      "Le numéro de version"
+    ],
+    "bonneReponse": 1,
+    "points": 1
+  },
+  {
+    "question": "Comment accéder au presse-papier (clipboard) via NativePHP ?",
+    "reponses": [
+      "ClipboardFacade",
+      "Clipboard::get()",
+      "System::clipboard()",
+      "CopyPaste::read()"
+    ],
+    "bonneReponse": 2,
+    "points": 1
+  },
+  {
+    "question": "Quel outil permet de tester rapidement une app NativePHP sur mobile (QR Code) ?",
+    "reponses": [
+      "Jump",
+      "Bridge",
+      "Connect",
+      "MobileServe"
+    ],
+    "bonneReponse": 1,
+    "points": 1
+  },
+  {
+    "question": "Quel est le rôle de l'option 'rememberState' pour une fenêtre ?",
+    "reponses": [
+      "Sauvegarder les données du formulaire",
+      "Mémoriser la position et la taille de la fenêtre",
+      "Garder l'utilisateur connecté",
+      "Enregistrer l'historique de navigation"
+    ],
+    "bonneReponse": 2,
+    "points": 1
+  },
+  {
+    "question": "Dans le fichier de config, que signifie l'option 'hot_reload' ?",
+    "reponses": [
+      "Recharger l'app automatiquement lors d'un changement de code",
+      "Mettre à jour le serveur PHP",
+      "Vider le cache de Laravel",
+      "Redémarrer Windows"
+    ],
+    "bonneReponse": 1,
+    "points": 1
+  },
+  {
+    "question": "Quelle commande permet de mettre à jour les dépendances de NativePHP ?",
+    "reponses": [
+      "composer update nativephp/electron",
+      "php artisan native:update",
+      "npm update native",
+      "native:refresh"
+    ],
+    "bonneReponse": 2,
+    "points": 1
+  }
+]
