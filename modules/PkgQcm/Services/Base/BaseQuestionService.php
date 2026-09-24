@@ -93,6 +93,7 @@ class BaseQuestionService extends BaseService
         if (!empty($question->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
             $question->hasManyInputsToUpdate = [
+                    'propositionReponses' => 'propositionReponse-crud',
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)

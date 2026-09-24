@@ -30,42 +30,7 @@
 
     
     <div class="row">
-        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemQuestion" field="ordre" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="ordre" 
-              id="bulk_field_ordre" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="ordre">
-            {{ ucfirst(__('PkgQcm::question.ordre')) }}
-            
-          </label>
-                      <input
-                name="ordre"
-                type="number"
-                class="form-control"
-                
-                
-                
-                id="ordre"
-                placeholder="{{ __('PkgQcm::question.ordre') }}"
-                value="{{ $itemQuestion ? $itemQuestion->ordre : old('ordre') }}">
-          @error('ordre')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemQuestion" field="enonce" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemQuestion" field="enonce" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
@@ -134,40 +99,6 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemQuestion" field="explication" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-12">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="explication" 
-              id="bulk_field_explication" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="explication">
-            {{ ucfirst(__('PkgQcm::question.explication')) }}
-            
-          </label>
-                      <textarea rows="" cols=""
-                name="explication"
-                class="form-control richText"
-                
-                
-                
-                id="explication">
-                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('explication', $itemQuestion->explication ?? '')) !!}
-                </textarea>
-          @error('explication')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemQuestion" field="is_actif" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
@@ -184,14 +115,14 @@
           @endif
           <label for="is_actif">
             {{ ucfirst(__('PkgQcm::question.is_actif')) }}
-            <span class="text-danger">*</span>
+            
           </label>
                       <input type="hidden" name="is_actif" value="0">
             <input
                 name="is_actif"
                 type="checkbox"
                 class="form-control d-block"
-                required
+                
                 
                 
                 id="is_actif"
@@ -319,6 +250,26 @@
       </div>
   
 </x-form-field>
+
+
+@if($itemQuestion->id)
+@if(
+  (auth()->user()?->can('show-propositionReponse') && $itemQuestion->propositionReponses->isNotEmpty())  
+  || auth()->user()?->can('create-propositionReponse')
+  || (auth()->user()?->can('edit-propositionReponse')  && $itemQuestion->propositionReponses->isNotEmpty() )
+  )
+@if (empty($bulkEdit))
+<div class="col-12 col-md-12">
+   <label for="PropositionReponse">
+            {{ ucfirst(__('PkgQcm::propositionReponse.plural')) }}
+            
+    </label>
+
+  @include('PkgQcm::propositionReponse._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => false ,"parent_manager_id" => "question-crud","contextKey" => 'question.edit_' . $itemQuestion->id])
+</div>
+@endif
+@endif
+@endif
 
 
     </div>

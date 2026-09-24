@@ -11,7 +11,7 @@
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="propositionReponse" label="{!!ucfirst(__('PkgQcm::propositionReponse.ordre'))!!}" />
                 <x-sortable-column :sortable="false" width="39"  field="libelle" modelname="propositionReponse" label="{!!ucfirst(__('PkgQcm::propositionReponse.libelle'))!!}" />
-                <x-sortable-column :sortable="true" width="39" field="question_id" modelname="propositionReponse" label="{!!ucfirst(__('PkgQcm::question.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="39"  field="is_correcte" modelname="propositionReponse" label="{!!ucfirst(__('PkgQcm::propositionReponse.is_correcte'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -23,7 +23,7 @@
                 @endphp
                 <tr id="propositionReponse-row-{{$propositionReponse->id}}" data-id="{{$propositionReponse->id}}">
                     <x-checkbox-row :item="$propositionReponse" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$propositionReponse->id}}" data-field="ordre">
+                    <td style="max-width: 4%;white-space: normal;" class=" text-truncate" data-id="{{$propositionReponse->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $propositionReponse->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
@@ -35,8 +35,10 @@
                    
 
                     </td>
-                    <td style="max-width: 39%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$propositionReponse->id}}" data-field="question_id">
-                        {{  $propositionReponse->question }}
+                    <td style="max-width: 39%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$propositionReponse->id}}" data-field="is_correcte">
+                        <span class="{{ $propositionReponse->is_correcte ? 'text-success' : 'text-danger' }}">
+                            {{ $propositionReponse->is_correcte ? 'Oui' : 'Non' }}
+                        </span>
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

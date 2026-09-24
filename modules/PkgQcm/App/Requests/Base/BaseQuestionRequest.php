@@ -33,7 +33,7 @@ class BaseQuestionRequest extends FormRequest
             'enonce' => 'required|string',
             'type' => 'required|string|max:255',
             'explication' => 'nullable|string',
-            'is_actif' => 'required|boolean',
+            'is_actif' => 'nullable|boolean',
             'bareme' => 'nullable',
             'qcm_id' => 'nullable',
             'unite_apprentissage_id' => 'nullable'

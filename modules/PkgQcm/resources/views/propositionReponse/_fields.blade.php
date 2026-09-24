@@ -30,42 +30,7 @@
 
     
     <div class="row">
-        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemPropositionReponse" field="ordre" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="ordre" 
-              id="bulk_field_ordre" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="ordre">
-            {{ ucfirst(__('PkgQcm::propositionReponse.ordre')) }}
-            
-          </label>
-                      <input
-                name="ordre"
-                type="number"
-                class="form-control"
-                
-                
-                
-                id="ordre"
-                placeholder="{{ __('PkgQcm::propositionReponse.ordre') }}"
-                value="{{ $itemPropositionReponse ? $itemPropositionReponse->ordre : old('ordre') }}">
-          @error('ordre')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemPropositionReponse" field="libelle" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemPropositionReponse" field="libelle" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
@@ -115,14 +80,14 @@
           @endif
           <label for="is_correcte">
             {{ ucfirst(__('PkgQcm::propositionReponse.is_correcte')) }}
-            <span class="text-danger">*</span>
+            
           </label>
                       <input type="hidden" name="is_correcte" value="0">
             <input
                 name="is_correcte"
                 type="checkbox"
                 class="form-control d-block"
-                required
+                
                 
                 
                 id="is_correcte"
@@ -169,46 +134,6 @@
                 @endforeach
             </select>
           @error('question_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemPropositionReponse" field="reponseQcms" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="reponseQcms" 
-              id="bulk_field_reponseQcms" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="reponseQcms">
-            {{ ucfirst(__('PkgQcm::reponseQcm.plural')) }}
-            
-          </label>
-                      <select
-                id="reponseQcms"
-                name="reponseQcms[]"
-                class="form-control select2"
-                
-                
-                multiple="multiple">
-               
-                @foreach ($reponseQcms as $reponseQcm)
-                    <option value="{{ $reponseQcm->id }}"
-                        {{ (isset($itemPropositionReponse) && $itemPropositionReponse->reponseQcms && $itemPropositionReponse->reponseQcms->contains('id', $reponseQcm->id)) || (is_array(old('reponseQcms')) && in_array($reponseQcm->id, old('reponseQcms'))) ? 'selected' : '' }}>
-                        {{ $reponseQcm }}
-                    </option>
-                @endforeach
-            </select>
-          @error('reponseQcms')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

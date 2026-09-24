@@ -36,14 +36,6 @@
                             <a class="nav-link active" id="question-hasmany-tabs-home-tab" data-toggle="pill" href="#question-hasmany-tabs-home" role="tab" aria-controls="question-hasmany-tabs-home" aria-selected="true">{{__('PkgQcm::question.singular')}}</a>
                         </li>
 
-                         @if($itemQuestion->propositionReponses?->count() > 0 || auth()->user()?->can('create-propositionReponse'))
-                        <li class="nav-item">
-                            <a class="nav-link" id="question-hasmany-tabs-propositionReponse-tab" data-toggle="pill" href="#question-hasmany-tabs-propositionReponse" role="tab" aria-controls="question-hasmany-tabs-propositionReponse" aria-selected="false">
-                                <i class="nav-icon fas fa-list-ul"></i>
-                                {{ucfirst(__('PkgQcm::propositionReponse.plural'))}}
-                            </a>
-                        </li>
-                        @endif
                          @if($itemQuestion->reponseQcms?->count() > 0 || auth()->user()?->can('create-reponseQcm'))
                         <li class="nav-item">
                             <a class="nav-link" id="question-hasmany-tabs-reponseQcm-tab" data-toggle="pill" href="#question-hasmany-tabs-reponseQcm" role="tab" aria-controls="question-hasmany-tabs-reponseQcm" aria-selected="false">
@@ -62,11 +54,6 @@
                                 @include('PkgQcm::question._fields')
                             </div>
 
-                            @if($itemQuestion->propositionReponses?->count() > 0 || auth()->user()?->can('create-propositionReponse'))
-                            <div class="tab-pane fade" id="question-hasmany-tabs-propositionReponse" role="tabpanel" aria-labelledby="question-hasmany-tabs-propositionReponse-tab">
-                                @include('PkgQcm::propositionReponse._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'question.edit_' . $itemQuestion->id])
-                            </div>
-                            @endif
                             @if($itemQuestion->reponseQcms?->count() > 0 || auth()->user()?->can('create-reponseQcm'))
                             <div class="tab-pane fade" id="question-hasmany-tabs-reponseQcm" role="tabpanel" aria-labelledby="question-hasmany-tabs-reponseQcm-tab">
                                 @include('PkgQcm::reponseQcm._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'question.edit_' . $itemQuestion->id])

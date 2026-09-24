@@ -1,5 +1,3 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
-
 @section('question-show')
 <div id="question-crud-show">
         <div class="card-body">
@@ -29,8 +27,8 @@
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgQcm::question.type')) }}</small>
     {{-- Affichage texte par défaut --}}
-    @if(!is_null($itemQuestion->type) && $itemQuestion->type !== '')
-        {{ $itemQuestion->type }}
+    @if(!is_null($itemQuestion->type))
+        {{ $itemQuestion->type->label() }}
     @else
         <span class="text-muted">—</span>
     @endif

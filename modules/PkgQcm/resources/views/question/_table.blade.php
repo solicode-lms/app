@@ -23,7 +23,7 @@
                 @endphp
                 <tr id="question-row-{{$question->id}}" data-id="{{$question->id}}">
                     <x-checkbox-row :item="$question" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$question->id}}" data-field="ordre">
+                    <td style="max-width: 4%;white-space: normal;" class=" text-truncate" data-id="{{$question->id}}" data-field="ordre">
                             <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $question->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>

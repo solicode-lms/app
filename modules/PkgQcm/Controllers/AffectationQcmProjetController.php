@@ -50,7 +50,7 @@ class AffectationQcmProjetController extends BaseAffectationQcmProjetController
             $affectation = AffectationQcmProjet::findOrFail($id);
             // On passe l'ID du QCM associé à cette affectation
             $count = $questionService->importFromJson($jsonPayload, $affectation->qcm_id);
-            return redirect()->route('affectationQcmProjets.index')->with('success', "$count questions importées avec succès pour le QCM !");
+            return redirect()->route('qcms.edit', ['qcm' => $affectation->qcm_id])->with('success', "$count questions importées avec succès pour le QCM !");
         } catch (Exception $e) {
             return redirect()->back()->with('error', 'Erreur d\'importation : ' . $e->getMessage())->withInput();
         }

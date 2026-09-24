@@ -202,7 +202,8 @@
     },
     {
         "reference": "Question_explication_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Question_explication",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -232,7 +233,8 @@
     },
     {
         "reference": "Question_is_actif_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Question_is_actif",
         "e_metadata_definition_reference": "required"
     },
@@ -286,7 +288,8 @@
     },
     {
         "reference": "Question_ordre_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Question_ordre",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -534,7 +537,8 @@
     },
     {
         "reference": "questions_hasMany_proposition_reponses_question_id_editHasMany",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "questions_hasMany_proposition_reponses_question_id",
         "e_metadata_definition_reference": "editHasMany"
     },
@@ -579,5 +583,19 @@
         "value_boolean": 1,
         "e_data_field_reference": "questions_hasMany_reponse_qcms_question_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "questions_hasMany_proposition_reponses_question_id_displayInForm",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "questions_hasMany_proposition_reponses_question_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "questions_editOnFullScreen",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_model_reference": "questions",
+        "e_metadata_definition_reference": "editOnFullScreen"
     }
 ]

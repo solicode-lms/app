@@ -39,9 +39,9 @@
                         <!-- Étape 1 : Le Prompt -->
                         <div class="col-md-6 border-right">
                             <h5 class="text-primary mb-3"><i class="fas fa-copy"></i> 1. Copier le Prompt</h5>
-                            <p class="text-muted small">Copiez ce texte et collez-le dans votre IA (ChatGPT, Claude...) pour générer les questions.</p>
+                            <p class="text-muted small">Vous pouvez modifier ce texte avant de le copier dans votre IA (ChatGPT, Claude...).</p>
                             <div class="position-relative mb-2">
-                                <textarea id="prompt-content-{{ $ua->id }}" class="form-control bg-dark text-white p-3" style="font-family: monospace; font-size: 0.85rem; height: 350px; resize: none;" readonly>
+                                <textarea id="prompt-content-{{ $ua->id }}" class="form-control bg-dark text-white p-3" style="font-family: monospace; font-size: 0.85rem; height: 350px; resize: none;">
 # 🧠 **Prompt — Génération de QCM JSON**
 
 Génère un **QCM** au **format JSON** strict, sans aucun texte additionnel ni explication.
@@ -72,18 +72,13 @@ Génère 40 questions.</textarea>
                         <div class="col-md-6">
                             <h5 class="text-success mb-3"><i class="fas fa-file-import"></i> 2. Importer les Questions</h5>
                             <p class="text-muted small">Collez ici le code JSON renvoyé par l'IA pour cette unité, puis validez.</p>
-                            <form action="{{ route('affectationQcmProjets.importIaProcess', ['id' => $affectation->id]) }}" method="POST">
+                            <form action="{{ route('affectationQcmProjets.importIaProcess', ['id' => $affectation->id]) }}" method="POST" onsubmit="return syncEditor('{{ $ua->id }}')">
                                 @csrf
                                 <div class="form-group mb-2">
-                                    <textarea name="json_payload" class="form-control" style="font-family: monospace; font-size: 0.85rem; height: 350px;" required placeholder="[
-  {
-    &quot;question&quot;: &quot;...&quot;,
-    &quot;reponses&quot;: [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;],
-    &quot;bonneReponse&quot;: 1,
-    &quot;points&quot;: 1,
-    &quot;unite_apprentissage_code&quot;: &quot;...&quot;
-  }
-]">{{ old('json_payload') }}</textarea>
+                                    <!-- Conteneur pour Monaco Editor -->
+                                    <div id="json-editor-{{ $ua->id }}" style="height: 350px; border: 1px solid #ced4da; border-radius: 4px;"></div>
+                                    <!-- Input caché pour envoyer les données -->
+                                    <input type="hidden" name="json_payload" id="hidden_json_{{ $ua->id }}">
                                 </div>
                                 <button type="submit" class="btn btn-success btn-sm btn-block"><i class="fas fa-save"></i> Enregistrer les Questions de cette UA</button>
                             </form>
@@ -103,10 +98,40 @@ Génère 40 questions.</textarea>
 @endsection
 
 @push('scripts')
+<!-- Monaco Editor CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.js"></script>
 <script>
+    // Dictionnaire pour stocker les instances de Monaco Editor
+    window.monacoEditors = {};
+
+    require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs' }});
+    require(['vs/editor/editor.main'], function() {
+        @if($uas && $uas->count() > 0)
+            @foreach($uas as $ua)
+                // Initialisation de Monaco Editor pour chaque UA
+                window.monacoEditors['{{ $ua->id }}'] = monaco.editor.create(document.getElementById('json-editor-{{ $ua->id }}'), {
+                    value: "[\n  {\n    \"question\": \"...\",\n    \"reponses\": [\"A\", \"B\", \"C\", \"D\"],\n    \"bonneReponse\": 1,\n    \"points\": 1,\n    \"unite_apprentissage_code\": \"{{ $ua->code }}\"\n  }\n]",
+                    language: 'json',
+                    theme: 'vs-light',
+                    automaticLayout: true,
+                    minimap: { enabled: false },
+                    scrollBeyondLastLine: false
+                });
+            @endforeach
+        @endif
+    });
+
+    // Fonction pour synchroniser le contenu de Monaco Editor vers l'input caché avant la soumission
+    window.syncEditor = function(uaId) {
+        if (window.monacoEditors[uaId]) {
+            document.getElementById('hidden_json_' + uaId).value = window.monacoEditors[uaId].getValue();
+            return true;
+        }
+        return false;
+    };
+
     window.copyPrompt = function(elementId) {
         const textarea = document.getElementById(elementId);
-        console.log(textarea);
         textarea.select();
         textarea.setSelectionRange(0, 99999);
         
