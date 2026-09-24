@@ -42,6 +42,43 @@ class QuestionService extends BaseQuestionService
     }
 
     /**
+     * Personnalisation des filtres de la liste (index).
+     */
+    public function initFieldsFilterable()
+    {
+        $scopeVariables = $this->viewState->getScopeVariables('question');
+        $this->fieldsFilterable = [];
+
+        if (!array_key_exists('qcm_id', $scopeVariables)) {
+            $qcmService = new \Modules\PkgQcm\Services\QcmService();
+            $qcmIds = $this->getAvailableFilterValues('qcm_id');
+            $qcms = $qcmService->getByIds($qcmIds);
+
+            $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                __("PkgQcm::qcm.plural"), 
+                'qcm_id', 
+                \Modules\PkgQcm\Models\Qcm::class, 
+                'titre',
+                $qcms
+            );
+        }
+
+        if (!array_key_exists('unite_apprentissage_id', $scopeVariables)) {
+            $uniteApprentissageService = new \Modules\PkgCompetences\Services\UniteApprentissageService();
+            $uniteApprentissageIds = $this->getAvailableFilterValues('unite_apprentissage_id');
+            $uniteApprentissages = $uniteApprentissageService->getByIds($uniteApprentissageIds);
+
+            $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                __("PkgCompetences::uniteApprentissage.plural"), 
+                'unite_apprentissage_id', 
+                \Modules\PkgCompetences\Models\UniteApprentissage::class, 
+                'nom', // Utilisation de 'nom' pour un affichage plus clair que 'code'
+                $uniteApprentissages
+            );
+        }
+    }
+
+    /**
      * Importe des questions à partir d'un JSON généré par IA.
      *
      * @param string $jsonPayload
