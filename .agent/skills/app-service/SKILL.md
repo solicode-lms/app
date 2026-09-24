@@ -108,6 +108,20 @@ Dans les classes de service finales (`[Model]Service`), le code métier complexe
   1. Utiliser `capacité-hooks-crud.md` pour identifier la signature exacte du hook.
   2. Implémenter la logique et lever une `BlException` si une règle est enfreinte.
 
+### Action E : Initialiser les valeurs par défaut (Formulaires)
+> **Description** : Injecter des valeurs par défaut dans une entité avant son affichage dans un formulaire de création (vue Create).
+- **Entrées** : `Service cible`, `Valeurs par défaut (ex: is_publie = true)`
+- **Sorties** : `Méthode createInstance(array $data = []) surchargée`
+- **❌ Interdictions Spécifiques** :
+  - Ne pas utiliser les hooks `beforeCreateRules` pour l'affichage initial du formulaire, car ces hooks ne sont déclenchés qu'à la sauvegarde (POST).
+- **✅ Points de Contrôle** :
+  - Appel obligatoire à `parent::createInstance($data)` à la fin de la méthode.
+- **📝 Instructions d'Orchestration** :
+  1. Ouvrir le service final `[Model]Service.php` (ou son trait `CrudTrait`).
+  2. Surcharger `public function createInstance(array $data = [])`.
+  3. Ajouter la logique d'initialisation (ex: `if (!isset($data['champ'])) $data['champ'] = true;`).
+  4. Retourner l'appel au parent avec les données modifiées.
+
 ---
 
 ## 🛠️ Capacités (Savoir-Faire Technique)

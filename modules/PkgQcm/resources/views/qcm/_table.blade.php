@@ -9,8 +9,9 @@
                     $bulkEdit = $qcms_permissions['edit-qcm'] || $qcms_permissions['destroy-qcm'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="41"  field="titre" modelname="qcm" label="{!!ucfirst(__('PkgQcm::qcm.titre'))!!}" />
-                <x-sortable-column :sortable="true" width="41" field="formateur_id" modelname="qcm" label="{!!ucfirst(__('PkgFormation::formateur.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="titre" modelname="qcm" label="{!!ucfirst(__('PkgQcm::qcm.titre'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="is_publie" modelname="qcm" label="{!!ucfirst(__('PkgQcm::qcm.is_publie'))!!}" />
+                <x-sortable-column :sortable="false" width="27.333333333333332"  field="AffectationQcmProjet" modelname="qcm" label="{!!ucfirst(__('PkgQcm::affectationQcmProjet.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -22,12 +23,22 @@
                 @endphp
                 <tr id="qcm-row-{{$qcm->id}}" data-id="{{$qcm->id}}">
                     <x-checkbox-row :item="$qcm" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$qcm->id}}" data-field="titre">
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$qcm->id}}" data-field="titre">
                         {{ $qcm->titre }}
 
                     </td>
-                    <td style="max-width: 41%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$qcm->id}}" data-field="formateur_id">
-                        {{  $qcm->formateur }}
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$qcm->id}}" data-field="is_publie">
+                        <span class="{{ $qcm->is_publie ? 'text-success' : 'text-danger' }}">
+                            {{ $qcm->is_publie ? 'Oui' : 'Non' }}
+                        </span>
+
+                    </td>
+                    <td style="max-width: 27.333333333333332%;white-space: normal;" class=" text-truncate" data-id="{{$qcm->id}}" data-field="AffectationQcmProjet">
+                        <ul>
+                            @foreach ($qcm->affectationQcmProjets as $affectationQcmProjet)
+                                <li>{{$affectationQcmProjet}} </li>
+                            @endforeach
+                        </ul>
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

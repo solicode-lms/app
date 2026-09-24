@@ -312,7 +312,8 @@ class BaseQcmService extends BaseService
         // Champs considérés comme inline
         $inlineFields = [
             'titre',
-            'formateur_id'
+            'is_publie',
+            'AffectationQcmProjet'
         ];
 
         // Récupération des champs autorisés par rôle via getFieldsEditable()
@@ -353,22 +354,11 @@ class BaseQcmService extends BaseService
        switch ($field) {
             case 'titre':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
-            case 'formateur_id':
-                 $values = (new \Modules\PkgFormation\Services\FormateurService())
-                    ->getAllForSelect($e->formateur)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
+            case 'is_publie':
+                return $this->computeFieldMeta($e, $field, $meta, 'boolean');
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
+            case 'AffectationQcmProjet':
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
         }
@@ -416,18 +406,23 @@ class BaseQcmService extends BaseService
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
-                case 'formateur_id':
-                    $html = view('Core::fields_by_type.manytoone', [
+                case 'is_publie':
+                    $html = view('Core::fields_by_type.boolean', [
                         'entity' => $e,
                         'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'formateur'
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
-
-
-
+                case 'AffectationQcmProjet':
+                    // fallback string simple
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                        'nature' => ''
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
 
                 default:
                     // fallback générique si champ non pris en charge
