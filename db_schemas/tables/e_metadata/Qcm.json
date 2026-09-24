@@ -135,7 +135,9 @@
     },
     {
         "reference": "Qcm_titre_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
         "e_data_field_reference": "Qcm_titre",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -231,7 +233,8 @@
     },
     {
         "reference": "Qcm_is_duree_limitee_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Qcm_is_duree_limitee",
         "e_metadata_definition_reference": "required"
     },
@@ -273,7 +276,8 @@
     },
     {
         "reference": "Qcm_is_publie_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Qcm_is_publie",
         "e_metadata_definition_reference": "required"
     },
@@ -513,8 +517,8 @@
             {
                 "role": "formateur",
                 "dataScope": "scope",
-                "userModelName": "User",
-                "ownerRelationPath": "formateurs.user"
+                "userModelName": "Formateur",
+                "ownerRelationPath": "formateur.user"
             }
         ],
         "e_model_reference": "qcms",

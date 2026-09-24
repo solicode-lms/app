@@ -37,7 +37,7 @@ class BaseQcm extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
-        $this->ownerRelationPath = "formateurs.user";
+        $this->ownerRelationPath = "formateur.user";
     }
 
     

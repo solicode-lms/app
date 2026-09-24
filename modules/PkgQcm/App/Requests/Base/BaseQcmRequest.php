@@ -32,8 +32,8 @@ class BaseQcmRequest extends FormRequest
             'titre' => 'required|string|max:255',
             'description' => 'nullable|string',
             'duree_minutes' => 'nullable|integer',
-            'is_duree_limitee' => 'required|boolean',
-            'is_publie' => 'required|boolean',
+            'is_duree_limitee' => 'nullable|boolean',
+            'is_publie' => 'nullable|boolean',
             'formateur_id' => 'nullable'
         ];
     }

@@ -46,8 +46,8 @@ class BaseQcmController extends AdminController
 
 
         // ownedByUser
-        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.qcm.formateurs.user_id') == null){
-           $this->viewState->init('scope.qcm.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.qcm.formateur_id') == null){
+           $this->viewState->init('scope.qcm.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
 
@@ -82,7 +82,7 @@ class BaseQcmController extends AdminController
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.qcm.formateurs.user_id'  , $this->sessionState->get('user_id'));
+           $this->viewState->set('scope_form.qcm.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
 
@@ -114,7 +114,7 @@ class BaseQcmController extends AdminController
 
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.qcm.formateurs.user_id'  , $this->sessionState->get('user_id'));
+           $this->viewState->set('scope_form.qcm.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
  
          $itemQcm = $this->qcmService->find($qcm_ids[0]);

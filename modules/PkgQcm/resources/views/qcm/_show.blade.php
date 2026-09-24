@@ -4,7 +4,7 @@
 <div id="qcm-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgQcm::qcm.titre')) }}</small>
     {{-- Affichage texte par défaut --}}

@@ -32,7 +32,7 @@
     <div class="row">
         <x-form-field :defined_vars="get_defined_vars()" :entity="$itemQcm" field="titre" :bulkEdit="$bulkEdit">
 
-      <div class="form-group col-12 col-md-6">
+      <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input 
@@ -150,14 +150,14 @@
           @endif
           <label for="is_duree_limitee">
             {{ ucfirst(__('PkgQcm::qcm.is_duree_limitee')) }}
-            <span class="text-danger">*</span>
+            
           </label>
                       <input type="hidden" name="is_duree_limitee" value="0">
             <input
                 name="is_duree_limitee"
                 type="checkbox"
                 class="form-control d-block"
-                required
+                
                 
                 
                 id="is_duree_limitee"
@@ -186,14 +186,14 @@
           @endif
           <label for="is_publie">
             {{ ucfirst(__('PkgQcm::qcm.is_publie')) }}
-            <span class="text-danger">*</span>
+            
           </label>
                       <input type="hidden" name="is_publie" value="0">
             <input
                 name="is_publie"
                 type="checkbox"
                 class="form-control d-block"
-                required
+                
                 
                 
                 id="is_publie"
