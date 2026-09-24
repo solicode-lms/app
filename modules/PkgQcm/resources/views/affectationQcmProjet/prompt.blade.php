@@ -44,14 +44,15 @@ Sujets couverts par les tutoriels :
 @endforelse
 
 Format attendu :
-[{"question":"...","reponses":["A","B","C","D"],"bonneReponse":1,"points":1}]
+[{"question":"...","reponses":["A","B","C","D"],"bonneReponse":1,"points":1,"unite_apprentissage_id":{{ $ua->id }}}]
 
 Règles obligatoires :
 1. Renvoie UNIQUEMENT un tableau JSON, aucune phrase d'introduction ni de conclusion.
 2. "reponses" : 4 propositions maximum.
 3. "bonneReponse" : Chiffre de 1 à 4 indiquant la position de la bonne réponse.
 4. "points" : Entier (1 par défaut).
-5. Varie la position de la bonne réponse.
+5. "unite_apprentissage_id" : Toujours {{ $ua->id }} (code UA : {{ $ua->code }}).
+6. Varie la position de la bonne réponse.
 
 Génère 40 questions sur ces sujets.
 </textarea>
