@@ -201,8 +201,9 @@
         "proposition_reponse_reponse_qcm",
         "realisation_ua_prototype_reponse_qcm"
     ]
+}, "PkgPasserQcm": {
+    "name": "PkgPasserQcm",
+    "tables": []
 }
-
-        
 }
 
