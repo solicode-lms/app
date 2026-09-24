@@ -10,8 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="question" label="{!!ucfirst(__('PkgQcm::question.ordre'))!!}" />
-                <x-sortable-column :sortable="true" width="39" field="qcm_id" modelname="question" label="{!!ucfirst(__('PkgQcm::qcm.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="39" field="unite_apprentissage_id" modelname="question" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.singular'))!!}" />
+                <x-sortable-column :sortable="false" width="26"  field="enonce" modelname="question" label="{!!ucfirst(__('PkgQcm::question.enonce'))!!}" />
+                <x-sortable-column :sortable="false" width="26"  field="PropositionReponse" modelname="question" label="{!!ucfirst(__('PkgQcm::propositionReponse.plural'))!!}" />
+                <x-sortable-column :sortable="true" width="26" field="unite_apprentissage_id" modelname="question" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -29,11 +30,21 @@
                         </div>
 
                     </td>
-                    <td style="max-width: 39%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$question->id}}" data-field="qcm_id">
-                        {{  $question->qcm }}
+                    <td style="max-width: 26%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$question->id}}" data-field="enonce">
+                  
+                        {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($question->enonce, 30) !!}
+                   
 
                     </td>
-                    <td style="max-width: 39%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$question->id}}" data-field="unite_apprentissage_id">
+                    <td style="max-width: 26%;white-space: normal;" class=" text-truncate" data-id="{{$question->id}}" data-field="PropositionReponse">
+                        <ul>
+                            @foreach ($question->propositionReponses as $propositionReponse)
+                                <li>{{$propositionReponse}} </li>
+                            @endforeach
+                        </ul>
+
+                    </td>
+                    <td style="max-width: 26%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$question->id}}" data-field="unite_apprentissage_id">
                         {{  $question->uniteApprentissage }}
 
                     </td>

@@ -90,8 +90,8 @@ class BaseQuestionSeeder extends Seeder
                 $questionData =[
                         "ordre" => isset($row["ordre"]) && $row["ordre"] !== "" ? $row["ordre"] : null,
                         "enonce" => isset($row["enonce"]) && $row["enonce"] !== "" ? $row["enonce"] : null,
-                        "type" => isset($row["type"]) && $row["type"] !== "" ? $row["type"] : null,
                         "explication" => isset($row["explication"]) && $row["explication"] !== "" ? $row["explication"] : null,
+                        "type" => isset($row["type"]) && $row["type"] !== "" ? $row["type"] : null,
                         "is_actif" => isset($row["is_actif"]) && $row["is_actif"] !== "" ? $row["is_actif"] : null,
                         "bareme" => isset($row["bareme"]) && $row["bareme"] !== "" ? $row["bareme"] : null,
                         "qcm_id" => $qcm_id,

@@ -64,6 +64,26 @@
   
 </x-form-field>
 
+
+@if($itemQuestion->id)
+@if(
+  (auth()->user()?->can('show-propositionReponse') && $itemQuestion->propositionReponses->isNotEmpty())  
+  || auth()->user()?->can('create-propositionReponse')
+  || (auth()->user()?->can('edit-propositionReponse')  && $itemQuestion->propositionReponses->isNotEmpty() )
+  )
+@if (empty($bulkEdit))
+<div class="col-12 col-md-12">
+   <label for="PropositionReponse">
+            {{ ucfirst(__('PkgQcm::propositionReponse.plural')) }}
+            
+    </label>
+
+  @include('PkgQcm::propositionReponse._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => false ,"parent_manager_id" => "question-crud","contextKey" => 'question.edit_' . $itemQuestion->id])
+</div>
+@endif
+@endif
+@endif
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemQuestion" field="type" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
@@ -250,26 +270,6 @@
       </div>
   
 </x-form-field>
-
-
-@if($itemQuestion->id)
-@if(
-  (auth()->user()?->can('show-propositionReponse') && $itemQuestion->propositionReponses->isNotEmpty())  
-  || auth()->user()?->can('create-propositionReponse')
-  || (auth()->user()?->can('edit-propositionReponse')  && $itemQuestion->propositionReponses->isNotEmpty() )
-  )
-@if (empty($bulkEdit))
-<div class="col-12 col-md-12">
-   <label for="PropositionReponse">
-            {{ ucfirst(__('PkgQcm::propositionReponse.plural')) }}
-            
-    </label>
-
-  @include('PkgQcm::propositionReponse._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => false ,"parent_manager_id" => "question-crud","contextKey" => 'question.edit_' . $itemQuestion->id])
-</div>
-@endif
-@endif
-@endif
 
 
     </div>

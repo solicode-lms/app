@@ -70,7 +70,7 @@
     },
     {
         "reference": "Question_reference_displayOrder",
-        "value_integer": 2,
+        "value_integer": 14,
         "e_data_field_reference": "Question_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -160,7 +160,7 @@
     },
     {
         "reference": "Question_type_displayOrder",
-        "value_integer": 4,
+        "value_integer": 6,
         "e_data_field_reference": "Question_type",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -240,7 +240,7 @@
     },
     {
         "reference": "Question_is_actif_displayOrder",
-        "value_integer": 6,
+        "value_integer": 7,
         "e_data_field_reference": "Question_is_actif",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -282,7 +282,7 @@
     },
     {
         "reference": "Question_ordre_displayOrder",
-        "value_integer": 1,
+        "value_integer": 2,
         "e_data_field_reference": "Question_ordre",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -369,7 +369,8 @@
     },
     {
         "reference": "Question_qcm_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Question_qcm_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -544,7 +545,7 @@
     },
     {
         "reference": "questions_hasMany_proposition_reponses_question_id_displayOrder",
-        "value_integer": 13,
+        "value_integer": 4,
         "e_data_field_reference": "questions_hasMany_proposition_reponses_question_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -568,7 +569,7 @@
     },
     {
         "reference": "questions_hasMany_reponse_qcms_question_id_displayOrder",
-        "value_integer": 14,
+        "value_integer": 13,
         "e_data_field_reference": "questions_hasMany_reponse_qcms_question_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -597,5 +598,19 @@
         "value_float": 0,
         "e_model_reference": "questions",
         "e_metadata_definition_reference": "editOnFullScreen"
+    },
+    {
+        "reference": "questions_hasMany_proposition_reponses_question_id_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "questions_hasMany_proposition_reponses_question_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Question_enonce_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "Question_enonce",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

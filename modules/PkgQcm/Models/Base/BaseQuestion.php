@@ -47,7 +47,7 @@ class BaseQuestion extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'reference', 'enonce', 'type', 'explication', 'is_actif', 'bareme', 'qcm_id', 'unite_apprentissage_id'
+        'ordre', 'enonce', 'explication', 'type', 'is_actif', 'bareme', 'qcm_id', 'unite_apprentissage_id', 'reference'
     ];
     public $manyToOne = [
         'qcm' => [

@@ -31,8 +31,8 @@ class BaseQuestionRequest extends FormRequest
         return [
             'ordre' => 'nullable|integer',
             'enonce' => 'required|string',
-            'type' => 'required|string|max:255',
             'explication' => 'nullable|string',
+            'type' => 'required|string|max:255',
             'is_actif' => 'nullable|boolean',
             'bareme' => 'nullable',
             'qcm_id' => 'nullable',
@@ -50,9 +50,9 @@ class BaseQuestionRequest extends FormRequest
         return [
             'ordre.required' => __('validation.required', ['attribute' => __('PkgQcm::Question.ordre')]),
             'enonce.required' => __('validation.required', ['attribute' => __('PkgQcm::Question.enonce')]),
+            'explication.required' => __('validation.required', ['attribute' => __('PkgQcm::Question.explication')]),
             'type.required' => __('validation.required', ['attribute' => __('PkgQcm::Question.type')]),
             'type.max' => __('validation.typeMax'),
-            'explication.required' => __('validation.required', ['attribute' => __('PkgQcm::Question.explication')]),
             'is_actif.required' => __('validation.required', ['attribute' => __('PkgQcm::Question.is_actif')]),
             'bareme.required' => __('validation.required', ['attribute' => __('PkgQcm::Question.bareme')]),
             'qcm_id.required' => __('validation.required', ['attribute' => __('PkgQcm::Question.qcm_id')]),

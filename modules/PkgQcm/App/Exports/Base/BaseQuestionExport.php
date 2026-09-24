@@ -33,26 +33,26 @@ class BaseQuestionExport implements FromCollection, WithHeadings, ShouldAutoSize
         if ($this->format === 'csv') {
             return [
                 'ordre' => 'ordre',
-                'reference' => 'reference',
                 'enonce' => 'enonce',
-                'type' => 'type',
                 'explication' => 'explication',
+                'type' => 'type',
                 'is_actif' => 'is_actif',
                 'bareme' => 'bareme',
                 'qcm_reference' => 'qcm_reference',
                 'unite_apprentissage_reference' => 'unite_apprentissage_reference',
+                'reference' => 'reference',
             ];
         } else {
             return [
                 'ordre' => __('PkgQcm::question.ordre'),
-                'reference' => __('Core::msg.reference'),
                 'enonce' => __('PkgQcm::question.enonce'),
-                'type' => __('PkgQcm::question.type'),
                 'explication' => __('PkgQcm::question.explication'),
+                'type' => __('PkgQcm::question.type'),
                 'is_actif' => __('PkgQcm::question.is_actif'),
                 'bareme' => __('PkgQcm::question.bareme'),
                 'qcm_reference' => __('PkgQcm::qcm.singular'),
                 'unite_apprentissage_reference' => __('PkgCompetences::uniteApprentissage.singular'),
+                'reference' => __('Core::msg.reference'),
             ];
         }
     }
@@ -65,14 +65,14 @@ class BaseQuestionExport implements FromCollection, WithHeadings, ShouldAutoSize
         return $this->data->map(function ($question) {
             return [
                 'ordre' => (string) $question->ordre,
-                'reference' => $question->reference,
                 'enonce' => $question->enonce,
-                'type' => $question->type,
                 'explication' => $question->explication,
+                'type' => $question->type,
                 'is_actif' => $question->is_actif ? '1' : '0',
                 'bareme' => $question->bareme,
                 'qcm_reference' => $question->qcm?->reference,
                 'unite_apprentissage_reference' => $question->uniteApprentissage?->reference,
+                'reference' => $question->reference,
             ];
         });
     }

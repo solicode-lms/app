@@ -26,14 +26,14 @@ class BaseQuestionService extends BaseService
      */
     protected $fieldsSearchable = [
         'ordre',
-        'reference',
         'enonce',
-        'type',
         'explication',
+        'type',
         'is_actif',
         'bareme',
         'qcm_id',
-        'unite_apprentissage_id'
+        'unite_apprentissage_id',
+        'reference'
     ];
 
 
@@ -318,7 +318,8 @@ class BaseQuestionService extends BaseService
         // Champs considérés comme inline
         $inlineFields = [
             'ordre',
-            'qcm_id',
+            'enonce',
+            'PropositionReponse',
             'unite_apprentissage_id'
         ];
 
@@ -361,22 +362,11 @@ class BaseQuestionService extends BaseService
             case 'ordre':
                 return $this->computeFieldMeta($e, $field, $meta, 'number');
 
-            case 'qcm_id':
-                 $values = (new \Modules\PkgQcm\Services\QcmService())
-                    ->getAllForSelect($e->qcm)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
+            case 'enonce':
+                return $this->computeFieldMeta($e, $field, $meta, 'text');
 
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
+            case 'PropositionReponse':
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'unite_apprentissage_id':
                  $values = (new \Modules\PkgCompetences\Services\UniteApprentissageService())
                     ->getAllForSelect($e->uniteApprentissage)
@@ -440,18 +430,23 @@ class BaseQuestionService extends BaseService
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
-                case 'qcm_id':
-                    $html = view('Core::fields_by_type.manytoone', [
+                case 'enonce':
+                    $html = view('Core::fields_by_type.text', [
                         'entity' => $e,
                         'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'qcm'
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
-
-
-
+                case 'PropositionReponse':
+                    // fallback string simple
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                        'nature' => ''
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
                 case 'unite_apprentissage_id':
                     $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,

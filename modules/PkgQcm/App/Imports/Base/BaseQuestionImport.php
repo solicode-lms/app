@@ -58,14 +58,14 @@ class BaseQuestionImport implements ToModel, WithHeadingRow
         // Création d'un nouvel enregistrement
         return new Question([
              'ordre' => $values[0] ?? null,
-             'reference' => $reference,
-             'enonce' => $values[2] ?? null,
+             'enonce' => $values[1] ?? null,
+             'explication' => $values[2] ?? null,
              'type' => $values[3] ?? null,
-             'explication' => $values[4] ?? null,
-             'is_actif' => $values[5] ?? null,
-             'bareme' => $values[6] ?? null,
-             'qcm_id' => $values[7] ?? null,
-             'unite_apprentissage_id' => $values[8] ?? null,
+             'is_actif' => $values[4] ?? null,
+             'bareme' => $values[5] ?? null,
+             'qcm_id' => $values[6] ?? null,
+             'unite_apprentissage_id' => $values[7] ?? null,
+             'reference' => $reference,
         ]);
 
 

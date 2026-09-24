@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ --}}
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
 <script>
@@ -9,7 +9,7 @@
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
         parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
-        editOnFullScreen : false,
+        editOnFullScreen : true,
         entity_name: 'question',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'question.index' }}', 
         filterFormSelector: '#question-crud-filter-form',
@@ -48,9 +48,6 @@
         $package = __("PkgQcm::PkgQcm.name");
        $titre = __("PkgQcm::question.singular");
     @endphp
-
-
-    
     <x-crud-header 
         id="question-crud-header" icon="fas fa-question"  
         iconColor="text-info"
@@ -105,7 +102,6 @@
                 </div>
                 @show
                 @section('question-crud-filters')
-                @if(!empty($questions_total) &&  $questions_total > 10)
                 <div class="card-header">
                     <form id="question-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($questions_filters ?? [])}}">
@@ -135,7 +131,6 @@
                         @show
                     </form>
                 </div>
-                @endif
                 @show
                 <div id="question-data-container" class="data-container">
                     @if($question_viewType != "widgets")
