@@ -62,97 +62,15 @@
 
 @push('scripts')
 <script>
-    document.addEventListener('alpine:init', () => {
-        // 1. Définition du Store Global
-        Alpine.store('qcm', {
-            uas: @json($dataUaGrouped),
-            activeUaIndex: 0,
-            reponses: {},
-            timeRemaining: {{ ($realisationQcm->qcm->duree_minutes ?? 60) * 60 }},
-            
-            next() {
-                if (this.activeUaIndex < this.uas.length - 1) {
-                    this.activeUaIndex++;
-                }
-            },
-            prev() {
-                if (this.activeUaIndex > 0) {
-                    this.activeUaIndex--;
-                }
-            },
-            isUaCompleted(index) {
-                const ua = this.uas[index];
-                if (!ua || !ua.questions) return true;
-                
-                return ua.questions.every(q => {
-                    const ans = this.reponses[q.id];
-                    if (q.type && q.type.toLowerCase() === 'choix multiple') {
-                        return Array.isArray(ans) && ans.length > 0;
-                    }
-                    return ans !== undefined && ans !== null;
-                });
-            },
-            setReponse(questionId, propositionId, isMultiple) {
-                if (isMultiple) {
-                    if (!this.reponses[questionId]) {
-                        this.reponses[questionId] = [];
-                    }
-                    const idx = this.reponses[questionId].indexOf(propositionId);
-                    if (idx > -1) {
-                        this.reponses[questionId].splice(idx, 1);
-                    } else {
-                        this.reponses[questionId].push(propositionId);
-                    }
-                } else {
-                    this.reponses[questionId] = propositionId;
-                }
-            }
-        });
-
-        // 2. Composants isolés
-        Alpine.data('timerComponent', () => ({
-            timerInterval: null,
-            init() {
-                this.timerInterval = setInterval(() => {
-                    if (this.$store.qcm.timeRemaining > 0) {
-                        this.$store.qcm.timeRemaining--;
-                    } else {
-                        clearInterval(this.timerInterval);
-                    }
-                }, 1000);
-            },
-            get formattedTime() {
-                const totalSeconds = this.$store.qcm.timeRemaining;
-                const minutes = Math.floor(totalSeconds / 60);
-                const seconds = totalSeconds % 60;
-                return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            }
-        }));
-
-        Alpine.data('sidebarComponent', () => ({}));
-        
-        Alpine.data('zoneCentraleComponent', () => ({
-            get activeUa() {
-                return this.$store.qcm.uas[this.$store.qcm.activeUaIndex];
-            }
-        }));
-
-        Alpine.data('questionComponent', (question) => ({
-            question: question,
-            get isMultiple() {
-                return this.question.type && this.question.type.toLowerCase() === 'choix multiple';
-            },
-            isSelected(propositionId) {
-                const ans = this.$store.qcm.reponses[this.question.id];
-                if (this.isMultiple) {
-                    return Array.isArray(ans) && ans.includes(propositionId);
-                }
-                return ans == propositionId;
-            },
-            toggle(propositionId) {
-                this.$store.qcm.setReponse(this.question.id, propositionId, this.isMultiple);
-            }
-        }));
-    });
+    // 1. Initialisation des variables PHP dans l'objet global
+    window.QcmData = {
+        uas: @json($dataUaGrouped),
+        timeRemaining: {{ ($realisationQcm->qcm->duree_minutes ?? 60) * 60 }}
+    };
 </script>
+
+<!-- 2. Chargement des composants Alpine extraits dans des fichiers séparés -->
+<script src="{{ asset('js/passer-qcm/store.js') }}"></script>
+<script src="{{ asset('js/passer-qcm/timerComponent.js') }}"></script>
+<script src="{{ asset('js/passer-qcm/questionComponent.js') }}"></script>
 @endpush

@@ -42,7 +42,7 @@ class PasserQcmController extends Controller
                         'propositions' => $q->propositionReponses->map(function ($p) {
                             return [
                                 'id' => $p->id,
-                                'texte' => $p->texte
+                                'texte' => $p->libelle
                             ];
                         })->values()->toArray()
                     ];
