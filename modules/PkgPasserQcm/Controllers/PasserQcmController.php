@@ -37,10 +37,10 @@ class PasserQcmController extends Controller
         $this->checkAuthorization($realisationQcm);
         $this->checkSubmissionState($realisationQcm);
 
-        // Initialisation de la date de début si c'est la première fois
+        // Si le QCM n'a pas encore démarré, on affiche l'écran de démarrage
         if (empty($realisationQcm->date_debut)) {
-            $realisationQcm->date_debut = now();
-            $realisationQcm->save();
+            $nbQuestions = $realisationQcm->qcm->questions->count();
+            return view('PkgPasserQcm::start', compact('realisationQcm', 'nbQuestions'));
         }
 
         // Calcul du temps restant
@@ -90,6 +90,27 @@ class PasserQcmController extends Controller
 
         // On passe les variables mises à jour à la vue
         return view('PkgPasserQcm::index', compact('realisationQcm', 'dataUaGrouped', 'timeRemaining'));
+    }
+
+    public function start(Request $request, $realisation_qcm_id)
+    {
+        $realisationQcm = RealisationQcm::findOrFail($realisation_qcm_id);
+        
+        $this->checkAuthorization($realisationQcm);
+        $this->checkSubmissionState($realisationQcm);
+
+        if (empty($realisationQcm->date_debut)) {
+            $realisationQcm->date_debut = now();
+            
+            $etatEnCours = \Modules\PkgQcm\Models\EtatRealisationQcm::where('reference', 'EN_COURS')->first();
+            if ($etatEnCours) {
+                $realisationQcm->etat_realisation_qcm_id = $etatEnCours->id;
+            }
+            
+            $realisationQcm->save();
+        }
+
+        return redirect()->route('passerQcm.index', $realisation_qcm_id);
     }
 
     public function saveIncremental(Request $request, $realisation_qcm_id)

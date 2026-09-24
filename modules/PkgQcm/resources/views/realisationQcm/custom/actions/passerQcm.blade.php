@@ -9,6 +9,7 @@
     href="{{ route('passerQcm.index', [
             'realisation_qcm_id' => $entity->id,
     ]) }}"
+    target="_blank"
     class="btn btn-info btn-sm"
     data-id="{{ $entity->id }}">
     <i class="fas fa-play-circle"></i>
