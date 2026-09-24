@@ -64,8 +64,9 @@
 <script>
     // 1. Initialisation des variables PHP dans l'objet global
     window.QcmData = {
+        realisationId: {{ $realisationQcm->id }},
         uas: @json($dataUaGrouped),
-        timeRemaining: {{ ($realisationQcm->qcm->duree_minutes ?? 60) * 60 }},
+        timeRemaining: {{ $timeRemaining ?? (($realisationQcm->qcm->duree_minutes ?? 60) * 60) }},
         csrfToken: '{{ csrf_token() }}',
         saveUrl: '{{ route('passerQcm.save-incremental', $realisationQcm->id) }}',
         submitUrl: '{{ route('passerQcm.submit', $realisationQcm->id) }}',
@@ -74,7 +75,7 @@
 </script>
 
 <!-- 2. Chargement des composants Alpine extraits dans des fichiers séparés -->
-<script src="{{ asset('js/passer-qcm/store.js') }}"></script>
-<script src="{{ asset('js/passer-qcm/timerComponent.js') }}"></script>
-<script src="{{ asset('js/passer-qcm/questionComponent.js') }}"></script>
+<script src="{{ asset('js/passer-qcm/store.js') }}?v={{ time() }}"></script>
+<script src="{{ asset('js/passer-qcm/timerComponent.js') }}?v={{ time() }}"></script>
+<script src="{{ asset('js/passer-qcm/questionComponent.js') }}?v={{ time() }}"></script>
 @endpush

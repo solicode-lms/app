@@ -1,9 +1,47 @@
 document.addEventListener('alpine:init', () => {
+    
+    // 1. Reconstruire les réponses depuis le serveur
+    const serverReponses = {};
+    if (window.QcmData && window.QcmData.uas) {
+        window.QcmData.uas.forEach(ua => {
+            if(ua.questions) {
+                ua.questions.forEach(q => {
+                    if (q.selected_propositions && q.selected_propositions.length > 0) {
+                        if (q.type && q.type.toLowerCase() === 'choix multiple') {
+                            serverReponses[q.id] = q.selected_propositions;
+                        } else {
+                            serverReponses[q.id] = q.selected_propositions[0];
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    // 2. Charger le LocalStorage
+    const realId = window.QcmData.realisationId || '0';
+    const lsKey = 'qcm_reponses_' + realId;
+    let localReponses = {};
+    try {
+        const stored = localStorage.getItem(lsKey);
+        if (stored) localReponses = JSON.parse(stored);
+    } catch(e) {}
+
+    // 3. Fusionner (LocalStorage prioritaire pour éviter la perte des clics récents non envoyés)
+    const mergedReponses = { ...serverReponses, ...localReponses };
+
     Alpine.store('qcm', {
         uas: window.QcmData.uas || [],
         activeUaIndex: 0,
-        reponses: {},
+        reponses: mergedReponses,
         timeRemaining: window.QcmData.timeRemaining || 3600,
+        lsKey: lsKey,
+        
+        persistToLocal() {
+            try {
+                localStorage.setItem(this.lsKey, JSON.stringify(Alpine.raw(this.reponses)));
+            } catch(e) {}
+        },
         
         async saveCurrentUa() {
             const currentUa = this.uas[this.activeUaIndex];
@@ -54,6 +92,7 @@ document.addEventListener('alpine:init', () => {
                 });
                 
                 if (response.ok) {
+                    localStorage.removeItem(this.lsKey); // Nettoyage après succès
                     window.location.href = window.QcmData.redirectUrl;
                 }
             } catch (e) {
@@ -94,6 +133,7 @@ document.addEventListener('alpine:init', () => {
             } else {
                 this.reponses[questionId] = propositionId;
             }
+            this.persistToLocal(); // Sauvegarde instantanée
         }
     });
 

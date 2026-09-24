@@ -8,7 +8,8 @@ document.addEventListener('alpine:init', () => {
                     this.$store.qcm.timeRemaining--;
                 } else {
                     clearInterval(this.timerInterval);
-                    // Logique de soumission automatique ici si nécessaire
+                    alert("Le temps imparti est écoulé. Le QCM va être soumis automatiquement.");
+                    this.$store.qcm.submit();
                 }
             }, 1000);
         },
