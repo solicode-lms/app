@@ -19,36 +19,36 @@ description: Expert du module PkgQcm — architecture des questionnaires, gestio
 
 ### Action A : Comprendre la Structure de Données
 > **Description** : Expliquer la hiérarchie des entités du module QCM et leurs relations Eloquent.
-- **Capacités Utilisées** : `capacités/capacité-modele-donnees.md`
+- **Règles de Gestion Utilisées** : `règles-gestion/règle-gestion-modele-donnees.md`
 - **Entrées** : Question sur une entité ou une relation (ex: Qcm, Question, PropositionReponse)
 - **Sorties** : Explication de la hiérarchie et des relations Eloquent
 
 ### Action B : Gérer la Réalisation et l'Évaluation
 > **Description** : Expliquer ou corriger la logique de passage d'un QCM (RealisationQcm, ReponseQcm) et le calcul du score/état.
-- **Capacités Utilisées** : `capacités/capacité-realisation-evaluation.md`
+- **Règles de Gestion Utilisées** : `règles-gestion/règle-gestion-realisation-evaluation.md`
 - **Entrées** : Logique de passage, soumission des réponses, calcul du résultat
 - **Sorties** : Explication de la logique, correction du service concerné
 
 ### Action C : Affichage Blade (Interfaces QCM)
 > **Description** : Guider l'intégration ou la correction des vues affichant les formulaires de QCM, les questions et les résultats.
-- **Capacités Utilisées** : `capacités/capacité-affichage-blade.md`
+- **Règles de Gestion Utilisées** : `règles-gestion/règle-gestion-affichage-blade.md`
 - **Entrées** : Vue cible (création QCM, passage QCM, résultats)
 - **Sorties** : Code Blade corrigé ou implémenté
 
 ---
 
-## 🛠️ Capacités (Savoir-Faire Technique)
-*Documentation des fichiers situés dans le dossier `capacités/`*
+## 🛠️ Règles de Gestion (Savoir-Faire Technique)
+*Documentation des fichiers situés dans le dossier `règles-gestion/`*
 
-### 1. `capacité-modele-donnees.md`
+### 1. `règle-gestion-modele-donnees.md`
 - **Rôle** : Décrire la hiérarchie complète des entités QCM et leurs relations.
 - **Règles Clés** : Un QCM a plusieurs Questions, qui ont plusieurs Propositions de Réponses.
 
-### 2. `capacité-realisation-evaluation.md`
+### 2. `règle-gestion-realisation-evaluation.md`
 - **Rôle** : Documenter la logique de réalisation d'un QCM (AffectationQcmProjet, RealisationQcm, ReponseQcm) et les statuts (EtatRealisationQcm).
 - **Règles Clés** : Les réponses de l'apprenant sont comparées aux propositions correctes pour calculer un score et déterminer l'état.
 
-### 3. `capacité-affichage-blade.md`
+### 3. `règle-gestion-affichage-blade.md`
 - **Rôle** : Documenter les patterns d'affichage pour les vues de gestion (admin/formateur) et les vues de passage (apprenant).
 - **Règles Clés** : Validation côté client et serveur, affichage clair des propositions (radio/checkbox).
 
@@ -57,16 +57,16 @@ description: Expert du module PkgQcm — architecture des questionnaires, gestio
 ## 🔄 Scénarios d'Exécution (Algorithmes)
 
 ### Scénario 1 : "Comment lier des questions à un QCM ?"
-1. Lire `capacité-modele-donnees.md`.
+1. Lire `règle-gestion-modele-donnees.md`.
 2. Identifier les relations entre `Qcm`, `Question` et `PropositionReponse`.
 3. Pointer vers le système de relation HasMany et comment créer les entités enfants.
 
 ### Scénario 2 : "Calculer le score après la soumission d'un QCM"
-1. Lire `capacité-realisation-evaluation.md`.
+1. Lire `règle-gestion-realisation-evaluation.md`.
 2. Vérifier comment `ReponseQcm` est stocké pour la `RealisationQcm`.
 3. S'assurer que le service calcule les points en comparant les réponses fournies avec la colonne booléenne de justesse de `PropositionReponse`.
 
 ### Scénario 3 : "Afficher les résultats d'un apprenant pour un QCM"
-1. Lire `capacité-affichage-blade.md`.
+1. Lire `règle-gestion-affichage-blade.md`.
 2. Vérifier que la variable `$realisationQcm` est disponible avec ses relations chargées.
 3. Afficher les points obtenus par rapport au maximum possible, ainsi que l'état de la réalisation.
