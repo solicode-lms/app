@@ -38,21 +38,7 @@
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
-                        @if($questions_permissions['importIaForm-question'])
-                        <x-action-button :entity="$question" actionName="importIaForm">
-                            <a 
-                            data-toggle="tooltip" 
-                            title="Générer avec IA" 
-                            href="{{ route('questions.importIaForm', ['id' => $question->id]) }}" 
-                            data-id="{{$question->id}}" 
-                            data-url="{{ route('questions.importIaForm', ['id' => $question->id]) }}" 
-                            data-action-type="link"
-                            class="btn btn-default btn-sm context-state actionEntity">
-                                <i class="fas fa-robot"></i>
-                            </a>
-                        </x-action-button>
-                        @endif
-                        
+
 
                        
 

@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{-- Ce fichier est maintenu par ESSARRAJ --}}
 
 
 <script>
@@ -48,6 +48,9 @@
         $package = __("PkgQcm::PkgQcm.name");
        $titre = __("PkgQcm::question.singular");
     @endphp
+
+
+    
     <x-crud-header 
         id="question-crud-header" icon="fas fa-question"  
         iconColor="text-info"

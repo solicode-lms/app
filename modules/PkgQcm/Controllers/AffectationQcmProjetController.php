@@ -3,6 +3,9 @@ namespace Modules\PkgQcm\Controllers;
 
 use Modules\PkgQcm\Controllers\Base\BaseAffectationQcmProjetController;
 use Modules\PkgQcm\Models\AffectationQcmProjet;
+use Illuminate\Http\Request;
+use Modules\PkgQcm\Services\QuestionService;
+use Exception;
 
 class AffectationQcmProjetController extends BaseAffectationQcmProjetController
 {
@@ -28,5 +31,28 @@ class AffectationQcmProjetController extends BaseAffectationQcmProjetController
 
         // 3. Renvoyer la vue Blade avec les données
         return view('PkgQcm::affectationQcmProjet.prompt', compact('affectation', 'uas'));
+    }
+    /**
+     * Traite le JSON soumis et crée les questions en base, liées au QCM de l'affectation
+     * @DynamicPermissionIgnore
+     */
+    public function importIaProcess(Request $request, QuestionService $questionService, string $id)
+    {
+        $this->authorizeAction('update');
+
+        $jsonPayload = $request->input('json_payload');
+
+        if (!$jsonPayload) {
+            return redirect()->back()->with('error', 'Le code JSON est vide.');
+        }
+
+        try {
+            $affectation = AffectationQcmProjet::findOrFail($id);
+            // On passe l'ID du QCM associé à cette affectation
+            $count = $questionService->importFromJson($jsonPayload, $affectation->qcm_id);
+            return redirect()->route('affectationQcmProjets.index')->with('success', "$count questions importées avec succès pour le QCM !");
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Erreur d\'importation : ' . $e->getMessage())->withInput();
+        }
     }
 }

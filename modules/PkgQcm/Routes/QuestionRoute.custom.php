@@ -4,8 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\PkgQcm\Controllers\QuestionController;
 
-// Routes pour l'import des questions via IA
+// Routes pour l'import des questions via IA déplacées vers AffectationQcmProjetRoute.custom.php
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('questions/import-ia', [QuestionController::class, 'importIaForm'])->name('questions.importIaForm');
-    Route::post('questions/import-ia', [QuestionController::class, 'importIaProcess'])->name('questions.importIaProcess');
+    // Les anciennes routes 'questions/import-ia' ont été supprimées
 });

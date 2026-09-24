@@ -11,5 +11,7 @@ Route::middleware('auth')->group(function () {
         Route::get('affectationQcmProjets/{id}/prompt', [AffectationQcmProjetController::class, 'prompt'])
             ->name('affectationQcmProjets.prompt');
             
+        Route::post('affectationQcmProjets/{id}/import-ia', [AffectationQcmProjetController::class, 'importIaProcess'])
+            ->name('affectationQcmProjets.importIaProcess');
     });
 });

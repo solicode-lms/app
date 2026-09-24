@@ -177,17 +177,7 @@ class BaseQuestionService extends BaseService
     }
 
 
-    public function importIaForm(int $questionId)
-    {
-        $question = $this->find($questionId);
-        if (!$question) {
-            return false; 
-        }
-        $value =  $question->save();
-        $this->pushServiceMessage("info","Traitement title", "message : résultat de traitement");
-        return $value;
-    }
-    
+
 
     /**
      * Retourne les types de vues disponibles pour l'index (ex: table, widgets...)
@@ -244,8 +234,7 @@ class BaseQuestionService extends BaseService
         $this->viewState->set('stats.question.stats', $questions_stats);
     
         $questions_permissions = [
-            'importIaForm-question' => Auth::user()->can('importIaForm-question'),           
-            
+
             'edit-question' => Auth::user()->can('edit-question'),
             'destroy-question' => Auth::user()->can('destroy-question'),
             'show-question' => Auth::user()->can('show-question'),

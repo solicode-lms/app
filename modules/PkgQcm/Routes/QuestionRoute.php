@@ -41,8 +41,7 @@ Route::middleware('auth')->group(function () {
 
         Route::post('questions/data-calcul', [QuestionController::class, 'dataCalcul'])->name('questions.dataCalcul');
         Route::post('questions/update-attributes', [QuestionController::class, 'updateAttributes'])->name('questions.updateAttributes');
-        Route::get('questions/importIaForm/{id}', [QuestionController::class, 'importIaForm'])->name('questions.importIaForm');
-    
+
     
 
     });

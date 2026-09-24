@@ -579,21 +579,5 @@
         "value_boolean": 1,
         "e_data_field_reference": "questions_hasMany_reponse_qcms_question_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
-        "reference": "questions_entityActions",
-        "value_boolean": 0,
-        "value_float": 0,
-        "value_json": [
-            {
-                "icon": "fas fa-robot",
-                "class": "btn btn-info",
-                "title": "Générer avec IA",
-                "methode": "importIaForm",
-                "actionType": "link"
-            }
-        ],
-        "e_model_reference": "questions",
-        "e_metadata_definition_reference": "entityActions"
     }
 ]
