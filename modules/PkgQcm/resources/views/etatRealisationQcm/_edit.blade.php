@@ -29,7 +29,7 @@
                         <ul class="nav nav-tabs mr-auto" id="edit-etatRealisationQcm-tab" role="tablist">
                         <li class="pt-2 px-3">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-thermometer-half"></i>
                             </h3>
                         </li>
                         <li class="nav-item">
@@ -39,7 +39,7 @@
                          @if($itemEtatRealisationQcm->realisationQcms?->count() > 0 || auth()->user()?->can('create-realisationQcm'))
                         <li class="nav-item">
                             <a class="nav-link" id="etatRealisationQcm-hasmany-tabs-realisationQcm-tab" data-toggle="pill" href="#etatRealisationQcm-hasmany-tabs-realisationQcm" role="tab" aria-controls="etatRealisationQcm-hasmany-tabs-realisationQcm" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-laptop-code"></i>
                                 {{ucfirst(__('PkgQcm::realisationQcm.plural'))}}
                             </a>
                         </li>

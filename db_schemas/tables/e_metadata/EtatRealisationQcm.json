@@ -13,7 +13,9 @@
     },
     {
         "reference": "etat_realisation_qcms_iconModel",
-        "value_string": "fas fa-table",
+        "value_boolean": 0,
+        "value_string": "fas fa-thermometer-half",
+        "value_float": 0,
         "e_model_reference": "etat_realisation_qcms",
         "e_metadata_definition_reference": "iconModel"
     },

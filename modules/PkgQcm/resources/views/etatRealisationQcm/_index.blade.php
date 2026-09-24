@@ -49,7 +49,7 @@
        $titre = __("PkgQcm::etatRealisationQcm.singular");
     @endphp
     <x-crud-header 
-        id="etatRealisationQcm-crud-header" icon="fas fa-table"  
+        id="etatRealisationQcm-crud-header" icon="fas fa-thermometer-half"  
         iconColor="text-info"
         title="{{ $etatRealisationQcm_title }}"
         :breadcrumbs="[

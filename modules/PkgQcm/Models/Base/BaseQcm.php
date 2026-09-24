@@ -22,7 +22,7 @@ use Modules\PkgQcm\Models\RealisationQcm;
  */
 class BaseQcm extends BaseModel
 {
-    use HasFactory, HasDynamicContext;
+    use HasFactory, HasDynamicContext, OwnedByUser;
 
     /**
      * Eager-load par défaut les relations belongsTo listées dans manyToOne
@@ -36,7 +36,8 @@ class BaseQcm extends BaseModel
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
-        $this->isOwnedByUser =  false;
+        $this->isOwnedByUser =  true;
+        $this->ownerRelationPath = "formateurs.user";
     }
 
     

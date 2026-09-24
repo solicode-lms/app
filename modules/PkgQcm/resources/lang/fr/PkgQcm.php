@@ -1,8 +1,6 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 return [
-    'name' => 'PkgQcm',
-    'icon' => 'fa-table'
+    'name' => 'Gestion des QCM',
+    'icon' => 'fas fa-clipboard-list'
 ];

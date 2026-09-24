@@ -14,7 +14,9 @@
     },
     {
         "reference": "affectation_qcm_projets_iconModel",
-        "value_string": "fas fa-table",
+        "value_boolean": 0,
+        "value_string": "fas fa-link",
+        "value_float": 0,
         "e_model_reference": "affectation_qcm_projets",
         "e_metadata_definition_reference": "iconModel"
     },

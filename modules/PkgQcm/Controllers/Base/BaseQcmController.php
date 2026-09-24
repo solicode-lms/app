@@ -45,6 +45,10 @@ class BaseQcmController extends AdminController
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.qcm.formateurs.user_id') == null){
+           $this->viewState->init('scope.qcm.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
 
 
 
@@ -76,6 +80,10 @@ class BaseQcmController extends AdminController
     /**
      */
     public function create() {
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.qcm.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
 
 
         // scopeDataByRole
@@ -104,6 +112,10 @@ class BaseQcmController extends AdminController
 
         // Même traitement de create 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.qcm.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
  
          $itemQcm = $this->qcmService->find($qcm_ids[0]);
          
@@ -157,6 +169,7 @@ class BaseQcmController extends AdminController
         $this->viewState->setContextKey('qcm.show_' . $id);
 
         $itemQcm = $this->qcmService->edit($id);
+        $this->authorize('view', $itemQcm);
 
 
         $this->viewState->set('scope.affectationQcmProjet.qcm_id', $id);
@@ -195,6 +208,7 @@ class BaseQcmController extends AdminController
 
 
         $itemQcm = $this->qcmService->edit($id);
+        $this->authorize('edit', $itemQcm);
 
 
         $formateurs = $this->formateurService->getAllForSelect($itemQcm->formateur);
@@ -234,6 +248,9 @@ class BaseQcmController extends AdminController
     /**
      */
     public function update(QcmRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $qcm = $this->qcmService->find($id);
+        $this->authorize('update', $qcm);
 
         $validatedData = $request->validated();
         $qcm = $this->qcmService->update($id, $validatedData);
@@ -370,6 +387,9 @@ class BaseQcmController extends AdminController
     /**
      */
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $qcm = $this->qcmService->find($id);
+        $this->authorize('delete', $qcm);
 
         $qcm = $this->qcmService->destroy($id);
 
@@ -406,6 +426,9 @@ class BaseQcmController extends AdminController
         }
         foreach ($qcm_ids as $id) {
             $entity = $this->qcmService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $qcm = $this->qcmService->find($id);
+            $this->authorize('delete', $qcm);
             $this->qcmService->destroy($id);
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [

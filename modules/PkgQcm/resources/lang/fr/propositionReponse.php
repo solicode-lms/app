@@ -1,13 +1,11 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 return [
-    'singular' => 'PropositionReponse',
-    'plural' => 'PropositionReponses',
-    'ordre' => 'ordre',
-    'reference' => 'reference',
-    'libelle' => 'libelle',
-    'is_correcte' => 'is_correcte',
-    'question_id' => 'question_id',
+    'singular' => 'Proposition de réponse',
+    'plural' => 'Propositions de réponses',
+    'ordre' => 'Ordre',
+    'reference' => 'Référence',
+    'libelle' => 'Libellé',
+    'is_correcte' => 'Est correcte',
+    'question_id' => 'Question',
 ];

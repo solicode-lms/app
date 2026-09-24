@@ -29,7 +29,7 @@
                         <ul class="nav nav-tabs mr-auto" id="edit-qcm-tab" role="tablist">
                         <li class="pt-2 px-3">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-file-alt"></i>
                             </h3>
                         </li>
                         <li class="nav-item">
@@ -39,7 +39,7 @@
                          @if($itemQcm->affectationQcmProjets?->count() > 0 || auth()->user()?->can('create-affectationQcmProjet'))
                         <li class="nav-item">
                             <a class="nav-link" id="qcm-hasmany-tabs-affectationQcmProjet-tab" data-toggle="pill" href="#qcm-hasmany-tabs-affectationQcmProjet" role="tab" aria-controls="qcm-hasmany-tabs-affectationQcmProjet" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-link"></i>
                                 {{ucfirst(__('PkgQcm::affectationQcmProjet.plural'))}}
                             </a>
                         </li>
@@ -47,7 +47,7 @@
                          @if($itemQcm->questions?->count() > 0 || auth()->user()?->can('create-question'))
                         <li class="nav-item">
                             <a class="nav-link" id="qcm-hasmany-tabs-question-tab" data-toggle="pill" href="#qcm-hasmany-tabs-question" role="tab" aria-controls="qcm-hasmany-tabs-question" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-question"></i>
                                 {{ucfirst(__('PkgQcm::question.plural'))}}
                             </a>
                         </li>
@@ -55,7 +55,7 @@
                          @if($itemQcm->realisationQcms?->count() > 0 || auth()->user()?->can('create-realisationQcm'))
                         <li class="nav-item">
                             <a class="nav-link" id="qcm-hasmany-tabs-realisationQcm-tab" data-toggle="pill" href="#qcm-hasmany-tabs-realisationQcm" role="tab" aria-controls="qcm-hasmany-tabs-realisationQcm" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-laptop-code"></i>
                                 {{ucfirst(__('PkgQcm::realisationQcm.plural'))}}
                             </a>
                         </li>

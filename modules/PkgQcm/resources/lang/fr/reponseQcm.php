@@ -1,12 +1,10 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 return [
-    'singular' => 'ReponseQcm',
-    'plural' => 'ReponseQcms',
-    'reference' => 'reference',
-    'realisation_qcm_id' => 'realisation_qcm_id',
-    'question_id' => 'question_id',
-    'date_reponse' => 'date_reponse',
+    'singular' => 'Réponse QCM',
+    'plural' => 'Réponses QCM',
+    'reference' => 'Référence',
+    'realisation_qcm_id' => 'Réalisation QCM',
+    'question_id' => 'Question',
+    'date_reponse' => 'Date de réponse',
 ];

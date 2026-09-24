@@ -1,13 +1,11 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 return [
-    'singular' => 'EtatRealisationQcm',
-    'plural' => 'EtatRealisationQcms',
-    'reference' => 'reference',
-    'titre' => 'titre',
-    'description' => 'description',
-    'is_editable_by_formateur' => 'is_editable_by_formateur',
-    'sys_color_id' => 'sys_color_id',
+    'singular' => 'État de réalisation QCM',
+    'plural' => 'États de réalisation QCM',
+    'reference' => 'Référence',
+    'titre' => 'Titre',
+    'description' => 'Description',
+    'is_editable_by_formateur' => 'Modifiable par le formateur',
+    'sys_color_id' => 'Couleur',
 ];

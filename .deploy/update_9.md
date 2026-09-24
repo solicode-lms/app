@@ -46,7 +46,7 @@ sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\ReponseQcmS
 ### Formateur 
 
 - AffectationQcmProjet - Édition
-- EtatRealisationQcm - Lecture
+- EtatRealisationQcm - Afficher
 - PropositionReponse - Édition
 - Qcm - Édition
 - Question - Édition
