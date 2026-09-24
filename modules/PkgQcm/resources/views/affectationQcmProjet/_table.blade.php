@@ -40,7 +40,7 @@
                                         'id' => $affectationQcmProjet->id,
                                         'showIndex' => true,
                                 ]) }}"
-                                class="btn btn-default btn-sm showIndex"
+                                class="btn btn-default btn-sm  showIndex"
                                 data-id="{{ $affectationQcmProjet->id }}">
                                 <i class="fas fa-robot"></i>
                             </a>

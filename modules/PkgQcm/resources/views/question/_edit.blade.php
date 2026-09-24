@@ -39,7 +39,7 @@
                          @if($itemQuestion->propositionReponses?->count() > 0 || auth()->user()?->can('create-propositionReponse'))
                         <li class="nav-item">
                             <a class="nav-link" id="question-hasmany-tabs-propositionReponse-tab" data-toggle="pill" href="#question-hasmany-tabs-propositionReponse" role="tab" aria-controls="question-hasmany-tabs-propositionReponse" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-list-ul"></i>
                                 {{ucfirst(__('PkgQcm::propositionReponse.plural'))}}
                             </a>
                         </li>
@@ -47,7 +47,7 @@
                          @if($itemQuestion->reponseQcms?->count() > 0 || auth()->user()?->can('create-reponseQcm'))
                         <li class="nav-item">
                             <a class="nav-link" id="question-hasmany-tabs-reponseQcm-tab" data-toggle="pill" href="#question-hasmany-tabs-reponseQcm" role="tab" aria-controls="question-hasmany-tabs-reponseQcm" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-check-double"></i>
                                 {{ucfirst(__('PkgQcm::reponseQcm.plural'))}}
                             </a>
                         </li>

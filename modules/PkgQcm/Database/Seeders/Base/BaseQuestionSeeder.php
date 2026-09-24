@@ -33,7 +33,8 @@ class BaseQuestionSeeder extends Seeder
             'Extraction' => ['import', 'export'],
             'Import' => ['import'],
             'Export' => ['export'],
-
+            'importIaForm' => ['importIaForm'],
+            
         ];
 
     public function run(): void

@@ -478,7 +478,20 @@ class BaseQuestionController extends AdminController
         ));
     }
     
-
+    public function importIaForm(Request $request, string $id) {
+        $question = $this->questionService->importIaForm($id);
+        if ($request->ajax()) {
+            $message = "";
+            return JsonResponseHelper::success(
+                $message
+            );
+        }
+        return redirect()->route('Question.index')->with(
+            'success',
+            ""
+        );
+    }
+    
 
     /**
      * @DynamicPermissionIgnore

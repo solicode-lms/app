@@ -1,10 +1,8 @@
-
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-primary"><i class="fas fa-robot"></i> Génération de Prompts QCM</h1>
-                <p class="text-muted">Projet cible : {{ $affectation->affectationProjet->projet->titre ?? 'Inconnu' }}</p>
+                <h1 class="m-0">Générer un prompt IA pour : {{ $affectation->qcm->titre ?? 'QCM' }}</h1>
             </div>
         </div>
     </div>
@@ -13,85 +11,72 @@
 <section class="content">
     <div class="container-fluid">
         @if($uas && $uas->count() > 0)
-            <div class="row">
-                @foreach($uas as $ua)
-                <div class="col-md-6 col-lg-6">
-                    <div class="card card-outline card-primary shadow-sm h-100">
-                        <div class="card-header">
-                            <h3 class="card-title text-truncate" style="max-width: 70%;" title="{{ $ua->nom }}">
-                                <strong>UA :</strong> {{ $ua->nom ?? 'Inconnue' }}
-                            </h3>
-                            <div class="card-tools">
-                                <button class="btn btn-primary btn-sm rounded-pill shadow-sm" onclick="copyPrompt('prompt-{{ $ua->id }}')">
-                                    <i class="fas fa-copy"></i> Copier
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body d-flex flex-column">
-                            <p class="text-sm text-muted mb-3">
-                                <i class="fas fa-info-circle"></i> Ce prompt inclut automatiquement les tutoriels liés à cette unité. Collez-le dans votre IA favorite.
-                            </p>
-                            <div class="position-relative flex-grow-1">
-<textarea id="prompt-{{ $ua->id }}" class="form-control bg-dark text-light p-3" style="font-family: monospace; font-size: 0.85rem; height: 350px; resize: none;" readonly>
-Génère un QCM au format JSON strict.
-Contexte de l'évaluation : "{{ $ua->nom }}"
-
-Sujets couverts par les tutoriels :
-@forelse($ua->chapitres as $chapitre)
-- {{ $chapitre->nom }} {{ $chapitre->description ? '('.$chapitre->description.')' : '' }}
-@empty
-- Notions fondamentales de cette unité.
-@endforelse
-
-Format attendu :
-[{"question":"...","reponses":["A","B","C","D"],"bonneReponse":1,"points":1,"unite_apprentissage_id":{{ $ua->id }}}]
-
-Règles obligatoires :
-1. Renvoie UNIQUEMENT un tableau JSON, aucune phrase d'introduction ni de conclusion.
-2. "reponses" : 4 propositions maximum.
-3. "bonneReponse" : Chiffre de 1 à 4 indiquant la position de la bonne réponse.
-4. "points" : Entier (1 par défaut).
-5. "unite_apprentissage_id" : Toujours {{ $ua->id }} (code UA : {{ $ua->code }}).
-6. Varie la position de la bonne réponse.
-
-Génère 40 questions sur ces sujets.
-</textarea>
-                            </div>
-                        </div>
+            @foreach($uas as $ua)
+            <div class="card card-default">
+                <div class="card-header">
+                    <h3 class="card-title">Prompt pour l'Unité : <strong>{{ $ua->nom ?? 'Inconnue' }}</strong></h3>
+                    <div class="card-tools">
+                        <button class="btn btn-primary btn-sm" onclick="copyPrompt('prompt-content-{{ $ua->id }}')">
+                            <i class="fas fa-copy"></i> Copier le prompt
+                        </button>
                     </div>
                 </div>
-                @endforeach
+                <div class="card-body">
+                    <p>Copiez ce texte et collez-le dans ChatGPT, Claude ou un autre assistant IA pour générer votre QCM au format JSON.</p>
+                    <div class="position-relative">
+<textarea id="prompt-content-{{ $ua->id }}" class="form-control bg-dark text-white p-3" style="font-family: monospace; height: 350px;" readonly>
+# 🧠 **Prompt — Génération de QCM JSON**
+
+Génère un **QCM** au **format JSON** strict, sans aucun texte additionnel ni explication.
+
+Sujets à évaluer :
+- **Unité d'Apprentissage** : {{ $ua->nom ?? 'Inconnue' }}
+@foreach($ua->chapitres as $chapitre)
+- {{ $chapitre->nom }} : {{ $chapitre->description ?? '' }}
+@endforeach
+
+Format attendu :
+[{"question":"...","reponses":["A","B","C","D"],"bonneReponse":1,"points":1,"unite_apprentissage_code":"{{ $ua->code }}"}]
+
+Règles obligatoires :
+1. Renvoie UNIQUEMENT le tableau JSON.
+2. "reponses" : 4 propositions.
+3. "bonneReponse" : Chiffre de 1 à 4 (varie la position).
+4. "unite_apprentissage_code" : Toujours "{{ $ua->code }}".
+
+Génère 40 questions.
+</textarea>
+                    </div>
+                </div>
             </div>
+            @endforeach
         @else
-            <div class="alert alert-warning shadow-sm border-left-warning">
-                <i class="fas fa-exclamation-triangle"></i> Aucune Unité d'Apprentissage (UA) n'a été trouvée pour le projet rattaché à ce QCM.
+            <div class="alert alert-warning">
+                Aucune Unité d'Apprentissage n'a été trouvée pour le projet rattaché à ce QCM.
             </div>
         @endif
     </div>
 </section>
 
 <script>
-    function copyPrompt(elementId) {
+    window.copyPrompt = function(elementId) {
         const textarea = document.getElementById(elementId);
+        console.log(textarea);
         textarea.select();
-        textarea.setSelectionRange(0, 99999); // Mobile
+        textarea.setSelectionRange(0, 99999);
         
         navigator.clipboard.writeText(textarea.value).then(() => {
             if (typeof Swal !== 'undefined') {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Prompt copié !',
-                    text: 'Prêt à être collé dans l\'IA.',
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000
+                    title: 'Copié !',
+                    text: 'Le prompt a été copié.',
+                    timer: 2000,
+                    showConfirmButton: false
                 });
             } else {
                 alert('Prompt copié avec succès !');
             }
-        }).catch(err => {
-            console.error('Erreur lors de la copie : ', err);
         });
     }
 </script>

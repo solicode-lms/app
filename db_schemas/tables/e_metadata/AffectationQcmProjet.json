@@ -393,7 +393,7 @@
         "value_json": [
             {
                 "icon": "fas fa-robot",
-                "class": "btn btn-default btn-sm showIndex",
+                "class": "btn btn-default btn-sm  showIndex",
                 "ordre": 1,
                 "route": "affectationQcmProjets.prompt",
                 "params": {
