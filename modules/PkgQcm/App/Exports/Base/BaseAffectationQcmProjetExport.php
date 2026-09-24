@@ -36,6 +36,7 @@ class BaseAffectationQcmProjetExport implements FromCollection, WithHeadings, Sh
                 'qcm_reference' => 'qcm_reference',
                 'affectation_projet_reference' => 'affectation_projet_reference',
                 'date_affectation' => 'date_affectation',
+                'saise_automatique_note_qcm' => 'saise_automatique_note_qcm',
             ];
         } else {
             return [
@@ -43,6 +44,7 @@ class BaseAffectationQcmProjetExport implements FromCollection, WithHeadings, Sh
                 'qcm_reference' => __('PkgQcm::qcm.singular'),
                 'affectation_projet_reference' => __('PkgRealisationProjets::affectationProjet.singular'),
                 'date_affectation' => __('PkgQcm::affectationQcmProjet.date_affectation'),
+                'saise_automatique_note_qcm' => __('PkgQcm::affectationQcmProjet.saise_automatique_note_qcm'),
             ];
         }
     }
@@ -58,6 +60,7 @@ class BaseAffectationQcmProjetExport implements FromCollection, WithHeadings, Sh
                 'qcm_reference' => $affectationQcmProjet->qcm?->reference,
                 'affectation_projet_reference' => $affectationQcmProjet->affectationProjet?->reference,
                 'date_affectation' => $affectationQcmProjet->date_affectation,
+                'saise_automatique_note_qcm' => $affectationQcmProjet->saise_automatique_note_qcm ? '1' : '0',
             ];
         });
     }

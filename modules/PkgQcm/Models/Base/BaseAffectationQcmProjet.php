@@ -46,7 +46,7 @@ class BaseAffectationQcmProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'reference', 'qcm_id', 'affectation_projet_id', 'date_affectation'
+        'reference', 'qcm_id', 'affectation_projet_id', 'date_affectation', 'saise_automatique_note_qcm'
     ];
     public $manyToOne = [
         'qcm' => [

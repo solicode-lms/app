@@ -36,7 +36,9 @@ class BaseRealisationUaPrototypeRequest extends FormRequest
             'remarque_formateur' => 'nullable|string',
             'date_debut' => 'nullable',
             'date_fin' => 'nullable',
-            'reponseQcms' => 'nullable|array'
+            'note_qcm' => 'nullable',
+            'reponseQcms' => 'nullable|array',
+            'barem_qcm' => 'nullable'
         ];
     }
 
@@ -55,8 +57,10 @@ class BaseRealisationUaPrototypeRequest extends FormRequest
             'remarque_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.remarque_formateur')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.date_debut')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.date_fin')]),
+            'note_qcm.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.note_qcm')]),
             'reponseQcms.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.reponseQcms')]),
-            'reponseQcms.array' => __('validation.array', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.reponseQcms')])
+            'reponseQcms.array' => __('validation.array', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.reponseQcms')]),
+            'barem_qcm.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.barem_qcm')])
         ];
     }
 

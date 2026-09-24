@@ -52,7 +52,7 @@ class BaseRealisationUaPrototype extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'realisation_tache_id', 'realisation_ua_id', 'bareme', 'note', 'remarque_formateur', 'date_debut', 'date_fin', 'reference'
+        'realisation_tache_id', 'realisation_ua_id', 'bareme', 'note', 'remarque_formateur', 'date_debut', 'date_fin', 'reference', 'note_qcm', 'barem_qcm'
     ];
     public $manyToMany = [
         'ReponseQcm' => ['relation' => 'reponseQcms' , "foreign_key" => "reponse_qcm_id" ]

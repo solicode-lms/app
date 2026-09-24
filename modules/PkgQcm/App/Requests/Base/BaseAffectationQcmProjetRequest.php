@@ -31,7 +31,8 @@ class BaseAffectationQcmProjetRequest extends FormRequest
         return [
             'qcm_id' => 'required',
             'affectation_projet_id' => 'required',
-            'date_affectation' => 'nullable'
+            'date_affectation' => 'nullable',
+            'saise_automatique_note_qcm' => 'required|boolean'
         ];
     }
 
@@ -45,7 +46,8 @@ class BaseAffectationQcmProjetRequest extends FormRequest
         return [
             'qcm_id.required' => __('validation.required', ['attribute' => __('PkgQcm::AffectationQcmProjet.qcm_id')]),
             'affectation_projet_id.required' => __('validation.required', ['attribute' => __('PkgQcm::AffectationQcmProjet.affectation_projet_id')]),
-            'date_affectation.required' => __('validation.required', ['attribute' => __('PkgQcm::AffectationQcmProjet.date_affectation')])
+            'date_affectation.required' => __('validation.required', ['attribute' => __('PkgQcm::AffectationQcmProjet.date_affectation')]),
+            'saise_automatique_note_qcm.required' => __('validation.required', ['attribute' => __('PkgQcm::AffectationQcmProjet.saise_automatique_note_qcm')])
         ];
     }
 

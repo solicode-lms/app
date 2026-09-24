@@ -28,7 +28,8 @@ class BaseAffectationQcmProjetService extends BaseService
         'reference',
         'qcm_id',
         'affectation_projet_id',
-        'date_affectation'
+        'date_affectation',
+        'saise_automatique_note_qcm'
     ];
 
 

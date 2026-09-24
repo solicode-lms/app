@@ -61,6 +61,7 @@ class BaseAffectationQcmProjetImport implements ToModel, WithHeadingRow
              'qcm_id' => $values[1] ?? null,
              'affectation_projet_id' => $values[2] ?? null,
              'date_affectation' => $values[3] ?? null,
+             'saise_automatique_note_qcm' => $values[4] ?? null,
         ]);
 
 

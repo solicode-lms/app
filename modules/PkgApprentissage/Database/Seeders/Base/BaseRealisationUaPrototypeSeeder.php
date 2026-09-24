@@ -95,6 +95,8 @@ class BaseRealisationUaPrototypeSeeder extends Seeder
                         "remarque_formateur" => isset($row["remarque_formateur"]) && $row["remarque_formateur"] !== "" ? $row["remarque_formateur"] : null,
                         "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
+                        "note_qcm" => isset($row["note_qcm"]) && $row["note_qcm"] !== "" ? $row["note_qcm"] : null,
+                        "barem_qcm" => isset($row["barem_qcm"]) && $row["barem_qcm"] !== "" ? $row["barem_qcm"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
 

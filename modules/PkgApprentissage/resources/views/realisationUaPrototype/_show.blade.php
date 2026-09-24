@@ -40,6 +40,18 @@
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUaPrototype.note_qcm')) }}</small>
+                  <span>
+                  @if(! is_null($itemRealisationUaPrototype->note_qcm))
+                  {{ number_format($itemRealisationUaPrototype->note_qcm, 2, '.', '') }}
+                  @else
+                  —
+                  @endif
+                  </span>
+                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgQcm::reponseQcm.plural')) }}</small>
                   <!-- Valeurs many-to-many -->
                   @if($itemRealisationUaPrototype->reponseQcms->isNotEmpty())
@@ -53,6 +65,18 @@
                   @else
                   <span class="text-muted">—</span>
                   @endif                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUaPrototype.barem_qcm')) }}</small>
+                  <span>
+                  @if(! is_null($itemRealisationUaPrototype->barem_qcm))
+                  {{ number_format($itemRealisationUaPrototype->barem_qcm, 2, '.', '') }}
+                  @else
+                  —
+                  @endif
+                  </span>
+                </div>
             </div>
             </div>
         </div>

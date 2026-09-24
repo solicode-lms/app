@@ -91,6 +91,7 @@ class BaseAffectationQcmProjetSeeder extends Seeder
                         "qcm_id" => $qcm_id,
                         "affectation_projet_id" => $affectation_projet_id,
                         "date_affectation" => isset($row["date_affectation"]) && $row["date_affectation"] !== "" ? $row["date_affectation"] : null,
+                        "saise_automatique_note_qcm" => isset($row["saise_automatique_note_qcm"]) && $row["saise_automatique_note_qcm"] !== "" ? $row["saise_automatique_note_qcm"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
 

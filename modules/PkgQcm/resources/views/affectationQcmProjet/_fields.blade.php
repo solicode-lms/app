@@ -146,6 +146,42 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationQcmProjet" field="saise_automatique_note_qcm" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="saise_automatique_note_qcm" 
+              id="bulk_field_saise_automatique_note_qcm" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="saise_automatique_note_qcm">
+            {{ ucfirst(__('PkgQcm::affectationQcmProjet.saise_automatique_note_qcm')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input type="hidden" name="saise_automatique_note_qcm" value="0">
+            <input
+                name="saise_automatique_note_qcm"
+                type="checkbox"
+                class="form-control d-block"
+                required
+                
+                
+                id="saise_automatique_note_qcm"
+                value="1"
+                {{ old('saise_automatique_note_qcm', $itemAffectationQcmProjet ? $itemAffectationQcmProjet->saise_automatique_note_qcm : 0) ? 'checked' : '' }}>
+          @error('saise_automatique_note_qcm')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 
     </div>
   
