@@ -20,16 +20,35 @@ Pour bien isoler cette logique d'interface spécifique, un nouveau module sans b
 ## Planification des Sprints de Réalisation
 
 ### Sprint 1 : Validation de la Conception (UI/UX)
-- [ ] Validation de la charte graphique et du design (Wireframing/Maquettes) avec le client.
-- [ ] Définition précise des couleurs et du comportement de l'interface de passage du QCM (UX moderne).
+- [x] Création d'un dossier `charte-graphique` dans `cahiers-charges/PkgPasserQcm`.
+- [x] Réalisation de la charte graphique et de la maquette en HTML/CSS (Tailwind CDN) pour valider le rendu visuel.
+- [x] Intégration du comportement de pagination par étapes (chaque étape représente une Unité d'Apprentissage - UA).
+- [x] Définition précise des couleurs, de la typographie, et des animations (UX moderne).
 
 ### Sprint 2 : Infrastructure du Module & Layout
-- [ ] Création du layout spécifique intégrant Tailwind CSS et Alpine.js (via CDN).
+- [x] Création du layout spécifique intégrant Tailwind CSS et Alpine.js (via CDN).
 
-### Sprint 3 : Implémentation Fonctionnelle (Composants Alpine)
-- [ ] Création des contrôleurs dédiés dans `PkgPasserQcm` pour charger les données (QCM, Questions, Propositions).
-- [ ] Développement des composants Blade/Alpine (ex: Timer, Question, Navigation) pour gérer le passage du QCM dynamiquement.
-- [ ] Gestion de la soumission et de la sauvegarde des réponses en asynchrone ou classique.
+### Sprint 3 : Routing & Contrôleur (Données)
+- [ ] Définition de la route web (ex: `/passer-qcm/{realisation_qcm_id}`).
+- [ ] Création du `PasserQcmController`.
+- [ ] Chargement des données nécessaires : `RealisationQcm`, l'Apprenant, le `Qcm`, et la hiérarchie des Questions/Propositions regroupées par Unité d'Apprentissage (UA).
+
+### Sprint 4 : Découpage en Composants Blade (Statique)
+- [ ] Découpage de la maquette HTML en composants Blade anonymes (ex: `<x-passer-qcm.sidebar>`, `<x-passer-qcm.question-card>`).
+- [ ] Création de la vue principale utilisant le layout `passer-qcm` et les composants.
+- [ ] Injection des données réelles du contrôleur dans les composants Blade (affichage statique).
+
+### Sprint 5 : Dynamisation Frontend (Alpine.js)
+- [ ] Ajout du contexte global Alpine (`x-data`) pour stocker l'état du QCM (UA active, réponses sélectionnées).
+- [ ] Rendre la navigation de la Sidebar interactive (changement d'UA sans recharger la page).
+- [ ] Rendre les options de réponses sélectionnables et mémoriser le choix.
+- [ ] Création et activation du composant Timer.
+
+### Sprint 6 : Soumission et Sauvegarde (Backend)
+- [ ] Ajout de la méthode de soumission dans le `PasserQcmController`.
+- [ ] Gestion de la validation de la requête.
+- [ ] Sauvegarde des réponses de l'apprenant via les services (`RealisationQcmService`, etc.).
+- [ ] Redirection et feedback (QCM terminé).
 
 ## Skills Requis pour la Réalisation
 - `app2-front-end` : Pour la conception de l'interface V2 avec Tailwind CSS et l'architecture des composants Alpine.js.
