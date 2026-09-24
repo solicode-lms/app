@@ -20,7 +20,7 @@ class AffectationQcmProjetController extends BaseAffectationQcmProjetController
         // 1. Récupérer l'affectation avec les relations en cascade
         $affectation = AffectationQcmProjet::with([
             'qcm', 
-            'affectationProjet.projet.mobilisationUas.uniteApprentissage'
+            'affectationProjet.projet.mobilisationUas.uniteApprentissage.chapitres'
         ])->findOrFail($id);
         
         // 2. Extraire toutes les Unités d'Apprentissage (UAs) mobilisées
