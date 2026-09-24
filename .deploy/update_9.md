@@ -66,3 +66,5 @@ sudo php artisan db:seed --class=Modules\\PkgQcm\\Database\\Seeders\\ReponseQcmS
 - Question - Afficher 
 - RealisationQcm - Lecture
 - ReponseQcm - Édition sans Ajouter
+
+
