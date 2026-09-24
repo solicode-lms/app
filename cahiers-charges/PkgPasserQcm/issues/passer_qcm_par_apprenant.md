@@ -34,15 +34,15 @@ Pour bien isoler cette logique d'interface spécifique, un nouveau module sans b
 - [x] Chargement des données nécessaires : `RealisationQcm`, l'Apprenant, le `Qcm`, et la hiérarchie des Questions/Propositions regroupées par Unité d'Apprentissage (UA).
 
 ### Sprint 4 : Découpage en Composants Blade (Statique)
-- [ ] Découpage de la maquette HTML en composants Blade anonymes (ex: `<x-passer-qcm.sidebar>`, `<x-passer-qcm.question-card>`).
-- [ ] Création de la vue principale utilisant le layout `passer-qcm` et les composants.
-- [ ] Injection des données réelles du contrôleur dans les composants Blade (affichage statique).
+- [x] Découpage de la maquette HTML en composants Blade anonymes (ex: `<x-passer-qcm.sidebar>`, `<x-passer-qcm.question-card>`).
+- [x] Création de la vue principale utilisant le layout `passer-qcm` et les composants.
+- [x] Injection des données réelles du contrôleur dans les composants Blade (affichage statique).
 
 ### Sprint 5 : Dynamisation Frontend (Alpine.js)
-- [ ] Ajout du contexte global Alpine (`x-data`) pour stocker l'état du QCM (UA active, réponses sélectionnées).
-- [ ] Rendre la navigation de la Sidebar interactive (changement d'UA sans recharger la page).
-- [ ] Rendre les options de réponses sélectionnables et mémoriser le choix.
-- [ ] Création et activation du composant Timer.
+- [x] Ajout du contexte global Alpine (`x-data`) pour stocker l'état du QCM (UA active, réponses sélectionnées).
+- [x] Rendre la navigation de la Sidebar interactive (changement d'UA sans recharger la page).
+- [x] Rendre les options de réponses sélectionnables et mémoriser le choix.
+- [x] Création et activation du composant Timer.
 
 ### Sprint 6 : Soumission et Sauvegarde (Backend)
 - [ ] Ajout de la méthode de soumission dans le `PasserQcmController`.
