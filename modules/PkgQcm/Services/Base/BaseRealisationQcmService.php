@@ -227,7 +227,17 @@ class BaseRealisationQcmService extends BaseService
         ];
     }
 
-
+    public function initQcm(int $realisationQcmId)
+    {
+        $realisationQcm = $this->find($realisationQcmId);
+        if (!$realisationQcm) {
+            return false; 
+        }
+        $value =  $realisationQcm->save();
+        $this->pushServiceMessage("info","Traitement title", "message : résultat de traitement");
+        return $value;
+    }
+    
 
     /**
      * Retourne les types de vues disponibles pour l'index (ex: table, widgets...)
@@ -285,7 +295,8 @@ class BaseRealisationQcmService extends BaseService
     
         $realisationQcms_permissions = [
             'passer-qcm' => Auth::user()->can('passer-qcm'),
-
+            'initQcm-realisationQcm' => Auth::user()->can('initQcm-realisationQcm'),           
+            
             'edit-realisationQcm' => Auth::user()->can('edit-realisationQcm'),
             'destroy-realisationQcm' => Auth::user()->can('destroy-realisationQcm'),
             'show-realisationQcm' => Auth::user()->can('show-realisationQcm'),

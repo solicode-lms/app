@@ -41,7 +41,8 @@ Route::middleware('auth')->group(function () {
 
         Route::post('realisationQcms/data-calcul', [RealisationQcmController::class, 'dataCalcul'])->name('realisationQcms.dataCalcul');
         Route::post('realisationQcms/update-attributes', [RealisationQcmController::class, 'updateAttributes'])->name('realisationQcms.updateAttributes');
-
+        Route::get('realisationQcms/initQcm/{id}', [RealisationQcmController::class, 'initQcm'])->name('realisationQcms.initQcm');
+    
     
 
     });

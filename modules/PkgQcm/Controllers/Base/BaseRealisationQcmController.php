@@ -507,7 +507,20 @@ class BaseRealisationQcmController extends AdminController
         ));
     }
     
-
+    public function initQcm(Request $request, string $id) {
+        $realisationQcm = $this->realisationQcmService->initQcm($id);
+        if ($request->ajax()) {
+            $message = "Le QCM a été réinitialisé avec succès";
+            return JsonResponseHelper::success(
+                $message
+            );
+        }
+        return redirect()->route('RealisationQcm.index')->with(
+            'success',
+            "Le QCM a été réinitialisé avec succès"
+        );
+    }
+    
 
     /**
      * @DynamicPermissionIgnore

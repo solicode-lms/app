@@ -33,7 +33,8 @@ class BaseRealisationQcmSeeder extends Seeder
             'Extraction' => ['import', 'export'],
             'Import' => ['import'],
             'Export' => ['export'],
-
+            'initQcm' => ['initQcm'],
+            
         ];
 
     public function run(): void

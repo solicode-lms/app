@@ -77,7 +77,21 @@
                             </a>
                         </x-action-button>
                         @endif
-
+                        @if($realisationQcms_permissions['initQcm-realisationQcm'])
+                        <x-action-button :entity="$realisationQcm" actionName="initQcm">
+                            <a 
+                            data-toggle="tooltip" 
+                            title="Initialiser le QCM" 
+                            href="{{ route('realisationQcms.initQcm', ['id' => $realisationQcm->id]) }}" 
+                            data-id="{{$realisationQcm->id}}" 
+                            data-url="{{ route('realisationQcms.initQcm', ['id' => $realisationQcm->id]) }}" 
+                            data-action-type="confirm"
+                            class="btn btn-default btn-sm context-state actionEntity">
+                                <i class="fa-redo"></i>
+                            </a>
+                        </x-action-button>
+                        @endif
+                        
 
                        
 

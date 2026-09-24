@@ -84,6 +84,16 @@ description: Expert de l'architecture et de la personnalisation des vues Blade s
 - **Entrées** : `Nom de la vue`, `Variables d'état requises`
 - **Sorties** : Modification du rendu conditionnel ou des appels AJAX dans la vue Blade.
 
+### Action H : Personnaliser un Bouton d'Action (Tableau)
+> **Description** : Surcharger le rendu HTML ou la condition d'affichage d'un bouton d'action dans un tableau `_table.blade.php`.
+- **Capacités Utilisées** :
+  - `capacités/capacité-blade-actions.md`
+- **Entrées** : `Nom du Modèle`, `Nom de l'Action (actionName)`
+- **Sorties** : `Fichier dans custom/actions/`
+- **📝 Instructions d'Orchestration** :
+  1. Ne pas modifier `_table.blade.php`.
+  2. Créer le fichier `custom/actions/{actionName}.blade.php` pour la surcharge automatique (composant `<x-action-button>`).
+
 ---
 
 ## 🛠️ Capacités (Savoir-Faire Technique)
@@ -106,6 +116,9 @@ description: Expert de l'architecture et de la personnalisation des vues Blade s
 
 ### 6. `capacité-view-state.md`
 - **Rôle** : Base de connaissances sur la manipulation du ViewState côté frontend (impact sur Select2 et datatables).
+
+### 7. `capacité-blade-actions.md`
+- **Rôle** : Documentation de la surcharge dynamique des boutons d'actions via le composant `<x-action-button>`.
 
 ---
 
