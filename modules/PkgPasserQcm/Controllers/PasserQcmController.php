@@ -33,7 +33,7 @@ class PasserQcmController extends Controller
             $dataUaGrouped[] = [
                 'etape' => $etapeIndex,
                 'ua_id' => $uaId,
-                'ua_titre' => $ua ? $ua->titre : 'Questions Générales',
+                'ua_titre' => $ua ? $ua->nom : 'Questions Générales',
                 'questions' => $questions->map(function ($q) {
                     return [
                         'id' => $q->id,

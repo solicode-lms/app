@@ -39,7 +39,7 @@
                          @if($itemRealisationQcm->reponseQcms?->count() > 0 || auth()->user()?->can('create-reponseQcm'))
                         <li class="nav-item">
                             <a class="nav-link" id="realisationQcm-hasmany-tabs-reponseQcm-tab" data-toggle="pill" href="#realisationQcm-hasmany-tabs-reponseQcm" role="tab" aria-controls="realisationQcm-hasmany-tabs-reponseQcm" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-check-double"></i>
                                 {{ucfirst(__('PkgQcm::reponseQcm.plural'))}}
                             </a>
                         </li>
