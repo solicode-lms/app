@@ -694,7 +694,7 @@
         "value_float": 0,
         "value_json": [
             {
-                "icon": "fa-redo",
+                "icon": "fas fa-redo",
                 "title": "Initialiser le QCM",
                 "methode": "initQcm",
                 "actionType": "confirm",

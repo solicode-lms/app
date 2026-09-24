@@ -11,6 +11,34 @@ use Modules\PkgApprentissage\Models\RealisationUaPrototype;
  */
 class RealisationQcmService extends BaseRealisationQcmService
 {
+    public function initQcm(int $realisationQcmId)
+    {
+        $realisationQcm = $this->find($realisationQcmId);
+        if (!$realisationQcm) {
+            $this->pushServiceMessage("danger", "Erreur", "Réalisation QCM introuvable.");
+            return false; 
+        }
+
+        // 1. Supprimer toutes les réponses (et détacher les propositions associées)
+        foreach ($realisationQcm->reponseQcms as $reponseQcm) {
+            $reponseQcm->propositionReponses()->sync([]);
+            $reponseQcm->delete();
+        }
+
+        // 2. Réinitialiser les dates et l'état
+        $realisationQcm->date_debut = null;
+        $realisationQcm->date_soumission = null;
+        
+        $etatAFaire = EtatRealisationQcm::where('reference', 'A_FAIRE')->first();
+        if ($etatAFaire) {
+            $realisationQcm->etat_realisation_qcm_id = $etatAFaire->id;
+        }
+
+        $value = $realisationQcm->save();
+        $this->pushServiceMessage("success", "Initialisation réussie", "Le QCM a été réinitialisé avec succès et peut être repassé.");
+        return $value;
+    }
+
     public function afterUpdateRules($item, array $data)
     {
         // 1. Vérifier si l'état est "VALIDE"

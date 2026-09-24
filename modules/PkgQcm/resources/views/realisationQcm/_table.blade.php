@@ -87,7 +87,7 @@
                             data-url="{{ route('realisationQcms.initQcm', ['id' => $realisationQcm->id]) }}" 
                             data-action-type="confirm"
                             class="btn btn-default btn-sm context-state actionEntity">
-                                <i class="fa-redo"></i>
+                                <i class="fas fa-redo"></i>
                             </a>
                         </x-action-button>
                         @endif
