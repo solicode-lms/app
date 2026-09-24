@@ -643,5 +643,26 @@
         "value_boolean": 1,
         "e_data_field_reference": "realisation_qcms_hasMany_reponse_qcms_realisation_qcm_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "realisation_qcms_linksAction",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": [
+            {
+                "icon": "fas fa-play-circle",
+                "class": "btn btn-info btn-sm actionEntity",
+                "ordre": 1,
+                "route": "passerQcm.index",
+                "params": {
+                    "realisation_qcm_id": "$realisationQcm->id"
+                },
+                "tooltip": "Passer le QCM",
+                "actionName": "passerQcm",
+                "permission": "passer-qcm"
+            }
+        ],
+        "e_model_reference": "realisation_qcms",
+        "e_metadata_definition_reference": "linksAction"
     }
 ]

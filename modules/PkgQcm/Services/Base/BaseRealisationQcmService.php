@@ -270,6 +270,7 @@ class BaseRealisationQcmService extends BaseService
         $this->viewState->set('stats.realisationQcm.stats', $realisationQcms_stats);
     
         $realisationQcms_permissions = [
+            'passer-qcm' => Auth::user()->can('passer-qcm'),
 
             'edit-realisationQcm' => Auth::user()->can('edit-realisationQcm'),
             'destroy-realisationQcm' => Auth::user()->can('destroy-realisationQcm'),

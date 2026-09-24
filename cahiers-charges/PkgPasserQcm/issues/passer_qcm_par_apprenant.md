@@ -29,9 +29,9 @@ Pour bien isoler cette logique d'interface spécifique, un nouveau module sans b
 - [x] Création du layout spécifique intégrant Tailwind CSS et Alpine.js (via CDN).
 
 ### Sprint 3 : Routing & Contrôleur (Données)
-- [ ] Définition de la route web (ex: `/passer-qcm/{realisation_qcm_id}`).
-- [ ] Création du `PasserQcmController`.
-- [ ] Chargement des données nécessaires : `RealisationQcm`, l'Apprenant, le `Qcm`, et la hiérarchie des Questions/Propositions regroupées par Unité d'Apprentissage (UA).
+- [x] Définition de la route web (ex: `/passer-qcm/{realisation_qcm_id}`).
+- [x] Création du `PasserQcmController`.
+- [x] Chargement des données nécessaires : `RealisationQcm`, l'Apprenant, le `Qcm`, et la hiérarchie des Questions/Propositions regroupées par Unité d'Apprentissage (UA).
 
 ### Sprint 4 : Découpage en Composants Blade (Statique)
 - [ ] Découpage de la maquette HTML en composants Blade anonymes (ex: `<x-passer-qcm.sidebar>`, `<x-passer-qcm.question-card>`).

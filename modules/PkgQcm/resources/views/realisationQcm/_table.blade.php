@@ -63,6 +63,20 @@
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
+                        @if($realisationQcms_permissions['passer-qcm'])
+                        <x-action-button :entity="$realisationQcm" actionName="passerQcm">
+                            <a
+                                data-toggle="tooltip"
+                                title="Passer le QCM"
+                                href="{{ route('passerQcm.index', [
+                                        'realisation_qcm_id' => $realisationQcm->id,
+                                ]) }}"
+                                class="btn btn-info btn-sm actionEntity"
+                                data-id="{{ $realisationQcm->id }}">
+                                <i class="fas fa-play-circle"></i>
+                            </a>
+                        </x-action-button>
+                        @endif
 
 
                        
