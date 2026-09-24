@@ -102,7 +102,6 @@
                 </div>
                 @show
                 @section('etatRealisationCompetence-crud-filters')
-                @if(!empty($etatRealisationCompetences_total) &&  $etatRealisationCompetences_total > 10)
                 <div class="card-header">
                     <form id="etatRealisationCompetence-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($etatRealisationCompetences_filters ?? [])}}">
@@ -132,7 +131,6 @@
                         @show
                     </form>
                 </div>
-                @endif
                 @show
                 <div id="etatRealisationCompetence-data-container" class="data-container">
                     @if($etatRealisationCompetence_viewType != "widgets")

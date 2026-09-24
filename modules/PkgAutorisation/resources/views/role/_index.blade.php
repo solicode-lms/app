@@ -102,7 +102,6 @@
                 </div>
                 @show
                 @section('role-crud-filters')
-                @if(!empty($roles_total) &&  $roles_total > 10)
                 <div class="card-header">
                     <form id="role-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($roles_filters ?? [])}}">
@@ -132,7 +131,6 @@
                         @show
                     </form>
                 </div>
-                @endif
                 @show
                 <div id="role-data-container" class="data-container">
                     @if($role_viewType != "widgets")

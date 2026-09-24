@@ -102,7 +102,6 @@
                 </div>
                 @show
                 @section('affectationQcmProjet-crud-filters')
-                @if(!empty($affectationQcmProjets_total) &&  $affectationQcmProjets_total > 10)
                 <div class="card-header">
                     <form id="affectationQcmProjet-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($affectationQcmProjets_filters ?? [])}}">
@@ -132,7 +131,6 @@
                         @show
                     </form>
                 </div>
-                @endif
                 @show
                 <div id="affectationQcmProjet-data-container" class="data-container">
                     @if($affectationQcmProjet_viewType != "widgets")

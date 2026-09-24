@@ -102,7 +102,6 @@
                 </div>
                 @show
                 @section('chapitre-crud-filters')
-                @if(!empty($chapitres_total) &&  $chapitres_total > 10)
                 <div class="card-header">
                     <form id="chapitre-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($chapitres_filters ?? [])}}">
@@ -132,7 +131,6 @@
                         @show
                     </form>
                 </div>
-                @endif
                 @show
                 <div id="chapitre-data-container" class="data-container">
                     @if($chapitre_viewType != "widgets")

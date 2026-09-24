@@ -102,7 +102,6 @@
                 </div>
                 @show
                 @section('eDataField-crud-filters')
-                @if(!empty($eDataFields_total) &&  $eDataFields_total > 10)
                 <div class="card-header">
                     <form id="eDataField-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($eDataFields_filters ?? [])}}">
@@ -132,7 +131,6 @@
                         @show
                     </form>
                 </div>
-                @endif
                 @show
                 <div id="eDataField-data-container" class="data-container">
                     @if($eDataField_viewType != "widgets")

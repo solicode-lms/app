@@ -63,7 +63,7 @@
                          @if($itemApprenant->realisationQcms?->count() > 0 || auth()->user()?->can('create-realisationQcm'))
                         <li class="nav-item">
                             <a class="nav-link" id="apprenant-hasmany-tabs-realisationQcm-tab" data-toggle="pill" href="#apprenant-hasmany-tabs-realisationQcm" role="tab" aria-controls="apprenant-hasmany-tabs-realisationQcm" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-laptop-code"></i>
                                 {{ucfirst(__('PkgQcm::realisationQcm.plural'))}}
                             </a>
                         </li>

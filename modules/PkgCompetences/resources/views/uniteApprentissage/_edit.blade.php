@@ -55,7 +55,7 @@
                          @if($itemUniteApprentissage->questions?->count() > 0 || auth()->user()?->can('create-question'))
                         <li class="nav-item">
                             <a class="nav-link" id="uniteApprentissage-hasmany-tabs-question-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-question" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-question" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-question"></i>
                                 {{ucfirst(__('PkgQcm::question.plural'))}}
                             </a>
                         </li>

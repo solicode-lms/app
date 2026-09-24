@@ -102,7 +102,6 @@
                 </div>
                 @show
                 @section('groupe-crud-filters')
-                @if(!empty($groupes_total) &&  $groupes_total > 10)
                 <div class="card-header">
                     <form id="groupe-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($groupes_filters ?? [])}}">
@@ -132,7 +131,6 @@
                         @show
                     </form>
                 </div>
-                @endif
                 @show
                 <div id="groupe-data-container" class="data-container">
                     @if($groupe_viewType != "widgets")

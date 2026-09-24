@@ -674,7 +674,7 @@
         "value_json": [
             {
                 "role": "formateur",
-                "dataScope": "filter",
+                "dataScope": "scope",
                 "userModelName": "User",
                 "ownerRelationPath": "apprenant.groupes.formateurs.user"
             },

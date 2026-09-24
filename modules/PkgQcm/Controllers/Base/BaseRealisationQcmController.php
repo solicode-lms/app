@@ -53,8 +53,8 @@ class BaseRealisationQcmController extends AdminController
 
 
         // ownedByUser
-        if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationQcm.apprenant.groupes.formateurs.user_id') == null){
-           $this->viewState->init('filter.realisationQcm.apprenant.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.realisationQcm.apprenant.groupes.formateurs.user_id') == null){
+           $this->viewState->init('scope.realisationQcm.apprenant.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
         }
         if(Auth::user()->hasRole('apprenant') && $this->viewState->get('scope.realisationQcm.apprenant_id') == null){
            $this->viewState->init('scope.realisationQcm.apprenant_id'  , $this->sessionState->get('apprenant_id'));

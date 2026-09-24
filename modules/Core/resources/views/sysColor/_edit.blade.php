@@ -127,7 +127,7 @@
                          @if($itemSysColor->etatRealisationQcms?->count() > 0 || auth()->user()?->can('create-etatRealisationQcm'))
                         <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-etatRealisationQcm-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatRealisationQcm" role="tab" aria-controls="sysColor-hasmany-tabs-etatRealisationQcm" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-thermometer-half"></i>
                                 {{ucfirst(__('PkgQcm::etatRealisationQcm.plural'))}}
                             </a>
                         </li>

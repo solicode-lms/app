@@ -102,7 +102,6 @@
                 </div>
                 @show
                 @section('propositionReponse-crud-filters')
-                @if(!empty($propositionReponses_total) &&  $propositionReponses_total > 10)
                 <div class="card-header">
                     <form id="propositionReponse-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($propositionReponses_filters ?? [])}}">
@@ -132,7 +131,6 @@
                         @show
                     </form>
                 </div>
-                @endif
                 @show
                 <div id="propositionReponse-data-container" class="data-container">
                     @if($propositionReponse_viewType != "widgets")

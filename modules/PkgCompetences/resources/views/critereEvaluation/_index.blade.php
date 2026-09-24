@@ -102,7 +102,6 @@
                 </div>
                 @show
                 @section('critereEvaluation-crud-filters')
-                @if(!empty($critereEvaluations_total) &&  $critereEvaluations_total > 10)
                 <div class="card-header">
                     <form id="critereEvaluation-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($critereEvaluations_filters ?? [])}}">
@@ -132,7 +131,6 @@
                         @show
                     </form>
                 </div>
-                @endif
                 @show
                 <div id="critereEvaluation-data-container" class="data-container">
                     @if($critereEvaluation_viewType != "widgets")

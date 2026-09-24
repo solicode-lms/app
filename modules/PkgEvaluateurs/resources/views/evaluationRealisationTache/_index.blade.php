@@ -102,7 +102,6 @@
                 </div>
                 @show
                 @section('evaluationRealisationTache-crud-filters')
-                @if(!empty($evaluationRealisationTaches_total) &&  $evaluationRealisationTaches_total > 10)
                 <div class="card-header">
                     <form id="evaluationRealisationTache-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($evaluationRealisationTaches_filters ?? [])}}">
@@ -132,7 +131,6 @@
                         @show
                     </form>
                 </div>
-                @endif
                 @show
                 <div id="evaluationRealisationTache-data-container" class="data-container">
                     @if($evaluationRealisationTache_viewType != "widgets")
