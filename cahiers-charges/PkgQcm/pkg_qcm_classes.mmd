@@ -7,7 +7,9 @@ classDiagram
         class Proposition
         class RealisationQcm
         class ReponseQcm
-        class AffectationQcmProjet
+        class AffectationQcmProjet {
+            +saise_automatique_note_qcm: boolean
+        }
         class EtatRealisationQcm
     }
 
@@ -20,7 +22,10 @@ classDiagram
     }
 
     namespace PkgApprentissage {
-        class RealisationUaPrototype
+        class RealisationUaPrototype {
+            +note_qcm: float
+            +barem_qcm: float
+        }
     }
 
     namespace PkgApprenants {

@@ -32,5 +32,6 @@ Le passage d'un QCM par un apprenant passe par l'entité `RealisationQcm`, dont 
 
 ## 4. Lien avec PkgApprentissage (Notes en cascade)
 - **Validation par le formateur** : Après validation du QCM par le formateur, la note des `RealisationUaPrototype` doit être calculée pour chaque Unité d'Apprentissage.
-- **Enregistrement de la note** : Cette note doit être enregistrée dans l'objet `RealisationUaPrototype` via les attributs spécifiques `note_qcm` et `bareme_qcm` (ou `barem_qcm`).
-- **Saisie automatique** : Si l'affectation du QCM au projet (`AffectationQcmProjet`) possède le paramètre `saise_automatique_note_qcm` à vrai, la note calculée du QCM doit également être ajoutée directement dans l'attribut `note` de `RealisationUaPrototype`.
+- **Calcul Spécifique à l'UA** : La note et le barème attribués à une `RealisationUaPrototype` ne correspondent **pas** à la note globale du QCM. Ils sont calculés **uniquement** à partir des questions (`Question`) qui appartiennent à la même Unité d'Apprentissage (`unite_apprentissage_id`) que la `RealisationUaPrototype`.
+- **Enregistrement de la note** : Cette note spécifique à l'UA doit être enregistrée dans l'objet `RealisationUaPrototype` via les attributs spécifiques `note_qcm` et `barem_qcm`.
+- **Saisie automatique** : Si l'affectation du QCM au projet (`AffectationQcmProjet`) possède le paramètre `saise_automatique_note_qcm` à vrai, la note calculée spécifiquement pour l'UA doit également être ajoutée directement dans l'attribut global `note` de `RealisationUaPrototype`.

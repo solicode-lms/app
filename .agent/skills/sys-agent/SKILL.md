@@ -29,8 +29,10 @@ description: Expert unifié de la gestion, création et maintenance des composan
   - **Nommage** : Le nom est un **Rôle Humain** (ex: `analyste-uml`).
   - Le fichier respecte la structure `template-skill.md`.
   - Le dossier du skill est créé en `kebab-case`.
-  - **Capacités génériques** : Les fichiers de savoir-faire (Standards, Règles, Listes exhaustives, Checklists) doivent être dans le dossier `capacités/` et non dans `resources/` (voir `capacités-skill.md`).
-  - **Déport structuré des connaissances (RÈGLE STRICTE)** : Il faut élargir les actions d'un skill en créant des capacités, de façon logique et structurée. Le fichier `SKILL.md` doit rester concis et centré sur l'orchestration. Toute règle complexe, checklist détaillée ou liste exhaustive de composants doit impérativement être déportée dans un fichier de capacité dédié (`capacités/capacité-[nom].md`).
+  - **Capacités et Règles de Gestion** : Les fichiers de savoir-faire (Standards, Règles, Listes exhaustives) ne doivent pas être dans `resources/`. Ils doivent être déportés :
+    - Pour les skills **applicatifs** (composants techniques) : Dans le dossier `capacités/` avec le préfixe `capacité-`.
+    - Pour les skills **métier** (modules `pkg-*`) : Dans le dossier `règles-gestion/` avec le préfixe `règle-gestion-`.
+  - **Déport structuré des connaissances (RÈGLE STRICTE)** : Il faut élargir les actions d'un skill en déportant les connaissances. Le fichier `SKILL.md` doit rester concis et centré sur l'orchestration. Toute règle complexe ou savoir-faire doit impérativement être déporté dans un fichier dédié (`capacités/capacité-[nom].md` ou `règles-gestion/règle-gestion-[nom].md` selon le type de skill).
 - **📝 Instructions Détaillées** :
   1. **Lire** la capacité : `capacités/capacités-skill.md`.
   2. **Si Création** :
@@ -96,11 +98,11 @@ description: Expert unifié de la gestion, création et maintenance des composan
    - Chaque **Action** peut mobiliser une ou plusieurs **Capacités** (fichiers de savoir-faire technique ou méthodologique).
    - Une **Capacité** peut être réutilisée par plusieurs Actions ou Skills.
 2. **Typologie des Skills** : L'écosystème est organisé autour de deux grands types de skills :
-   - **Skills de la couche applicative** : Ces experts maîtrisent une brique technique transversale de l'architecture (ex: `expert-blade`, `expert-service-layer`, `expert-create-table`, `expert-view-state`).
-   - **Skills par package (Métier)** : Ces experts maîtrisent les règles de gestion, l'architecture des données et la logique spécifique d'un package donné. Idéalement, il doit y avoir un expert par package (ex: `expert-apprentissage` pour PkgApprentissage).
+   - **Skills de la couche applicative** (Composants techniques) : Ces experts maîtrisent une brique technique transversale (ex: `app-blade`, `app-service`). Leurs sous-fichiers de savoir-faire s'appellent des **Capacités** et sont stockés dans un dossier `capacités/` (ex: `capacités/capacité-[nom].md`).
+   - **Skills par package (Modules métier)** : Ces experts maîtrisent les règles, l'architecture des données et la logique spécifique d'un package donné (ex: `pkg-apprentissage`, `pkg-qcm`). Leurs sous-fichiers de savoir-faire s'appellent des **Règles de Gestion** et doivent OBLIGATOIREMENT être placés dans un dossier `règles-gestion/` avec le préfixe `règle-gestion-` (ex: `règles-gestion/règle-gestion-[nom].md`).
 3. **Architecture** : `.agent/` est le seul domaine d'intervention.
 3. **Nomenclature** : Tout en `kebab-case` (dossiers et fichiers).
 4. **Séparation des Préoccupations (SoC)** :
    - **SKILL.md** : Orchestration, Entrées/Sorties, Algorithmes de haut niveau.
-   - **capacités/*.md** : Règles métier détaillées, Logic complexe, Templates, Protocoles techniques.
+   - **capacités/*.md** ou **règles-gestion/*.md** : Règles métier détaillées, Logique complexe, Templates, Protocoles techniques.
 
