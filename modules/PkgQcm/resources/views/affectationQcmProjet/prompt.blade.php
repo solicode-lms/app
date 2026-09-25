@@ -135,7 +135,15 @@ Génère un **QCM** au **format JSON** strict, sans texte avant ou après.
 Sujets à évaluer :
 - **Unité d'Apprentissage** : {{ $ua->nom ?? 'Inconnue' }}
 @foreach($ua->chapitres as $chapitre)
-- {{ $chapitre->nom }} : {{ $chapitre->description ?? '' }} @if($chapitre->lien) (Source / Cours : {{ $chapitre->lien }}) @endif
+- {{ $chapitre->nom }} : {{ $chapitre->description ?? '' }} 
+@if($chapitre->lien)
+@php $tutoContent = $tutosContent[$chapitre->id] ?? null; @endphp
+@if($tutoContent)
+  [Contenu du cours à utiliser] : {{ \Illuminate\Support\Str::limit($tutoContent, 3000) }}
+@else
+  (Source / Cours : {{ $chapitre->lien }})
+@endif
+@endif
 @endforeach
 
 Format attendu :

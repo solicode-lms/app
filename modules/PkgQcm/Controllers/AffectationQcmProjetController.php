@@ -17,7 +17,7 @@ class AffectationQcmProjetController extends BaseAffectationQcmProjetController
      * @param string $id
      * @return \Illuminate\View\View
      */
-    public function prompt(string $id)
+    public function prompt(string $id, \Modules\PkgQcm\Services\AffectationQcmProjetService $affectationService)
     {
         $this->authorizeAction('update');
         // 1. Récupérer l'affectation avec les relations en cascade
@@ -29,8 +29,18 @@ class AffectationQcmProjetController extends BaseAffectationQcmProjetController
         // 2. Extraire toutes les Unités d'Apprentissage (UAs) mobilisées
         $uas = $affectation->affectationProjet->projet->mobilisationUas->pluck('uniteApprentissage')->filter();
 
-        // 3. Renvoyer la vue Blade avec les données
-        return view('PkgQcm::affectationQcmProjet.prompt', compact('affectation', 'uas'));
+        // 3. Récupérer le contenu des tutoriels de chaque chapitre
+        $tutosContent = [];
+        foreach ($uas as $ua) {
+            foreach ($ua->chapitres as $chapitre) {
+                if ($chapitre->lien) {
+                    $tutosContent[$chapitre->id] = $affectationService->getTutoContent($chapitre->lien);
+                }
+            }
+        }
+
+        // 4. Renvoyer la vue Blade avec les données
+        return view('PkgQcm::affectationQcmProjet.prompt', compact('affectation', 'uas', 'tutosContent'));
     }
     /**
      * Traite le JSON soumis et crée les questions en base, liées au QCM de l'affectation
