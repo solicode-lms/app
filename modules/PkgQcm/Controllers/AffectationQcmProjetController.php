@@ -55,4 +55,21 @@ class AffectationQcmProjetController extends BaseAffectationQcmProjetController
             return redirect()->back()->with('error', 'Erreur d\'importation : ' . $e->getMessage())->withInput();
         }
     }
+
+    /**
+     * Retourne le nombre de questions par Unité d'Apprentissage pour le QCM de l'affectation
+     * @DynamicPermissionIgnore
+     */
+    public function getQuestionsCount(string $id)
+    {
+        $this->authorizeAction('update');
+        $affectation = AffectationQcmProjet::findOrFail($id);
+        
+        $counts = \Modules\PkgQcm\Models\Question::where('qcm_id', $affectation->qcm_id)
+            ->groupBy('unite_apprentissage_id')
+            ->selectRaw('unite_apprentissage_id, count(*) as count')
+            ->pluck('count', 'unite_apprentissage_id');
+            
+        return response()->json($counts);
+    }
 }

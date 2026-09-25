@@ -30,3 +30,26 @@ Lorsqu'une modale enfant se ferme (par exemple, après soumission réussie d'un 
 
 ## Astuces pour le Développement
 - Si vous créez une vue personnalisée (non générée par Gapp) qui doit ouvrir des modales CRUD natives, **vous DEVEZ envelopper votre contenu dans un conteneur (`<div id="nom-crud" class="crud">`) et simuler une configuration basique** dans `window.crudModalManagersConfig` pour que le framework attache ses écouteurs d'événements.
+
+## ⚠️ Règle Critique : Le Paramètre `showIndex`
+
+Lorsque vous créez manuellement un lien (avec la classe `.showIndex`) pour ouvrir la liste d'une entité dans une modale enfant, **il est OBLIGATOIRE d'ajouter le paramètre `'showIndex' => 1`** dans la fonction `route()` !
+
+### ✅ Bon usage :
+```blade
+<a href="{{ route('questions.index', ['qcm_id' => $qcm->id, 'showIndex' => 1]) }}" class="showIndex">
+    Gérer les questions
+</a>
+```
+
+### ❌ Mauvais usage (Cause de bugs de redirection) :
+```blade
+<!-- 🚨 Attention : Il manque 'showIndex' => 1 -->
+<a href="{{ route('questions.index', ['qcm_id' => $qcm->id]) }}" class="showIndex">
+```
+
+**Pourquoi est-ce crucial ?** 
+Dans les `BaseControllers` générés par Gapp, la méthode `index(Request $request)` vérifie la présence de `$request['showIndex']` :
+- Si `showIndex=1` est présent, le contrôleur retourne **`_index.blade.php`**, qui contient les scripts de configuration JS (le fameux `window.crudModalManagersConfig.push`) et le conteneur principal (`<div id="model-crud">`).
+- S'il est absent, le contrôleur retourne uniquement **`_table.blade.php`**. 
+- Le tableau s'affichera bien visuellement, mais **le gestionnaire CRUD JavaScript ne sera JAMAIS instancié**. Par conséquent, les clics sur les actions internes (ex: `.editEntity`, `.deleteEntity`) ne seront pas interceptés par AJAX, ce qui provoquera une redirection classique (rechargement de page) au lieu de l'ouverture fluide d'une sous-modale.

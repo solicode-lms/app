@@ -43,10 +43,15 @@ export class LoadListAction extends BaseAction {
      */
     loadEntities(page, filters = {}, discret = false) {
 
-
         // Ne pas loadEntities si une cellule est en edition
         if(this.tableUI.cellOrchestrator.editCount > 0 || this.tableUI.bulkAction.isSelectingRows  ) 
             return;
+
+        // Ne pas loadEntities si indexUrl est vide (cas d'un conteneur factice comme prompt)
+        if (!this.indexUrl) {
+            console.debug("⚠️ loadEntities annulé : indexUrl est vide.");
+            return;
+        }
 
         if(page === undefined){
             page = this.tableUI.indexUI.paginationUI.page;

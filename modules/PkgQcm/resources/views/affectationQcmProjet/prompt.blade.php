@@ -40,7 +40,7 @@
                                 <!-- Affichage du nombre de questions existantes et lien modal -->
                                 <div>
                                     <span class="badge badge-primary px-3 py-2 mr-2" style="font-size: 13px;">
-                                        <i class="fas fa-question-circle"></i> Questions existantes : {{ $affectation->qcm->questions()->where('unite_apprentissage_id', $ua->id)->count() }}
+                                        <i class="fas fa-question-circle"></i> Questions existantes : <span id="q-count-{{ $ua->id }}">{{ $affectation->qcm->questions()->where('unite_apprentissage_id', $ua->id)->count() }}</span>
                                     </span>
                                     <a href="{{ route('questions.index', ['unite_apprentissage_id' => $ua->id, 'qcm_id' => $affectation->qcm_id, 'showIndex' => 1]) }}" class="btn btn-sm btn-outline-info font-weight-bold showIndex">
                                         <i class="fas fa-external-link-square-alt"></i> Gérer les questions
@@ -247,6 +247,28 @@ Génère 40 questions.</textarea>
             modalBody.innerHTML = html;
         }
         
+    }
+
+    // Écouter la fermeture de la modale CRUD pour rafraîchir les compteurs
+    $("body").on("crudModalClosed", function(e, config) {
+        if (config.entity_name === 'affectation' || config.entity_name === 'question') {
+            fetchCountsAndUpdateUI();
+        }
+    });
+
+    function fetchCountsAndUpdateUI() {
+        const url = '{{ route("affectationQcmProjets.getQuestionsCount", ["id" => $affectation->id]) }}';
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                @foreach($uas as $ua)
+                    const countSpan = document.getElementById('q-count-{{ $ua->id }}');
+                    if (countSpan) {
+                        countSpan.innerText = data['{{ $ua->id }}'] || 0;
+                    }
+                @endforeach
+            })
+            .catch(err => console.error("Erreur lors de la récupération des statistiques de questions :", err));
     }
 </script>
 

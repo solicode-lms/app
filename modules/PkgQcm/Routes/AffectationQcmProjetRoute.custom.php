@@ -13,5 +13,8 @@ Route::middleware('auth')->group(function () {
             
         Route::post('affectationQcmProjets/{id}/import-ia', [AffectationQcmProjetController::class, 'importIaProcess'])
             ->name('affectationQcmProjets.importIaProcess');
+            
+        Route::get('affectationQcmProjets/{id}/questions-count', [AffectationQcmProjetController::class, 'getQuestionsCount'])
+            ->name('affectationQcmProjets.getQuestionsCount');
     });
 });

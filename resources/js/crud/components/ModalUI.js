@@ -213,6 +213,9 @@ export class ModalUI {
         this.restoreParentModal();
         
         this.indexUI.tableUI.loadListAction.loadEntities();
+
+        // Déclencher un événement global pour permettre aux vues personnalisées de réagir
+        $("body").trigger("crudModalClosed", [this.config]);
     
         // setTimeout(() => {
         //     if ($(".dynamic-modal:visible").length === 0) {
