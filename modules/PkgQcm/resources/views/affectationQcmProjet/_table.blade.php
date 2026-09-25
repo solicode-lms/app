@@ -32,7 +32,7 @@
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
                         @if($affectationQcmProjets_permissions['edit-affectationQcmProjet'])
-                        <x-action-button :entity="$affectationQcmProjet" actionName="">
+                        <x-action-button :entity="$affectationQcmProjet" actionName="promptIA">
                             <a
                                 data-toggle="tooltip"
                                 title="Générer un prompt IA"

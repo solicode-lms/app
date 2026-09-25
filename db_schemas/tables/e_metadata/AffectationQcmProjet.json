@@ -401,6 +401,7 @@
                     "showIndex": true
                 },
                 "tooltip": "Générer un prompt IA",
+                "actionName": "promptIA",
                 "permission": "edit-affectationQcmProjet"
             }
         ],

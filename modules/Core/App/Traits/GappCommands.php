@@ -12,11 +12,13 @@ trait GappCommands
      */
     private function getGappPath(): string
     {
-        $path = 'C:\\Users\\essarraj\\AppData\\Roaming\\npm\\gapp.cmd';
+        // On récupère le chemin depuis le .env, par défaut on tente la commande globale 'gapp.cmd'
+        $path = env('GAPP_PATH', 'gapp.cmd');
 
-        if (!file_exists($path)) {
+        // On ne vérifie l'existence du fichier que si ce n'est pas une commande globale simple
+        if ($path !== 'gapp' && $path !== 'gapp.cmd' && !file_exists($path)) {
             throw new \RuntimeException(
-                "Gapp introuvable : {$path}"
+                "Gapp introuvable au chemin spécifié : {$path}"
             );
         }
 
