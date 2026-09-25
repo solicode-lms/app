@@ -257,7 +257,18 @@ Génère __COUNT__ questions.
                 // Forcer le formatage au collage
                 editor.onDidPaste(function() {
                     setTimeout(function() {
-                        editor.getAction('editor.action.formatDocument').run();
+                        try {
+                            // On tente de reformater proprement avec le moteur JSON de JS
+                            let val = editor.getValue();
+                            // Nettoyage éventuel si l'IA a rajouté du markdown (ex: ```json ... ```)
+                            val = val.replace(/^```json\s*/, '').replace(/\s*```$/, '');
+                            const parsed = JSON.parse(val);
+                            const formatted = JSON.stringify(parsed, null, 4);
+                            editor.setValue(formatted);
+                        } catch (e) {
+                            // Fallback sur le formateur Monaco par défaut
+                            editor.getAction('editor.action.formatDocument').run();
+                        }
                     }, 50);
                 });
                 
