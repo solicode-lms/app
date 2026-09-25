@@ -119,6 +119,10 @@ class RealisationQcmService extends BaseRealisationQcmService
         $etatValide = EtatRealisationQcm::where('reference', 'VALIDE')->first();
         
         if ($etatValide && $item->etat_realisation_qcm_id == $etatValide->id) {
+            if (empty($item->date_validation)) {
+                $item->date_validation = \Carbon\Carbon::now();
+                $item->save();
+            }
             $this->evaluerQcm($item);
         }
     }
