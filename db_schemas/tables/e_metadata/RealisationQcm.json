@@ -15,7 +15,7 @@
     {
         "reference": "realisation_qcms_iconModel",
         "value_boolean": 0,
-        "value_string": "fas fa-laptop-code",
+        "value_string": "fas fa-flask",
         "value_float": 0,
         "e_model_reference": "realisation_qcms",
         "e_metadata_definition_reference": "iconModel"
@@ -721,5 +721,12 @@
         "value_float": 0,
         "e_data_field_reference": "RealisationQcm_note_obtenu",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "RealisationQcm_date_debut_readOnly",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationQcm_date_debut",
+        "e_metadata_definition_reference": "readOnly"
     }
 ]

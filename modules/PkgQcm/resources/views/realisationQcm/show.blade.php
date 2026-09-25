@@ -13,7 +13,7 @@
                     <div class="card card-info crud-show">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-laptop-code"></i>
+                                <i class="nav-icon fas fa-flask"></i>
                                  {{__("Core::msg.show") . " : " . __("PkgQcm::realisationQcm.singular") }} - {{ $itemRealisationQcm }}
                             </h3>
                         </div>

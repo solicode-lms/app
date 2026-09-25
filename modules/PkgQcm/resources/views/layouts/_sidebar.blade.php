@@ -27,7 +27,7 @@
             <li class="nav-item" id="menu-realisationQcms">
                 <a href="{{ route('realisationQcms.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgQcm/realisationQcms') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-laptop-code"></i>
+                    <i class="nav-icon fas fa-flask"></i>
                     <p>{{__('PkgQcm::realisationQcm.plural')}}</p>
                 </a>
             </li>
@@ -62,7 +62,7 @@
             @can('index-realisationQcm') 
             <li class="nav-item" id="menu-realisationQcms">
                 <a href="{{ route('realisationQcms.index') }}" class="nav-link {{ Request::is('admin/PkgQcm/realisationQcms') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-laptop-code"></i>
+                    <i class="nav-icon fas fa-flask"></i>
                     <p>{{__('PkgQcm::realisationQcm.plural')}}</p>
                 </a>
             </li>
