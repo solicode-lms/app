@@ -82,6 +82,10 @@ class BaseAffectationQcmProjetController extends AdminController
         // scopeDataByRole
         $itemAffectationQcmProjet = $this->affectationQcmProjetService->createInstance();
  
+        // scopeDataInEditContext
+        $value = $itemAffectationQcmProjet->getNestedValue('qcm.formateur_id');
+        $key = 'scope.affectationProjet.projet.formateur_id';
+        $this->viewState->set($key, $value);
 
         $qcms = $this->qcmService->all();
         $affectationProjets = $this->affectationProjetService->all();
@@ -109,6 +113,10 @@ class BaseAffectationQcmProjetController extends AdminController
  
          $itemAffectationQcmProjet = $this->affectationQcmProjetService->find($affectationQcmProjet_ids[0]);
          
+        // scopeDataInEditContext
+        $value = $itemAffectationQcmProjet->getNestedValue('qcm.formateur_id');
+        $key = 'scope.affectationProjet.projet.formateur_id';
+        $this->viewState->set($key, $value);
  
         $qcms = $this->qcmService->getAllForSelect($itemAffectationQcmProjet->qcm);
         $affectationProjets = $this->affectationProjetService->getAllForSelect($itemAffectationQcmProjet->affectationProjet);
@@ -185,6 +193,10 @@ class BaseAffectationQcmProjetController extends AdminController
 
         $itemAffectationQcmProjet = $this->affectationQcmProjetService->edit($id);
 
+        // scopeDataInEditContext
+        $value = $itemAffectationQcmProjet->getNestedValue('qcm.formateur_id');
+        $key = 'scope.affectationProjet.projet.formateur_id';
+        $this->viewState->set($key, $value);
 
         $qcms = $this->qcmService->getAllForSelect($itemAffectationQcmProjet->qcm);
         $affectationProjets = $this->affectationProjetService->getAllForSelect($itemAffectationQcmProjet->affectationProjet);
@@ -512,6 +524,10 @@ class BaseAffectationQcmProjetController extends AdminController
         // $this->authorizeAction('update');
         $itemAffectationQcmProjet = AffectationQcmProjet::findOrFail($id);
 
+        // scopeDataInEditContext
+        $value = $itemAffectationQcmProjet->getNestedValue('qcm.formateur_id');
+        $key = 'scope.affectationProjet.projet.formateur_id';
+        $this->viewState->set($key, $value);
 
         $data = $this->service->buildFieldMeta($itemAffectationQcmProjet, $field);
         return response()->json(
@@ -529,6 +545,10 @@ class BaseAffectationQcmProjetController extends AdminController
         $this->authorizeAction('update');
         $itemAffectationQcmProjet = AffectationQcmProjet::findOrFail($id);
 
+        // scopeDataInEditContext
+        $value = $itemAffectationQcmProjet->getNestedValue('qcm.formateur_id');
+        $key = 'scope.affectationProjet.projet.formateur_id';
+        $this->viewState->set($key, $value);
 
         // Vérification ETag
         $ifMatch = $request->header('If-Match');

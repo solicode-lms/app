@@ -21,6 +21,7 @@ description: Détermine la configuration JSON des métadonnées Gapp (scope, fil
 > **Description** : Produire un bloc JSON strict pour Gapp (`scopeDataInEditContext`, `scopeDataByRole`, ou `ownedByUser`) et afficher les commandes `gapp` requises.
 - **Capacités Utilisées** :
   - `capacités/capacite-metadonnees-gapp.md` (Structures JSON)
+  - `capacités/capacite-scope-edit-context.md` (Explication détaillée des scopes d'édition)
   - `capacités/capacite-commandes-gapp.md` (Commandes)
 - **Entrées** : Type de métadonnée, entité cible, relations, rôle.
 - **Sorties** : Bloc JSON à fournir au développeur, suivi des instructions et commandes d'application.

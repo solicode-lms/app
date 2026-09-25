@@ -407,5 +407,19 @@
         ],
         "e_model_reference": "affectation_qcm_projets",
         "e_metadata_definition_reference": "linksAction"
+    },
+    {
+        "reference": "AffectationQcmProjet_affectation_projet_id_scopeDataInEditContext",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": [
+            {
+                "key": "scope.affectationProjet.projet.formateur_id",
+                "value": "qcm.formateur_id",
+                "modelName": "AffectationQcmProjet"
+            }
+        ],
+        "e_data_field_reference": "AffectationQcmProjet_affectation_projet_id",
+        "e_metadata_definition_reference": "scopeDataInEditContext"
     }
 ]
