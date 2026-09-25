@@ -24,9 +24,16 @@
             <div class="card card-outline card-primary shadow-sm mb-4">
                 <div class="card-header">
                     <h3 class="card-title w-100">
-                        <a class="d-block w-100 text-dark" data-toggle="collapse" href="#collapse-ua-{{ $ua->id }}">
-                            <i class="fas fa-book text-primary"></i> Unité d'Apprentissage : <strong>{{ $ua->nom ?? 'Inconnue' }}</strong>
-                            <i class="fas fa-angle-down float-right text-muted mt-1"></i>
+                        <a class="d-flex w-100 text-dark align-items-center" data-toggle="collapse" href="#collapse-ua-{{ $ua->id }}">
+                            <div class="flex-grow-1">
+                                <i class="fas fa-book text-primary"></i> Unité d'Apprentissage : <strong>{{ $ua->code }} - {{ $ua->nom ?? 'Inconnue' }}</strong>
+                            </div>
+                            <div class="mr-3">
+                                <span class="badge badge-info px-2 py-1">
+                                    <i class="fas fa-question-circle"></i> <span id="q-count-header-{{ $ua->id }}">{{ $affectation->qcm->questions()->where('unite_apprentissage_id', $ua->id)->count() }}</span> questions
+                                </span>
+                            </div>
+                            <i class="fas fa-angle-down text-muted"></i>
                         </a>
                     </h3>
                 </div>
@@ -40,7 +47,7 @@
                                 <!-- Affichage du nombre de questions existantes et lien modal -->
                                 <div>
                                     <span class="badge badge-primary px-3 py-2 mr-2" style="font-size: 13px;">
-                                        <i class="fas fa-question-circle"></i> Questions existantes : <span id="q-count-{{ $ua->id }}">{{ $affectation->qcm->questions()->where('unite_apprentissage_id', $ua->id)->count() }}</span>
+                                        <i class="fas fa-question-circle"></i> Questions existantes : <span id="q-count-body-{{ $ua->id }}">{{ $affectation->qcm->questions()->where('unite_apprentissage_id', $ua->id)->count() }}</span>
                                     </span>
                                     <a href="{{ route('questions.index', ['unite_apprentissage_id' => $ua->id, 'qcm_id' => $affectation->qcm_id, 'showIndex' => 1]) }}" class="btn btn-sm btn-outline-info font-weight-bold showIndex">
                                         <i class="fas fa-external-link-square-alt"></i> Gérer les questions
@@ -157,15 +164,26 @@ Génère 40 questions.</textarea>
     require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs' }});
     require(['vs/editor/editor.main'], function() {
         @if($uas && $uas->count() > 0)
+            let editor;
             @foreach($uas as $ua)
-                window.monacoEditors['{{ $ua->id }}'] = monaco.editor.create(document.getElementById('json-editor-{{ $ua->id }}'), {
+                editor = monaco.editor.create(document.getElementById('json-editor-{{ $ua->id }}'), {
                     value: "[\n  {\n    \"question\": \"...\",\n    \"reponses\": [\"A\", \"B\", \"C\", \"D\"],\n    \"bonneReponse\": 1,\n    \"points\": 1,\n    \"unite_apprentissage_code\": \"{{ $ua->code }}\"\n  }\n]",
                     language: 'json',
                     theme: 'vs-light',
                     automaticLayout: true,
                     minimap: { enabled: false },
-                    scrollBeyondLastLine: false
+                    scrollBeyondLastLine: false,
+                    formatOnPaste: true
                 });
+                
+                // Forcer le formatage au collage
+                editor.onDidPaste(function() {
+                    setTimeout(function() {
+                        editor.getAction('editor.action.formatDocument').run();
+                    }, 50);
+                });
+                
+                window.monacoEditors['{{ $ua->id }}'] = editor;
             @endforeach
         @endif
     });
@@ -206,7 +224,24 @@ Génère 40 questions.</textarea>
             },
             body: JSON.stringify({ json_payload: jsonValue, ua_id: uaId })
         })
-        .then(response => response.json())
+        .then(async response => {
+            const isJson = response.headers.get('content-type')?.includes('application/json');
+            const data = isJson ? await response.json() : null;
+            
+            if (!response.ok) {
+                const errorText = data ? JSON.stringify(data, null, 2) : await response.text();
+                console.error(`[Serveur HTTP ${response.status}] Erreur :`, errorText);
+                throw new Error(data?.message || data?.error || `Erreur HTTP ${response.status}`);
+            }
+            
+            if (!isJson) {
+                const text = await response.text();
+                console.error("[Réponse Inattendue] Le serveur n'a pas renvoyé de JSON :", text);
+                throw new Error("Le serveur n'a pas renvoyé de JSON");
+            }
+            
+            return data;
+        })
         .then(data => {
             if(data.success) {
                 feedback.innerHTML = `<div class="alert alert-success py-2 mb-0"><i class="fas fa-check-circle"></i> ${data.message} (${data.count} ajoutées)</div>`;
@@ -216,14 +251,19 @@ Génère 40 questions.</textarea>
                 
                 // Mettre l'éditeur en lecture seule
                 editor.updateOptions({ readOnly: true });
+                
+                // Rafraîchir les compteurs de questions
+                fetchCountsAndUpdateUI();
             } else {
+                console.error("[Erreur Métier] Le serveur a refusé le traitement :", data);
                 feedback.innerHTML = `<div class="alert alert-danger py-2 mb-0"><i class="fas fa-ban"></i> ${data.error || 'Erreur lors de l\'insertion.'}</div>`;
                 btnSubmit.disabled = false;
                 btnSubmit.innerHTML = '<i class="fas fa-save"></i> Enregistrer les Questions';
             }
         })
         .catch(err => {
-            feedback.innerHTML = `<div class="alert alert-danger py-2 mb-0"><i class="fas fa-exclamation-triangle"></i> Erreur lors de la requête serveur. Vérifiez votre JSON.</div>`;
+            console.error("[Exception AJAX] Détail complet de l'erreur :", err);
+            feedback.innerHTML = `<div class="alert alert-danger py-2 mb-0"><i class="fas fa-exclamation-triangle"></i> <strong>Erreur technique :</strong> ${err.message}. Consultez la console.</div>`;
             btnSubmit.disabled = false;
             btnSubmit.innerHTML = '<i class="fas fa-save"></i> Enregistrer les Questions';
         });
@@ -261,10 +301,16 @@ Génère 40 questions.</textarea>
         fetch(url)
             .then(response => response.json())
             .then(data => {
+                let countHeaderSpan, countBodySpan;
                 @foreach($uas as $ua)
-                    const countSpan = document.getElementById('q-count-{{ $ua->id }}');
-                    if (countSpan) {
-                        countSpan.innerText = data['{{ $ua->id }}'] || 0;
+                    countHeaderSpan = document.getElementById('q-count-header-{{ $ua->id }}');
+                    countBodySpan = document.getElementById('q-count-body-{{ $ua->id }}');
+                    
+                    if (countHeaderSpan) {
+                        countHeaderSpan.innerText = data['{{ $ua->id }}'] || 0;
+                    }
+                    if (countBodySpan) {
+                        countBodySpan.innerText = data['{{ $ua->id }}'] || 0;
                     }
                 @endforeach
             })

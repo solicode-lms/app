@@ -43,16 +43,30 @@ class AffectationQcmProjetController extends BaseAffectationQcmProjetController
         $jsonPayload = $request->input('json_payload');
 
         if (!$jsonPayload) {
-            return redirect()->back()->with('error', 'Le code JSON est vide.');
+            return response()->json([
+                'success' => false,
+                'error' => 'Le code JSON est vide.'
+            ], 400);
         }
 
         try {
             $affectation = AffectationQcmProjet::findOrFail($id);
-            // On passe l'ID du QCM associé à cette affectation
             $count = $questionService->importFromJson($jsonPayload, $affectation->qcm_id);
-            return redirect()->route('qcms.edit', ['qcm' => $affectation->qcm_id])->with('success', "$count questions importées avec succès pour le QCM !");
+            
+            // On renvoie les questions décodeés pour l'affichage côté frontend
+            $questionsData = json_decode($jsonPayload, true) ?? [];
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Les questions ont été importées avec succès.',
+                'count' => $count,
+                'questions' => $questionsData
+            ]);
         } catch (Exception $e) {
-            return redirect()->back()->with('error', 'Erreur d\'importation : ' . $e->getMessage())->withInput();
+            return response()->json([
+                'success' => false,
+                'error' => 'Erreur d\'importation : ' . $e->getMessage()
+            ], 400);
         }
     }
 
