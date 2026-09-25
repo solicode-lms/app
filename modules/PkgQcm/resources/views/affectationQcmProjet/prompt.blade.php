@@ -44,11 +44,8 @@
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <h5 class="text-info font-weight-bold m-0"><i class="fas fa-info-circle"></i> Chapitres de l'Unité</h5>
                                 
-                                <!-- Affichage du nombre de questions existantes et lien modal -->
+                                <!-- Lien vers la gestion des questions -->
                                 <div>
-                                    <span class="badge badge-primary px-3 py-2 mr-2" style="font-size: 13px;">
-                                        <i class="fas fa-question-circle"></i> Questions existantes : <span id="q-count-body-{{ $ua->id }}">{{ $affectation->qcm->questions()->where('unite_apprentissage_id', $ua->id)->count() }}</span>
-                                    </span>
                                     <a href="{{ route('questions.index', ['unite_apprentissage_id' => $ua->id, 'qcm_id' => $affectation->qcm_id, 'showIndex' => 1]) }}" class="btn btn-sm btn-outline-info font-weight-bold showIndex">
                                         <i class="fas fa-external-link-square-alt"></i> Gérer les questions
                                     </a>
@@ -301,16 +298,12 @@ Génère 40 questions.</textarea>
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                let countHeaderSpan, countBodySpan;
+                let countHeaderSpan;
                 @foreach($uas as $ua)
                     countHeaderSpan = document.getElementById('q-count-header-{{ $ua->id }}');
-                    countBodySpan = document.getElementById('q-count-body-{{ $ua->id }}');
                     
                     if (countHeaderSpan) {
                         countHeaderSpan.innerText = data['{{ $ua->id }}'] || 0;
-                    }
-                    if (countBodySpan) {
-                        countBodySpan.innerText = data['{{ $ua->id }}'] || 0;
                     }
                 @endforeach
             })
