@@ -18,71 +18,51 @@
 </div>
 
 <section class="content">
-    <!-- Panneau de Configuration du Prompt -->
-    <div class="card card-outline card-info mb-4 shadow-sm" style="border-top-width: 3px;">
-        <div class="card-header bg-white">
-            <h3 class="card-title text-info font-weight-bold"><i class="fas fa-sliders-h mr-2"></i> Personnalisation de l'IA</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool text-info" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="row">
+    <!-- Panneau de Configuration du Prompt (Sticky) -->
+    <div class="card shadow-sm mb-4" style="position: sticky; top: 0; z-index: 1020; border-top: 3px solid #17a2b8; border-bottom: 1px solid #17a2b8;">
+        <div class="card-body py-2 px-3 bg-white">
+            <div class="row align-items-end">
                 <!-- Nombre de questions -->
-                <div class="col-md-2 col-sm-6">
-                    <div class="form-group">
-                        <label for="param-count" class="text-muted text-sm"><i class="fas fa-list-ol mr-1"></i> Nb. questions</label>
-                        <input type="number" id="param-count" class="form-control form-control-sm border-info font-weight-bold text-center" value="40" min="1" max="100" onchange="updateAllPrompts()">
-                    </div>
+                <div class="col-md-2 col-sm-6 mb-2 mb-md-0">
+                    <label for="param-count" class="text-muted text-sm mb-1"><i class="fas fa-list-ol mr-1"></i> Nb. questions</label>
+                    <input type="number" id="param-count" class="form-control form-control-sm border-info font-weight-bold text-center" value="40" min="1" max="100" onchange="updateAllPrompts()">
                 </div>
                 <!-- Langue -->
-                <div class="col-md-2 col-sm-6">
-                    <div class="form-group">
-                        <label for="param-lang" class="text-muted text-sm"><i class="fas fa-language mr-1"></i> Langue</label>
-                        <select id="param-lang" class="form-control form-control-sm border-info custom-select custom-select-sm" onchange="updateAllPrompts()">
-                            <option value="Français">🇫🇷 Français</option>
-                            <option value="Anglais">🇬🇧 Anglais</option>
-                            <option value="Arabe">🇲🇦 Arabe</option>
-                        </select>
-                    </div>
+                <div class="col-md-2 col-sm-6 mb-2 mb-md-0">
+                    <label for="param-lang" class="text-muted text-sm mb-1"><i class="fas fa-language mr-1"></i> Langue</label>
+                    <select id="param-lang" class="form-control form-control-sm border-info custom-select custom-select-sm" onchange="updateAllPrompts()">
+                        <option value="Français">🇫🇷 Français</option>
+                        <option value="Anglais">🇬🇧 Anglais</option>
+                        <option value="Arabe">🇲🇦 Arabe</option>
+                    </select>
                 </div>
                 <!-- Niveau de langue -->
-                <div class="col-md-2 col-sm-6">
-                    <div class="form-group">
-                        <label for="param-level" class="text-muted text-sm"><i class="fas fa-graduation-cap mr-1"></i> Niveau de langue</label>
-                        <select id="param-level" class="form-control form-control-sm border-info custom-select custom-select-sm" onchange="updateAllPrompts()">
-                            <option value="Débutant (A1/A2)">🟢 Débutant</option>
-                            <option value="Intermédiaire (B1/B2)" selected>🟡 Intermédiaire</option>
-                            <option value="Avancé (C1/C2)">🔴 Avancé</option>
-                        </select>
-                    </div>
+                <div class="col-md-2 col-sm-6 mb-2 mb-md-0">
+                    <label for="param-level" class="text-muted text-sm mb-1"><i class="fas fa-graduation-cap mr-1"></i> Niveau de langue</label>
+                    <select id="param-level" class="form-control form-control-sm border-info custom-select custom-select-sm" onchange="updateAllPrompts()">
+                        <option value="Débutant (A1/A2)">🟢 Débutant</option>
+                        <option value="Intermédiaire (B1/B2)" selected>🟡 Intermédiaire</option>
+                        <option value="Avancé (C1/C2)">🔴 Avancé</option>
+                    </select>
                 </div>
                 <!-- Ton -->
-                <div class="col-md-3 col-sm-6">
-                    <div class="form-group">
-                        <label for="param-tone" class="text-muted text-sm"><i class="fas fa-comment-dots mr-1"></i> Ton / Style</label>
-                        <select id="param-tone" class="form-control form-control-sm border-info custom-select custom-select-sm" onchange="updateAllPrompts()">
-                            <option value="Pédagogique et professionnel">👨‍🏫 Pédagogique</option>
-                            <option value="Académique et strict">🏛️ Académique strict</option>
-                            <option value="Ludique et encourageant">🎮 Ludique & Encourageant</option>
-                        </select>
-                    </div>
+                <div class="col-md-3 col-sm-6 mb-2 mb-md-0">
+                    <label for="param-tone" class="text-muted text-sm mb-1"><i class="fas fa-comment-dots mr-1"></i> Ton / Style</label>
+                    <select id="param-tone" class="form-control form-control-sm border-info custom-select custom-select-sm" onchange="updateAllPrompts()">
+                        <option value="Pédagogique et professionnel">👨‍🏫 Pédagogique</option>
+                        <option value="Académique et strict">🏛️ Académique strict</option>
+                        <option value="Ludique et encourageant">🎮 Ludique & Encourageant</option>
+                    </select>
                 </div>
                 <!-- Difficulté / Détails -->
-                <div class="col-md-3 col-sm-12">
-                    <div class="form-group">
-                        <label for="param-diff" class="text-muted text-sm"><i class="fas fa-brain mr-1"></i> Difficulté technique</label>
-                        <select id="param-diff" class="form-control form-control-sm border-info custom-select custom-select-sm" onchange="updateAllPrompts()">
-                            <option value="Normal (Équilibré)">⚖️ Normal (Équilibré)</option>
-                            <option value="Facile (Concepts de base)">🌱 Facile (Bases)</option>
-                            <option value="Difficile (Détails et pièges)">🔥 Difficile (Pièges)</option>
-                        </select>
-                    </div>
+                <div class="col-md-3 col-sm-12 mb-2 mb-md-0">
+                    <label for="param-diff" class="text-muted text-sm mb-1"><i class="fas fa-brain mr-1"></i> Difficulté technique</label>
+                    <select id="param-diff" class="form-control form-control-sm border-info custom-select custom-select-sm" onchange="updateAllPrompts()">
+                        <option value="Normal (Équilibré)">⚖️ Normal (Équilibré)</option>
+                        <option value="Facile (Concepts de base)">🌱 Facile (Bases)</option>
+                        <option value="Difficile (Détails et pièges)">🔥 Difficile (Pièges)</option>
+                    </select>
                 </div>
-            </div>
-            
-            <div class="alert alert-light border border-info m-0 mt-1 p-2 text-sm text-info rounded shadow-sm">
-                <i class="fas fa-info-circle mr-1"></i> <strong>Astuce :</strong> Toute modification ci-dessus mettra à jour instantanément les textes de tous les prompts ci-dessous !
             </div>
         </div>
     </div>
