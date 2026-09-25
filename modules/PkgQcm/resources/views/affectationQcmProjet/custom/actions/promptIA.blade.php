@@ -1,5 +1,4 @@
 <a
-    data-toggle="tooltip"
     title="Générer un prompt IA"
     href="{{ route('affectationQcmProjets.prompt', [
             'id' => $entity->id,

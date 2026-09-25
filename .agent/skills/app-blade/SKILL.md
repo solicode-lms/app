@@ -120,9 +120,6 @@ description: Expert de l'architecture et de la personnalisation des vues Blade s
 ### 7. `capacité-blade-actions.md`
 - **Rôle** : Documentation de la surcharge dynamique des boutons d'actions via le composant `<x-action-button>`.
 
-### 8. `capacité-crud-js.md`
-- **Rôle** : Explication des classes CSS (comme `showIndex`) interceptées par le JavaScript (crud-js) pour le chargement AJAX et les fenêtres modales.
-
 ---
 
 ## 🔄 Scénarios d'Exécution (Algorithmes)
