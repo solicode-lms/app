@@ -99,7 +99,10 @@ description: Expert unifié de la gestion, création et maintenance des composan
    - Une **Capacité** peut être réutilisée par plusieurs Actions ou Skills.
 2. **Typologie des Skills** : L'écosystème est organisé autour de deux grands types de skills :
    - **Skills de la couche applicative** (Composants techniques) : Ces experts maîtrisent une brique technique transversale (ex: `app-blade`, `app-service`). Leurs sous-fichiers de savoir-faire s'appellent des **Capacités** et sont stockés dans un dossier `capacités/` (ex: `capacités/capacité-[nom].md`).
-   - **Skills par package (Modules métier)** : Ces experts maîtrisent les règles, l'architecture des données et la logique spécifique d'un package donné (ex: `pkg-apprentissage`, `pkg-qcm`). Leurs sous-fichiers de savoir-faire s'appellent des **Règles de Gestion** et doivent OBLIGATOIREMENT être placés dans un dossier `règles-gestion/` avec le préfixe `règle-gestion-` (ex: `règles-gestion/règle-gestion-[nom].md`).
+   - **Skills par package (Modules métier)** : Ces experts maîtrisent les règles, l'architecture des données et la logique spécifique d'un package donné (ex: `pkg-apprentissage`, `pkg-qcm`). Leurs sous-fichiers de savoir-faire s'appellent des **Règles de Gestion** et doivent OBLIGATOIREMENT être placés dans un dossier `règles-gestion/`. Pour chaque Package, il FAUT créer :
+     - `règle-gestion-bdd-[nom].md` : Structure de la base de données.
+     - `règle-gestion-fonctionnalites-[nom].md` : Les fonctionnalités (cas d'utilisation) en format texte (PAS de diagramme Mermaid).
+     - Au besoin, `règle-gestion-[nom-fonctionnalite]-[nom].md` pour chaque fonctionnalité complexe.
 3. **Architecture** : `.agent/` est le seul domaine d'intervention.
 3. **Nomenclature** : Tout en `kebab-case` (dossiers et fichiers).
 4. **Séparation des Préoccupations (SoC)** :

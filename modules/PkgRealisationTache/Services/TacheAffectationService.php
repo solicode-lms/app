@@ -20,8 +20,8 @@ class TacheAffectationService extends BaseTacheAffectationService
      *
      * 🎯 Règle métier :
      * - États considérés comme "réalisés" : TO_APPROVE, APPROVED, READY_FOR_LIVE_CODING, IN_LIVE_CODING
-     * - Les tâches en état PAUSED sont exclues du total.
-     * - Si aucune tâche active (≠ PAUSED) → 0%
+     * - Les tâches en état PAUSED ou NOT_VALIDATED sont exclues du total.
+     * - Si aucune tâche active (≠ PAUSED, NOT_VALIDATED) → 0%
      * - Calcul : (nombre de tâches réalisées / total des tâches non en pause) × 100
      *
      * @param TacheAffectation $tacheAffectation L’entité à mettre à jour
@@ -36,24 +36,24 @@ class TacheAffectationService extends BaseTacheAffectationService
             return;
         }
 
-        $etatCodePause = 'PAUSED';
+        $etatsExclus = ['PAUSED', 'NOT_VALIDATED'];
         $etatCodesRealises = ['TO_APPROVE', 'APPROVED', 'READY_FOR_LIVE_CODING', 'IN_LIVE_CODING'];
 
-        // 🔍 Tâches actives (non en pause)
-        $tachesNonPause = $realisationTaches->filter(function ($tache) use ($etatCodePause) {
-            return optional($tache->etatRealisationTache?->workflowTache)->code !== $etatCodePause;
+        // 🔍 Tâches actives (non exclues)
+        $tachesActives = $realisationTaches->filter(function ($tache) use ($etatsExclus) {
+            return !in_array(optional($tache->etatRealisationTache?->workflowTache)->code, $etatsExclus);
         });
 
-        if ($tachesNonPause->isEmpty()) {
+        if ($tachesActives->isEmpty()) {
             $tacheAffectation->update(['pourcentage_realisation_cache' => 0]);
             return;
         }
 
-        $realisees = $tachesNonPause->filter(function ($tache) use ($etatCodesRealises) {
+        $realisees = $tachesActives->filter(function ($tache) use ($etatCodesRealises) {
             return in_array(optional($tache->etatRealisationTache?->workflowTache)->code, $etatCodesRealises);
         })->count();
 
-        $progression = round(($realisees / $tachesNonPause->count()) * 100, 2);
+        $progression = round(($realisees / $tachesActives->count()) * 100, 2);
 
         $tacheAffectation->update(['pourcentage_realisation_cache' => $progression]);
     }
