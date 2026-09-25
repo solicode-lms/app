@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
+<div id="affectation-crud" class="crud">
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -33,7 +34,19 @@
                     <div class="card-body">
                         <!-- Contexte Visuel -->
                         <div class="mb-4 p-3 bg-light rounded border-left border-primary" style="border-width: 4px !important;">
-                            <h5 class="text-info font-weight-bold"><i class="fas fa-info-circle"></i> Chapitres de l'Unité</h5>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="text-info font-weight-bold m-0"><i class="fas fa-info-circle"></i> Chapitres de l'Unité</h5>
+                                
+                                <!-- Affichage du nombre de questions existantes et lien modal -->
+                                <div>
+                                    <span class="badge badge-primary px-3 py-2 mr-2" style="font-size: 13px;">
+                                        <i class="fas fa-question-circle"></i> Questions existantes : {{ $affectation->qcm->questions()->where('unite_apprentissage_id', $ua->id)->count() }}
+                                    </span>
+                                    <a href="{{ route('questions.index', ['unite_apprentissage_id' => $ua->id, 'qcm_id' => $affectation->qcm_id, 'showIndex' => 1]) }}" class="btn btn-sm btn-outline-info font-weight-bold showIndex">
+                                        <i class="fas fa-external-link-square-alt"></i> Gérer les questions
+                                    </a>
+                                </div>
+                            </div>
                             <ul class="list-unstyled mb-0">
                                 @foreach($ua->chapitres as $chapitre)
                                     <li class="mb-1"><i class="fas fa-angle-right text-muted"></i> <strong>{{ $chapitre->nom }}</strong> : <span class="text-secondary">{{ $chapitre->description ?? 'Aucune description' }}</span></li>
@@ -131,6 +144,7 @@ Génère 40 questions.</textarea>
       </div>
     </div>
   </div>
+</div>
 </div>
 @endsection
 
@@ -233,7 +247,26 @@ Génère 40 questions.</textarea>
             modalBody.innerHTML = html;
         }
         
-        $('#questionsModal').modal('show');
     }
+</script>
+
+<script>
+    // Configuration d'un gestionnaire CRUD factice pour initialiser le micro-framework JS
+    // Cela permettra à ShowIndexAction (intercepteur de .showIndex) de s'attacher et d'ouvrir les questions en modale
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
+        entity_name: 'affectation',
+        contextKey: 'affectation.prompt',
+        crudSelector: '#affectation-crud',
+        tableSelector: '#affectation-data-container',
+        filterFormSelector: '#affectation-filter',
+        formSelector: '#affectation-form',
+        isMany: false,
+        indexUrl: '',
+        createUrl: '',
+        editUrl: '',
+        showUrl: '',
+        deleteUrl: ''
+    });
 </script>
 @endpush

@@ -28,6 +28,12 @@ description: Expert du framework JavaScript "crud" généré par Gapp (intercept
 - **Entrées** : Besoin d'ouvrir une page en modale, ou au contraire, besoin de désactiver l'ouverture en modale pour un lien (ex: `target="_blank"`).
 - **Sorties** : Instructions sur l'ajout ou le retrait des classes spécifiques (`showIndex`, `showEntity`, etc.).
 
+### Action C : Gérer la navigation imbriquée dans les modales
+> **Description** : Expliquer comment le framework gère l'ouverture de modales à l'intérieur d'autres modales (ex: éditer un enfant depuis une liste modale).
+- **Capacités Utilisées** : `capacités/capacite-navigation-imbriquee.md`
+- **Entrées** : Une question sur l'ouverture de modales par dessus d'autres, ou comment initialiser un CRUD dans une vue personnalisée.
+- **Sorties** : Explication de l'architecture des `CrudModalManager` imbriqués.
+
 ---
 
 ## 🛠️ Capacités (Savoir-Faire Technique)
@@ -38,3 +44,6 @@ description: Expert du framework JavaScript "crud" généré par Gapp (intercept
 
 ### 2. `capacite-modal-display.md`
 - **Rôle** : Documente la liste des classes CSS réservées (`showIndex`, `editEntity`, etc.) qui indiquent au framework d'injecter la réponse HTTP directement dans le corps d'une modale.
+
+### 3. `capacite-navigation-imbriquee.md`
+- **Rôle** : Documente comment le framework gère la superposition de modales `iziModal`, la délégation d'événements à des sous-managers et la nécessité de définir une configuration `window.crudModalManagersConfig` sur des conteneurs personnalisés.
