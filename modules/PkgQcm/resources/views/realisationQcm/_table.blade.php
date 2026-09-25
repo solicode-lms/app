@@ -9,11 +9,10 @@
                     $bulkEdit = $realisationQcms_permissions['edit-realisationQcm'] || $realisationQcms_permissions['destroy-realisationQcm'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="16.4" field="affectation_qcm_projet_id" modelname="realisationQcm" label="{!!ucfirst(__('PkgQcm::affectationQcmProjet.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="qcm_id" modelname="realisationQcm" label="{!!ucfirst(__('PkgQcm::qcm.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="apprenant_id" modelname="realisationQcm" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="etat_realisation_qcm_id" modelname="realisationQcm" label="{!!ucfirst(__('PkgQcm::etatRealisationQcm.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="note_obtenu" modelname="realisationQcm" label="{!!ucfirst(__('PkgQcm::realisationQcm.note_obtenu'))!!}" />
+                <x-sortable-column :sortable="true" width="20.5" field="qcm_id" modelname="realisationQcm" label="{!!ucfirst(__('PkgQcm::qcm.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="20.5" field="apprenant_id" modelname="realisationQcm" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="20.5" field="etat_realisation_qcm_id" modelname="realisationQcm" label="{!!ucfirst(__('PkgQcm::etatRealisationQcm.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="note_obtenu" modelname="realisationQcm" label="{!!ucfirst(__('PkgQcm::realisationQcm.note_obtenu'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -25,19 +24,15 @@
                 @endphp
                 <tr id="realisationQcm-row-{{$realisationQcm->id}}" data-id="{{$realisationQcm->id}}">
                     <x-checkbox-row :item="$realisationQcm" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationQcm->id}}" data-field="affectation_qcm_projet_id">
-                        {{  $realisationQcm->affectationQcmProjet }}
-
-                    </td>
-                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationQcm->id}}" data-field="qcm_id">
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationQcm->id}}" data-field="qcm_id">
                         {{  $realisationQcm->qcm }}
 
                     </td>
-                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationQcm->id}}" data-field="apprenant_id">
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationQcm->id}}" data-field="apprenant_id">
                         {{  $realisationQcm->apprenant }}
 
                     </td>
-                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationQcm->id}}" data-field="etat_realisation_qcm_id">
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationQcm->id}}" data-field="etat_realisation_qcm_id">
                         @if(!empty($realisationQcm->etatRealisationQcm))
                         <x-badge 
                         :text="$realisationQcm->etatRealisationQcm" 
@@ -46,9 +41,8 @@
                         @endif
 
                     </td>
-                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationQcm->id}}" data-field="note_obtenu">
-                        {{ $realisationQcm->note_obtenu }}
-
+                    <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationQcm->id}}" data-field="note_obtenu" >
+                        @include('PkgQcm::realisationQcm.custom.fields.note_obtenu', ['entity' => $realisationQcm])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
                         @if($realisationQcms_permissions['passer-qcm'])

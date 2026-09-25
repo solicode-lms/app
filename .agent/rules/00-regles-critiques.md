@@ -20,8 +20,8 @@ Le projet utilise un générateur de code (Gapp).
     - **Classes Enfants (Héritières)** : Ces fichiers sont à la disposition de l'IA pour injecter le code métier. Si un fichier enfant contient la ligne de protection `// Ce fichier est maintenu par ESSARRAJ Fouad`, **l'agent EST AUTORISÉ ET DOIT la supprimer lui-même** pour injecter le code métier.
 - **Workflow Gapp** :
     1. Migration BDD (`php artisan migrate`)
-    2. Sync Gapp (`php artisan gapp meta:sync`)
-    3. Regeneration CRUD (`php artisan gapp make:crud NomModel`)
+    2. Sync Gapp (`gapp meta:sync`)
+    3. Regeneration CRUD (`gapp make:crud NomModel`)
 - **Héritage** : Ne jamais modifier les classes `Base/`. Toujours surcharger dans la classe enfant (ex: `Tache extends BaseTache`).
 
 ## 3. Sécurité

@@ -194,18 +194,11 @@ class BaseRealisationQcmController extends AdminController
         $this->authorize('view', $itemRealisationQcm);
 
 
-        $this->viewState->set('scope.reponseQcm.realisation_qcm_id', $id);
-        
-
-        $reponseQcmService =  new ReponseQcmService();
-        $reponseQcms_view_data = $reponseQcmService->prepareDataForIndexView();
-        extract($reponseQcms_view_data);
-
         if (request()->ajax()) {
-            return view('PkgQcm::realisationQcm._show', array_merge(compact('itemRealisationQcm'),$reponseQcm_compact_value));
+            return view('PkgQcm::realisationQcm._show', array_merge(compact('itemRealisationQcm'),));
         }
 
-        return view('PkgQcm::realisationQcm.show', array_merge(compact('itemRealisationQcm'),$reponseQcm_compact_value));
+        return view('PkgQcm::realisationQcm.show', array_merge(compact('itemRealisationQcm'),));
 
     }
     /**

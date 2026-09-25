@@ -378,7 +378,6 @@ class BaseRealisationQcmService extends BaseService
     {
         // Champs considérés comme inline
         $inlineFields = [
-            'affectation_qcm_projet_id',
             'qcm_id',
             'apprenant_id',
             'etat_realisation_qcm_id',
@@ -421,22 +420,6 @@ class BaseRealisationQcmService extends BaseService
         ];
 
        switch ($field) {
-            case 'affectation_qcm_projet_id':
-                 $values = (new \Modules\PkgQcm\Services\AffectationQcmProjetService())
-                    ->getAllForSelect($e->affectationQcmProjet)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
-
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
             case 'qcm_id':
                  $values = (new \Modules\PkgQcm\Services\QcmService())
                     ->getAllForSelect($e->qcm)
@@ -527,18 +510,6 @@ class BaseRealisationQcmService extends BaseService
 
         foreach ($fields as $field) {
             switch ($field) {
-                case 'affectation_qcm_projet_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'affectationQcmProjet'
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-
-
-
                 case 'qcm_id':
                     $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
@@ -576,13 +547,14 @@ class BaseRealisationQcmService extends BaseService
 
 
                 case 'note_obtenu':
-                    $html = view('Core::fields_by_type.integer', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => ''
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgQcm::realisationQcm.custom.fields.note_obtenu', [
+                        'entity' => $e
                     ])->render();
+
                     $out[$field] = ['html' => $html];
                     break;
+
 
                 default:
                     // fallback générique si champ non pris en charge

@@ -106,7 +106,8 @@
     },
     {
         "reference": "RealisationQcm_affectation_qcm_projet_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationQcm_affectation_qcm_projet_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -633,6 +634,7 @@
     {
         "reference": "realisation_qcms_hasMany_reponse_qcms_realisation_qcm_id_editHasMany",
         "value_boolean": 1,
+        "value_float": 0,
         "e_data_field_reference": "realisation_qcms_hasMany_reponse_qcms_realisation_qcm_id",
         "e_metadata_definition_reference": "editHasMany"
     },
@@ -650,7 +652,8 @@
     },
     {
         "reference": "realisation_qcms_hasMany_reponse_qcms_realisation_qcm_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "realisation_qcms_hasMany_reponse_qcms_realisation_qcm_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },

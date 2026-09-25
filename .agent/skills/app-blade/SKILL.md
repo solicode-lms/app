@@ -26,16 +26,16 @@ description: Expert de l'architecture et de la personnalisation des vues Blade s
 - **📝 Instructions d'Orchestration** :
   1. Utiliser `capacité-blade-architecture.md` pour cibler le bon dossier d'intervention (`custom`, `custom/fields`, ou `custom/forms`).
 
-### Action B : Personnaliser une Colonne (Liste / Table)
-> **Description** : Surcharger le rendu HTML d'une colonne précise dans un tableau récapitulatif.
+### Action B : Personnaliser l'affichage d'un Attribut (Liste & Fiche)
+> **Description** : Surcharger le rendu HTML d'un attribut (ex: `note`, `titre`) pour qu'il s'affiche de façon personnalisée dans le tableau (`_table.blade.php`) et la fiche de consultation (`_show.blade.php`).
 - **Capacités Utilisées** :
-  - `capacités/capacité-blade-table-fields.md`
+  - `capacités/capacité-blade-display-fields.md`
 - **Entrées** : `Nom du Modèle`, `Nom du Champ`
 - **Sorties** : `Fichier dans custom/fields/`
 - **📝 Instructions d'Orchestration** :
-  1. Utiliser `capacité-blade-table-fields.md`.
+  1. Utiliser `capacité-blade-display-fields.md`.
   2. Créer/Modifier le fichier cible.
-  3. **Obligatoire** : Proposer et appliquer la commande `php artisan gapp make:crud [Modele]` pour intégrer le rendu.
+  3. **Obligatoire** : Proposer la commande `gapp make:crud [Modele]` à l'utilisateur pour intégrer le rendu (ne jamais l'exécuter soi-même).
 
 ### Action C : Personnaliser un Champ de Saisie (Formulaire)
 > **Description** : Surcharger le rendu HTML d'un input dans un formulaire de création/édition.
@@ -102,8 +102,8 @@ description: Expert de l'architecture et de la personnalisation des vues Blade s
 ### 1. `capacité-blade-architecture.md`
 - **Rôle** : Connaissance de la hiérarchie globale (Héritage `_*.blade.php` → `custom/_*.blade.php`).
 
-### 2. `capacité-blade-table-fields.md`
-- **Rôle** : Logique de la surcharge des colonnes de l'index via `include` généré.
+### 2. `capacité-blade-display-fields.md`
+- **Rôle** : Logique de la surcharge des attributs d'affichage (Tableau et Show) via `include` généré et utilisation de `$entity`.
 
 ### 3. `capacité-blade-form-fields.md`
 - **Rôle** : Logique de la surcharge des champs de formulaire via le composant XML `<x-form-field>`.
