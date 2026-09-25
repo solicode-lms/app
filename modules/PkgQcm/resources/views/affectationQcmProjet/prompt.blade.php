@@ -19,61 +19,70 @@
 
 <section class="content">
     <!-- Panneau de Configuration du Prompt -->
-    <div class="card card-outline card-secondary mb-4 shadow-sm">
-        <div class="card-header">
-            <h3 class="card-title"><i class="fas fa-sliders-h text-secondary"></i> Paramètres Généraux du Prompt</h3>
+    <div class="card card-outline card-info mb-4 shadow-sm" style="border-top-width: 3px;">
+        <div class="card-header bg-white">
+            <h3 class="card-title text-info font-weight-bold"><i class="fas fa-sliders-h mr-2"></i> Personnalisation de l'IA</h3>
             <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                <button type="button" class="btn btn-tool text-info" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
             </div>
         </div>
-        <div class="card-body bg-light">
+        <div class="card-body">
             <div class="row">
-                <div class="col-md-2">
+                <!-- Nombre de questions -->
+                <div class="col-md-2 col-sm-6">
                     <div class="form-group">
-                        <label for="param-count" class="text-sm">Nb. de questions</label>
-                        <input type="number" id="param-count" class="form-control form-control-sm" value="40" min="1" max="100" onchange="updateAllPrompts()">
+                        <label for="param-count" class="text-muted text-sm"><i class="fas fa-list-ol mr-1"></i> Nb. questions</label>
+                        <input type="number" id="param-count" class="form-control form-control-sm border-info font-weight-bold text-center" value="40" min="1" max="100" onchange="updateAllPrompts()">
                     </div>
                 </div>
-                <div class="col-md-2">
+                <!-- Langue -->
+                <div class="col-md-2 col-sm-6">
                     <div class="form-group">
-                        <label for="param-lang" class="text-sm">Langue</label>
-                        <select id="param-lang" class="form-control form-control-sm" onchange="updateAllPrompts()">
-                            <option value="Français">Français</option>
-                            <option value="Anglais">Anglais</option>
-                            <option value="Arabe">Arabe</option>
+                        <label for="param-lang" class="text-muted text-sm"><i class="fas fa-language mr-1"></i> Langue</label>
+                        <select id="param-lang" class="form-control form-control-sm border-info custom-select custom-select-sm" onchange="updateAllPrompts()">
+                            <option value="Français">🇫🇷 Français</option>
+                            <option value="Anglais">🇬🇧 Anglais</option>
+                            <option value="Arabe">🇲🇦 Arabe</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <!-- Niveau de langue -->
+                <div class="col-md-2 col-sm-6">
                     <div class="form-group">
-                        <label for="param-tone" class="text-sm">Ton</label>
-                        <select id="param-tone" class="form-control form-control-sm" onchange="updateAllPrompts()">
-                            <option value="Pédagogique et professionnel">Pédagogique et professionnel</option>
-                            <option value="Académique et strict">Académique et strict</option>
-                            <option value="Ludique et encourageant">Ludique et encourageant</option>
+                        <label for="param-level" class="text-muted text-sm"><i class="fas fa-graduation-cap mr-1"></i> Niveau de langue</label>
+                        <select id="param-level" class="form-control form-control-sm border-info custom-select custom-select-sm" onchange="updateAllPrompts()">
+                            <option value="Débutant (A1/A2)">🟢 Débutant</option>
+                            <option value="Intermédiaire (B1/B2)" selected>🟡 Intermédiaire</option>
+                            <option value="Avancé (C1/C2)">🔴 Avancé</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <!-- Ton -->
+                <div class="col-md-3 col-sm-6">
                     <div class="form-group">
-                        <label for="param-level" class="text-sm">Niveau de français</label>
-                        <select id="param-level" class="form-control form-control-sm" onchange="updateAllPrompts()">
-                            <option value="Intermédiaire (B1/B2)">Intermédiaire (B1/B2)</option>
-                            <option value="Débutant (A1/A2)">Débutant (A1/A2)</option>
-                            <option value="Avancé (C1/C2)">Avancé (C1/C2)</option>
+                        <label for="param-tone" class="text-muted text-sm"><i class="fas fa-comment-dots mr-1"></i> Ton / Style</label>
+                        <select id="param-tone" class="form-control form-control-sm border-info custom-select custom-select-sm" onchange="updateAllPrompts()">
+                            <option value="Pédagogique et professionnel">👨‍🏫 Pédagogique</option>
+                            <option value="Académique et strict">🏛️ Académique strict</option>
+                            <option value="Ludique et encourageant">🎮 Ludique & Encourageant</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <!-- Difficulté / Détails -->
+                <div class="col-md-3 col-sm-12">
                     <div class="form-group">
-                        <label for="param-diff" class="text-sm">Difficulté / Détails</label>
-                        <select id="param-diff" class="form-control form-control-sm" onchange="updateAllPrompts()">
-                            <option value="Normal (Équilibré)">Normal (Équilibré)</option>
-                            <option value="Facile (Concepts de base)">Facile (Concepts de base)</option>
-                            <option value="Difficile (Détails et pièges)">Difficile (Détails et pièges)</option>
+                        <label for="param-diff" class="text-muted text-sm"><i class="fas fa-brain mr-1"></i> Difficulté technique</label>
+                        <select id="param-diff" class="form-control form-control-sm border-info custom-select custom-select-sm" onchange="updateAllPrompts()">
+                            <option value="Normal (Équilibré)">⚖️ Normal (Équilibré)</option>
+                            <option value="Facile (Concepts de base)">🌱 Facile (Bases)</option>
+                            <option value="Difficile (Détails et pièges)">🔥 Difficile (Pièges)</option>
                         </select>
                     </div>
                 </div>
+            </div>
+            
+            <div class="alert alert-light border border-info m-0 mt-1 p-2 text-sm text-info rounded shadow-sm">
+                <i class="fas fa-info-circle mr-1"></i> <strong>Astuce :</strong> Toute modification ci-dessus mettra à jour instantanément les textes de tous les prompts ci-dessous !
             </div>
         </div>
     </div>
@@ -382,6 +391,13 @@ Génère __COUNT__ questions.</div>
         const level = document.getElementById('param-level').value;
         const diff = document.getElementById('param-diff').value;
         
+        // Sauvegarde dans localStorage
+        localStorage.setItem('prompt_param_count', count);
+        localStorage.setItem('prompt_param_lang', lang);
+        localStorage.setItem('prompt_param_tone', tone);
+        localStorage.setItem('prompt_param_level', level);
+        localStorage.setItem('prompt_param_diff', diff);
+        
         @foreach($uas as $ua)
         {
             let templateEl = document.getElementById('template-prompt-{{ $ua->id }}');
@@ -400,6 +416,14 @@ Génère __COUNT__ questions.</div>
 
     // Initialisation au chargement de la page
     document.addEventListener('DOMContentLoaded', function() {
+        // Restaurer les valeurs sauvegardées
+        if(localStorage.getItem('prompt_param_count')) document.getElementById('param-count').value = localStorage.getItem('prompt_param_count');
+        if(localStorage.getItem('prompt_param_lang')) document.getElementById('param-lang').value = localStorage.getItem('prompt_param_lang');
+        if(localStorage.getItem('prompt_param_tone')) document.getElementById('param-tone').value = localStorage.getItem('prompt_param_tone');
+        if(localStorage.getItem('prompt_param_level')) document.getElementById('param-level').value = localStorage.getItem('prompt_param_level');
+        if(localStorage.getItem('prompt_param_diff')) document.getElementById('param-diff').value = localStorage.getItem('prompt_param_diff');
+        
+        // Générer les prompts avec ces paramètres
         updateAllPrompts();
     });
 </script>
