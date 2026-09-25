@@ -47,9 +47,9 @@ class BaseProfile extends BaseModel
         'user_id', 'phone', 'address', 'profile_picture', 'bio'
     ];
     public $manyToOne = [
-        'User' => [
+        'user' => [
             'model' => "Modules\\PkgAutorisation\\Models\\User",
-            'relation' => 'users' , 
+            'relation' => 'user' , 
             "foreign_key" => "user_id", 
             ]
     ];

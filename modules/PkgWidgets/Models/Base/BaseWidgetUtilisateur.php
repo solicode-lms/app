@@ -71,14 +71,14 @@ class BaseWidgetUtilisateur extends BaseModel
         'ordre', 'user_id', 'widget_id', 'titre', 'sous_titre', 'visible'
     ];
     public $manyToOne = [
-        'User' => [
+        'user' => [
             'model' => "Modules\\PkgAutorisation\\Models\\User",
-            'relation' => 'users' , 
+            'relation' => 'user' , 
             "foreign_key" => "user_id", 
             ],
-        'Widget' => [
+        'widget' => [
             'model' => "Modules\\PkgWidgets\\Models\\Widget",
-            'relation' => 'widgets' , 
+            'relation' => 'widget' , 
             "foreign_key" => "widget_id", 
             ]
     ];

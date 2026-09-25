@@ -65,14 +65,14 @@ class BaseEDataField extends BaseModel
         'name', 'e_model_id', 'data_type', 'default_value', 'column_name', 'e_relationship_id', 'field_order', 'reference', 'db_primaryKey', 'db_nullable', 'db_unique', 'calculable', 'calculable_sql', 'description'
     ];
     public $manyToOne = [
-        'EModel' => [
+        'eModel' => [
             'model' => "Modules\\PkgGapp\\Models\\EModel",
-            'relation' => 'eModels' , 
+            'relation' => 'eModel' , 
             "foreign_key" => "e_model_id", 
             ],
-        'ERelationship' => [
+        'eRelationship' => [
             'model' => "Modules\\PkgGapp\\Models\\ERelationship",
-            'relation' => 'eRelationships' , 
+            'relation' => 'eRelationship' , 
             "foreign_key" => "e_relationship_id", 
             ]
     ];

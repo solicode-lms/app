@@ -1,0 +1,5 @@
+reference,titre,description,is_editable_by_formateur,sys_color_id
+A_FAIRE,À faire,Le QCM doit être réalisé par l'apprenant,0,1
+EN_COURS,En cours,Le QCM a été démarré par l'apprenant,0,2
+SOUMIS,Soumis,Le QCM a été complété et soumis,1,3
+VALIDE,Validé,Le QCM a été évalué et la note est définitive,1,4

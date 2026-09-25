@@ -34,7 +34,7 @@ class BasePermissionExport implements FromCollection, WithHeadings, ShouldAutoSi
             return [
                 'name' => 'name',
                 'guard_name' => 'guard_name',
-                'sys_controller_reference' => 'sys_controller_reference',
+                'controller_reference' => 'sys_controller_reference',
                 'reference' => 'reference',
                 'features' => 'features',
                 'roles' => 'roles',
@@ -43,7 +43,7 @@ class BasePermissionExport implements FromCollection, WithHeadings, ShouldAutoSi
             return [
                 'name' => __('PkgAutorisation::permission.name'),
                 'guard_name' => __('PkgAutorisation::permission.guard_name'),
-                'sys_controller_reference' => __('Core::sysController.singular'),
+                'controller_reference' => __('Core::sysController.singular'),
                 'reference' => __('Core::msg.reference'),
                     'features' => __('Core::feature.plural'),
                     'roles' => __('PkgAutorisation::role.plural'),

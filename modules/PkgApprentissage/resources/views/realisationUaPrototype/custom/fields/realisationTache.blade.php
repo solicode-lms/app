@@ -1,6 +1,20 @@
 <article class="projet-card">
     <header class="projet-titre">
-        <h2 class="mb-1" data-toggle="tooltip" title="Projet : {{ $entity->realisationTache?->realisationProjet?->affectationProjet?->projet?->titre ?? 'Non défini' }}">{{  $entity->realisationUa->uniteApprentissage }}</h2>
+        <h2 class="mb-1" data-toggle="tooltip" title="Projet : {{ $entity->realisationTache?->realisationProjet?->affectationProjet?->projet?->titre ?? 'Non défini' }}">
+            {{  $entity->realisationUa->uniteApprentissage }}
+            @if($entity->barem_qcm > 0)
+                @php
+                    $pourcentage = ($entity->note_qcm / $entity->barem_qcm) * 100;
+                    $badgeClass = 'badge-secondary';
+                    if ($pourcentage >= 80) $badgeClass = 'badge-success';
+                    elseif ($pourcentage >= 50) $badgeClass = 'badge-warning text-dark';
+                    else $badgeClass = 'badge-danger';
+                @endphp
+                <span class="badge {{ $badgeClass }} float-right elevation-1" style="font-size: 0.65em; padding: 0.5em 0.8em; border-radius: 1rem; margin-top: 0.2rem;" data-toggle="tooltip" title="Score de l'évaluation QCM ({{ round($pourcentage) }}%)">
+                    <i class="fas fa-check-double mr-1"></i> QCM : {{ $entity->note_qcm }} / {{ $entity->barem_qcm }}
+                </span>
+            @endif
+        </h2>
         <small class="text-muted d-block mb-3">
             <strong>Apprenant :</strong> {{ $entity->realisationTache?->realisationProjet?->apprenant ?? ($entity->realisationUa?->realisationMicroCompetence?->apprenant ?? 'Non défini') }} 
             <br>

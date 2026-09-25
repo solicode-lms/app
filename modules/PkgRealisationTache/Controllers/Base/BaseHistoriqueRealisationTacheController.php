@@ -78,6 +78,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemHistoriqueRealisationTache = $this->historiqueRealisationTacheService->createInstance();
  
 

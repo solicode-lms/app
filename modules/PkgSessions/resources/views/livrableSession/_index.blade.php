@@ -102,7 +102,6 @@
                 </div>
                 @show
                 @section('livrableSession-crud-filters')
-                @if(!empty($livrableSessions_total) &&  $livrableSessions_total > 10)
                 <div class="card-header">
                     <form id="livrableSession-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($livrableSessions_filters ?? [])}}">
@@ -132,7 +131,6 @@
                         @show
                     </form>
                 </div>
-                @endif
                 @show
                 <div id="livrableSession-data-container" class="data-container">
                     @if($livrableSession_viewType != "widgets")

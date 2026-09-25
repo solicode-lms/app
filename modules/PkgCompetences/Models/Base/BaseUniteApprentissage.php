@@ -17,6 +17,7 @@ use Modules\PkgCompetences\Models\Chapitre;
 use Modules\PkgCompetences\Models\CritereEvaluation;
 use Modules\PkgApprentissage\Models\RealisationUa;
 use Modules\PkgCreationProjet\Models\MobilisationUa;
+use Modules\PkgQcm\Models\Question;
 
 /**
  * Classe BaseUniteApprentissage
@@ -60,9 +61,9 @@ class BaseUniteApprentissage extends BaseModel
         'ordre', 'code', 'nom', 'micro_competence_id', 'lien', 'description', 'reference'
     ];
     public $manyToOne = [
-        'MicroCompetence' => [
+        'microCompetence' => [
             'model' => "Modules\\PkgCompetences\\Models\\MicroCompetence",
-            'relation' => 'microCompetences' , 
+            'relation' => 'microCompetence' , 
             "foreign_key" => "micro_competence_id", 
             ]
     ];
@@ -123,6 +124,15 @@ class BaseUniteApprentissage extends BaseModel
     public function mobilisationUas(): HasMany
     {
         return $this->hasMany(MobilisationUa::class, 'unite_apprentissage_id', 'id');
+    }
+    /**
+     * Relation HasMany pour UniteApprentissages.
+     *
+     * @return HasMany
+     */
+    public function questions(): HasMany
+    {
+        return $this->hasMany(Question::class, 'unite_apprentissage_id', 'id');
     }
 
 

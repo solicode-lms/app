@@ -102,7 +102,6 @@
                 </div>
                 @show
                 @section('microCompetence-crud-filters')
-                @if(!empty($microCompetences_total) &&  $microCompetences_total > 10)
                 <div class="card-header">
                     <form id="microCompetence-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($microCompetences_filters ?? [])}}">
@@ -132,7 +131,6 @@
                         @show
                     </form>
                 </div>
-                @endif
                 @show
                 <div id="microCompetence-data-container" class="data-container">
                     @if($microCompetence_viewType != "widgets")

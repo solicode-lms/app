@@ -52,19 +52,19 @@ class BaseEtatRealisationTache extends BaseModel
         'ordre', 'nom', 'workflow_tache_id', 'sys_color_id', 'is_editable_only_by_formateur', 'reference', 'formateur_id', 'description'
     ];
     public $manyToOne = [
-        'WorkflowTache' => [
+        'workflowTache' => [
             'model' => "Modules\\PkgRealisationTache\\Models\\WorkflowTache",
-            'relation' => 'workflowTaches' , 
+            'relation' => 'workflowTache' , 
             "foreign_key" => "workflow_tache_id", 
             ],
-        'SysColor' => [
+        'sysColor' => [
             'model' => "Modules\\Core\\Models\\SysColor",
-            'relation' => 'sysColors' , 
+            'relation' => 'sysColor' , 
             "foreign_key" => "sys_color_id", 
             ],
-        'Formateur' => [
+        'formateur' => [
             'model' => "Modules\\PkgFormation\\Models\\Formateur",
-            'relation' => 'formateurs' , 
+            'relation' => 'formateur' , 
             "foreign_key" => "formateur_id", 
             ]
     ];

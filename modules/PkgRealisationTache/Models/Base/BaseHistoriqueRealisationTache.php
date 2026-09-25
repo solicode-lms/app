@@ -48,14 +48,14 @@ class BaseHistoriqueRealisationTache extends BaseModel
         'changement', 'dateModification', 'realisation_tache_id', 'user_id', 'reference', 'isFeedback'
     ];
     public $manyToOne = [
-        'RealisationTache' => [
+        'realisationTache' => [
             'model' => "Modules\\PkgRealisationTache\\Models\\RealisationTache",
-            'relation' => 'realisationTaches' , 
+            'relation' => 'realisationTache' , 
             "foreign_key" => "realisation_tache_id", 
             ],
-        'User' => [
+        'user' => [
             'model' => "Modules\\PkgAutorisation\\Models\\User",
-            'relation' => 'users' , 
+            'relation' => 'user' , 
             "foreign_key" => "user_id", 
             ]
     ];

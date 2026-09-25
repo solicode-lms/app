@@ -102,7 +102,6 @@
                 </div>
                 @show
                 @section('feature-crud-filters')
-                @if(!empty($features_total) &&  $features_total > 10)
                 <div class="card-header">
                     <form id="feature-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($features_filters ?? [])}}">
@@ -132,7 +131,6 @@
                         @show
                     </form>
                 </div>
-                @endif
                 @show
                 <div id="feature-data-container" class="data-container">
                     @if($feature_viewType != "widgets")

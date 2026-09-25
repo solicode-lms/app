@@ -18,6 +18,7 @@ use Modules\PkgCompetences\Models\Chapitre;
 use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgQcm\Models\Qcm;
 
 /**
  * Classe BaseFormateur
@@ -56,9 +57,9 @@ class BaseFormateur extends BaseModel
         'Groupe' => ['relation' => 'groupes' , "foreign_key" => "groupe_id" ]
     ];
     public $manyToOne = [
-        'User' => [
+        'user' => [
             'model' => "Modules\\PkgAutorisation\\Models\\User",
-            'relation' => 'users' , 
+            'relation' => 'user' , 
             "foreign_key" => "user_id", 
             ]
     ];
@@ -128,6 +129,15 @@ class BaseFormateur extends BaseModel
     public function projets(): HasMany
     {
         return $this->hasMany(Projet::class, 'formateur_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Formateurs.
+     *
+     * @return HasMany
+     */
+    public function qcms(): HasMany
+    {
+        return $this->hasMany(Qcm::class, 'formateur_id', 'id');
     }
 
 

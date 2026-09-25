@@ -90,6 +90,7 @@ class BaseLivrableController extends AdminController
         }
 
 
+        // scopeDataByRole
         $itemLivrable = $this->livrableService->createInstance();
  
         // scopeDataInEditContext
@@ -103,9 +104,9 @@ class BaseLivrableController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', compact('bulkEdit' ,'itemLivrable', 'taches', 'natureLivrables', 'projets'));
+            return view('PkgCreationProjet::livrable._fields', compact('bulkEdit' ,'itemLivrable', 'natureLivrables', 'projets', 'taches'));
         }
-        return view('PkgCreationProjet::livrable.create', compact('bulkEdit' ,'itemLivrable', 'taches', 'natureLivrables', 'projets'));
+        return view('PkgCreationProjet::livrable.create', compact('bulkEdit' ,'itemLivrable', 'natureLivrables', 'projets', 'taches'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -143,9 +144,9 @@ class BaseLivrableController extends AdminController
         $itemLivrable = $this->livrableService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', compact('bulkEdit', 'livrable_ids', 'itemLivrable', 'taches', 'natureLivrables', 'projets'));
+            return view('PkgCreationProjet::livrable._fields', compact('bulkEdit', 'livrable_ids', 'itemLivrable', 'natureLivrables', 'projets', 'taches'));
         }
-        return view('PkgCreationProjet::livrable.bulk-edit', compact('bulkEdit', 'livrable_ids', 'itemLivrable', 'taches', 'natureLivrables', 'projets'));
+        return view('PkgCreationProjet::livrable.bulk-edit', compact('bulkEdit', 'livrable_ids', 'itemLivrable', 'natureLivrables', 'projets', 'taches'));
     }
     /**
      */
@@ -224,10 +225,10 @@ class BaseLivrableController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', array_merge(compact('bulkEdit' , 'itemLivrable','taches', 'natureLivrables', 'projets'),));
+            return view('PkgCreationProjet::livrable._fields', array_merge(compact('bulkEdit' , 'itemLivrable','natureLivrables', 'projets', 'taches'),));
         }
 
-        return view('PkgCreationProjet::livrable.edit', array_merge(compact('bulkEdit' ,'itemLivrable','taches', 'natureLivrables', 'projets'),));
+        return view('PkgCreationProjet::livrable.edit', array_merge(compact('bulkEdit' ,'itemLivrable','natureLivrables', 'projets', 'taches'),));
 
 
     }

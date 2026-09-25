@@ -78,6 +78,7 @@ class BaseEModelController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemEModel = $this->eModelService->createInstance();
  
 

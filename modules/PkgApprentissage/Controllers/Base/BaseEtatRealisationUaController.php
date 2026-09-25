@@ -75,6 +75,7 @@ class BaseEtatRealisationUaController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemEtatRealisationUa = $this->etatRealisationUaService->createInstance();
  
 

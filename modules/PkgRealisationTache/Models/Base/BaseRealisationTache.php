@@ -94,26 +94,26 @@ class BaseRealisationTache extends BaseModel
         'LabelProjet' => ['relation' => 'labelProjets' , "foreign_key" => "label_projet_id" ]
     ];
     public $manyToOne = [
-        'Tache' => [
+        'tache' => [
             'model' => "Modules\\PkgCreationTache\\Models\\Tache",
-            'relation' => 'taches' , 
+            'relation' => 'tache' , 
             "foreign_key" => "tache_id", 
             "sortByPath" => "priorite"
             ],
-        'EtatRealisationTache' => [
+        'etatRealisationTache' => [
             'model' => "Modules\\PkgRealisationTache\\Models\\EtatRealisationTache",
-            'relation' => 'etatRealisationTaches' , 
+            'relation' => 'etatRealisationTache' , 
             "foreign_key" => "etat_realisation_tache_id", 
             "sortByPath" => "etatRealisationTache.workflowTache.ordre"
             ],
-        'RealisationProjet' => [
+        'realisationProjet' => [
             'model' => "Modules\\PkgRealisationProjets\\Models\\RealisationProjet",
-            'relation' => 'realisationProjets' , 
+            'relation' => 'realisationProjet' , 
             "foreign_key" => "realisation_projet_id", 
             ],
-        'TacheAffectation' => [
+        'tacheAffectation' => [
             'model' => "Modules\\PkgRealisationTache\\Models\\TacheAffectation",
-            'relation' => 'tacheAffectations' , 
+            'relation' => 'tacheAffectation' , 
             "foreign_key" => "tache_affectation_id", 
             ]
     ];

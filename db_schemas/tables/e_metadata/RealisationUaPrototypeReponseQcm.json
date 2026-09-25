@@ -1,0 +1,177 @@
+[
+    {
+        "reference": "realisation_ua_prototype_reponse_qcm_creationOrder",
+        "value_integer": 109,
+        "e_model_reference": "realisation_ua_prototype_reponse_qcm",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "realisation_ua_prototype_reponse_qcm_displayInSideBar",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_model_reference": "realisation_ua_prototype_reponse_qcm",
+        "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "realisation_ua_prototype_reponse_qcm_iconModel",
+        "value_string": "fas fa-table",
+        "e_model_reference": "realisation_ua_prototype_reponse_qcm",
+        "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_realisation_ua_prototype_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_realisation_ua_prototype_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_realisation_ua_prototype_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_realisation_ua_prototype_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_realisation_ua_prototype_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_realisation_ua_prototype_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_realisation_ua_prototype_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_realisation_ua_prototype_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_realisation_ua_prototype_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_realisation_ua_prototype_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_realisation_ua_prototype_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_realisation_ua_prototype_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_realisation_ua_prototype_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_realisation_ua_prototype_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_reponse_qcm_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_reponse_qcm_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_reponse_qcm_id_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_reponse_qcm_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_reponse_qcm_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_reponse_qcm_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_reponse_qcm_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_reponse_qcm_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_reponse_qcm_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_reponse_qcm_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_reponse_qcm_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_reponse_qcm_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_reponse_qcm_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_reponse_qcm_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_created_at_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_created_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_created_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_updated_at_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationUaPrototypeReponseQcm_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaPrototypeReponseQcm_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    }
+]

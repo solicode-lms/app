@@ -102,7 +102,6 @@
                 </div>
                 @show
                 @section('sysColor-crud-filters')
-                @if(!empty($sysColors_total) &&  $sysColors_total > 10)
                 <div class="card-header">
                     <form id="sysColor-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($sysColors_filters ?? [])}}">
@@ -132,7 +131,6 @@
                         @show
                     </form>
                 </div>
-                @endif
                 @show
                 <div id="sysColor-data-container" class="data-container">
                     @if($sysColor_viewType != "widgets")

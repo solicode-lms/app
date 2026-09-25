@@ -77,6 +77,7 @@ class BaseModuleController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemModule = $this->moduleService->createInstance();
  
 

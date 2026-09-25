@@ -78,6 +78,7 @@ class BaseSysModuleController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemSysModule = $this->sysModuleService->createInstance();
  
 

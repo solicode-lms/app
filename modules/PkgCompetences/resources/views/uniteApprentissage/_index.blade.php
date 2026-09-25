@@ -102,7 +102,6 @@
                 </div>
                 @show
                 @section('uniteApprentissage-crud-filters')
-                @if(!empty($uniteApprentissages_total) &&  $uniteApprentissages_total > 10)
                 <div class="card-header">
                     <form id="uniteApprentissage-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($uniteApprentissages_filters ?? [])}}">
@@ -132,7 +131,6 @@
                         @show
                     </form>
                 </div>
-                @endif
                 @show
                 <div id="uniteApprentissage-data-container" class="data-container">
                     @if($uniteApprentissage_viewType != "widgets")

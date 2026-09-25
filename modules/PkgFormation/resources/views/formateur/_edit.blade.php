@@ -52,6 +52,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemFormateur->qcms?->count() > 0 || auth()->user()?->can('create-qcm'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="formateur-hasmany-tabs-qcm-tab" data-toggle="pill" href="#formateur-hasmany-tabs-qcm" role="tab" aria-controls="formateur-hasmany-tabs-qcm" aria-selected="false">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                {{ucfirst(__('PkgQcm::qcm.plural'))}}
+                            </a>
+                        </li>
+                        @endif
 
                        
                         </ul>
@@ -70,6 +78,11 @@
                             @if($itemFormateur->etatRealisationTaches?->count() > 0 || auth()->user()?->can('create-etatRealisationTache'))
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-etatRealisationTache" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-etatRealisationTache-tab">
                                 @include('PkgRealisationTache::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
+                            </div>
+                            @endif
+                            @if($itemFormateur->qcms?->count() > 0 || auth()->user()?->can('create-qcm'))
+                            <div class="tab-pane fade" id="formateur-hasmany-tabs-qcm" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-qcm-tab">
+                                @include('PkgQcm::qcm._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
                             </div>
                             @endif
 

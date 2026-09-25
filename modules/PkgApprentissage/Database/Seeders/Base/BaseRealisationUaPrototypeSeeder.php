@@ -95,6 +95,8 @@ class BaseRealisationUaPrototypeSeeder extends Seeder
                         "remarque_formateur" => isset($row["remarque_formateur"]) && $row["remarque_formateur"] !== "" ? $row["remarque_formateur"] : null,
                         "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
+                        "note_qcm" => isset($row["note_qcm"]) && $row["note_qcm"] !== "" ? $row["note_qcm"] : null,
+                        "barem_qcm" => isset($row["barem_qcm"]) && $row["barem_qcm"] !== "" ? $row["barem_qcm"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
 
@@ -103,6 +105,15 @@ class BaseRealisationUaPrototypeSeeder extends Seeder
                     $realisationUaPrototype = $realisationUaPrototypeService->updateOrCreate(["reference" => $row["reference"]], $realisationUaPrototypeData);
                 } else {
                     $realisationUaPrototype = $realisationUaPrototypeService->create($realisationUaPrototypeData);
+                }
+                if (!empty($row["reponseQcms"])) {
+                    $reponseQcmReferences = array_map('trim', explode('|', $row["reponseQcms"]));
+                    $reponseQcmIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $reponseQcmReferences)->pluck('id')->toArray();
+
+                    if (!empty($reponseQcmIds)) {
+                        $realisationUaPrototype->reponseQcms()->sync($reponseQcmIds);
+                          $realisationUaPrototype->touch(); // pour lancer Observer
+                    }
                 }
             }
         }

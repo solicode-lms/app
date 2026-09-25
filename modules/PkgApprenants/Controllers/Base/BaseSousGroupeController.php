@@ -79,6 +79,7 @@ class BaseSousGroupeController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemSousGroupe = $this->sousGroupeService->createInstance();
  
 
@@ -87,9 +88,9 @@ class BaseSousGroupeController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgApprenants::sousGroupe._fields', compact('bulkEdit' ,'itemSousGroupe', 'apprenants', 'groupes'));
+            return view('PkgApprenants::sousGroupe._fields', compact('bulkEdit' ,'itemSousGroupe', 'groupes', 'apprenants'));
         }
-        return view('PkgApprenants::sousGroupe.create', compact('bulkEdit' ,'itemSousGroupe', 'apprenants', 'groupes'));
+        return view('PkgApprenants::sousGroupe.create', compact('bulkEdit' ,'itemSousGroupe', 'groupes', 'apprenants'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -118,9 +119,9 @@ class BaseSousGroupeController extends AdminController
         $itemSousGroupe = $this->sousGroupeService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgApprenants::sousGroupe._fields', compact('bulkEdit', 'sousGroupe_ids', 'itemSousGroupe', 'apprenants', 'groupes'));
+            return view('PkgApprenants::sousGroupe._fields', compact('bulkEdit', 'sousGroupe_ids', 'itemSousGroupe', 'groupes', 'apprenants'));
         }
-        return view('PkgApprenants::sousGroupe.bulk-edit', compact('bulkEdit', 'sousGroupe_ids', 'itemSousGroupe', 'apprenants', 'groupes'));
+        return view('PkgApprenants::sousGroupe.bulk-edit', compact('bulkEdit', 'sousGroupe_ids', 'itemSousGroupe', 'groupes', 'apprenants'));
     }
     /**
      */
@@ -199,10 +200,10 @@ class BaseSousGroupeController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgApprenants::sousGroupe._edit', array_merge(compact('bulkEdit' , 'itemSousGroupe','apprenants', 'groupes'),$affectationProjet_compact_value));
+            return view('PkgApprenants::sousGroupe._edit', array_merge(compact('bulkEdit' , 'itemSousGroupe','groupes', 'apprenants'),$affectationProjet_compact_value));
         }
 
-        return view('PkgApprenants::sousGroupe.edit', array_merge(compact('bulkEdit' ,'itemSousGroupe','apprenants', 'groupes'),$affectationProjet_compact_value));
+        return view('PkgApprenants::sousGroupe.edit', array_merge(compact('bulkEdit' ,'itemSousGroupe','groupes', 'apprenants'),$affectationProjet_compact_value));
 
 
     }

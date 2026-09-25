@@ -81,6 +81,7 @@ class BaseEvaluationRealisationTacheController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemEvaluationRealisationTache = $this->evaluationRealisationTacheService->createInstance();
  
 
@@ -90,9 +91,9 @@ class BaseEvaluationRealisationTacheController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgEvaluateurs::evaluationRealisationTache._fields', compact('bulkEdit' ,'itemEvaluationRealisationTache', 'evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'));
+            return view('PkgEvaluateurs::evaluationRealisationTache._fields', compact('bulkEdit' ,'itemEvaluationRealisationTache', 'realisationTaches', 'evaluateurs', 'evaluationRealisationProjets'));
         }
-        return view('PkgEvaluateurs::evaluationRealisationTache.create', compact('bulkEdit' ,'itemEvaluationRealisationTache', 'evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'));
+        return view('PkgEvaluateurs::evaluationRealisationTache.create', compact('bulkEdit' ,'itemEvaluationRealisationTache', 'realisationTaches', 'evaluateurs', 'evaluationRealisationProjets'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -122,9 +123,9 @@ class BaseEvaluationRealisationTacheController extends AdminController
         $itemEvaluationRealisationTache = $this->evaluationRealisationTacheService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgEvaluateurs::evaluationRealisationTache._fields', compact('bulkEdit', 'evaluationRealisationTache_ids', 'itemEvaluationRealisationTache', 'evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'));
+            return view('PkgEvaluateurs::evaluationRealisationTache._fields', compact('bulkEdit', 'evaluationRealisationTache_ids', 'itemEvaluationRealisationTache', 'realisationTaches', 'evaluateurs', 'evaluationRealisationProjets'));
         }
-        return view('PkgEvaluateurs::evaluationRealisationTache.bulk-edit', compact('bulkEdit', 'evaluationRealisationTache_ids', 'itemEvaluationRealisationTache', 'evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'));
+        return view('PkgEvaluateurs::evaluationRealisationTache.bulk-edit', compact('bulkEdit', 'evaluationRealisationTache_ids', 'itemEvaluationRealisationTache', 'realisationTaches', 'evaluateurs', 'evaluationRealisationProjets'));
     }
     /**
      */
@@ -190,10 +191,10 @@ class BaseEvaluationRealisationTacheController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgEvaluateurs::evaluationRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemEvaluationRealisationTache','evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'),));
+            return view('PkgEvaluateurs::evaluationRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemEvaluationRealisationTache','realisationTaches', 'evaluateurs', 'evaluationRealisationProjets'),));
         }
 
-        return view('PkgEvaluateurs::evaluationRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemEvaluationRealisationTache','evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'),));
+        return view('PkgEvaluateurs::evaluationRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemEvaluationRealisationTache','realisationTaches', 'evaluateurs', 'evaluationRealisationProjets'),));
 
 
     }

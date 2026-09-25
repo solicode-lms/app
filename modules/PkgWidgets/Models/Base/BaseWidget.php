@@ -65,29 +65,29 @@ class BaseWidget extends BaseModel
         'Role' => ['relation' => 'roles' , "foreign_key" => "role_id" ]
     ];
     public $manyToOne = [
-        'WidgetType' => [
+        'type' => [
             'model' => "Modules\\PkgWidgets\\Models\\WidgetType",
-            'relation' => 'widgetTypes' , 
-            "foreign_key" => "widget_type_id", 
+            'relation' => 'type' , 
+            "foreign_key" => "type_id", 
             ],
-        'SysModel' => [
+        'model' => [
             'model' => "Modules\\Core\\Models\\SysModel",
-            'relation' => 'sysModels' , 
-            "foreign_key" => "sys_model_id", 
+            'relation' => 'model' , 
+            "foreign_key" => "model_id", 
             ],
-        'WidgetOperation' => [
+        'operation' => [
             'model' => "Modules\\PkgWidgets\\Models\\WidgetOperation",
-            'relation' => 'widgetOperations' , 
-            "foreign_key" => "widget_operation_id", 
+            'relation' => 'operation' , 
+            "foreign_key" => "operation_id", 
             ],
-        'SysColor' => [
+        'sysColor' => [
             'model' => "Modules\\Core\\Models\\SysColor",
-            'relation' => 'sysColors' , 
+            'relation' => 'sysColor' , 
             "foreign_key" => "sys_color_id", 
             ],
-        'SectionWidget' => [
+        'sectionWidget' => [
             'model' => "Modules\\PkgWidgets\\Models\\SectionWidget",
-            'relation' => 'sectionWidgets' , 
+            'relation' => 'sectionWidget' , 
             "foreign_key" => "section_widget_id", 
             ]
     ];

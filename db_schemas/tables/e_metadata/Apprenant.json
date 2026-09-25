@@ -1535,5 +1535,29 @@
         "value_float": 0,
         "e_data_field_reference": "Apprenant_derniere_activite",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "apprenants_hasMany_realisation_qcms_apprenant_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_hasMany_realisation_qcms_apprenant_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "apprenants_hasMany_realisation_qcms_apprenant_id_displayOrder",
+        "value_integer": 30,
+        "e_data_field_reference": "apprenants_hasMany_realisation_qcms_apprenant_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "apprenants_hasMany_realisation_qcms_apprenant_id_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "apprenants_hasMany_realisation_qcms_apprenant_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "apprenants_hasMany_realisation_qcms_apprenant_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_hasMany_realisation_qcms_apprenant_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

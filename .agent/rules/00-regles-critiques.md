@@ -15,8 +15,9 @@ Ces règles sont **INVIOLABLES**. Elles garantissent la stabilité et la mainten
 
 ## 2. Le Générateur Gapp (CRITIQUE)
 Le projet utilise un générateur de code (Gapp).
-- **Fichiers Protégés** : NE JAMAIS modifier un fichier commençant par `// Ce fichier est maintenu par ESSARRAJ Fouad`.
-    - *Exception* : Si modification indispensable, demander à l'utilisateur de supprimer l'en-tête de protection d'abord.
+- **Fichiers Protégés** :
+    - **Classes de Base (`Base/`)** : NE JAMAIS modifier un fichier contenant `Base` dans son nom ou situé dans un dossier `Base/` sous aucune condition. Ces fichiers sont 100% gérés par Gapp.
+    - **Classes Enfants (Héritières)** : Ces fichiers sont à la disposition de l'IA pour injecter le code métier. Si un fichier enfant contient la ligne de protection `// Ce fichier est maintenu par ESSARRAJ Fouad`, **l'agent EST AUTORISÉ ET DOIT la supprimer lui-même** pour injecter le code métier.
 - **Workflow Gapp** :
     1. Migration BDD (`php artisan migrate`)
     2. Sync Gapp (`php artisan gapp meta:sync`)

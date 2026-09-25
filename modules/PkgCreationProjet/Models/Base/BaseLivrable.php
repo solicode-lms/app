@@ -54,14 +54,14 @@ class BaseLivrable extends BaseModel
         'Tache' => ['relation' => 'taches' , "foreign_key" => "tache_id" ]
     ];
     public $manyToOne = [
-        'NatureLivrable' => [
+        'natureLivrable' => [
             'model' => "Modules\\PkgCreationProjet\\Models\\NatureLivrable",
-            'relation' => 'natureLivrables' , 
+            'relation' => 'natureLivrable' , 
             "foreign_key" => "nature_livrable_id", 
             ],
-        'Projet' => [
+        'projet' => [
             'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
-            'relation' => 'projets' , 
+            'relation' => 'projet' , 
             "foreign_key" => "projet_id", 
             ]
     ];

@@ -48,9 +48,9 @@ class BaseModule extends BaseModel
         'code', 'nom', 'description', 'masse_horaire', 'filiere_id', 'isHaveUa', 'reference'
     ];
     public $manyToOne = [
-        'Filiere' => [
+        'filiere' => [
             'model' => "Modules\\PkgFormation\\Models\\Filiere",
-            'relation' => 'filieres' , 
+            'relation' => 'filiere' , 
             "foreign_key" => "filiere_id", 
             ]
     ];

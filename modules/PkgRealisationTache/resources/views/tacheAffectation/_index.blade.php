@@ -102,7 +102,6 @@
                 </div>
                 @show
                 @section('tacheAffectation-crud-filters')
-                @if(!empty($tacheAffectations_total) &&  $tacheAffectations_total > 10)
                 <div class="card-header">
                     <form id="tacheAffectation-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($tacheAffectations_filters ?? [])}}">
@@ -132,7 +131,6 @@
                         @show
                     </form>
                 </div>
-                @endif
                 @show
                 <div id="tacheAffectation-data-container" class="data-container">
                     @if($tacheAffectation_viewType != "widgets")

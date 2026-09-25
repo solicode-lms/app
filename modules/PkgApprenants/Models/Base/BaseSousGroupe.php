@@ -51,9 +51,9 @@ class BaseSousGroupe extends BaseModel
         'Apprenant' => ['relation' => 'apprenants' , "foreign_key" => "apprenant_id" ]
     ];
     public $manyToOne = [
-        'Groupe' => [
+        'groupe' => [
             'model' => "Modules\\PkgApprenants\\Models\\Groupe",
-            'relation' => 'groupes' , 
+            'relation' => 'groupe' , 
             "foreign_key" => "groupe_id", 
             ]
     ];

@@ -102,11 +102,12 @@ class BaseProjetController extends AdminController
         }
 
 
+        // scopeDataByRole
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->init('scope.sessionFormation.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->set('scope.sessionFormation.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
         }
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->init('scope.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->set('scope.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
         }
         $itemProjet = $this->projetService->createInstance();
  

@@ -102,7 +102,6 @@
                 </div>
                 @show
                 @section('widgetUtilisateur-crud-filters')
-                @if(!empty($widgetUtilisateurs_total) &&  $widgetUtilisateurs_total > 10)
                 <div class="card-header">
                     <form id="widgetUtilisateur-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($widgetUtilisateurs_filters ?? [])}}">
@@ -132,7 +131,6 @@
                         @show
                     </form>
                 </div>
-                @endif
                 @show
                 <div id="widgetUtilisateur-data-container" class="data-container">
                     @if($widgetUtilisateur_viewType != "widgets")

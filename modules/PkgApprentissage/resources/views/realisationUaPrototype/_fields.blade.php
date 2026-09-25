@@ -303,6 +303,118 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="note_qcm" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="note_qcm" 
+              id="bulk_field_note_qcm" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="note_qcm">
+            {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.note_qcm')) }}
+            
+          </label>
+              <input
+        name="note_qcm"
+        type="number"
+        class="form-control"
+        
+        
+        
+        id="note_qcm"
+        step="0.01"
+        placeholder="{{ __('PkgApprentissage::realisationUaPrototype.note_qcm') }}"
+        value="{{ $itemRealisationUaPrototype ? number_format($itemRealisationUaPrototype->note_qcm, 2, '.', '') : old('note_qcm') }}">
+          @error('note_qcm')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="reponseQcms" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="reponseQcms" 
+              id="bulk_field_reponseQcms" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="reponseQcms">
+            {{ ucfirst(__('PkgQcm::reponseQcm.plural')) }}
+            
+          </label>
+                      <select
+                id="reponseQcms"
+                name="reponseQcms[]"
+                class="form-control select2"
+                
+                
+                multiple="multiple">
+               
+                @foreach ($reponseQcms as $reponseQcm)
+                    <option value="{{ $reponseQcm->id }}"
+                        {{ (isset($itemRealisationUaPrototype) && $itemRealisationUaPrototype->reponseQcms && $itemRealisationUaPrototype->reponseQcms->contains('id', $reponseQcm->id)) || (is_array(old('reponseQcms')) && in_array($reponseQcm->id, old('reponseQcms'))) ? 'selected' : '' }}>
+                        {{ $reponseQcm }}
+                    </option>
+                @endforeach
+            </select>
+          @error('reponseQcms')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="barem_qcm" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="barem_qcm" 
+              id="bulk_field_barem_qcm" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="barem_qcm">
+            {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.barem_qcm')) }}
+            
+          </label>
+              <input
+        name="barem_qcm"
+        type="number"
+        class="form-control"
+        
+        
+        
+        id="barem_qcm"
+        step="0.01"
+        placeholder="{{ __('PkgApprentissage::realisationUaPrototype.barem_qcm') }}"
+        value="{{ $itemRealisationUaPrototype ? number_format($itemRealisationUaPrototype->barem_qcm, 2, '.', '') : old('barem_qcm') }}">
+          @error('barem_qcm')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 
     </div>
   

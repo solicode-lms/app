@@ -4,6 +4,7 @@
 
 namespace Modules\PkgApprentissage\Controllers\Base;
 use Modules\PkgApprentissage\Services\RealisationUaPrototypeService;
+use Modules\PkgQcm\Services\ReponseQcmService;
 use Modules\PkgRealisationTache\Services\RealisationTacheService;
 use Modules\PkgApprentissage\Services\RealisationUaService;
 use Illuminate\Http\Request;
@@ -22,13 +23,15 @@ use Modules\Core\Services\ContextState;
 class BaseRealisationUaPrototypeController extends AdminController
 {
     protected $realisationUaPrototypeService;
+    protected $reponseQcmService;
     protected $realisationTacheService;
     protected $realisationUaService;
 
-    public function __construct(RealisationUaPrototypeService $realisationUaPrototypeService, RealisationTacheService $realisationTacheService, RealisationUaService $realisationUaService) {
+    public function __construct(RealisationUaPrototypeService $realisationUaPrototypeService, ReponseQcmService $reponseQcmService, RealisationTacheService $realisationTacheService, RealisationUaService $realisationUaService) {
         parent::__construct();
         $this->service  =  $realisationUaPrototypeService;
         $this->realisationUaPrototypeService = $realisationUaPrototypeService;
+        $this->reponseQcmService = $reponseQcmService;
         $this->realisationTacheService = $realisationTacheService;
         $this->realisationUaService = $realisationUaService;
     }
@@ -86,17 +89,19 @@ class BaseRealisationUaPrototypeController extends AdminController
         }
 
 
+        // scopeDataByRole
         $itemRealisationUaPrototype = $this->realisationUaPrototypeService->createInstance();
  
 
         $realisationTaches = $this->realisationTacheService->all();
         $realisationUas = $this->realisationUaService->all();
+        $reponseQcms = $this->reponseQcmService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationUaPrototype._fields', compact('bulkEdit' ,'itemRealisationUaPrototype', 'realisationTaches', 'realisationUas'));
+            return view('PkgApprentissage::realisationUaPrototype._fields', compact('bulkEdit' ,'itemRealisationUaPrototype', 'realisationTaches', 'realisationUas', 'reponseQcms'));
         }
-        return view('PkgApprentissage::realisationUaPrototype.create', compact('bulkEdit' ,'itemRealisationUaPrototype', 'realisationTaches', 'realisationUas'));
+        return view('PkgApprentissage::realisationUaPrototype.create', compact('bulkEdit' ,'itemRealisationUaPrototype', 'realisationTaches', 'realisationUas', 'reponseQcms'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -122,6 +127,7 @@ class BaseRealisationUaPrototypeController extends AdminController
  
         $realisationTaches = $this->realisationTacheService->getAllForSelect($itemRealisationUaPrototype->realisationTache);
         $realisationUas = $this->realisationUaService->getAllForSelect($itemRealisationUaPrototype->realisationUa);
+        $reponseQcms = $this->reponseQcmService->getAllForSelect($itemRealisationUaPrototype->reponseQcms);
 
         $bulkEdit = true;
 
@@ -129,9 +135,9 @@ class BaseRealisationUaPrototypeController extends AdminController
         $itemRealisationUaPrototype = $this->realisationUaPrototypeService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationUaPrototype._fields', compact('bulkEdit', 'realisationUaPrototype_ids', 'itemRealisationUaPrototype', 'realisationTaches', 'realisationUas'));
+            return view('PkgApprentissage::realisationUaPrototype._fields', compact('bulkEdit', 'realisationUaPrototype_ids', 'itemRealisationUaPrototype', 'realisationTaches', 'realisationUas', 'reponseQcms'));
         }
-        return view('PkgApprentissage::realisationUaPrototype.bulk-edit', compact('bulkEdit', 'realisationUaPrototype_ids', 'itemRealisationUaPrototype', 'realisationTaches', 'realisationUas'));
+        return view('PkgApprentissage::realisationUaPrototype.bulk-edit', compact('bulkEdit', 'realisationUaPrototype_ids', 'itemRealisationUaPrototype', 'realisationTaches', 'realisationUas', 'reponseQcms'));
     }
     /**
      */
@@ -193,15 +199,16 @@ class BaseRealisationUaPrototypeController extends AdminController
 
         $realisationTaches = $this->realisationTacheService->getAllForSelect($itemRealisationUaPrototype->realisationTache);
         $realisationUas = $this->realisationUaService->getAllForSelect($itemRealisationUaPrototype->realisationUa);
+        $reponseQcms = $this->reponseQcmService->getAllForSelect($itemRealisationUaPrototype->reponseQcms);
 
 
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationUaPrototype._fields', array_merge(compact('bulkEdit' , 'itemRealisationUaPrototype','realisationTaches', 'realisationUas'),));
+            return view('PkgApprentissage::realisationUaPrototype._fields', array_merge(compact('bulkEdit' , 'itemRealisationUaPrototype','realisationTaches', 'realisationUas', 'reponseQcms'),));
         }
 
-        return view('PkgApprentissage::realisationUaPrototype.edit', array_merge(compact('bulkEdit' ,'itemRealisationUaPrototype','realisationTaches', 'realisationUas'),));
+        return view('PkgApprentissage::realisationUaPrototype.edit', array_merge(compact('bulkEdit' ,'itemRealisationUaPrototype','realisationTaches', 'realisationUas', 'reponseQcms'),));
 
 
     }

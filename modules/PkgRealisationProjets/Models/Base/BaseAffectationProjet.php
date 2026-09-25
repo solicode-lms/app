@@ -17,6 +17,7 @@ use Modules\PkgApprenants\Models\SousGroupe;
 use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgEvaluateurs\Models\Evaluateur;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
+use Modules\PkgQcm\Models\AffectationQcmProjet;
 use Modules\PkgRealisationTache\Models\TacheAffectation;
 
 /**
@@ -59,24 +60,24 @@ class BaseAffectationProjet extends BaseModel
         'Evaluateur' => ['relation' => 'evaluateurs' , "foreign_key" => "evaluateur_id" ]
     ];
     public $manyToOne = [
-        'Projet' => [
+        'projet' => [
             'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
-            'relation' => 'projets' , 
+            'relation' => 'projet' , 
             "foreign_key" => "projet_id", 
             ],
-        'Groupe' => [
+        'groupe' => [
             'model' => "Modules\\PkgApprenants\\Models\\Groupe",
-            'relation' => 'groupes' , 
+            'relation' => 'groupe' , 
             "foreign_key" => "groupe_id", 
             ],
-        'SousGroupe' => [
+        'sousGroupe' => [
             'model' => "Modules\\PkgApprenants\\Models\\SousGroupe",
-            'relation' => 'sousGroupes' , 
+            'relation' => 'sousGroupe' , 
             "foreign_key" => "sous_groupe_id", 
             ],
-        'AnneeFormation' => [
+        'anneeFormation' => [
             'model' => "Modules\\PkgFormation\\Models\\AnneeFormation",
-            'relation' => 'anneeFormations' , 
+            'relation' => 'anneeFormation' , 
             "foreign_key" => "annee_formation_id", 
             ]
     ];
@@ -137,6 +138,15 @@ class BaseAffectationProjet extends BaseModel
     public function realisationProjets(): HasMany
     {
         return $this->hasMany(RealisationProjet::class, 'affectation_projet_id', 'id');
+    }
+    /**
+     * Relation HasMany pour AffectationProjets.
+     *
+     * @return HasMany
+     */
+    public function affectationQcmProjets(): HasMany
+    {
+        return $this->hasMany(AffectationQcmProjet::class, 'affectation_projet_id', 'id');
     }
     /**
      * Relation HasMany pour AffectationProjets.

@@ -86,6 +86,7 @@ class BaseLivrablesRealisationController extends AdminController
         }
 
 
+        // scopeDataByRole
         $itemLivrablesRealisation = $this->livrablesRealisationService->createInstance();
  
 

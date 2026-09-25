@@ -78,6 +78,7 @@ class BaseCritereEvaluationController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemCritereEvaluation = $this->critereEvaluationService->createInstance();
  
 

@@ -81,6 +81,7 @@ class BaseRoleController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemRole = $this->roleService->createInstance();
  
 

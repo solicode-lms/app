@@ -113,6 +113,7 @@ class BaseWidgetUtilisateurController extends AdminController
         }
 
 
+        // scopeDataByRole
         $itemWidgetUtilisateur = $this->widgetUtilisateurService->createInstance();
  
 

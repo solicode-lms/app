@@ -73,6 +73,7 @@ class BaseNationaliteController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemNationalite = $this->nationaliteService->createInstance();
  
 

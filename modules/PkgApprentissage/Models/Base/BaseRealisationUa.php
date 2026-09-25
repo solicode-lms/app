@@ -53,19 +53,19 @@ class BaseRealisationUa extends BaseModel
         'unite_apprentissage_id', 'realisation_micro_competence_id', 'etat_realisation_ua_id', 'progression_cache', 'note_cache', 'bareme_cache', 'bareme_non_evalue_cache', 'note_cc_cache', 'date_debut', 'bareme_cc_cache', 'date_fin', 'dernier_update', 'commentaire_formateur', 'reference', 'progression_ideal_cache', 'pourcentage_non_valide_cache', 'taux_rythme_cache'
     ];
     public $manyToOne = [
-        'UniteApprentissage' => [
+        'uniteApprentissage' => [
             'model' => "Modules\\PkgCompetences\\Models\\UniteApprentissage",
-            'relation' => 'uniteApprentissages' , 
+            'relation' => 'uniteApprentissage' , 
             "foreign_key" => "unite_apprentissage_id", 
             ],
-        'RealisationMicroCompetence' => [
+        'realisationMicroCompetence' => [
             'model' => "Modules\\PkgApprentissage\\Models\\RealisationMicroCompetence",
-            'relation' => 'realisationMicroCompetences' , 
+            'relation' => 'realisationMicroCompetence' , 
             "foreign_key" => "realisation_micro_competence_id", 
             ],
-        'EtatRealisationUa' => [
+        'etatRealisationUa' => [
             'model' => "Modules\\PkgApprentissage\\Models\\EtatRealisationUa",
-            'relation' => 'etatRealisationUas' , 
+            'relation' => 'etatRealisationUa' , 
             "foreign_key" => "etat_realisation_ua_id", 
             ]
     ];

@@ -91,21 +91,22 @@ class BaseWidgetController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemWidget = $this->widgetService->createInstance();
  
 
-        $widgetTypes = $this->widgetTypeService->all();
-        $sysModels = $this->sysModelService->all();
-        $widgetOperations = $this->widgetOperationService->all();
+        $types = $this->widgetTypeService->all();
+        $models = $this->sysModelService->all();
+        $operations = $this->widgetOperationService->all();
         $sysColors = $this->sysColorService->all();
-        $roles = $this->roleService->all();
         $sectionWidgets = $this->sectionWidgetService->all();
+        $roles = $this->roleService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', compact('bulkEdit' ,'itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'));
+            return view('PkgWidgets::widget._fields', compact('bulkEdit' ,'itemWidget', 'types', 'models', 'operations', 'sysColors', 'sectionWidgets', 'roles'));
         }
-        return view('PkgWidgets::widget.create', compact('bulkEdit' ,'itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'));
+        return view('PkgWidgets::widget.create', compact('bulkEdit' ,'itemWidget', 'types', 'models', 'operations', 'sysColors', 'sectionWidgets', 'roles'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -125,9 +126,9 @@ class BaseWidgetController extends AdminController
          $itemWidget = $this->widgetService->find($widget_ids[0]);
          
  
-        $widgetTypes = $this->widgetTypeService->getAllForSelect($itemWidget->type);
-        $sysModels = $this->sysModelService->getAllForSelect($itemWidget->model);
-        $widgetOperations = $this->widgetOperationService->getAllForSelect($itemWidget->operation);
+        $types = $this->widgetTypeService->getAllForSelect($itemWidget->type);
+        $models = $this->sysModelService->getAllForSelect($itemWidget->model);
+        $operations = $this->widgetOperationService->getAllForSelect($itemWidget->operation);
         $sysColors = $this->sysColorService->getAllForSelect($itemWidget->sysColor);
         $roles = $this->roleService->getAllForSelect($itemWidget->roles);
         $sectionWidgets = $this->sectionWidgetService->getAllForSelect($itemWidget->sectionWidget);
@@ -138,9 +139,9 @@ class BaseWidgetController extends AdminController
         $itemWidget = $this->widgetService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', compact('bulkEdit', 'widget_ids', 'itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'));
+            return view('PkgWidgets::widget._fields', compact('bulkEdit', 'widget_ids', 'itemWidget', 'types', 'models', 'operations', 'sysColors', 'sectionWidgets', 'roles'));
         }
-        return view('PkgWidgets::widget.bulk-edit', compact('bulkEdit', 'widget_ids', 'itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'));
+        return view('PkgWidgets::widget.bulk-edit', compact('bulkEdit', 'widget_ids', 'itemWidget', 'types', 'models', 'operations', 'sysColors', 'sectionWidgets', 'roles'));
     }
     /**
      */
@@ -205,9 +206,9 @@ class BaseWidgetController extends AdminController
         $itemWidget = $this->widgetService->edit($id);
 
 
-        $widgetTypes = $this->widgetTypeService->getAllForSelect($itemWidget->type);
-        $sysModels = $this->sysModelService->getAllForSelect($itemWidget->model);
-        $widgetOperations = $this->widgetOperationService->getAllForSelect($itemWidget->operation);
+        $types = $this->widgetTypeService->getAllForSelect($itemWidget->type);
+        $models = $this->sysModelService->getAllForSelect($itemWidget->model);
+        $operations = $this->widgetOperationService->getAllForSelect($itemWidget->operation);
         $sysColors = $this->sysColorService->getAllForSelect($itemWidget->sysColor);
         $roles = $this->roleService->getAllForSelect($itemWidget->roles);
         $sectionWidgets = $this->sectionWidgetService->getAllForSelect($itemWidget->sectionWidget);
@@ -216,10 +217,10 @@ class BaseWidgetController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', array_merge(compact('bulkEdit' , 'itemWidget','roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'),));
+            return view('PkgWidgets::widget._fields', array_merge(compact('bulkEdit' , 'itemWidget','types', 'models', 'operations', 'sysColors', 'sectionWidgets', 'roles'),));
         }
 
-        return view('PkgWidgets::widget.edit', array_merge(compact('bulkEdit' ,'itemWidget','roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'),));
+        return view('PkgWidgets::widget.edit', array_merge(compact('bulkEdit' ,'itemWidget','types', 'models', 'operations', 'sysColors', 'sectionWidgets', 'roles'),));
 
 
     }

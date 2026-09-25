@@ -49,14 +49,14 @@ class BaseSysModel extends BaseModel
         'name', 'model', 'sys_module_id', 'sys_color_id', 'reference', 'icone', 'description'
     ];
     public $manyToOne = [
-        'SysModule' => [
+        'sysModule' => [
             'model' => "Modules\\Core\\Models\\SysModule",
-            'relation' => 'sysModules' , 
+            'relation' => 'sysModule' , 
             "foreign_key" => "sys_module_id", 
             ],
-        'SysColor' => [
+        'sysColor' => [
             'model' => "Modules\\Core\\Models\\SysColor",
-            'relation' => 'sysColors' , 
+            'relation' => 'sysColor' , 
             "foreign_key" => "sys_color_id", 
             ]
     ];

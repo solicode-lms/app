@@ -99,6 +99,7 @@ class BaseRealisationMicroCompetenceController extends AdminController
         }
 
 
+        // scopeDataByRole
         $itemRealisationMicroCompetence = $this->realisationMicroCompetenceService->createInstance();
  
 
@@ -109,9 +110,9 @@ class BaseRealisationMicroCompetenceController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationMicroCompetence._fields', compact('bulkEdit' ,'itemRealisationMicroCompetence', 'etatRealisationMicroCompetences', 'apprenants', 'microCompetences', 'realisationCompetences'));
+            return view('PkgApprentissage::realisationMicroCompetence._fields', compact('bulkEdit' ,'itemRealisationMicroCompetence', 'microCompetences', 'apprenants', 'etatRealisationMicroCompetences', 'realisationCompetences'));
         }
-        return view('PkgApprentissage::realisationMicroCompetence.create', compact('bulkEdit' ,'itemRealisationMicroCompetence', 'etatRealisationMicroCompetences', 'apprenants', 'microCompetences', 'realisationCompetences'));
+        return view('PkgApprentissage::realisationMicroCompetence.create', compact('bulkEdit' ,'itemRealisationMicroCompetence', 'microCompetences', 'apprenants', 'etatRealisationMicroCompetences', 'realisationCompetences'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -149,9 +150,9 @@ class BaseRealisationMicroCompetenceController extends AdminController
         $itemRealisationMicroCompetence = $this->realisationMicroCompetenceService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationMicroCompetence._fields', compact('bulkEdit', 'realisationMicroCompetence_ids', 'itemRealisationMicroCompetence', 'etatRealisationMicroCompetences', 'apprenants', 'microCompetences', 'realisationCompetences'));
+            return view('PkgApprentissage::realisationMicroCompetence._fields', compact('bulkEdit', 'realisationMicroCompetence_ids', 'itemRealisationMicroCompetence', 'microCompetences', 'apprenants', 'etatRealisationMicroCompetences', 'realisationCompetences'));
         }
-        return view('PkgApprentissage::realisationMicroCompetence.bulk-edit', compact('bulkEdit', 'realisationMicroCompetence_ids', 'itemRealisationMicroCompetence', 'etatRealisationMicroCompetences', 'apprenants', 'microCompetences', 'realisationCompetences'));
+        return view('PkgApprentissage::realisationMicroCompetence.bulk-edit', compact('bulkEdit', 'realisationMicroCompetence_ids', 'itemRealisationMicroCompetence', 'microCompetences', 'apprenants', 'etatRealisationMicroCompetences', 'realisationCompetences'));
     }
     /**
      */
@@ -234,10 +235,10 @@ class BaseRealisationMicroCompetenceController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationMicroCompetence._edit', array_merge(compact('bulkEdit' , 'itemRealisationMicroCompetence','etatRealisationMicroCompetences', 'apprenants', 'microCompetences', 'realisationCompetences'),$realisationUa_compact_value));
+            return view('PkgApprentissage::realisationMicroCompetence._edit', array_merge(compact('bulkEdit' , 'itemRealisationMicroCompetence','microCompetences', 'apprenants', 'etatRealisationMicroCompetences', 'realisationCompetences'),$realisationUa_compact_value));
         }
 
-        return view('PkgApprentissage::realisationMicroCompetence.edit', array_merge(compact('bulkEdit' ,'itemRealisationMicroCompetence','etatRealisationMicroCompetences', 'apprenants', 'microCompetences', 'realisationCompetences'),$realisationUa_compact_value));
+        return view('PkgApprentissage::realisationMicroCompetence.edit', array_merge(compact('bulkEdit' ,'itemRealisationMicroCompetence','microCompetences', 'apprenants', 'etatRealisationMicroCompetences', 'realisationCompetences'),$realisationUa_compact_value));
 
 
     }

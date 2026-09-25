@@ -46,9 +46,9 @@ class BaseUserModelFilter extends BaseModel
         'user_id', 'model_name', 'context_key', 'filters'
     ];
     public $manyToOne = [
-        'User' => [
+        'user' => [
             'model' => "Modules\\PkgAutorisation\\Models\\User",
-            'relation' => 'users' , 
+            'relation' => 'user' , 
             "foreign_key" => "user_id", 
             ]
     ];

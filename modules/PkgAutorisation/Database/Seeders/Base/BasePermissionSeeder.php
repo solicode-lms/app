@@ -75,7 +75,7 @@ class BasePermissionSeeder extends Seeder
 
 
                 $controller_id = null;
-                if (!empty($row["sys_controller_reference"])) {
+                if (!empty($row["controller_reference"])) {
                     $controller_id = \Modules\Core\Models\SysController::where('reference', $row["sys_controller_reference"])
                         ->value('id');
                 }

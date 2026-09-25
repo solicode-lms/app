@@ -40,6 +40,9 @@ class BaseRealisationUaPrototypeExport implements FromCollection, WithHeadings, 
                 'date_debut' => 'date_debut',
                 'date_fin' => 'date_fin',
                 'reference' => 'reference',
+                'note_qcm' => 'note_qcm',
+                'reponseQcms' => 'reponseQcms',
+                'barem_qcm' => 'barem_qcm',
             ];
         } else {
             return [
@@ -51,6 +54,9 @@ class BaseRealisationUaPrototypeExport implements FromCollection, WithHeadings, 
                 'date_debut' => __('PkgApprentissage::realisationUaPrototype.date_debut'),
                 'date_fin' => __('PkgApprentissage::realisationUaPrototype.date_fin'),
                 'reference' => __('Core::msg.reference'),
+                'note_qcm' => __('PkgApprentissage::realisationUaPrototype.note_qcm'),
+                    'reponseQcms' => __('PkgQcm::reponseQcm.plural'),
+                'barem_qcm' => __('PkgApprentissage::realisationUaPrototype.barem_qcm'),
             ];
         }
     }
@@ -70,6 +76,11 @@ class BaseRealisationUaPrototypeExport implements FromCollection, WithHeadings, 
                 'date_debut' => $realisationUaPrototype->date_debut,
                 'date_fin' => $realisationUaPrototype->date_fin,
                 'reference' => $realisationUaPrototype->reference,
+                'note_qcm' => $realisationUaPrototype->note_qcm,
+                'reponseQcms' => $realisationUaPrototype->reponseQcms
+                    ->pluck('reference')
+                    ->implode('|'),
+                'barem_qcm' => $realisationUaPrototype->barem_qcm,
             ];
         });
     }

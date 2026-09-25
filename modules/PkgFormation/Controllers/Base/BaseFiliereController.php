@@ -76,6 +76,7 @@ class BaseFiliereController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemFiliere = $this->filiereService->createInstance();
  
 

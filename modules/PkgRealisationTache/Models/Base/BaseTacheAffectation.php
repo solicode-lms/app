@@ -49,14 +49,14 @@ class BaseTacheAffectation extends BaseModel
         'tache_id', 'affectation_projet_id', 'pourcentage_realisation_cache', 'apprenant_live_coding_cache', 'reference'
     ];
     public $manyToOne = [
-        'Tache' => [
+        'tache' => [
             'model' => "Modules\\PkgCreationTache\\Models\\Tache",
-            'relation' => 'taches' , 
+            'relation' => 'tache' , 
             "foreign_key" => "tache_id", 
             ],
-        'AffectationProjet' => [
+        'affectationProjet' => [
             'model' => "Modules\\PkgRealisationProjets\\Models\\AffectationProjet",
-            'relation' => 'affectationProjets' , 
+            'relation' => 'affectationProjet' , 
             "foreign_key" => "affectation_projet_id", 
             ]
     ];

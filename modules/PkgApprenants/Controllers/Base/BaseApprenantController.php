@@ -12,6 +12,7 @@ use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgApprentissage\Services\RealisationCompetenceService;
 use Modules\PkgApprentissage\Services\RealisationMicroCompetenceService;
 use Modules\PkgApprentissage\Services\RealisationModuleService;
+use Modules\PkgQcm\Services\RealisationQcmService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -95,6 +96,7 @@ class BaseApprenantController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemApprenant = $this->apprenantService->createInstance();
  
 
@@ -106,9 +108,9 @@ class BaseApprenantController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', compact('bulkEdit' ,'itemApprenant', 'groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'));
+            return view('PkgApprenants::apprenant._fields', compact('bulkEdit' ,'itemApprenant', 'nationalites', 'niveauxScolaires', 'users', 'sousGroupes', 'groupes'));
         }
-        return view('PkgApprenants::apprenant.create', compact('bulkEdit' ,'itemApprenant', 'groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'));
+        return view('PkgApprenants::apprenant.create', compact('bulkEdit' ,'itemApprenant', 'nationalites', 'niveauxScolaires', 'users', 'sousGroupes', 'groupes'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -140,9 +142,9 @@ class BaseApprenantController extends AdminController
         $itemApprenant = $this->apprenantService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', compact('bulkEdit', 'apprenant_ids', 'itemApprenant', 'groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'));
+            return view('PkgApprenants::apprenant._fields', compact('bulkEdit', 'apprenant_ids', 'itemApprenant', 'nationalites', 'niveauxScolaires', 'users', 'sousGroupes', 'groupes'));
         }
-        return view('PkgApprenants::apprenant.bulk-edit', compact('bulkEdit', 'apprenant_ids', 'itemApprenant', 'groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'));
+        return view('PkgApprenants::apprenant.bulk-edit', compact('bulkEdit', 'apprenant_ids', 'itemApprenant', 'nationalites', 'niveauxScolaires', 'users', 'sousGroupes', 'groupes'));
     }
     /**
      */
@@ -211,11 +213,18 @@ class BaseApprenantController extends AdminController
         $realisationModules_view_data = $realisationModuleService->prepareDataForIndexView();
         extract($realisationModules_view_data);
 
+        $this->viewState->set('scope.realisationQcm.apprenant_id', $id);
+        
+
+        $realisationQcmService =  new RealisationQcmService();
+        $realisationQcms_view_data = $realisationQcmService->prepareDataForIndexView();
+        extract($realisationQcms_view_data);
+
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._show', array_merge(compact('itemApprenant'),$realisationProjet_compact_value, $realisationCompetence_compact_value, $realisationMicroCompetence_compact_value, $realisationModule_compact_value));
+            return view('PkgApprenants::apprenant._show', array_merge(compact('itemApprenant'),$realisationProjet_compact_value, $realisationCompetence_compact_value, $realisationMicroCompetence_compact_value, $realisationModule_compact_value, $realisationQcm_compact_value));
         }
 
-        return view('PkgApprenants::apprenant.show', array_merge(compact('itemApprenant'),$realisationProjet_compact_value, $realisationCompetence_compact_value, $realisationMicroCompetence_compact_value, $realisationModule_compact_value));
+        return view('PkgApprenants::apprenant.show', array_merge(compact('itemApprenant'),$realisationProjet_compact_value, $realisationCompetence_compact_value, $realisationMicroCompetence_compact_value, $realisationModule_compact_value, $realisationQcm_compact_value));
 
     }
     /**
@@ -256,13 +265,20 @@ class BaseApprenantController extends AdminController
         $realisationModules_view_data = $realisationModuleService->prepareDataForIndexView();
         extract($realisationModules_view_data);
 
+        $this->viewState->set('scope.realisationQcm.apprenant_id', $id);
+        
+
+        $realisationQcmService =  new RealisationQcmService();
+        $realisationQcms_view_data = $realisationQcmService->prepareDataForIndexView();
+        extract($realisationQcms_view_data);
+
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._edit', array_merge(compact('bulkEdit' , 'itemApprenant','groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'),$realisationCompetence_compact_value, $realisationMicroCompetence_compact_value, $realisationModule_compact_value));
+            return view('PkgApprenants::apprenant._edit', array_merge(compact('bulkEdit' , 'itemApprenant','nationalites', 'niveauxScolaires', 'users', 'sousGroupes', 'groupes'),$realisationCompetence_compact_value, $realisationMicroCompetence_compact_value, $realisationModule_compact_value, $realisationQcm_compact_value));
         }
 
-        return view('PkgApprenants::apprenant.edit', array_merge(compact('bulkEdit' ,'itemApprenant','groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'),$realisationCompetence_compact_value, $realisationMicroCompetence_compact_value, $realisationModule_compact_value));
+        return view('PkgApprenants::apprenant.edit', array_merge(compact('bulkEdit' ,'itemApprenant','nationalites', 'niveauxScolaires', 'users', 'sousGroupes', 'groupes'),$realisationCompetence_compact_value, $realisationMicroCompetence_compact_value, $realisationModule_compact_value, $realisationQcm_compact_value));
 
 
     }

@@ -54,24 +54,24 @@ class BaseRealisationCompetence extends BaseModel
         'competence_id', 'realisation_module_id', 'apprenant_id', 'progression_cache', 'note_cache', 'etat_realisation_competence_id', 'bareme_cache', 'bareme_non_evalue_cache', 'dernier_update', 'commentaire_formateur', 'date_debut', 'date_fin', 'reference', 'progression_ideal_cache', 'taux_rythme_cache', 'pourcentage_non_valide_cache'
     ];
     public $manyToOne = [
-        'Competence' => [
+        'competence' => [
             'model' => "Modules\\PkgCompetences\\Models\\Competence",
-            'relation' => 'competences' , 
+            'relation' => 'competence' , 
             "foreign_key" => "competence_id", 
             ],
-        'RealisationModule' => [
+        'realisationModule' => [
             'model' => "Modules\\PkgApprentissage\\Models\\RealisationModule",
-            'relation' => 'realisationModules' , 
+            'relation' => 'realisationModule' , 
             "foreign_key" => "realisation_module_id", 
             ],
-        'Apprenant' => [
+        'apprenant' => [
             'model' => "Modules\\PkgApprenants\\Models\\Apprenant",
-            'relation' => 'apprenants' , 
+            'relation' => 'apprenant' , 
             "foreign_key" => "apprenant_id", 
             ],
-        'EtatRealisationCompetence' => [
+        'etatRealisationCompetence' => [
             'model' => "Modules\\PkgApprentissage\\Models\\EtatRealisationCompetence",
-            'relation' => 'etatRealisationCompetences' , 
+            'relation' => 'etatRealisationCompetence' , 
             "foreign_key" => "etat_realisation_competence_id", 
             ]
     ];

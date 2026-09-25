@@ -74,6 +74,7 @@ class BaseNatureLivrableController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemNatureLivrable = $this->natureLivrableService->createInstance();
  
 

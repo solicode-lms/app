@@ -47,9 +47,9 @@ class BaseFeatureDomain extends BaseModel
         'name', 'slug', 'description', 'sys_module_id', 'reference'
     ];
     public $manyToOne = [
-        'SysModule' => [
+        'sysModule' => [
             'model' => "Modules\\Core\\Models\\SysModule",
-            'relation' => 'sysModules' , 
+            'relation' => 'sysModule' , 
             "foreign_key" => "sys_module_id", 
             ]
     ];

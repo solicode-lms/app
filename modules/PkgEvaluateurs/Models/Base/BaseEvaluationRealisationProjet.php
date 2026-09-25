@@ -72,19 +72,19 @@ class BaseEvaluationRealisationProjet extends BaseModel
         'realisation_projet_id', 'evaluateur_id', 'date_evaluation', 'etat_evaluation_projet_id', 'remarques', 'reference'
     ];
     public $manyToOne = [
-        'RealisationProjet' => [
+        'realisationProjet' => [
             'model' => "Modules\\PkgRealisationProjets\\Models\\RealisationProjet",
-            'relation' => 'realisationProjets' , 
+            'relation' => 'realisationProjet' , 
             "foreign_key" => "realisation_projet_id", 
             ],
-        'Evaluateur' => [
+        'evaluateur' => [
             'model' => "Modules\\PkgEvaluateurs\\Models\\Evaluateur",
-            'relation' => 'evaluateurs' , 
+            'relation' => 'evaluateur' , 
             "foreign_key" => "evaluateur_id", 
             ],
-        'EtatEvaluationProjet' => [
+        'etatEvaluationProjet' => [
             'model' => "Modules\\PkgEvaluateurs\\Models\\EtatEvaluationProjet",
-            'relation' => 'etatEvaluationProjets' , 
+            'relation' => 'etatEvaluationProjet' , 
             "foreign_key" => "etat_evaluation_projet_id", 
             ]
     ];

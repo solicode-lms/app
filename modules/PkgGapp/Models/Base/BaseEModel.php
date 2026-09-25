@@ -55,9 +55,9 @@ class BaseEModel extends BaseModel
         'reference', 'name', 'table_name', 'icon', 'is_pivot_table', 'description', 'e_package_id'
     ];
     public $manyToOne = [
-        'EPackage' => [
+        'ePackage' => [
             'model' => "Modules\\PkgGapp\\Models\\EPackage",
-            'relation' => 'ePackages' , 
+            'relation' => 'ePackage' , 
             "foreign_key" => "e_package_id", 
             ]
     ];

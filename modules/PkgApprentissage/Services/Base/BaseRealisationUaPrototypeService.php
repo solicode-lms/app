@@ -32,7 +32,9 @@ class BaseRealisationUaPrototypeService extends BaseService
         'remarque_formateur',
         'date_debut',
         'date_fin',
-        'reference'
+        'reference',
+        'note_qcm',
+        'barem_qcm'
     ];
 
 

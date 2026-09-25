@@ -127,6 +127,21 @@
                   @endif                </div>
             </div>
             @if(
+                  (auth()->user()?->can('show-affectationQcmProjet') && $itemAffectationProjet->affectationQcmProjets->isNotEmpty())  
+                  || auth()->user()?->can('create-affectationQcmProjet')
+                  || (auth()->user()?->can('edit-affectationQcmProjet')  && $itemAffectationProjet->affectationQcmProjets->isNotEmpty() )
+                  )
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgQcm::affectationQcmProjet.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgQcm::affectationQcmProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'affectationProjet.show_' . $itemAffectationProjet->id])
+                  </div>
+                  </div>
+            </div>
+            @endif
+
+            @if(
                   (auth()->user()?->can('show-tacheAffectation') && $itemAffectationProjet->tacheAffectations->isNotEmpty())  
                   || auth()->user()?->can('create-tacheAffectation')
                   || (auth()->user()?->can('edit-tacheAffectation')  && $itemAffectationProjet->tacheAffectations->isNotEmpty() )

@@ -48,14 +48,14 @@ class BaseCritereEvaluation extends BaseModel
         'ordre', 'reference', 'intitule', 'bareme', 'phase_evaluation_id', 'unite_apprentissage_id'
     ];
     public $manyToOne = [
-        'PhaseEvaluation' => [
+        'phaseEvaluation' => [
             'model' => "Modules\\PkgCompetences\\Models\\PhaseEvaluation",
-            'relation' => 'phaseEvaluations' , 
+            'relation' => 'phaseEvaluation' , 
             "foreign_key" => "phase_evaluation_id", 
             ],
-        'UniteApprentissage' => [
+        'uniteApprentissage' => [
             'model' => "Modules\\PkgCompetences\\Models\\UniteApprentissage",
-            'relation' => 'uniteApprentissages' , 
+            'relation' => 'uniteApprentissage' , 
             "foreign_key" => "unite_apprentissage_id", 
             ]
     ];

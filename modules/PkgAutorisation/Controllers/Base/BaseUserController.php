@@ -83,6 +83,7 @@ class BaseUserController extends AdminController
     public function create() {
 
 
+        // scopeDataByRole
         $itemUser = $this->userService->createInstance();
  
 
