@@ -29,6 +29,8 @@ class RealisationTacheService extends BaseRealisationTacheService
         RealisationTacheMassCrudTrait;
 
 
+    
+    protected $paginationLimit = 25;
     protected array $index_with_relations = [
         'tache',
         'realisationChapitres',
