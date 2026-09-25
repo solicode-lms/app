@@ -173,32 +173,42 @@ export class FormUI  {
     /**
      * Modifie le style des pieds de formulaire (footers).
      */
-        handleCardFooter() {
-        // on cible à la fois le formulaire et l'affichage show
-        const contexts = `${this.formSelector}`;
+    handleCardFooter() {
+        // En cas d'erreur HTML (ex: </div> en trop), le footer peut se retrouver exclu de la balise <form> (devient son sibling).
+        // On cible donc le parent direct du formulaire pour rechercher le footer, qu'il soit à l'intérieur ou à l'extérieur du form.
+        const parentContainer = $(this.formSelector).parent();
 
         // on trouve les footers et on bascule la classe
-        $(contexts)
-            .find('.card-footer')
+        parentContainer.find('.card-footer')
             .removeClass('card-footer')
             .addClass('modal-footer');
 
         // on enlève simplement la classe card-body
-        $(contexts)
-            .find('.card-body')
+        parentContainer.find('.card-body')
             .removeClass('card-body');
-        }
-   /**
+    }
+
+    /**
      * Attache un gestionnaire d'événements pour la soumission du formulaire.
      * @param {Function} submitHandler - Fonction personnalisée pour gérer la soumission.
      */
-   handleFormSubmission(submitHandler) {
-    $(document).off('submit', this.formSelector); // Supprime tout gestionnaire précédent pour éviter les doublons
-    EventUtil.bindEvent('submit', this.formSelector, (e) => {
-        e.preventDefault(); // Empêche le rechargement de la page
-        submitHandler(); // Appelle la fonction de soumission passée
-    });
-}
+    handleFormSubmission(submitHandler) {
+        $(document).off('submit', this.formSelector); // Supprime tout gestionnaire précédent pour éviter les doublons
+        EventUtil.bindEvent('submit', this.formSelector, (e) => {
+            e.preventDefault(); // Empêche le rechargement de la page
+            submitHandler(); // Appelle la fonction de soumission passée
+        });
+
+        // Fallback: Si le footer a été exclu du formulaire par le navigateur à cause d'un HTML cassé,
+        // le bouton submit ne déclenchera pas l'événement "submit" du form. On l'intercepte via le clic.
+        // Le sélecteur "~" garantit qu'on cible uniquement un bouton dans un footer qui est frère du form.
+        const fallbackButtonSelector = `${this.formSelector} ~ .modal-footer button[type="submit"], ${this.formSelector} ~ .card-footer button[type="submit"]`;
+        $(document).off('click', fallbackButtonSelector);
+        $(document).on('click', fallbackButtonSelector, (e) => {
+            e.preventDefault();
+            submitHandler();
+        });
+    }
 
     /**
      * Configure le formulaire pour le mode lecture seule.
