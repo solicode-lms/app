@@ -19,7 +19,7 @@
 
 <section class="content">
     <!-- Panneau de Configuration du Prompt (Sticky) -->
-    <div class="card shadow-sm mb-4" style="position: sticky; top: 0; z-index: 1020; border-top: 3px solid #17a2b8; border-bottom: 1px solid #17a2b8;">
+    <div class="card shadow-sm mb-2" style="position: sticky; top: 0; z-index: 1020; border-top: 3px solid #17a2b8; border-bottom: 1px solid #17a2b8;">
         <div class="card-body py-2 px-3 bg-white">
             <div class="row align-items-end">
                 <!-- Nombre de questions -->
@@ -70,7 +70,7 @@
     <div class="container-fluid" id="accordion-uas">
         @if($uas && $uas->count() > 0)
             @foreach($uas as $index => $ua)
-            <div class="card card-outline card-primary shadow-sm mb-4">
+            <div class="card card-outline card-primary shadow-sm mb-2">
                 <div class="card-header">
                     <h3 class="card-title w-100">
                         <a class="d-flex w-100 text-dark align-items-center" data-toggle="collapse" href="#collapse-ua-{{ $ua->id }}">
@@ -87,26 +87,26 @@
                     </h3>
                 </div>
                 <div id="collapse-ua-{{ $ua->id }}" class="collapse {{ $index === 0 ? 'show' : '' }}" data-parent="#accordion-uas">
-                    <div class="card-body">
+                    <div class="card-body p-2">
                         <!-- Contexte Visuel -->
-                        <div class="mb-4 p-3 bg-light rounded border-left border-primary" style="border-width: 4px !important;">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <h5 class="text-info font-weight-bold m-0"><i class="fas fa-info-circle"></i> Chapitres de l'Unité</h5>
+                        <div class="mb-2 p-2 bg-light rounded border-left border-primary" style="border-width: 3px !important;">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <h6 class="text-info font-weight-bold m-0"><i class="fas fa-info-circle"></i> Chapitres de l'Unité</h6>
                                 
                                 <!-- Lien vers la gestion des questions -->
                                 <div>
-                                    <a href="{{ route('questions.index', ['unite_apprentissage_id' => $ua->id, 'qcm_id' => $affectation->qcm_id, 'showIndex' => 1]) }}" class="btn btn-sm btn-outline-info font-weight-bold showIndex">
-                                        <i class="fas fa-external-link-square-alt"></i> Gérer les questions
+                                    <a href="{{ route('questions.index', ['unite_apprentissage_id' => $ua->id, 'qcm_id' => $affectation->qcm_id, 'showIndex' => 1]) }}" class="btn btn-xs btn-outline-info font-weight-bold showIndex">
+                                        <i class="fas fa-external-link-square-alt"></i> Gérer
                                     </a>
                                 </div>
                             </div>
-                            <ul class="list-unstyled mb-0">
+                            <ul class="list-unstyled mb-0" style="font-size: 0.85rem;">
                                 @foreach($ua->chapitres as $chapitre)
-                                    <li class="mb-1">
+                                    <li class="mb-0">
                                         <i class="fas fa-angle-right text-muted"></i> <strong>{{ $chapitre->nom }}</strong> : 
                                         <span class="text-secondary">{{ $chapitre->description ?? 'Aucune description' }}</span>
                                         @if($chapitre->lien)
-                                            <a href="{{ $chapitre->lien }}" target="_blank" class="badge badge-info ml-2" title="Tutoriel / Lien de cours">
+                                            <a href="{{ $chapitre->lien }}" target="_blank" class="badge badge-info ml-1" title="Tutoriel / Lien de cours">
                                                 <i class="fas fa-external-link-alt"></i> Tuto
                                             </a>
                                         @endif
@@ -118,15 +118,14 @@
                         <div class="row">
                             <!-- Étape 1 : Le Prompt -->
                             <div class="col-md-6 border-right">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h5 class="text-primary m-0 font-weight-bold"><i class="fas fa-copy"></i> 1. Copier le Prompt</h5>
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <h6 class="text-primary m-0 font-weight-bold"><i class="fas fa-copy"></i> 1. Copier le Prompt</h6>
                                     <div>
-                                        <button type="button" onclick="openIA('chatgpt', '{{ $ua->id }}')" class="btn btn-sm btn-light border text-muted px-2 py-1"><i class="fas fa-robot text-success"></i> ChatGPT</button>
-                                        <button type="button" onclick="openIA('claude', '{{ $ua->id }}')" class="btn btn-sm btn-light border text-muted px-2 py-1"><i class="fas fa-brain text-warning"></i> Claude</button>
-                                        <button type="button" onclick="openIA('gemini', '{{ $ua->id }}')" class="btn btn-sm btn-light border text-muted px-2 py-1"><i class="fas fa-magic text-primary"></i> Gemini</button>
+                                        <button type="button" onclick="openIA('chatgpt', '{{ $ua->id }}')" class="btn btn-xs btn-light border text-muted px-1 py-0"><i class="fas fa-robot text-success"></i> ChatGPT</button>
+                                        <button type="button" onclick="openIA('claude', '{{ $ua->id }}')" class="btn btn-xs btn-light border text-muted px-1 py-0"><i class="fas fa-brain text-warning"></i> Claude</button>
+                                        <button type="button" onclick="openIA('gemini', '{{ $ua->id }}')" class="btn btn-xs btn-light border text-muted px-1 py-0"><i class="fas fa-magic text-primary"></i> Gemini</button>
                                     </div>
                                 </div>
-                                <p class="text-muted small">Cliquez sur un outil pour ouvrir la discussion (le prompt sera envoyé ou copié automatiquement).</p>
                                 <div class="position-relative mb-2">
                                     <div id="template-prompt-{{ $ua->id }}" class="d-none"># 🧠 **Prompt — Génération de QCM JSON**
 
@@ -165,29 +164,28 @@ Génère __COUNT__ questions.
 @endif
 @endif
 @endforeach</div>
-                                    <textarea id="prompt-content-{{ $ua->id }}" class="form-control bg-dark text-white p-3" style="font-family: monospace; font-size: 0.85rem; height: 300px; resize: none;"></textarea>
+                                    <textarea id="prompt-content-{{ $ua->id }}" class="form-control bg-dark text-white p-2" style="font-family: monospace; font-size: 0.75rem; height: 180px; resize: none;"></textarea>
                                 </div>
-                                <button class="btn btn-outline-primary btn-sm btn-block font-weight-bold" onclick="copyPrompt('prompt-content-{{ $ua->id }}')">
-                                    <i class="fas fa-copy"></i> Copier le prompt
+                                <button class="btn btn-outline-primary btn-sm btn-block font-weight-bold py-1" onclick="copyPrompt('prompt-content-{{ $ua->id }}')">
+                                    <i class="fas fa-copy"></i> Copier
                                 </button>
                             </div>
                             
                             <!-- Étape 2 : L'Import -->
                             <div class="col-md-6">
-                                <h5 class="text-success mb-3 font-weight-bold"><i class="fas fa-file-import"></i> 2. Importer les Questions</h5>
-                                <p class="text-muted small">Collez ici le code JSON renvoyé par l'IA.</p>
+                                <h6 class="text-success mb-1 font-weight-bold"><i class="fas fa-file-import"></i> 2. Importer les Questions (JSON)</h6>
                                 <form id="form-import-{{ $ua->id }}" onsubmit="submitJsonAjax(event, '{{ $ua->id }}', '{{ route('affectationQcmProjets.importIaProcess', ['id' => $affectation->id]) }}')">
                                     @csrf
                                     <div class="form-group mb-2">
-                                        <div id="json-editor-{{ $ua->id }}" style="height: 300px; border: 1px solid #ced4da; border-radius: 4px;"></div>
+                                        <div id="json-editor-{{ $ua->id }}" style="height: 180px; border: 1px solid #ced4da; border-radius: 4px;"></div>
                                         <input type="hidden" name="json_payload" id="hidden_json_{{ $ua->id }}">
                                     </div>
-                                    <div id="feedback-{{ $ua->id }}" class="mb-2"></div>
-                                    <button type="submit" id="btn-submit-{{ $ua->id }}" class="btn btn-success btn-sm btn-block font-weight-bold">
-                                        <i class="fas fa-save"></i> Enregistrer les Questions
+                                    <div id="feedback-{{ $ua->id }}" class="mb-1"></div>
+                                    <button type="submit" id="btn-submit-{{ $ua->id }}" class="btn btn-success btn-sm btn-block font-weight-bold py-1">
+                                        <i class="fas fa-save"></i> Enregistrer
                                     </button>
-                                    <button type="button" id="btn-view-{{ $ua->id }}" class="btn btn-info btn-sm btn-block d-none font-weight-bold" onclick="showQuestionsModal('{{ $ua->id }}')">
-                                        <i class="fas fa-eye"></i> Voir les questions ajoutées
+                                    <button type="button" id="btn-view-{{ $ua->id }}" class="btn btn-info btn-sm btn-block d-none font-weight-bold py-1" onclick="showQuestionsModal('{{ $ua->id }}')">
+                                        <i class="fas fa-eye"></i> Voir les questions
                                     </button>
                                 </form>
                             </div>
@@ -197,16 +195,16 @@ Génère __COUNT__ questions.
             </div>
             @endforeach
         @else
-            <div class="alert alert-warning">
+            <div class="alert alert-warning py-2 mb-2">
                 Aucune Unité d'Apprentissage n'a été trouvée pour le projet rattaché à ce QCM.
             </div>
         @endif
     </div>
     
     <!-- Bouton de fin de page -->
-    <div class="text-center mt-5 mb-5">
-        <a href="{{ route('qcms.edit', ['qcm' => $affectation->qcm_id]) }}" class="btn btn-lg btn-primary shadow rounded-pill px-5">
-            <i class="fas fa-check-circle"></i> Terminer et retourner à la gestion des Questions
+    <div class="text-center mt-3 mb-4">
+        <a href="{{ route('qcms.edit', ['qcm' => $affectation->qcm_id]) }}" class="btn btn-primary shadow rounded-pill px-4 py-1">
+            <i class="fas fa-check-circle"></i> Terminer
         </a>
     </div>
 </section>
