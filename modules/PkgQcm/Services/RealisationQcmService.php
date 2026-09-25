@@ -113,7 +113,7 @@ class RealisationQcmService extends BaseRealisationQcmService
         }
     }
 
-    public function afterUpdateRules($item, array $data)
+    public function afterUpdateRules($item)
     {
         // 1. Vérifier si l'état est "VALIDE"
         $etatValide = EtatRealisationQcm::where('reference', 'VALIDE')->first();

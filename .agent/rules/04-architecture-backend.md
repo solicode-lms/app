@@ -23,8 +23,8 @@ Les méthodes standard (`create`, `update`) du `BaseService` appellent des hooks
 | :------------------ | :------------------- | :------------------------------------------------------------------------------- |
 | `beforeCreateRules` | `array &$data`       | Validation métier, valeurs par défaut. `&$data` (référence) permet modification. |
 | `afterCreateRules`  | `$item`              | Création enfants, notifications, jobs asynchrones.                               |
-| `beforeUpdateRules` | `$item, array $data` | Règles de transition d'état, check permissions métier.                           |
-| `afterUpdateRules`  | `$item, array $data` | Logs, cascades.                                                                  |
+| `beforeUpdateRules` | `array &$data, $id`  | Règles de transition d'état, check permissions métier.                           |
+| `afterUpdateRules`  | `$item, $id`         | Logs, cascades.                                                                  |
 
 ## 4. Conventions de Nommage
 - **Classes/Services** : Français (Langue Client) -> `ProjetService`, `ApprenantService`.

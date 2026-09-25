@@ -85,7 +85,7 @@ abstract class BaseService implements ServiceInterface
     public $modelName;
 
     public $moduleName;
-    protected $paginationLimit = 20;
+    protected $paginationLimit = 25;
 
     
     protected $totalFilteredCount;
