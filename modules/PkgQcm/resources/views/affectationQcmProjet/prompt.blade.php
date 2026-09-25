@@ -102,7 +102,15 @@
                             </div>
                             <ul class="list-unstyled mb-0">
                                 @foreach($ua->chapitres as $chapitre)
-                                    <li class="mb-1"><i class="fas fa-angle-right text-muted"></i> <strong>{{ $chapitre->nom }}</strong> : <span class="text-secondary">{{ $chapitre->description ?? 'Aucune description' }}</span></li>
+                                    <li class="mb-1">
+                                        <i class="fas fa-angle-right text-muted"></i> <strong>{{ $chapitre->nom }}</strong> : 
+                                        <span class="text-secondary">{{ $chapitre->description ?? 'Aucune description' }}</span>
+                                        @if($chapitre->lien)
+                                            <a href="{{ $chapitre->lien }}" target="_blank" class="badge badge-info ml-2" title="Tutoriel / Lien de cours">
+                                                <i class="fas fa-external-link-alt"></i> Tuto
+                                            </a>
+                                        @endif
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -110,8 +118,15 @@
                         <div class="row">
                             <!-- Étape 1 : Le Prompt -->
                             <div class="col-md-6 border-right">
-                                <h5 class="text-primary mb-3 font-weight-bold"><i class="fas fa-copy"></i> 1. Copier le Prompt</h5>
-                                <p class="text-muted small">Vous pouvez modifier ce texte avant de le copier dans votre IA (ex: ChatGPT).</p>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="text-primary m-0 font-weight-bold"><i class="fas fa-copy"></i> 1. Copier le Prompt</h5>
+                                    <div>
+                                        <button type="button" onclick="openIA('chatgpt', '{{ $ua->id }}')" class="btn btn-sm btn-light border text-muted px-2 py-1"><i class="fas fa-robot text-success"></i> ChatGPT</button>
+                                        <button type="button" onclick="openIA('claude', '{{ $ua->id }}')" class="btn btn-sm btn-light border text-muted px-2 py-1"><i class="fas fa-brain text-warning"></i> Claude</button>
+                                        <button type="button" onclick="openIA('gemini', '{{ $ua->id }}')" class="btn btn-sm btn-light border text-muted px-2 py-1"><i class="fas fa-magic text-primary"></i> Gemini</button>
+                                    </div>
+                                </div>
+                                <p class="text-muted small">Cliquez sur un outil pour ouvrir la discussion (le prompt sera envoyé ou copié automatiquement).</p>
                                 <div class="position-relative mb-2">
                                     <div id="template-prompt-{{ $ua->id }}" class="d-none"># 🧠 **Prompt — Génération de QCM JSON**
 
@@ -120,7 +135,7 @@ Génère un **QCM** au **format JSON** strict, sans texte avant ou après.
 Sujets à évaluer :
 - **Unité d'Apprentissage** : {{ $ua->nom ?? 'Inconnue' }}
 @foreach($ua->chapitres as $chapitre)
-- {{ $chapitre->nom }} : {{ $chapitre->description ?? '' }}
+- {{ $chapitre->nom }} : {{ $chapitre->description ?? '' }} @if($chapitre->lien) (Source / Cours : {{ $chapitre->lien }}) @endif
 @endforeach
 
 Format attendu :
@@ -249,6 +264,38 @@ Génère __COUNT__ questions.</div>
                 alert('Prompt copié avec succès !');
             }
         });
+    }
+
+    window.openIA = function(provider, uaId) {
+        const promptText = document.getElementById('prompt-content-' + uaId).value;
+        
+        let url = "";
+        if (provider === 'chatgpt') {
+            url = "https://chatgpt.com/?q=" + encodeURIComponent(promptText);
+        } else if (provider === 'claude') {
+            url = "https://claude.ai/new?q=" + encodeURIComponent(promptText);
+        } else if (provider === 'gemini') {
+            url = "https://gemini.google.com/";
+        }
+        
+        // Copie synchrone pour garantir que le texte est copié AVANT de perdre le focus (nouvel onglet)
+        const tempTextArea = document.createElement("textarea");
+        tempTextArea.value = promptText;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        try {
+            document.execCommand('copy');
+            if (provider === 'gemini' && typeof Swal !== 'undefined') {
+                Swal.fire({ icon: 'info', title: 'Copié !', text: 'Le prompt a été copié, vous n\'avez plus qu\'à le coller dans Gemini (Ctrl+V) !', timer: 4000 });
+            }
+        } catch (err) {
+            console.error("Erreur de copie dans le presse-papier :", err);
+        }
+        document.body.removeChild(tempTextArea);
+        
+        if (url) {
+            window.open(url, '_blank');
+        }
     }
 
     // Soumission AJAX
