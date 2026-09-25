@@ -49,7 +49,7 @@ class AffectationQcmProjetService extends BaseAffectationQcmProjetService
     {
         if (!filter_var($url, FILTER_VALIDATE_URL)) return "";
         
-        return \Illuminate\Support\Facades\Cache::remember('tuto_scrape_' . md5($url), 86400, function () use ($url) {
+        return \Illuminate\Support\Facades\Cache::remember('tuto_scrape_v3_' . md5($url), 86400, function () use ($url) {
             try {
                 $response = \Illuminate\Support\Facades\Http::timeout(5)->get($url);
                 if (!$response->successful()) return "";
@@ -61,6 +61,14 @@ class AffectationQcmProjetService extends BaseAffectationQcmProjetService
                 libxml_clear_errors();
                 
                 $xpath = new \DOMXPath($dom);
+                
+                // 1. Supprimer les éléments indésirables du DOM (ex: le menu)
+                $menus = $xpath->query('//*[contains(concat(" ", normalize-space(@class), " "), " tuto-domain-menu ")]');
+                foreach ($menus as $menu) {
+                    $menu->parentNode->removeChild($menu);
+                }
+
+                // 2. Extraire le contenu de la page
                 $nodes = $xpath->query('//*[contains(concat(" ", normalize-space(@class), " "), " tuto-page ") or contains(concat(" ", normalize-space(@class), " "), " layout-page ")]');
                 
                 if ($nodes->length > 0) {
@@ -68,7 +76,16 @@ class AffectationQcmProjetService extends BaseAffectationQcmProjetService
                     foreach ($nodes as $node) {
                         $text .= $node->textContent . "\n";
                     }
-                    return trim(preg_replace('/\s+/', ' ', $text));
+                    
+                    // Nettoyage des espaces multiples
+                    $text = preg_replace('/\s+/', ' ', $text);
+                    
+                    // Exclure la partie "Tutoriels du même domaine" et ce qui suit au cas où
+                    if (strpos($text, 'Tutoriels du même domaine') !== false) {
+                        $text = explode('Tutoriels du même domaine', $text)[0];
+                    }
+                    
+                    return trim($text);
                 }
             } catch (\Exception $e) {}
             

@@ -135,15 +135,7 @@ Génère un **QCM** au **format JSON** strict, sans texte avant ou après.
 Sujets à évaluer :
 - **Unité d'Apprentissage** : {{ $ua->nom ?? 'Inconnue' }}
 @foreach($ua->chapitres as $chapitre)
-- {{ $chapitre->nom }} : {{ $chapitre->description ?? '' }} 
-@if($chapitre->lien)
-@php $tutoContent = $tutosContent[$chapitre->id] ?? null; @endphp
-@if($tutoContent)
-  [Contenu du cours à utiliser] : {{ \Illuminate\Support\Str::limit($tutoContent, 3000) }}
-@else
-  (Source / Cours : {{ $chapitre->lien }})
-@endif
-@endif
+- {{ $chapitre->nom }} : {{ $chapitre->description ?? '' }}
 @endforeach
 
 Format attendu :
@@ -159,7 +151,20 @@ Règles obligatoires :
 7. Niveau de langue : __LEVEL__
 8. Difficulté et Détail : __DIFF__
 
-Génère __COUNT__ questions.</div>
+Génère __COUNT__ questions.
+
+---
+📄 **Contenu de référence pour la génération des questions :**
+@foreach($ua->chapitres as $chapitre)
+@if($chapitre->lien)
+@php $tutoContent = $tutosContent[$chapitre->id] ?? null; @endphp
+@if($tutoContent)
+
+📍 **Chapitre : {{ $chapitre->nom }}**
+{{ \Illuminate\Support\Str::limit($tutoContent, 3000) }}
+@endif
+@endif
+@endforeach</div>
                                     <textarea id="prompt-content-{{ $ua->id }}" class="form-control bg-dark text-white p-3" style="font-family: monospace; font-size: 0.85rem; height: 300px; resize: none;"></textarea>
                                 </div>
                                 <button class="btn btn-outline-primary btn-sm btn-block font-weight-bold" onclick="copyPrompt('prompt-content-{{ $ua->id }}')">
