@@ -728,5 +728,85 @@
         "value_float": 0,
         "e_data_field_reference": "RealisationQcm_date_debut",
         "e_metadata_definition_reference": "readOnly"
+    },
+    {
+        "reference": "RealisationQcm_date_debut_editableByRoles",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "RealisationQcm_date_debut",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationQcm_apprenant_id_editableByRoles",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "RealisationQcm_apprenant_id",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationQcm_date_fin_editableByRoles",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "RealisationQcm_date_fin",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationQcm_date_soumission_editableByRoles",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "RealisationQcm_date_soumission",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationQcm_date_validation_editableByRoles",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "RealisationQcm_date_validation",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationQcm_note_obtenu_editableByRoles",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "RealisationQcm_note_obtenu",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationQcm_qcm_id_editableByRoles",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "RealisationQcm_qcm_id",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationQcm_affectation_qcm_projet_id_editableByRoles",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "RealisationQcm_affectation_qcm_projet_id",
+        "e_metadata_definition_reference": "editableByRoles"
     }
 ]

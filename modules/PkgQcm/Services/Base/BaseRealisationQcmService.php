@@ -43,6 +43,14 @@ class BaseRealisationQcmService extends BaseService
     public function editableFieldsByRoles(): array
     {
         return [
+          'affectation_qcm_projet_id' => ['admin'],
+          'qcm_id' => ['admin'],
+          'apprenant_id' => ['admin'],
+          'date_debut' => ['admin'],
+          'date_fin' => ['admin'],
+          'date_soumission' => ['admin'],
+          'date_validation' => ['admin'],
+          'note_obtenu' => ['admin']
         
         ];
     }

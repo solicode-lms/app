@@ -31,11 +31,13 @@
     
     <div class="row">
         <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationQcm" field="affectation_qcm_projet_id" :bulkEdit="$bulkEdit">
+      @php $canEditaffectation_qcm_projet_id = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'admin')) : (empty($itemRealisationQcm->id) || Auth::user()->hasAnyRole(explode(',', 'admin')) ); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input 
+                {{ $canEditaffectation_qcm_projet_id ? '' : 'disabled' }}
               type="checkbox" 
               class="check-input" 
               name="fields_modifiables[]" 
@@ -50,6 +52,7 @@
           </label>
                       <select 
             id="affectation_qcm_projet_id" 
+            {{ $canEditaffectation_qcm_projet_id ? '' : 'disabled' }}
             
             
             
@@ -71,11 +74,13 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationQcm" field="qcm_id" :bulkEdit="$bulkEdit">
+      @php $canEditqcm_id = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'admin')) : (empty($itemRealisationQcm->id) || Auth::user()->hasAnyRole(explode(',', 'admin')) ); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input 
+                {{ $canEditqcm_id ? '' : 'disabled' }}
               type="checkbox" 
               class="check-input" 
               name="fields_modifiables[]" 
@@ -90,6 +95,7 @@
           </label>
                       <select 
             id="qcm_id" 
+            {{ $canEditqcm_id ? '' : 'disabled' }}
             
             
             
@@ -111,11 +117,13 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationQcm" field="apprenant_id" :bulkEdit="$bulkEdit">
+      @php $canEditapprenant_id = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'admin')) : (empty($itemRealisationQcm->id) || Auth::user()->hasAnyRole(explode(',', 'admin')) ); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input 
+                {{ $canEditapprenant_id ? '' : 'disabled' }}
               type="checkbox" 
               class="check-input" 
               name="fields_modifiables[]" 
@@ -130,6 +138,7 @@
           </label>
                       <select 
             id="apprenant_id" 
+            {{ $canEditapprenant_id ? '' : 'disabled' }}
             required
             
             
@@ -191,11 +200,13 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationQcm" field="date_debut" :bulkEdit="$bulkEdit">
+      @php $canEditdate_debut = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'admin')) : (empty($itemRealisationQcm->id) || Auth::user()->hasAnyRole(explode(',', 'admin')) ); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input 
+                {{ $canEditdate_debut ? '' : 'disabled' }}
               type="checkbox" 
               class="check-input" 
               name="fields_modifiables[]" 
@@ -216,6 +227,7 @@
                 
                 
                 id="date_debut"
+                {{ $canEditdate_debut ? '' : 'disabled' }}
                 placeholder="{{ __('PkgQcm::realisationQcm.date_debut') }}"
                 value="{{ $itemRealisationQcm ? $itemRealisationQcm->date_debut : old('date_debut') }}">
 
@@ -227,11 +239,13 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationQcm" field="date_fin" :bulkEdit="$bulkEdit">
+      @php $canEditdate_fin = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'admin')) : (empty($itemRealisationQcm->id) || Auth::user()->hasAnyRole(explode(',', 'admin')) ); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input 
+                {{ $canEditdate_fin ? '' : 'disabled' }}
               type="checkbox" 
               class="check-input" 
               name="fields_modifiables[]" 
@@ -252,6 +266,7 @@
                 
                 
                 id="date_fin"
+                {{ $canEditdate_fin ? '' : 'disabled' }}
                 placeholder="{{ __('PkgQcm::realisationQcm.date_fin') }}"
                 value="{{ $itemRealisationQcm ? $itemRealisationQcm->date_fin : old('date_fin') }}">
 
@@ -263,11 +278,13 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationQcm" field="date_soumission" :bulkEdit="$bulkEdit">
+      @php $canEditdate_soumission = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'admin')) : (empty($itemRealisationQcm->id) || Auth::user()->hasAnyRole(explode(',', 'admin')) ); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input 
+                {{ $canEditdate_soumission ? '' : 'disabled' }}
               type="checkbox" 
               class="check-input" 
               name="fields_modifiables[]" 
@@ -288,6 +305,7 @@
                 
                 
                 id="date_soumission"
+                {{ $canEditdate_soumission ? '' : 'disabled' }}
                 placeholder="{{ __('PkgQcm::realisationQcm.date_soumission') }}"
                 value="{{ $itemRealisationQcm ? $itemRealisationQcm->date_soumission : old('date_soumission') }}">
 
@@ -299,11 +317,13 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationQcm" field="date_validation" :bulkEdit="$bulkEdit">
+      @php $canEditdate_validation = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'admin')) : (empty($itemRealisationQcm->id) || Auth::user()->hasAnyRole(explode(',', 'admin')) ); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input 
+                {{ $canEditdate_validation ? '' : 'disabled' }}
               type="checkbox" 
               class="check-input" 
               name="fields_modifiables[]" 
@@ -324,6 +344,7 @@
                 
                 
                 id="date_validation"
+                {{ $canEditdate_validation ? '' : 'disabled' }}
                 placeholder="{{ __('PkgQcm::realisationQcm.date_validation') }}"
                 value="{{ $itemRealisationQcm ? $itemRealisationQcm->date_validation : old('date_validation') }}">
 
@@ -335,11 +356,13 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationQcm" field="note_obtenu" :bulkEdit="$bulkEdit">
+      @php $canEditnote_obtenu = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'admin')) : (empty($itemRealisationQcm->id) || Auth::user()->hasAnyRole(explode(',', 'admin')) ); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input 
+                {{ $canEditnote_obtenu ? '' : 'disabled' }}
               type="checkbox" 
               class="check-input" 
               name="fields_modifiables[]" 
@@ -360,6 +383,7 @@
         
         
         id="note_obtenu"
+        {{ $canEditnote_obtenu ? '' : 'disabled' }}
         step="0.01"
         placeholder="{{ __('PkgQcm::realisationQcm.note_obtenu') }}"
         value="{{ $itemRealisationQcm ? number_format($itemRealisationQcm->note_obtenu, 2, '.', '') : old('note_obtenu') }}">
