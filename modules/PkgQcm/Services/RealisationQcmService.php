@@ -39,17 +39,22 @@ class RealisationQcmService extends BaseRealisationQcmService
             $dataToUpdate['etat_realisation_qcm_id'] = $etatAFaire->id;
         }
 
-        $value = $this->update($realisationQcm->id, $dataToUpdate);
+        // Utilisation de withoutEvents pour éviter de déclencher l'Observer.
+        // L'évaluation (remise à zéro) est gérée explicitement juste en dessous.
+        \Modules\PkgQcm\Models\RealisationQcm::withoutEvents(function () use ($realisationQcm, $dataToUpdate) {
+            $realisationQcm->update($dataToUpdate);
+        });
+        $value = $realisationQcm;
         
         // Mettre à jour (effacer) les notes du prototype
         $realisationQcm->refresh();
-        $this->evaluerQcm($realisationQcm);
+        $this->evaluerUaPrototypes($realisationQcm);
         
         $this->pushServiceMessage("success", "Initialisation réussie", "Le QCM a été réinitialisé avec succès et peut être repassé.");
         return $value;
     }
 
-    public function evaluerQcm($item)
+    public function evaluerUaPrototypes($item, $jobManager = null)
     {
         $affectationQcmProjet = $item->affectationQcmProjet;
         if (!$affectationQcmProjet) return;
@@ -76,10 +81,20 @@ class RealisationQcmService extends BaseRealisationQcmService
         $isValideOrSoumis = (($etatValide && $item->etat_realisation_qcm_id == $etatValide->id) || 
                              ($etatSoumis && $item->etat_realisation_qcm_id == $etatSoumis->id));
 
+        if ($jobManager) {
+            $jobManager->initProgress(count($realisationUaPrototypes) + 1);
+        }
+
         foreach($realisationUaPrototypes as $rup) {
-            $uniteApprentissageId = $rup->realisationUa->unite_apprentissage_id ?? null;
+            $uniteApprentissage = $rup->realisationUa->uniteApprentissage ?? null;
+            $uniteApprentissageId = $uniteApprentissage->id ?? null;
+            $uniteApprentissageNom = $uniteApprentissage->nom ?? "#" . $uniteApprentissageId;
             
             if ($uniteApprentissageId) {
+                if ($jobManager) {
+                    $jobManager->setLabel("Évaluation de l'UA : " . $uniteApprentissageNom);
+                }
+                
                 $resultat = $this->calculerNoteUa($item, $uniteApprentissageId);
                 
                 // On met à jour la note uniquement si l'UA est évaluée dans ce QCM (barème > 0)
@@ -116,37 +131,20 @@ class RealisationQcmService extends BaseRealisationQcmService
                         $realisationUaService->calculerProgression($rup->realisationUa);
                     }
                 }
+                
+                if ($jobManager) {
+                    $jobManager->tick();
+                }
             }
         } // Fermeture du foreach($realisationUaPrototypes as $rup)
         
-        // Enregistrement de la note globale du QCM
-        $noteFinale = null;
-        
-        if ($isValideOrSoumis) {
-            $noteTotaleQcm = 0;
-            $qcm = $item->qcm;
-            if ($qcm) {
-                foreach($qcm->questions as $question) {
-                    $reponse = $item->reponseQcms()->where('question_id', $question->id)->first();
-                    if ($reponse) {
-                        $propositionsCorrectes = $question->propositionReponses()->where('is_correcte', true)->pluck('id')->toArray();
-                        $propositionsChoisies = $reponse->propositionReponses()->pluck('id')->toArray();
-                        
-                        sort($propositionsCorrectes);
-                        sort($propositionsChoisies);
-                        
-                        if (!empty($propositionsCorrectes) && $propositionsCorrectes == $propositionsChoisies) {
-                            $noteTotaleQcm += $question->bareme;
-                        }
-                    }
-                }
-                $noteFinale = $noteTotaleQcm;
-            }
+        if ($jobManager) {
+            $jobManager->setLabel("Finalisation de l'évaluation");
+            $jobManager->tick();
         }
-        
-        if ($item->note_obtenu !== $noteFinale) {
-            $this->update($item->id, ['note_obtenu' => $noteFinale]);
-        }
+
+        // La sauvegarde de note_obtenu a été retirée du Job ! 
+        // Elle est maintenant calculée de manière synchrone dans la méthode update().
     }
 
     public function beforeUpdateRules(array &$data, $id)
@@ -162,14 +160,83 @@ class RealisationQcmService extends BaseRealisationQcmService
         }
     }
 
-    public function afterUpdateRules($item)
+    /**
+     * Surcharge de la méthode update pour calculer la note globale du QCM 
+     * de manière synchrone avant la sauvegarde en base.
+     */
+    public function update($id, array $data)
     {
-        // 1. Vérifier si l'état est "VALIDE"
-        $etatValide = EtatRealisationQcm::where('reference', 'VALIDE')->first();
+        $item = $this->find($id);
         
-        if ($etatValide && $item->etat_realisation_qcm_id == $etatValide->id) {
-            $this->evaluerQcm($item);
+        if ($item) {
+            $etatValide = EtatRealisationQcm::where('reference', 'VALIDE')->first();
+            $etatSoumis = EtatRealisationQcm::where('reference', 'SOUMIS')->first();
+            
+            // Si on passe à l'état SOUMIS ou VALIDE (ou si on l'est déjà et qu'on recalcule)
+            $isValideOrSoumis = (($etatValide && isset($data['etat_realisation_qcm_id']) && $data['etat_realisation_qcm_id'] == $etatValide->id) || 
+                                 ($etatSoumis && isset($data['etat_realisation_qcm_id']) && $data['etat_realisation_qcm_id'] == $etatSoumis->id) ||
+                                 (!isset($data['etat_realisation_qcm_id']) && $etatValide && $item->etat_realisation_qcm_id == $etatValide->id) ||
+                                 (!isset($data['etat_realisation_qcm_id']) && $etatSoumis && $item->etat_realisation_qcm_id == $etatSoumis->id));
+            
+            if ($isValideOrSoumis) {
+                $noteTotaleQcm = 0;
+                $qcm = $item->qcm;
+                if ($qcm) {
+                    foreach($qcm->questions as $question) {
+                        $reponse = $item->reponseQcms()->where('question_id', $question->id)->first();
+                        if ($reponse) {
+                            $propositionsCorrectes = $question->propositionReponses()->where('is_correcte', true)->pluck('id')->toArray();
+                            $propositionsChoisies = $reponse->propositionReponses()->pluck('id')->toArray();
+                            
+                            sort($propositionsCorrectes);
+                            sort($propositionsChoisies);
+                            
+                            if (!empty($propositionsCorrectes) && $propositionsCorrectes == $propositionsChoisies) {
+                                $noteTotaleQcm += $question->bareme;
+                            }
+                        }
+                    }
+                }
+                $data['note_obtenu'] = $noteTotaleQcm;
+            } else if (isset($data['etat_realisation_qcm_id'])) {
+                // Si on réinitialise (A_FAIRE) ou on démarre (EN_COURS), la note est nulle
+                $data['note_obtenu'] = null;
+            }
         }
+
+        return parent::update($id, $data);
+    }
+
+
+    /**
+     * Job asynchrone déclenché automatiquement via RealisationQcmObserver.
+     * Permet d'effectuer les calculs lourds en arrière-plan et de renvoyer la progression.
+     */
+    public function updatedObserverJob(int $id, string $token): void
+    {
+        $jobManager = new \Modules\Core\App\Manager\JobManager($token);
+        $item = $this->find($id);
+
+        if (!$item) {
+            $jobManager->initProgress(1);
+            $jobManager->finish();
+            return;
+        }
+
+        $etatValide = EtatRealisationQcm::where('reference', 'VALIDE')->first();
+        $etatSoumis = EtatRealisationQcm::where('reference', 'SOUMIS')->first();
+
+        $isValideOrSoumis = (($etatValide && $item->etat_realisation_qcm_id == $etatValide->id) || 
+                             ($etatSoumis && $item->etat_realisation_qcm_id == $etatSoumis->id));
+
+        if ($isValideOrSoumis) {
+            $this->evaluerUaPrototypes($item, $jobManager);
+        } else {
+            // Pas d'évaluation nécessaire (ex: QCM en cours ou initialisé)
+            $jobManager->initProgress(1);
+        }
+        
+        $jobManager->finish();
     }
 
     /**
@@ -255,13 +322,14 @@ class RealisationQcmService extends BaseRealisationQcmService
                 $dataToUpdate['etat_realisation_qcm_id'] = $etatEnCours->id;
             }
             
-            $this->update($realisationQcm->id, $dataToUpdate);
+            // Utilisation de withoutEvents pour forcer l'update SANS déclencher le RealisationQcmObserver
+            // car le démarrage est appelé depuis une requête standard (sans AJAX) et on ne veut pas de Job ici.
+            \Modules\PkgQcm\Models\RealisationQcm::withoutEvents(function () use ($realisationQcm, $dataToUpdate) {
+                $realisationQcm->update($dataToUpdate);
+            });
         }
     }
 
-    /**
-     * Soumet le QCM.
-     */
     public function soumettreQcm($realisationQcm)
     {
         $dataToUpdate = ['date_soumission' => now()];
@@ -271,11 +339,10 @@ class RealisationQcmService extends BaseRealisationQcmService
             $dataToUpdate['etat_realisation_qcm_id'] = $etatSoumis->id;
         }
         
+        // Cet appel passe par la méthode update() surchargée ci-dessus
+        // qui calculera `note_obtenu` de manière synchrone,
+        // puis l'Observer déclenchera le job asynchrone pour les RealisationUaPrototype.
         $this->update($realisationQcm->id, $dataToUpdate);
-        
-        // Rafraichir le modèle car il vient d'être mis à jour par l'update
-        $realisationQcm->refresh();
-        $this->evaluerQcm($realisationQcm);
     }
 
     /**

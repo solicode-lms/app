@@ -14,7 +14,7 @@ description: "Expertise de l'architecture modulaire de la couche Service, des Tr
 3. **Modification de BaseService** : Ne jamais modifier directement le fichier `BaseService` du noyau core, sauf sous forme de PR validée pour des améliorations génériques de la stack.
 4. **Modification de Données (CRITIQUE)** : Il est **strictement interdit** de créer, modifier ou supprimer des données en appelant directement les méthodes du modèle Eloquent (ex: `$model->save()`, `$model->update()`, `$model->delete()`) sans passer par le service approprié pour l'entité (ex: utiliser `RealisationUaService->update()` au lieu de `$rup->save()`).
    - **Relations Pivot (ManyToMany)** : Il est également interdit de modifier les relations directement via `$model->relation()->sync()` ou `attach()`. La synchronisation doit être déléguée au service en passant le tableau d'IDs dans les données de `create()` ou `update()` (ex: `$service->update($id, ['relationName' => $idsArray])`). 
-   Ceci est primordial car chaque service applique des règles de gestion spécifiques (`before` et `after`) à chaque opération sur la base de données.
+   - **🚨 EXCEPTION (Jobs Asynchrones)** : La **SEULE** exception autorisée à cette règle concerne les méthodes exécutées en arrière-plan via des Jobs. Dans ce contexte, **il est formellement interdit d'appeler `$this->update()` ou `$item->save()`** sur le modèle d'origine (cela déclencherait une boucle infinie avec l'Observer). Si vous devez absolument persister un résultat sur le modèle parent, vous devez utiliser la méthode `withoutEvents(function() { ... })`. Idéalement, calculez ces propriétés dans la méthode `update()` du service avant la sauvegarde, et laissez le Job gérer uniquement les entités enfants (cascades).
 
 ### 📢 Gestion des Messages & Exceptions Métier (BLL)
 Dans la couche Service, la remontée d'erreurs ou d'alertes à l'utilisateur ne doit pas se faire par des redirections directes ou des retours HTTP. Elle repose sur le mécanisme suivant :
@@ -149,6 +149,9 @@ Dans les classes de service finales (`[Model]Service`), le code métier complexe
 ### 5. `capacité-structure-baseservice.md`
 - **Rôle** : Documentation exhaustive et classification des méthodes et propriétés héritées de la classe abstraite `BaseService` et de ses traits associés.
 - **Règles Clés** : Identification et réutilisation des helpers de lecture, d'écriture, de filtrage et de gestion de session.
+
+### 6. `../capacites-globales/capacité-crud-jobs.md` (Capacité Globale)
+- **Rôle** : Standardisation de la création de Jobs asynchrones (via `executeJob`, `afterUpdateJob` et `JobManager`) et prévention des boucles infinies de sauvegarde.
 
 ---
 

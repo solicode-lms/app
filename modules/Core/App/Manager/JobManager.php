@@ -19,7 +19,7 @@ class JobManager
 
     public function __construct(?string $token = null, ?int $total = 0)
     {
-         // Si un token est fourni, on considère qu’on reprend un job existant
+        // Si un token est fourni, on considère qu’on reprend un job existant
         if ($token) {
             $this->token = $token;
             $this->total = $total;
@@ -42,7 +42,7 @@ class JobManager
         return $this->cacheGet('changed_fields', []);
     }
 
-/**
+    /**
      * Initialisation d’un nouveau job avec un methodName + moduleName
      */
     public function init(
@@ -51,9 +51,9 @@ class JobManager
         string $moduleName,
         ?int $id = null,
         array $changedFields = [],
-        array $payload = [] 
-        ): string {
-   
+        array $payload = []
+    ): string {
+
         $this->token = Str::uuid()->toString();
         $this->methodName = $methodName;
         $this->moduleName =  ucfirst($moduleName);
@@ -81,7 +81,7 @@ class JobManager
         string $moduleName,
         ?int $id,
         array $changedFields = [],
-        array $payload = [] 
+        array $payload = []
     ): self {
         $instance = new self();
         $instance->init($methodName, $modelName, $moduleName, $id, $changedFields, $payload);
@@ -184,7 +184,8 @@ class JobManager
         }
     }
 
-    public function dispatchTraitementCrudJob(){
+    public function dispatchTraitementCrudJob()
+    {
 
 
         $service = $this->getServiceInstance();
@@ -192,8 +193,8 @@ class JobManager
         // $CRUD_JOBS_ENABLED = env('CRUD_JOBS_ENABLED', false);
         //  if($service->getCrudJobToken() ||  !$CRUD_JOBS_ENABLED){
 
-        if($service->getCrudJobToken()){
-             // On exécute directement la méthode sans passer par la queue
+        if ($service->getCrudJobToken()) {
+            // On exécute directement la méthode sans passer par la queue
             $service = $this->getServiceInstance();
             if (method_exists($service, $this->methodName)) {
                 $service->{$this->methodName}($this->id, $this->getToken());
@@ -201,10 +202,10 @@ class JobManager
             return;
         }
         // if (app()->bound('executing_in_job')) {
-           
+
         // }
 
-         // Dispatch du job générique
+        // Dispatch du job générique
         dispatch(new TraitementCrudJob(
             Auth::id(),
             ucfirst($this->moduleName),
@@ -265,5 +266,4 @@ class JobManager
         $changed = $this->getChangedFields();
         return in_array($field, $changed, true);
     }
-
 }

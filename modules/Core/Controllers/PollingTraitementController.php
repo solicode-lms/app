@@ -19,14 +19,17 @@ class PollingTraitementController extends AdminController
     /**
      * @DynamicPermissionIgnore
      */
-    public function start()
+    public function start(Request $request)
     {
         try {
-            $token = Str::uuid()->toString();
-
-            // Initialiser le statut
-            Cache::put("traitement.$token.status", 'in_progress');
-            Cache::put("traitement.$token.progress", 0);
+            $token = $request->input('token');
+            
+            if (!$token) {
+                // Ancien comportement : création d'un token aléatoire
+                $token = Str::uuid()->toString();
+                Cache::put("traitement.$token.status", 'in_progress');
+                Cache::put("traitement.$token.progress", 0);
+            }
 
             // Lancer la commande Artisan en arrière-plan
             $this->runArtisanInBackground('traitement:run', [$token]);

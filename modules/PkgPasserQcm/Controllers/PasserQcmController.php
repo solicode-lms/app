@@ -126,7 +126,12 @@ class PasserQcmController extends AdminController
         
         $this->realisationQcmService->sauvegarderReponses($realisationQcm, $reponses);
         
-        return response()->json(['success' => true]);
+        $response = ['success' => true];
+        if ($this->realisationQcmService->getCrudJobToken()) {
+            $response['traitement_token'] = $this->realisationQcmService->getCrudJobToken();
+        }
+        
+        return response()->json($response);
     }
     
     /**
@@ -145,9 +150,15 @@ class PasserQcmController extends AdminController
         
         $this->realisationQcmService->soumettreQcm($realisationQcm);
         
-        return response()->json([
+        $response = [
             'success' => true,
             'message' => 'QCM soumis avec succès.'
-        ]);
+        ];
+
+        if ($this->realisationQcmService->getCrudJobToken()) {
+            $response['traitement_token'] = $this->realisationQcmService->getCrudJobToken();
+        }
+
+        return response()->json($response);
     }
 }

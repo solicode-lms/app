@@ -120,6 +120,9 @@ description: Expert de l'architecture et de la personnalisation des vues Blade s
 ### 7. `capacité-blade-actions.md`
 - **Rôle** : Documentation de la surcharge dynamique des boutons d'actions via le composant `<x-action-button>`.
 
+### 8. `../capacites-globales/capacité-crud-jobs.md` (Capacité Globale)
+- **Rôle** : Standardisation de l'intégration UI des traitements longs. Obligatoire à consulter lors de l'ajout d'une fonction front-end déclenchant des calculs backend (ex: Polling AJAX et mise à jour de barres de progression avec SweetAlert).
+
 ---
 
 ## 🔄 Scénarios d'Exécution (Algorithmes)

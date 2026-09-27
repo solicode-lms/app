@@ -24,8 +24,8 @@ class RunTraitementCommand extends Command
                 '--tries' => 3,
             ]);
 
+            // Vérifier le nombre de jobs restants dans la base de données
             $remaining = DB::table('jobs')->count();
-            Cache::put("traitement.$token.progress", $remaining);
 
             if ($remaining === 0) {
                 break;
@@ -33,8 +33,6 @@ class RunTraitementCommand extends Command
             usleep(200000);
         }
 
-        Log::info("run");
-         $this->info("✅ Tous les jobs sont terminés");
-        Cache::put("traitement.$token.status", 'done');
+        Log::info("run worker terminé");
     }
 }

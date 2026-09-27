@@ -30,8 +30,9 @@ description: Expert unifié de la gestion, création et maintenance des composan
   - Le fichier respecte la structure `template-skill.md`.
   - Le dossier du skill est créé en `kebab-case`.
   - **Capacités et Règles de Gestion** : Les fichiers de savoir-faire (Standards, Règles, Listes exhaustives) ne doivent pas être dans `resources/`. Ils doivent être déportés :
-    - Pour les skills **applicatifs** (composants techniques) : Dans le dossier `capacités/` avec le préfixe `capacité-`.
-    - Pour les skills **métier** (modules `pkg-*`) : Dans le dossier `règles-gestion/` avec le préfixe `règle-gestion-`.
+    - Pour les compétences partagées entre plusieurs skills (ex: backend) : Dans le dossier `.agent/capacites-globales/`.
+    - Pour les skills **applicatifs** (composants techniques spécifiques) : Dans le dossier `capacités/` du skill avec le préfixe `capacité-`.
+    - Pour les skills **métier** (modules `pkg-*`) : Dans le dossier `règles-gestion/` du skill avec le préfixe `règle-gestion-`.
   - **Déport structuré des connaissances (RÈGLE STRICTE)** : Il faut élargir les actions d'un skill en déportant les connaissances. Le fichier `SKILL.md` doit rester concis et centré sur l'orchestration. Toute règle complexe ou savoir-faire doit impérativement être déporté dans un fichier dédié (`capacités/capacité-[nom].md` ou `règles-gestion/règle-gestion-[nom].md` selon le type de skill).
 - **📝 Instructions Détaillées** :
   1. **Lire** la capacité : `capacités/capacités-skill.md`.
@@ -107,12 +108,12 @@ description: Expert unifié de la gestion, création et maintenance des composan
    - Un **Skill** est constitué d'un ensemble d'**Actions** (tâches exécutables).
    - Chaque **Action** peut mobiliser une ou plusieurs **Capacités** (fichiers de savoir-faire technique ou méthodologique).
    - Une **Capacité** peut être réutilisée par plusieurs Actions ou Skills.
-2. **Typologie des Skills** : L'écosystème est organisé autour de deux grands types de skills :
-   - **Skills de la couche applicative** (Composants techniques) : Ces experts maîtrisent une brique technique transversale (ex: `app-blade`, `app-service`). Leurs sous-fichiers de savoir-faire s'appellent des **Capacités** et sont stockés dans un dossier `capacités/` (ex: `capacités/capacité-[nom].md`).
-   - **Skills par package (Modules métier)** : Ces experts maîtrisent les règles, l'architecture des données et la logique spécifique d'un package donné (ex: `pkg-apprentissage`, `pkg-qcm`). Leurs sous-fichiers de savoir-faire s'appellent des **Règles de Gestion** et doivent OBLIGATOIREMENT être placés dans un dossier `règles-gestion/`. Pour chaque Package, il FAUT créer :
+2. **Typologie des Skills et Capacités** : L'écosystème est organisé en plusieurs niveaux :
+   - **Capacités Globales** : Fichiers de savoir-faire transverses et partagés par plusieurs skills (ex: la gestion des Jobs asynchrones entre `app-service` et `app-controller`). Elles sont stockées dans `.agent/capacites-globales/`.
+   - **Skills de la couche applicative** (Composants techniques) : Ces experts maîtrisent une brique technique (ex: `app-blade`). Leurs sous-fichiers de savoir-faire spécifiques s'appellent des **Capacités** et sont stockés dans le sous-dossier `capacités/` du skill.
+   - **Skills par package (Modules métier)** : Ces experts maîtrisent les règles d'un package donné (ex: `pkg-apprentissage`). Leurs sous-fichiers s'appellent des **Règles de Gestion** et doivent être placés dans `règles-gestion/`. Il FAUT créer :
      - `règle-gestion-bdd-[nom].md` : Structure de la base de données.
-     - `règle-gestion-fonctionnalites-[nom].md` : Les fonctionnalités (cas d'utilisation) en format texte (PAS de diagramme Mermaid).
-     - Au besoin, `règle-gestion-[nom-fonctionnalite]-[nom].md` pour chaque fonctionnalité complexe.
+     - `règle-gestion-fonctionnalites-[nom].md` : Les fonctionnalités en format texte.
 3. **Architecture** : `.agent/` est le seul domaine d'intervention.
 3. **Nomenclature** : Tout en `kebab-case` (dossiers et fichiers).
 4. **Séparation des Préoccupations (SoC)** :

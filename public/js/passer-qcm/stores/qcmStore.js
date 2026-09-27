@@ -144,14 +144,111 @@ export default function registerQcmStore(Alpine) {
                 });
                 
                 if (response.ok) {
-                    localStorage.removeItem(this.lsKey); // Nettoyage après succès
-                    window.location.href = window.QcmData.redirectUrl;
+                    const data = await response.json();
+                    
+                    if (data.traitement_token) {
+                        // Le backend a lancé un calcul lourd, on démarre le polling
+                        this.startPolling(data.traitement_token);
+                    } else {
+                        // Traitement synchrone immédiat
+                        localStorage.removeItem(this.lsKey);
+                        window.location.href = window.QcmData.redirectUrl;
+                    }
                 } else {
                     this.isLoading = false;
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire('Erreur', 'Une erreur est survenue lors de la soumission.', 'error');
+                    }
                 }
             } catch (e) {
                 console.error("Erreur lors de la soumission", e);
                 this.isLoading = false;
+            }
+        },
+        
+        async startPolling(token) {
+            try {
+                // 1. Réveiller le worker en arrière-plan via la route start
+                await fetch(`/admin/traitement/start?token=${token}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                // 2. Commencer le polling
+                const pollingUrl = `/admin/traitement/status/${token}`;
+                const checkStatus = async () => {
+                    const res = await fetch(pollingUrl, {
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    
+                    if (!res.ok) {
+                        const errText = await res.text();
+                        throw new Error(`Polling failed: ${res.status} ${res.statusText} - ${errText}`);
+                    }
+                    
+                    const statusData = await res.json();
+                    
+                    // Mettre à jour l'interface si on a Swal (afficher le pourcentage)
+                    if (typeof Swal !== 'undefined') {
+                        const percent = statusData.progress || 0;
+                        const label = statusData.label || 'Calcul en cours...';
+                        
+                        // Si le Swal n'était pas ouvert (première boucle), on l'ouvre
+                        if (!Swal.isVisible()) {
+                            Swal.fire({
+                                title: 'Évaluation en cours...',
+                                html: `<b>${percent}%</b><br><small>${label}</small>`,
+                                showConfirmButton: false,
+                                allowOutsideClick: false,
+                                didOpen: () => { Swal.showLoading(); }
+                            });
+                        } else {
+                            // Mettre à jour le texte du modal existant
+                            Swal.update({
+                                html: `<b>${percent}%</b><br><small>${label}</small>`
+                            });
+                        }
+                    }
+                    
+                    if (statusData.status === 'done') {
+                        // Terminé !
+                        localStorage.removeItem(this.lsKey);
+                        
+                        if (typeof Swal !== 'undefined') {
+                            Swal.fire({
+                                title: 'Terminé !',
+                                text: 'L\'évaluation de votre QCM est terminée.',
+                                icon: 'success',
+                                timer: 1500,
+                                showConfirmButton: false
+                            }).then(() => {
+                                window.location.href = window.QcmData.redirectUrl;
+                            });
+                        } else {
+                            window.location.href = window.QcmData.redirectUrl;
+                        }
+                    } else if (statusData.status === 'error') {
+                        this.isLoading = false;
+                        if (typeof Swal !== 'undefined') {
+                            const errorMsg = statusData.messageError || 'L\'évaluation a échoué.';
+                            Swal.fire('Erreur', errorMsg, 'error');
+                        }
+                    } else {
+                        // Continuer le polling
+                        setTimeout(checkStatus, 1500); // Poll every 1.5s
+                    }
+                };
+                
+                // Lancer la première vérification
+                checkStatus();
+                
+            } catch (error) {
+                console.error("Erreur de polling", error);
+                this.isLoading = false;
+                localStorage.removeItem(this.lsKey);
+                window.location.href = window.QcmData.redirectUrl;
             }
         },
         

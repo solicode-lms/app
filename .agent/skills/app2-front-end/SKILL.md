@@ -32,3 +32,6 @@ description: Expert de l'architecture V2 avec Tailwind CSS et Alpine.js (Composa
 
 ### 1. `capacité-alpine-composants.md`
 - **Rôle** : Définir l'architecture, la structure et les bonnes pratiques pour créer des composants isolés avec Alpine.js.
+
+### 2. `../capacites-globales/capacité-crud-jobs.md` (Capacité Globale)
+- **Rôle** : Standardisation de l'intégration UI des traitements longs. À lire impérativement lors du développement de formulaires ou d'actions asynchrones lourdes nécessitant un Polling (via Alpine/JS) pour afficher la progression (`traitement_token`).

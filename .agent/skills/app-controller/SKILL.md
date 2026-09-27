@@ -103,5 +103,5 @@ description: Expert de l'architecture des Contrôleurs, FormRequests, Web routes
 ### 1. `capacité-view-state.md`
 - **Rôle** : Base de connaissances sur la manipulation du ViewState (`where`, `scope`, relations) dans les contrôleurs.
 
-### 2. `capacité-crud-jobs.md`
+### 2. `../capacites-globales/capacité-crud-jobs.md` (Capacité Globale)
 - **Rôle** : Explication du mécanisme de traitement asynchrone des requêtes longues via `$this->service->getCrudJobToken()`.
