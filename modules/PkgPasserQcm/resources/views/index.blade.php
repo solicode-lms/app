@@ -66,7 +66,7 @@
     window.QcmData = {
         realisationId: {{ $realisationQcm->id }},
         uas: @json($dataUaGrouped),
-        timeRemaining: {{ $timeRemaining ?? (($realisationQcm->qcm->duree_minutes ?? 60) * 60) }},
+        timeRemaining: {{ is_null($timeRemaining) ? 'null' : $timeRemaining }},
         csrfToken: '{{ csrf_token() }}',
         saveUrl: '{{ route('passerQcm.save-incremental', $realisationQcm->id) }}',
         submitUrl: '{{ route('passerQcm.submit', $realisationQcm->id) }}',

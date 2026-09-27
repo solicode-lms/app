@@ -49,10 +49,10 @@ class AffectationQcmProjetService extends BaseAffectationQcmProjetService
     {
         if (!filter_var($url, FILTER_VALIDATE_URL)) return "";
         
-        return \Illuminate\Support\Facades\Cache::remember('tuto_scrape_v3_' . md5($url), 86400, function () use ($url) {
+        return \Illuminate\Support\Facades\Cache::remember('tuto_scrape_v4_' . md5($url), 86400, function () use ($url) {
             try {
                 $response = \Illuminate\Support\Facades\Http::timeout(5)->get($url);
-                if (!$response->successful()) return "";
+                if (!$response->successful()) return "Contenu non accessible. Voici le lien à consulter : " . $url;
                 
                 $html = $response->body();
                 $dom = new \DOMDocument();
@@ -85,11 +85,12 @@ class AffectationQcmProjetService extends BaseAffectationQcmProjetService
                         $text = explode('Tutoriels du même domaine', $text)[0];
                     }
                     
-                    return trim($text);
+                    $text = trim($text);
+                    return !empty($text) ? $text : "Contenu non trouvé. Voici le lien à consulter : " . $url;
                 }
             } catch (\Exception $e) {}
             
-            return "";
+            return "Erreur lors de la récupération. Voici le lien à consulter : " . $url;
         });
     }
 }

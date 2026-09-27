@@ -19,22 +19,32 @@ class RealisationQcmService extends BaseRealisationQcmService
             return false; 
         }
 
+        $reponseQcmService = app(\Modules\PkgQcm\Services\ReponseQcmService::class);
         // 1. Supprimer toutes les réponses (et détacher les propositions associées)
         foreach ($realisationQcm->reponseQcms as $reponseQcm) {
             $reponseQcm->propositionReponses()->sync([]);
-            $reponseQcm->delete();
+            $reponseQcmService->destroy($reponseQcm->id);
         }
 
-        // 2. Réinitialiser les dates et l'état
-        $realisationQcm->date_debut = null;
-        $realisationQcm->date_soumission = null;
+        // 2. Réinitialiser les dates, l'état, la note et la validation
+        $dataToUpdate = [
+            'date_debut' => null,
+            'date_soumission' => null,
+            'date_validation' => null,
+            'note_obtenu' => null
+        ];
         
         $etatAFaire = EtatRealisationQcm::where('reference', 'A_FAIRE')->first();
         if ($etatAFaire) {
-            $realisationQcm->etat_realisation_qcm_id = $etatAFaire->id;
+            $dataToUpdate['etat_realisation_qcm_id'] = $etatAFaire->id;
         }
 
-        $value = $realisationQcm->save();
+        $value = $this->update($realisationQcm->id, $dataToUpdate);
+        
+        // Mettre à jour (effacer) les notes du prototype
+        $realisationQcm->refresh();
+        $this->evaluerQcm($realisationQcm);
+        
         $this->pushServiceMessage("success", "Initialisation réussie", "Le QCM a été réinitialisé avec succès et peut être repassé.");
         return $value;
     }
@@ -60,26 +70,42 @@ class RealisationQcmService extends BaseRealisationQcmService
 
         $realisationUaPrototypes = RealisationUaPrototype::whereIn('realisation_tache_id', $realisationTachesIds)->get();
 
+        $etatValide = EtatRealisationQcm::where('reference', 'VALIDE')->first();
+        $isValide = ($etatValide && $item->etat_realisation_qcm_id == $etatValide->id);
+
         foreach($realisationUaPrototypes as $rup) {
             $uniteApprentissageId = $rup->realisationUa->unite_apprentissage_id ?? null;
             
             if ($uniteApprentissageId) {
                 $resultat = $this->calculerNoteUa($item, $uniteApprentissageId);
                 
-                // On attribue la note uniquement si l'UA est évaluée dans ce QCM (barème > 0)
+                // On met à jour la note uniquement si l'UA est évaluée dans ce QCM (barème > 0)
                 if ($resultat['bareme'] > 0) {
-                    $rup->note_qcm = $resultat['note'];
-                    $rup->barem_qcm = $resultat['bareme'];
-                    
-                    if ($affectationQcmProjet->saise_automatique_note_qcm) {
-                        // Adapter la note selon le barème du RealisationUaPrototype (Règle de 3)
-                        $baremePrototype = $rup->bareme ?? 20; // 20 par défaut si non défini
-                        $noteAdaptee = ($resultat['note'] / $resultat['bareme']) * $baremePrototype;
+                    if ($isValide) {
+                        $dataToUpdate = [
+                            'note_qcm' => $resultat['note'],
+                            'barem_qcm' => $resultat['bareme']
+                        ];
                         
-                        $rup->note = $noteAdaptee;
+                        if ($affectationQcmProjet->saise_automatique_note_qcm) {
+                            $baremePrototype = $rup->bareme ?? 20;
+                            $noteAdaptee = ($resultat['note'] / $resultat['bareme']) * $baremePrototype;
+                            $dataToUpdate['note'] = $noteAdaptee;
+                        }
+                    } else {
+                        // Le QCM est réinitialisé ou non validé, on efface les notes
+                        $dataToUpdate = [
+                            'note_qcm' => null,
+                            'barem_qcm' => null
+                        ];
+                        
+                        if ($affectationQcmProjet->saise_automatique_note_qcm) {
+                            $dataToUpdate['note'] = null;
+                        }
                     }
                     
-                    $rup->save();
+                    $realisationUaPrototypeService = app(\Modules\PkgApprentissage\Services\RealisationUaPrototypeService::class);
+                    $realisationUaPrototypeService->update($rup->id, $dataToUpdate);
                     
                     // Déclencher le recalcul en cascade pour mettre à jour note_cache de RealisationUA
                     if ($rup->realisationUa) {
@@ -108,8 +134,22 @@ class RealisationQcmService extends BaseRealisationQcmService
                     }
                 }
             }
-            $item->note_obtenu = $noteTotaleQcm;
-            $item->save();
+            if ($item->note_obtenu !== $noteTotaleQcm) {
+                $this->update($item->id, ['note_obtenu' => $noteTotaleQcm]);
+            }
+        }
+    }
+
+    public function beforeUpdateRules(array &$data, $id)
+    {
+        // Vérifier si l'état passe à "VALIDE"
+        $etatValide = EtatRealisationQcm::where('reference', 'VALIDE')->first();
+        
+        if ($etatValide && isset($data['etat_realisation_qcm_id']) && $data['etat_realisation_qcm_id'] == $etatValide->id) {
+            $item = $this->find($id);
+            if ($item && empty($item->date_validation)) {
+                $data['date_validation'] = \Carbon\Carbon::now();
+            }
         }
     }
 
@@ -119,10 +159,6 @@ class RealisationQcmService extends BaseRealisationQcmService
         $etatValide = EtatRealisationQcm::where('reference', 'VALIDE')->first();
         
         if ($etatValide && $item->etat_realisation_qcm_id == $etatValide->id) {
-            if (empty($item->date_validation)) {
-                $item->date_validation = \Carbon\Carbon::now();
-                $item->save();
-            }
             $this->evaluerQcm($item);
         }
     }
@@ -162,5 +198,103 @@ class RealisationQcmService extends BaseRealisationQcmService
         }
         
         return ['note' => $note, 'bareme' => $bareme];
+    }
+
+    /**
+     * Vérifie si le QCM a déjà été soumis (Règle métier).
+     * Lève une exception métier si c'est le cas.
+     */
+    public function verifierEtatSoumission($realisationQcm)
+    {
+        $etatSoumis = EtatRealisationQcm::where('reference', 'SOUMIS')->first();
+        if (($etatSoumis && $realisationQcm->etat_realisation_qcm_id == $etatSoumis->id) || $realisationQcm->date_soumission) {
+            throw new \Modules\Core\App\Exceptions\BlException("Ce QCM a déjà été soumis. Vous ne pouvez pas le modifier ou le repasser.");
+        }
+    }
+
+    /**
+     * Calcule le temps restant pour le QCM.
+     */
+    public function calculerTempsRestant($realisationQcm)
+    {
+        if (!$realisationQcm->qcm || !$realisationQcm->qcm->is_duree_limitee) {
+            return null; // Temps illimité
+        }
+
+        if (empty($realisationQcm->date_debut)) {
+            return ($realisationQcm->qcm->duree_minutes ?? 60) * 60;
+        }
+        $dureeMax = ($realisationQcm->qcm->duree_minutes ?? 60) * 60;
+        $dateDebut = \Carbon\Carbon::parse($realisationQcm->date_debut);
+        
+        // now()->timestamp - $dateDebut->timestamp garantit un temps écoulé positif
+        $tempsEcoule = max(0, now()->timestamp - $dateDebut->timestamp);
+        
+        return max(0, $dureeMax - $tempsEcoule);
+    }
+
+    /**
+     * Démarre la réalisation du QCM.
+     */
+    public function demarrerQcm($realisationQcm)
+    {
+        if (empty($realisationQcm->date_debut)) {
+            $dataToUpdate = ['date_debut' => now()];
+            
+            $etatEnCours = EtatRealisationQcm::where('reference', 'EN_COURS')->first();
+            if ($etatEnCours) {
+                $dataToUpdate['etat_realisation_qcm_id'] = $etatEnCours->id;
+            }
+            
+            $this->update($realisationQcm->id, $dataToUpdate);
+        }
+    }
+
+    /**
+     * Soumet le QCM.
+     */
+    public function soumettreQcm($realisationQcm)
+    {
+        $dataToUpdate = ['date_soumission' => now()];
+        
+        $etatSoumis = EtatRealisationQcm::where('reference', 'SOUMIS')->first();
+        if ($etatSoumis) {
+            $dataToUpdate['etat_realisation_qcm_id'] = $etatSoumis->id;
+        }
+        
+        $this->update($realisationQcm->id, $dataToUpdate);
+        
+        // Rafraichir le modèle car il vient d'être mis à jour par l'update
+        $realisationQcm->refresh();
+        $this->evaluerQcm($realisationQcm);
+    }
+
+    /**
+     * Sauvegarde les réponses de l'apprenant pour un QCM
+     */
+    public function sauvegarderReponses($realisationQcm, array $reponses)
+    {
+        $reponseQcmService = app(\Modules\PkgQcm\Services\ReponseQcmService::class);
+        
+        foreach ($reponses as $questionId => $propositionIds) {
+            $reponseExistante = $realisationQcm->reponseQcms()->where('question_id', $questionId)->first();
+            $propositionIdsArray = is_array($propositionIds) ? $propositionIds : [$propositionIds];
+            
+            if ($reponseExistante) {
+                // update (Le service se chargera de synchroniser la relation via son Trait)
+                $reponseQcmService->update($reponseExistante->id, [
+                    'date_reponse' => now(),
+                    'propositionReponses' => $propositionIdsArray
+                ]);
+            } else {
+                // create (Le service se chargera d'attacher la relation)
+                $reponseQcmService->create([
+                    'realisation_qcm_id' => $realisationQcm->id,
+                    'question_id' => $questionId,
+                    'date_reponse' => now(),
+                    'propositionReponses' => $propositionIdsArray
+                ]);
+            }
+        }
     }
 }

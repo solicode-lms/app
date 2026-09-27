@@ -1,4 +1,4 @@
-<div x-data="questionComponent(question)" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 flex-grow mb-6">
+<div :id="'question-' + question.id" x-data="questionComponent(question)" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 flex-grow mb-6">
     
     <h3 class="text-xl md:text-2xl font-semibold text-gray-800 leading-snug mb-8" x-text="question.enonce"></h3>
 

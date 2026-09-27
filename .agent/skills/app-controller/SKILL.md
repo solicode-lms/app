@@ -16,6 +16,34 @@ description: Expert de l'architecture des Contrôleurs, FormRequests, Web routes
   - Validation (via `FormRequest`).
   - Appel à la couche Service (`app-service`) pour la logique métier.
   - Retour de la réponse (Vue, JSON, Redirection).
+- **Séparation des Responsabilités (CRITIQUE)** :
+  - Toute manipulation d'un service doit être effectuée en présence du skill `app-service`.
+  - Toutes les règles de gestion et tous les calculs métier doivent être implémentés dans le service concerné.
+  - Toutes les opérations de modification (création, mise à jour, changement d'état) sur un objet doivent être effectuées par son service, car le service est le seul responsable de la gestion de ses données et de l'application des règles de gestion avant et après chaque opération.
+  - Le contrôleur peut sélectionner des données depuis la base de données (pour l'affichage), mais pour les opérations de modification de la base de données, il doit impérativement faire appel au service concerné.
+
+**Exemples : Contrôleur vs Service**
+- ❌ **À NE PAS FAIRE DANS LE CONTRÔLEUR (Doit être dans le Service)** :
+  ```php
+  // Calculs ou règles de gestion
+  $dureeMax = ($realisationQcm->qcm->duree_minutes ?? 60) * 60;
+  $tempsEcoule = now()->diffInSeconds($realisationQcm->date_debut);
+  $timeRemaining = max(0, $dureeMax - $tempsEcoule);
+
+  // Modification directe et règles métier
+  $realisationQcm->date_debut = now();
+  $etatEnCours = \Modules\PkgQcm\Models\EtatRealisationQcm::where('reference', 'EN_COURS')->first();
+  $realisationQcm->etat_realisation_qcm_id = $etatEnCours->id;
+  $realisationQcm->save();
+  ```
+- ✅ **À FAIRE DANS LE CONTRÔLEUR** :
+  ```php
+  // Appel du service pour exécuter la logique de démarrage
+  $this->realisationQcmService->start($realisationQcm);
+  
+  // Récupération du temps calculé par le service
+  $timeRemaining = $this->realisationQcmService->calculateTimeRemaining($realisationQcm);
+  ```
 
 ### 2. Validation (FormRequests)
 - Toujours utiliser une classe `FormRequest` pour valider les données entrantes.

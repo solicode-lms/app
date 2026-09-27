@@ -13,6 +13,9 @@ Ces règles sont **INVIOLABLES**. Elles garantissent la stabilité et la mainten
     - Toujours ajouter une colonne `reference` (string, unique) aux nouvelles tables.
     - Ne jamais exécuter `migrate` soi-même. Proposer la commande à l'utilisateur.
 
+## 4. Utilisation des Skills (CRITIQUE)
+- **Présence Obligatoire** : Toute modification d'un composant de l'application (Contrôleur, Service, Vue, Modèle, etc.) DOIT impérativement se faire en présence de son skill responsable (ex: `app-controller`, `app-service`, `app-blade`). Cela garantit l'application des bonnes règles et capacités.
+
 ## 2. Le Générateur Gapp (CRITIQUE)
 Le projet utilise un générateur de code (Gapp).
 - **Fichiers Protégés** :

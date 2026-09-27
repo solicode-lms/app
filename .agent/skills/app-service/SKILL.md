@@ -12,6 +12,9 @@ description: "Expertise de l'architecture modulaire de la couche Service, des Tr
 1. **Intégrité de Gapp** : Ne JAMAIS modifier un fichier commençant par `// Ce fichier est maintenu par ESSARRAJ Fouad` (classes de niveau `Base/` telles que `Base[Model]Service.php`).
 2. **Architecture MVC vs Service** : Interdiction de placer de la logique métier lourde dans les contrôleurs. Toute la logique métier doit être encapsulée dans la couche Service (classe `[Model]Service` ou ses Traits correspondants).
 3. **Modification de BaseService** : Ne jamais modifier directement le fichier `BaseService` du noyau core, sauf sous forme de PR validée pour des améliorations génériques de la stack.
+4. **Modification de Données (CRITIQUE)** : Il est **strictement interdit** de créer, modifier ou supprimer des données en appelant directement les méthodes du modèle Eloquent (ex: `$model->save()`, `$model->update()`, `$model->delete()`) sans passer par le service approprié pour l'entité (ex: utiliser `RealisationUaService->update()` au lieu de `$rup->save()`).
+   - **Relations Pivot (ManyToMany)** : Il est également interdit de modifier les relations directement via `$model->relation()->sync()` ou `attach()`. La synchronisation doit être déléguée au service en passant le tableau d'IDs dans les données de `create()` ou `update()` (ex: `$service->update($id, ['relationName' => $idsArray])`). 
+   Ceci est primordial car chaque service applique des règles de gestion spécifiques (`before` et `after`) à chaque opération sur la base de données.
 
 ### 📢 Gestion des Messages & Exceptions Métier (BLL)
 Dans la couche Service, la remontée d'erreurs ou d'alertes à l'utilisateur ne doit pas se faire par des redirections directes ou des retours HTTP. Elle repose sur le mécanisme suivant :

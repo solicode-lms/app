@@ -8,19 +8,18 @@ use Modules\PkgQcm\Models\RealisationQcm;
 
 class PasserQcmController extends Controller
 {
+    protected $realisationQcmService;
+
+    public function __construct(\Modules\PkgQcm\Services\RealisationQcmService $realisationQcmService)
+    {
+        $this->realisationQcmService = $realisationQcmService;
+    }
+
     private function checkAuthorization($realisationQcm)
     {
         $apprenant = \Modules\PkgApprenants\Models\Apprenant::where('user_id', auth()->id())->first();
         if (!$apprenant || $apprenant->id !== $realisationQcm->apprenant_id) {
             abort(403, "Accès non autorisé à ce QCM.");
-        }
-    }
-
-    private function checkSubmissionState($realisationQcm)
-    {
-        $etatSoumis = \Modules\PkgQcm\Models\EtatRealisationQcm::where('reference', 'SOUMIS')->first();
-        if (($etatSoumis && $realisationQcm->etat_realisation_qcm_id == $etatSoumis->id) || $realisationQcm->date_soumission) {
-            abort(403, "Ce QCM a déjà été soumis. Vous ne pouvez pas le repasser.");
         }
     }
 
@@ -35,7 +34,7 @@ class PasserQcmController extends Controller
         ])->findOrFail($realisation_qcm_id);
 
         $this->checkAuthorization($realisationQcm);
-        $this->checkSubmissionState($realisationQcm);
+        $this->realisationQcmService->verifierEtatSoumission($realisationQcm);
 
         // Si le QCM n'a pas encore démarré, on affiche l'écran de démarrage
         if (empty($realisationQcm->date_debut)) {
@@ -43,10 +42,8 @@ class PasserQcmController extends Controller
             return view('PkgPasserQcm::start', compact('realisationQcm', 'nbQuestions'));
         }
 
-        // Calcul du temps restant
-        $dureeMax = ($realisationQcm->qcm->duree_minutes ?? 60) * 60;
-        $tempsEcoule = now()->diffInSeconds($realisationQcm->date_debut);
-        $timeRemaining = max(0, $dureeMax - $tempsEcoule);
+        // Calcul du temps restant (délégué au service)
+        $timeRemaining = $this->realisationQcmService->calculerTempsRestant($realisationQcm);
 
         // 2. Groupement des questions par Unité d'Apprentissage (UA)
         $questionsByUa = $realisationQcm->qcm->questions->groupBy('unite_apprentissage_id');
@@ -97,18 +94,9 @@ class PasserQcmController extends Controller
         $realisationQcm = RealisationQcm::findOrFail($realisation_qcm_id);
         
         $this->checkAuthorization($realisationQcm);
-        $this->checkSubmissionState($realisationQcm);
+        $this->realisationQcmService->verifierEtatSoumission($realisationQcm);
 
-        if (empty($realisationQcm->date_debut)) {
-            $realisationQcm->date_debut = now();
-            
-            $etatEnCours = \Modules\PkgQcm\Models\EtatRealisationQcm::where('reference', 'EN_COURS')->first();
-            if ($etatEnCours) {
-                $realisationQcm->etat_realisation_qcm_id = $etatEnCours->id;
-            }
-            
-            $realisationQcm->save();
-        }
+        $this->realisationQcmService->demarrerQcm($realisationQcm);
 
         return redirect()->route('passerQcm.index', $realisation_qcm_id);
     }
@@ -118,26 +106,11 @@ class PasserQcmController extends Controller
         $realisationQcm = RealisationQcm::findOrFail($realisation_qcm_id);
         
         $this->checkAuthorization($realisationQcm);
-        $this->checkSubmissionState($realisationQcm);
+        $this->realisationQcmService->verifierEtatSoumission($realisationQcm);
         
         $reponses = $request->input('reponses', []);
         
-        foreach ($reponses as $questionId => $propositionIds) {
-            // Création ou mise à jour de la réponse pour cette question
-            $reponseQcm = \Modules\PkgQcm\Models\ReponseQcm::updateOrCreate(
-                [
-                    'realisation_qcm_id' => $realisationQcm->id,
-                    'question_id' => $questionId
-                ],
-                [
-                    'date_reponse' => now()
-                ]
-            );
-            
-            // Attacher les propositions (un tableau est attendu par sync)
-            $propositionIdsArray = is_array($propositionIds) ? $propositionIds : [$propositionIds];
-            $reponseQcm->propositionReponses()->sync($propositionIdsArray);
-        }
+        $this->realisationQcmService->sauvegarderReponses($realisationQcm, $reponses);
         
         return response()->json(['success' => true]);
     }
@@ -146,22 +119,14 @@ class PasserQcmController extends Controller
     {
         $realisationQcm = RealisationQcm::findOrFail($realisation_qcm_id);
         
+        $this->checkAuthorization($realisationQcm);
+        $this->realisationQcmService->verifierEtatSoumission($realisationQcm);
+        
         // Sauvegarde de la dernière page
-        $this->saveIncremental($request, $realisation_qcm_id);
+        $reponses = $request->input('reponses', []);
+        $this->realisationQcmService->sauvegarderReponses($realisationQcm, $reponses);
         
-        // Trouver l'état "Soumis"
-        $etatSoumis = \Modules\PkgQcm\Models\EtatRealisationQcm::where('reference', 'SOUMIS')->first();
-        
-        if ($etatSoumis) {
-            $realisationQcm->etat_realisation_qcm_id = $etatSoumis->id;
-        }
-        
-        $realisationQcm->date_soumission = now();
-        $realisationQcm->save();
-        
-        // Déclenchement manuel du calcul de note après soumission
-        $realisationQcmService = app(\Modules\PkgQcm\Services\RealisationQcmService::class);
-        $realisationQcmService->evaluerQcm($realisationQcm);
+        $this->realisationQcmService->soumettreQcm($realisationQcm);
         
         return response()->json([
             'success' => true,
