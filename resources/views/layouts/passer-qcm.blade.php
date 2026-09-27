@@ -16,6 +16,9 @@
     
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @yield('styles')
 </head>
@@ -30,6 +33,10 @@
             
             <!-- Espace pour le composant Timer -->
             @yield('timer')
+            
+            <div class="flex-grow flex justify-end px-4">
+                @yield('actions-top')
+            </div>
             
             <div class="flex items-center gap-3 border-l pl-6 border-gray-200">
                 <div class="text-right hidden md:block">

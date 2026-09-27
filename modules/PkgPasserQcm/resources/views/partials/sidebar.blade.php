@@ -5,7 +5,7 @@
         <nav class="space-y-2">
             <template x-for="(ua, index) in $store.qcm.uas" :key="index">
                 <div 
-                    @click="$store.qcm.activeUaIndex = index"
+                    @click="$store.qcm.saveCurrentUa(); $store.qcm.activeUaIndex = index"
                     class="group flex items-start gap-3 p-2 -mx-2 rounded-lg transition-colors cursor-pointer"
                     :class="$store.qcm.activeUaIndex === index ? 'bg-indigo-50 border border-indigo-100' : 'hover:bg-gray-50'"
                 >
@@ -35,7 +35,7 @@
                         </p>
                         <p class="text-xs"
                            :class="$store.qcm.activeUaIndex === index ? 'text-indigo-600 font-medium' : ($store.qcm.isUaCompleted(index) ? 'text-emerald-600 font-medium' : 'text-gray-400')"
-                           x-text="$store.qcm.activeUaIndex === index ? 'En cours' : ($store.qcm.isUaCompleted(index) ? 'Complété' : 'En attente')">
+                           x-text="$store.qcm.isUaCompleted(index) ? 'Complété' : ($store.qcm.activeUaIndex === index ? 'En cours' : 'En attente')">
                         </p>
                     </div>
                 </div>

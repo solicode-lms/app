@@ -25,7 +25,9 @@ document.addEventListener('alpine:init', () => {
     try {
         const stored = localStorage.getItem(lsKey);
         if (stored) localReponses = JSON.parse(stored);
-    } catch(e) {}
+    } catch(e) {
+        console.error("Erreur lors de la lecture du LocalStorage:", e);
+    }
 
     // 3. Fusionner (LocalStorage prioritaire pour éviter la perte des clics récents non envoyés)
     const mergedReponses = { ...serverReponses, ...localReponses };
@@ -36,11 +38,14 @@ document.addEventListener('alpine:init', () => {
         reponses: mergedReponses,
         timeRemaining: (window.QcmData && window.QcmData.timeRemaining !== undefined) ? window.QcmData.timeRemaining : 3600,
         lsKey: lsKey,
+        isLoading: false,
         
         persistToLocal() {
             try {
                 localStorage.setItem(this.lsKey, JSON.stringify(Alpine.raw(this.reponses)));
-            } catch(e) {}
+            } catch(e) {
+                console.error("Erreur lors de la sauvegarde dans le LocalStorage:", e);
+            }
         },
         
         async saveCurrentUa() {
@@ -70,16 +75,58 @@ document.addEventListener('alpine:init', () => {
             }
         },
 
-        async next() {
-            await this.saveCurrentUa();
+        next() {
+            this.saveCurrentUa(); // Fire and forget (asynchrone)
             if (this.activeUaIndex < this.uas.length - 1) {
                 this.activeUaIndex++;
             }
         },
         
-        async submit() {
+        getUnansweredCount() {
+            let count = 0;
+            this.uas.forEach(ua => {
+                if (ua.questions) {
+                    ua.questions.forEach(q => {
+                        const ans = this.reponses[q.id];
+                        const isMultiple = (q.type && q.type.toLowerCase() === 'choix multiple');
+                        const isAnswered = isMultiple 
+                            ? (Array.isArray(ans) && ans.length > 0)
+                            : (ans !== undefined && ans !== null);
+                        
+                        if (!isAnswered) count++;
+                    });
+                }
+            });
+            return count;
+        },
+        
+        async submit(force = false) {
+            if (this.isLoading) return;
+            
             await this.saveCurrentUa();
             
+            if (!force && typeof Swal !== 'undefined') {
+                const unanswered = this.getUnansweredCount();
+                let message = "Êtes-vous sûr de vouloir soumettre ce QCM ?";
+                if (unanswered > 0) {
+                    message = `Il vous reste ${unanswered} question(s) sans réponse. Voulez-vous vraiment terminer ?`;
+                }
+                
+                const result = await Swal.fire({
+                    title: 'Confirmer la soumission',
+                    text: message,
+                    icon: unanswered > 0 ? 'warning' : 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#4f46e5',
+                    cancelButtonColor: '#9ca3af',
+                    confirmButtonText: 'Oui, soumettre',
+                    cancelButtonText: 'Annuler'
+                });
+                
+                if (!result.isConfirmed) return;
+            }
+            
+            this.isLoading = true;
             try {
                 const response = await fetch(window.QcmData.submitUrl, {
                     method: 'POST',
@@ -94,13 +141,17 @@ document.addEventListener('alpine:init', () => {
                 if (response.ok) {
                     localStorage.removeItem(this.lsKey); // Nettoyage après succès
                     window.location.href = window.QcmData.redirectUrl;
+                } else {
+                    this.isLoading = false;
                 }
             } catch (e) {
                 console.error("Erreur lors de la soumission", e);
+                this.isLoading = false;
             }
         },
         
         prev() {
+            this.saveCurrentUa(); // Fire and forget (asynchrone)
             if (this.activeUaIndex > 0) {
                 this.activeUaIndex--;
             }
@@ -137,53 +188,4 @@ document.addEventListener('alpine:init', () => {
         }
     });
 
-    // Composant minimaliste pour la zone centrale si besoin de getters spécifiques
-    Alpine.data('zoneCentraleComponent', () => ({
-        init() {
-            // À chaque fois que l'UA change (Next, Prev, ou clic dans la sidebar)
-            this.$watch('$store.qcm.activeUaIndex', () => {
-                this.$nextTick(() => {
-                    this.scrollToIdealPosition();
-                });
-            });
-        },
-        
-        get activeUa() {
-            return this.$store.qcm.uas[this.$store.qcm.activeUaIndex];
-        },
-        
-        scrollToIdealPosition() {
-            const currentUa = this.activeUa;
-            if (!currentUa || !currentUa.questions) return;
-            
-            let targetId = null;
-            // Cherche la première question non répondue
-            for (let q of currentUa.questions) {
-                const ans = this.$store.qcm.reponses[q.id];
-                const isMultiple = (q.type && q.type.toLowerCase() === 'choix multiple');
-                const isAnswered = isMultiple 
-                    ? (Array.isArray(ans) && ans.length > 0)
-                    : (ans !== undefined && ans !== null);
-                
-                if (!isAnswered) {
-                    targetId = 'question-' + q.id;
-                    break;
-                }
-            }
-            
-            if (targetId) {
-                const el = document.getElementById(targetId);
-                if (el) {
-                    // On scrolle avec un décalage si possible (center) pour bien voir la question
-                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    return;
-                }
-            }
-            // Si toutes les questions ont une réponse, on scrolle tout en haut
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    }));
-    
-    // Composant minimaliste pour la sidebar
-    Alpine.data('sidebarComponent', () => ({}));
 });

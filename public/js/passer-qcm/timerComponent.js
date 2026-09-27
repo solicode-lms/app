@@ -17,8 +17,14 @@ document.addEventListener('alpine:init', () => {
                 } else {
                     this.$store.qcm.timeRemaining = 0;
                     clearInterval(this.timerInterval);
-                    alert("Le temps imparti est écoulé. Le QCM va être soumis automatiquement.");
-                    this.$store.qcm.submit();
+                    
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire('Temps écoulé !', 'Le QCM va être soumis automatiquement.', 'info');
+                    } else {
+                        alert("Le temps imparti est écoulé. Le QCM va être soumis automatiquement.");
+                    }
+                    
+                    this.$store.qcm.submit(true);
                 }
             }, 1000);
         },

@@ -71,7 +71,10 @@ class RealisationQcmService extends BaseRealisationQcmService
         $realisationUaPrototypes = RealisationUaPrototype::whereIn('realisation_tache_id', $realisationTachesIds)->get();
 
         $etatValide = EtatRealisationQcm::where('reference', 'VALIDE')->first();
-        $isValide = ($etatValide && $item->etat_realisation_qcm_id == $etatValide->id);
+        $etatSoumis = EtatRealisationQcm::where('reference', 'SOUMIS')->first();
+        
+        $isValideOrSoumis = (($etatValide && $item->etat_realisation_qcm_id == $etatValide->id) || 
+                             ($etatSoumis && $item->etat_realisation_qcm_id == $etatSoumis->id));
 
         foreach($realisationUaPrototypes as $rup) {
             $uniteApprentissageId = $rup->realisationUa->unite_apprentissage_id ?? null;
@@ -81,7 +84,7 @@ class RealisationQcmService extends BaseRealisationQcmService
                 
                 // On met à jour la note uniquement si l'UA est évaluée dans ce QCM (barème > 0)
                 if ($resultat['bareme'] > 0) {
-                    if ($isValide) {
+                    if ($isValideOrSoumis) {
                         $dataToUpdate = [
                             'note_qcm' => $resultat['note'],
                             'barem_qcm' => $resultat['bareme']
@@ -117,26 +120,32 @@ class RealisationQcmService extends BaseRealisationQcmService
         } // Fermeture du foreach($realisationUaPrototypes as $rup)
         
         // Enregistrement de la note globale du QCM
-        $noteTotaleQcm = 0;
-        $qcm = $item->qcm;
-        if ($qcm) {
-            foreach($qcm->questions as $question) {
-                $reponse = $item->reponseQcms()->where('question_id', $question->id)->first();
-                if ($reponse) {
-                    $propositionsCorrectes = $question->propositionReponses()->where('is_correcte', true)->pluck('id')->toArray();
-                    $propositionsChoisies = $reponse->propositionReponses()->pluck('id')->toArray();
-                    
-                    sort($propositionsCorrectes);
-                    sort($propositionsChoisies);
-                    
-                    if (!empty($propositionsCorrectes) && $propositionsCorrectes == $propositionsChoisies) {
-                        $noteTotaleQcm += $question->bareme;
+        $noteFinale = null;
+        
+        if ($isValideOrSoumis) {
+            $noteTotaleQcm = 0;
+            $qcm = $item->qcm;
+            if ($qcm) {
+                foreach($qcm->questions as $question) {
+                    $reponse = $item->reponseQcms()->where('question_id', $question->id)->first();
+                    if ($reponse) {
+                        $propositionsCorrectes = $question->propositionReponses()->where('is_correcte', true)->pluck('id')->toArray();
+                        $propositionsChoisies = $reponse->propositionReponses()->pluck('id')->toArray();
+                        
+                        sort($propositionsCorrectes);
+                        sort($propositionsChoisies);
+                        
+                        if (!empty($propositionsCorrectes) && $propositionsCorrectes == $propositionsChoisies) {
+                            $noteTotaleQcm += $question->bareme;
+                        }
                     }
                 }
+                $noteFinale = $noteTotaleQcm;
             }
-            if ($item->note_obtenu !== $noteTotaleQcm) {
-                $this->update($item->id, ['note_obtenu' => $noteTotaleQcm]);
-            }
+        }
+        
+        if ($item->note_obtenu !== $noteFinale) {
+            $this->update($item->id, ['note_obtenu' => $noteFinale]);
         }
     }
 

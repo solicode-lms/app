@@ -9,7 +9,7 @@ La logique frontend n'est plus dispersée dans de grands scripts JS. Elle est en
 ### Principes
 1. **Composants Blade Anonymes / Classes** : Les composants doivent être créés via le système de composants de Laravel (`resources/views/components/`).
 2. **Isolation Alpine** : Chaque composant Blade responsable d'une logique dynamique doit déclarer son propre `x-data`.
-3. **Fichiers JS dédiés (Optionnel mais recommandé)** : Pour une logique complexe, le `x-data` peut faire appel à une fonction JavaScript exportée globale (ex: `document.addEventListener('alpine:init', () => { Alpine.data('monComposant', () => ({})) })`).
+3. **Fichiers JS dédiés (Règle Stricte)** : Pour toute logique complexe ou réutilisable, chaque composant Alpine (`Alpine.data()`) DOIT être déclaré dans son propre fichier JS séparé (ex: `zoneCentraleComponent.js`, `sidebarComponent.js`). Ne jamais regrouper plusieurs composants distincts dans un même fichier fourre-tout (`store.js` doit se limiter strictement au `Alpine.store()`).
 
 ## 3. Tailwind CSS
 - Toutes les classes de style doivent utiliser Tailwind CSS.
