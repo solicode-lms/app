@@ -508,6 +508,11 @@ class BaseRealisationQcmController extends AdminController
                 $message
             );
         }
+
+        // Si l'action est appelle sans ajax, il faut lancer les job, créer par la modification 
+        // de réalisation des tâches 
+        $asyncService = new \Modules\Core\Services\TraitementAsyncService();
+        $asyncService->runArtisanInBackground('traitement:run');
         return redirect()->route('RealisationQcm.index')->with(
             'success',
             "Le QCM a été réinitialisé avec succès"

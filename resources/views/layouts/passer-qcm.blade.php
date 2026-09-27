@@ -24,26 +24,35 @@
 <body class="bg-gray-50 text-gray-800 antialiased min-h-screen flex flex-col">
     <!-- En-tête -->
     <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-3">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between relative">
+            
+            <!-- Section Gauche : Logo et Titre -->
+            <div class="flex items-center gap-3 z-10">
                 <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">Q</div>
-                <h1 class="text-xl font-semibold text-gray-900">@yield('qcm-title', 'Évaluation')</h1>
+                <h1 class="text-xl font-semibold text-gray-900 hidden sm:block">@yield('qcm-title', 'Évaluation')</h1>
             </div>
             
-            <!-- Espace pour le composant Timer -->
-            @yield('timer')
-            
-            <div class="flex-grow flex justify-end px-4">
-                @yield('actions-top')
-            </div>
-            
-            <div class="flex items-center gap-3 border-l pl-6 border-gray-200">
-                <div class="text-right hidden md:block">
-                    <div class="text-sm font-medium text-gray-900">{{ Auth::user()->name ?? 'Apprenant' }}</div>
-                    <div class="text-xs text-gray-500">Apprenant</div>
+            <!-- Section Centrale : Timer parfaitement centré -->
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+                <div class="pointer-events-auto">
+                    @yield('timer')
                 </div>
-                <div class="h-9 w-9 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold border border-indigo-200">
-                    {{ substr(Auth::user()->name ?? 'A', 0, 1) }}
+            </div>
+            
+            <!-- Section Droite : Actions et Profil -->
+            <div class="flex items-center gap-4 z-10 bg-white">
+                <div>
+                    @yield('actions-top')
+                </div>
+                
+                <div class="flex items-center gap-3 border-l pl-4 sm:pl-6 border-gray-200">
+                    <div class="text-right hidden md:block">
+                        <div class="text-sm font-medium text-gray-900">{{ Auth::user()->name ?? 'Apprenant' }}</div>
+                        <div class="text-xs text-gray-500">Apprenant</div>
+                    </div>
+                    <div class="h-9 w-9 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold border border-indigo-200">
+                        {{ substr(Auth::user()->name ?? 'A', 0, 1) }}
+                    </div>
                 </div>
             </div>
         </div>

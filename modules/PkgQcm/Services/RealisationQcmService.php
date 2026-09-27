@@ -50,6 +50,11 @@ class RealisationQcmService extends BaseRealisationQcmService
         $realisationQcm->refresh();
         $this->evaluerUaPrototypes($realisationQcm);
         
+
+        // on doit lancer les job car l'appelle est fait san Ajax, les job sont lancer seulement les les appelle Ajax
+        
+
+
         $this->pushServiceMessage("success", "Initialisation réussie", "Le QCM a été réinitialisé avec succès et peut être repassé.");
         return $value;
     }
