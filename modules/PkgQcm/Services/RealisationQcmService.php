@@ -288,8 +288,22 @@ class RealisationQcmService extends BaseRealisationQcmService
     public function verifierEtatSoumission($realisationQcm)
     {
         $etatSoumis = EtatRealisationQcm::where('reference', 'SOUMIS')->first();
-        if (($etatSoumis && $realisationQcm->etat_realisation_qcm_id == $etatSoumis->id) || $realisationQcm->date_soumission) {
-            throw new \Modules\Core\App\Exceptions\BlException("Ce QCM a déjà été soumis. Vous ne pouvez pas le modifier ou le repasser.");
+        $etatValide = EtatRealisationQcm::where('reference', 'VALIDE')->first();
+        
+        if (($etatSoumis && $realisationQcm->etat_realisation_qcm_id == $etatSoumis->id) || 
+            ($etatValide && $realisationQcm->etat_realisation_qcm_id == $etatValide->id) || 
+            $realisationQcm->date_soumission) {
+            throw new \Modules\Core\App\Exceptions\BlException("Ce QCM a déjà été soumis ou évalué. Vous ne pouvez pas le modifier ou le repasser.");
+        }
+
+        $etatAbsent = EtatRealisationQcm::where('reference', 'ABSENT')->first();
+        if ($etatAbsent && $realisationQcm->etat_realisation_qcm_id == $etatAbsent->id) {
+            throw new \Modules\Core\App\Exceptions\BlException("Vous avez été marqué comme absent à ce QCM. Veuillez contacter votre formateur pour réinitialiser l'état à « À faire ».");
+        }
+
+        $etatEnPause = EtatRealisationQcm::where('reference', 'EN_PAUSE')->first();
+        if ($etatEnPause && $realisationQcm->etat_realisation_qcm_id == $etatEnPause->id) {
+            throw new \Modules\Core\App\Exceptions\BlException("Ce QCM est actuellement en pause. Veuillez contacter votre formateur pour le débloquer.");
         }
     }
 
