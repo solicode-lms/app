@@ -347,6 +347,7 @@
     {
         "reference": "AffectationQcmProjet_saise_automatique_note_qcm_required",
         "value_boolean": 1,
+        "value_float": 0,
         "e_data_field_reference": "AffectationQcmProjet_saise_automatique_note_qcm",
         "e_metadata_definition_reference": "required"
     },

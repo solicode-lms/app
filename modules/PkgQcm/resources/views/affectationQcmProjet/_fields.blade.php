@@ -162,14 +162,14 @@
           @endif
           <label for="saise_automatique_note_qcm">
             {{ ucfirst(__('PkgQcm::affectationQcmProjet.saise_automatique_note_qcm')) }}
-            <span class="text-danger">*</span>
+            
           </label>
                       <input type="hidden" name="saise_automatique_note_qcm" value="0">
             <input
                 name="saise_automatique_note_qcm"
                 type="checkbox"
                 class="form-control d-block"
-                required
+                
                 
                 
                 id="saise_automatique_note_qcm"

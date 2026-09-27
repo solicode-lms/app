@@ -103,28 +103,24 @@ class RealisationQcmService extends BaseRealisationQcmService
                 $resultat = $this->calculerNoteUa($item, $uniteApprentissageId);
                 
                 // On met à jour la note uniquement si l'UA est évaluée dans ce QCM (barème > 0)
-                if ($resultat['bareme'] > 0) {
+                // ET si la configuration permet la saisie automatique sur le prototype !
+                if ($resultat['bareme'] > 0 && $affectationQcmProjet->saise_automatique_note_qcm == true) {
                     if ($isValideOrSoumis) {
+                        $baremePrototype = $rup->bareme ?? 20;
+                        $noteAdaptee = ($resultat['note'] / $resultat['bareme']) * $baremePrototype;
+                        
                         $dataToUpdate = [
                             'note_qcm' => $resultat['note'],
-                            'barem_qcm' => $resultat['bareme']
+                            'barem_qcm' => $resultat['bareme'],
+                            'note' => $noteAdaptee
                         ];
-                        
-                        if ($affectationQcmProjet->saise_automatique_note_qcm) {
-                            $baremePrototype = $rup->bareme ?? 20;
-                            $noteAdaptee = ($resultat['note'] / $resultat['bareme']) * $baremePrototype;
-                            $dataToUpdate['note'] = $noteAdaptee;
-                        }
                     } else {
                         // Le QCM est réinitialisé ou non validé, on efface les notes
                         $dataToUpdate = [
                             'note_qcm' => null,
-                            'barem_qcm' => null
+                            'barem_qcm' => null,
+                            'note' => null
                         ];
-                        
-                        if ($affectationQcmProjet->saise_automatique_note_qcm) {
-                            $dataToUpdate['note'] = null;
-                        }
                     }
                     
                     $realisationUaPrototypeService = app(\Modules\PkgApprentissage\Services\RealisationUaPrototypeService::class);

@@ -32,7 +32,7 @@ class BaseAffectationQcmProjetRequest extends FormRequest
             'qcm_id' => 'required',
             'affectation_projet_id' => 'required',
             'date_affectation' => 'nullable',
-            'saise_automatique_note_qcm' => 'required|boolean'
+            'saise_automatique_note_qcm' => 'nullable|boolean'
         ];
     }
 
