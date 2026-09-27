@@ -1,5 +1,4 @@
-document.addEventListener('alpine:init', () => {
-    
+export default function registerQcmStore(Alpine) {
     // 1. Reconstruire les réponses depuis le serveur
     const serverReponses = {};
     if (window.QcmData && window.QcmData.uas) {
@@ -187,5 +186,4 @@ document.addEventListener('alpine:init', () => {
             this.persistToLocal(); // Sauvegarde instantanée
         }
     });
-
-});
+}

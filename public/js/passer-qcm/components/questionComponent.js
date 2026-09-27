@@ -1,4 +1,4 @@
-document.addEventListener('alpine:init', () => {
+export default function registerQuestionComponent(Alpine) {
     Alpine.data('questionComponent', (question) => ({
         question: question,
         
@@ -18,4 +18,4 @@ document.addEventListener('alpine:init', () => {
             this.$store.qcm.setReponse(this.question.id, propositionId, this.isMultiple);
         }
     }));
-});
+}

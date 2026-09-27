@@ -1,5 +1,4 @@
-document.addEventListener('alpine:init', () => {
-    // Composant minimaliste pour la zone centrale
+export default function registerZoneCentraleComponent(Alpine) {
     Alpine.data('zoneCentraleComponent', () => ({
         init() {
             // À chaque fois que l'UA change (Next, Prev, ou clic dans la sidebar)
@@ -45,4 +44,4 @@ document.addEventListener('alpine:init', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }));
-});
+}

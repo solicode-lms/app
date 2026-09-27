@@ -105,10 +105,6 @@
     };
 </script>
 
-<!-- 2. Chargement des composants Alpine extraits dans des fichiers séparés -->
-<script src="{{ asset('js/passer-qcm/store.js') }}?v={{ time() }}"></script>
-<script src="{{ asset('js/passer-qcm/zoneCentraleComponent.js') }}?v={{ time() }}"></script>
-<script src="{{ asset('js/passer-qcm/sidebarComponent.js') }}?v={{ time() }}"></script>
-<script src="{{ asset('js/passer-qcm/timerComponent.js') }}?v={{ time() }}"></script>
-<script src="{{ asset('js/passer-qcm/questionComponent.js') }}?v={{ time() }}"></script>
+<!-- 2. Chargement du point d'entrée principal des composants Alpine (ES Modules) -->
+<script type="module" src="{{ asset('js/passer-qcm/app.js') }}?v={{ time() }}"></script>
 @endpush

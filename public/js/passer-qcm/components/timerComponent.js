@@ -1,4 +1,4 @@
-document.addEventListener('alpine:init', () => {
+export default function registerTimerComponent(Alpine) {
     Alpine.data('timerComponent', () => ({
         timerInterval: null,
         
@@ -38,4 +38,4 @@ document.addEventListener('alpine:init', () => {
             return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
         }
     }));
-});
+}
