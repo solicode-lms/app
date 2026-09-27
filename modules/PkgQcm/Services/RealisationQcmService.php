@@ -249,19 +249,23 @@ class RealisationQcmService extends BaseRealisationQcmService
      */
     public function calculerNoteUa($realisationQcm, $uniteApprentissageId)
     {
-        $note = 0;
+        $note = null;
         $bareme = 0;
         
         $qcm = $realisationQcm->qcm;
-        if (!$qcm) return ['note' => 0, 'bareme' => 0];
+        if (!$qcm) return ['note' => null, 'bareme' => 0];
         
         $questionsUa = $qcm->questions()->where('unite_apprentissage_id', $uniteApprentissageId)->get();
+        $hasReponses = false;
         
         foreach($questionsUa as $question) {
             $bareme += $question->bareme;
             
             $reponse = $realisationQcm->reponseQcms()->where('question_id', $question->id)->first();
             if ($reponse) {
+                $hasReponses = true;
+                if ($note === null) $note = 0;
+                
                 $propositionsCorrectes = $question->propositionReponses()->where('is_correcte', true)->pluck('id')->toArray();
                 $propositionsChoisies = $reponse->propositionReponses()->pluck('id')->toArray();
                 
@@ -272,6 +276,12 @@ class RealisationQcmService extends BaseRealisationQcmService
                     $note += $question->bareme;
                 }
             }
+        }
+        
+        if (!$hasReponses && $bareme > 0) {
+            $note = null;
+        } else if ($hasReponses && $note === null) {
+            $note = 0;
         }
         
         return ['note' => $note, 'bareme' => $bareme];
