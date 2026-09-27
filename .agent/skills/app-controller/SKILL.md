@@ -10,7 +10,13 @@ description: Expert de l'architecture des Contrôleurs, FormRequests, Web routes
 
 ## 📐 Règles d'Architecture
 
-### 1. Fat Models, Skinny Controllers (ou Services)
+### 1. Héritage des Contrôleurs (Règle Stricte)
+- **Héritage Obligatoire** : Tous les contrôleurs DOIVENT hériter soit de `Modules\Core\Controllers\Base\AdminController` soit de `PublicController`.
+  - `AdminController` : Pour toutes les interfaces nécessitant une authentification et une gestion fine des permissions/droits d'accès.
+  - `PublicController` : Pour les interfaces accessibles publiquement (non restreintes).
+- **Raison** : La vérification des droits d'accès est gérée dynamiquement et centralisée dans `AdminController`. Ne jamais hériter directement du `Controller` de base de Laravel.
+
+### 2. Fat Models, Skinny Controllers (ou Services)
 - Le contrôleur ne doit contenir que la logique liée à la requête HTTP :
   - Autorisation (Gate / Policy).
   - Validation (via `FormRequest`).
@@ -59,8 +65,10 @@ description: Expert de l'architecture des Contrôleurs, FormRequests, Web routes
 
 ### 5. Gestion des Permissions (Nouvelles Méthodes)
 - Lors de l'ajout d'une nouvelle méthode personnalisée dans un contrôleur, le Middleware de vérification dynamique des permissions cherche une permission correspondante qui n'existe potentiellement pas.
-- **Règle** : Il faut toujours ignorer la permission dynamique pour la nouvelle méthode via l'annotation PHPDoc `@DynamicPermissionIgnore`.
-- **Ensuite** : Relier manuellement la méthode à une permission existante (la plus proche fonctionnellement) via `$this->authorizeAction('nom_action');` (ex: `update`, `view`, `create`).
+- **Règle Stricte** : Il faut TOUJOURS ignorer la permission dynamique pour les nouvelles méthodes via l'annotation PHPDoc `/** @DynamicPermissionIgnore */`.
+- **Ensuite, vérifier manuellement l'accès dans la méthode** : 
+  - **Option 1 (Standard)** : Relier la méthode à une permission CRUD existante de l'entité via `$this->authorizeAction('nom_action');` (ex: `update`, `view`).
+  - **Option 2 (Permission Personnalisée)** : Si une permission exacte a été créée (ex: `passer-qcm` via un Seeder), la vérifier directement avec `abort_if(!auth()->user()->can('passer-qcm'), 403, 'Permission refusée');`.
 
 **Exemple :**
 ```php
@@ -94,3 +102,6 @@ description: Expert de l'architecture des Contrôleurs, FormRequests, Web routes
 
 ### 1. `capacité-view-state.md`
 - **Rôle** : Base de connaissances sur la manipulation du ViewState (`where`, `scope`, relations) dans les contrôleurs.
+
+### 2. `capacité-crud-jobs.md`
+- **Rôle** : Explication du mécanisme de traitement asynchrone des requêtes longues via `$this->service->getCrudJobToken()`.

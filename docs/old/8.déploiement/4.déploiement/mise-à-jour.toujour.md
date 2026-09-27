@@ -23,6 +23,11 @@ sudo npm install
 sudo php artisan config:clear
 sudo php artisan cache:clear
 sudo php artisan optimize:clear
+
+
+ php artisan config:clear
+ php artisan cache:clear
+ php artisan optimize:clear
 ````
 
 ## Validation des noms des classes

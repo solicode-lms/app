@@ -58,6 +58,16 @@ description: Expert unifié de la gestion, création et maintenance des composan
   3. **Si Mise à jour** :
      - Vérifier que la règle ne contredit pas une règle globale (`meta-gouvernance`).
 
+### Action C : Feedback Loop (Mise à jour post-correction)
+> **Description** : Mettre à jour systématiquement les Skills ou les Règles après une intervention corrective demandée par le développeur, afin que l'erreur ne se reproduise plus.
+- **Entrées** : `Remarque du développeur`, `Correction effectuée`, `Skill/Règle concerné`
+- **Sorties** : Fichier `.md` du skill ou de la règle mis à jour.
+- **📝 Instructions d'Orchestration** :
+  1. **Analyse de la correction** : Comprendre pourquoi le code précédent posait problème et quelle règle n'a pas été respectée ou manquait.
+  2. **Extraction de la Règle** : Transformer la remarque spécifique du développeur en une règle générale et intemporelle.
+  3. **Mise à jour** : Identifier le fichier le plus pertinent (`SKILL.md`, `capacité-*.md`, ou `règle-gestion-*.md`) et y injecter la nouvelle règle de manière claire (souvent sous forme de "Règle Stricte").
+  4. **Confirmation** : Informer le développeur que le système cognitif a été mis à jour ("la règle a été gravée dans le marbre").
+
 ---
 
 ## 🛠️ Capacités (Savoir-Faire Technique)

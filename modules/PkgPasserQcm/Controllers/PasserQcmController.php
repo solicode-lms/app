@@ -2,27 +2,35 @@
 
 namespace Modules\PkgPasserQcm\Controllers;
 
-use App\Http\Controllers\Controller;
+use Modules\Core\Controllers\Base\AdminController;
 use Illuminate\Http\Request;
 use Modules\PkgQcm\Models\RealisationQcm;
 
-class PasserQcmController extends Controller
+class PasserQcmController extends AdminController
 {
     protected $realisationQcmService;
 
     public function __construct(\Modules\PkgQcm\Services\RealisationQcmService $realisationQcmService)
     {
+        parent::__construct();
         $this->realisationQcmService = $realisationQcmService;
     }
 
     private function checkAuthorization($realisationQcm)
     {
+        // Vérification de la permission globale accordée par les rôles
+        abort_if(!auth()->user()->can('passer-qcm'), 403, "Vous n'avez pas la permission de passer un QCM.");
+
+        // Vérification que cet apprenant spécifique a bien le droit de passer CE QCM
         $apprenant = \Modules\PkgApprenants\Models\Apprenant::where('user_id', auth()->id())->first();
         if (!$apprenant || $apprenant->id !== $realisationQcm->apprenant_id) {
             abort(403, "Accès non autorisé à ce QCM.");
         }
     }
 
+    /**
+     * @DynamicPermissionIgnore
+     */
     public function index($realisation_qcm_id)
     {
         // 1. Chargement de la réalisation et des relations requises pour l'affichage
@@ -89,6 +97,9 @@ class PasserQcmController extends Controller
         return view('PkgPasserQcm::index', compact('realisationQcm', 'dataUaGrouped', 'timeRemaining'));
     }
 
+    /**
+     * @DynamicPermissionIgnore
+     */
     public function start(Request $request, $realisation_qcm_id)
     {
         $realisationQcm = RealisationQcm::findOrFail($realisation_qcm_id);
@@ -101,6 +112,9 @@ class PasserQcmController extends Controller
         return redirect()->route('passerQcm.index', $realisation_qcm_id);
     }
 
+    /**
+     * @DynamicPermissionIgnore
+     */
     public function saveIncremental(Request $request, $realisation_qcm_id)
     {
         $realisationQcm = RealisationQcm::findOrFail($realisation_qcm_id);
@@ -115,6 +129,9 @@ class PasserQcmController extends Controller
         return response()->json(['success' => true]);
     }
     
+    /**
+     * @DynamicPermissionIgnore
+     */
     public function submit(Request $request, $realisation_qcm_id)
     {
         $realisationQcm = RealisationQcm::findOrFail($realisation_qcm_id);

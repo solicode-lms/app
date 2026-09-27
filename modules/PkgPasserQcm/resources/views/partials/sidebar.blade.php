@@ -1,6 +1,6 @@
 <aside x-data="sidebarComponent()" class="w-full md:w-64 flex-shrink-0">
     <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 sticky top-24">
-        <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Progression (par UA)</h2>
+        <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Progression</h2>
         
         <nav class="space-y-2">
             <template x-for="(ua, index) in $store.qcm.uas" :key="index">

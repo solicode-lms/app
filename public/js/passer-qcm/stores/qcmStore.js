@@ -37,9 +37,10 @@ export default function registerQcmStore(Alpine) {
         uas: window.QcmData.uas || [],
         activeUaIndex: 0,
         reponses: mergedReponses,
-        timeRemaining: (window.QcmData && window.QcmData.timeRemaining !== undefined) ? window.QcmData.timeRemaining : 3600,
+        timeRemaining: (window.QcmData && window.QcmData.timeRemaining !== undefined) ? window.QcmData.timeRemaining : null,
         lsKey: lsKey,
         isLoading: false,
+        isSaving: false, // Nouvel état pour la sauvegarde incrémentale en arrière-plan
         
         persistToLocal() {
             try {
@@ -61,6 +62,7 @@ export default function registerQcmStore(Alpine) {
                 }
             });
             
+            this.isSaving = true;
             try {
                 await fetch(window.QcmData.saveUrl, {
                     method: 'POST',
@@ -73,6 +75,8 @@ export default function registerQcmStore(Alpine) {
                 });
             } catch (e) {
                 console.error("Erreur lors de la sauvegarde incrémentale", e);
+            } finally {
+                this.isSaving = false;
             }
         },
 
