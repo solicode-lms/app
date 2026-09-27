@@ -1,3 +1,5 @@
+import { QUESTION_TYPES } from '../constants.js';
+
 export default function registerZoneCentraleComponent(Alpine) {
     Alpine.data('zoneCentraleComponent', () => ({
         init() {
@@ -21,7 +23,7 @@ export default function registerZoneCentraleComponent(Alpine) {
             // Cherche la première question non répondue
             for (let q of currentUa.questions) {
                 const ans = this.$store.qcm.reponses[q.id];
-                const isMultiple = (q.type && q.type.toLowerCase() === 'choix multiple');
+                const isMultiple = (q.type && q.type.toLowerCase() === QUESTION_TYPES.CHOIX_MULTIPLE);
                 const isAnswered = isMultiple 
                     ? (Array.isArray(ans) && ans.length > 0)
                     : (ans !== undefined && ans !== null);

@@ -1,9 +1,11 @@
+import { QUESTION_TYPES } from '../constants.js';
+
 export default function registerQuestionComponent(Alpine) {
     Alpine.data('questionComponent', (question) => ({
         question: question,
         
         get isMultiple() {
-            return this.question.type && this.question.type.toLowerCase() === 'choix multiple';
+            return this.question.type && this.question.type.toLowerCase() === QUESTION_TYPES.CHOIX_MULTIPLE;
         },
         
         isSelected(propositionId) {

@@ -1,3 +1,5 @@
+import { QUESTION_TYPES } from '../constants.js';
+
 export default function registerQcmStore(Alpine) {
     // 1. Reconstruire les réponses depuis le serveur
     const serverReponses = {};
@@ -6,7 +8,7 @@ export default function registerQcmStore(Alpine) {
             if(ua.questions) {
                 ua.questions.forEach(q => {
                     if (q.selected_propositions && q.selected_propositions.length > 0) {
-                        if (q.type && q.type.toLowerCase() === 'choix multiple') {
+                        if (q.type && q.type.toLowerCase() === QUESTION_TYPES.CHOIX_MULTIPLE) {
                             serverReponses[q.id] = q.selected_propositions;
                         } else {
                             serverReponses[q.id] = q.selected_propositions[0];
@@ -51,7 +53,7 @@ export default function registerQcmStore(Alpine) {
             const currentUa = this.uas[this.activeUaIndex];
             if (!currentUa || !currentUa.questions) return;
             
-            // On ne récupère que les réponses de la page courante
+            // On ne récupère que les réponses de la UA courante
             const reponsesToSave = {};
             currentUa.questions.forEach(q => {
                 if (this.reponses[q.id] !== undefined) {
@@ -87,7 +89,7 @@ export default function registerQcmStore(Alpine) {
                 if (ua.questions) {
                     ua.questions.forEach(q => {
                         const ans = this.reponses[q.id];
-                        const isMultiple = (q.type && q.type.toLowerCase() === 'choix multiple');
+                        const isMultiple = (q.type && q.type.toLowerCase() === QUESTION_TYPES.CHOIX_MULTIPLE);
                         const isAnswered = isMultiple 
                             ? (Array.isArray(ans) && ans.length > 0)
                             : (ans !== undefined && ans !== null);
@@ -162,7 +164,7 @@ export default function registerQcmStore(Alpine) {
             
             return ua.questions.every(q => {
                 const ans = this.reponses[q.id];
-                if (q.type && q.type.toLowerCase() === 'choix multiple') {
+                if (q.type && q.type.toLowerCase() === QUESTION_TYPES.CHOIX_MULTIPLE) {
                     return Array.isArray(ans) && ans.length > 0;
                 }
                 return ans !== undefined && ans !== null;
