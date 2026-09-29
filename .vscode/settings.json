@@ -61,6 +61,12 @@
     },
     "todo-tree.tree.showCountsInTree": true,
     "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)",
-    "folder-color.pathColors": [],
+    "folder-color.pathColors": [
+        {
+            "folderPath": "solicode-lms\\.agent\\",
+            "color": "foldercolorizer.color_d787af",
+            "isFolderOnly": true
+        }
+    ],
     "hide-files.files": []
 }

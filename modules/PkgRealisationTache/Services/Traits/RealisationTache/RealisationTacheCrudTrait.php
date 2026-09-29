@@ -227,6 +227,40 @@ trait RealisationTacheCrudTrait
     {
         $realisationTache = $this->find($id);
 
+        // 🔄 Bug 2 : Sélection manuelle du candidat pour le Live Coding
+        if (isset($data['is_live_coding']) && $data['is_live_coding'] == true && !$realisationTache->is_live_coding) {
+            $tacheAffectation = $realisationTache->tacheAffectation;
+            if ($tacheAffectation) {
+                // Désélectionner les autres apprenants de la même tâche (sans les scopes globaux pour éviter l'erreur MySQL 1093)
+                RealisationTache::withoutGlobalScopes()
+                    ->where('tache_affectation_id', $tacheAffectation->id)
+                    ->where('id', '!=', $realisationTache->id)
+                    ->where('is_live_coding', true)
+                    ->update(['is_live_coding' => false]);
+                
+                // Mettre à jour le cache sur TacheAffectation
+                $tacheAffectation->update([
+                    'apprenant_live_coding_cache' => [
+                        'apprenant' => (string) $realisationTache->realisationProjet->apprenant,
+                        'realisation_tache_id' => $realisationTache->id,
+                        'date' => now()->toDateTimeString(),
+                    ]
+                ]);
+
+                // S'assurer que le candidat passe en READY_FOR_LIVE_CODING
+                if (!isset($data['etat_realisation_tache_id'])) {
+                    $formateurId = $tacheAffectation?->affectationProjet?->projet?->formateur_id;
+                    $etatLiveCoding = \Modules\PkgRealisationTache\Models\EtatRealisationTache::whereHas('workflowTache', fn($q) =>
+                        $q->where('code', 'READY_FOR_LIVE_CODING')
+                    )->where('formateur_id', $formateurId)->first();
+                    
+                    if ($etatLiveCoding) {
+                        $data['etat_realisation_tache_id'] = $etatLiveCoding->id;
+                    }
+                }
+            }
+        }
+
         // 🛡️ Empêcher la modification de la note si la tâche est en relation avec un projet d'origine note
         if (array_key_exists('note', $data) && $realisationTache->tache && !empty($realisationTache->tache->projet_origine_note_id)) {
             if ($data['note'] != $realisationTache->note) {

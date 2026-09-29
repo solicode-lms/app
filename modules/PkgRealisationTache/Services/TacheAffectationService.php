@@ -79,7 +79,7 @@ class TacheAffectationService extends BaseTacheAffectationService
         if (($tacheAffectation->pourcentage_realisation_cache ?? 0) < 50)
             return;
 
-        $codesValides = ['TO_APPROVE'];
+        $codesValides = ['TO_APPROVE', 'APPROVED'];
 
         $tachesEligibles = $tacheAffectation->realisationTaches()
             ->with([
