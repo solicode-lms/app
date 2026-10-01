@@ -34,7 +34,7 @@ class PasserQcmController extends AdminController
 
         // Vérification que la date d'affectation est arrivée
         if ($realisationQcm->affectationQcmProjet && $realisationQcm->affectationQcmProjet->date_affectation) {
-            $dateAffectation = \Carbon\Carbon::parse($realisationQcm->affectationQcmProjet->date_affectation)->startOfDay();
+            $dateAffectation = \Carbon\Carbon::parse($realisationQcm->affectationQcmProjet->date_affectation);
             if ($dateAffectation->isFuture()) {
                 abort(403, "La date de ce QCM n'est pas encore arrivée.");
             }

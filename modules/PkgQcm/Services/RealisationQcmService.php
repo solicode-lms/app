@@ -407,7 +407,7 @@ class RealisationQcmService extends BaseRealisationQcmService
             $query->whereHas('qcm', function ($q) {
                 $q->where('is_publie', true);
             })->whereHas('affectationQcmProjet', function ($q) {
-                $q->whereDate('date_affectation', '<=', now())
+                $q->where('date_affectation', '<=', now())
                   ->orWhereNull('date_affectation');
             });
         }
