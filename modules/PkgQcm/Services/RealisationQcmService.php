@@ -398,4 +398,20 @@ class RealisationQcmService extends BaseRealisationQcmService
             }
         }
     }
+
+    public function allQuery(array $params = [], $query = null): \Illuminate\Database\Eloquent\Builder
+    {
+        $query = parent::allQuery($params, $query);
+
+        if (\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->hasRole(\Modules\PkgAutorisation\Models\Role::APPRENANT_ROLE)) {
+            $query->whereHas('qcm', function ($q) {
+                $q->where('is_publie', true);
+            })->whereHas('affectationQcmProjet', function ($q) {
+                $q->whereDate('date_affectation', '<=', now())
+                  ->orWhereNull('date_affectation');
+            });
+        }
+
+        return $query;
+    }
 }

@@ -26,6 +26,19 @@ class PasserQcmController extends AdminController
         if (!$apprenant || $apprenant->id !== $realisationQcm->apprenant_id) {
             abort(403, "Accès non autorisé à ce QCM.");
         }
+
+        // Vérification que le QCM est publié
+        if (!$realisationQcm->qcm || !$realisationQcm->qcm->is_publie) {
+            abort(403, "Ce QCM n'est pas encore public.");
+        }
+
+        // Vérification que la date d'affectation est arrivée
+        if ($realisationQcm->affectationQcmProjet && $realisationQcm->affectationQcmProjet->date_affectation) {
+            $dateAffectation = \Carbon\Carbon::parse($realisationQcm->affectationQcmProjet->date_affectation)->startOfDay();
+            if ($dateAffectation->isFuture()) {
+                abort(403, "La date de ce QCM n'est pas encore arrivée.");
+            }
+        }
     }
 
     /**
