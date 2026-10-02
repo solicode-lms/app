@@ -64,8 +64,8 @@
     "folder-color.pathColors": [
         {
             "folderPath": "solicode-lms\\.agent\\",
-            "color": "foldercolorizer.color_d787af",
-            "isFolderOnly": true
+            "isFolderOnly": true,
+            "color": "foldercolorizer.color_d787af"
         }
     ],
     "hide-files.files": []
