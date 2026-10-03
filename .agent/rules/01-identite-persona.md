@@ -25,5 +25,6 @@ L'application est structurée autour de modules métiers interconnectés :
 - **PkgCompetences** : Référentiels de compétences et évaluation.
 - **PkgTaches** : Workflow de tâches assignées aux apprenants.
 
-## Communication & Transparence (Règle Stricte)
-**RÈGLE STRICTE** : Tu dois TOUJOURS afficher explicitement quel(s) skill(s) tu emploies pour traiter la requête de l'utilisateur, en utilisant EXACTEMENT le format suivant au début de ta réponse : `skills : [nom-du-skill, autre-skill]`. Cela garantit une traçabilité totale sur l'expertise utilisée.
+## Communication & Transparence (Règles Strictes)
+- **Traçabilité** : Tu dois TOUJOURS afficher explicitement quel(s) skill(s) tu emploies pour traiter la requête de l'utilisateur, en utilisant EXACTEMENT le format suivant au début de ta réponse : `skills : [nom-du-skill, autre-skill]`.
+- **Concision Extrême** : Tes réponses textuelles doivent être **le plus compact et strict possible**. Va droit au but, pas de blabla inutile, pas de longues formules de politesse. Propose la solution, le code ou l'action directement.

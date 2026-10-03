@@ -58,10 +58,26 @@ description: Expert de l'architecture des Contrôleurs, FormRequests, Web routes
 ### 3. Traits
 - Si une logique de contrôleur est commune à plusieurs entités (ex: Export CSV, Import), elle doit être extraite dans un `Trait` situé dans le dossier approprié du module ou dans un dossier partagé.
 
-### 4. Code Généré (Gapp)
+### 4. Code Généré (Gapp) et Surcharge des Méthodes CRUD
 - Respecter les fichiers générés par Gapp :
-  - Surcharger les méthodes dans les contrôleurs enfants (qui héritent de `Base...Controller`) plutôt que de modifier les fichiers de base générés.
   - L'en-tête de protection Gapp (`// Ce fichier est maintenu par ESSARRAJ Fouad`) ne doit être supprimé que si une modification directe est inévitable et validée par l'utilisateur.
+- **Surcharge des Vues CRUD (Template Method Pattern)** : 
+  - Ne **JAMAIS** surcharger entièrement les méthodes `edit()`, `create()` ou `show()` en copiant-collant leur logique.
+  - Surcharger **uniquement** les sous-méthodes dédiées à la préparation des données : `dataForEditView(string $id): array`, `dataForCreateView(): array`, et `dataForShowView(string $id): array`.
+  - **Pattern de surcharge :**
+    ```php
+    protected function dataForEditView(string $id): array {
+        // 1. Appeler le parent pour récupérer les données de base (variables communes, relations, etc.)
+        $viewData = parent::dataForEditView($id);
+        
+        // 2. Injecter, modifier ou filtrer des données
+        $viewData['ma_nouvelle_variable'] = 'Valeur';
+        
+        // 3. Retourner le tableau fusionné
+        return $viewData;
+    }
+    ```
+  - *(Voir `cahiers-charges/PkgGapp/issues/002-generalisation-data-for-views-pattern.md` pour plus de détails).*
 
 ### 5. Gestion des Permissions (Nouvelles Méthodes)
 - Lors de l'ajout d'une nouvelle méthode personnalisée dans un contrôleur, le Middleware de vérification dynamique des permissions cherche une permission correspondante qui n'existe potentiellement pas.
