@@ -17,6 +17,7 @@ description: Détermine la configuration JSON des métadonnées Gapp (scope, fil
    - L'application Web Gapp exécute **automatiquement** les commandes (ex: `gapp make:crud NomModel`) après l'ajout en base.
 3. **Read-Only** : Ce skill fournit la structure JSON correcte. Le développeur peut soit l'utiliser dans l'interface Web, soit la mettre dans le JSON (dans ce cas, il devra synchroniser la BDD avec `gapp meta:sync`).
 4. **Français** : La documentation et les instructions générées doivent être en français.
+5. **Généralisation des modifications (Issues)** : En cas de modification exceptionnelle d'un fichier maintenu par Gapp (après autorisation stricte du développeur), vous devez OBLIGATOIREMENT demander sa généralisation sur tous les CRUDs. Pour cela, créez un fichier de ticket (issue en Markdown) dans le dossier `cahiers-charges/PkgGapp/issues/` détaillant précisément la modification à apporter au générateur Gapp. **RÈGLE STRICTE** : Le ticket doit impérativement lister les fichiers impactés (mentionnant leur ligne de lock Gapp) et inclure les blocs de code exacts qui ont été ajoutés ou modifiés manuellement.
 
 ---
 

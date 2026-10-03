@@ -34,17 +34,5 @@ class TacheService extends BaseTacheService
 
     protected $ordreGroupColumn = "projet_id";
 
-    public function prepareDataForIndexView(array $params = []): array
-    {
-        $data = parent::prepareDataForIndexView($params);
 
-        // Récupérer les variables de scope pour enrichir le titre
-        $scopeVariables = $this->viewState->getScopeVariablesTitles($this->modelName);
-        if (!empty($scopeVariables)) {
-            // Partager la variable globalement pour qu'elle soit accessible dans le composant crud-header (Blade)
-            \Illuminate\Support\Facades\View::share('scopeVariables', $scopeVariables);
-        }
-
-        return $data;
-    }
 }

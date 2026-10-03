@@ -56,6 +56,7 @@
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]
         ]"
+        :scopeVariables="$scopeVariables ?? []"
     />
     @show
     @section('tache-crud-table')

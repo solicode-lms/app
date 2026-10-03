@@ -256,6 +256,8 @@ class BaseTacheService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('tache');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'tache_viewTypes',
@@ -268,7 +270,8 @@ class BaseTacheService extends BaseService
             'tache_title',
             'contextKey',
             'taches_permissions',
-            'taches_permissionsByItem'
+            'taches_permissionsByItem',
+            'scopeVariables'
         );
     
         return [
