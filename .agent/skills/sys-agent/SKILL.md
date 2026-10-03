@@ -64,10 +64,11 @@ description: Expert unifié de la gestion, création et maintenance des composan
 - **Entrées** : `Remarque du développeur`, `Correction effectuée`, `Skill/Règle concerné`
 - **Sorties** : Fichier `.md` du skill ou de la règle mis à jour.
 - **📝 Instructions d'Orchestration** :
-  1. **Analyse de la correction** : Comprendre pourquoi le code précédent posait problème et quelle règle n'a pas été respectée ou manquait.
-  2. **Extraction de la Règle** : Transformer la remarque spécifique du développeur en une règle générale et intemporelle.
-  3. **Mise à jour** : Identifier le fichier le plus pertinent (`SKILL.md`, `capacité-*.md`, ou `règle-gestion-*.md`) et y injecter la nouvelle règle de manière claire (souvent sous forme de "Règle Stricte").
-  4. **Confirmation** : Informer le développeur que le système cognitif a été mis à jour ("la règle a été gravée dans le marbre").
+  1. **Lire** la capacité : `capacités/capacites-feedback-loop.md`.
+  2. **Analyse de la correction** : Comprendre pourquoi le code précédent posait problème et quelle règle n'a pas été respectée ou manquait.
+  3. **Extraction de la Règle** : Transformer la remarque spécifique du développeur en une règle générale et intemporelle.
+  4. **Mise à jour** : Identifier le fichier le plus pertinent (`SKILL.md`, `capacité-*.md`, ou `règle-gestion-*.md`) et y injecter la nouvelle règle de manière claire (souvent sous forme de "Règle Stricte").
+  5. **Confirmation** : Informer le développeur que le système cognitif a été mis à jour ("la règle a été gravée dans le marbre").
 
 ---
 
@@ -82,19 +83,29 @@ description: Expert unifié de la gestion, création et maintenance des composan
 - **Rôle** : Standards pour la gestion des Règles (Contexte, Mémoire).
 - **Règles Clés** : Une règle par fichier catégorie, Frontmatter trigger.
 
+### 3. `capacites-feedback-loop.md`
+- **Rôle** : Protocole pour l'Action C (Mise à jour post-correction).
+- **Règles Clés** : Extraire la règle universelle, choisir le bon fichier cible, appliquer la contrainte de façon stricte.
+
 ---
 
 ## 🔄 Scénarios d'Exécution (Algorithmes)
 
-### Scénario 1 : Intervention Unitaire (Défaut)
-*Cas classique : "Crée-moi un skill pour faire du SQL"*
+### Scénario 1 : Feedback & Mise à jour (Action par Défaut)
+*Cas classique : Invocation simple `/sys-agent` après une remarque ou une correction du développeur.*
+1. **Analyse Automatique** : Déduire quel a été le dernier skill utilisé ou mentionné dans la conversation courante, et analyser la dernière remarque/correction formulée par le développeur.
+2. **Exécution** : Exécuter l'**Action C (Feedback Loop)** pour adapter ce dernier skill aux nouvelles consignes.
+3. **Rapport** : Confirmer le nom du skill modifié et la règle qui a été ajoutée.
+
+### Scénario 2 : Intervention Unitaire (Création / Mise à jour manuelle)
+*Cas classique : "Crée-moi un skill pour faire du SQL" ou "Mets à jour le skill X"*
 1. **Analyse** : Déterminer le type d'objet (Skill, Rule) et l'action (Create, Update) d'après la demande.
 2. **Exécution** :
    - Si **Skill** → Exécuter **Action A**.
    - Si **Rule** → Exécuter **Action B**.
 3. **Rapport** : Confirmer l'action et le chemin du fichier créé/modifié.
 
-### Scénario 2 : Audit & Mise à Conformité
+### Scénario 3 : Audit & Mise à Conformité
 *Cas : "Vérifie que tous les skills sont à jour"*
 1. **Lister** tous les objets du type demandé.
 2. **Pour chaque** objet :
@@ -115,8 +126,8 @@ description: Expert unifié de la gestion, création et maintenance des composan
      - `règle-gestion-bdd-[nom].md` : Structure de la base de données.
      - `règle-gestion-fonctionnalites-[nom].md` : Les fonctionnalités en format texte.
 3. **Architecture** : `.agent/` est le seul domaine d'intervention.
-3. **Nomenclature** : Tout en `kebab-case` (dossiers et fichiers).
-4. **Séparation des Préoccupations (SoC)** :
+4. **Nomenclature** : Tout en `kebab-case` (dossiers et fichiers).
+5. **Séparation des Préoccupations (SoC)** :
    - **SKILL.md** : Orchestration, Entrées/Sorties, Algorithmes de haut niveau.
    - **capacités/*.md** ou **règles-gestion/*.md** : Règles métier détaillées, Logique complexe, Templates, Protocoles techniques.
 

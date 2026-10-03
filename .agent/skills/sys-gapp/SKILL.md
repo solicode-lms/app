@@ -34,4 +34,16 @@ description: Détermine la configuration JSON des métadonnées Gapp (scope, fil
   1. Identifier le type de métadonnée et son format exact via `capacite-metadonnees-gapp.md`.
   2. Valider formellement la structure des tables et relations avec `db-savoir`.
   3. Afficher le JSON au développeur de manière concise.
-  4. Expliquer clairement que la métadonnée doit être saisie dans l'Application Web Gapp (qui gérera la BDD et le `make:crud` automatiquement), OU s'il la met dans le fichier JSON, lui rappeler d'exécuter `gapp meta:sync` suivi de `gapp make:crud`.
+  4. Fournir les **étapes exactes, compactes et strictes** pour appliquer la métadonnée en indiquant **uniquement** de passer par l'Application Web Gapp :
+     - "Ouvrez l'interface Gapp."
+     - "Ajoutez/modifiez la métadonnée dans l'entité."
+     - "La base de données et le code sont synchronisés automatiquement après sauvegarde."
+
+### Action 2 : Ajouter une Métadonnée comme Capacité
+> **Description** : Mettre à jour le référentiel de connaissances du skill `sys-gapp` en documentant un nouveau type de métadonnée.
+- **Entrées** : La documentation et la description de la métadonnée (ex: `linkAction`).
+- **Sorties** : La création d'un nouveau fichier markdown dans le dossier `capacités/` (ex: `capacite-linkAction.md`) et la mise à jour des références si nécessaire.
+- **📝 Instructions d'Orchestration** :
+  1. Lire attentivement la description fournie par l'utilisateur.
+  2. Créer un fichier `capacite-[nomDeLaMetadata].md` dans le sous-dossier `capacités/`.
+  3. Mettre à jour les références dans `SKILL.md` ou `capacite-metadonnees-gapp.md` si pertinent.

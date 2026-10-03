@@ -132,9 +132,9 @@ trait RealisationTacheGetterTrait
                 "code",
                 "id",
                 $groupesList,
-                "[name='RealisationProjet.Affectation_projet_id']",
-                route('affectationProjets.getData'),
-                "groupe_id"
+                "[name='RealisationProjet.Affectation_projet_id'],[name='RealisationProjet.Apprenant_id']",
+                route('affectationProjets.getData') . "," . route('apprenants.getData'),
+                "groupe_id,groupe_id"
             );
         }
 

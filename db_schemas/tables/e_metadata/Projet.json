@@ -1004,5 +1004,28 @@
         },
         "e_data_field_reference": "Projet_filiere_id",
         "e_metadata_definition_reference": "dynamicDropdown"
+    },
+    {
+        "reference": "projets_linksAction",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": [
+            {
+                "icon": "fas fa-tasks",
+                "class": "btn btn-default btn-sm context-state actionEntity showIndex",
+                "ordre": 1,
+                "route": "taches.index",
+                "params": {
+                    "showIndex": true,
+                    "contextKey": "'tache-index'",
+                    "scope.tache.projet_id": "$projet->id"
+                },
+                "tooltip": "Gérer les tâches du projet",
+                "actionName": "voirTaches",
+                "permission": "index-tache"
+            }
+        ],
+        "e_model_reference": "projets",
+        "e_metadata_definition_reference": "linksAction"
     }
 ]

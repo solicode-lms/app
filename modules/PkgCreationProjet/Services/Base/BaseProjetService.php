@@ -277,6 +277,7 @@ class BaseProjetService extends BaseService
         $this->viewState->set('stats.projet.stats', $projets_stats);
     
         $projets_permissions = [
+            'index-tache' => Auth::user()->can('index-tache'),
             'clonerProjet-projet' => Auth::user()->can('clonerProjet-projet'),           
             
             'edit-projet' => Auth::user()->can('edit-projet'),

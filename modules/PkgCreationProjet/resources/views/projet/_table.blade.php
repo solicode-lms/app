@@ -38,6 +38,22 @@
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
+                        @if($projets_permissions['index-tache'])
+                        <x-action-button :entity="$projet" actionName="voirTaches">
+                            <a
+                                data-toggle="tooltip"
+                                title="Gérer les tâches du projet"
+                                href="{{ route('taches.index', [
+                                        'showIndex' => true,
+                                        'contextKey' => 'tache-index',
+                                        'scope.tache.projet_id' => $projet->id,
+                                ]) }}"
+                                class="btn btn-default btn-sm context-state actionEntity showIndex"
+                                data-id="{{ $projet->id }}">
+                                <i class="fas fa-tasks"></i>
+                            </a>
+                        </x-action-button>
+                        @endif
                         @if($projets_permissions['clonerProjet-projet'])
                         <x-action-button :entity="$projet" actionName="clonerProjet">
                             <a 
