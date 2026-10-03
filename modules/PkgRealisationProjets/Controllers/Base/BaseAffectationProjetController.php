@@ -98,10 +98,7 @@ class BaseAffectationProjetController extends AdminController
     }
     /**
      */
-    /**
-     * Prépare les données pour la vue de création.
-     */
-    protected function dataForCreateView(): array {
+    protected function dataForCreateView() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->set('scope_form.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -115,7 +112,7 @@ class BaseAffectationProjetController extends AdminController
             $this->viewState->set('scope.groupe.formateurs.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
         $itemAffectationProjet = $this->affectationProjetService->createInstance();
- 
+
 
         $projets = $this->projetService->all();
         $groupes = $this->groupeService->all();
@@ -124,10 +121,11 @@ class BaseAffectationProjetController extends AdminController
         $evaluateurs = $this->evaluateurService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemAffectationProjet', 'projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs');
 
-        return compact('bulkEdit', 'itemAffectationProjet', 'projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs');
     }
-
+    /**
+     */
     public function create() {
         $viewData = $this->dataForCreateView();
 
@@ -213,10 +211,7 @@ class BaseAffectationProjetController extends AdminController
     }
     /**
      */
-    /**
-     * Prépare les données pour la vue de détails.
-     */
-    protected function dataForShowView(string $id): array {
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('affectationProjet.show_' . $id);
 
         $itemAffectationProjet = $this->affectationProjetService->edit($id);
@@ -224,7 +219,7 @@ class BaseAffectationProjetController extends AdminController
 
 
         $this->viewState->set('scope.realisationProjet.affectation_projet_id', $id);
-        
+
         // scopeDataInEditContext
         $value = $itemAffectationProjet->getNestedValue('projet.formateur.id');
         $key = 'scope.etatsRealisationProjet.formateur_id';
@@ -235,27 +230,24 @@ class BaseAffectationProjetController extends AdminController
         extract($realisationProjets_view_data);
 
         $this->viewState->set('scope.affectationQcmProjet.affectation_projet_id', $id);
-        
+
 
         $affectationQcmProjetService =  new AffectationQcmProjetService();
         $affectationQcmProjets_view_data = $affectationQcmProjetService->prepareDataForIndexView();
         extract($affectationQcmProjets_view_data);
 
         $this->viewState->set('scope.tacheAffectation.affectation_projet_id', $id);
-        
+
 
         $tacheAffectationService =  new TacheAffectationService();
         $tacheAffectations_view_data = $tacheAffectationService->prepareDataForIndexView();
         extract($tacheAffectations_view_data);
 
-        return array_merge(
-            compact('itemAffectationProjet'),
-            $realisationProjet_compact_value, 
-            $affectationQcmProjet_compact_value, 
-            $tacheAffectation_compact_value
-        );
-    }
+        return array_merge(compact('itemAffectationProjet'),$realisationProjet_compact_value, $affectationQcmProjet_compact_value, $tacheAffectation_compact_value);
 
+    }
+    /**
+     */
     public function show(string $id) {
         $viewData = $this->dataForShowView($id);
 
@@ -264,13 +256,12 @@ class BaseAffectationProjetController extends AdminController
         }
 
         return view('PkgRealisationProjets::affectationProjet.show', $viewData);
+
     }
     /**
      */
-    /**
-     * Prépare les données pour la vue d'édition.
-     */
-    protected function dataForEditView(string $id): array {
+    protected function dataForEditView(string $id) {
+
         $this->viewState->setContextKey('affectationProjet.edit_' . $id);
 
         if(Auth::user()->hasRole('formateur')){
@@ -318,14 +309,13 @@ class BaseAffectationProjetController extends AdminController
 
         $bulkEdit = false;
 
-        return array_merge(
-            compact('bulkEdit', 'itemAffectationProjet', 'projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs'),
-            $realisationProjet_compact_value, 
-            $affectationQcmProjet_compact_value, 
-            $tacheAffectation_compact_value
-        );
-    }
+        $viewData = array_merge(compact('bulkEdit' , 'itemAffectationProjet','projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs'),$realisationProjet_compact_value, $affectationQcmProjet_compact_value, $tacheAffectation_compact_value);
 
+        return $viewData;
+
+    }
+    /**
+     */
     public function edit(string $id) {
         $viewData = $this->dataForEditView($id);
 
@@ -334,6 +324,7 @@ class BaseAffectationProjetController extends AdminController
         }
 
         return view('PkgRealisationProjets::affectationProjet.edit', $viewData);
+
     }
     /**
      */
