@@ -36,7 +36,7 @@
 </script>
 <script>
     if(!{{ isset($isMany) && $isMany ? 'true' : 'false' }}){
-        window.modalTitle = '{{ $realisationProjet_title }}'
+        window.modalTitle = '{{ $realisationProjet_title ?? "" }}'
     }
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
@@ -51,7 +51,7 @@
     <x-crud-header 
         id="realisationProjet-crud-header" icon="fas fa-laptop"  
         iconColor="text-info"
-        title="{{ $realisationProjet_title }}"
+        title="{{ $realisationProjet_title ?? __('PkgRealisationProjets::realisationProjet.singular') }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

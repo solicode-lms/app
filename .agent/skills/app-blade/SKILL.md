@@ -12,6 +12,7 @@ description: Expert de l'architecture et de la personnalisation des vues Blade s
 1. **Fichiers Maintenus par Gapp** : Il est STRICTEMENT INTERDIT de modifier un fichier `_*.blade.php` natif (ex: `_table.blade.php`, `_fields.blade.php`) généré directement dans la racine de la vue métier.
 2. **Protection des Fichiers Custom** : Avant de modifier un fichier complet dans le dossier `custom/`, le commentaire `{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}` doit ABSOLUMENT être supprimé pour éviter l'écrasement par Gapp.
 3. **Régénération (`fields`) vs Résolution (`forms`)** : Ne jamais oublier que l'ajout d'une vue dans `custom/fields` nécessite l'exécution de `gapp make:crud [Modele]` pour être inclus dans le tableau, alors que les vues dans `custom/forms/` sont résolues dynamiquement par Laravel.
+4. **DRY & Composants (Gapp)** : Pour minimiser le volume de code généré par Gapp et faciliter sa maintenance, toute nouvelle logique d'interface ou bloc HTML (ex: affichage de badges, statistiques) DOIT être systématiquement extraite dans un composant Blade anonyme réutilisable (ex: `<x-crud-...>`) plutôt que d'être insérée en brut dans les templates de base (`_index.blade.php`, etc.).
 
 ---
 

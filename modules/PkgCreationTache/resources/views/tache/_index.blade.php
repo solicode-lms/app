@@ -56,7 +56,6 @@
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]
         ]"
-        :scopeVariables="$scopeVariables ?? []"
     />
     @show
     @section('tache-crud-table')
@@ -72,6 +71,7 @@
                                 icon="fas fa-chart-bar text-info"
                                 :stats="$taches_stats"
                             />
+                            <x-crud-context-badges :scopeVariables="$scopeVariables ?? []" />
                         </div>
                         <div class="col-sm-4">
                             <div class="d-flex align-items-center justify-content-end">
