@@ -985,5 +985,12 @@
         "value_float": 0,
         "e_data_field_reference": "projets_hasMany_taches_projet_origine_note_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Projet_filiere_id_dataCalcul",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "Projet_filiere_id",
+        "e_metadata_definition_reference": "dataCalcul"
     }
 ]

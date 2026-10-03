@@ -24,6 +24,13 @@ trait ProjetCalculTrait
     public function dataCalcul($data)
     {
         $projet = parent::dataCalcul($data);
+
+        // Limiter la liste des sessions selon la filière choisie
+        if (!empty($projet->filiere_id)) {
+            $viewState = app(\Modules\Core\Services\ViewStateService::class);
+            $viewState->set('scope_form.sessionFormation.filiere_id', $projet->filiere_id);
+        }
+
         // En cas de création
         if (empty($projet->id) && $projet->session_formation_id) {
             // Récupérer la session de formation liée

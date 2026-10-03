@@ -51,7 +51,7 @@
                       <select 
             id="filiere_id" 
             required
-            
+            data-calcul='true'
             
             name="filiere_id" 
             class="form-control select2">
