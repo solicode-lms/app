@@ -115,50 +115,97 @@ trait ProjetActionsTrait
         });
     }
 
-    /**
-     * Ajoute les livrables par défaut à un projet.
-     * 
-     * Crée automatiquement les entrées pour "Code source" et "Présentation"
-     * en se basant sur les références de nature de livrable.
-     *
-     * @param mixed $projet Le projet cible.
-     * @return void
-     */
     protected function addDefaultLivrables($projet)
     {
-        $defaultLivrables = [
-            [
-                'titre' => 'Code source',
-                'description' => 'Livrable contenant le code source complet du projet',
-                'natureReference' => 'Code'
-            ],
-            [
-                'titre' => 'Présentation',
-                'description' => 'Présentation du projet (slides, vidéo, etc.)',
-                'natureReference' => 'Présentation'
-            ],
-        ];
+        // 1. Copier les livrables depuis la session de formation (s'ils existent)
+        if ($projet->session_formation_id) {
+            $session = \Modules\PkgSessions\Models\SessionFormation::with('livrableSessions')->find($projet->session_formation_id);
+            
+            if ($session && $session->livrableSessions) {
+                foreach ($session->livrableSessions as $livrableSession) {
+                    Livrable::firstOrCreate(
+                        [
+                            'projet_id' => $projet->id,
+                            'titre' => $livrableSession->titre,
+                        ],
+                        [
+                            'description' => $livrableSession->description,
+                            'nature_livrable_id' => $livrableSession->nature_livrable_id,
+                        ]
+                    );
+                }
+            }
+        }
 
-        $taskIds = $projet->taches()->pluck('id');
-
-        foreach ($defaultLivrables as $livrableData) {
-            // Récupérer l’ID de la nature correspondant à la référence
-            $natureId = NatureLivrable::where('reference', $livrableData['natureReference'])->value('id');
-
-            $livrable = Livrable::firstOrCreate(
+        // 1.5 Si aucun livrable n'a été défini (pas de session ou session sans livrable), on ajoute les 3 par défaut
+        if ($projet->livrables()->count() === 0) {
+            $defaultLivrables = [
                 [
-                    'projet_id' => $projet->id,
-                    'titre' => $livrableData['titre'],
+                    'titre' => 'Code source',
+                    'description' => 'Livrable contenant le code source complet du projet',
+                    'natureReference' => 'Code'
                 ],
                 [
-                    'description' => $livrableData['description'],
-                    'nature_livrable_id' => $natureId, // null si introuvable
+                    'titre' => 'Présentation',
+                    'description' => 'Présentation du projet (slides, vidéo, etc.)',
+                    'natureReference' => 'Présentation'
+                ],
+                [
+                    'titre' => 'Tutoriels',
+                    'description' => 'Lien ou document contenant le tutoriel',
+                    'natureReference' => 'Documentation'
                 ]
-            );
+            ];
 
-            // Affecter le livrable à toutes les tâches du projet
-            if ($taskIds->isNotEmpty()) {
-                $livrable->taches()->syncWithoutDetaching($taskIds);
+            foreach ($defaultLivrables as $livrableData) {
+                $natureId = NatureLivrable::where('reference', $livrableData['natureReference'])->value('id');
+
+                Livrable::firstOrCreate(
+                    [
+                        'projet_id' => $projet->id,
+                        'titre' => $livrableData['titre'],
+                    ],
+                    [
+                        'description' => $livrableData['description'],
+                        'nature_livrable_id' => $natureId,
+                    ]
+                );
+            }
+        }
+
+        // 2. Séparer les tâches en deux groupes : Tutoriels (APPRENTISSAGE) et les autres
+        $tutoTaskIds = collect();
+        $otherTaskIds = collect();
+
+        $apprentissagePhaseId = \Modules\PkgCreationTache\Models\PhaseProjet::where('reference', 'APPRENTISSAGE')->value('id');
+
+        // On s'assure que les tâches sont chargées
+        $projet->loadMissing('taches');
+
+        foreach ($projet->taches as $tache) {
+            if ($apprentissagePhaseId && $tache->phase_projet_id == $apprentissagePhaseId) {
+                $tutoTaskIds->push($tache->id);
+            } else {
+                $otherTaskIds->push($tache->id);
+            }
+        }
+
+        // 3. Parcourir les livrables du projet (fraîchement copiés ou existants)
+        $projet->load('livrables');
+
+        foreach ($projet->livrables as $livrable) {
+            $titreLower = strtolower($livrable->titre);
+            
+            // Si c'est le livrable "Tutoriels" (ou approchant)
+            if (str_contains($titreLower, 'tutoriel') || str_contains($titreLower, 'tuto')) {
+                if ($tutoTaskIds->isNotEmpty()) {
+                    $livrable->taches()->syncWithoutDetaching($tutoTaskIds);
+                }
+            } else {
+                // Pour les autres (Présentation, Code source...)
+                if ($otherTaskIds->isNotEmpty()) {
+                    $livrable->taches()->syncWithoutDetaching($otherTaskIds);
+                }
             }
         }
     }
