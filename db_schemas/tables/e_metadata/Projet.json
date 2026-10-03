@@ -992,5 +992,17 @@
         "value_float": 0,
         "e_data_field_reference": "Projet_filiere_id",
         "e_metadata_definition_reference": "dataCalcul"
+    },
+    {
+        "reference": "Projet_filiere_id_dynamicDropdown",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": {
+            "targetDynamicDropdown": "#session_formation_id",
+            "targetDynamicDropdownApiUrl": "route('sessionFormations.getData')",
+            "targetDynamicDropdownFilter": "filiere_id"
+        },
+        "e_data_field_reference": "Projet_filiere_id",
+        "e_metadata_definition_reference": "dynamicDropdown"
     }
 ]

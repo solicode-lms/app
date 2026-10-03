@@ -25,11 +25,6 @@ trait ProjetCalculTrait
     {
         $projet = parent::dataCalcul($data);
 
-        // Limiter la liste des sessions selon la filière choisie
-        if (!empty($projet->filiere_id)) {
-            $viewState = app(\Modules\Core\Services\ViewStateService::class);
-            $viewState->set('scope_form.sessionFormation.filiere_id', $projet->filiere_id);
-        }
 
         // En cas de création
         if (empty($projet->id) && $projet->session_formation_id) {
@@ -41,6 +36,9 @@ trait ProjetCalculTrait
                 $projet->titre = $session->titre_projet;
                 $projet->travail_a_faire = $session->description_projet;
                 $projet->critere_de_travail = $session->contraintes_projet;
+                $projet->is_auto_insert_chapitres = true;
+                 $projet->is_auto_calcule_note_realisation = true;
+
 
                 // Assigner la filière si présente
                 if (!empty($session->filiere_id)) {

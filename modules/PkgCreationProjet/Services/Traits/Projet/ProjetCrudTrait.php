@@ -8,6 +8,31 @@ use Modules\PkgSessions\Models\SessionFormation;
 trait ProjetCrudTrait
 {
     /**
+     * Initialise une nouvelle instance avec des valeurs par défaut.
+     *
+     * @param  array  $data
+     * @return mixed
+     */
+    public function createInstance(array $data = [])
+    {
+        $projet = parent::createInstance($data);
+
+        // Si le formateur n'enseigne qu'une seule filière, on la sélectionne par défaut
+        $user = \Illuminate\Support\Facades\Auth::user();
+        if ($user && $user->hasRole('formateur')) {
+            $formateur = \Modules\PkgFormation\Models\Formateur::where('user_id', $user->id)->first();
+            if ($formateur) {
+                $filiereIds = $formateur->groupes()->pluck('filiere_id')->unique();
+                if ($filiereIds->count() === 1) {
+                    $projet->filiere_id = $filiereIds->first();
+                }
+            }
+        }
+
+        return $projet;
+    }
+
+    /**
      * Applique les règles métier avant la création.
      *
      * @param  array  $data  Les données passées par référence.
