@@ -29,6 +29,7 @@ description: Détermine la configuration JSON des métadonnées Gapp (scope, fil
   - `capacités/capacite-metadonnees-gapp.md` (Structures JSON)
   - `capacités/capacite-scope-edit-context.md` (Explication détaillée des scopes d'édition)
   - `capacités/capacite-commandes-gapp.md` (Commandes)
+  - `capacités/capacite-viewFormGroups.md` (Groupement des champs)
 - **Entrées** : Type de métadonnée, entité cible, relations, rôle.
 - **Sorties** : Bloc JSON à fournir au développeur, suivi des instructions d'application via l'interface Web ou via les fichiers JSON.
 - **📝 Instructions d'Orchestration** :

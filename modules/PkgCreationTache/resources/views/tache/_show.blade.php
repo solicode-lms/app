@@ -3,6 +3,9 @@
 @section('tache-show')
 <div id="tache-crud-show">
         <div class="card-body">
+            <h6 class="text-muted mb-2">
+                        <i class="fas fa-info-circle mr-1"></i>{{ __('Informations Principales') }}
+            </h6>
             <div class="row no-gutters mb-4">
             <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
@@ -20,6 +23,11 @@
                     <span class="text-muted">—</span>
                   @endif                </div>
             </div>
+            </div>
+            <h6 class="text-muted mb-2">
+                        <i class="fas fa-graduation-cap mr-1"></i>{{ __('Pédagogie') }}
+            </h6>
+            <div class="row no-gutters mb-4">
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::phaseProjet.singular')) }}</small>
@@ -41,6 +49,11 @@
                   <span class="badge badge-secondary">{{ __('Non') }}</span>
                   @endif                </div>
             </div>
+            </div>
+            <h6 class="text-muted mb-2">
+                        <i class="fas fa-graduation-cap mr-1"></i>{{ __('Évaluation') }}
+            </h6>
+            <div class="row no-gutters mb-4">
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::livrable.plural')) }}</small>
@@ -81,6 +94,11 @@
                 @endif
                 </div>
             </div>
+            </div>
+            <h6 class="text-muted mb-2">
+                        <i class="fas fa-calendar-alt mr-1"></i>{{ __('Planification') }}
+            </h6>
+            <div class="row no-gutters mb-4">
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::labelProjet.plural')) }}</small>
@@ -97,6 +115,8 @@
                   <span class="text-muted">—</span>
                   @endif                </div>
             </div>
+            </div>
+            <div class="row no-gutters mb-4">
             @if(
                   (auth()->user()?->can('show-tacheAffectation') && $itemTache->tacheAffectations->isNotEmpty())  
                   || auth()->user()?->can('create-tacheAffectation')

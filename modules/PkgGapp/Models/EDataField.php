@@ -28,4 +28,9 @@ class EDataField extends BaseEDataField
         return $this->eModel->name . "_" .  $this->name;
     }
 
+    public function __toString()
+    {
+        return ($this->eModel ? $this->eModel->name . '.' : '') . $this->name;
+    }
+
 }

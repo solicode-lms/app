@@ -64,5 +64,9 @@ class EMetadatum extends BaseEMetadatum
         }
     }
 
+    public function __toString()
+    {
+        return $this->reference . " : " . $this->getValue();
+    }
 
 }

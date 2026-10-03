@@ -256,6 +256,8 @@ class BaseEDataFieldService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('eDataField');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'eDataField_viewTypes',
@@ -268,7 +270,8 @@ class BaseEDataFieldService extends BaseService
             'eDataField_title',
             'contextKey',
             'eDataFields_permissions',
-            'eDataFields_permissionsByItem'
+            'eDataFields_permissionsByItem',
+            'scopeVariables'
         );
     
         return [
@@ -326,7 +329,8 @@ class BaseEDataFieldService extends BaseService
             'name',
             'e_model_id',
             'data_type',
-            'displayInTable'
+            'displayInTable',
+            'EMetadatum'
         ];
 
         // Récupération des champs autorisés par rôle via getFieldsEditable()
@@ -391,6 +395,8 @@ class BaseEDataFieldService extends BaseService
             case 'displayInTable':
                 return $this->computeFieldMeta($e, $field, $meta, 'boolean');
 
+            case 'EMetadatum':
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
         }
@@ -469,6 +475,15 @@ class BaseEDataFieldService extends BaseService
                     break;
                 case 'displayInTable':
                     $html = view('Core::fields_by_type.boolean', [
+                        'entity' => $e,
+                        'column' => $field,
+                        'nature' => ''
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'EMetadatum':
+                    // fallback string simple
+                    $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
                         'nature' => ''

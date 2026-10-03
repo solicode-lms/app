@@ -29,6 +29,9 @@
     
 
     
+      <h5 class="debut-groupe-title text-info">{{ __('Informations Principales') }}</h5>
+      <hr class="debut-groupe-hr">
+    
     <div class="row">
         <x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="ordre" :bulkEdit="$bulkEdit">
 
@@ -209,115 +212,17 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="dateDebut" :bulkEdit="$bulkEdit">
 
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="dateDebut" 
-              id="bulk_field_dateDebut" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="dateDebut">
-            {{ ucfirst(__('PkgCreationTache::tache.dateDebut')) }}
-            
-          </label>
-                      <input
-                name="dateDebut"
-                type="text"
-                class="form-control datetimepicker"
-                
-                
-                
-                id="dateDebut"
-                placeholder="{{ __('PkgCreationTache::tache.dateDebut') }}"
-                value="{{ $itemTache ? $itemTache->dateDebut : old('dateDebut') }}">
-
-          @error('dateDebut')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
+    </div>
   
-</x-form-field>
+    
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="dateFin" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="dateFin" 
-              id="bulk_field_dateFin" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="dateFin">
-            {{ ucfirst(__('PkgCreationTache::tache.dateFin')) }}
-            
-          </label>
-                      <input
-                name="dateFin"
-                type="text"
-                class="form-control datetimepicker"
-                
-                
-                
-                id="dateFin"
-                placeholder="{{ __('PkgCreationTache::tache.dateFin') }}"
-                value="{{ $itemTache ? $itemTache->dateFin : old('dateFin') }}">
-
-          @error('dateFin')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="note" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="note" 
-              id="bulk_field_note" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="note">
-            {{ ucfirst(__('PkgCreationTache::tache.note')) }}
-            
-          </label>
-              <input
-        name="note"
-        type="number"
-        class="form-control"
-        
-        
-        
-        id="note"
-        step="0.01"
-        placeholder="{{ __('PkgCreationTache::tache.note') }}"
-        value="{{ $itemTache ? number_format($itemTache->note, 2, '.', '') : old('note') }}">
-          @error('note')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="phase_projet_id" :bulkEdit="$bulkEdit">
+    
+      <h5 class="debut-groupe-title text-info">{{ __('Pédagogie') }}</h5>
+      <hr class="debut-groupe-hr">
+    
+    <div class="row">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="phase_projet_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -393,46 +298,6 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="phase_evaluation_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="phase_evaluation_id" 
-              id="bulk_field_phase_evaluation_id" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="phase_evaluation_id">
-            {{ ucfirst(__('PkgCompetences::phaseEvaluation.singular')) }}
-            
-          </label>
-                      <select 
-            id="phase_evaluation_id" 
-            
-            
-            
-            name="phase_evaluation_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($phaseEvaluations as $phaseEvaluation)
-                    <option value="{{ $phaseEvaluation->id }}"
-                        {{ (isset($itemTache) && $itemTache->phase_evaluation_id == $phaseEvaluation->id) || (old('phase_evaluation_id>') == $phaseEvaluation->id) ? 'selected' : '' }}>
-                        {{ $phaseEvaluation }}
-                    </option>
-                @endforeach
-            </select>
-          @error('phase_evaluation_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="chapitre_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
@@ -467,6 +332,92 @@
                 @endforeach
             </select>
           @error('chapitre_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+
+    </div>
+  
+    
+
+    
+      <h5 class="debut-groupe-title text-info">{{ __('Évaluation') }}</h5>
+      <hr class="debut-groupe-hr">
+    
+    <div class="row">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="note" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="note" 
+              id="bulk_field_note" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="note">
+            {{ ucfirst(__('PkgCreationTache::tache.note')) }}
+            
+          </label>
+              <input
+        name="note"
+        type="number"
+        class="form-control"
+        
+        
+        
+        id="note"
+        step="0.01"
+        placeholder="{{ __('PkgCreationTache::tache.note') }}"
+        value="{{ $itemTache ? number_format($itemTache->note, 2, '.', '') : old('note') }}">
+          @error('note')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="phase_evaluation_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="phase_evaluation_id" 
+              id="bulk_field_phase_evaluation_id" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="phase_evaluation_id">
+            {{ ucfirst(__('PkgCompetences::phaseEvaluation.singular')) }}
+            
+          </label>
+                      <select 
+            id="phase_evaluation_id" 
+            
+            
+            
+            name="phase_evaluation_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($phaseEvaluations as $phaseEvaluation)
+                    <option value="{{ $phaseEvaluation->id }}"
+                        {{ (isset($itemTache) && $itemTache->phase_evaluation_id == $phaseEvaluation->id) || (old('phase_evaluation_id>') == $phaseEvaluation->id) ? 'selected' : '' }}>
+                        {{ $phaseEvaluation }}
+                    </option>
+                @endforeach
+            </select>
+          @error('phase_evaluation_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -593,6 +544,88 @@
   
 </x-form-field>
 
+
+    </div>
+  
+    
+
+    
+      <h5 class="debut-groupe-title text-info">{{ __('Planification') }}</h5>
+      <hr class="debut-groupe-hr">
+    
+    <div class="row">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="dateDebut" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="dateDebut" 
+              id="bulk_field_dateDebut" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="dateDebut">
+            {{ ucfirst(__('PkgCreationTache::tache.dateDebut')) }}
+            
+          </label>
+                      <input
+                name="dateDebut"
+                type="text"
+                class="form-control datetimepicker"
+                
+                
+                
+                id="dateDebut"
+                placeholder="{{ __('PkgCreationTache::tache.dateDebut') }}"
+                value="{{ $itemTache ? $itemTache->dateDebut : old('dateDebut') }}">
+
+          @error('dateDebut')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="dateFin" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="dateFin" 
+              id="bulk_field_dateFin" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="dateFin">
+            {{ ucfirst(__('PkgCreationTache::tache.dateFin')) }}
+            
+          </label>
+                      <input
+                name="dateFin"
+                type="text"
+                class="form-control datetimepicker"
+                
+                
+                
+                id="dateFin"
+                placeholder="{{ __('PkgCreationTache::tache.dateFin') }}"
+                value="{{ $itemTache ? $itemTache->dateFin : old('dateFin') }}">
+
+          @error('dateFin')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="labelProjets" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
@@ -636,6 +669,7 @@
 
     </div>
   
+    
 
 
     </div>

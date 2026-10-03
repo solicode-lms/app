@@ -1090,5 +1090,162 @@
         "value_float": 0,
         "e_model_reference": "taches",
         "e_metadata_definition_reference": "editOnFullScreen"
+    },
+    {
+        "reference": "taches_viewFormGroups",
+        "value_boolean": 0,
+        "value_float": 0,
+        "value_json": {
+            "pedagogie": {
+                "icon": "fas fa-graduation-cap",
+                "label": "Pédagogie",
+                "order": 2
+            },
+            "evaluation": {
+                "icon": "fas fa-graduation-cap",
+                "label": "Évaluation",
+                "order": 3
+            },
+            "planification": {
+                "icon": "fas fa-calendar-alt",
+                "label": "Planification",
+                "order": 4
+            },
+            "informations_principales": {
+                "icon": "fas fa-info-circle",
+                "label": "Informations Principales",
+                "order": 1
+            }
+        },
+        "e_model_reference": "taches",
+        "e_metadata_definition_reference": "viewFormGroups"
+    },
+    {
+        "reference": "Tache_priorite_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "informations_principales",
+        "value_float": 0,
+        "e_data_field_reference": "Tache_priorite",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Tache_titre_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "informations_principales",
+        "value_float": 0,
+        "e_data_field_reference": "Tache_titre",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Tache_description_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "informations_principales",
+        "value_float": 0,
+        "e_data_field_reference": "Tache_description",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Tache_ordre_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "informations_principales",
+        "value_float": 0,
+        "e_data_field_reference": "Tache_ordre",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Tache_projet_id_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "informations_principales",
+        "value_float": 0,
+        "e_data_field_reference": "Tache_projet_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Tache_dateDebut_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "planification",
+        "value_float": 0,
+        "e_data_field_reference": "Tache_dateDebut",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Tache_dateFin_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "planification",
+        "value_float": 0,
+        "e_data_field_reference": "Tache_dateFin",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "taches_label_projets_label_tache_m2m_m2m_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "planification",
+        "value_float": 0,
+        "e_data_field_reference": "taches_label_projets_label_tache_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Tache_note_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "evaluation",
+        "value_float": 0,
+        "e_data_field_reference": "Tache_note",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Tache_phase_projet_id_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "pedagogie",
+        "value_float": 0,
+        "e_data_field_reference": "Tache_phase_projet_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Tache_is_live_coding_task_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "pedagogie",
+        "value_float": 0,
+        "e_data_field_reference": "Tache_is_live_coding_task",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Tache_phase_evaluation_id_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "evaluation",
+        "value_float": 0,
+        "e_data_field_reference": "Tache_phase_evaluation_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Tache_chapitre_id_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "pedagogie",
+        "value_float": 0,
+        "e_data_field_reference": "Tache_chapitre_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Tache_mobilisation_ua_id_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "evaluation",
+        "value_float": 0,
+        "e_data_field_reference": "Tache_mobilisation_ua_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Tache_projet_origine_note_id_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "evaluation",
+        "value_float": 0,
+        "e_data_field_reference": "Tache_projet_origine_note_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "taches_livrables_livrable_tache_m2m_m2m_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "evaluation",
+        "value_float": 0,
+        "e_data_field_reference": "taches_livrables_livrable_tache_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     }
 ]
