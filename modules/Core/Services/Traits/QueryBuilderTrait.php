@@ -285,15 +285,26 @@ protected function applyDynamicJoins($query, string $relationPath): string
             $lastTable = $alias;
         } else {
             // 🔁 Gestion des relations standard
-            $foreignKey = method_exists($relation, 'getForeignKeyName')
-                ? $relation->getForeignKeyName()
-                : $relation->getQualifiedForeignPivotKeyName();
+            if ($relation instanceof \Illuminate\Database\Eloquent\Relations\BelongsTo) {
+                $foreignKey = $relation->getForeignKeyName();
+                $ownerKey = $relation->getOwnerKeyName();
+                $query->join("{$relatedTable} as {$alias}", "{$lastTable}.{$foreignKey}", '=', "{$alias}.{$ownerKey}");
+            } elseif ($relation instanceof \Illuminate\Database\Eloquent\Relations\HasOne || $relation instanceof \Illuminate\Database\Eloquent\Relations\HasMany) {
+                $foreignKey = $relation->getForeignKeyName();
+                $localKey = method_exists($relation, 'getLocalKeyName') ? $relation->getLocalKeyName() : 'id';
+                $query->join("{$relatedTable} as {$alias}", "{$lastTable}.{$localKey}", '=', "{$alias}.{$foreignKey}");
+            } else {
+                // Fallback générique
+                $foreignKey = method_exists($relation, 'getForeignKeyName')
+                    ? $relation->getForeignKeyName()
+                    : (method_exists($relation, 'getQualifiedForeignPivotKeyName') ? $relation->getQualifiedForeignPivotKeyName() : 'id');
 
-            $ownerKey = method_exists($relation, 'getOwnerKeyName')
-                ? $relation->getOwnerKeyName()
-                : $relation->getQualifiedRelatedPivotKeyName();
+                $ownerKey = method_exists($relation, 'getOwnerKeyName')
+                    ? $relation->getOwnerKeyName()
+                    : (method_exists($relation, 'getLocalKeyName') ? $relation->getLocalKeyName() : 'id');
 
-            $query->join("{$relatedTable} as {$alias}", "{$lastTable}.{$foreignKey}", '=', "{$alias}.{$ownerKey}");
+                $query->join("{$relatedTable} as {$alias}", "{$lastTable}.{$foreignKey}", '=', "{$alias}.{$ownerKey}");
+            }
             $lastTable = $alias;
         }
 

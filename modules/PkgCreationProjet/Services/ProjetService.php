@@ -45,6 +45,41 @@ class ProjetService extends BaseProjetService
 
 
     /**
+     * Initialisation des champs filtrables personnalisés.
+     * Surcharge de la méthode définie dans BaseProjetService.
+     */
+    public function initFieldsFilterable()
+    {
+        // 1. Appeler le parent pour charger les filtres de base (Filière, Formateur, etc.)
+        parent::initFieldsFilterable();
+
+        // 2. Vérifier si le filtre de contexte n'est pas déjà défini
+        $scopeVariables = $this->viewState->getScopeVariables('projet');
+
+        if (!array_key_exists('affectationProjets.groupe_id', $scopeVariables)) {
+            
+            $groupeService = new \Modules\PkgApprenants\Services\GroupeService();
+            
+            // 3. Récupérer uniquement les ID des groupes actuellement liés aux projets
+            $groupeIds = $this->getAvailableFilterValues('affectationProjets.groupe_id');
+            
+            $groupes = $groupeService->getByIds($groupeIds);
+
+            // 4. Si le formateur a plus d'un groupe (ou si c'est un Admin avec des groupes existants)
+            if ($groupes->count() > 1 || \Illuminate\Support\Facades\Auth::user()->hasRole('admin')) {
+                // Ajouter le filtre
+                $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                    __("PkgApprenants::groupe.singular"),  // Label ("Groupe")
+                    'affectationProjets.groupe_id',        // Chemin relationnel
+                    \Modules\PkgApprenants\Models\Groupe::class, 
+                    'code',                                // Champ d'affichage (ex: DEV-101)
+                    $groupes
+                );
+            }
+        }
+    }
+
+    /**
      * Retourne la configuration des tâches à générer pour un projet donné.
      * Cette configuration définit l'ordre et les propriétés des tâches en fonction
      * des phases de projet définies en base de données.
