@@ -139,11 +139,13 @@ trait ProjetActionsTrait
             ],
         ];
 
+        $taskIds = $projet->taches()->pluck('id');
+
         foreach ($defaultLivrables as $livrableData) {
             // Récupérer l’ID de la nature correspondant à la référence
             $natureId = NatureLivrable::where('reference', $livrableData['natureReference'])->value('id');
 
-            Livrable::firstOrCreate(
+            $livrable = Livrable::firstOrCreate(
                 [
                     'projet_id' => $projet->id,
                     'titre' => $livrableData['titre'],
@@ -153,6 +155,11 @@ trait ProjetActionsTrait
                     'nature_livrable_id' => $natureId, // null si introuvable
                 ]
             );
+
+            // Affecter le livrable à toutes les tâches du projet
+            if ($taskIds->isNotEmpty()) {
+                $livrable->taches()->syncWithoutDetaching($taskIds);
+            }
         }
     }
 }

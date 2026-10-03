@@ -33,7 +33,7 @@ trait ProjetCalculTrait
 
             if ($session) {
                 // Hydrater les champs du projet avec les données de la session
-                $projet->titre = $session->titre_projet;
+                $projet->titre = $session->titre;
                 $projet->travail_a_faire = $session->description_projet;
                 $projet->critere_de_travail = $session->contraintes_projet;
                 $projet->is_auto_insert_chapitres = true;

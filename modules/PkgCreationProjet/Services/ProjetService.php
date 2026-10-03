@@ -163,8 +163,8 @@ class ProjetService extends BaseProjetService
             switch ($phase->reference) {
                 case 'ANALYSE':
                     $tasksConfig[] = [
-                        'titre' => 'Analyse',
-                        'description' => 'Analyse du projet',
+                        'titre' => 'Création des livrables',
+                        'description' => 'Création des livrables du projet',
                         'phase_evaluation_id' => null,
                         'phase_projet_id' => $phase->id,
                     ];
@@ -197,12 +197,7 @@ class ProjetService extends BaseProjetService
                     break;
 
                 case 'CONCEPTION':
-                    $tasksConfig[] = [
-                        'titre' => 'Conception',
-                        'description' => 'Conception du projet',
-                        'phase_evaluation_id' => null,
-                        'phase_projet_id' => $phase->id,
-                    ];
+                    // Tâche supprimée selon la demande
                     break;
 
                 case 'REALISATION':
