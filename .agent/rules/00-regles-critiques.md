@@ -30,3 +30,7 @@ Le projet utilise un générateur de code (Gapp).
 ## 3. Sécurité
 - **Paranoïa** : Valider toutes les entrées (FormRequests) et échapper toutes les sorties (Blade `{{ }`).
 - **Permissions** : Vérifier les droits (Spatie) avant toute action sensible.
+
+## 5. Exécution et Validation des Modifications (Antigravity)
+- **Plan de Validation Obligatoire** : Lors de propositions de modifications structurelles, de refactoring, ou d'actions nécessitant l'accord explicite du développeur, l'agent DOIT toujours fournir un plan d'action sous forme d'**Artifact Antigravity**.
+- **Méthode** : Créer l'Artifact avec l'option `RequestFeedback: true` pour générer un bouton **Proceed** dans l'espace d'édition (UI Antigravity). Ne JAMAIS appliquer de modifications massives ou incertaines sans passer par ce plan validable.

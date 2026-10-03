@@ -90,23 +90,13 @@ class AffectationProjetController extends BaseAffectationProjetController
         }
     }
 
-    public function create()
+    protected function dataForCreateView(): array
     {
-        // ownedByUser
-        if (\Illuminate\Support\Facades\Auth::user()->hasRole('formateur')) {
-            $this->viewState->set('scope_form.affectationProjet.projet.formateur_id', $this->sessionState->get('formateur_id'));
-        }
+        // 1. Appel du parent pour obtenir toutes les données de base
+        $viewData = parent::dataForCreateView();
 
-        // scopeDataByRole
-        if (\Illuminate\Support\Facades\Auth::user()->hasRole('formateur')) {
-            $this->viewState->set('scope.projet.formateur_id', $this->sessionState->get('formateur_id'));
-            $this->viewState->set('scope.groupe.formateurs.formateur_id', $this->sessionState->get('formateur_id'));
-        }
-        
-        $itemAffectationProjet = $this->affectationProjetService->createInstance();
-
-        $projets = $this->projetService->all();
-        $groupes = $this->groupeService->all();
+        $itemAffectationProjet = $viewData['itemAffectationProjet'];
+        $groupes = $viewData['groupes'];
 
         // --- Filtrage des groupes ---
         if ($itemAffectationProjet->projet_id) {
@@ -130,23 +120,20 @@ class AffectationProjetController extends BaseAffectationProjetController
         }
         // -----------------------------
 
-        $sousGroupes = $this->sousGroupeService->all();
-        $anneeFormations = $this->anneeFormationService->all();
-        $evaluateurs = $this->evaluateurService->all();
+        // 3. Réinjecter les groupes filtrés
+        $viewData['groupes'] = $groupes;
 
-        $bulkEdit = false;
-        if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._fields', compact('bulkEdit', 'itemAffectationProjet', 'projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs'));
-        }
-        return view('PkgRealisationProjets::affectationProjet.create', compact('bulkEdit', 'itemAffectationProjet', 'projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs'));
+        return $viewData;
     }
 
-    public function edit(string $id)
+    protected function dataForEditView(string $id): array
     {
-        $itemAffectationProjet = $this->affectationProjetService->find($id);
+        // 1. Appel du parent pour obtenir toutes les données de base (y compris les relations HasMany générées par Gapp !)
+        $viewData = parent::dataForEditView($id);
 
-        $projets = $this->projetService->all();
-        $groupes = $this->groupeService->all();
+        // 2. Récupérer les variables dont on a besoin pour le filtre
+        $itemAffectationProjet = $viewData['itemAffectationProjet'];
+        $groupes = $viewData['groupes'];
 
         // --- Filtrage des groupes ---
         if ($itemAffectationProjet->projet_id) {
@@ -171,14 +158,12 @@ class AffectationProjetController extends BaseAffectationProjetController
         }
         // -----------------------------
 
-        $sousGroupes = $this->sousGroupeService->all();
-        $anneeFormations = $this->anneeFormationService->all();
-        $evaluateurs = $this->evaluateurService->all();
+        // 3. Réinjecter les groupes filtrés dans les données
+        $viewData['groupes'] = $groupes;
+        
+        // Preuve de concept : Injection d'une variable métier spécifique
+        $viewData['custom_test_variable'] = "Injection réussie depuis l'enfant !";
 
-        $bulkEdit = false;
-        if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._fields', compact('bulkEdit', 'itemAffectationProjet', 'projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs'));
-        }
-        return view('PkgRealisationProjets::affectationProjet.edit', compact('bulkEdit', 'itemAffectationProjet', 'projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs'));
+        return $viewData;
     }
 }
