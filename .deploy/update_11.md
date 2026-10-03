@@ -4,7 +4,7 @@
 ## Résoudre de problème de compétence C152
 
 
-- Affecration des microCompétence de compététence id-9 à son compétence
+- Affecration des microCompétence de compététence id-9(C152) à son compétence(C152 , id=15)
 - Supprimer la compétence id = 9, 
 
 
