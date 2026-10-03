@@ -46,11 +46,39 @@ trait AffectationProjetCrudTrait
 
                 // Initialiser Remarques
                 if (!empty($projet->sessionFormation->jour_feries_vacances)) {
-
                     $instance->description .= "<p>Jours fériés et vacances : " . $projet->sessionFormation->jour_feries_vacances . " </p>";
-
                 }
             }
+        }
+
+        // Si la date de début est toujours vide, on met la date actuelle
+        if (empty($instance->date_debut)) {
+            $dateDebut = \Carbon\Carbon::now();
+        } else {
+            $dateDebut = \Carbon\Carbon::parse($instance->date_debut);
+        }
+        // Fixer l'heure de début à 09:00:00
+        $dateDebut->setTime(9, 0, 0);
+        $instance->date_debut = $dateDebut->format('Y-m-d H:i:s');
+
+        // Si la date de fin est toujours vide, on calcule +15 jours puis on cherche le dernier vendredi à 17h
+        if (empty($instance->date_fin)) {
+            $dateFin = \Carbon\Carbon::parse($instance->date_debut)->addDays(15);
+            
+            // On recule au vendredi précédent si ce n'est pas déjà un vendredi
+            if (!$dateFin->isFriday()) {
+                $dateFin->previous(\Carbon\Carbon::FRIDAY);
+            }
+            
+            // Fixer l'heure à 17:00:00
+            $dateFin->setTime(17, 0, 0);
+            
+            $instance->date_fin = $dateFin->format('Y-m-d H:i:s');
+        }
+
+        // Échelle de notation par défaut
+        if (!isset($instance->echelle_note_cible)) {
+            $instance->echelle_note_cible = 40;
         }
 
         return $instance;
@@ -60,19 +88,54 @@ trait AffectationProjetCrudTrait
      * Règles de validation avant la création.
      * 
      * Vérifie la présence obligatoire du groupe et du projet,
-     * ainsi que la cohérence chronologique des dates.
+     * la cohérence chronologique des dates, et la correspondance des filières.
      *
-     * @param mixed $data Données soumises.
+     * @param array $data Données soumises passées par référence.
      * @throws \InvalidArgumentException Si validation échoue.
+     * @throws BlException Si les règles métier échouent.
      */
-    public function beforCreateRules($data)
+    public function beforeCreateRules(array &$data)
     {
         // Vérification des champs obligatoires
         if (empty($data['groupe_id']) || empty($data['projet_id'])) {
             throw new \InvalidArgumentException("Le groupe et le projet sont obligatoires.");
         }
 
+        // Vérification de la correspondance des filières
+        $projet = \Modules\PkgCreationProjet\Models\Projet::find($data['projet_id']);
+        $groupe = \Modules\PkgApprenants\Models\Groupe::find($data['groupe_id']);
+        
+        if ($projet && $groupe && $projet->filiere_id !== $groupe->filiere_id) {
+            throw new BlException("Impossible de créer l'affectation : Le groupe sélectionné ne fait pas partie de la filière du projet.");
+        }
+
         // Vérification de la cohérence des dates
+        if (!empty($data['date_debut']) && !empty($data['date_fin']) && $data['date_debut'] > $data['date_fin']) {
+            throw new \InvalidArgumentException("La date de début ne peut pas être après la date de fin.");
+        }
+    }
+
+    /**
+     * Règles de validation avant la mise à jour.
+     * 
+     * Vérifie la cohérence chronologique des dates et la correspondance des filières.
+     *
+     * @param array $data Données soumises passées par référence.
+     * @param mixed $id Identifiant de l'affectation.
+     * @throws \InvalidArgumentException Si validation échoue.
+     * @throws BlException Si les règles métier échouent.
+     */
+    public function beforeUpdateRules(array &$data, $id = null)
+    {
+        if (!empty($data['groupe_id']) && !empty($data['projet_id'])) {
+            $projet = \Modules\PkgCreationProjet\Models\Projet::find($data['projet_id']);
+            $groupe = \Modules\PkgApprenants\Models\Groupe::find($data['groupe_id']);
+            
+            if ($projet && $groupe && $projet->filiere_id !== $groupe->filiere_id) {
+                throw new BlException("Impossible de mettre à jour l'affectation : Le groupe sélectionné ne fait pas partie de la filière du projet.");
+            }
+        }
+
         if (!empty($data['date_debut']) && !empty($data['date_fin']) && $data['date_debut'] > $data['date_fin']) {
             throw new \InvalidArgumentException("La date de début ne peut pas être après la date de fin.");
         }

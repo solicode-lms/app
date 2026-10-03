@@ -78,18 +78,60 @@ trait RealisationTacheGetterTrait
         $this->fieldsFilterable = [];
         $sessionState = $this->sessionState;
 
-        // Groupe 
-        if (Auth::user()->hasRole(Role::ADMIN_ROLE) || !Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE, Role::APPRENANT_ROLE) || !empty($this->viewState->get("filter.realisationTache.RealisationProjet.AffectationProjet.Groupe_id"))) {
-            // Affichage de l'état de solicode
-            $groupeService = new GroupeService();
-            $groupes = $groupeService->all();
+        $isAdmin = Auth::user()->hasRole(Role::ADMIN_ROLE) || !Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE, Role::APPRENANT_ROLE);
+        $isFormateur = Auth::user()->hasRole(Role::FORMATEUR_ROLE);
+        
+        $showFiliereFilter = $isAdmin;
+        $showGroupeFilter = $isAdmin || !empty($this->viewState->get("filter.realisationTache.RealisationProjet.AffectationProjet.Groupe_id"));
+
+        $formateurGroupes = collect();
+        $formateurFilieres = collect();
+
+        if ($isFormateur) {
+            $formateur = \Modules\PkgFormation\Models\Formateur::with('groupes')->where('user_id', Auth::id())->first();
+            if ($formateur) {
+                $formateurGroupes = $formateur->groupes;
+                $filieresIds = $formateurGroupes->pluck('filiere_id')->unique();
+                $formateurFilieres = \Modules\PkgFormation\Models\Filiere::whereIn('id', $filieresIds)->get();
+                
+                if ($filieresIds->count() > 1) {
+                    $showFiliereFilter = true;
+                }
+                if ($formateurGroupes->count() > 1) {
+                    $showGroupeFilter = true;
+                }
+            }
+        }
+
+        // Filiere
+        if ($showFiliereFilter) {
+            $filiereService = new \Modules\PkgFormation\Services\FiliereService();
+            $filieres = $isFormateur ? $formateurFilieres : $filiereService->all();
+            
             $this->fieldsFilterable[] = $this->generateRelationFilter(
-                __("PkgApprenants::Groupe.plural"),
+                __("PkgFormation::filiere.plural"),
+                'RealisationProjet.AffectationProjet.Groupe.Filiere_id',
+                \Modules\PkgFormation\Models\Filiere::class,
+                "nom",
+                "id",
+                $filieres,
+                "[name='RealisationProjet.AffectationProjet.Groupe_id']",
+                route('groupes.getData'),
+                "filiere_id"
+            );
+        }
+
+        // Groupe 
+        if ($showGroupeFilter) {
+            $groupeService = new GroupeService();
+            $groupesList = $isFormateur ? $formateurGroupes : $groupeService->all();
+            $this->fieldsFilterable[] = $this->generateRelationFilter(
+                __("PkgApprenants::groupe.plural"),
                 'RealisationProjet.AffectationProjet.Groupe_id',
                 Groupe::class,
                 "code",
                 "id",
-                $groupes,
+                $groupesList,
                 "[name='RealisationProjet.Affectation_projet_id']",
                 route('affectationProjets.getData'),
                 "groupe_id"

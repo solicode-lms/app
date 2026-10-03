@@ -363,7 +363,6 @@ class BaseAffectationProjetService extends BaseService
         $inlineFields = [
             'projet_id',
             'groupe_id',
-            'sous_groupe_id',
             'date_debut',
             'date_fin',
             'evaluateurs'
@@ -424,22 +423,6 @@ class BaseAffectationProjetService extends BaseService
             case 'groupe_id':
                  $values = (new \Modules\PkgApprenants\Services\GroupeService())
                     ->getAllForSelect($e->groupe)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
-
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
-            case 'sous_groupe_id':
-                 $values = (new \Modules\PkgApprenants\Services\SousGroupeService())
-                    ->getAllForSelect($e->sousGroupe)
                     ->map(fn($entity) => [
                         'value' => (int) $entity->id,
                         'label' => (string) $entity,
@@ -518,18 +501,6 @@ class BaseAffectationProjetService extends BaseService
                         'column' => $field,
                         'nature' => '',
                         'relationName' => 'groupe'
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-
-
-
-                case 'sous_groupe_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'sousGroupe'
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;

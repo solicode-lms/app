@@ -137,12 +137,17 @@ trait ProjetActionsTrait
             }
         }
 
-        // 1.5 Si aucun livrable n'a été défini (pas de session ou session sans livrable), on ajoute les 3 par défaut
+        // 1.5 Si aucun livrable n'a été défini (pas de session ou session sans livrable), on ajoute les 4 par défaut
         if ($projet->livrables()->count() === 0) {
             $defaultLivrables = [
                 [
-                    'titre' => 'Code source',
-                    'description' => 'Livrable contenant le code source complet du projet',
+                    'titre' => 'Projet fil rouge',
+                    'description' => 'Livrable contenant le code source complet du projet fil rouge',
+                    'natureReference' => 'Code'
+                ],
+                [
+                    'titre' => 'Projet technique',
+                    'description' => 'Code source du prototype et du live coding',
                     'natureReference' => 'Code'
                 ],
                 [
@@ -173,11 +178,14 @@ trait ProjetActionsTrait
             }
         }
 
-        // 2. Séparer les tâches en deux groupes : Tutoriels (APPRENTISSAGE) et les autres
+        // 2. Séparer les tâches en trois groupes : Tutoriels (APPRENTISSAGE), Technique (PROTOTYPE, LIVE_CODING) et le reste
         $tutoTaskIds = collect();
-        $otherTaskIds = collect();
+        $techTaskIds = collect();
+        $filRougeTaskIds = collect();
 
         $apprentissagePhaseId = \Modules\PkgCreationTache\Models\PhaseProjet::where('reference', 'APPRENTISSAGE')->value('id');
+        $prototypePhaseId = \Modules\PkgCreationTache\Models\PhaseProjet::where('reference', 'PROTOTYPE')->value('id');
+        $liveCodingPhaseId = \Modules\PkgCreationTache\Models\PhaseProjet::where('reference', 'LIVE_CODING')->value('id');
 
         // On s'assure que les tâches sont chargées
         $projet->loadMissing('taches');
@@ -185,8 +193,13 @@ trait ProjetActionsTrait
         foreach ($projet->taches as $tache) {
             if ($apprentissagePhaseId && $tache->phase_projet_id == $apprentissagePhaseId) {
                 $tutoTaskIds->push($tache->id);
+            } elseif (
+                ($prototypePhaseId && $tache->phase_projet_id == $prototypePhaseId) ||
+                ($liveCodingPhaseId && $tache->phase_projet_id == $liveCodingPhaseId)
+            ) {
+                $techTaskIds->push($tache->id);
             } else {
-                $otherTaskIds->push($tache->id);
+                $filRougeTaskIds->push($tache->id);
             }
         }
 
@@ -201,10 +214,24 @@ trait ProjetActionsTrait
                 if ($tutoTaskIds->isNotEmpty()) {
                     $livrable->taches()->syncWithoutDetaching($tutoTaskIds);
                 }
-            } else {
-                // Pour les autres (Présentation, Code source...)
-                if ($otherTaskIds->isNotEmpty()) {
-                    $livrable->taches()->syncWithoutDetaching($otherTaskIds);
+            } 
+            // Si c'est le livrable "Projet technique"
+            elseif (str_contains($titreLower, 'technique')) {
+                if ($techTaskIds->isNotEmpty()) {
+                    $livrable->taches()->syncWithoutDetaching($techTaskIds);
+                }
+            } 
+            // Si c'est le livrable "Projet fil rouge" (ou l'ancien "Code source")
+            elseif (str_contains($titreLower, 'fil rouge') || str_contains($titreLower, 'code source')) {
+                if ($filRougeTaskIds->isNotEmpty()) {
+                    $livrable->taches()->syncWithoutDetaching($filRougeTaskIds);
+                }
+            } 
+            // Pour les autres (ex: Présentation), on affecte aux tâches techniques et fil rouge
+            else {
+                $otherTasks = $techTaskIds->merge($filRougeTaskIds);
+                if ($otherTasks->isNotEmpty()) {
+                    $livrable->taches()->syncWithoutDetaching($otherTasks);
                 }
             }
         }

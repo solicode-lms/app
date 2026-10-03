@@ -17,5 +17,5 @@ return [
     'projet_id' => 'Projet',
     'description' => 'Remarques',
     'is_formateur_evaluateur' => 'Le formateur évalue le projet.',
-    'echelle_note_cible' => 'échelle de notation',
+    'echelle_note_cible' => 'Échelle de notation',
 ];

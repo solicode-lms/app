@@ -90,4 +90,95 @@ class AffectationProjetController extends BaseAffectationProjetController
         }
     }
 
+    public function create()
+    {
+        // ownedByUser
+        if (\Illuminate\Support\Facades\Auth::user()->hasRole('formateur')) {
+            $this->viewState->set('scope_form.affectationProjet.projet.formateur_id', $this->sessionState->get('formateur_id'));
+        }
+
+        // scopeDataByRole
+        if (\Illuminate\Support\Facades\Auth::user()->hasRole('formateur')) {
+            $this->viewState->set('scope.projet.formateur_id', $this->sessionState->get('formateur_id'));
+            $this->viewState->set('scope.groupe.formateurs.formateur_id', $this->sessionState->get('formateur_id'));
+        }
+        
+        $itemAffectationProjet = $this->affectationProjetService->createInstance();
+
+        $projets = $this->projetService->all();
+        $groupes = $this->groupeService->all();
+
+        // --- Filtrage des groupes ---
+        if ($itemAffectationProjet->projet_id) {
+            $projet = \Modules\PkgCreationProjet\Models\Projet::find($itemAffectationProjet->projet_id);
+            
+            if ($projet && $projet->filiere_id) {
+                // Ne garder que les groupes de la même filière
+                $groupes = $groupes->filter(function($groupe) use ($projet) {
+                    return $groupe->filiere_id == $projet->filiere_id;
+                });
+            }
+
+            // Exclure les groupes qui ont déjà ce projet affecté
+            $assignedGroupIds = \Modules\PkgRealisationProjets\Models\AffectationProjet::where('projet_id', $itemAffectationProjet->projet_id)
+                ->pluck('groupe_id')
+                ->toArray();
+                
+            $groupes = $groupes->reject(function($groupe) use ($assignedGroupIds) {
+                return in_array($groupe->id, $assignedGroupIds);
+            });
+        }
+        // -----------------------------
+
+        $sousGroupes = $this->sousGroupeService->all();
+        $anneeFormations = $this->anneeFormationService->all();
+        $evaluateurs = $this->evaluateurService->all();
+
+        $bulkEdit = false;
+        if (request()->ajax()) {
+            return view('PkgRealisationProjets::affectationProjet._fields', compact('bulkEdit', 'itemAffectationProjet', 'projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs'));
+        }
+        return view('PkgRealisationProjets::affectationProjet.create', compact('bulkEdit', 'itemAffectationProjet', 'projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs'));
+    }
+
+    public function edit(string $id)
+    {
+        $itemAffectationProjet = $this->affectationProjetService->find($id);
+
+        $projets = $this->projetService->all();
+        $groupes = $this->groupeService->all();
+
+        // --- Filtrage des groupes ---
+        if ($itemAffectationProjet->projet_id) {
+            $projet = \Modules\PkgCreationProjet\Models\Projet::find($itemAffectationProjet->projet_id);
+            
+            if ($projet && $projet->filiere_id) {
+                // Ne garder que les groupes de la même filière
+                $groupes = $groupes->filter(function($groupe) use ($projet) {
+                    return $groupe->filiere_id == $projet->filiere_id;
+                });
+            }
+
+            // Exclure les groupes qui ont déjà ce projet affecté (sauf le groupe actuellement affecté)
+            $assignedGroupIds = \Modules\PkgRealisationProjets\Models\AffectationProjet::where('projet_id', $itemAffectationProjet->projet_id)
+                ->where('id', '!=', $itemAffectationProjet->id)
+                ->pluck('groupe_id')
+                ->toArray();
+                
+            $groupes = $groupes->reject(function($groupe) use ($assignedGroupIds) {
+                return in_array($groupe->id, $assignedGroupIds);
+            });
+        }
+        // -----------------------------
+
+        $sousGroupes = $this->sousGroupeService->all();
+        $anneeFormations = $this->anneeFormationService->all();
+        $evaluateurs = $this->evaluateurService->all();
+
+        $bulkEdit = false;
+        if (request()->ajax()) {
+            return view('PkgRealisationProjets::affectationProjet._fields', compact('bulkEdit', 'itemAffectationProjet', 'projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs'));
+        }
+        return view('PkgRealisationProjets::affectationProjet.edit', compact('bulkEdit', 'itemAffectationProjet', 'projets', 'groupes', 'sousGroupes', 'anneeFormations', 'evaluateurs'));
+    }
 }

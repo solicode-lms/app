@@ -9,12 +9,11 @@
                     $bulkEdit = $affectationProjets_permissions['edit-affectationProjet'] || $affectationProjets_permissions['destroy-affectationProjet'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="projet_id" modelname="affectationProjet" label="{!!ucfirst(__('PkgCreationProjet::projet.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="groupe_id" modelname="affectationProjet" label="{!!ucfirst(__('PkgApprenants::groupe.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="sous_groupe_id" modelname="affectationProjet" label="{!!ucfirst(__('PkgApprenants::sousGroupe.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666"  field="date_debut" modelname="affectationProjet" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.date_debut'))!!}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666"  field="date_fin" modelname="affectationProjet" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin'))!!}" />
-                <x-sortable-column :sortable="false" width="13.666666666666666"  field="evaluateurs" modelname="affectationProjet" label="{!!ucfirst(__('PkgEvaluateurs::evaluateur.plural'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4" field="projet_id" modelname="affectationProjet" label="{!!ucfirst(__('PkgCreationProjet::projet.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4" field="groupe_id" modelname="affectationProjet" label="{!!ucfirst(__('PkgApprenants::groupe.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="date_debut" modelname="affectationProjet" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.date_debut'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="date_fin" modelname="affectationProjet" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin'))!!}" />
+                <x-sortable-column :sortable="false" width="16.4"  field="evaluateurs" modelname="affectationProjet" label="{!!ucfirst(__('PkgEvaluateurs::evaluateur.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -26,25 +25,21 @@
                 @endphp
                 <tr id="affectationProjet-row-{{$affectationProjet->id}}" data-id="{{$affectationProjet->id}}">
                     <x-checkbox-row :item="$affectationProjet" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 13.666666666666666%;white-space: normal;" class=" text-truncate" data-id="{{$affectationProjet->id}}" data-field="projet_id">
+                    <td style="max-width: 16.4%;white-space: normal;" class=" text-truncate" data-id="{{$affectationProjet->id}}" data-field="projet_id">
                         {{  $affectationProjet->projet }}
 
                     </td>
-                    <td style="max-width: 13.666666666666666%;white-space: normal;" class=" text-truncate" data-id="{{$affectationProjet->id}}" data-field="groupe_id">
+                    <td style="max-width: 16.4%;white-space: normal;" class=" text-truncate" data-id="{{$affectationProjet->id}}" data-field="groupe_id">
                         {{  $affectationProjet->groupe }}
 
                     </td>
-                    <td style="max-width: 13.666666666666666%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="sous_groupe_id">
-                        {{  $affectationProjet->sousGroupe }}
-
-                    </td>
-                    <td style="max-width: 13.666666666666666%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="date_debut">
+                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="date_debut">
                         <x-deadline-display :value="$affectationProjet->date_debut" />
                     </td>
-                    <td style="max-width: 13.666666666666666%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="date_fin">
+                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="date_fin">
                         <x-deadline-display :value="$affectationProjet->date_fin" />
                     </td>
-                    <td style="max-width: 13.666666666666666%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="evaluateurs">
+                    <td style="max-width: 16.4%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="evaluateurs">
                         <ul>
                             @foreach ($affectationProjet->evaluateurs as $evaluateur)
                                 <li @if(strlen($evaluateur) > 30) data-toggle="tooltip" title="{{$evaluateur}}"  @endif>@limit($evaluateur, 30)</li>
