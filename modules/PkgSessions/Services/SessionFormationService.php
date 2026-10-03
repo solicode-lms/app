@@ -29,5 +29,15 @@ class SessionFormationService extends BaseSessionFormationService
         $this->pushServiceMessage("info","Traitement title", "message : résultat de traitement");
         return $value;
     }
+
+    /**
+     * Surcharge du tri par défaut :
+     * Trie d'abord par filière (pour regrouper les sessions), puis par ordre.
+     */
+    public function defaultSort($query)
+    {
+        return $query->orderBy('filiere_id', 'asc')
+                     ->orderBy('ordre', 'asc');
+    }
    
 }

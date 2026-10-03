@@ -25,8 +25,8 @@ class BaseProjetService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'session_formation_id',
         'filiere_id',
+        'session_formation_id',
         'titre',
         'travail_a_faire',
         'critere_de_travail',
@@ -113,23 +113,6 @@ class BaseProjetService extends BaseService
         $this->fieldsFilterable = [];
         
             
-                if (!array_key_exists('session_formation_id', $scopeVariables)) {
-
-
-                    $sessionFormationService = new \Modules\PkgSessions\Services\SessionFormationService();
-                    $sessionFormationIds = $this->getAvailableFilterValues('session_formation_id');
-                    $sessionFormations = $sessionFormationService->getByIds($sessionFormationIds);
-
-                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgSessions::sessionFormation.plural"), 
-                        'session_formation_id', 
-                        \Modules\PkgSessions\Models\SessionFormation::class, 
-                        'code',
-                        $sessionFormations
-                    );
-                }
-            
-            
                 if (!array_key_exists('filiere_id', $scopeVariables)) {
 
 
@@ -143,6 +126,23 @@ class BaseProjetService extends BaseService
                         \Modules\PkgFormation\Models\Filiere::class, 
                         'code',
                         $filieres
+                    );
+                }
+            
+            
+                if (!array_key_exists('session_formation_id', $scopeVariables)) {
+
+
+                    $sessionFormationService = new \Modules\PkgSessions\Services\SessionFormationService();
+                    $sessionFormationIds = $this->getAvailableFilterValues('session_formation_id');
+                    $sessionFormations = $sessionFormationService->getByIds($sessionFormationIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgSessions::sessionFormation.plural"), 
+                        'session_formation_id', 
+                        \Modules\PkgSessions\Models\SessionFormation::class, 
+                        'code',
+                        $sessionFormations
                     );
                 }
             

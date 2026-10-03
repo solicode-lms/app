@@ -50,33 +50,95 @@ class ProjetService extends BaseProjetService
      */
     public function initFieldsFilterable()
     {
-        // 1. Appeler le parent pour charger les filtres de base (Filière, Formateur, etc.)
-        parent::initFieldsFilterable();
-
-        // 2. Vérifier si le filtre de contexte n'est pas déjà défini
         $scopeVariables = $this->viewState->getScopeVariables('projet');
+        $this->fieldsFilterable = [];
 
+        // 1. Filtre Filiere (dynamique vers SessionFormation)
+        if (!array_key_exists('filiere_id', $scopeVariables)) {
+            $filiereService = new \Modules\PkgFormation\Services\FiliereService();
+            $filiereIds = $this->getAvailableFilterValues('filiere_id');
+            $filieres = $filiereService->getByIds($filiereIds);
+
+            if ($filieres->count() > 1 || \Illuminate\Support\Facades\Auth::user()->hasRole('admin')) {
+                $this->fieldsFilterable[] = $this->generateRelationFilter(
+                    __("PkgFormation::filiere.plural"),
+                    'filiere_id',
+                    \Modules\PkgFormation\Models\Filiere::class,
+                    'code',
+                    'id',
+                    $filieres,
+                    "[name='session_formation_id'],[name='affectationProjets.groupe_id']",       // Sélecteurs cibles à rafraîchir
+                    route('sessionFormations.getData') . "," . route('groupes.getData'),         // Routes API
+                    "filiere_id,filiere_id"                                                      // Clés des paramètres de filtre
+                );
+            }
+        }
+
+
+        // 4. Filtre Groupe (via AffectationProjet)
         if (!array_key_exists('affectationProjets.groupe_id', $scopeVariables)) {
-            
             $groupeService = new \Modules\PkgApprenants\Services\GroupeService();
-            
-            // 3. Récupérer uniquement les ID des groupes actuellement liés aux projets
             $groupeIds = $this->getAvailableFilterValues('affectationProjets.groupe_id');
-            
             $groupes = $groupeService->getByIds($groupeIds);
 
-            // 4. Si le formateur a plus d'un groupe (ou si c'est un Admin avec des groupes existants)
-            if ($groupes->count() > 1 || \Illuminate\Support\Facades\Auth::user()->hasRole('admin')) {
-                // Ajouter le filtre
-                $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                    __("PkgApprenants::groupe.singular"),  // Label ("Groupe")
-                    'affectationProjets.groupe_id',        // Chemin relationnel
+            $user = \Illuminate\Support\Facades\Auth::user();
+            $showGroupeFilter = $user->hasRole('admin');
+
+            if (!$showGroupeFilter) {
+                // Vérifier si le formateur enseigne à plusieurs groupes
+                $formateur = \Modules\PkgFormation\Models\Formateur::where('user_id', $user->id)->first();
+                if ($formateur && $formateur->groupes()->count() > 1) {
+                    $showGroupeFilter = true;
+                }
+            }
+
+            if ($showGroupeFilter) {
+                $this->fieldsFilterable[] = $this->generateRelationFilter(
+                    __("PkgApprenants::groupe.singular"),
+                    'affectationProjets.groupe_id',
                     \Modules\PkgApprenants\Models\Groupe::class, 
-                    'code',                                // Champ d'affichage (ex: DEV-101)
+                    'code',
+                    'id',
                     $groupes
                 );
             }
         }
+
+
+
+        // 2. Filtre Session Formation
+        if (!array_key_exists('session_formation_id', $scopeVariables)) {
+            $sessionFormationService = new \Modules\PkgSessions\Services\SessionFormationService();
+            $sessionFormationIds = $this->getAvailableFilterValues('session_formation_id');
+            $sessionFormations = $sessionFormationService->getByIds($sessionFormationIds);
+
+            $this->fieldsFilterable[] = $this->generateRelationFilter(
+                __("PkgSessions::sessionFormation.plural"), 
+                'session_formation_id', 
+                \Modules\PkgSessions\Models\SessionFormation::class, 
+                'code',
+                'id',
+                $sessionFormations
+            );
+        }
+        
+        // 3. Filtre Formateur
+        if (!array_key_exists('formateur_id', $scopeVariables)) {
+            $formateurService = new \Modules\PkgFormation\Services\FormateurService();
+            $formateurIds = $this->getAvailableFilterValues('formateur_id');
+            $formateurs = $formateurService->getByIds($formateurIds);
+
+            $this->fieldsFilterable[] = $this->generateRelationFilter(
+                __("PkgFormation::formateur.plural"), 
+                'formateur_id', 
+                \Modules\PkgFormation\Models\Formateur::class, 
+                'nom',
+                'id',
+                $formateurs
+            );
+        }
+
+      
     }
 
     /**

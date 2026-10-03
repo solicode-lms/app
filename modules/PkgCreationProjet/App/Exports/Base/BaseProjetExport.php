@@ -32,8 +32,8 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         if ($this->format === 'csv') {
             return [
-                'session_formation_reference' => 'session_formation_reference',
                 'filiere_reference' => 'filiere_reference',
+                'session_formation_reference' => 'session_formation_reference',
                 'titre' => 'titre',
                 'travail_a_faire' => 'travail_a_faire',
                 'critere_de_travail' => 'critere_de_travail',
@@ -45,8 +45,8 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             ];
         } else {
             return [
-                'session_formation_reference' => __('PkgSessions::sessionFormation.singular'),
                 'filiere_reference' => __('PkgFormation::filiere.singular'),
+                'session_formation_reference' => __('PkgSessions::sessionFormation.singular'),
                 'titre' => __('PkgCreationProjet::projet.titre'),
                 'travail_a_faire' => __('PkgCreationProjet::projet.travail_a_faire'),
                 'critere_de_travail' => __('PkgCreationProjet::projet.critere_de_travail'),
@@ -66,8 +66,8 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         return $this->data->map(function ($projet) {
             return [
-                'session_formation_reference' => $projet->sessionFormation?->reference,
                 'filiere_reference' => $projet->filiere?->reference,
+                'session_formation_reference' => $projet->sessionFormation?->reference,
                 'titre' => $projet->titre,
                 'travail_a_faire' => $projet->travail_a_faire,
                 'critere_de_travail' => $projet->critere_de_travail,

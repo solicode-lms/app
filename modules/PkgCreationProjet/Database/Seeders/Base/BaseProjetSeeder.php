@@ -76,14 +76,14 @@ class BaseProjetSeeder extends Seeder
             if ($row) {
 
 
-                $session_formation_id = null;
-                if (!empty($row["session_formation_reference"])) {
-                    $session_formation_id = \Modules\PkgSessions\Models\SessionFormation::where('reference', $row["session_formation_reference"])
-                        ->value('id');
-                }
                 $filiere_id = null;
                 if (!empty($row["filiere_reference"])) {
                     $filiere_id = \Modules\PkgFormation\Models\Filiere::where('reference', $row["filiere_reference"])
+                        ->value('id');
+                }
+                $session_formation_id = null;
+                if (!empty($row["session_formation_reference"])) {
+                    $session_formation_id = \Modules\PkgSessions\Models\SessionFormation::where('reference', $row["session_formation_reference"])
                         ->value('id');
                 }
                 $formateur_id = null;
@@ -94,8 +94,8 @@ class BaseProjetSeeder extends Seeder
 
 
                 $projetData =[
-                        "session_formation_id" => $session_formation_id,
                         "filiere_id" => $filiere_id,
+                        "session_formation_id" => $session_formation_id,
                         "titre" => isset($row["titre"]) && $row["titre"] !== "" ? $row["titre"] : null,
                         "travail_a_faire" => isset($row["travail_a_faire"]) && $row["travail_a_faire"] !== "" ? $row["travail_a_faire"] : null,
                         "critere_de_travail" => isset($row["critere_de_travail"]) && $row["critere_de_travail"] !== "" ? $row["critere_de_travail"] : null,

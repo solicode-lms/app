@@ -62,10 +62,10 @@ class BaseProjetController extends AdminController
 
         // scopeDataByRole
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->init('scope.sessionFormation.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->init('scope.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
         }
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->init('scope.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->init('scope.sessionFormation.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
         }
 
          // Extraire les paramètres de recherche, pagination, filtres
@@ -104,23 +104,23 @@ class BaseProjetController extends AdminController
 
         // scopeDataByRole
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->set('scope.sessionFormation.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->set('scope.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
         }
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->set('scope.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->set('scope.sessionFormation.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
         }
         $itemProjet = $this->projetService->createInstance();
  
 
-        $sessionFormations = $this->sessionFormationService->all();
         $filieres = $this->filiereService->all();
+        $sessionFormations = $this->sessionFormationService->all();
         $formateurs = $this->formateurService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._fields', compact('bulkEdit' ,'itemProjet', 'sessionFormations', 'filieres', 'formateurs'));
+            return view('PkgCreationProjet::projet._fields', compact('bulkEdit' ,'itemProjet', 'filieres', 'sessionFormations', 'formateurs'));
         }
-        return view('PkgCreationProjet::projet.create', compact('bulkEdit' ,'itemProjet', 'sessionFormations', 'filieres', 'formateurs'));
+        return view('PkgCreationProjet::projet.create', compact('bulkEdit' ,'itemProjet', 'filieres', 'sessionFormations', 'formateurs'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -142,16 +142,16 @@ class BaseProjetController extends AdminController
         }
  
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->init('scope.sessionFormation.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->init('scope.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
         }
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->init('scope.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->init('scope.sessionFormation.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
         }
          $itemProjet = $this->projetService->find($projet_ids[0]);
          
  
-        $sessionFormations = $this->sessionFormationService->getAllForSelect($itemProjet->sessionFormation);
         $filieres = $this->filiereService->getAllForSelect($itemProjet->filiere);
+        $sessionFormations = $this->sessionFormationService->getAllForSelect($itemProjet->sessionFormation);
         $formateurs = $this->formateurService->getAllForSelect($itemProjet->formateur);
 
         $bulkEdit = true;
@@ -160,9 +160,9 @@ class BaseProjetController extends AdminController
         $itemProjet = $this->projetService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._fields', compact('bulkEdit', 'projet_ids', 'itemProjet', 'sessionFormations', 'filieres', 'formateurs'));
+            return view('PkgCreationProjet::projet._fields', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'sessionFormations', 'formateurs'));
         }
-        return view('PkgCreationProjet::projet.bulk-edit', compact('bulkEdit', 'projet_ids', 'itemProjet', 'sessionFormations', 'filieres', 'formateurs'));
+        return view('PkgCreationProjet::projet.bulk-edit', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'sessionFormations', 'formateurs'));
     }
     /**
      */
@@ -253,18 +253,18 @@ class BaseProjetController extends AdminController
         $this->viewState->setContextKey('projet.edit_' . $id);
 
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->set('scope.sessionFormation.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->set('scope.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
         }
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->set('scope.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->set('scope.sessionFormation.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
         }
 
         $itemProjet = $this->projetService->edit($id);
         $this->authorize('edit', $itemProjet);
 
 
-        $sessionFormations = $this->sessionFormationService->getAllForSelect($itemProjet->sessionFormation);
         $filieres = $this->filiereService->getAllForSelect($itemProjet->filiere);
+        $sessionFormations = $this->sessionFormationService->getAllForSelect($itemProjet->sessionFormation);
         $formateurs = $this->formateurService->getAllForSelect($itemProjet->formateur);
 
 
@@ -317,10 +317,10 @@ class BaseProjetController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._edit', array_merge(compact('bulkEdit' , 'itemProjet','sessionFormations', 'filieres', 'formateurs'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value));
+            return view('PkgCreationProjet::projet._edit', array_merge(compact('bulkEdit' , 'itemProjet','filieres', 'sessionFormations', 'formateurs'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value));
         }
 
-        return view('PkgCreationProjet::projet.edit', array_merge(compact('bulkEdit' ,'itemProjet','sessionFormations', 'filieres', 'formateurs'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value));
+        return view('PkgCreationProjet::projet.edit', array_merge(compact('bulkEdit' ,'itemProjet','filieres', 'sessionFormations', 'formateurs'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value));
 
 
     }
