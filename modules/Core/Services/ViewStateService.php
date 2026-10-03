@@ -211,39 +211,55 @@ class ViewStateService
             }
 
             $title = $this->resolveTitle($key, $value, $model);
+            $relationModelClass = $this->getRelationModelClassForKey($key, $model);
+
+            if ($relationModelClass) {
+                // Extraire le package (ex: Modules\PkgCreationProjet\Models\Projet -> PkgCreationProjet)
+                $namespaceParts = explode('\\', $relationModelClass);
+                $package = $namespaceParts[1] ?? '';
+                $modelBaseName = lcfirst(class_basename($relationModelClass));
+                
+                // Construire la clé de traduction complète
+                $transKey = "{$package}::{$modelBaseName}.singular";
+            } else {
+                // Fallback si pas de classe liée
+                $transKey = ucfirst(str_replace('_id', '', $key));
+            }
             
-            // Clean up the key for display (e.g., "projet_id" -> "Projet")
-            $cleanKey = ucfirst(str_replace('_id', '', $key));
-            $parts[$cleanKey] = $title;
+            $parts[$transKey] = $title;
         }
         
         return $parts;
     }
     
+    /**
+     * Récupère la classe du modèle lié pour une clé donnée.
+     */
+    private function getRelationModelClassForKey($key, $model): ?string
+    {
+        // Vérifier si la clé correspond à une relation ManyToOne (Format Gapp)
+        if (isset($model->manyToOne)) {
+            foreach ($model->manyToOne as $relationName => $config) {
+                if (($config['foreign_key'] ?? '') === $key || $relationName === $key) {
+                    return $config['model'] ?? null;
+                }
+            }
+        }
 
-    
+        // Vérifier si la clé correspond à $relations (Ancien format ou custom)
+        if (isset($model->relations) && array_key_exists($key, $model->relations)) {
+            return $model->relations[$key];
+        }
+
+        return null;
+    }
 
     /**
      * Résoudre le titre en fonction de l'ID et de la relation.
      */
     private function resolveTitle($key, $id, $model): string
     {
-        $relationModelClass = null;
-
-        // Vérifier si la clé correspond à une relation ManyToOne (Format Gapp)
-        if (isset($model->manyToOne)) {
-            foreach ($model->manyToOne as $relationName => $config) {
-                if (($config['foreign_key'] ?? '') === $key || $relationName === $key) {
-                    $relationModelClass = $config['model'] ?? null;
-                    break;
-                }
-            }
-        }
-
-        // Vérifier si la clé correspond à $relations (Ancien format ou custom)
-        if (!$relationModelClass && isset($model->relations) && array_key_exists($key, $model->relations)) {
-            $relationModelClass = $model->relations[$key];
-        }
+        $relationModelClass = $this->getRelationModelClassForKey($key, $model);
 
         if ($relationModelClass && class_exists($relationModelClass)) {
             $relatedModel = $relationModelClass::find($id);

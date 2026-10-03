@@ -6,7 +6,7 @@
     <div class="context-badges-items">
     @foreach($scopeVariables as $key => $value)
         <span class="badge badge-secondary mr-2 p-1" style="margin-bottom: 4px" title="Filtre actif">
-            {{ $key }} : {{ $value }}
+            {{ __($key) }} : {{ $value }}
         </span>
     @endforeach
     </div>
