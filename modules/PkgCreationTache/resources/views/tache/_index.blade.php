@@ -9,7 +9,7 @@
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
         parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
-        editOnFullScreen : false,
+        editOnFullScreen : true,
         entity_name: 'tache',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'tache.index' }}', 
         filterFormSelector: '#tache-crud-filter-form',

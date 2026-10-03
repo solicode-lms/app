@@ -25,7 +25,8 @@ use Modules\Core\Services\Traits\{
     StatsTrait,
     OrdreTraite,
     HandleThrowableTrait,
-    JobTrait
+    JobTrait,
+    ClassResolverTrait
 };
 use Modules\PkgRealisationTache\Models\RealisationTache;
 
@@ -52,7 +53,8 @@ abstract class BaseService implements ServiceInterface
         FilterTrait, 
         StatsTrait,
         HandleThrowableTrait,
-        JobTrait;
+        JobTrait,
+        ClassResolverTrait;
 
 
     // protected ?string $crudJobToken = null;
@@ -191,48 +193,7 @@ abstract class BaseService implements ServiceInterface
     }
 
 
-    /**
-         * Résout dynamiquement le nom de la classe à partir de son nom court (ex: "Apprenant"),
-         * en cherchant dans les namespaces des modules déclarés dans SoliLMS.
-         *
-         * @param string $className Nom court de la classe (ex: "Apprenant")
-         * @return object|null Instance de la classe si trouvée, sinon null
-         */
-    function resolveClassByName(string $className): ?object
-    {
-        $modulePaths = [
-            'PkgApprenants',
-            'PkgFormation',
-            'PkgCompetences',
-            'PkgCreationProjet',
-            'PkgRealisationProjets',
-            'PkgCreationTache',
-            'PkgRealisationTache',
-            'PkgApprentissage',
-            'PkgEvaluateurs',
-            'PkgNotification',
-            'PkgAutorisation',
-            'PkgWidgets',
-            'PkgSessions',
-            'PkgGapp',
-            'Core'
-        ];
 
-        foreach ($modulePaths as $module) {
-            $fqcn = "Modules\\$module\\Services\\$className";
-            if (class_exists($fqcn)) {
-                return new $fqcn();
-            }
-
-            // En fallback, certains modules utilisent Entities à la place de Models
-            $fqcnEntity = "Modules\\$module\\Models\\$className";
-            if (class_exists($fqcnEntity)) {
-                return new $fqcnEntity();
-            }
-        }
-
-        return null;
-    }
 
     /**
      * Vérifie si l'utilisateur courant est autorisé à exécuter une action sur une entité.

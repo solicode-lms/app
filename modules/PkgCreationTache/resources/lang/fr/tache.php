@@ -13,5 +13,6 @@ return [
     'note' => 'Barème',
     'priorite' => 'Priorité',
     'is_live_coding_task' => 'Mode live coding',
-    'projet_origine_note' => 'La note provient du projet'
+    'projet_origine_note' => 'La note provient du projet',
+    'mobilisation_ua_id' => 'aaa'
 ];

@@ -11,6 +11,7 @@ Nous utilisons une couche **Service** intermédiaire pour soulager les contrôle
 - **Le Contrôleur (`app-controller`)** : Gère uniquement la requête HTTP, l'autorisation, la validation formelle (FormRequest) et la sélection de données pour l'affichage. **Il ne doit faire aucune modification en base de données ni aucun calcul métier.**
 - **Le Service (`app-service`)** : Gère l'intégralité de la logique métier, les calculs, et **toutes** les opérations de modification de données (création, mise à jour, suppression, changement d'état). Il est le seul garant de l'intégrité de ses données.
 - **Le Modèle (`app-model`)** : Ne doit jamais être utilisé directement pour sauvegarder des données (`save()`, `update()`) depuis un contrôleur ou un autre service. Chaque modification passe obligatoirement par le Service associé à l'entité.
+- **La Vue (Blade) (`app-blade`)** : Ne doit **JAMAIS** appeler la couche Service (ex: `app(MonService::class)`). Toutes les données complexes, y compris les variables d'état (comme `$viewState`), doivent être préparées par le Contrôleur/Service et injectées via `compact()`. La vue est uniquement responsable de l'affichage.
 
 ## 2. Structure des Services
 - **Héritage** : Tous les Services étendent `BaseService` ou le modèle parent (ex: `BaseTacheService`).

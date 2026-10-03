@@ -175,7 +175,8 @@
     },
     {
         "reference": "Tache_projet_id_filterable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Tache_projet_id",
         "e_metadata_definition_reference": "filterable"
     },
@@ -643,7 +644,8 @@
     },
     {
         "reference": "Tache_phase_evaluation_id_filterable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Tache_phase_evaluation_id",
         "e_metadata_definition_reference": "filterable"
     },
@@ -694,7 +696,8 @@
     },
     {
         "reference": "Tache_chapitre_id_filterable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Tache_chapitre_id",
         "e_metadata_definition_reference": "filterable"
     },
@@ -924,7 +927,8 @@
     },
     {
         "reference": "Tache_mobilisation_ua_id_filterable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Tache_mobilisation_ua_id",
         "e_metadata_definition_reference": "filterable"
     },
@@ -1079,5 +1083,12 @@
         ],
         "e_data_field_reference": "Tache_projet_origine_note_id",
         "e_metadata_definition_reference": "scopeDataByRole"
+    },
+    {
+        "reference": "taches_editOnFullScreen",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_model_reference": "taches",
+        "e_metadata_definition_reference": "editOnFullScreen"
     }
 ]

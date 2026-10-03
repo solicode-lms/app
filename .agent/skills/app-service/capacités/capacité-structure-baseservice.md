@@ -30,6 +30,8 @@ Fournir une cartographie exhaustive de la classe de base `BaseService` (`Modules
   - *Exemple* : `$this->projetService->count();`
 - **`getAllForSelect($entity)`** : Retourne la collection brute pour alimenter les listes déroulantes (select).
   - *Exemple* : `$this->projetService->getAllForSelect($projet);`
+- **`getData(string $filter, $value)`** : Filtre rapidement les données d'un modèle selon une colonne et une valeur données.
+  - *Exemple* : `$this->projetService->getData('etat', 'actif');`
 
 ---
 
@@ -61,12 +63,16 @@ Ces opérations s'exécutent au sein d'une transaction de base de données et d�
   - *Exemple* : Appel automatique lors de `create`/`update`.
 - **`getNestedRelationAsCollection($model, $relation, $id)`** : Parcourt et extrait sous forme de collection plate une relation imbriquée (ex: `'modules.competences'`).
   - *Exemple* : `$comp = $this->getNestedRelationAsCollection(Filiere::class, 'modules.competences', $id);`
+- **`resolveClassByName(string $className): ?object`** : Résout dynamiquement et instancie un service métier à partir de son nom court en cherchant dans tous les namespaces des modules.
+  - *Exemple* : `$apprenantService = $this->resolveClassByName('ApprenantService');`
 
 ---
 
 ### 5. Sécurité, Rôles & Habilitations (`BaseService.php`)
 - **`authorize(string $ability, mixed $entity)`** : Lève une exception `AuthorizationException` si l'utilisateur ne possède pas le droit requis.
-- **`getFieldsEditable()`** : Récupère la liste des champs modifiables selon le rôle de l'utilisateur connecté en croisant `editableFieldsByRoles()`.
+- **`editableFieldsByRoles(): array`** : Méthode à surcharger pour définir une matrice des champs modifiables selon les rôles.
+- **`getFieldsEditable(): array`** : Récupère la liste des champs modifiables selon le rôle de l'utilisateur connecté en croisant `editableFieldsByRoles()` et `fieldsSearchable`.
+- **`getFieldsSortable(): array`** : Récupère la liste fusionnée des champs de base et des attributs dynamiques (calculés) triables.
 - **`sanitizePayloadByRoles(array $payload, $model, $user)`** : Nettoie les données soumises en préservant les valeurs d'origine pour les champs non autorisés par le rôle.
 
 ---
@@ -79,6 +85,13 @@ Ces opérations s'exécutent au sein d'une transaction de base de données et d�
 ### 7. Notification & Messages de Session (`MessageTrait`)
 - **`pushServiceMessage(string $type, string $title, string $message)`** : Injecte un message flash en session (`service_messages`) affiché automatiquement dans le thème UI (ex: SweetAlert2).
   - *Exemple* : `$this->pushServiceMessage('success', 'Succès', 'Action réussie !');`
+
+---
+
+### 8. Utilitaires UI, Validation et Tâches de Fond (`BaseService.php`)
+- **`etag($entity): string`** : Génère une empreinte ETag unique basée sur `updated_at` pour la gestion des collisions d'édition (Inline Edit).
+- **`computeFieldMeta($e, string $field, array $baseMeta, string $type, array $extra = []): array`** : Formate dynamiquement une métadonnée en fonction de son type (date, boolean) pour le rendu frontend.
+- **`setCrudJobToken($crudJobToken)` / `getCrudJobToken()`** : Injecte et récupère un jeton de Job d'arrière-plan de manière globale pour une exécution persistante dans le scope de la requête courante.
 
 ---
 
