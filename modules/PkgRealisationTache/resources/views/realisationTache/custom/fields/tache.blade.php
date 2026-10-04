@@ -37,9 +37,6 @@
     @if($equipeColor) 
         style="
             --equipe-color: {{ $equipeColor }}; 
-            --equipe-bg: {{ $equipeColor }}0A; 
-            --equipe-shadow: {{ $equipeColor }}20; 
-            --equipe-shadow-hover: {{ $equipeColor }}33;
         " 
     @endif
 >

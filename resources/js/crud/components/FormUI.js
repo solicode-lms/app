@@ -423,7 +423,11 @@ export class FormUI  {
                 color = $(option.element).attr('data-color');
             }
             if (color) {
-                return $('<span class="color-option"><span class="color-box" style="display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:5px; background-color:' + color + ';"></span>' + option.text + '</span>');
+                return $(`
+                    <span style="display: flex; align-items: center; border-left: 4px solid ${color}; padding-left: 8px; margin: 0px 0;">
+                        <span style="font-weight: 500;">${option.text}</span>
+                    </span>
+                `);
             }
             return option.text;
         }
