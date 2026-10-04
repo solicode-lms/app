@@ -10,8 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="35"  field="titre" modelname="projet" label="{!!ucfirst(__('PkgCreationProjet::projet.titre'))!!}" />
+                <x-sortable-column :sortable="true" width="8.5" field="groupe_id" modelname="projet" label="{!!ucfirst(__('PkgApprenants::groupe.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="30"  field="Tache" modelname="projet" label="{!!ucfirst(__('PkgCreationTache::tache.plural'))!!}" />
-                <x-sortable-column :sortable="true" width="17"  field="Livrable" modelname="projet" label="{!!ucfirst(__('PkgCreationProjet::livrable.plural'))!!}" />
+                <x-sortable-column :sortable="true" width="8.5"  field="Livrable" modelname="projet" label="{!!ucfirst(__('PkgCreationProjet::livrable.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -26,10 +27,14 @@
                     <td style="max-width: 35%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$projet->id}}" data-field="titre" >
                         @include('PkgCreationProjet::projet.custom.fields.titre', ['entity' => $projet])
                     </td>
+                    <td style="max-width: 8.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$projet->id}}" data-field="groupe_id">
+                        {{  $projet->groupe }}
+
+                    </td>
                     <td style="max-width: 30%;white-space: normal;" class=" text-truncate" data-id="{{$projet->id}}" data-field="Tache" >
                         @include('PkgCreationProjet::projet.custom.fields.taches', ['entity' => $projet])
                     </td>
-                    <td style="max-width: 17%;white-space: normal;" class=" text-truncate" data-id="{{$projet->id}}" data-field="Livrable">
+                    <td style="max-width: 8.5%;white-space: normal;" class=" text-truncate" data-id="{{$projet->id}}" data-field="Livrable">
                         <ul>
                             @foreach ($projet->livrables as $livrable)
                                 <li>{{$livrable}} </li>

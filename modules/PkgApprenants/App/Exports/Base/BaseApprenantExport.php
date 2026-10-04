@@ -48,6 +48,7 @@ class BaseApprenantExport implements FromCollection, WithHeadings, ShouldAutoSiz
                 'tele_num' => 'tele_num',
                 'user_reference' => 'user_reference',
                 'reference' => 'reference',
+                'equipeProjets' => 'equipeProjets',
                 'sousGroupes' => 'sousGroupes',
                 'matricule' => 'matricule',
                 'groupes' => 'groupes',
@@ -72,6 +73,7 @@ class BaseApprenantExport implements FromCollection, WithHeadings, ShouldAutoSiz
                 'tele_num' => __('PkgApprenants::apprenant.tele_num'),
                 'user_reference' => __('PkgAutorisation::user.singular'),
                 'reference' => __('Core::msg.reference'),
+                    'equipeProjets' => __('PkgCreationProjet::equipeProjet.plural'),
                     'sousGroupes' => __('PkgApprenants::sousGroupe.plural'),
                 'matricule' => __('PkgApprenants::apprenant.matricule'),
                     'groupes' => __('PkgApprenants::groupe.plural'),
@@ -104,6 +106,9 @@ class BaseApprenantExport implements FromCollection, WithHeadings, ShouldAutoSiz
                 'tele_num' => $apprenant->tele_num,
                 'user_reference' => $apprenant->user?->reference,
                 'reference' => $apprenant->reference,
+                'equipeProjets' => $apprenant->equipeProjets
+                    ->pluck('reference')
+                    ->implode('|'),
                 'sousGroupes' => $apprenant->sousGroupes
                     ->pluck('reference')
                     ->implode('|'),

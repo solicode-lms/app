@@ -44,6 +44,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemGroupe->projets?->count() > 0 || auth()->user()?->can('create-projet'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="groupe-hasmany-tabs-projet-tab" data-toggle="pill" href="#groupe-hasmany-tabs-projet" role="tab" aria-controls="groupe-hasmany-tabs-projet" aria-selected="false">
+                                <i class="nav-icon fas fa-rocket"></i>
+                                {{ucfirst(__('PkgCreationProjet::projet.plural'))}}
+                            </a>
+                        </li>
+                        @endif
                          @if($itemGroupe->sousGroupes?->count() > 0 || auth()->user()?->can('create-sousGroupe'))
                         <li class="nav-item">
                             <a class="nav-link" id="groupe-hasmany-tabs-sousGroupe-tab" data-toggle="pill" href="#groupe-hasmany-tabs-sousGroupe" role="tab" aria-controls="groupe-hasmany-tabs-sousGroupe" aria-selected="false">
@@ -65,6 +73,11 @@
                             @if($itemGroupe->affectationProjets?->count() > 0 || auth()->user()?->can('create-affectationProjet'))
                             <div class="tab-pane fade" id="groupe-hasmany-tabs-affectationProjet" role="tabpanel" aria-labelledby="groupe-hasmany-tabs-affectationProjet-tab">
                                 @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'groupe.edit_' . $itemGroupe->id])
+                            </div>
+                            @endif
+                            @if($itemGroupe->projets?->count() > 0 || auth()->user()?->can('create-projet'))
+                            <div class="tab-pane fade" id="groupe-hasmany-tabs-projet" role="tabpanel" aria-labelledby="groupe-hasmany-tabs-projet-tab">
+                                @include('PkgCreationProjet::projet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'groupe.edit_' . $itemGroupe->id])
                             </div>
                             @endif
                             @if($itemGroupe->sousGroupes?->count() > 0 || auth()->user()?->can('create-sousGroupe'))

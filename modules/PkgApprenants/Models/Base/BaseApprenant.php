@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgApprenants\Models\Nationalite;
 use Modules\PkgApprenants\Models\NiveauxScolaire;
 use Modules\PkgAutorisation\Models\User;
+use Modules\PkgCreationProjet\Models\EquipeProjet;
 use Modules\PkgApprenants\Models\SousGroupe;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
@@ -91,6 +92,7 @@ class BaseApprenant extends BaseModel
         'nom', 'nom_arab', 'prenom', 'prenom_arab', 'profile_image', 'cin', 'date_naissance', 'sexe', 'nationalite_id', 'lieu_naissance', 'diplome', 'adresse', 'niveaux_scolaire_id', 'tele_num', 'user_id', 'reference', 'matricule', 'date_inscription', 'actif'
     ];
     public $manyToMany = [
+        'EquipeProjet' => ['relation' => 'equipeProjets' , "foreign_key" => "equipe_projet_id" ],
         'SousGroupe' => ['relation' => 'sousGroupes' , "foreign_key" => "sous_groupe_id" ],
         'Groupe' => ['relation' => 'groupes' , "foreign_key" => "groupe_id" ]
     ];
@@ -141,6 +143,15 @@ class BaseApprenant extends BaseModel
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    /**
+     * Relation ManyToMany pour EquipeProjets.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function equipeProjets()
+    {
+        return $this->belongsToMany(EquipeProjet::class, 'apprenant_equipe_projet');
+    }
     /**
      * Relation ManyToMany pour SousGroupes.
      *

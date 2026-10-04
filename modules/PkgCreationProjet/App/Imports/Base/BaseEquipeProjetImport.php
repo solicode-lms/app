@@ -5,23 +5,23 @@
 
 namespace Modules\PkgCreationProjet\App\Imports\Base;
 
-use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgCreationProjet\Models\EquipeProjet;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Log;
 
-class BaseProjetImport implements ToModel, WithHeadingRow
+class BaseEquipeProjetImport implements ToModel, WithHeadingRow
 {
     /**
      * Vérifie si un enregistrement avec la même référence existe.
      *
      * @param string $reference Référence unique de l'enregistrement.
-     * @return Projet|null
+     * @return EquipeProjet|null
      */
-    private function findExistingRecord($reference): ?Projet
+    private function findExistingRecord($reference): ?EquipeProjet
     {
         if($reference == null) return null;
-        return Projet::where('reference', $reference)->first();
+        return EquipeProjet::where('reference', $reference)->first();
     }
 
     /**
@@ -29,7 +29,7 @@ class BaseProjetImport implements ToModel, WithHeadingRow
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return Projet|null
+     * @return EquipeProjet|null
      */
     public function model(array $row)
     {
@@ -56,18 +56,11 @@ class BaseProjetImport implements ToModel, WithHeadingRow
         }
 
         // Création d'un nouvel enregistrement
-        return new Projet([
-             'filiere_id' => $values[0] ?? null,
-             'session_formation_id' => $values[1] ?? null,
-             'titre' => $values[2] ?? null,
-             'groupe_id' => $values[3] ?? null,
-             'travail_a_faire' => $values[4] ?? null,
-             'critere_de_travail' => $values[5] ?? null,
-             'formateur_id' => $values[6] ?? null,
-             'description' => $values[7] ?? null,
+        return new EquipeProjet([
+             'projet_id' => $values[0] ?? null,
+             'nom' => $values[1] ?? null,
              'reference' => $reference,
-             'is_auto_insert_chapitres' => $values[9] ?? null,
-             'is_auto_calcule_note_realisation' => $values[10] ?? null,
+             'apprenants' => $values[3] ?? null,
         ]);
 
 

@@ -6,9 +6,11 @@ namespace Modules\PkgCreationProjet\Controllers\Base;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgFormation\Services\FormateurService;
+use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgSessions\Services\SessionFormationService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgCreationProjet\Services\MobilisationUaService;
+use Modules\PkgCreationProjet\Services\EquipeProjetService;
 use Modules\PkgCreationTache\Services\TacheService;
 use Modules\PkgCreationProjet\Services\LabelProjetService;
 use Modules\PkgCreationProjet\Services\LivrableService;
@@ -31,14 +33,16 @@ class BaseProjetController extends AdminController
     protected $projetService;
     protected $filiereService;
     protected $formateurService;
+    protected $groupeService;
     protected $sessionFormationService;
 
-    public function __construct(ProjetService $projetService, FiliereService $filiereService, FormateurService $formateurService, SessionFormationService $sessionFormationService) {
+    public function __construct(ProjetService $projetService, FiliereService $filiereService, FormateurService $formateurService, GroupeService $groupeService, SessionFormationService $sessionFormationService) {
         parent::__construct();
         $this->service  =  $projetService;
         $this->projetService = $projetService;
         $this->filiereService = $filiereService;
         $this->formateurService = $formateurService;
+        $this->groupeService = $groupeService;
         $this->sessionFormationService = $sessionFormationService;
     }
 
@@ -113,10 +117,11 @@ class BaseProjetController extends AdminController
 
         $filieres = $this->filiereService->all();
         $sessionFormations = $this->sessionFormationService->all();
+        $groupes = $this->groupeService->all();
         $formateurs = $this->formateurService->all();
 
         $bulkEdit = false;
-        return compact('bulkEdit' ,'itemProjet', 'filieres', 'sessionFormations', 'formateurs');
+        return compact('bulkEdit' ,'itemProjet', 'filieres', 'sessionFormations', 'groupes', 'formateurs');
 
     }
     /**
@@ -160,6 +165,7 @@ class BaseProjetController extends AdminController
  
         $filieres = $this->filiereService->getAllForSelect($itemProjet->filiere);
         $sessionFormations = $this->sessionFormationService->getAllForSelect($itemProjet->sessionFormation);
+        $groupes = $this->groupeService->getAllForSelect($itemProjet->groupe);
         $formateurs = $this->formateurService->getAllForSelect($itemProjet->formateur);
 
         $bulkEdit = true;
@@ -168,9 +174,9 @@ class BaseProjetController extends AdminController
         $itemProjet = $this->projetService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._fields', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'sessionFormations', 'formateurs'));
+            return view('PkgCreationProjet::projet._fields', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'sessionFormations', 'groupes', 'formateurs'));
         }
-        return view('PkgCreationProjet::projet.bulk-edit', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'sessionFormations', 'formateurs'));
+        return view('PkgCreationProjet::projet.bulk-edit', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'sessionFormations', 'groupes', 'formateurs'));
     }
     /**
      */
@@ -218,6 +224,13 @@ class BaseProjetController extends AdminController
         $mobilisationUas_view_data = $mobilisationUaService->prepareDataForIndexView();
         extract($mobilisationUas_view_data);
 
+        $this->viewState->set('scope.equipeProjet.projet_id', $id);
+
+
+        $equipeProjetService =  new EquipeProjetService();
+        $equipeProjets_view_data = $equipeProjetService->prepareDataForIndexView();
+        extract($equipeProjets_view_data);
+
         $this->viewState->set('scope.tache.projet_id', $id);
 
 
@@ -246,7 +259,7 @@ class BaseProjetController extends AdminController
         $resources_view_data = $resourceService->prepareDataForIndexView();
         extract($resources_view_data);
 
-        return array_merge(compact('itemProjet'),$mobilisationUa_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value);
+        return array_merge(compact('itemProjet'),$mobilisationUa_compact_value, $equipeProjet_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value);
 
     }
     /**
@@ -280,6 +293,7 @@ class BaseProjetController extends AdminController
 
         $filieres = $this->filiereService->getAllForSelect($itemProjet->filiere);
         $sessionFormations = $this->sessionFormationService->getAllForSelect($itemProjet->sessionFormation);
+        $groupes = $this->groupeService->getAllForSelect($itemProjet->groupe);
         $formateurs = $this->formateurService->getAllForSelect($itemProjet->formateur);
 
 
@@ -300,6 +314,13 @@ class BaseProjetController extends AdminController
         $mobilisationUaService =  new MobilisationUaService();
         $mobilisationUas_view_data = $mobilisationUaService->prepareDataForIndexView();
         extract($mobilisationUas_view_data);
+
+        $this->viewState->set('scope.equipeProjet.projet_id', $id);
+        
+
+        $equipeProjetService =  new EquipeProjetService();
+        $equipeProjets_view_data = $equipeProjetService->prepareDataForIndexView();
+        extract($equipeProjets_view_data);
 
         $this->viewState->set('scope.tache.projet_id', $id);
         
@@ -331,7 +352,7 @@ class BaseProjetController extends AdminController
 
         $bulkEdit = false;
 
-        $viewData = array_merge(compact('bulkEdit' , 'itemProjet','filieres', 'sessionFormations', 'formateurs'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value);
+        $viewData = array_merge(compact('bulkEdit' , 'itemProjet','filieres', 'sessionFormations', 'groupes', 'formateurs'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $equipeProjet_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value);
 
         return $viewData;
 

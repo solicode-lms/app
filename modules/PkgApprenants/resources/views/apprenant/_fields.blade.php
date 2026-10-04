@@ -643,7 +643,47 @@
 
     
     <div class="row">
-        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="sousGroupes" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="equipeProjets" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="equipeProjets" 
+              id="bulk_field_equipeProjets" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="equipeProjets">
+            {{ ucfirst(__('PkgCreationProjet::equipeProjet.plural')) }}
+            
+          </label>
+                      <select
+                id="equipeProjets"
+                name="equipeProjets[]"
+                class="form-control select2"
+                
+                
+                multiple="multiple">
+               
+                @foreach ($equipeProjets as $equipeProjet)
+                    <option value="{{ $equipeProjet->id }}"
+                        {{ (isset($itemApprenant) && $itemApprenant->equipeProjets && $itemApprenant->equipeProjets->contains('id', $equipeProjet->id)) || (is_array(old('equipeProjets')) && in_array($equipeProjet->id, old('equipeProjets'))) ? 'selected' : '' }}>
+                        {{ $equipeProjet }}
+                    </option>
+                @endforeach
+            </select>
+          @error('equipeProjets')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="sousGroupes" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)

@@ -121,6 +121,15 @@ class BaseApprenantSeeder extends Seeder
                 } else {
                     $apprenant = $apprenantService->create($apprenantData);
                 }
+                if (!empty($row["equipeProjets"])) {
+                    $equipeProjetReferences = array_map('trim', explode('|', $row["equipeProjets"]));
+                    $equipeProjetIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $equipeProjetReferences)->pluck('id')->toArray();
+
+                    if (!empty($equipeProjetIds)) {
+                        $apprenant->equipeProjets()->sync($equipeProjetIds);
+                          $apprenant->touch(); // pour lancer Observer
+                    }
+                }
                 if (!empty($row["sousGroupes"])) {
                     $sousGroupeReferences = array_map('trim', explode('|', $row["sousGroupes"]));
                     $sousGroupeIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $sousGroupeReferences)->pluck('id')->toArray();

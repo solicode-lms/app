@@ -13,9 +13,11 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\Filiere;
 use Modules\PkgSessions\Models\SessionFormation;
+use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgCreationProjet\Models\MobilisationUa;
+use Modules\PkgCreationProjet\Models\EquipeProjet;
 use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgCreationProjet\Models\LabelProjet;
 use Modules\PkgCreationProjet\Models\Livrable;
@@ -37,6 +39,7 @@ class BaseProjet extends BaseModel
     protected $with = [
       //  'filiere',
       //  'sessionFormation',
+      //  'groupe',
       //  'formateur'
     ];
 
@@ -54,7 +57,7 @@ class BaseProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'filiere_id', 'session_formation_id', 'titre', 'travail_a_faire', 'critere_de_travail', 'formateur_id', 'description', 'reference', 'is_auto_insert_chapitres', 'is_auto_calcule_note_realisation'
+        'filiere_id', 'session_formation_id', 'titre', 'groupe_id', 'travail_a_faire', 'critere_de_travail', 'formateur_id', 'description', 'reference', 'is_auto_insert_chapitres', 'is_auto_calcule_note_realisation'
     ];
     public $manyToOne = [
         'filiere' => [
@@ -66,6 +69,11 @@ class BaseProjet extends BaseModel
             'model' => "Modules\\PkgSessions\\Models\\SessionFormation",
             'relation' => 'sessionFormation' , 
             "foreign_key" => "session_formation_id", 
+            ],
+        'groupe' => [
+            'model' => "Modules\\PkgApprenants\\Models\\Groupe",
+            'relation' => 'groupe' , 
+            "foreign_key" => "groupe_id", 
             ],
         'formateur' => [
             'model' => "Modules\\PkgFormation\\Models\\Formateur",
@@ -92,6 +100,15 @@ class BaseProjet extends BaseModel
     public function sessionFormation(): BelongsTo
     {
         return $this->belongsTo(SessionFormation::class, 'session_formation_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Groupe.
+     *
+     * @return BelongsTo
+     */
+    public function groupe(): BelongsTo
+    {
+        return $this->belongsTo(Groupe::class, 'groupe_id', 'id');
     }
     /**
      * Relation BelongsTo pour Formateur.
@@ -121,6 +138,15 @@ class BaseProjet extends BaseModel
     public function mobilisationUas(): HasMany
     {
         return $this->hasMany(MobilisationUa::class, 'projet_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Projets.
+     *
+     * @return HasMany
+     */
+    public function equipeProjets(): HasMany
+    {
+        return $this->hasMany(EquipeProjet::class, 'projet_id', 'id');
     }
     /**
      * Relation HasMany pour Projets.

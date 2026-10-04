@@ -5,7 +5,7 @@
 
 namespace Modules\PkgCreationProjet\App\Exports\Base;
 
-use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgCreationProjet\Models\EquipeProjet;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -14,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 
-class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class BaseEquipeProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
     protected $format;
@@ -32,31 +32,17 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         if ($this->format === 'csv') {
             return [
-                'filiere_reference' => 'filiere_reference',
-                'session_formation_reference' => 'session_formation_reference',
-                'titre' => 'titre',
-                'groupe_reference' => 'groupe_reference',
-                'travail_a_faire' => 'travail_a_faire',
-                'critere_de_travail' => 'critere_de_travail',
-                'formateur_reference' => 'formateur_reference',
-                'description' => 'description',
+                'projet_reference' => 'projet_reference',
+                'nom' => 'nom',
                 'reference' => 'reference',
-                'is_auto_insert_chapitres' => 'is_auto_insert_chapitres',
-                'is_auto_calcule_note_realisation' => 'is_auto_calcule_note_realisation',
+                'apprenants' => 'apprenants',
             ];
         } else {
             return [
-                'filiere_reference' => __('PkgFormation::filiere.singular'),
-                'session_formation_reference' => __('PkgSessions::sessionFormation.singular'),
-                'titre' => __('PkgCreationProjet::projet.titre'),
-                'groupe_reference' => __('PkgApprenants::groupe.singular'),
-                'travail_a_faire' => __('PkgCreationProjet::projet.travail_a_faire'),
-                'critere_de_travail' => __('PkgCreationProjet::projet.critere_de_travail'),
-                'formateur_reference' => __('PkgFormation::formateur.singular'),
-                'description' => __('PkgCreationProjet::projet.description'),
+                'projet_reference' => __('PkgCreationProjet::projet.singular'),
+                'nom' => __('PkgCreationProjet::equipeProjet.nom'),
                 'reference' => __('Core::msg.reference'),
-                'is_auto_insert_chapitres' => __('PkgCreationProjet::projet.is_auto_insert_chapitres'),
-                'is_auto_calcule_note_realisation' => __('PkgCreationProjet::projet.is_auto_calcule_note_realisation'),
+                    'apprenants' => __('PkgApprenants::apprenant.plural'),
             ];
         }
     }
@@ -66,19 +52,14 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
      */
     public function collection()
     {
-        return $this->data->map(function ($projet) {
+        return $this->data->map(function ($equipeProjet) {
             return [
-                'filiere_reference' => $projet->filiere?->reference,
-                'session_formation_reference' => $projet->sessionFormation?->reference,
-                'titre' => $projet->titre,
-                'groupe_reference' => $projet->groupe?->reference,
-                'travail_a_faire' => $projet->travail_a_faire,
-                'critere_de_travail' => $projet->critere_de_travail,
-                'formateur_reference' => $projet->formateur?->reference,
-                'description' => $projet->description,
-                'reference' => $projet->reference,
-                'is_auto_insert_chapitres' => $projet->is_auto_insert_chapitres ? '1' : '0',
-                'is_auto_calcule_note_realisation' => $projet->is_auto_calcule_note_realisation ? '1' : '0',
+                'projet_reference' => $equipeProjet->projet?->reference,
+                'nom' => $equipeProjet->nom,
+                'reference' => $equipeProjet->reference,
+                'apprenants' => $equipeProjet->apprenants
+                    ->pluck('reference')
+                    ->implode('|'),
             ];
         });
     }

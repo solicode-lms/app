@@ -16,13 +16,13 @@ use Modules\Core\Models\SysModule;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
-use Modules\PkgCreationProjet\Models\Projet;
-use Modules\PkgCreationProjet\Services\ProjetService;
+use Modules\PkgCreationProjet\Models\EquipeProjet;
+use Modules\PkgCreationProjet\Services\EquipeProjetService;
 
 
-class BaseProjetSeeder extends Seeder
+class BaseEquipeProjetSeeder extends Seeder
 {
-    public static int $order = 33;
+    public static int $order = 114;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [
@@ -33,8 +33,7 @@ class BaseProjetSeeder extends Seeder
             'Extraction' => ['import', 'export'],
             'Import' => ['import'],
             'Export' => ['export'],
-            'clonerProjet' => ['clonerProjet'],
-            
+
         ];
 
     public function run(): void
@@ -50,7 +49,7 @@ class BaseProjetSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $filePath = base_path("modules/PkgCreationProjet/Database/data/projets.csv");
+        $filePath = base_path("modules/PkgCreationProjet/Database/data/equipeProjets.csv");
         
         if (!file_exists($filePath) || filesize($filePath) === 0) {
             return;
@@ -68,7 +67,7 @@ class BaseProjetSeeder extends Seeder
             return;
         }
 
-        $projetService = new ProjetService();
+        $equipeProjetService = new EquipeProjetService();
 
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
@@ -76,47 +75,33 @@ class BaseProjetSeeder extends Seeder
             if ($row) {
 
 
-                $filiere_id = null;
-                if (!empty($row["filiere_reference"])) {
-                    $filiere_id = \Modules\PkgFormation\Models\Filiere::where('reference', $row["filiere_reference"])
-                        ->value('id');
-                }
-                $session_formation_id = null;
-                if (!empty($row["session_formation_reference"])) {
-                    $session_formation_id = \Modules\PkgSessions\Models\SessionFormation::where('reference', $row["session_formation_reference"])
-                        ->value('id');
-                }
-                $groupe_id = null;
-                if (!empty($row["groupe_reference"])) {
-                    $groupe_id = \Modules\PkgApprenants\Models\Groupe::where('reference', $row["groupe_reference"])
-                        ->value('id');
-                }
-                $formateur_id = null;
-                if (!empty($row["formateur_reference"])) {
-                    $formateur_id = \Modules\PkgFormation\Models\Formateur::where('reference', $row["formateur_reference"])
+                $projet_id = null;
+                if (!empty($row["projet_reference"])) {
+                    $projet_id = \Modules\PkgCreationProjet\Models\Projet::where('reference', $row["projet_reference"])
                         ->value('id');
                 }
 
 
-                $projetData =[
-                        "filiere_id" => $filiere_id,
-                        "session_formation_id" => $session_formation_id,
-                        "titre" => isset($row["titre"]) && $row["titre"] !== "" ? $row["titre"] : null,
-                        "groupe_id" => $groupe_id,
-                        "travail_a_faire" => isset($row["travail_a_faire"]) && $row["travail_a_faire"] !== "" ? $row["travail_a_faire"] : null,
-                        "critere_de_travail" => isset($row["critere_de_travail"]) && $row["critere_de_travail"] !== "" ? $row["critere_de_travail"] : null,
-                        "formateur_id" => $formateur_id,
-                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
-                        "is_auto_insert_chapitres" => isset($row["is_auto_insert_chapitres"]) && $row["is_auto_insert_chapitres"] !== "" ? $row["is_auto_insert_chapitres"] : null,
-                        "is_auto_calcule_note_realisation" => isset($row["is_auto_calcule_note_realisation"]) && $row["is_auto_calcule_note_realisation"] !== "" ? $row["is_auto_calcule_note_realisation"] : null,
+                $equipeProjetData =[
+                        "projet_id" => $projet_id,
+                        "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
 
-                $projet = null;
+                $equipeProjet = null;
                 if (!empty($row["reference"])) {
-                    $projet = $projetService->updateOrCreate(["reference" => $row["reference"]], $projetData);
+                    $equipeProjet = $equipeProjetService->updateOrCreate(["reference" => $row["reference"]], $equipeProjetData);
                 } else {
-                    $projet = $projetService->create($projetData);
+                    $equipeProjet = $equipeProjetService->create($equipeProjetData);
+                }
+                if (!empty($row["apprenants"])) {
+                    $apprenantReferences = array_map('trim', explode('|', $row["apprenants"]));
+                    $apprenantIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $apprenantReferences)->pluck('id')->toArray();
+
+                    if (!empty($apprenantIds)) {
+                        $equipeProjet->apprenants()->sync($apprenantIds);
+                          $equipeProjet->touch(); // pour lancer Observer
+                    }
                 }
             }
         }
@@ -139,9 +124,9 @@ class BaseProjetSeeder extends Seeder
         }
 
         // Configuration unique pour ce contrôleur et domaine
-        $controllerName = 'ProjetController';
-        $controllerBaseName = 'projet';
-        $domainName = 'Projet';
+        $controllerName = 'EquipeProjetController';
+        $controllerBaseName = 'equipeProjet';
+        $domainName = 'EquipeProjet';
 
         // Ajouter le contrôleur
         $sysController = SysController::firstOrCreate(

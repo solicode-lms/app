@@ -4,6 +4,7 @@
 
 namespace Modules\PkgApprenants\Controllers\Base;
 use Modules\PkgApprenants\Services\ApprenantService;
+use Modules\PkgCreationProjet\Services\EquipeProjetService;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgApprenants\Services\SousGroupeService;
 use Modules\PkgApprenants\Services\NationaliteService;
@@ -30,16 +31,18 @@ use Modules\Core\Services\ContextState;
 class BaseApprenantController extends AdminController
 {
     protected $apprenantService;
+    protected $equipeProjetService;
     protected $groupeService;
     protected $sousGroupeService;
     protected $nationaliteService;
     protected $niveauxScolaireService;
     protected $userService;
 
-    public function __construct(ApprenantService $apprenantService, GroupeService $groupeService, SousGroupeService $sousGroupeService, NationaliteService $nationaliteService, NiveauxScolaireService $niveauxScolaireService, UserService $userService) {
+    public function __construct(ApprenantService $apprenantService, EquipeProjetService $equipeProjetService, GroupeService $groupeService, SousGroupeService $sousGroupeService, NationaliteService $nationaliteService, NiveauxScolaireService $niveauxScolaireService, UserService $userService) {
         parent::__construct();
         $this->service  =  $apprenantService;
         $this->apprenantService = $apprenantService;
+        $this->equipeProjetService = $equipeProjetService;
         $this->groupeService = $groupeService;
         $this->sousGroupeService = $sousGroupeService;
         $this->nationaliteService = $nationaliteService;
@@ -102,11 +105,12 @@ class BaseApprenantController extends AdminController
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
         $users = $this->userService->all();
+        $equipeProjets = $this->equipeProjetService->all();
         $sousGroupes = $this->sousGroupeService->all();
         $groupes = $this->groupeService->all();
 
         $bulkEdit = false;
-        return compact('bulkEdit' ,'itemApprenant', 'nationalites', 'niveauxScolaires', 'users', 'sousGroupes', 'groupes');
+        return compact('bulkEdit' ,'itemApprenant', 'nationalites', 'niveauxScolaires', 'users', 'equipeProjets', 'sousGroupes', 'groupes');
 
     }
     /**
@@ -141,6 +145,7 @@ class BaseApprenantController extends AdminController
         $nationalites = $this->nationaliteService->getAllForSelect($itemApprenant->nationalite);
         $niveauxScolaires = $this->niveauxScolaireService->getAllForSelect($itemApprenant->niveauxScolaire);
         $users = $this->userService->getAllForSelect($itemApprenant->user);
+        $equipeProjets = $this->equipeProjetService->getAllForSelect($itemApprenant->equipeProjets);
         $sousGroupes = $this->sousGroupeService->getAllForSelect($itemApprenant->sousGroupes);
         $groupes = $this->groupeService->getAllForSelect($itemApprenant->groupes);
 
@@ -150,9 +155,9 @@ class BaseApprenantController extends AdminController
         $itemApprenant = $this->apprenantService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', compact('bulkEdit', 'apprenant_ids', 'itemApprenant', 'nationalites', 'niveauxScolaires', 'users', 'sousGroupes', 'groupes'));
+            return view('PkgApprenants::apprenant._fields', compact('bulkEdit', 'apprenant_ids', 'itemApprenant', 'nationalites', 'niveauxScolaires', 'users', 'equipeProjets', 'sousGroupes', 'groupes'));
         }
-        return view('PkgApprenants::apprenant.bulk-edit', compact('bulkEdit', 'apprenant_ids', 'itemApprenant', 'nationalites', 'niveauxScolaires', 'users', 'sousGroupes', 'groupes'));
+        return view('PkgApprenants::apprenant.bulk-edit', compact('bulkEdit', 'apprenant_ids', 'itemApprenant', 'nationalites', 'niveauxScolaires', 'users', 'equipeProjets', 'sousGroupes', 'groupes'));
     }
     /**
      */
@@ -255,6 +260,7 @@ class BaseApprenantController extends AdminController
         $nationalites = $this->nationaliteService->getAllForSelect($itemApprenant->nationalite);
         $niveauxScolaires = $this->niveauxScolaireService->getAllForSelect($itemApprenant->niveauxScolaire);
         $users = $this->userService->getAllForSelect($itemApprenant->user);
+        $equipeProjets = $this->equipeProjetService->getAllForSelect($itemApprenant->equipeProjets);
         $sousGroupes = $this->sousGroupeService->getAllForSelect($itemApprenant->sousGroupes);
         $groupes = $this->groupeService->getAllForSelect($itemApprenant->groupes);
 
@@ -289,7 +295,7 @@ class BaseApprenantController extends AdminController
 
         $bulkEdit = false;
 
-        $viewData = array_merge(compact('bulkEdit' , 'itemApprenant','nationalites', 'niveauxScolaires', 'users', 'sousGroupes', 'groupes'),$realisationCompetence_compact_value, $realisationMicroCompetence_compact_value, $realisationModule_compact_value, $realisationQcm_compact_value);
+        $viewData = array_merge(compact('bulkEdit' , 'itemApprenant','nationalites', 'niveauxScolaires', 'users', 'equipeProjets', 'sousGroupes', 'groupes'),$realisationCompetence_compact_value, $realisationMicroCompetence_compact_value, $realisationModule_compact_value, $realisationQcm_compact_value);
 
         return $viewData;
 

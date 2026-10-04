@@ -52,6 +52,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemProjet->equipeProjets?->count() > 0 || auth()->user()?->can('create-equipeProjet'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="projet-hasmany-tabs-equipeProjet-tab" data-toggle="pill" href="#projet-hasmany-tabs-equipeProjet" role="tab" aria-controls="projet-hasmany-tabs-equipeProjet" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgCreationProjet::equipeProjet.plural'))}}
+                            </a>
+                        </li>
+                        @endif
                          @if($itemProjet->taches?->count() > 0 || auth()->user()?->can('create-tache'))
                         <li class="nav-item">
                             <a class="nav-link" id="projet-hasmany-tabs-tache-tab" data-toggle="pill" href="#projet-hasmany-tabs-tache" role="tab" aria-controls="projet-hasmany-tabs-tache" aria-selected="false">
@@ -102,6 +110,11 @@
                             @if($itemProjet->mobilisationUas?->count() > 0 || auth()->user()?->can('create-mobilisationUa'))
                             <div class="tab-pane fade" id="projet-hasmany-tabs-mobilisationUa" role="tabpanel" aria-labelledby="projet-hasmany-tabs-mobilisationUa-tab">
                                 @include('PkgCreationProjet::mobilisationUa._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])
+                            </div>
+                            @endif
+                            @if($itemProjet->equipeProjets?->count() > 0 || auth()->user()?->can('create-equipeProjet'))
+                            <div class="tab-pane fade" id="projet-hasmany-tabs-equipeProjet" role="tabpanel" aria-labelledby="projet-hasmany-tabs-equipeProjet-tab">
+                                @include('PkgCreationProjet::equipeProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])
                             </div>
                             @endif
                             @if($itemProjet->taches?->count() > 0 || auth()->user()?->can('create-tache'))

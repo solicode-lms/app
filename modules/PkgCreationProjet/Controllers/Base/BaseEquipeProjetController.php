@@ -2,55 +2,46 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgApprenants\Controllers\Base;
-use Modules\PkgApprenants\Services\GroupeService;
+namespace Modules\PkgCreationProjet\Controllers\Base;
+use Modules\PkgCreationProjet\Services\EquipeProjetService;
 use Modules\PkgApprenants\Services\ApprenantService;
-use Modules\PkgFormation\Services\FormateurService;
-use Modules\PkgFormation\Services\AnneeFormationService;
-use Modules\PkgFormation\Services\FiliereService;
-use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgCreationProjet\Services\ProjetService;
-use Modules\PkgApprenants\Services\SousGroupeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
-use Modules\PkgApprenants\App\Requests\GroupeRequest;
-use Modules\PkgApprenants\Models\Groupe;
+use Modules\PkgCreationProjet\App\Requests\EquipeProjetRequest;
+use Modules\PkgCreationProjet\Models\EquipeProjet;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Jobs\BulkEditJob;
 use Modules\Core\App\Manager\JobManager;
-use Modules\PkgApprenants\App\Exports\GroupeExport;
-use Modules\PkgApprenants\App\Imports\GroupeImport;
+use Modules\PkgCreationProjet\App\Exports\EquipeProjetExport;
+use Modules\PkgCreationProjet\App\Imports\EquipeProjetImport;
 use Modules\Core\Services\ContextState;
 
-class BaseGroupeController extends AdminController
+class BaseEquipeProjetController extends AdminController
 {
-    protected $groupeService;
+    protected $equipeProjetService;
     protected $apprenantService;
-    protected $formateurService;
-    protected $anneeFormationService;
-    protected $filiereService;
+    protected $projetService;
 
-    public function __construct(GroupeService $groupeService, ApprenantService $apprenantService, FormateurService $formateurService, AnneeFormationService $anneeFormationService, FiliereService $filiereService) {
+    public function __construct(EquipeProjetService $equipeProjetService, ApprenantService $apprenantService, ProjetService $projetService) {
         parent::__construct();
-        $this->service  =  $groupeService;
-        $this->groupeService = $groupeService;
+        $this->service  =  $equipeProjetService;
+        $this->equipeProjetService = $equipeProjetService;
         $this->apprenantService = $apprenantService;
-        $this->formateurService = $formateurService;
-        $this->anneeFormationService = $anneeFormationService;
-        $this->filiereService = $filiereService;
+        $this->projetService = $projetService;
     }
 
     /**
      */
     public function index(Request $request) {
              
-        $this->viewState->setContextKeyIfEmpty('groupe.index');
+        $this->viewState->setContextKeyIfEmpty('equipeProjet.index');
         
         // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
         // mais avant l'application des filtres système.
-        $userHasSentFilter = $this->viewState->getFilterVariables('groupe');
+        $userHasSentFilter = $this->viewState->getFilterVariables('equipeProjet');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
 
@@ -58,45 +49,43 @@ class BaseGroupeController extends AdminController
 
 
          // Extraire les paramètres de recherche, pagination, filtres
-        $groupes_params = array_merge(
+        $equipeProjets_params = array_merge(
             $request->only(['page']),
             ['search' => $request->get(
-                'groupes_search',
-                $this->viewState->get("filter.groupe.groupes_search")
+                'equipeProjets_search',
+                $this->viewState->get("filter.equipeProjet.equipeProjets_search")
             )],
-            $request->except(['groupes_search', 'page'])
+            $request->except(['equipeProjets_search', 'page'])
         );
 
         // prepareDataForIndexView
-        $tcView = $this->groupeService->prepareDataForIndexView($groupes_params);
+        $tcView = $this->equipeProjetService->prepareDataForIndexView($equipeProjets_params);
         extract($tcView); // Toutes les variables sont injectées automatiquement
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             if($request['showIndex']){
-                return view('PkgApprenants::groupe._index', $groupe_compact_value)->render();
+                return view('PkgCreationProjet::equipeProjet._index', $equipeProjet_compact_value)->render();
             }else{
-                return view($groupe_partialViewName, $groupe_compact_value)->render();
+                return view($equipeProjet_partialViewName, $equipeProjet_compact_value)->render();
             }
         }
 
-        return view('PkgApprenants::groupe.index', $groupe_compact_value);
+        return view('PkgCreationProjet::equipeProjet.index', $equipeProjet_compact_value);
     }
     /**
      */
     protected function dataForCreateView() {
 
         // scopeDataByRole
-        $itemGroupe = $this->groupeService->createInstance();
+        $itemEquipeProjet = $this->equipeProjetService->createInstance();
 
 
-        $filieres = $this->filiereService->all();
-        $anneeFormations = $this->anneeFormationService->all();
+        $projets = $this->projetService->all();
         $apprenants = $this->apprenantService->all();
-        $formateurs = $this->formateurService->all();
 
         $bulkEdit = false;
-        return compact('bulkEdit' ,'itemGroupe', 'filieres', 'anneeFormations', 'apprenants', 'formateurs');
+        return compact('bulkEdit' ,'itemEquipeProjet', 'projets', 'apprenants');
 
     }
     /**
@@ -105,10 +94,10 @@ class BaseGroupeController extends AdminController
         $viewData = $this->dataForCreateView();
 
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._fields', $viewData);
+            return view('PkgCreationProjet::equipeProjet._fields', $viewData);
         }
 
-        return view('PkgApprenants::groupe.create', $viewData);
+        return view('PkgCreationProjet::equipeProjet.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -116,93 +105,70 @@ class BaseGroupeController extends AdminController
     public function bulkEditForm(Request $request) {
         $this->authorizeAction('update');
 
-        $groupe_ids = $request->input('ids', []);
+        $equipeProjet_ids = $request->input('ids', []);
 
-        if (!is_array($groupe_ids) || count($groupe_ids) === 0) {
+        if (!is_array($equipeProjet_ids) || count($equipeProjet_ids) === 0) {
             return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
         }
 
         // Même traitement de create 
 
  
-         $itemGroupe = $this->groupeService->find($groupe_ids[0]);
+         $itemEquipeProjet = $this->equipeProjetService->find($equipeProjet_ids[0]);
          
  
-        $filieres = $this->filiereService->getAllForSelect($itemGroupe->filiere);
-        $anneeFormations = $this->anneeFormationService->getAllForSelect($itemGroupe->anneeFormation);
-        $apprenants = $this->apprenantService->getAllForSelect($itemGroupe->apprenants);
-        $formateurs = $this->formateurService->getAllForSelect($itemGroupe->formateurs);
+        $projets = $this->projetService->getAllForSelect($itemEquipeProjet->projet);
+        $apprenants = $this->apprenantService->getAllForSelect($itemEquipeProjet->apprenants);
 
         $bulkEdit = true;
 
         //  Vider les valeurs : 
-        $itemGroupe = $this->groupeService->createInstance();
+        $itemEquipeProjet = $this->equipeProjetService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._fields', compact('bulkEdit', 'groupe_ids', 'itemGroupe', 'filieres', 'anneeFormations', 'apprenants', 'formateurs'));
+            return view('PkgCreationProjet::equipeProjet._fields', compact('bulkEdit', 'equipeProjet_ids', 'itemEquipeProjet', 'projets', 'apprenants'));
         }
-        return view('PkgApprenants::groupe.bulk-edit', compact('bulkEdit', 'groupe_ids', 'itemGroupe', 'filieres', 'anneeFormations', 'apprenants', 'formateurs'));
+        return view('PkgCreationProjet::equipeProjet.bulk-edit', compact('bulkEdit', 'equipeProjet_ids', 'itemEquipeProjet', 'projets', 'apprenants'));
     }
     /**
      */
-    public function store(GroupeRequest $request) {
+    public function store(EquipeProjetRequest $request) {
         $validatedData = $request->validated();
-        $groupe = $this->groupeService->create($validatedData);
+        $equipeProjet = $this->equipeProjetService->create($validatedData);
 
         if ($request->ajax()) {
              $message = __('Core::msg.addSuccess', [
-                'entityToString' => $groupe,
-                'modelName' => __('PkgApprenants::groupe.singular')]);
+                'entityToString' => $equipeProjet,
+                'modelName' => __('PkgCreationProjet::equipeProjet.singular')]);
         
   
              return JsonResponseHelper::success(
              $message,
                 array_merge(
-                    ['entity_id' => $groupe->id],
+                    ['entity_id' => $equipeProjet->id],
                     $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
                 )
             );
 
         }
 
-        return redirect()->route('groupes.edit', ['groupe' => $groupe->id])->with(
+        return redirect()->route('equipeProjets.index')->with(
             'success',
             __('Core::msg.addSuccess', [
-                'entityToString' => $groupe,
-                'modelName' => __('PkgApprenants::groupe.singular')
+                'entityToString' => $equipeProjet,
+                'modelName' => __('PkgCreationProjet::equipeProjet.singular')
             ])
         );
     }
     /**
      */
     protected function dataForShowView(string $id) {
-        $this->viewState->setContextKey('groupe.show_' . $id);
+        $this->viewState->setContextKey('equipeProjet.show_' . $id);
 
-        $itemGroupe = $this->groupeService->edit($id);
-
-
-        $this->viewState->set('scope.affectationProjet.groupe_id', $id);
+        $itemEquipeProjet = $this->equipeProjetService->edit($id);
 
 
-        $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
-        extract($affectationProjets_view_data);
-
-        $this->viewState->set('scope.projet.groupe_id', $id);
-
-
-        $projetService =  new ProjetService();
-        $projets_view_data = $projetService->prepareDataForIndexView();
-        extract($projets_view_data);
-
-        $this->viewState->set('scope.sousGroupe.groupe_id', $id);
-
-
-        $sousGroupeService =  new SousGroupeService();
-        $sousGroupes_view_data = $sousGroupeService->prepareDataForIndexView();
-        extract($sousGroupes_view_data);
-
-        return array_merge(compact('itemGroupe'),$affectationProjet_compact_value, $projet_compact_value, $sousGroupe_compact_value);
+        return array_merge(compact('itemEquipeProjet'),);
 
     }
     /**
@@ -211,52 +177,29 @@ class BaseGroupeController extends AdminController
         $viewData = $this->dataForShowView($id);
 
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._show', $viewData);
+            return view('PkgCreationProjet::equipeProjet._show', $viewData);
         }
 
-        return view('PkgApprenants::groupe.show', $viewData);
+        return view('PkgCreationProjet::equipeProjet.show', $viewData);
 
     }
     /**
      */
     protected function dataForEditView(string $id) {
 
-        $this->viewState->setContextKey('groupe.edit_' . $id);
+        $this->viewState->setContextKey('equipeProjet.edit_' . $id);
 
 
-        $itemGroupe = $this->groupeService->edit($id);
+        $itemEquipeProjet = $this->equipeProjetService->edit($id);
 
 
-        $filieres = $this->filiereService->getAllForSelect($itemGroupe->filiere);
-        $anneeFormations = $this->anneeFormationService->getAllForSelect($itemGroupe->anneeFormation);
-        $apprenants = $this->apprenantService->getAllForSelect($itemGroupe->apprenants);
-        $formateurs = $this->formateurService->getAllForSelect($itemGroupe->formateurs);
+        $projets = $this->projetService->getAllForSelect($itemEquipeProjet->projet);
+        $apprenants = $this->apprenantService->getAllForSelect($itemEquipeProjet->apprenants);
 
-
-        $this->viewState->set('scope.affectationProjet.groupe_id', $id);
-        
-
-        $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
-        extract($affectationProjets_view_data);
-
-        $this->viewState->set('scope.projet.groupe_id', $id);
-        
-
-        $projetService =  new ProjetService();
-        $projets_view_data = $projetService->prepareDataForIndexView();
-        extract($projets_view_data);
-
-        $this->viewState->set('scope.sousGroupe.groupe_id', $id);
-        
-
-        $sousGroupeService =  new SousGroupeService();
-        $sousGroupes_view_data = $sousGroupeService->prepareDataForIndexView();
-        extract($sousGroupes_view_data);
 
         $bulkEdit = false;
 
-        $viewData = array_merge(compact('bulkEdit' , 'itemGroupe','filieres', 'anneeFormations', 'apprenants', 'formateurs'),$affectationProjet_compact_value, $projet_compact_value, $sousGroupe_compact_value);
+        $viewData = array_merge(compact('bulkEdit' , 'itemEquipeProjet','projets', 'apprenants'),);
 
         return $viewData;
 
@@ -267,38 +210,38 @@ class BaseGroupeController extends AdminController
         $viewData = $this->dataForEditView($id);
 
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._edit', $viewData);
+            return view('PkgCreationProjet::equipeProjet._fields', $viewData);
         }
 
-        return view('PkgApprenants::groupe.edit', $viewData);
+        return view('PkgCreationProjet::equipeProjet.edit', $viewData);
 
     }
     /**
      */
-    public function update(GroupeRequest $request, string $id) {
+    public function update(EquipeProjetRequest $request, string $id) {
 
         $validatedData = $request->validated();
-        $groupe = $this->groupeService->update($id, $validatedData);
+        $equipeProjet = $this->equipeProjetService->update($id, $validatedData);
 
         if ($request->ajax()) {
              $message = __('Core::msg.updateSuccess', [
-                'entityToString' => $groupe,
-                'modelName' =>  __('PkgApprenants::groupe.singular')]);
+                'entityToString' => $equipeProjet,
+                'modelName' =>  __('PkgCreationProjet::equipeProjet.singular')]);
             
             return JsonResponseHelper::success(
              $message,
                 array_merge(
-                    ['entity_id' => $groupe->id],
+                    ['entity_id' => $equipeProjet->id],
                     $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
                 )
             );
         }
 
-        return redirect()->route('groupes.index')->with(
+        return redirect()->route('equipeProjets.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $groupe,
-                'modelName' =>  __('PkgApprenants::groupe.singular')
+                'entityToString' => $equipeProjet,
+                'modelName' =>  __('PkgCreationProjet::equipeProjet.singular')
                 ])
         );
 
@@ -311,11 +254,11 @@ class BaseGroupeController extends AdminController
 
         // 1) Structure de la requête (ids + champs cochés)
         $request->validate([
-            'groupe_ids'   => ['required', 'array', 'min:1'],
+            'equipeProjet_ids'   => ['required', 'array', 'min:1'],
             'fields_modifiables'               => ['required', 'array', 'min:1']
         ]);
 
-        $ids          = $request->input('groupe_ids', []);
+        $ids          = $request->input('equipeProjet_ids', []);
         $champsCoches = $request->input('fields_modifiables', []);
 
         // 2) Restreindre aux champs réellement éditables (côté service/UI)
@@ -332,7 +275,7 @@ class BaseGroupeController extends AdminController
         }
 
         // 4) Charger rules/messages du FormRequest sans dépendre de la current request
-        $form         = new \Modules\PkgApprenants\App\Requests\GroupeRequest();
+        $form         = new \Modules\PkgCreationProjet\App\Requests\EquipeProjetRequest();
         $fullRules    = $form->rules();
         $fullMessages = method_exists($form, 'messages') ? $form->messages() : [];
 
@@ -340,7 +283,7 @@ class BaseGroupeController extends AdminController
         //    -> on intersecte les champs réellement autorisés (via sanitizePayloadByRoles)
         $allowedAcrossAll = $requestedFields;
         foreach ($ids as $id) {
-            $model = $this->groupeService->find($id);
+            $model = $this->equipeProjetService->find($id);
             $this->authorize('update', $model);
 
             // sanitizePayloadByRoles complète les champs non autorisés avec la valeur du modèle
@@ -413,12 +356,12 @@ class BaseGroupeController extends AdminController
      */
     public function destroy(Request $request, string $id) {
 
-        $groupe = $this->groupeService->destroy($id);
+        $equipeProjet = $this->equipeProjetService->destroy($id);
 
         if ($request->ajax()) {
             $message = __('Core::msg.deleteSuccess', [
-                'entityToString' => $groupe,
-                'modelName' =>  __('PkgApprenants::groupe.singular')]);
+                'entityToString' => $equipeProjet,
+                'modelName' =>  __('PkgCreationProjet::equipeProjet.singular')]);
             
 
             return JsonResponseHelper::success(
@@ -427,11 +370,11 @@ class BaseGroupeController extends AdminController
             );
         }
 
-        return redirect()->route('groupes.index')->with(
+        return redirect()->route('equipeProjets.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $groupe,
-                'modelName' =>  __('PkgApprenants::groupe.singular')
+                'entityToString' => $equipeProjet,
+                'modelName' =>  __('PkgCreationProjet::equipeProjet.singular')
                 ])
         );
 
@@ -442,29 +385,29 @@ class BaseGroupeController extends AdminController
      */
     public function bulkDelete(Request $request) {
         $this->authorizeAction('destroy');
-        $groupe_ids = $request->input('ids', []);
-        if (!is_array($groupe_ids) || count($groupe_ids) === 0) {
+        $equipeProjet_ids = $request->input('ids', []);
+        if (!is_array($equipeProjet_ids) || count($equipeProjet_ids) === 0) {
             return JsonResponseHelper::error("Aucun élément sélectionné.");
         }
-        foreach ($groupe_ids as $id) {
-            $entity = $this->groupeService->find($id);
-            $this->groupeService->destroy($id);
+        foreach ($equipeProjet_ids as $id) {
+            $entity = $this->equipeProjetService->find($id);
+            $this->equipeProjetService->destroy($id);
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
-            'entityToString' => count($groupe_ids) . ' éléments',
-            'modelName' => __('PkgApprenants::groupe.plural')
+            'entityToString' => count($equipeProjet_ids) . ' éléments',
+            'modelName' => __('PkgCreationProjet::equipeProjet.plural')
         ]));
     }
 
     public function export($format)
     {
-        $groupes_data = $this->groupeService->all();
+        $equipeProjets_data = $this->equipeProjetService->all();
         
         // Vérifier le format et exporter en conséquence
         if ($format === 'csv') {
-            return Excel::download(new GroupeExport($groupes_data,'csv'), 'groupe_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+            return Excel::download(new EquipeProjetExport($equipeProjets_data,'csv'), 'equipeProjet_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
         } elseif ($format === 'xlsx') {
-            return Excel::download(new GroupeExport($groupes_data,'xlsx'), 'groupe_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+            return Excel::download(new EquipeProjetExport($equipeProjets_data,'xlsx'), 'equipeProjet_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
         } else {
             return response()->json(['error' => 'Format non supporté'], 400);
         }
@@ -477,14 +420,14 @@ class BaseGroupeController extends AdminController
         ]);
 
         try {
-            Excel::import(new GroupeImport, $request->file('file'));
+            Excel::import(new EquipeProjetImport, $request->file('file'));
         } catch (\InvalidArgumentException $e) {
-            return redirect()->route('groupes.index')->withError('Invalid format or missing data.');
+            return redirect()->route('equipeProjets.index')->withError('Invalid format or missing data.');
         }
 
-        return redirect()->route('groupes.index')->with(
+        return redirect()->route('equipeProjets.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgApprenants::groupe.plural')
+            'modelNames' =>  __('PkgCreationProjet::equipeProjet.plural')
             ]));
 
 
@@ -492,21 +435,21 @@ class BaseGroupeController extends AdminController
     }
 
     // Il permet d'afficher les information en format JSON pour une utilisation avec Ajax
-    public function getGroupes()
+    public function getEquipeProjets()
     {
-        $groupes = $this->groupeService->all();
-        return response()->json($groupes);
+        $equipeProjets = $this->equipeProjetService->all();
+        return response()->json($equipeProjets);
     }
 
     /**
      * @DynamicPermissionIgnore
-     * Retourne une tâche (Groupe) par ID, en format JSON.
+     * Retourne une tâche (EquipeProjet) par ID, en format JSON.
      */
-    public function getGroupe(Request $request, $id)
+    public function getEquipeProjet(Request $request, $id)
     {
         try {
-            $groupe = $this->groupeService->find($id);
-            return response()->json($groupe);
+            $equipeProjet = $this->equipeProjetService->find($id);
+            return response()->json($equipeProjet);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -521,10 +464,10 @@ class BaseGroupeController extends AdminController
         $data = $request->all();
 
         // Traitement métier personnalisé (ne modifie pas la base)
-        $updatedGroupe = $this->groupeService->dataCalcul($data);
+        $updatedEquipeProjet = $this->equipeProjetService->dataCalcul($data);
 
         return response()->json(  array_merge(
-                   ['success' => true,'entity' => $updatedGroupe],
+                   ['success' => true,'entity' => $updatedEquipeProjet],
                     $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
         ));
     }
@@ -541,14 +484,14 @@ class BaseGroupeController extends AdminController
         $this->authorizeAction('update');
     
         $updatableFields = $this->service->getFieldsEditable();
-        $groupeRequest = new GroupeRequest();
-        $fullRules = $groupeRequest->rules();
+        $equipeProjetRequest = new EquipeProjetRequest();
+        $fullRules = $equipeProjetRequest->rules();
         $rules = collect($fullRules)
             ->only(array_intersect(array_keys($request->all()), $updatableFields))
             ->toArray();
 
         // Ajout obligatoire de l'ID
-        $rules['id'] = ['required', 'integer', 'exists:groupes,id'];
+        $rules['id'] = ['required', 'integer', 'exists:equipe_projets,id'];
         $validated = $request->validate($rules);
 
         
@@ -576,10 +519,10 @@ class BaseGroupeController extends AdminController
     public function fieldMeta(int $id, string $field)
     {
         // $this->authorizeAction('update');
-        $itemGroupe = Groupe::findOrFail($id);
+        $itemEquipeProjet = EquipeProjet::findOrFail($id);
 
 
-        $data = $this->service->buildFieldMeta($itemGroupe, $field);
+        $data = $this->service->buildFieldMeta($itemEquipeProjet, $field);
         return response()->json(
             $data
         );
@@ -593,19 +536,19 @@ class BaseGroupeController extends AdminController
     {
 
         $this->authorizeAction('update');
-        $itemGroupe = Groupe::findOrFail($id);
+        $itemEquipeProjet = EquipeProjet::findOrFail($id);
 
 
         // Vérification ETag
         $ifMatch = $request->header('If-Match');
-        $etag = $this->service->etag($itemGroupe);
+        $etag = $this->service->etag($itemEquipeProjet);
         if ($ifMatch && $ifMatch !== $etag) {
             return response()->json(['error' => 'conflict'], 409);
         }
 
         // Appliquer le patch
         $changes = $request->input('changes', []);
-        $updated = $this->service->applyInlinePatch($itemGroupe, $changes);
+        $updated = $this->service->applyInlinePatch($itemEquipeProjet, $changes);
 
         return response()->json(
             array_merge(

@@ -73,11 +73,12 @@ class BaseApprenantImport implements ToModel, WithHeadingRow
              'tele_num' => $values[13] ?? null,
              'user_id' => $values[14] ?? null,
              'reference' => $reference,
-             'sousGroupes' => $values[16] ?? null,
-             'matricule' => $values[17] ?? null,
-             'groupes' => $values[18] ?? null,
-             'date_inscription' => $values[19] ?? null,
-             'actif' => $values[20] ?? null,
+             'equipeProjets' => $values[16] ?? null,
+             'sousGroupes' => $values[17] ?? null,
+             'matricule' => $values[18] ?? null,
+             'groupes' => $values[19] ?? null,
+             'date_inscription' => $values[20] ?? null,
+             'actif' => $values[21] ?? null,
         ]);
 
 

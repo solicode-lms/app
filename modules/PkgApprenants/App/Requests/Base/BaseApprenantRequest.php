@@ -44,6 +44,7 @@ class BaseApprenantRequest extends FormRequest
             'niveaux_scolaire_id' => 'nullable',
             'tele_num' => 'required|string|max:255',
             'user_id' => 'nullable',
+            'equipeProjets' => 'nullable|array',
             'sousGroupes' => 'nullable|array',
             'matricule' => 'required|string|max:255',
             'groupes' => 'nullable|array',
@@ -85,6 +86,8 @@ class BaseApprenantRequest extends FormRequest
             'tele_num.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.tele_num')]),
             'tele_num.max' => __('validation.tele_numMax'),
             'user_id.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.user_id')]),
+            'equipeProjets.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.equipeProjets')]),
+            'equipeProjets.array' => __('validation.array', ['attribute' => __('PkgApprenants::Apprenant.equipeProjets')]),
             'sousGroupes.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.sousGroupes')]),
             'sousGroupes.array' => __('validation.array', ['attribute' => __('PkgApprenants::Apprenant.sousGroupes')]),
             'matricule.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.matricule')]),
@@ -107,6 +110,7 @@ class BaseApprenantRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
+            'equipeProjets' => $this->has('equipeProjets') ? $this->equipeProjets : [],
             'sousGroupes' => $this->has('sousGroupes') ? $this->sousGroupes : [],
             'groupes' => $this->has('groupes') ? $this->groupes : []
         ]);

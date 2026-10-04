@@ -1,0 +1,178 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+
+
+<script>
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
+        edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
+        afterCreateAction: '{{ !isset($afterCreateAction)? '' :  $afterCreateAction }}',
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
+        editOnFullScreen : false,
+        entity_name: 'equipeProjet',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'equipeProjet.index' }}', 
+        filterFormSelector: '#equipeProjet-crud-filter-form',
+        crudSelector: '#equipeProjet-crud',
+        tableSelector: '#equipeProjet-data-container',
+        formSelector: '#equipeProjetForm',
+        indexUrl: '{{ route('equipeProjets.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
+        createUrl: '{{ route('equipeProjets.create') }}',
+        editUrl: '{{ route('equipeProjets.edit',  ['equipeProjet' => ':id']) }}',
+        fieldMetaUrl: '{{ route('equipeProjets.field.meta',  ['id' => ':id', 'field' => ':field']) }}',
+        patchInlineUrl: '{{ route('equipeProjets.patchInline',  ['id' => ':id']) }}',
+        showUrl: '{{ route('equipeProjets.show',  ['equipeProjet' => ':id']) }}',
+        getEntityUrl: '{{ route("equipeProjets.getById", ["id" => ":id"]) }}',
+        storeUrl: '{{ route('equipeProjets.store') }}', 
+        updateAttributesUrl: '{{ route('equipeProjets.updateAttributes') }}', 
+        deleteUrl: '{{ route('equipeProjets.destroy',  ['equipeProjet' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-equipeProjet')),
+        calculationUrl:  '{{ route('equipeProjets.dataCalcul') }}', 
+        csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::equipeProjet.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationProjet::equipeProjet.singular") }}',
+    });
+</script>
+<script>
+    if(!{{ isset($isMany) && $isMany ? 'true' : 'false' }}){
+        window.modalTitle = '{{ $equipeProjet_title }}'
+    }
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
+<div id="equipeProjet-crud" class="crud">
+    @section('equipeProjet-crud-header')
+    @php
+        $package = __("PkgCreationProjet::PkgCreationProjet.name");
+       $titre = __("PkgCreationProjet::equipeProjet.singular");
+    @endphp
+    <x-crud-header 
+        id="equipeProjet-crud-header" icon="fas fa-table"  
+        iconColor="text-info"
+        title="{{ $equipeProjet_title }}"
+        :breadcrumbs="[
+            ['label' => $package, 'url' => '#'],
+            ['label' => $titre]
+        ]"
+    />
+    @show
+    @section('equipeProjet-crud-table')
+    <section id="equipeProjet-crud-table" class="content crud-table">
+        <div class="container-fluid">
+            <div class="card card-outline card-info " id="card_crud">
+                @section('equipeProjet-crud-stats-bar')
+                <div class="card-header">
+                    <div class="row">
+                        <!-- Statistiques et Actions -->
+                        <div class="col-sm-8">
+                            <x-crud-stats-summary
+                                icon="fas fa-chart-bar text-info"
+                                :stats="$equipeProjets_stats"
+                            />
+                            <x-crud-context-badges :scopeVariables="$scopeVariables ?? []" />
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
+                        
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$equipeProjet_instance"
+                                    :createPermission="'create-equipeProjet'"
+                                    :createRoute="route('equipeProjets.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-equipeProjet'"
+                                    :importRoute="route('equipeProjets.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-equipeProjet'"
+                                    :exportXlsxRoute="route('equipeProjets.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('equipeProjets.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$equipeProjet_viewTypes"
+                                    :viewType="$equipeProjet_viewType"
+                                    :total="$equipeProjets_total"
+                                />
+                            </div>
+
+
+                        
+                        </div>
+                    </div>
+                </div>
+                @show
+                @section('equipeProjet-crud-filters')
+                <div class="card-header">
+                    <form id="equipeProjet-crud-filter-form" method="GET" class="row">
+                        <x-filter-group count="{{count($equipeProjets_filters ?? [])}}">
+                            <!-- Filtres spécifiques -->
+                            @foreach ($equipeProjets_filters as $filter)
+                                <x-filter-field 
+                                    :label="$filter['label']" 
+                                    :type="$filter['type']" 
+                                    :field="$filter['field']" 
+                                    :options="$filter['options'] ?? []"
+                                    :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" 
+                                    :targetDynamicDropdown="isset($filter['targetDynamicDropdown']) ? $filter['targetDynamicDropdown'] : null"
+                                    :targetDynamicDropdownApiUrl="isset($filter['targetDynamicDropdownApiUrl']) ? $filter['targetDynamicDropdownApiUrl'] : null" 
+                                    :targetDynamicDropdownFilter="isset($filter['targetDynamicDropdownFilter']) ? $filter['targetDynamicDropdownFilter'] : null" />
+                            @endforeach
+                        </x-filter-group>
+                        @section('equipeProjet-crud-search-bar')
+                        <div id="equipeProjet-crud-search-bar"
+                            class="{{ count($equipeProjets_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
+                            <x-search-bar
+                                :search="request('equipeProjets_search')"
+                                name="equipeProjets_search"
+                                id="equipeProjets_search"
+                                placeholder="Recherche ..."
+                            />
+                        </div>
+                        @show
+                    </form>
+                </div>
+                @show
+                <div id="equipeProjet-data-container" class="data-container">
+                    @if($equipeProjet_viewType != "widgets")
+                    @include("PkgCreationProjet::equipeProjet._$equipeProjet_viewType")
+                    @endif
+                </div>
+                @section('equipeProjet-crud-bulk-actions')
+                <div class="crud-bulk-action d-none align-items-center justify-content-between">
+                    <span class="bulk-selected-count-container">
+                        <strong><span class="bulk-selected-count">0</span> {{ __('élément(s) sélectionné(s)') }}</strong>
+                    </span>
+                    <span>
+                    @can("edit-equipeProjet")
+                    <button 
+                        class="btn btn-sm btn-info bulkActionButton" 
+                        data-action-type="modal"
+                        data-url="{{ route('equipeProjets.bulkEdit') }}" 
+                        data-method="GET">
+                        <i class="fas fa-edit"></i> {{ __('Modifier') }}
+                    </button>
+                    @endcan
+                    @can('destroy-equipeProjet')
+                    <button 
+                    class="btn btn-sm btn-outline-danger bulkActionButton" 
+                    data-url="{{ route('equipeProjets.bulkDelete') }}" 
+                    data-method="POST" 
+                    data-action-type="ajax"
+                    data-confirm="Confirmez-vous la suppression des éléments sélectionnés ?">
+                    <i class="fas fa-trash-alt"></i> {{ __('Supprimer') }}
+                    </button>
+                    @endcan
+                    </span>
+                </div>
+                @show
+            </div>
+        </div>
+    </section>
+     <section id="equipeProjet-data-container-out" >
+        @if($equipeProjet_viewType == "widgets")
+        @include("PkgCreationProjet::equipeProjet._$equipeProjet_viewType")
+        @endif
+    </section>
+    @show
+</div>

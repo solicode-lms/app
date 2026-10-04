@@ -10,6 +10,18 @@
 @include('PkgCreationProjet::projet.custom.fields.titre',['entity' => $itemProjet])
                 </div>
             </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::groupe.singular')) }}</small>
+
+                {{-- Affichage texte classique --}}
+                @if($itemProjet->groupe)
+                  {{ $itemProjet->groupe }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
             <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::projet.travail_a_faire')) }}</small>
@@ -73,6 +85,21 @@
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::mobilisationUa.plural')) }}</small>
                   <div class="pt-2">
                         @include('PkgCreationProjet::mobilisationUa._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.show_' . $itemProjet->id])
+                  </div>
+                  </div>
+            </div>
+            @endif
+
+            @if(
+                  (auth()->user()?->can('show-equipeProjet') && $itemProjet->equipeProjets->isNotEmpty())  
+                  || auth()->user()?->can('create-equipeProjet')
+                  || (auth()->user()?->can('edit-equipeProjet')  && $itemProjet->equipeProjets->isNotEmpty() )
+                  )
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::equipeProjet.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgCreationProjet::equipeProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.show_' . $itemProjet->id])
                   </div>
                   </div>
             </div>

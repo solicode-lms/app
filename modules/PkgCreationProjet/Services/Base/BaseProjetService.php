@@ -28,6 +28,7 @@ class BaseProjetService extends BaseService
         'filiere_id',
         'session_formation_id',
         'titre',
+        'groupe_id',
         'travail_a_faire',
         'critere_de_travail',
         'formateur_id',
@@ -143,6 +144,23 @@ class BaseProjetService extends BaseService
                         \Modules\PkgSessions\Models\SessionFormation::class, 
                         'code',
                         $sessionFormations
+                    );
+                }
+            
+            
+                if (!array_key_exists('groupe_id', $scopeVariables)) {
+
+
+                    $groupeService = new \Modules\PkgApprenants\Services\GroupeService();
+                    $groupeIds = $this->getAvailableFilterValues('groupe_id');
+                    $groupes = $groupeService->getByIds($groupeIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgApprenants::groupe.plural"), 
+                        'groupe_id', 
+                        \Modules\PkgApprenants\Models\Groupe::class, 
+                        'code',
+                        $groupes
                     );
                 }
             
@@ -365,6 +383,7 @@ class BaseProjetService extends BaseService
         // Champs considérés comme inline
         $inlineFields = [
             'titre',
+            'groupe_id',
             'Tache',
             'Livrable'
         ];
@@ -407,6 +426,22 @@ class BaseProjetService extends BaseService
        switch ($field) {
             case 'titre':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
+            case 'groupe_id':
+                 $values = (new \Modules\PkgApprenants\Services\GroupeService())
+                    ->getAllForSelect($e->groupe)
+                    ->map(fn($entity) => [
+                        'value' => (int) $entity->id,
+                        'label' => (string) $entity,
+                    ])
+                    ->toArray();
+
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
+                    'required' => true,
+                    'options'  => [
+                        'source' => 'static',
+                        'values' => $values,
+                    ],
+                ]);
             case 'Tache':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'Livrable':
@@ -458,6 +493,18 @@ class BaseProjetService extends BaseService
 
                     $out[$field] = ['html' => $html];
                     break;
+
+                case 'groupe_id':
+                    $html = view('Core::fields_by_type.manytoone', [
+                        'entity' => $e,
+                        'column' => $field,
+                        'nature' => '',
+                        'relationName' => 'groupe'
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+
+
 
                 case 'Tache':
                     // Vue custom définie pour ce champ
