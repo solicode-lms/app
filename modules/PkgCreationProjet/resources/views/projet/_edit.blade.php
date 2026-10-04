@@ -55,7 +55,7 @@
                          @if($itemProjet->equipeProjets?->count() > 0 || auth()->user()?->can('create-equipeProjet'))
                         <li class="nav-item">
                             <a class="nav-link" id="projet-hasmany-tabs-equipeProjet-tab" data-toggle="pill" href="#projet-hasmany-tabs-equipeProjet" role="tab" aria-controls="projet-hasmany-tabs-equipeProjet" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-users"></i>
                                 {{ucfirst(__('PkgCreationProjet::equipeProjet.plural'))}}
                             </a>
                         </li>

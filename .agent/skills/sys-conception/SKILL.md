@@ -38,13 +38,8 @@ description: Expert de l'analyse métier, de la conception architecturale, et de
   - Un diagramme de classe complet (Mermaid).
   - Le dictionnaire des données et règles de gestion.
 
-### Action C : Rédaction d'une Issue (Demande de modification)
-> **Description** : Documenter une demande de modification de l'application ou du modèle de données avant son développement.
-
-- **Points de Contrôle & Checklist des Composants** :
-  - Lors de la création d'un fichier d'issue (ex: `ISSUE-002-Type-Question-Enum.md`), le concepteur **doit analyser l'impact de la modification sur tous les composants de l'application**.
-  - Il est **obligatoire** de lister les skills nécessaires pour réaliser l'issue en se basant sur la grille d'analyse documentée dans la capacité `capacités/capacité-architecture-composants.md`.
-  - Décrire clairement le contexte, les modifications demandées par composant, et les actions post-développement (mise à jour du diagramme).
+### Action C : [DÉPRÉCIÉ - Transféré vers sys-issue]
+> **Note** : La rédaction et l'analyse d'impact des issues sont désormais gérées exclusivement par le skill `sys-issue`. Veuillez invoquer `/sys-issue` pour toute demande de création ou de modification d'issue (dans `todo/`).
 
 ## 🛠️ Capacités (Savoir-Faire Technique)
 *Documentation des fichiers situés dans le dossier `capacités/`*
