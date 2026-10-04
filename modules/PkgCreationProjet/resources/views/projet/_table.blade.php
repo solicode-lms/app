@@ -39,74 +39,74 @@
                     </td>
                     <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
                         <div class="crud-actions-wrapper">
-                            <div class="actions-secondary-group">
-                            @if($projets_permissions['index-tache'])
-                            <x-action-button :entity="$projet" actionName="voirTaches">
-                                <a
-                                    data-toggle="tooltip"
-                                    title="Gérer les tâches du projet"
-                                    href="{{ route('taches.index', [
-                                            'showIndex' => true,
-                                            'contextKey' => 'tache-index',
-                                            'scope.tache.projet_id' => $projet->id,
-                                    ]) }}"
-                                    class="btn btn-default btn-sm context-state actionEntity showIndex btn-action-secondary"
-                                    data-id="{{ $projet->id }}">
-                                    <i class="fas fa-tasks"></i>
-                                </a>
-                            </x-action-button>
-                            @endif
-                            @if($projets_permissions['clonerProjet-projet'])
-                            <x-action-button :entity="$projet" actionName="clonerProjet">
-                                <a 
-                                data-toggle="tooltip" 
-                                title="Cloner le projet" 
-                                href="{{ route('projets.clonerProjet', ['id' => $projet->id]) }}" 
-                                data-id="{{$projet->id}}" 
-                                data-url="{{ route('projets.clonerProjet', ['id' => $projet->id]) }}" 
-                                data-action-type="confirm"
-                                class="btn btn-default btn-sm context-state actionEntity btn-action-secondary">
-                                    <i class="fas fa-clone"></i>
-                                </a>
-                            </x-action-button>
-                            @endif
-                            
-                            </div>
+                        <div class="actions-secondary-group">
+                        @if($projets_permissions['index-tache'])
+                        <x-action-button :entity="$projet" actionName="voirTaches">
+                            <a
+                                data-toggle="tooltip"
+                                title="Gérer les tâches du projet"
+                                href="{{ route('taches.index', [
+                                        'showIndex' => true,
+                                        'contextKey' => 'tache-index',
+                                        'scope.tache.projet_id' => $projet->id,
+                                ]) }}"
+                                class="btn btn-default btn-sm context-state actionEntity showIndex btn-action-secondary"
+                                data-id="{{ $projet->id }}">
+                                <i class="fas fa-tasks"></i>
+                            </a>
+                        </x-action-button>
+                        @endif
+                        @if($projets_permissions['clonerProjet-projet'])
+                        <x-action-button :entity="$projet" actionName="clonerProjet">
+                            <a 
+                            data-toggle="tooltip" 
+                            title="Cloner le projet" 
+                            href="{{ route('projets.clonerProjet', ['id' => $projet->id]) }}" 
+                            data-id="{{$projet->id}}" 
+                            data-url="{{ route('projets.clonerProjet', ['id' => $projet->id]) }}" 
+                            data-action-type="confirm"
+                            class="btn btn-default btn-sm context-state actionEntity btn-action-secondary">
+                                <i class="fas fa-clone"></i>
+                            </a>
+                        </x-action-button>
+                        @endif
+                        
+                        </div>
 
-                            <div class="actions-main-group">
-                            @if($projets_permissions['edit-projet'])
-                            <x-action-button :entity="$projet" actionName="edit">
-                            @if($projets_permissionsByItem['update'][$projet->id])
-                                <a href="{{ route('projets.edit', ['projet' => $projet->id]) }}" data-id="{{$projet->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
-                                    <i class="fas fa-pen-square"></i>
-                                </a>
-                            @endif
-                            </x-action-button>
-                            @endif
-                            @if($projets_permissions['show-projet'])
-                            <x-action-button :entity="$projet" actionName="show">
-                            @if($projets_permissionsByItem['view'][$projet->id])
-                                <a href="{{ route('projets.show', ['projet' => $projet->id]) }}" data-id="{{$projet->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
-                                    <i class="fas fa-info-circle"></i>
-                                </a>
-                            @endif
-                            </x-action-button>
-                            @endif
+                        <div class="actions-main-group">
+                        @if($projets_permissions['edit-projet'])
+                        <x-action-button :entity="$projet" actionName="edit">
+                        @if($projets_permissionsByItem['update'][$projet->id])
+                            <a href="{{ route('projets.edit', ['projet' => $projet->id]) }}" data-id="{{$projet->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
+                                <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endif
+                        </x-action-button>
+                        @endif
+                        @if($projets_permissions['show-projet'])
+                        <x-action-button :entity="$projet" actionName="show">
+                        @if($projets_permissionsByItem['view'][$projet->id])
+                            <a href="{{ route('projets.show', ['projet' => $projet->id]) }}" data-id="{{$projet->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                        @endif
+                        </x-action-button>
+                        @endif
 
-                            <x-action-button :entity="$projet" actionName="delete">
-                            @if($projets_permissions['destroy-projet'])
-                            @if($projets_permissionsByItem['delete'][$projet->id])
-                                <form class="context-state" action="{{ route('projets.destroy',['projet' => $projet->id]) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$projet->id}}">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            @endif
-                            @endif
-                            </x-action-button>
-                            </div>
+                        <x-action-button :entity="$projet" actionName="delete">
+                        @if($projets_permissions['destroy-projet'])
+                        @if($projets_permissionsByItem['delete'][$projet->id])
+                            <form class="context-state" action="{{ route('projets.destroy',['projet' => $projet->id]) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$projet->id}}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        @endif
+                        @endif
+                        </x-action-button>
+                        </div>
                         </div>
                     </td>
                 </tr>
