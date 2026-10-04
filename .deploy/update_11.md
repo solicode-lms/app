@@ -36,3 +36,13 @@ sudo php artisan db:seed --class=Modules\\PkgSessions\\Database\\Seeders\\Sessio
 sudo php artisan db:seed --class=Modules\\PkgSessions\\Database\\Seeders\\AlignementUaSeeder
 ```
 
+----
+
+## Phase évaluation 
+
+
+```bash
+php artisan db:seed --class=Modules\PkgCompetences\Database\Seeders\PhaseEvaluationSeeder
+
+sudo php artisan db:seed --class=Modules\\PkgCompetences\\Database\\Seeders\\PhaseEvaluationSeeder
+```

@@ -222,47 +222,7 @@
       <hr class="debut-groupe-hr">
     
     <div class="row">
-        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="phase_projet_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="phase_projet_id" 
-              id="bulk_field_phase_projet_id" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="phase_projet_id">
-            {{ ucfirst(__('PkgCreationTache::phaseProjet.singular')) }}
-            
-          </label>
-                      <select 
-            id="phase_projet_id" 
-            
-            
-            
-            name="phase_projet_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($phaseProjets as $phaseProjet)
-                    <option value="{{ $phaseProjet->id }}"
-                        {{ (isset($itemTache) && $itemTache->phase_projet_id == $phaseProjet->id) || (old('phase_projet_id>') == $phaseProjet->id) ? 'selected' : '' }}>
-                        {{ $phaseProjet }}
-                    </option>
-                @endforeach
-            </select>
-          @error('phase_projet_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="is_live_coding_task" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="is_live_coding_task" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -620,46 +580,6 @@
                 value="{{ $itemTache ? $itemTache->dateFin : old('dateFin') }}">
 
           @error('dateFin')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="labelProjets" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="labelProjets" 
-              id="bulk_field_labelProjets" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="labelProjets">
-            {{ ucfirst(__('PkgCreationProjet::labelProjet.plural')) }}
-            
-          </label>
-                      <select
-                id="labelProjets"
-                name="labelProjets[]"
-                class="form-control select2"
-                
-                
-                multiple="multiple">
-               
-                @foreach ($labelProjets as $labelProjet)
-                    <option value="{{ $labelProjet->id }}"
-                        {{ (isset($itemTache) && $itemTache->labelProjets && $itemTache->labelProjets->contains('id', $labelProjet->id)) || (is_array(old('labelProjets')) && in_array($labelProjet->id, old('labelProjets'))) ? 'selected' : '' }}>
-                        {{ $labelProjet }}
-                    </option>
-                @endforeach
-            </select>
-          @error('labelProjets')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

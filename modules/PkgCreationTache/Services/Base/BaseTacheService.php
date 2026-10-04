@@ -117,36 +117,19 @@ class BaseTacheService extends BaseService
         $this->fieldsFilterable = [];
         
             
-                if (!array_key_exists('phase_projet_id', $scopeVariables)) {
+                if (!array_key_exists('phase_evaluation_id', $scopeVariables)) {
 
 
-                    $phaseProjetService = new \Modules\PkgCreationTache\Services\PhaseProjetService();
-                    $phaseProjetIds = $this->getAvailableFilterValues('phase_projet_id');
-                    $phaseProjets = $phaseProjetService->getByIds($phaseProjetIds);
-
-                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgCreationTache::phaseProjet.plural"), 
-                        'phase_projet_id', 
-                        \Modules\PkgCreationTache\Models\PhaseProjet::class, 
-                        'nom',
-                        $phaseProjets
-                    );
-                }
-            
-            
-                if (!array_key_exists('projet_origine_note_id', $scopeVariables)) {
-
-
-                    $projetService = new \Modules\PkgCreationProjet\Services\ProjetService();
-                    $projetIds = $this->getAvailableFilterValues('projet_origine_note_id');
-                    $projets = $projetService->getByIds($projetIds);
+                    $phaseEvaluationService = new \Modules\PkgCompetences\Services\PhaseEvaluationService();
+                    $phaseEvaluationIds = $this->getAvailableFilterValues('phase_evaluation_id');
+                    $phaseEvaluations = $phaseEvaluationService->getByIds($phaseEvaluationIds);
 
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgCreationProjet::projet.plural"), 
-                        'projet_origine_note_id', 
-                        \Modules\PkgCreationProjet\Models\Projet::class, 
-                        'titre',
-                        $projets
+                        __("PkgCompetences::phaseEvaluation.plural"), 
+                        'phase_evaluation_id', 
+                        \Modules\PkgCompetences\Models\PhaseEvaluation::class, 
+                        'code',
+                        $phaseEvaluations
                     );
                 }
             
