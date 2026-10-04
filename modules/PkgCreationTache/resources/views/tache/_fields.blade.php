@@ -614,6 +614,7 @@
              <option value="">Sélectionnez une option</option>
                 @foreach ($equipeProjets as $equipeProjet)
                     <option value="{{ $equipeProjet->id }}"
+                        @if(method_exists($equipeProjet, 'sysColor') && $equipeProjet->sysColor) data-color="{{ $equipeProjet->sysColor->hex }}" @endif
                         {{ (isset($itemTache) && $itemTache->equipe_projet_id == $equipeProjet->id) || (old('equipe_projet_id>') == $equipeProjet->id) ? 'selected' : '' }}>
                         {{ $equipeProjet }}
                     </option>

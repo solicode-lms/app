@@ -1,4 +1,15 @@
-<article class="tache-card">
+@php
+    $equipe = $entity->equipeProjet;
+    $equipeColor = $equipe?->sysColor?->hex;
+@endphp
+
+<article class="tache-card {{ $equipeColor ? 'has-equipe' : '' }}" 
+    @if($equipeColor) 
+        style="
+            --equipe-color: {{ $equipeColor }}; 
+        " 
+    @endif
+>
     <header class="tache-header">
         <h2 class="tache-titre">
             @if($entity?->chapitre?->lien)
@@ -63,6 +74,15 @@
         <div class="text-muted"><i class="fas fa-project-diagram mr-1"></i> <strong>Projet :</strong> {{ $entity->projet->titre }}</div>
         @if($entity->mobilisationUa)
             <div class="text-primary mt-1"><i class="fas fa-cubes mr-1"></i> <strong>Mobilisation UA :</strong> {{ $entity->mobilisationUa }}</div>
+        @endif
+        @if($equipe)
+            <div class="mt-1 text-muted">
+                <i class="fas fa-users mr-1"></i>
+                <strong>Équipe :</strong>
+                <span data-toggle="tooltip" title="{{ $equipe->description }}">
+                    {{ $equipe->nom }}
+                </span>
+            </div>
         @endif
     </footer>
 </article>
