@@ -10,7 +10,7 @@ description: Expert de l'architecture et de la personnalisation des vues Blade s
 
 ### 🚫 Interdictions Globales (Règles d'Or)
 1. **Fichiers Maintenus par Gapp** : Il est STRICTEMENT INTERDIT de modifier un fichier `_*.blade.php` natif (ex: `_table.blade.php`, `_fields.blade.php`) généré directement dans la racine de la vue métier.
-2. **Protection des Fichiers Custom** : Avant de modifier un fichier complet dans le dossier `custom/`, le commentaire `{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}` doit ABSOLUMENT être supprimé pour éviter l'écrasement par Gapp.
+2. **Protection Gapp (RÈGLE STRICTE)** : Contrairement aux classes PHP, si un fichier Blade (`.blade.php`) contient le commentaire `{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}`, l'agent a l'**INTERDICTION** de le modifier directement ou de supprimer le commentaire lui-même. Toute modification de ces fichiers (généralement situés à la racine d'une vue ou même parfois générés dans `custom/` au premier run) doit faire l'objet d'un Plan (Artifact) suivi de la création d'une **Issue Gapp** via `sys-issue`. La modification effective dans Gapp et la suppression du commentaire seront faites par le développeur.
 3. **Régénération (`fields`) vs Résolution (`forms`)** : Ne jamais oublier que l'ajout d'une vue dans `custom/fields` nécessite l'exécution de `gapp make:crud [Modele]` pour être inclus dans le tableau, alors que les vues dans `custom/forms/` sont résolues dynamiquement par Laravel.
 4. **DRY & Composants (Gapp)** : Pour minimiser le volume de code généré par Gapp et faciliter sa maintenance, toute nouvelle logique d'interface ou bloc HTML (ex: affichage de badges, statistiques) DOIT être systématiquement extraite dans un composant Blade anonyme réutilisable (ex: `<x-crud-...>`) plutôt que d'être insérée en brut dans les templates de base (`_index.blade.php`, etc.).
 
@@ -49,13 +49,13 @@ description: Expert de l'architecture et de la personnalisation des vues Blade s
   2. Modifier le rendu de l'élément (classes, balise, affichage conditionnel).
 
 ### Action D : Surcharger Intégralement un Layout
-> **Description** : Refaire intégralement la structure d'une vue CRUD (index, table, fields, edit, show).
+> **Description** : Proposer de refaire intégralement la structure d'une vue CRUD (index, table, fields, edit, show).
 - **Capacités Utilisées** :
   - `capacités/capacité-blade-architecture.md`
 - **Entrées** : `Nom du Modèle`, `Nom du layout (ex: _table.blade.php)`
-- **Sorties** : `Fichier layout modifié dans custom/`
+- **Sorties** : `Création d'une Issue Gapp` (via sys-issue)
 - **❌ Interdictions Spécifiques** : 
-  - Toujours supprimer le commentaire "maintenu par ESSARRAJ Fouad".
+  - Ne **JAMAIS** modifier directement le fichier s'il contient le commentaire "maintenu par ESSARRAJ Fouad". Vous devez proposer la modification et, si acceptée, rédiger une Issue Gapp pour que le layout soit modifié au niveau du générateur.
 
 ### Action E : Ajout et Configuration de Filtres
 > **Description** : Guider et accompagner le développeur dans la mise en place de filtres sur les listes (index).

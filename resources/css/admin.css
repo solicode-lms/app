@@ -409,3 +409,82 @@ ul.livrable li a:hover {
 ul.livrable li .text-muted {
     font-size: 0.875rem;
 }
+
+/* ==============================================
+   CRUD Actions (Gapp Flexbox Layout) - UX Épuré
+   ============================================== */
+/* Ne JAMAIS mettre display:flex sur un <td>, cela casse le table-layout et max-width */
+.crud-actions-cell {
+    vertical-align: middle;
+}
+
+/* On applique flexbox sur une div interne */
+.crud-actions-cell .crud-actions-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    width: 100%;
+}
+
+.crud-actions-cell .actions-main-group {
+    display: flex;
+    gap: 6px;
+    order: 1; /* Main actions on top */
+}
+
+.crud-actions-cell .actions-secondary-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 4px;
+    order: 2; /* Secondary actions below */
+}
+
+/* 🎨 UI/UX : Simplicité & Minimalisme (Modern Admin) */
+.crud-actions-cell .btn {
+    border-radius: 6px !important;
+    transition: all 0.2s ease-in-out;
+    box-shadow: none !important;
+}
+
+/* Actions Principales (Show, Edit) : Outline clean */
+.crud-actions-cell .btn-action-main {
+    font-size: 0.95rem !important;
+    padding: 5px 10px !important;
+    background-color: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #475569 !important;
+}
+.crud-actions-cell .btn-action-main:hover {
+    background-color: #f8fafc !important;
+    color: #0284c7 !important; /* Bleu moderne */
+    border-color: #bae6fd !important;
+}
+
+/* Action Delete : Danger Outline */
+.crud-actions-cell .btn-action-delete {
+    font-size: 0.95rem !important;
+    padding: 5px 10px !important;
+    background-color: #ffffff !important;
+    border: 1px solid #fee2e2 !important;
+    color: #ef4444 !important;
+}
+.crud-actions-cell .btn-action-delete:hover {
+    background-color: #fef2f2 !important;
+    border-color: #fca5a5 !important;
+    color: #b91c1c !important;
+}
+
+/* Actions Secondaires : Fantômes (Ghost Buttons) */
+.crud-actions-cell .btn-action-secondary {
+    font-size: 0.85rem !important;
+    padding: 4px 8px !important;
+    background-color: transparent !important;
+    border: 1px solid transparent !important;
+    color: #94a3b8 !important;
+}
+.crud-actions-cell .btn-action-secondary:hover {
+    background-color: #f1f5f9 !important;
+    color: #334155 !important;
+}
