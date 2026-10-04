@@ -127,7 +127,7 @@
         {{-- Equipe --}}
         @if(isset($equipe))
             <div class="mt-1 d-flex align-items-center gap-1">
-                <i class="fas fa-users" style="color: {{ $equipeColor }};"></i>
+                <i class="fas fa-users mr-1" style="color: {{ $equipeColor }};"></i>
                 <strong style="color: {{ $equipeColor }};">Équipe :</strong>
                 <span class="badge" style="background-color: {{ $equipeColor }}; color: #fff;" data-toggle="tooltip" title="{{ $equipe->description }}">
                     {{ $equipe->nom }}
