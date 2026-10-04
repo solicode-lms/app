@@ -363,8 +363,25 @@ export class FormUI  {
         
 
         //  TODO Il faut ajouter  allowClear: true si le champs nullable
-        $(`.select2`).each(function () {
+        function formatColor(option) {
+            if (!option.id) {
+                return option.text;
+            }
+            let color = $(option.element).data('color') || option.color;
+            if (!color && $(option.element).attr('data-color')) {
+                color = $(option.element).attr('data-color');
+            }
+            if (color) {
+                return $(`
+                    <span style="display: flex; align-items: center; border-left: 4px solid ${color}; padding-left: 8px; margin: 0px 0;">
+                        <span style="font-weight: 500;">${option.text}</span>
+                    </span>
+                `);
+            }
+            return option.text;
+        }
 
+        $(`.select2`).each(function () {
             const $el = $(this);
             if (!$el.is('select')) return;
 
@@ -374,6 +391,8 @@ export class FormUI  {
                 placeholder: placeholder, // Utiliser data-label comme placeholder
                 width: '100%',
                 allowClear: true,
+                templateResult: formatColor,
+                templateSelection: formatColor
             });
         });
 
