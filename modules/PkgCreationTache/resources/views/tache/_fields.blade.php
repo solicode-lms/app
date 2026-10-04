@@ -586,14 +586,7 @@
   
 </x-form-field>
 
-
-    </div>
-  
-    
-
-    
-    <div class="row">
-        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="equipe_projet_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="equipe_projet_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -636,6 +629,7 @@
 
     </div>
   
+    
 
 
     </div>

@@ -9,9 +9,8 @@
                     $bulkEdit = $equipeProjets_permissions['edit-equipeProjet'] || $equipeProjets_permissions['destroy-equipeProjet'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="nom" modelname="equipeProjet" label="{!!ucfirst(__('PkgCreationProjet::equipeProjet.nom'))!!}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="sys_color_id" modelname="equipeProjet" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="projet_id" modelname="equipeProjet" label="{!!ucfirst(__('PkgCreationProjet::projet.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="41"  field="nom" modelname="equipeProjet" label="{!!ucfirst(__('PkgCreationProjet::equipeProjet.nom'))!!}" />
+                <x-sortable-column :sortable="false" width="41"  field="apprenants" modelname="equipeProjet" label="{!!ucfirst(__('PkgApprenants::apprenant.plural'))!!}" />
                 <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -23,20 +22,16 @@
                 @endphp
                 <tr id="equipeProjet-row-{{$equipeProjet->id}}" data-id="{{$equipeProjet->id}}">
                     <x-checkbox-row :item="$equipeProjet" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$equipeProjet->id}}" data-field="nom">
+                    <td style="max-width: 41%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$equipeProjet->id}}" data-field="nom">
                         {{ $equipeProjet->nom }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$equipeProjet->id}}" data-field="sys_color_id">
-                        <x-badge 
-                        :text="$equipeProjet->sysColor->name ?? ''" 
-                        :background="$equipeProjet->sysColor->hex ?? '#6c757d'" 
-                        />
-
-                    </td>
-                    <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$equipeProjet->id}}" data-field="projet_id">
-                        {{  $equipeProjet->projet }}
-
+                    <td style="max-width: 41%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$equipeProjet->id}}" data-field="apprenants">
+                        <ul>
+                            @foreach ($equipeProjet->apprenants as $apprenant)
+                                <li @if(strlen($apprenant) > 30) data-toggle="tooltip" title="{{$apprenant}}"  @endif>@limit($apprenant, 30)</li>
+                            @endforeach
+                        </ul>
                     </td>
                     <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
                         <div class="crud-actions-wrapper">

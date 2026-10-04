@@ -133,4 +133,4 @@ Afin de maintenir la cohérence de l'historique, un script (commande Artisan ou 
     - Si la tâche a un `equipe_projet_id`, récupérer uniquement les apprenants liés à cette équipe.
     - Sinon, récupérer tous les apprenants du projet (via le `groupe_id` global).
     - Générer les `RealisationTache` pour cette sélection d'apprenants.
-  - Effectuer les tests pour valider les règles RG3 et RG4.
+

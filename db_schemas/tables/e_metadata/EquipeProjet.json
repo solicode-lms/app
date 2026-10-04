@@ -64,7 +64,8 @@
     },
     {
         "reference": "EquipeProjet_projet_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "EquipeProjet_projet_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -355,7 +356,7 @@
     },
     {
         "reference": "EquipeProjet_description_displayOrder",
-        "value_integer": 5,
+        "value_integer": 4,
         "e_data_field_reference": "EquipeProjet_description",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -391,7 +392,8 @@
     },
     {
         "reference": "EquipeProjet_sys_color_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "EquipeProjet_sys_color_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -403,7 +405,7 @@
     },
     {
         "reference": "EquipeProjet_sys_color_id_displayOrder",
-        "value_integer": 4,
+        "value_integer": 5,
         "e_data_field_reference": "EquipeProjet_sys_color_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -444,5 +446,12 @@
         "value_boolean": 1,
         "e_data_field_reference": "EquipeProjet_sys_color_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "equipe_projets_apprenants_apprenant_equipe_projet_m2m_m2m_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "equipe_projets_apprenants_apprenant_equipe_projet_m2m_m2m",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

@@ -1300,5 +1300,13 @@
         "value_boolean": 1,
         "e_data_field_reference": "Tache_equipe_projet_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Tache_equipe_projet_id_viewFormFieldGroup",
+        "value_boolean": 0,
+        "value_string": "planification",
+        "value_float": 0,
+        "e_data_field_reference": "Tache_equipe_projet_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     }
 ]

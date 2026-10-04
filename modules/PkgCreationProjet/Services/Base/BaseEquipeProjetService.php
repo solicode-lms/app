@@ -330,8 +330,7 @@ class BaseEquipeProjetService extends BaseService
         // Champs considérés comme inline
         $inlineFields = [
             'nom',
-            'sys_color_id',
-            'projet_id'
+            'apprenants'
         ];
 
         // Récupération des champs autorisés par rôle via getFieldsEditable()
@@ -372,38 +371,8 @@ class BaseEquipeProjetService extends BaseService
        switch ($field) {
             case 'nom':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
-            case 'sys_color_id':
-                 $values = (new \Modules\Core\Services\SysColorService())
-                    ->getAllForSelect($e->sysColor)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
-
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
-            case 'projet_id':
-                 $values = (new \Modules\PkgCreationProjet\Services\ProjetService())
-                    ->getAllForSelect($e->projet)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
-
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
+            case 'apprenants':
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
         }
@@ -451,30 +420,15 @@ class BaseEquipeProjetService extends BaseService
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
-                case 'sys_color_id':
-                    $html = view('Core::fields_by_type.manytoone', [
+                case 'apprenants':
+                    // fallback string simple
+                    $html = view('Core::fields_by_type.string', [
                         'entity' => $e,
                         'column' => $field,
-                        'nature' => 'couleur',
-                        'relationName' => 'sysColor'
+                        'nature' => ''
                     ])->render();
                     $out[$field] = ['html' => $html];
                     break;
-
-
-
-                case 'projet_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'projet'
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-
-
-
 
                 default:
                     // fallback générique si champ non pris en charge
