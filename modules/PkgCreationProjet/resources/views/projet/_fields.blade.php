@@ -60,7 +60,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($filieres as $filiere)
-                    <option value="{{ $filiere->id }}"
+                    <option value="{{ $filiere->id }}" 
                         {{ (isset($itemProjet) && $itemProjet->filiere_id == $filiere->id) || (old('filiere_id>') == $filiere->id) ? 'selected' : '' }}>
                         {{ $filiere }}
                     </option>
@@ -100,7 +100,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($groupes as $groupe)
-                    <option value="{{ $groupe->id }}"
+                    <option value="{{ $groupe->id }}" 
                         {{ (isset($itemProjet) && $itemProjet->groupe_id == $groupe->id) || (old('groupe_id>') == $groupe->id) ? 'selected' : '' }}>
                         {{ $groupe }}
                     </option>
@@ -140,7 +140,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($sessionFormations as $sessionFormation)
-                    <option value="{{ $sessionFormation->id }}"
+                    <option value="{{ $sessionFormation->id }}" 
                         {{ (isset($itemProjet) && $itemProjet->session_formation_id == $sessionFormation->id) || (old('session_formation_id>') == $sessionFormation->id) ? 'selected' : '' }}>
                         {{ $sessionFormation }}
                     </option>
@@ -286,7 +286,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($formateurs as $formateur)
-                    <option value="{{ $formateur->id }}"
+                    <option value="{{ $formateur->id }}" 
                         {{ (isset($itemProjet) && $itemProjet->formateur_id == $formateur->id) || (old('formateur_id>') == $formateur->id) ? 'selected' : '' }}>
                         {{ $formateur }}
                     </option>

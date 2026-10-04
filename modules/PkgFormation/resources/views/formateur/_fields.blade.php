@@ -162,7 +162,7 @@
                 multiple="multiple">
                
                 @foreach ($specialites as $specialite)
-                    <option value="{{ $specialite->id }}"
+                    <option value="{{ $specialite->id }}" 
                         {{ (isset($itemFormateur) && $itemFormateur->specialites && $itemFormateur->specialites->contains('id', $specialite->id)) || (is_array(old('specialites')) && in_array($specialite->id, old('specialites'))) ? 'selected' : '' }}>
                         {{ $specialite }}
                     </option>
@@ -202,7 +202,7 @@
                 multiple="multiple">
                
                 @foreach ($groupes as $groupe)
-                    <option value="{{ $groupe->id }}"
+                    <option value="{{ $groupe->id }}" 
                         {{ (isset($itemFormateur) && $itemFormateur->groupes && $itemFormateur->groupes->contains('id', $groupe->id)) || (is_array(old('groupes')) && in_array($groupe->id, old('groupes'))) ? 'selected' : '' }}>
                         {{ $groupe }}
                     </option>
@@ -312,7 +312,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($users as $user)
-                    <option value="{{ $user->id }}"
+                    <option value="{{ $user->id }}" 
                         {{ (isset($itemFormateur) && $itemFormateur->user_id == $user->id) || (old('user_id>') == $user->id) ? 'selected' : '' }}>
                         {{ $user }}
                     </option>

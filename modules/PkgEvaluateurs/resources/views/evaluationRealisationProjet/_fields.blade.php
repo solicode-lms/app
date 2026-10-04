@@ -60,7 +60,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($realisationProjets as $realisationProjet)
-                    <option value="{{ $realisationProjet->id }}"
+                    <option value="{{ $realisationProjet->id }}" 
                         {{ (isset($itemEvaluationRealisationProjet) && $itemEvaluationRealisationProjet->realisation_projet_id == $realisationProjet->id) || (old('realisation_projet_id>') == $realisationProjet->id) ? 'selected' : '' }}>
                         {{ $realisationProjet }}
                     </option>
@@ -103,7 +103,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($evaluateurs as $evaluateur)
-                    <option value="{{ $evaluateur->id }}"
+                    <option value="{{ $evaluateur->id }}" 
                         {{ (isset($itemEvaluationRealisationProjet) && $itemEvaluationRealisationProjet->evaluateur_id == $evaluateur->id) || (old('evaluateur_id>') == $evaluateur->id) ? 'selected' : '' }}>
                         {{ $evaluateur }}
                     </option>
@@ -185,7 +185,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($etatEvaluationProjets as $etatEvaluationProjet)
-                    <option value="{{ $etatEvaluationProjet->id }}"
+                    <option value="{{ $etatEvaluationProjet->id }}" data-color="{{ $etatEvaluationProjet->sysColor?->hex }}" 
                         {{ (isset($itemEvaluationRealisationProjet) && $itemEvaluationRealisationProjet->etat_evaluation_projet_id == $etatEvaluationProjet->id) || (old('etat_evaluation_projet_id>') == $etatEvaluationProjet->id) ? 'selected' : '' }}>
                         {{ $etatEvaluationProjet }}
                     </option>

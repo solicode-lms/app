@@ -131,7 +131,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($users as $user)
-                    <option value="{{ $user->id }}"
+                    <option value="{{ $user->id }}" 
                         {{ (isset($itemWidgetUtilisateur) && $itemWidgetUtilisateur->user_id == $user->id) || (old('user_id>') == $user->id) ? 'selected' : '' }}>
                         {{ $user }}
                     </option>
@@ -174,7 +174,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($widgets as $widget)
-                    <option value="{{ $widget->id }}"
+                    <option value="{{ $widget->id }}" data-color="{{ $widget->sysColor?->hex }}" 
                         {{ (isset($itemWidgetUtilisateur) && $itemWidgetUtilisateur->widget_id == $widget->id) || (old('widget_id>') == $widget->id) ? 'selected' : '' }}>
                         {{ $widget }}
                     </option>

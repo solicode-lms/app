@@ -129,7 +129,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($groupes as $groupe)
-                    <option value="{{ $groupe->id }}"
+                    <option value="{{ $groupe->id }}" 
                         {{ (isset($itemSousGroupe) && $itemSousGroupe->groupe_id == $groupe->id) || (old('groupe_id>') == $groupe->id) ? 'selected' : '' }}>
                         {{ $groupe }}
                     </option>
@@ -169,7 +169,7 @@
                 multiple="multiple">
                
                 @foreach ($apprenants as $apprenant)
-                    <option value="{{ $apprenant->id }}"
+                    <option value="{{ $apprenant->id }}" 
                         {{ (isset($itemSousGroupe) && $itemSousGroupe->apprenants && $itemSousGroupe->apprenants->contains('id', $apprenant->id)) || (is_array(old('apprenants')) && in_array($apprenant->id, old('apprenants'))) ? 'selected' : '' }}>
                         {{ $apprenant }}
                     </option>

@@ -57,7 +57,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($uniteApprentissages as $uniteApprentissage)
-                    <option value="{{ $uniteApprentissage->id }}"
+                    <option value="{{ $uniteApprentissage->id }}" 
                         {{ (isset($itemRealisationUa) && $itemRealisationUa->unite_apprentissage_id == $uniteApprentissage->id) || (old('unite_apprentissage_id>') == $uniteApprentissage->id) ? 'selected' : '' }}>
                         {{ $uniteApprentissage }}
                     </option>
@@ -97,7 +97,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($realisationMicroCompetences as $realisationMicroCompetence)
-                    <option value="{{ $realisationMicroCompetence->id }}"
+                    <option value="{{ $realisationMicroCompetence->id }}" 
                         {{ (isset($itemRealisationUa) && $itemRealisationUa->realisation_micro_competence_id == $realisationMicroCompetence->id) || (old('realisation_micro_competence_id>') == $realisationMicroCompetence->id) ? 'selected' : '' }}>
                         {{ $realisationMicroCompetence }}
                     </option>
@@ -137,7 +137,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($etatRealisationUas as $etatRealisationUa)
-                    <option value="{{ $etatRealisationUa->id }}"
+                    <option value="{{ $etatRealisationUa->id }}" data-color="{{ $etatRealisationUa->sysColor?->hex }}" 
                         {{ (isset($itemRealisationUa) && $itemRealisationUa->etat_realisation_ua_id == $etatRealisationUa->id) || (old('etat_realisation_ua_id>') == $etatRealisationUa->id) ? 'selected' : '' }}>
                         {{ $etatRealisationUa }}
                     </option>

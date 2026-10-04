@@ -60,7 +60,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($microCompetences as $microCompetence)
-                    <option value="{{ $microCompetence->id }}"
+                    <option value="{{ $microCompetence->id }}" 
                         {{ (isset($itemRealisationMicroCompetence) && $itemRealisationMicroCompetence->micro_competence_id == $microCompetence->id) || (old('micro_competence_id>') == $microCompetence->id) ? 'selected' : '' }}>
                         {{ $microCompetence }}
                     </option>
@@ -103,7 +103,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($apprenants as $apprenant)
-                    <option value="{{ $apprenant->id }}"
+                    <option value="{{ $apprenant->id }}" 
                         {{ (isset($itemRealisationMicroCompetence) && $itemRealisationMicroCompetence->apprenant_id == $apprenant->id) || (old('apprenant_id>') == $apprenant->id) ? 'selected' : '' }}>
                         {{ $apprenant }}
                     </option>
@@ -146,7 +146,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($etatRealisationMicroCompetences as $etatRealisationMicroCompetence)
-                    <option value="{{ $etatRealisationMicroCompetence->id }}"
+                    <option value="{{ $etatRealisationMicroCompetence->id }}" data-color="{{ $etatRealisationMicroCompetence->sysColor?->hex }}" 
                         {{ (isset($itemRealisationMicroCompetence) && $itemRealisationMicroCompetence->etat_realisation_micro_competence_id == $etatRealisationMicroCompetence->id) || (old('etat_realisation_micro_competence_id>') == $etatRealisationMicroCompetence->id) ? 'selected' : '' }}>
                         {{ $etatRealisationMicroCompetence }}
                     </option>

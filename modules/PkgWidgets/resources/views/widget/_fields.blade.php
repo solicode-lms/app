@@ -197,7 +197,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($types as $widgetType)
-                    <option value="{{ $widgetType->id }}"
+                    <option value="{{ $widgetType->id }}" 
                         {{ (isset($itemWidget) && $itemWidget->type_id == $widgetType->id) || (old('type_id>') == $widgetType->id) ? 'selected' : '' }}>
                         {{ $widgetType }}
                     </option>
@@ -237,7 +237,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($models as $sysModel)
-                    <option value="{{ $sysModel->id }}"
+                    <option value="{{ $sysModel->id }}" data-color="{{ $sysModel->sysColor?->hex }}" 
                         {{ (isset($itemWidget) && $itemWidget->model_id == $sysModel->id) || (old('model_id>') == $sysModel->id) ? 'selected' : '' }}>
                         {{ $sysModel }}
                     </option>
@@ -277,7 +277,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($operations as $widgetOperation)
-                    <option value="{{ $widgetOperation->id }}"
+                    <option value="{{ $widgetOperation->id }}" 
                         {{ (isset($itemWidget) && $itemWidget->operation_id == $widgetOperation->id) || (old('operation_id>') == $widgetOperation->id) ? 'selected' : '' }}>
                         {{ $widgetOperation }}
                     </option>
@@ -357,7 +357,7 @@
                 multiple="multiple">
                
                 @foreach ($roles as $role)
-                    <option value="{{ $role->id }}"
+                    <option value="{{ $role->id }}" 
                         {{ (isset($itemWidget) && $itemWidget->roles && $itemWidget->roles->contains('id', $role->id)) || (is_array(old('roles')) && in_array($role->id, old('roles'))) ? 'selected' : '' }}>
                         {{ $role }}
                     </option>
@@ -397,7 +397,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($sectionWidgets as $sectionWidget)
-                    <option value="{{ $sectionWidget->id }}"
+                    <option value="{{ $sectionWidget->id }}" data-color="{{ $sectionWidget->sysColor?->hex }}" 
                         {{ (isset($itemWidget) && $itemWidget->section_widget_id == $sectionWidget->id) || (old('section_widget_id>') == $sectionWidget->id) ? 'selected' : '' }}>
                         {{ $sectionWidget }}
                     </option>

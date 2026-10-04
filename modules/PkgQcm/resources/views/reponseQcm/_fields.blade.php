@@ -57,7 +57,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($realisationQcms as $realisationQcm)
-                    <option value="{{ $realisationQcm->id }}"
+                    <option value="{{ $realisationQcm->id }}" 
                         {{ (isset($itemReponseQcm) && $itemReponseQcm->realisation_qcm_id == $realisationQcm->id) || (old('realisation_qcm_id>') == $realisationQcm->id) ? 'selected' : '' }}>
                         {{ $realisationQcm }}
                     </option>
@@ -97,7 +97,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($questions as $question)
-                    <option value="{{ $question->id }}"
+                    <option value="{{ $question->id }}" 
                         {{ (isset($itemReponseQcm) && $itemReponseQcm->question_id == $question->id) || (old('question_id>') == $question->id) ? 'selected' : '' }}>
                         {{ $question }}
                     </option>
@@ -173,7 +173,7 @@
                 multiple="multiple">
                
                 @foreach ($propositionReponses as $propositionReponse)
-                    <option value="{{ $propositionReponse->id }}"
+                    <option value="{{ $propositionReponse->id }}" 
                         {{ (isset($itemReponseQcm) && $itemReponseQcm->propositionReponses && $itemReponseQcm->propositionReponses->contains('id', $propositionReponse->id)) || (is_array(old('propositionReponses')) && in_array($propositionReponse->id, old('propositionReponses'))) ? 'selected' : '' }}>
                         {{ $propositionReponse }}
                     </option>
@@ -213,7 +213,7 @@
                 multiple="multiple">
                
                 @foreach ($realisationUaPrototypes as $realisationUaPrototype)
-                    <option value="{{ $realisationUaPrototype->id }}"
+                    <option value="{{ $realisationUaPrototype->id }}" 
                         {{ (isset($itemReponseQcm) && $itemReponseQcm->realisationUaPrototypes && $itemReponseQcm->realisationUaPrototypes->contains('id', $realisationUaPrototype->id)) || (is_array(old('realisationUaPrototypes')) && in_array($realisationUaPrototype->id, old('realisationUaPrototypes'))) ? 'selected' : '' }}>
                         {{ $realisationUaPrototype }}
                     </option>

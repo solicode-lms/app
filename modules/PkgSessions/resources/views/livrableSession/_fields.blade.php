@@ -161,7 +161,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($sessionFormations as $sessionFormation)
-                    <option value="{{ $sessionFormation->id }}"
+                    <option value="{{ $sessionFormation->id }}" 
                         {{ (isset($itemLivrableSession) && $itemLivrableSession->session_formation_id == $sessionFormation->id) || (old('session_formation_id>') == $sessionFormation->id) ? 'selected' : '' }}>
                         {{ $sessionFormation }}
                     </option>
@@ -201,7 +201,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($natureLivrables as $natureLivrable)
-                    <option value="{{ $natureLivrable->id }}"
+                    <option value="{{ $natureLivrable->id }}" 
                         {{ (isset($itemLivrableSession) && $itemLivrableSession->nature_livrable_id == $natureLivrable->id) || (old('nature_livrable_id>') == $natureLivrable->id) ? 'selected' : '' }}>
                         {{ $natureLivrable }}
                     </option>

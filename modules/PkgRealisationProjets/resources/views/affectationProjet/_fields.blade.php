@@ -60,7 +60,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($projets as $projet)
-                    <option value="{{ $projet->id }}"
+                    <option value="{{ $projet->id }}" 
                         {{ (isset($itemAffectationProjet) && $itemAffectationProjet->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
                         {{ $projet }}
                     </option>
@@ -106,7 +106,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($groupes as $groupe)
-                    <option value="{{ $groupe->id }}"
+                    <option value="{{ $groupe->id }}" 
                         {{ (isset($itemAffectationProjet) && $itemAffectationProjet->groupe_id == $groupe->id) || (old('groupe_id>') == $groupe->id) ? 'selected' : '' }}>
                         {{ $groupe }}
                     </option>
@@ -146,7 +146,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($anneeFormations as $anneeFormation)
-                    <option value="{{ $anneeFormation->id }}"
+                    <option value="{{ $anneeFormation->id }}" 
                         {{ (isset($itemAffectationProjet) && $itemAffectationProjet->annee_formation_id == $anneeFormation->id) || (old('annee_formation_id>') == $anneeFormation->id) ? 'selected' : '' }}>
                         {{ $anneeFormation }}
                     </option>
@@ -293,7 +293,7 @@
                 multiple="multiple">
                
                 @foreach ($evaluateurs as $evaluateur)
-                    <option value="{{ $evaluateur->id }}"
+                    <option value="{{ $evaluateur->id }}" 
                         {{ (isset($itemAffectationProjet) && $itemAffectationProjet->evaluateurs && $itemAffectationProjet->evaluateurs->contains('id', $evaluateur->id)) || (is_array(old('evaluateurs')) && in_array($evaluateur->id, old('evaluateurs'))) ? 'selected' : '' }}>
                         {{ $evaluateur }}
                     </option>

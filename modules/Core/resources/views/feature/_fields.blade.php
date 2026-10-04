@@ -126,7 +126,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($featureDomains as $featureDomain)
-                    <option value="{{ $featureDomain->id }}"
+                    <option value="{{ $featureDomain->id }}" 
                         {{ (isset($itemFeature) && $itemFeature->feature_domain_id == $featureDomain->id) || (old('feature_domain_id>') == $featureDomain->id) ? 'selected' : '' }}>
                         {{ $featureDomain }}
                     </option>
@@ -166,7 +166,7 @@
                 multiple="multiple">
                
                 @foreach ($permissions as $permission)
-                    <option value="{{ $permission->id }}"
+                    <option value="{{ $permission->id }}" 
                         {{ (isset($itemFeature) && $itemFeature->permissions && $itemFeature->permissions->contains('id', $permission->id)) || (is_array(old('permissions')) && in_array($permission->id, old('permissions'))) ? 'selected' : '' }}>
                         {{ $permission }}
                     </option>

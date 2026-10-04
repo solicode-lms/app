@@ -377,7 +377,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($eModels as $eModel)
-                    <option value="{{ $eModel->id }}"
+                    <option value="{{ $eModel->id }}" 
                         {{ (isset($itemEMetadatum) && $itemEMetadatum->e_model_id == $eModel->id) || (old('e_model_id>') == $eModel->id) ? 'selected' : '' }}>
                         {{ $eModel }}
                     </option>
@@ -417,7 +417,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($eDataFields as $eDataField)
-                    <option value="{{ $eDataField->id }}"
+                    <option value="{{ $eDataField->id }}" 
                         {{ (isset($itemEMetadatum) && $itemEMetadatum->e_data_field_id == $eDataField->id) || (old('e_data_field_id>') == $eDataField->id) ? 'selected' : '' }}>
                         {{ $eDataField }}
                     </option>
@@ -457,7 +457,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($eMetadataDefinitions as $eMetadataDefinition)
-                    <option value="{{ $eMetadataDefinition->id }}"
+                    <option value="{{ $eMetadataDefinition->id }}" 
                         {{ (isset($itemEMetadatum) && $itemEMetadatum->e_metadata_definition_id == $eMetadataDefinition->id) || (old('e_metadata_definition_id>') == $eMetadataDefinition->id) ? 'selected' : '' }}>
                         {{ $eMetadataDefinition }}
                     </option>

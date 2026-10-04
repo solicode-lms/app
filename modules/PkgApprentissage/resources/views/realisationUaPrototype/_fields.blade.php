@@ -60,7 +60,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($realisationTaches as $realisationTache)
-                    <option value="{{ $realisationTache->id }}"
+                    <option value="{{ $realisationTache->id }}" 
                         {{ (isset($itemRealisationUaPrototype) && $itemRealisationUaPrototype->realisation_tache_id == $realisationTache->id) || (old('realisation_tache_id>') == $realisationTache->id) ? 'selected' : '' }}>
                         {{ $realisationTache }}
                     </option>
@@ -103,7 +103,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($realisationUas as $realisationUa)
-                    <option value="{{ $realisationUa->id }}"
+                    <option value="{{ $realisationUa->id }}" 
                         {{ (isset($itemRealisationUaPrototype) && $itemRealisationUaPrototype->realisation_ua_id == $realisationUa->id) || (old('realisation_ua_id>') == $realisationUa->id) ? 'selected' : '' }}>
                         {{ $realisationUa }}
                     </option>
@@ -366,7 +366,7 @@
                 multiple="multiple">
                
                 @foreach ($reponseQcms as $reponseQcm)
-                    <option value="{{ $reponseQcm->id }}"
+                    <option value="{{ $reponseQcm->id }}" 
                         {{ (isset($itemRealisationUaPrototype) && $itemRealisationUaPrototype->reponseQcms && $itemRealisationUaPrototype->reponseQcms->contains('id', $reponseQcm->id)) || (is_array(old('reponseQcms')) && in_array($reponseQcm->id, old('reponseQcms'))) ? 'selected' : '' }}>
                         {{ $reponseQcm }}
                     </option>

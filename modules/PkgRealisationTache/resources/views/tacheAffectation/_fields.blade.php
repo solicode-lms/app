@@ -57,7 +57,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($taches as $tache)
-                    <option value="{{ $tache->id }}"
+                    <option value="{{ $tache->id }}" 
                         {{ (isset($itemTacheAffectation) && $itemTacheAffectation->tache_id == $tache->id) || (old('tache_id>') == $tache->id) ? 'selected' : '' }}>
                         {{ $tache }}
                     </option>
@@ -97,7 +97,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($affectationProjets as $affectationProjet)
-                    <option value="{{ $affectationProjet->id }}"
+                    <option value="{{ $affectationProjet->id }}" 
                         {{ (isset($itemTacheAffectation) && $itemTacheAffectation->affectation_projet_id == $affectationProjet->id) || (old('affectation_projet_id>') == $affectationProjet->id) ? 'selected' : '' }}>
                         {{ $affectationProjet }}
                     </option>

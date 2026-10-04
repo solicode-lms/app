@@ -161,7 +161,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($filieres as $filiere)
-                    <option value="{{ $filiere->id }}"
+                    <option value="{{ $filiere->id }}" 
                         {{ (isset($itemGroupe) && $itemGroupe->filiere_id == $filiere->id) || (old('filiere_id>') == $filiere->id) ? 'selected' : '' }}>
                         {{ $filiere }}
                     </option>
@@ -201,7 +201,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($anneeFormations as $anneeFormation)
-                    <option value="{{ $anneeFormation->id }}"
+                    <option value="{{ $anneeFormation->id }}" 
                         {{ (isset($itemGroupe) && $itemGroupe->annee_formation_id == $anneeFormation->id) || (old('annee_formation_id>') == $anneeFormation->id) ? 'selected' : '' }}>
                         {{ $anneeFormation }}
                     </option>
@@ -241,7 +241,7 @@
                 multiple="multiple">
                
                 @foreach ($apprenants as $apprenant)
-                    <option value="{{ $apprenant->id }}"
+                    <option value="{{ $apprenant->id }}" 
                         {{ (isset($itemGroupe) && $itemGroupe->apprenants && $itemGroupe->apprenants->contains('id', $apprenant->id)) || (is_array(old('apprenants')) && in_array($apprenant->id, old('apprenants'))) ? 'selected' : '' }}>
                         {{ $apprenant }}
                     </option>
@@ -281,7 +281,7 @@
                 multiple="multiple">
                
                 @foreach ($formateurs as $formateur)
-                    <option value="{{ $formateur->id }}"
+                    <option value="{{ $formateur->id }}" 
                         {{ (isset($itemGroupe) && $itemGroupe->formateurs && $itemGroupe->formateurs->contains('id', $formateur->id)) || (is_array(old('formateurs')) && in_array($formateur->id, old('formateurs'))) ? 'selected' : '' }}>
                         {{ $formateur }}
                     </option>

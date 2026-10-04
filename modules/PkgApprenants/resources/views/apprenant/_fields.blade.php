@@ -306,7 +306,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($nationalites as $nationalite)
-                    <option value="{{ $nationalite->id }}"
+                    <option value="{{ $nationalite->id }}" 
                         {{ (isset($itemApprenant) && $itemApprenant->nationalite_id == $nationalite->id) || (old('nationalite_id>') == $nationalite->id) ? 'selected' : '' }}>
                         {{ $nationalite }}
                     </option>
@@ -381,7 +381,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($niveauxScolaires as $niveauxScolaire)
-                    <option value="{{ $niveauxScolaire->id }}"
+                    <option value="{{ $niveauxScolaire->id }}" 
                         {{ (isset($itemApprenant) && $itemApprenant->niveaux_scolaire_id == $niveauxScolaire->id) || (old('niveaux_scolaire_id>') == $niveauxScolaire->id) ? 'selected' : '' }}>
                         {{ $niveauxScolaire }}
                     </option>
@@ -466,7 +466,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($users as $user)
-                    <option value="{{ $user->id }}"
+                    <option value="{{ $user->id }}" 
                         {{ (isset($itemApprenant) && $itemApprenant->user_id == $user->id) || (old('user_id>') == $user->id) ? 'selected' : '' }}>
                         {{ $user }}
                     </option>
@@ -551,7 +551,7 @@
                 multiple="multiple">
                
                 @foreach ($groupes as $groupe)
-                    <option value="{{ $groupe->id }}"
+                    <option value="{{ $groupe->id }}" 
                         {{ (isset($itemApprenant) && $itemApprenant->groupes && $itemApprenant->groupes->contains('id', $groupe->id)) || (is_array(old('groupes')) && in_array($groupe->id, old('groupes'))) ? 'selected' : '' }}>
                         {{ $groupe }}
                     </option>
@@ -670,7 +670,7 @@
                 multiple="multiple">
                
                 @foreach ($equipeProjets as $equipeProjet)
-                    <option value="{{ $equipeProjet->id }}"
+                    <option value="{{ $equipeProjet->id }}" data-color="{{ $equipeProjet->sysColor?->hex }}" 
                         {{ (isset($itemApprenant) && $itemApprenant->equipeProjets && $itemApprenant->equipeProjets->contains('id', $equipeProjet->id)) || (is_array(old('equipeProjets')) && in_array($equipeProjet->id, old('equipeProjets'))) ? 'selected' : '' }}>
                         {{ $equipeProjet }}
                     </option>
@@ -710,7 +710,7 @@
                 multiple="multiple">
                
                 @foreach ($sousGroupes as $sousGroupe)
-                    <option value="{{ $sousGroupe->id }}"
+                    <option value="{{ $sousGroupe->id }}" 
                         {{ (isset($itemApprenant) && $itemApprenant->sousGroupes && $itemApprenant->sousGroupes->contains('id', $sousGroupe->id)) || (is_array(old('sousGroupes')) && in_array($sousGroupe->id, old('sousGroupes'))) ? 'selected' : '' }}>
                         {{ $sousGroupe }}
                     </option>

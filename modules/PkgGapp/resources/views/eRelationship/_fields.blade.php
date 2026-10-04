@@ -127,7 +127,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($sourceEModels as $eModel)
-                    <option value="{{ $eModel->id }}"
+                    <option value="{{ $eModel->id }}" 
                         {{ (isset($itemERelationship) && $itemERelationship->source_e_model_id == $eModel->id) || (old('source_e_model_id>') == $eModel->id) ? 'selected' : '' }}>
                         {{ $eModel }}
                     </option>
@@ -167,7 +167,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($targetEModels as $eModel)
-                    <option value="{{ $eModel->id }}"
+                    <option value="{{ $eModel->id }}" 
                         {{ (isset($itemERelationship) && $itemERelationship->target_e_model_id == $eModel->id) || (old('target_e_model_id>') == $eModel->id) ? 'selected' : '' }}>
                         {{ $eModel }}
                     </option>

@@ -162,7 +162,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($modules as $module)
-                    <option value="{{ $module->id }}"
+                    <option value="{{ $module->id }}" 
                         {{ (isset($itemCompetence) && $itemCompetence->module_id == $module->id) || (old('module_id>') == $module->id) ? 'selected' : '' }}>
                         {{ $module }}
                     </option>

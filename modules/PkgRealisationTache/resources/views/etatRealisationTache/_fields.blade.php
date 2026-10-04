@@ -127,7 +127,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($workflowTaches as $workflowTache)
-                    <option value="{{ $workflowTache->id }}"
+                    <option value="{{ $workflowTache->id }}" data-color="{{ $workflowTache->sysColor?->hex }}" 
                         {{ (isset($itemEtatRealisationTache) && $itemEtatRealisationTache->workflow_tache_id == $workflowTache->id) || (old('workflow_tache_id>') == $workflowTache->id) ? 'selected' : '' }}>
                         {{ $workflowTache }}
                     </option>
@@ -243,7 +243,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($formateurs as $formateur)
-                    <option value="{{ $formateur->id }}"
+                    <option value="{{ $formateur->id }}" 
                         {{ (isset($itemEtatRealisationTache) && $itemEtatRealisationTache->formateur_id == $formateur->id) || (old('formateur_id>') == $formateur->id) ? 'selected' : '' }}>
                         {{ $formateur }}
                     </option>

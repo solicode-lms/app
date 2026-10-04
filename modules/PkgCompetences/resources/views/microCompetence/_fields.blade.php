@@ -197,7 +197,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($competences as $competence)
-                    <option value="{{ $competence->id }}"
+                    <option value="{{ $competence->id }}" 
                         {{ (isset($itemMicroCompetence) && $itemMicroCompetence->competence_id == $competence->id) || (old('competence_id>') == $competence->id) ? 'selected' : '' }}>
                         {{ $competence }}
                     </option>

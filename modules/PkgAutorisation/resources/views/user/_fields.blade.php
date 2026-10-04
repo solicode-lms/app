@@ -269,7 +269,7 @@
                 multiple="multiple">
                
                 @foreach ($roles as $role)
-                    <option value="{{ $role->id }}"
+                    <option value="{{ $role->id }}" 
                         {{ (isset($itemUser) && $itemUser->roles && $itemUser->roles->contains('id', $role->id)) || (is_array(old('roles')) && in_array($role->id, old('roles'))) ? 'selected' : '' }}>
                         {{ $role }}
                     </option>

@@ -127,7 +127,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($controllers as $sysController)
-                    <option value="{{ $sysController->id }}"
+                    <option value="{{ $sysController->id }}" 
                         {{ (isset($itemPermission) && $itemPermission->controller_id == $sysController->id) || (old('controller_id>') == $sysController->id) ? 'selected' : '' }}>
                         {{ $sysController }}
                     </option>
@@ -167,7 +167,7 @@
                 multiple="multiple">
                
                 @foreach ($features as $feature)
-                    <option value="{{ $feature->id }}"
+                    <option value="{{ $feature->id }}" 
                         {{ (isset($itemPermission) && $itemPermission->features && $itemPermission->features->contains('id', $feature->id)) || (is_array(old('features')) && in_array($feature->id, old('features'))) ? 'selected' : '' }}>
                         {{ $feature }}
                     </option>
@@ -207,7 +207,7 @@
                 multiple="multiple">
                
                 @foreach ($roles as $role)
-                    <option value="{{ $role->id }}"
+                    <option value="{{ $role->id }}" 
                         {{ (isset($itemPermission) && $itemPermission->roles && $itemPermission->roles->contains('id', $role->id)) || (is_array(old('roles')) && in_array($role->id, old('roles'))) ? 'selected' : '' }}>
                         {{ $role }}
                     </option>

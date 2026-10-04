@@ -130,7 +130,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($realisationTaches as $realisationTache)
-                    <option value="{{ $realisationTache->id }}"
+                    <option value="{{ $realisationTache->id }}" 
                         {{ (isset($itemHistoriqueRealisationTache) && $itemHistoriqueRealisationTache->realisation_tache_id == $realisationTache->id) || (old('realisation_tache_id>') == $realisationTache->id) ? 'selected' : '' }}>
                         {{ $realisationTache }}
                     </option>
@@ -173,7 +173,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($users as $user)
-                    <option value="{{ $user->id }}"
+                    <option value="{{ $user->id }}" 
                         {{ (isset($itemHistoriqueRealisationTache) && $itemHistoriqueRealisationTache->user_id == $user->id) || (old('user_id>') == $user->id) ? 'selected' : '' }}>
                         {{ $user }}
                     </option>

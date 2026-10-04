@@ -161,7 +161,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysModules as $sysModule)
-                    <option value="{{ $sysModule->id }}"
+                    <option value="{{ $sysModule->id }}" data-color="{{ $sysModule->sysColor?->hex }}" 
                         {{ (isset($itemFeatureDomain) && $itemFeatureDomain->sys_module_id == $sysModule->id) || (old('sys_module_id>') == $sysModule->id) ? 'selected' : '' }}>
                         {{ $sysModule }}
                     </option>

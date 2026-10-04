@@ -63,7 +63,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($taches as $tache)
-                    <option value="{{ $tache->id }}"
+                    <option value="{{ $tache->id }}" 
                         {{ (isset($itemRealisationTache) && $itemRealisationTache->tache_id == $tache->id) || (old('tache_id>') == $tache->id) ? 'selected' : '' }}>
                         {{ $tache }}
                     </option>
@@ -106,7 +106,7 @@
                 multiple="multiple">
                
                 @foreach ($labelProjets as $labelProjet)
-                    <option value="{{ $labelProjet->id }}"
+                    <option value="{{ $labelProjet->id }}" data-color="{{ $labelProjet->sysColor?->hex }}" 
                         {{ (isset($itemRealisationTache) && $itemRealisationTache->labelProjets && $itemRealisationTache->labelProjets->contains('id', $labelProjet->id)) || (is_array(old('labelProjets')) && in_array($labelProjet->id, old('labelProjets'))) ? 'selected' : '' }}>
                         {{ $labelProjet }}
                     </option>
@@ -160,7 +160,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($etatRealisationTaches as $etatRealisationTache)
-                    <option value="{{ $etatRealisationTache->id }}"
+                    <option value="{{ $etatRealisationTache->id }}" data-color="{{ $etatRealisationTache->sysColor?->hex }}" 
                         {{ (isset($itemRealisationTache) && $itemRealisationTache->etat_realisation_tache_id == $etatRealisationTache->id) || (old('etat_realisation_tache_id>') == $etatRealisationTache->id) ? 'selected' : '' }}>
                         {{ $etatRealisationTache }}
                     </option>

@@ -60,7 +60,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($affectationQcmProjets as $affectationQcmProjet)
-                    <option value="{{ $affectationQcmProjet->id }}"
+                    <option value="{{ $affectationQcmProjet->id }}" 
                         {{ (isset($itemRealisationQcm) && $itemRealisationQcm->affectation_qcm_projet_id == $affectationQcmProjet->id) || (old('affectation_qcm_projet_id>') == $affectationQcmProjet->id) ? 'selected' : '' }}>
                         {{ $affectationQcmProjet }}
                     </option>
@@ -103,7 +103,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($qcms as $qcm)
-                    <option value="{{ $qcm->id }}"
+                    <option value="{{ $qcm->id }}" 
                         {{ (isset($itemRealisationQcm) && $itemRealisationQcm->qcm_id == $qcm->id) || (old('qcm_id>') == $qcm->id) ? 'selected' : '' }}>
                         {{ $qcm }}
                     </option>
@@ -146,7 +146,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($apprenants as $apprenant)
-                    <option value="{{ $apprenant->id }}"
+                    <option value="{{ $apprenant->id }}" 
                         {{ (isset($itemRealisationQcm) && $itemRealisationQcm->apprenant_id == $apprenant->id) || (old('apprenant_id>') == $apprenant->id) ? 'selected' : '' }}>
                         {{ $apprenant }}
                     </option>
@@ -186,7 +186,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($etatRealisationQcms as $etatRealisationQcm)
-                    <option value="{{ $etatRealisationQcm->id }}"
+                    <option value="{{ $etatRealisationQcm->id }}" data-color="{{ $etatRealisationQcm->sysColor?->hex }}" 
                         {{ (isset($itemRealisationQcm) && $itemRealisationQcm->etat_realisation_qcm_id == $etatRealisationQcm->id) || (old('etat_realisation_qcm_id>') == $etatRealisationQcm->id) ? 'selected' : '' }}>
                         {{ $etatRealisationQcm }}
                     </option>

@@ -162,7 +162,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($phaseEvaluations as $phaseEvaluation)
-                    <option value="{{ $phaseEvaluation->id }}"
+                    <option value="{{ $phaseEvaluation->id }}" 
                         {{ (isset($itemCritereEvaluation) && $itemCritereEvaluation->phase_evaluation_id == $phaseEvaluation->id) || (old('phase_evaluation_id>') == $phaseEvaluation->id) ? 'selected' : '' }}>
                         {{ $phaseEvaluation }}
                     </option>
@@ -202,7 +202,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($uniteApprentissages as $uniteApprentissage)
-                    <option value="{{ $uniteApprentissage->id }}"
+                    <option value="{{ $uniteApprentissage->id }}" 
                         {{ (isset($itemCritereEvaluation) && $itemCritereEvaluation->unite_apprentissage_id == $uniteApprentissage->id) || (old('unite_apprentissage_id>') == $uniteApprentissage->id) ? 'selected' : '' }}>
                         {{ $uniteApprentissage }}
                     </option>

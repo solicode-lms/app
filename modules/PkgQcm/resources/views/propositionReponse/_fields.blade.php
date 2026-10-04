@@ -127,7 +127,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($questions as $question)
-                    <option value="{{ $question->id }}"
+                    <option value="{{ $question->id }}" 
                         {{ (isset($itemPropositionReponse) && $itemPropositionReponse->question_id == $question->id) || (old('question_id>') == $question->id) ? 'selected' : '' }}>
                         {{ $question }}
                     </option>

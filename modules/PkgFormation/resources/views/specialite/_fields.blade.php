@@ -126,7 +126,7 @@
                 multiple="multiple">
                
                 @foreach ($formateurs as $formateur)
-                    <option value="{{ $formateur->id }}"
+                    <option value="{{ $formateur->id }}" 
                         {{ (isset($itemSpecialite) && $itemSpecialite->formateurs && $itemSpecialite->formateurs->contains('id', $formateur->id)) || (is_array(old('formateurs')) && in_array($formateur->id, old('formateurs'))) ? 'selected' : '' }}>
                         {{ $formateur }}
                     </option>

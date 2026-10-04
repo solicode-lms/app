@@ -57,7 +57,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($natureLivrables as $natureLivrable)
-                    <option value="{{ $natureLivrable->id }}"
+                    <option value="{{ $natureLivrable->id }}" 
                         {{ (isset($itemLivrable) && $itemLivrable->nature_livrable_id == $natureLivrable->id) || (old('nature_livrable_id>') == $natureLivrable->id) ? 'selected' : '' }}>
                         {{ $natureLivrable }}
                     </option>
@@ -132,7 +132,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($projets as $projet)
-                    <option value="{{ $projet->id }}"
+                    <option value="{{ $projet->id }}" 
                         {{ (isset($itemLivrable) && $itemLivrable->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
                         {{ $projet }}
                     </option>
@@ -242,7 +242,7 @@
                 multiple="multiple">
                
                 @foreach ($taches as $tache)
-                    <option value="{{ $tache->id }}"
+                    <option value="{{ $tache->id }}" 
                         {{ (isset($itemLivrable) && $itemLivrable->taches && $itemLivrable->taches->contains('id', $tache->id)) || (is_array(old('taches')) && in_array($tache->id, old('taches'))) ? 'selected' : '' }}>
                         {{ $tache }}
                     </option>

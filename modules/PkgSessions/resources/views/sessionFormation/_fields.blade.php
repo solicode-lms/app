@@ -511,7 +511,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($filieres as $filiere)
-                    <option value="{{ $filiere->id }}"
+                    <option value="{{ $filiere->id }}" 
                         {{ (isset($itemSessionFormation) && $itemSessionFormation->filiere_id == $filiere->id) || (old('filiere_id>') == $filiere->id) ? 'selected' : '' }}>
                         {{ $filiere }}
                     </option>
@@ -657,7 +657,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($anneeFormations as $anneeFormation)
-                    <option value="{{ $anneeFormation->id }}"
+                    <option value="{{ $anneeFormation->id }}" 
                         {{ (isset($itemSessionFormation) && $itemSessionFormation->annee_formation_id == $anneeFormation->id) || (old('annee_formation_id>') == $anneeFormation->id) ? 'selected' : '' }}>
                         {{ $anneeFormation }}
                     </option>

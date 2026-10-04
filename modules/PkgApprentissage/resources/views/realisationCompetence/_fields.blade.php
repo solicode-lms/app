@@ -57,7 +57,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($competences as $competence)
-                    <option value="{{ $competence->id }}"
+                    <option value="{{ $competence->id }}" 
                         {{ (isset($itemRealisationCompetence) && $itemRealisationCompetence->competence_id == $competence->id) || (old('competence_id>') == $competence->id) ? 'selected' : '' }}>
                         {{ $competence }}
                     </option>
@@ -97,7 +97,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($realisationModules as $realisationModule)
-                    <option value="{{ $realisationModule->id }}"
+                    <option value="{{ $realisationModule->id }}" 
                         {{ (isset($itemRealisationCompetence) && $itemRealisationCompetence->realisation_module_id == $realisationModule->id) || (old('realisation_module_id>') == $realisationModule->id) ? 'selected' : '' }}>
                         {{ $realisationModule }}
                     </option>
@@ -137,7 +137,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($apprenants as $apprenant)
-                    <option value="{{ $apprenant->id }}"
+                    <option value="{{ $apprenant->id }}" 
                         {{ (isset($itemRealisationCompetence) && $itemRealisationCompetence->apprenant_id == $apprenant->id) || (old('apprenant_id>') == $apprenant->id) ? 'selected' : '' }}>
                         {{ $apprenant }}
                     </option>
@@ -249,7 +249,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($etatRealisationCompetences as $etatRealisationCompetence)
-                    <option value="{{ $etatRealisationCompetence->id }}"
+                    <option value="{{ $etatRealisationCompetence->id }}" data-color="{{ $etatRealisationCompetence->sysColor?->hex }}" 
                         {{ (isset($itemRealisationCompetence) && $itemRealisationCompetence->etat_realisation_competence_id == $etatRealisationCompetence->id) || (old('etat_realisation_competence_id>') == $etatRealisationCompetence->id) ? 'selected' : '' }}>
                         {{ $etatRealisationCompetence }}
                     </option>

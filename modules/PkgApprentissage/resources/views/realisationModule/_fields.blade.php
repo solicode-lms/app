@@ -57,7 +57,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($modules as $module)
-                    <option value="{{ $module->id }}"
+                    <option value="{{ $module->id }}" 
                         {{ (isset($itemRealisationModule) && $itemRealisationModule->module_id == $module->id) || (old('module_id>') == $module->id) ? 'selected' : '' }}>
                         {{ $module }}
                     </option>
@@ -97,7 +97,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($apprenants as $apprenant)
-                    <option value="{{ $apprenant->id }}"
+                    <option value="{{ $apprenant->id }}" 
                         {{ (isset($itemRealisationModule) && $itemRealisationModule->apprenant_id == $apprenant->id) || (old('apprenant_id>') == $apprenant->id) ? 'selected' : '' }}>
                         {{ $apprenant }}
                     </option>
@@ -173,7 +173,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($etatRealisationModules as $etatRealisationModule)
-                    <option value="{{ $etatRealisationModule->id }}"
+                    <option value="{{ $etatRealisationModule->id }}" data-color="{{ $etatRealisationModule->sysColor?->hex }}" 
                         {{ (isset($itemRealisationModule) && $itemRealisationModule->etat_realisation_module_id == $etatRealisationModule->id) || (old('etat_realisation_module_id>') == $etatRealisationModule->id) ? 'selected' : '' }}>
                         {{ $etatRealisationModule }}
                     </option>

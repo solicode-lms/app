@@ -57,7 +57,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($livrables as $livrable)
-                    <option value="{{ $livrable->id }}"
+                    <option value="{{ $livrable->id }}" 
                         {{ (isset($itemLivrablesRealisation) && $itemLivrablesRealisation->livrable_id == $livrable->id) || (old('livrable_id>') == $livrable->id) ? 'selected' : '' }}>
                         {{ $livrable }}
                     </option>
@@ -201,7 +201,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($realisationProjets as $realisationProjet)
-                    <option value="{{ $realisationProjet->id }}"
+                    <option value="{{ $realisationProjet->id }}" 
                         {{ (isset($itemLivrablesRealisation) && $itemLivrablesRealisation->realisation_projet_id == $realisationProjet->id) || (old('realisation_projet_id>') == $realisationProjet->id) ? 'selected' : '' }}>
                         {{ $realisationProjet }}
                     </option>

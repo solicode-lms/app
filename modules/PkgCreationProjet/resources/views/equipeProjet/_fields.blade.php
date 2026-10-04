@@ -92,7 +92,7 @@
                 multiple="multiple">
                
                 @foreach ($apprenants as $apprenant)
-                    <option value="{{ $apprenant->id }}"
+                    <option value="{{ $apprenant->id }}" 
                         {{ (isset($itemEquipeProjet) && $itemEquipeProjet->apprenants && $itemEquipeProjet->apprenants->contains('id', $apprenant->id)) || (is_array(old('apprenants')) && in_array($apprenant->id, old('apprenants'))) ? 'selected' : '' }}>
                         {{ $apprenant }}
                     </option>
@@ -206,7 +206,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($projets as $projet)
-                    <option value="{{ $projet->id }}"
+                    <option value="{{ $projet->id }}" 
                         {{ (isset($itemEquipeProjet) && $itemEquipeProjet->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
                         {{ $projet }}
                     </option>

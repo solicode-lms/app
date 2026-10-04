@@ -197,7 +197,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($ePackages as $ePackage)
-                    <option value="{{ $ePackage->id }}"
+                    <option value="{{ $ePackage->id }}" 
                         {{ (isset($itemEModel) && $itemEModel->e_package_id == $ePackage->id) || (old('e_package_id>') == $ePackage->id) ? 'selected' : '' }}>
                         {{ $ePackage }}
                     </option>
