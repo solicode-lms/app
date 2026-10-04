@@ -1,4 +1,4 @@
-<article class="tache-card">
+<article class="tache-card" @if(isset($equipe)) style="border-left: 4px solid {{ $equipeColor }}; border-radius: 4px;" @endif>
     <header class="tache-header">
         @php
             $realisationChapitre = $entity->realisationChapitres?->first();
@@ -29,6 +29,10 @@
                     'filter.realisationTache.RealisationProjet.Apprenant_id'          => $apprenantId,
                   ])
                 : null;
+                
+            // Equipe
+            $equipe = $tacheRef?->equipeProjet;
+            $equipeColor = $equipe?->sysColor?->hex ?? '#17a2b8'; // Fallback color
         @endphp
 
         <h2 class="tache-titre d-flex align-items-center gap-1">
@@ -118,6 +122,17 @@
         {{-- Mobilisation UA --}}
         @if($tacheRef && $tacheRef->mobilisationUa)
             <div class="text-primary mt-1"><i class="fas fa-cubes mr-1"></i> <strong>Mobilisation UA :</strong> {{ $tacheRef->mobilisationUa }}</div>
+        @endif
+
+        {{-- Equipe --}}
+        @if(isset($equipe))
+            <div class="mt-1 d-flex align-items-center gap-1">
+                <i class="fas fa-users" style="color: {{ $equipeColor }};"></i>
+                <strong style="color: {{ $equipeColor }};">Équipe :</strong>
+                <span class="badge" style="background-color: {{ $equipeColor }}; color: #fff;" data-toggle="tooltip" title="{{ $equipe->description }}">
+                    {{ $equipe->nom }}
+                </span>
+            </div>
         @endif
 
         {{-- Apprenant = lien filtre projet+apprenant --}}
