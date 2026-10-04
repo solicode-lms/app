@@ -13,7 +13,7 @@ description: Expert de l'analyse métier, de la conception architecturale, et de
 2. **Cohérence UML/Texte** : Ne jamais ajouter une règle métier dans le texte sans vérifier qu'elle se reflète dans le diagramme de classes (et inversement), à l'exception des issues non développées.
 3. **Miroir du Code (RÈGLE STRICTE)** : Le diagramme de classe Mermaid doit refléter **strictement** le code réel existant de l'application. Ne jamais modifier le diagramme pour y ajouter des concepts futurs. La modification du diagramme se fait *uniquement* après la réalisation effective de l'issue dans le code. Les propositions de modifications doivent être documentées dans un dossier nommé `issues`.
 4. **Format des Diagrammes** : Toujours utiliser le format **Mermaid** (`classDiagram`) pour dessiner ou modifier les diagrammes de classes, afin de garantir leur rendu natif dans les fichiers Markdown.
-
+5. **Planification des Sprints (Base de Données)** : Lors de la division d'un cahier des charges en sprints de réalisation, **toutes les modifications de la base de données (migrations) doivent obligatoirement être regroupées dans le premier sprint (Sprint 1)**. Il est interdit de répartir la création ou la modification de la base de données sur plusieurs sprints. Le Sprint 1 doit toujours se conclure par la synchronisation Gapp (`meta:sync`) et la génération des CRUD.
 ## ⚡ Actions (Orchestration)
 
 ### Action A : Révision et Modification de Conception
