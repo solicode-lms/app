@@ -46,3 +46,27 @@ php artisan db:seed --class=Modules\PkgCompetences\Database\Seeders\PhaseEvaluat
 
 sudo php artisan db:seed --class=Modules\\PkgCompetences\\Database\\Seeders\\PhaseEvaluationSeeder
 ```
+
+
+----
+
+# équipe 
+
+
+php artisan db:seed --class=Modules\\PkgCreationProjet\\Database\\Seeders\\
+
+```bash
+php artisan db:seed --class=Modules\PkgCreationProjet\Database\Seeders\EquipeProjetSeeder
+
+sudo php artisan db:seed --class=Modules\\PkgCreationProjet\\Database\\Seeders\\EquipeProjetSeeder
+```
+
+## Ajouter les droit d'accès 
+
+- Formateur 
+   - EquipeProjet - Édition (Feature Édition for EquipeProjet)
+
+pour les autre : Admin, Apprenant 
+
+
+- 
