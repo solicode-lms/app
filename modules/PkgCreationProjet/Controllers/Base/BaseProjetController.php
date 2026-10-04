@@ -116,12 +116,12 @@ class BaseProjetController extends AdminController
 
 
         $filieres = $this->filiereService->all();
-        $sessionFormations = $this->sessionFormationService->all();
         $groupes = $this->groupeService->all();
+        $sessionFormations = $this->sessionFormationService->all();
         $formateurs = $this->formateurService->all();
 
         $bulkEdit = false;
-        return compact('bulkEdit' ,'itemProjet', 'filieres', 'sessionFormations', 'groupes', 'formateurs');
+        return compact('bulkEdit' ,'itemProjet', 'filieres', 'groupes', 'sessionFormations', 'formateurs');
 
     }
     /**
@@ -164,8 +164,8 @@ class BaseProjetController extends AdminController
          
  
         $filieres = $this->filiereService->getAllForSelect($itemProjet->filiere);
-        $sessionFormations = $this->sessionFormationService->getAllForSelect($itemProjet->sessionFormation);
         $groupes = $this->groupeService->getAllForSelect($itemProjet->groupe);
+        $sessionFormations = $this->sessionFormationService->getAllForSelect($itemProjet->sessionFormation);
         $formateurs = $this->formateurService->getAllForSelect($itemProjet->formateur);
 
         $bulkEdit = true;
@@ -174,9 +174,9 @@ class BaseProjetController extends AdminController
         $itemProjet = $this->projetService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._fields', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'sessionFormations', 'groupes', 'formateurs'));
+            return view('PkgCreationProjet::projet._fields', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'groupes', 'sessionFormations', 'formateurs'));
         }
-        return view('PkgCreationProjet::projet.bulk-edit', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'sessionFormations', 'groupes', 'formateurs'));
+        return view('PkgCreationProjet::projet.bulk-edit', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'groupes', 'sessionFormations', 'formateurs'));
     }
     /**
      */
@@ -292,8 +292,8 @@ class BaseProjetController extends AdminController
 
 
         $filieres = $this->filiereService->getAllForSelect($itemProjet->filiere);
-        $sessionFormations = $this->sessionFormationService->getAllForSelect($itemProjet->sessionFormation);
         $groupes = $this->groupeService->getAllForSelect($itemProjet->groupe);
+        $sessionFormations = $this->sessionFormationService->getAllForSelect($itemProjet->sessionFormation);
         $formateurs = $this->formateurService->getAllForSelect($itemProjet->formateur);
 
 
@@ -352,7 +352,7 @@ class BaseProjetController extends AdminController
 
         $bulkEdit = false;
 
-        $viewData = array_merge(compact('bulkEdit' , 'itemProjet','filieres', 'sessionFormations', 'groupes', 'formateurs'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $equipeProjet_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value);
+        $viewData = array_merge(compact('bulkEdit' , 'itemProjet','filieres', 'groupes', 'sessionFormations', 'formateurs'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $equipeProjet_compact_value, $tache_compact_value, $labelProjet_compact_value, $livrable_compact_value, $resource_compact_value);
 
         return $viewData;
 

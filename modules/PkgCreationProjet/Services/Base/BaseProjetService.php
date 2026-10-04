@@ -26,9 +26,9 @@ class BaseProjetService extends BaseService
      */
     protected $fieldsSearchable = [
         'filiere_id',
+        'groupe_id',
         'session_formation_id',
         'titre',
-        'groupe_id',
         'travail_a_faire',
         'critere_de_travail',
         'formateur_id',
@@ -131,23 +131,6 @@ class BaseProjetService extends BaseService
                 }
             
             
-                if (!array_key_exists('session_formation_id', $scopeVariables)) {
-
-
-                    $sessionFormationService = new \Modules\PkgSessions\Services\SessionFormationService();
-                    $sessionFormationIds = $this->getAvailableFilterValues('session_formation_id');
-                    $sessionFormations = $sessionFormationService->getByIds($sessionFormationIds);
-
-                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgSessions::sessionFormation.plural"), 
-                        'session_formation_id', 
-                        \Modules\PkgSessions\Models\SessionFormation::class, 
-                        'code',
-                        $sessionFormations
-                    );
-                }
-            
-            
                 if (!array_key_exists('groupe_id', $scopeVariables)) {
 
 
@@ -161,6 +144,23 @@ class BaseProjetService extends BaseService
                         \Modules\PkgApprenants\Models\Groupe::class, 
                         'code',
                         $groupes
+                    );
+                }
+            
+            
+                if (!array_key_exists('session_formation_id', $scopeVariables)) {
+
+
+                    $sessionFormationService = new \Modules\PkgSessions\Services\SessionFormationService();
+                    $sessionFormationIds = $this->getAvailableFilterValues('session_formation_id');
+                    $sessionFormations = $sessionFormationService->getByIds($sessionFormationIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgSessions::sessionFormation.plural"), 
+                        'session_formation_id', 
+                        \Modules\PkgSessions\Models\SessionFormation::class, 
+                        'code',
+                        $sessionFormations
                     );
                 }
             
@@ -382,8 +382,8 @@ class BaseProjetService extends BaseService
     {
         // Champs considérés comme inline
         $inlineFields = [
-            'titre',
             'groupe_id',
+            'titre',
             'Tache',
             'Livrable'
         ];
@@ -424,8 +424,6 @@ class BaseProjetService extends BaseService
         ];
 
        switch ($field) {
-            case 'titre':
-                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'groupe_id':
                  $values = (new \Modules\PkgApprenants\Services\GroupeService())
                     ->getAllForSelect($e->groupe)
@@ -442,6 +440,8 @@ class BaseProjetService extends BaseService
                         'values' => $values,
                     ],
                 ]);
+            case 'titre':
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'Tache':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'Livrable':
@@ -485,15 +485,6 @@ class BaseProjetService extends BaseService
 
         foreach ($fields as $field) {
             switch ($field) {
-                case 'titre':
-                    // Vue custom définie pour ce champ
-                    $html = view('PkgCreationProjet::projet.custom.fields.titre', [
-                        'entity' => $e
-                    ])->render();
-
-                    $out[$field] = ['html' => $html];
-                    break;
-
                 case 'groupe_id':
                     $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
@@ -505,6 +496,15 @@ class BaseProjetService extends BaseService
                     break;
 
 
+
+                case 'titre':
+                    // Vue custom définie pour ce champ
+                    $html = view('PkgCreationProjet::projet.custom.fields.titre', [
+                        'entity' => $e
+                    ])->render();
+
+                    $out[$field] = ['html' => $html];
+                    break;
 
                 case 'Tache':
                     // Vue custom définie pour ce champ

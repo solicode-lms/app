@@ -33,9 +33,9 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         if ($this->format === 'csv') {
             return [
                 'filiere_reference' => 'filiere_reference',
+                'groupe_reference' => 'groupe_reference',
                 'session_formation_reference' => 'session_formation_reference',
                 'titre' => 'titre',
-                'groupe_reference' => 'groupe_reference',
                 'travail_a_faire' => 'travail_a_faire',
                 'critere_de_travail' => 'critere_de_travail',
                 'formateur_reference' => 'formateur_reference',
@@ -47,9 +47,9 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         } else {
             return [
                 'filiere_reference' => __('PkgFormation::filiere.singular'),
+                'groupe_reference' => __('PkgApprenants::groupe.singular'),
                 'session_formation_reference' => __('PkgSessions::sessionFormation.singular'),
                 'titre' => __('PkgCreationProjet::projet.titre'),
-                'groupe_reference' => __('PkgApprenants::groupe.singular'),
                 'travail_a_faire' => __('PkgCreationProjet::projet.travail_a_faire'),
                 'critere_de_travail' => __('PkgCreationProjet::projet.critere_de_travail'),
                 'formateur_reference' => __('PkgFormation::formateur.singular'),
@@ -69,9 +69,9 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         return $this->data->map(function ($projet) {
             return [
                 'filiere_reference' => $projet->filiere?->reference,
+                'groupe_reference' => $projet->groupe?->reference,
                 'session_formation_reference' => $projet->sessionFormation?->reference,
                 'titre' => $projet->titre,
-                'groupe_reference' => $projet->groupe?->reference,
                 'travail_a_faire' => $projet->travail_a_faire,
                 'critere_de_travail' => $projet->critere_de_travail,
                 'formateur_reference' => $projet->formateur?->reference,

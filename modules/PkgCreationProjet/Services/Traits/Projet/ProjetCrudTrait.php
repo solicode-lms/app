@@ -17,12 +17,20 @@ trait ProjetCrudTrait
     {
         $projet = parent::createInstance($data);
 
-        // Si le formateur n'enseigne qu'une seule filière, on la sélectionne par défaut
+        // Pré-remplir la filière et le groupe par défaut pour le formateur
         $user = \Illuminate\Support\Facades\Auth::user();
         if ($user && $user->hasRole('formateur')) {
             $formateur = \Modules\PkgFormation\Models\Formateur::where('user_id', $user->id)->first();
             if ($formateur) {
-                $filiereIds = $formateur->groupes()->pluck('filiere_id')->unique();
+                $groupes = $formateur->groupes;
+                
+                // Si un seul groupe, on le sélectionne par défaut
+                if ($groupes->count() === 1) {
+                    $projet->groupe_id = $groupes->first()->id;
+                }
+                
+                // Si une seule filière parmi tous ses groupes, on la sélectionne
+                $filiereIds = $groupes->pluck('filiere_id')->unique();
                 if ($filiereIds->count() === 1) {
                     $projet->filiere_id = $filiereIds->first();
                 }
