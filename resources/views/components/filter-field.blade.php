@@ -1,5 +1,7 @@
-
-<div class="filter-field col-md-3 mb-1 mt-1">
+@php
+    $isHidden = isset($options) && count($options) === 0 && in_array($type, ['Relation', 'ManyToOne', 'ManyToMany', 'Polymorphic']);
+@endphp
+<div class="filter-field col-md-3 mb-1 mt-1 {{ $isHidden ? 'd-none' : '' }}">
     @switch($type)
         @case('String')
             <input type="text" 

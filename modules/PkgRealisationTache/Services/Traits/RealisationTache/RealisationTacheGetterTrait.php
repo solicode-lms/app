@@ -152,10 +152,35 @@ trait RealisationTacheGetterTrait
             "id",
             "id",
             $affectationProjets,
-            "[name='tache_id'],[name='etat_realisation_tache_id'],[name='label_projet_id']",
-            route('taches.getData') . "," . route('etatRealisationTaches.getData') . "," . route('labelProjets.getData'),
-            "projet.affectationProjets.id,formateur.projets.affectationProjets.id,projet.affectationProjets.id"
+            "[name='tache_id'],[name='etat_realisation_tache_id'],[name='label_projet_id'],[name='tache.equipe_projet_id']",
+            route('taches.getData') . "," . route('etatRealisationTaches.getData') . "," . route('labelProjets.getData') . "," . route('equipeProjets.getData'),
+            "projet.affectationProjets.id,formateur.projets.affectationProjets.id,projet.affectationProjets.id,projet.affectationProjets.id"
         );
+
+        // --- FILTRE EQUIPE PROJET ---
+        $affectationProjetId = $this->viewState->get(
+            'filter.realisationTache.RealisationProjet.Affectation_projet_id'
+        );
+
+        $equipeProjets = collect();
+        if (!empty($affectationProjetId)) {
+            $affectationProjet = $affectationProjetService->find($affectationProjetId);
+            $projet = $affectationProjet?->projet;
+            if ($projet) {
+                $equipeProjets = $projet->equipeProjets;
+            }
+        }
+
+        $filterEquipe = $this->generateRelationFilter(
+            __("PkgCreationProjet::equipeProjet.singular"),
+            'tache.equipe_projet_id',
+            \Modules\PkgCreationProjet\Models\EquipeProjet::class,
+            "titre",
+            "id",
+            $equipeProjets
+        );
+        $filterEquipe['hidden'] = $equipeProjets->isEmpty(); // Proposé pour Gapp : cacher si vide
+        $this->fieldsFilterable[] = $filterEquipe;
 
         // --- ETAT REALISATION TACHE : choix selon AffectationProjet, Formateur ou Apprenant ---
         $affectationProjetId = $this->viewState->get(

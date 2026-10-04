@@ -182,6 +182,20 @@ _populate(selectEl, items) {
       ? prev
       : '';
   }
+
+  // ⑥ Afficher ou masquer le conteneur parent en fonction du nombre d'options
+  // Si le dropdown ne contient qu'une seule option (l'option vide/tous), on le cache.
+  const filterContainer = selectEl.closest('.form-group') || selectEl.closest('div');
+  if (filterContainer) {
+    // Dans le cas de select simple, option.length <= 1 veut dire vide. 
+    // Pour multiple, <= 0 veut dire vide.
+    const threshold = isMultiple ? 0 : 1;
+    if (selectEl.options.length <= threshold) {
+      filterContainer.classList.add('d-none');
+    } else {
+      filterContainer.classList.remove('d-none');
+    }
+  }
 }
 
 
