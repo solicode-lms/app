@@ -248,6 +248,8 @@ class BaseSysModelService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('sysModel');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'sysModel_viewTypes',
@@ -260,7 +262,8 @@ class BaseSysModelService extends BaseService
             'sysModel_title',
             'contextKey',
             'sysModels_permissions',
-            'sysModels_permissionsByItem'
+            'sysModels_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

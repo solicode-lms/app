@@ -226,6 +226,8 @@ class BaseSpecialiteService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('specialite');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'specialite_viewTypes',
@@ -238,7 +240,8 @@ class BaseSpecialiteService extends BaseService
             'specialite_title',
             'contextKey',
             'specialites_permissions',
-            'specialites_permissionsByItem'
+            'specialites_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

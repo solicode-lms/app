@@ -75,21 +75,29 @@ class BaseFeatureController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemFeature = $this->featureService->createInstance();
- 
+
 
         $featureDomains = $this->featureDomainService->all();
         $permissions = $this->permissionService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemFeature', 'featureDomains', 'permissions');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('Core::feature._fields', compact('bulkEdit' ,'itemFeature', 'featureDomains', 'permissions'));
+            return view('Core::feature._fields', $viewData);
         }
-        return view('Core::feature.create', compact('bulkEdit' ,'itemFeature', 'featureDomains', 'permissions'));
+
+        return view('Core::feature.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -154,23 +162,30 @@ class BaseFeatureController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('feature.show_' . $id);
 
         $itemFeature = $this->featureService->edit($id);
 
 
-        if (request()->ajax()) {
-            return view('Core::feature._show', array_merge(compact('itemFeature'),));
-        }
-
-        return view('Core::feature.show', array_merge(compact('itemFeature'),));
+        return array_merge(compact('itemFeature'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('Core::feature._show', $viewData);
+        }
+
+        return view('Core::feature.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('feature.edit_' . $id);
 
@@ -184,12 +199,21 @@ class BaseFeatureController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemFeature','featureDomains', 'permissions'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('Core::feature._fields', array_merge(compact('bulkEdit' , 'itemFeature','featureDomains', 'permissions'),));
+            return view('Core::feature._fields', $viewData);
         }
 
-        return view('Core::feature.edit', array_merge(compact('bulkEdit' ,'itemFeature','featureDomains', 'permissions'),));
-
+        return view('Core::feature.edit', $viewData);
 
     }
     /**

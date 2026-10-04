@@ -83,12 +83,11 @@ class BaseGroupeController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemGroupe = $this->groupeService->createInstance();
- 
+
 
         $filieres = $this->filiereService->all();
         $anneeFormations = $this->anneeFormationService->all();
@@ -96,10 +95,19 @@ class BaseGroupeController extends AdminController
         $formateurs = $this->formateurService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemGroupe', 'filieres', 'anneeFormations', 'apprenants', 'formateurs');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._fields', compact('bulkEdit' ,'itemGroupe', 'filieres', 'anneeFormations', 'apprenants', 'formateurs'));
+            return view('PkgApprenants::groupe._fields', $viewData);
         }
-        return view('PkgApprenants::groupe.create', compact('bulkEdit' ,'itemGroupe', 'filieres', 'anneeFormations', 'apprenants', 'formateurs'));
+
+        return view('PkgApprenants::groupe.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -166,37 +174,44 @@ class BaseGroupeController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('groupe.show_' . $id);
 
         $itemGroupe = $this->groupeService->edit($id);
 
 
         $this->viewState->set('scope.affectationProjet.groupe_id', $id);
-        
+
 
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
         extract($affectationProjets_view_data);
 
         $this->viewState->set('scope.sousGroupe.groupe_id', $id);
-        
+
 
         $sousGroupeService =  new SousGroupeService();
         $sousGroupes_view_data = $sousGroupeService->prepareDataForIndexView();
         extract($sousGroupes_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgApprenants::groupe._show', array_merge(compact('itemGroupe'),$affectationProjet_compact_value, $sousGroupe_compact_value));
-        }
-
-        return view('PkgApprenants::groupe.show', array_merge(compact('itemGroupe'),$affectationProjet_compact_value, $sousGroupe_compact_value));
+        return array_merge(compact('itemGroupe'),$affectationProjet_compact_value, $sousGroupe_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgApprenants::groupe._show', $viewData);
+        }
+
+        return view('PkgApprenants::groupe.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('groupe.edit_' . $id);
 
@@ -226,12 +241,21 @@ class BaseGroupeController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemGroupe','filieres', 'anneeFormations', 'apprenants', 'formateurs'),$affectationProjet_compact_value, $sousGroupe_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._edit', array_merge(compact('bulkEdit' , 'itemGroupe','filieres', 'anneeFormations', 'apprenants', 'formateurs'),$affectationProjet_compact_value, $sousGroupe_compact_value));
+            return view('PkgApprenants::groupe._edit', $viewData);
         }
 
-        return view('PkgApprenants::groupe.edit', array_merge(compact('bulkEdit' ,'itemGroupe','filieres', 'anneeFormations', 'apprenants', 'formateurs'),$affectationProjet_compact_value, $sousGroupe_compact_value));
-
+        return view('PkgApprenants::groupe.edit', $viewData);
 
     }
     /**

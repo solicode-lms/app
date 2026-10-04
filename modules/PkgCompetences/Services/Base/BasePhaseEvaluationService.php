@@ -213,6 +213,8 @@ class BasePhaseEvaluationService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('phaseEvaluation');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'phaseEvaluation_viewTypes',
@@ -225,7 +227,8 @@ class BasePhaseEvaluationService extends BaseService
             'phaseEvaluation_title',
             'contextKey',
             'phaseEvaluations_permissions',
-            'phaseEvaluations_permissionsByItem'
+            'phaseEvaluations_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

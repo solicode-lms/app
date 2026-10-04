@@ -249,6 +249,8 @@ class BaseMobilisationUaService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('mobilisationUa');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'mobilisationUa_viewTypes',
@@ -261,7 +263,8 @@ class BaseMobilisationUaService extends BaseService
             'mobilisationUa_title',
             'contextKey',
             'mobilisationUas_permissions',
-            'mobilisationUas_permissionsByItem'
+            'mobilisationUas_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

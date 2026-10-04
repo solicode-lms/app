@@ -76,24 +76,32 @@ class BaseResourceController extends AdminController
     }
     /**
      */
-    public function create() {
+    protected function dataForCreateView() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->set('scope_form.resource.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
-
         // scopeDataByRole
         $itemResource = $this->resourceService->createInstance();
- 
+
 
         $projets = $this->projetService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemResource', 'projets');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgCreationProjet::resource._fields', compact('bulkEdit' ,'itemResource', 'projets'));
+            return view('PkgCreationProjet::resource._fields', $viewData);
         }
-        return view('PkgCreationProjet::resource.create', compact('bulkEdit' ,'itemResource', 'projets'));
+
+        return view('PkgCreationProjet::resource.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -161,24 +169,31 @@ class BaseResourceController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('resource.show_' . $id);
 
         $itemResource = $this->resourceService->edit($id);
         $this->authorize('view', $itemResource);
 
 
-        if (request()->ajax()) {
-            return view('PkgCreationProjet::resource._show', array_merge(compact('itemResource'),));
-        }
-
-        return view('PkgCreationProjet::resource.show', array_merge(compact('itemResource'),));
+        return array_merge(compact('itemResource'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::resource._show', $viewData);
+        }
+
+        return view('PkgCreationProjet::resource.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('resource.edit_' . $id);
 
@@ -192,12 +207,21 @@ class BaseResourceController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemResource','projets'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgCreationProjet::resource._fields', array_merge(compact('bulkEdit' , 'itemResource','projets'),));
+            return view('PkgCreationProjet::resource._fields', $viewData);
         }
 
-        return view('PkgCreationProjet::resource.edit', array_merge(compact('bulkEdit' ,'itemResource','projets'),));
-
+        return view('PkgCreationProjet::resource.edit', $viewData);
 
     }
     /**

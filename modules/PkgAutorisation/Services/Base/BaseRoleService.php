@@ -210,6 +210,8 @@ class BaseRoleService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('role');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'role_viewTypes',
@@ -222,7 +224,8 @@ class BaseRoleService extends BaseService
             'role_title',
             'contextKey',
             'roles_permissions',
-            'roles_permissionsByItem'
+            'roles_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

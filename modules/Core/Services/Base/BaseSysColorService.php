@@ -210,6 +210,8 @@ class BaseSysColorService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('sysColor');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'sysColor_viewTypes',
@@ -222,7 +224,8 @@ class BaseSysColorService extends BaseService
             'sysColor_title',
             'contextKey',
             'sysColors_permissions',
-            'sysColors_permissionsByItem'
+            'sysColors_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

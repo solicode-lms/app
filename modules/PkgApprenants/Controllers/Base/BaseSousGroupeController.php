@@ -76,21 +76,29 @@ class BaseSousGroupeController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemSousGroupe = $this->sousGroupeService->createInstance();
- 
+
 
         $groupes = $this->groupeService->all();
         $apprenants = $this->apprenantService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemSousGroupe', 'groupes', 'apprenants');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgApprenants::sousGroupe._fields', compact('bulkEdit' ,'itemSousGroupe', 'groupes', 'apprenants'));
+            return view('PkgApprenants::sousGroupe._fields', $viewData);
         }
-        return view('PkgApprenants::sousGroupe.create', compact('bulkEdit' ,'itemSousGroupe', 'groupes', 'apprenants'));
+
+        return view('PkgApprenants::sousGroupe.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -155,30 +163,37 @@ class BaseSousGroupeController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('sousGroupe.show_' . $id);
 
         $itemSousGroupe = $this->sousGroupeService->edit($id);
 
 
         $this->viewState->set('scope.affectationProjet.sous_groupe_id', $id);
-        
+
 
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
         extract($affectationProjets_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgApprenants::sousGroupe._show', array_merge(compact('itemSousGroupe'),$affectationProjet_compact_value));
-        }
-
-        return view('PkgApprenants::sousGroupe.show', array_merge(compact('itemSousGroupe'),$affectationProjet_compact_value));
+        return array_merge(compact('itemSousGroupe'),$affectationProjet_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgApprenants::sousGroupe._show', $viewData);
+        }
+
+        return view('PkgApprenants::sousGroupe.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('sousGroupe.edit_' . $id);
 
@@ -199,12 +214,21 @@ class BaseSousGroupeController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemSousGroupe','groupes', 'apprenants'),$affectationProjet_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgApprenants::sousGroupe._edit', array_merge(compact('bulkEdit' , 'itemSousGroupe','groupes', 'apprenants'),$affectationProjet_compact_value));
+            return view('PkgApprenants::sousGroupe._edit', $viewData);
         }
 
-        return view('PkgApprenants::sousGroupe.edit', array_merge(compact('bulkEdit' ,'itemSousGroupe','groupes', 'apprenants'),$affectationProjet_compact_value));
-
+        return view('PkgApprenants::sousGroupe.edit', $viewData);
 
     }
     /**

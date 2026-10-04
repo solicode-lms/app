@@ -86,7 +86,7 @@ class BaseProfileController extends AdminController
     }
     /**
      */
-    public function create() {
+    protected function dataForCreateView() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->set('scope_form.profile.user_id'  , $this->sessionState->get('user_id'));
@@ -94,7 +94,6 @@ class BaseProfileController extends AdminController
         if(Auth::user()->hasRole('apprenant')){
            $this->viewState->set('scope_form.profile.user_id'  , $this->sessionState->get('user_id'));
         }
-
 
         // scopeDataByRole
         if(Auth::user()->hasRole('formateur')){
@@ -104,15 +103,24 @@ class BaseProfileController extends AdminController
             $this->viewState->set('scope.user.apprenant.id'  , $this->sessionState->get('apprenant_id'));
         }
         $itemProfile = $this->profileService->createInstance();
- 
+
 
         $users = $this->userService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemProfile', 'users');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgAutorisation::profile._fields', compact('bulkEdit' ,'itemProfile', 'users'));
+            return view('PkgAutorisation::profile._fields', $viewData);
         }
-        return view('PkgAutorisation::profile.create', compact('bulkEdit' ,'itemProfile', 'users'));
+
+        return view('PkgAutorisation::profile.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -189,24 +197,31 @@ class BaseProfileController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('profile.show_' . $id);
 
         $itemProfile = $this->profileService->edit($id);
         $this->authorize('view', $itemProfile);
 
 
-        if (request()->ajax()) {
-            return view('PkgAutorisation::profile._show', array_merge(compact('itemProfile'),));
-        }
-
-        return view('PkgAutorisation::profile.show', array_merge(compact('itemProfile'),));
+        return array_merge(compact('itemProfile'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgAutorisation::profile._show', $viewData);
+        }
+
+        return view('PkgAutorisation::profile.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('profile.edit_' . $id);
 
@@ -226,12 +241,21 @@ class BaseProfileController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemProfile','users'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgAutorisation::profile._fields', array_merge(compact('bulkEdit' , 'itemProfile','users'),));
+            return view('PkgAutorisation::profile._fields', $viewData);
         }
 
-        return view('PkgAutorisation::profile.edit', array_merge(compact('bulkEdit' ,'itemProfile','users'),));
-
+        return view('PkgAutorisation::profile.edit', $viewData);
 
     }
     /**

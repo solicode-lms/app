@@ -320,6 +320,8 @@ class BaseRealisationQcmService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('realisationQcm');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'realisationQcm_viewTypes',
@@ -332,7 +334,8 @@ class BaseRealisationQcmService extends BaseService
             'realisationQcm_title',
             'contextKey',
             'realisationQcms_permissions',
-            'realisationQcms_permissionsByItem'
+            'realisationQcms_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

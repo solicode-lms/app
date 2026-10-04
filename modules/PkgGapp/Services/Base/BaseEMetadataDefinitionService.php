@@ -223,6 +223,8 @@ class BaseEMetadataDefinitionService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('eMetadataDefinition');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'eMetadataDefinition_viewTypes',
@@ -235,7 +237,8 @@ class BaseEMetadataDefinitionService extends BaseService
             'eMetadataDefinition_title',
             'contextKey',
             'eMetadataDefinitions_permissions',
-            'eMetadataDefinitions_permissionsByItem'
+            'eMetadataDefinitions_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

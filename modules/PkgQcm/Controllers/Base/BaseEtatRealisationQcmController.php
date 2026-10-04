@@ -73,20 +73,28 @@ class BaseEtatRealisationQcmController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemEtatRealisationQcm = $this->etatRealisationQcmService->createInstance();
- 
+
 
         $sysColors = $this->sysColorService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemEtatRealisationQcm', 'sysColors');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgQcm::etatRealisationQcm._fields', compact('bulkEdit' ,'itemEtatRealisationQcm', 'sysColors'));
+            return view('PkgQcm::etatRealisationQcm._fields', $viewData);
         }
-        return view('PkgQcm::etatRealisationQcm.create', compact('bulkEdit' ,'itemEtatRealisationQcm', 'sysColors'));
+
+        return view('PkgQcm::etatRealisationQcm.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -150,30 +158,37 @@ class BaseEtatRealisationQcmController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('etatRealisationQcm.show_' . $id);
 
         $itemEtatRealisationQcm = $this->etatRealisationQcmService->edit($id);
 
 
         $this->viewState->set('scope.realisationQcm.etat_realisation_qcm_id', $id);
-        
+
 
         $realisationQcmService =  new RealisationQcmService();
         $realisationQcms_view_data = $realisationQcmService->prepareDataForIndexView();
         extract($realisationQcms_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgQcm::etatRealisationQcm._show', array_merge(compact('itemEtatRealisationQcm'),$realisationQcm_compact_value));
-        }
-
-        return view('PkgQcm::etatRealisationQcm.show', array_merge(compact('itemEtatRealisationQcm'),$realisationQcm_compact_value));
+        return array_merge(compact('itemEtatRealisationQcm'),$realisationQcm_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgQcm::etatRealisationQcm._show', $viewData);
+        }
+
+        return view('PkgQcm::etatRealisationQcm.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('etatRealisationQcm.edit_' . $id);
 
@@ -193,12 +208,21 @@ class BaseEtatRealisationQcmController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemEtatRealisationQcm','sysColors'),$realisationQcm_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgQcm::etatRealisationQcm._edit', array_merge(compact('bulkEdit' , 'itemEtatRealisationQcm','sysColors'),$realisationQcm_compact_value));
+            return view('PkgQcm::etatRealisationQcm._edit', $viewData);
         }
 
-        return view('PkgQcm::etatRealisationQcm.edit', array_merge(compact('bulkEdit' ,'itemEtatRealisationQcm','sysColors'),$realisationQcm_compact_value));
-
+        return view('PkgQcm::etatRealisationQcm.edit', $viewData);
 
     }
     /**

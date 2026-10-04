@@ -22,7 +22,7 @@ use Modules\PkgQcm\Models\ReponseQcm;
  */
 class BaseQuestion extends BaseModel
 {
-    use HasFactory, HasDynamicContext, OwnedByUser;
+    use HasFactory, HasDynamicContext;
 
     /**
      * Eager-load par défaut les relations belongsTo listées dans manyToOne
@@ -37,8 +37,7 @@ class BaseQuestion extends BaseModel
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
-        $this->isOwnedByUser =  true;
-        $this->ownerRelationPath = "qcm.formateur.user";
+        $this->isOwnedByUser =  false;
     }
 
     

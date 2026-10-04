@@ -269,6 +269,8 @@ class BaseWidgetService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('widget');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'widget_viewTypes',
@@ -281,7 +283,8 @@ class BaseWidgetService extends BaseService
             'widget_title',
             'contextKey',
             'widgets_permissions',
-            'widgets_permissionsByItem'
+            'widgets_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

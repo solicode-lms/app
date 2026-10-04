@@ -75,20 +75,28 @@ class BaseUniteApprentissageController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemUniteApprentissage = $this->uniteApprentissageService->createInstance();
- 
+
 
         $microCompetences = $this->microCompetenceService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemUniteApprentissage', 'microCompetences');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgCompetences::uniteApprentissage._fields', compact('bulkEdit' ,'itemUniteApprentissage', 'microCompetences'));
+            return view('PkgCompetences::uniteApprentissage._fields', $viewData);
         }
-        return view('PkgCompetences::uniteApprentissage.create', compact('bulkEdit' ,'itemUniteApprentissage', 'microCompetences'));
+
+        return view('PkgCompetences::uniteApprentissage.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -152,44 +160,51 @@ class BaseUniteApprentissageController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('uniteApprentissage.show_' . $id);
 
         $itemUniteApprentissage = $this->uniteApprentissageService->edit($id);
 
 
         $this->viewState->set('scope.chapitre.unite_apprentissage_id', $id);
-        
+
 
         $chapitreService =  new ChapitreService();
         $chapitres_view_data = $chapitreService->prepareDataForIndexView();
         extract($chapitres_view_data);
 
         $this->viewState->set('scope.critereEvaluation.unite_apprentissage_id', $id);
-        
+
 
         $critereEvaluationService =  new CritereEvaluationService();
         $critereEvaluations_view_data = $critereEvaluationService->prepareDataForIndexView();
         extract($critereEvaluations_view_data);
 
         $this->viewState->set('scope.question.unite_apprentissage_id', $id);
-        
+
 
         $questionService =  new QuestionService();
         $questions_view_data = $questionService->prepareDataForIndexView();
         extract($questions_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgCompetences::uniteApprentissage._show', array_merge(compact('itemUniteApprentissage'),$chapitre_compact_value, $critereEvaluation_compact_value, $question_compact_value));
-        }
-
-        return view('PkgCompetences::uniteApprentissage.show', array_merge(compact('itemUniteApprentissage'),$chapitre_compact_value, $critereEvaluation_compact_value, $question_compact_value));
+        return array_merge(compact('itemUniteApprentissage'),$chapitre_compact_value, $critereEvaluation_compact_value, $question_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::uniteApprentissage._show', $viewData);
+        }
+
+        return view('PkgCompetences::uniteApprentissage.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('uniteApprentissage.edit_' . $id);
 
@@ -223,12 +238,21 @@ class BaseUniteApprentissageController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemUniteApprentissage','microCompetences'),$chapitre_compact_value, $critereEvaluation_compact_value, $question_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgCompetences::uniteApprentissage._edit', array_merge(compact('bulkEdit' , 'itemUniteApprentissage','microCompetences'),$chapitre_compact_value, $critereEvaluation_compact_value, $question_compact_value));
+            return view('PkgCompetences::uniteApprentissage._edit', $viewData);
         }
 
-        return view('PkgCompetences::uniteApprentissage.edit', array_merge(compact('bulkEdit' ,'itemUniteApprentissage','microCompetences'),$chapitre_compact_value, $critereEvaluation_compact_value, $question_compact_value));
-
+        return view('PkgCompetences::uniteApprentissage.edit', $viewData);
 
     }
     /**

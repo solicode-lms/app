@@ -79,7 +79,7 @@ class BaseNotificationController extends AdminController
     }
     /**
      */
-    public function create() {
+    protected function dataForCreateView() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->set('scope_form.notification.user_id'  , $this->sessionState->get('user_id'));
@@ -88,18 +88,26 @@ class BaseNotificationController extends AdminController
            $this->viewState->set('scope_form.notification.user_id'  , $this->sessionState->get('user_id'));
         }
 
-
         // scopeDataByRole
         $itemNotification = $this->notificationService->createInstance();
- 
+
 
         $users = $this->userService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemNotification', 'users');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgNotification::notification._fields', compact('bulkEdit' ,'itemNotification', 'users'));
+            return view('PkgNotification::notification._fields', $viewData);
         }
-        return view('PkgNotification::notification.create', compact('bulkEdit' ,'itemNotification', 'users'));
+
+        return view('PkgNotification::notification.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -170,24 +178,31 @@ class BaseNotificationController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('notification.show_' . $id);
 
         $itemNotification = $this->notificationService->edit($id);
         $this->authorize('view', $itemNotification);
 
 
-        if (request()->ajax()) {
-            return view('PkgNotification::notification._show', array_merge(compact('itemNotification'),));
-        }
-
-        return view('PkgNotification::notification.show', array_merge(compact('itemNotification'),));
+        return array_merge(compact('itemNotification'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgNotification::notification._show', $viewData);
+        }
+
+        return view('PkgNotification::notification.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('notification.edit_' . $id);
 
@@ -201,12 +216,21 @@ class BaseNotificationController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemNotification','users'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgNotification::notification._fields', array_merge(compact('bulkEdit' , 'itemNotification','users'),));
+            return view('PkgNotification::notification._fields', $viewData);
         }
 
-        return view('PkgNotification::notification.edit', array_merge(compact('bulkEdit' ,'itemNotification','users'),));
-
+        return view('PkgNotification::notification.edit', $viewData);
 
     }
     /**

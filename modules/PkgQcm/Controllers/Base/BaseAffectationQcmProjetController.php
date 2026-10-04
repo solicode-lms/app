@@ -76,12 +76,11 @@ class BaseAffectationQcmProjetController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemAffectationQcmProjet = $this->affectationQcmProjetService->createInstance();
- 
+
         // scopeDataInEditContext
         $value = $itemAffectationQcmProjet->getNestedValue('qcm.formateur_id');
         $key = 'scope.affectationProjet.projet.formateur_id';
@@ -91,10 +90,19 @@ class BaseAffectationQcmProjetController extends AdminController
         $affectationProjets = $this->affectationProjetService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemAffectationQcmProjet', 'qcms', 'affectationProjets');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgQcm::affectationQcmProjet._fields', compact('bulkEdit' ,'itemAffectationQcmProjet', 'qcms', 'affectationProjets'));
+            return view('PkgQcm::affectationQcmProjet._fields', $viewData);
         }
-        return view('PkgQcm::affectationQcmProjet.create', compact('bulkEdit' ,'itemAffectationQcmProjet', 'qcms', 'affectationProjets'));
+
+        return view('PkgQcm::affectationQcmProjet.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -163,30 +171,37 @@ class BaseAffectationQcmProjetController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('affectationQcmProjet.show_' . $id);
 
         $itemAffectationQcmProjet = $this->affectationQcmProjetService->edit($id);
 
 
         $this->viewState->set('scope.realisationQcm.affectation_qcm_projet_id', $id);
-        
+
 
         $realisationQcmService =  new RealisationQcmService();
         $realisationQcms_view_data = $realisationQcmService->prepareDataForIndexView();
         extract($realisationQcms_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgQcm::affectationQcmProjet._show', array_merge(compact('itemAffectationQcmProjet'),$realisationQcm_compact_value));
-        }
-
-        return view('PkgQcm::affectationQcmProjet.show', array_merge(compact('itemAffectationQcmProjet'),$realisationQcm_compact_value));
+        return array_merge(compact('itemAffectationQcmProjet'),$realisationQcm_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgQcm::affectationQcmProjet._show', $viewData);
+        }
+
+        return view('PkgQcm::affectationQcmProjet.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('affectationQcmProjet.edit_' . $id);
 
@@ -211,12 +226,21 @@ class BaseAffectationQcmProjetController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemAffectationQcmProjet','qcms', 'affectationProjets'),$realisationQcm_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgQcm::affectationQcmProjet._edit', array_merge(compact('bulkEdit' , 'itemAffectationQcmProjet','qcms', 'affectationProjets'),$realisationQcm_compact_value));
+            return view('PkgQcm::affectationQcmProjet._edit', $viewData);
         }
 
-        return view('PkgQcm::affectationQcmProjet.edit', array_merge(compact('bulkEdit' ,'itemAffectationQcmProjet','qcms', 'affectationProjets'),$realisationQcm_compact_value));
-
+        return view('PkgQcm::affectationQcmProjet.edit', $viewData);
 
     }
     /**

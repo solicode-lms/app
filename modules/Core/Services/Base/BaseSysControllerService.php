@@ -230,6 +230,8 @@ class BaseSysControllerService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('sysController');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'sysController_viewTypes',
@@ -242,7 +244,8 @@ class BaseSysControllerService extends BaseService
             'sysController_title',
             'contextKey',
             'sysControllers_permissions',
-            'sysControllers_permissionsByItem'
+            'sysControllers_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

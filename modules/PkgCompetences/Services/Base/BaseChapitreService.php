@@ -258,6 +258,8 @@ class BaseChapitreService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('chapitre');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'chapitre_viewTypes',
@@ -270,7 +272,8 @@ class BaseChapitreService extends BaseService
             'chapitre_title',
             'contextKey',
             'chapitres_permissions',
-            'chapitres_permissionsByItem'
+            'chapitres_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

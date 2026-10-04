@@ -243,6 +243,8 @@ class BaseResourceService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('resource');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'resource_viewTypes',
@@ -255,7 +257,8 @@ class BaseResourceService extends BaseService
             'resource_title',
             'contextKey',
             'resources_permissions',
-            'resources_permissionsByItem'
+            'resources_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

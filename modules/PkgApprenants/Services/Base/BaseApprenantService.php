@@ -262,6 +262,8 @@ class BaseApprenantService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('apprenant');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'apprenant_viewTypes',
@@ -274,7 +276,8 @@ class BaseApprenantService extends BaseService
             'apprenant_title',
             'contextKey',
             'apprenants_permissions',
-            'apprenants_permissionsByItem'
+            'apprenants_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

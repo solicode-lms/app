@@ -70,19 +70,27 @@ class BaseWidgetTypeController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemWidgetType = $this->widgetTypeService->createInstance();
- 
+
 
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemWidgetType');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetType._fields', compact('bulkEdit' ,'itemWidgetType'));
+            return view('PkgWidgets::widgetType._fields', $viewData);
         }
-        return view('PkgWidgets::widgetType.create', compact('bulkEdit' ,'itemWidgetType'));
+
+        return view('PkgWidgets::widgetType.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -145,30 +153,37 @@ class BaseWidgetTypeController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('widgetType.show_' . $id);
 
         $itemWidgetType = $this->widgetTypeService->edit($id);
 
 
         $this->viewState->set('scope.widget.type_id', $id);
-        
+
 
         $widgetService =  new WidgetService();
         $widgets_view_data = $widgetService->prepareDataForIndexView();
         extract($widgets_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgWidgets::widgetType._show', array_merge(compact('itemWidgetType'),$widget_compact_value));
-        }
-
-        return view('PkgWidgets::widgetType.show', array_merge(compact('itemWidgetType'),$widget_compact_value));
+        return array_merge(compact('itemWidgetType'),$widget_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgWidgets::widgetType._show', $viewData);
+        }
+
+        return view('PkgWidgets::widgetType.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('widgetType.edit_' . $id);
 
@@ -187,12 +202,21 @@ class BaseWidgetTypeController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemWidgetType',),$widget_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetType._edit', array_merge(compact('bulkEdit' , 'itemWidgetType',),$widget_compact_value));
+            return view('PkgWidgets::widgetType._edit', $viewData);
         }
 
-        return view('PkgWidgets::widgetType.edit', array_merge(compact('bulkEdit' ,'itemWidgetType',),$widget_compact_value));
-
+        return view('PkgWidgets::widgetType.edit', $viewData);
 
     }
     /**

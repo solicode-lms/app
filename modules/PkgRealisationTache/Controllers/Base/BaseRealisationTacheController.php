@@ -96,7 +96,7 @@ class BaseRealisationTacheController extends AdminController
     }
     /**
      */
-    public function create() {
+    protected function dataForCreateView() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->set('scope_form.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -105,10 +105,9 @@ class BaseRealisationTacheController extends AdminController
            $this->viewState->set('scope_form.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
-
         // scopeDataByRole
         $itemRealisationTache = $this->realisationTacheService->createInstance();
- 
+
         // scopeDataInEditContext
         $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
         $key = 'scope.etatRealisationTache.formateur_id';
@@ -125,10 +124,19 @@ class BaseRealisationTacheController extends AdminController
         $labelProjets = $this->labelProjetService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemRealisationTache', 'taches', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'labelProjets');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgRealisationTache::realisationTache._fields', compact('bulkEdit' ,'itemRealisationTache', 'taches', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'labelProjets'));
+            return view('PkgRealisationTache::realisationTache._fields', $viewData);
         }
-        return view('PkgRealisationTache::realisationTache.create', compact('bulkEdit' ,'itemRealisationTache', 'taches', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'labelProjets'));
+
+        return view('PkgRealisationTache::realisationTache.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -211,8 +219,7 @@ class BaseRealisationTacheController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('realisationTache.show_' . $id);
 
         $itemRealisationTache = $this->realisationTacheService->edit($id);
@@ -220,50 +227,58 @@ class BaseRealisationTacheController extends AdminController
 
 
         $this->viewState->set('scope.evaluationRealisationTache.realisation_tache_id', $id);
-        
+
 
         $evaluationRealisationTacheService =  new EvaluationRealisationTacheService();
         $evaluationRealisationTaches_view_data = $evaluationRealisationTacheService->prepareDataForIndexView();
         extract($evaluationRealisationTaches_view_data);
 
         $this->viewState->set('scope.historiqueRealisationTache.realisation_tache_id', $id);
-        
+
 
         $historiqueRealisationTacheService =  new HistoriqueRealisationTacheService();
         $historiqueRealisationTaches_view_data = $historiqueRealisationTacheService->prepareDataForIndexView();
         extract($historiqueRealisationTaches_view_data);
 
         $this->viewState->set('scope.realisationChapitre.realisation_tache_id', $id);
-        
+
 
         $realisationChapitreService =  new RealisationChapitreService();
         $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
         extract($realisationChapitres_view_data);
 
         $this->viewState->set('scope.realisationUaProjet.realisation_tache_id', $id);
-        
+
 
         $realisationUaProjetService =  new RealisationUaProjetService();
         $realisationUaProjets_view_data = $realisationUaProjetService->prepareDataForIndexView();
         extract($realisationUaProjets_view_data);
 
         $this->viewState->set('scope.realisationUaPrototype.realisation_tache_id', $id);
-        
+
 
         $realisationUaPrototypeService =  new RealisationUaPrototypeService();
         $realisationUaPrototypes_view_data = $realisationUaPrototypeService->prepareDataForIndexView();
         extract($realisationUaPrototypes_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgRealisationTache::realisationTache._show', array_merge(compact('itemRealisationTache'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
-        }
-
-        return view('PkgRealisationTache::realisationTache.show', array_merge(compact('itemRealisationTache'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
+        return array_merge(compact('itemRealisationTache'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgRealisationTache::realisationTache._show', $viewData);
+        }
+
+        return view('PkgRealisationTache::realisationTache.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('realisationTache.edit_' . $id);
 
@@ -324,12 +339,21 @@ class BaseRealisationTacheController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemRealisationTache','taches', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'labelProjets'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgRealisationTache::realisationTache._edit', array_merge(compact('bulkEdit' , 'itemRealisationTache','taches', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'labelProjets'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
+            return view('PkgRealisationTache::realisationTache._edit', $viewData);
         }
 
-        return view('PkgRealisationTache::realisationTache.edit', array_merge(compact('bulkEdit' ,'itemRealisationTache','taches', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'labelProjets'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
-
+        return view('PkgRealisationTache::realisationTache.edit', $viewData);
 
     }
     /**

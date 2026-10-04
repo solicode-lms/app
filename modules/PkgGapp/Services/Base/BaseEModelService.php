@@ -231,6 +231,8 @@ class BaseEModelService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('eModel');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'eModel_viewTypes',
@@ -243,7 +245,8 @@ class BaseEModelService extends BaseService
             'eModel_title',
             'contextKey',
             'eModels_permissions',
-            'eModels_permissionsByItem'
+            'eModels_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

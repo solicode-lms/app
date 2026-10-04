@@ -228,6 +228,8 @@ class BasePermissionService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('permission');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'permission_viewTypes',
@@ -240,7 +242,8 @@ class BasePermissionService extends BaseService
             'permission_title',
             'contextKey',
             'permissions_permissions',
-            'permissions_permissionsByItem'
+            'permissions_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

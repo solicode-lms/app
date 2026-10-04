@@ -73,20 +73,28 @@ class BaseEtatRealisationCompetenceController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemEtatRealisationCompetence = $this->etatRealisationCompetenceService->createInstance();
- 
+
 
         $sysColors = $this->sysColorService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemEtatRealisationCompetence', 'sysColors');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgApprentissage::etatRealisationCompetence._fields', compact('bulkEdit' ,'itemEtatRealisationCompetence', 'sysColors'));
+            return view('PkgApprentissage::etatRealisationCompetence._fields', $viewData);
         }
-        return view('PkgApprentissage::etatRealisationCompetence.create', compact('bulkEdit' ,'itemEtatRealisationCompetence', 'sysColors'));
+
+        return view('PkgApprentissage::etatRealisationCompetence.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -150,30 +158,37 @@ class BaseEtatRealisationCompetenceController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('etatRealisationCompetence.show_' . $id);
 
         $itemEtatRealisationCompetence = $this->etatRealisationCompetenceService->edit($id);
 
 
         $this->viewState->set('scope.realisationCompetence.etat_realisation_competence_id', $id);
-        
+
 
         $realisationCompetenceService =  new RealisationCompetenceService();
         $realisationCompetences_view_data = $realisationCompetenceService->prepareDataForIndexView();
         extract($realisationCompetences_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgApprentissage::etatRealisationCompetence._show', array_merge(compact('itemEtatRealisationCompetence'),$realisationCompetence_compact_value));
-        }
-
-        return view('PkgApprentissage::etatRealisationCompetence.show', array_merge(compact('itemEtatRealisationCompetence'),$realisationCompetence_compact_value));
+        return array_merge(compact('itemEtatRealisationCompetence'),$realisationCompetence_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgApprentissage::etatRealisationCompetence._show', $viewData);
+        }
+
+        return view('PkgApprentissage::etatRealisationCompetence.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('etatRealisationCompetence.edit_' . $id);
 
@@ -193,12 +208,21 @@ class BaseEtatRealisationCompetenceController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemEtatRealisationCompetence','sysColors'),$realisationCompetence_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgApprentissage::etatRealisationCompetence._edit', array_merge(compact('bulkEdit' , 'itemEtatRealisationCompetence','sysColors'),$realisationCompetence_compact_value));
+            return view('PkgApprentissage::etatRealisationCompetence._edit', $viewData);
         }
 
-        return view('PkgApprentissage::etatRealisationCompetence.edit', array_merge(compact('bulkEdit' ,'itemEtatRealisationCompetence','sysColors'),$realisationCompetence_compact_value));
-
+        return view('PkgApprentissage::etatRealisationCompetence.edit', $viewData);
 
     }
     /**

@@ -86,7 +86,7 @@ class BaseRealisationModuleController extends AdminController
     }
     /**
      */
-    public function create() {
+    protected function dataForCreateView() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->set('scope_form.realisationModule.apprenant.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
@@ -95,20 +95,28 @@ class BaseRealisationModuleController extends AdminController
            $this->viewState->set('scope_form.realisationModule.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
-
         // scopeDataByRole
         $itemRealisationModule = $this->realisationModuleService->createInstance();
- 
+
 
         $modules = $this->moduleService->all();
         $apprenants = $this->apprenantService->all();
         $etatRealisationModules = $this->etatRealisationModuleService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemRealisationModule', 'modules', 'apprenants', 'etatRealisationModules');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationModule._fields', compact('bulkEdit' ,'itemRealisationModule', 'modules', 'apprenants', 'etatRealisationModules'));
+            return view('PkgApprentissage::realisationModule._fields', $viewData);
         }
-        return view('PkgApprentissage::realisationModule.create', compact('bulkEdit' ,'itemRealisationModule', 'modules', 'apprenants', 'etatRealisationModules'));
+
+        return view('PkgApprentissage::realisationModule.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -181,8 +189,7 @@ class BaseRealisationModuleController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('realisationModule.show_' . $id);
 
         $itemRealisationModule = $this->realisationModuleService->edit($id);
@@ -190,22 +197,30 @@ class BaseRealisationModuleController extends AdminController
 
 
         $this->viewState->set('scope.realisationCompetence.realisation_module_id', $id);
-        
+
 
         $realisationCompetenceService =  new RealisationCompetenceService();
         $realisationCompetences_view_data = $realisationCompetenceService->prepareDataForIndexView();
         extract($realisationCompetences_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgApprentissage::realisationModule._show', array_merge(compact('itemRealisationModule'),$realisationCompetence_compact_value));
-        }
-
-        return view('PkgApprentissage::realisationModule.show', array_merge(compact('itemRealisationModule'),$realisationCompetence_compact_value));
+        return array_merge(compact('itemRealisationModule'),$realisationCompetence_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgApprentissage::realisationModule._show', $viewData);
+        }
+
+        return view('PkgApprentissage::realisationModule.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('realisationModule.edit_' . $id);
 
@@ -228,12 +243,21 @@ class BaseRealisationModuleController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemRealisationModule','modules', 'apprenants', 'etatRealisationModules'),$realisationCompetence_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationModule._edit', array_merge(compact('bulkEdit' , 'itemRealisationModule','modules', 'apprenants', 'etatRealisationModules'),$realisationCompetence_compact_value));
+            return view('PkgApprentissage::realisationModule._edit', $viewData);
         }
 
-        return view('PkgApprentissage::realisationModule.edit', array_merge(compact('bulkEdit' ,'itemRealisationModule','modules', 'apprenants', 'etatRealisationModules'),$realisationCompetence_compact_value));
-
+        return view('PkgApprentissage::realisationModule.edit', $viewData);
 
     }
     /**

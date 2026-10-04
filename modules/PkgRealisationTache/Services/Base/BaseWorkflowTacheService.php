@@ -231,6 +231,8 @@ class BaseWorkflowTacheService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('workflowTache');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'workflowTache_viewTypes',
@@ -243,7 +245,8 @@ class BaseWorkflowTacheService extends BaseService
             'workflowTache_title',
             'contextKey',
             'workflowTaches_permissions',
-            'workflowTaches_permissionsByItem'
+            'workflowTaches_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

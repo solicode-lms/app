@@ -78,22 +78,30 @@ class BaseCommentaireRealisationTacheController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemCommentaireRealisationTache = $this->commentaireRealisationTacheService->createInstance();
- 
+
 
         $realisationTaches = $this->realisationTacheService->all();
         $formateurs = $this->formateurService->all();
         $apprenants = $this->apprenantService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemCommentaireRealisationTache', 'realisationTaches', 'formateurs', 'apprenants');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgRealisationTache::commentaireRealisationTache._fields', compact('bulkEdit' ,'itemCommentaireRealisationTache', 'realisationTaches', 'formateurs', 'apprenants'));
+            return view('PkgRealisationTache::commentaireRealisationTache._fields', $viewData);
         }
-        return view('PkgRealisationTache::commentaireRealisationTache.create', compact('bulkEdit' ,'itemCommentaireRealisationTache', 'realisationTaches', 'formateurs', 'apprenants'));
+
+        return view('PkgRealisationTache::commentaireRealisationTache.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -159,23 +167,30 @@ class BaseCommentaireRealisationTacheController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('commentaireRealisationTache.show_' . $id);
 
         $itemCommentaireRealisationTache = $this->commentaireRealisationTacheService->edit($id);
 
 
-        if (request()->ajax()) {
-            return view('PkgRealisationTache::commentaireRealisationTache._show', array_merge(compact('itemCommentaireRealisationTache'),));
-        }
-
-        return view('PkgRealisationTache::commentaireRealisationTache.show', array_merge(compact('itemCommentaireRealisationTache'),));
+        return array_merge(compact('itemCommentaireRealisationTache'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgRealisationTache::commentaireRealisationTache._show', $viewData);
+        }
+
+        return view('PkgRealisationTache::commentaireRealisationTache.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('commentaireRealisationTache.edit_' . $id);
 
@@ -190,12 +205,21 @@ class BaseCommentaireRealisationTacheController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemCommentaireRealisationTache','realisationTaches', 'formateurs', 'apprenants'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgRealisationTache::commentaireRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemCommentaireRealisationTache','realisationTaches', 'formateurs', 'apprenants'),));
+            return view('PkgRealisationTache::commentaireRealisationTache._fields', $viewData);
         }
 
-        return view('PkgRealisationTache::commentaireRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemCommentaireRealisationTache','realisationTaches', 'formateurs', 'apprenants'),));
-
+        return view('PkgRealisationTache::commentaireRealisationTache.edit', $viewData);
 
     }
     /**

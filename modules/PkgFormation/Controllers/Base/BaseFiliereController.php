@@ -73,19 +73,27 @@ class BaseFiliereController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemFiliere = $this->filiereService->createInstance();
- 
+
 
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemFiliere');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgFormation::filiere._fields', compact('bulkEdit' ,'itemFiliere'));
+            return view('PkgFormation::filiere._fields', $viewData);
         }
-        return view('PkgFormation::filiere.create', compact('bulkEdit' ,'itemFiliere'));
+
+        return view('PkgFormation::filiere.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -148,51 +156,58 @@ class BaseFiliereController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('filiere.show_' . $id);
 
         $itemFiliere = $this->filiereService->edit($id);
 
 
         $this->viewState->set('scope.groupe.filiere_id', $id);
-        
+
 
         $groupeService =  new GroupeService();
         $groupes_view_data = $groupeService->prepareDataForIndexView();
         extract($groupes_view_data);
 
         $this->viewState->set('scope.module.filiere_id', $id);
-        
+
 
         $moduleService =  new ModuleService();
         $modules_view_data = $moduleService->prepareDataForIndexView();
         extract($modules_view_data);
 
         $this->viewState->set('scope.projet.filiere_id', $id);
-        
+
 
         $projetService =  new ProjetService();
         $projets_view_data = $projetService->prepareDataForIndexView();
         extract($projets_view_data);
 
         $this->viewState->set('scope.sessionFormation.filiere_id', $id);
-        
+
 
         $sessionFormationService =  new SessionFormationService();
         $sessionFormations_view_data = $sessionFormationService->prepareDataForIndexView();
         extract($sessionFormations_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgFormation::filiere._show', array_merge(compact('itemFiliere'),$groupe_compact_value, $module_compact_value, $projet_compact_value, $sessionFormation_compact_value));
-        }
-
-        return view('PkgFormation::filiere.show', array_merge(compact('itemFiliere'),$groupe_compact_value, $module_compact_value, $projet_compact_value, $sessionFormation_compact_value));
+        return array_merge(compact('itemFiliere'),$groupe_compact_value, $module_compact_value, $projet_compact_value, $sessionFormation_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgFormation::filiere._show', $viewData);
+        }
+
+        return view('PkgFormation::filiere.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('filiere.edit_' . $id);
 
@@ -232,12 +247,21 @@ class BaseFiliereController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value, $sessionFormation_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgFormation::filiere._edit', array_merge(compact('bulkEdit' , 'itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value, $sessionFormation_compact_value));
+            return view('PkgFormation::filiere._edit', $viewData);
         }
 
-        return view('PkgFormation::filiere.edit', array_merge(compact('bulkEdit' ,'itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value, $sessionFormation_compact_value));
-
+        return view('PkgFormation::filiere.edit', $viewData);
 
     }
     /**

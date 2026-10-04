@@ -211,6 +211,8 @@ class BaseFiliereService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('filiere');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'filiere_viewTypes',
@@ -223,7 +225,8 @@ class BaseFiliereService extends BaseService
             'filiere_title',
             'contextKey',
             'filieres_permissions',
-            'filieres_permissionsByItem'
+            'filieres_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

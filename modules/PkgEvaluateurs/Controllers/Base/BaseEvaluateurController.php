@@ -77,21 +77,29 @@ class BaseEvaluateurController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemEvaluateur = $this->evaluateurService->createInstance();
- 
+
 
         $users = $this->userService->all();
         $affectationProjets = $this->affectationProjetService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemEvaluateur', 'users', 'affectationProjets');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgEvaluateurs::evaluateur._fields', compact('bulkEdit' ,'itemEvaluateur', 'users', 'affectationProjets'));
+            return view('PkgEvaluateurs::evaluateur._fields', $viewData);
         }
-        return view('PkgEvaluateurs::evaluateur.create', compact('bulkEdit' ,'itemEvaluateur', 'users', 'affectationProjets'));
+
+        return view('PkgEvaluateurs::evaluateur.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -156,37 +164,44 @@ class BaseEvaluateurController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('evaluateur.show_' . $id);
 
         $itemEvaluateur = $this->evaluateurService->edit($id);
 
 
         $this->viewState->set('scope.evaluationRealisationProjet.evaluateur_id', $id);
-        
+
 
         $evaluationRealisationProjetService =  new EvaluationRealisationProjetService();
         $evaluationRealisationProjets_view_data = $evaluationRealisationProjetService->prepareDataForIndexView();
         extract($evaluationRealisationProjets_view_data);
 
         $this->viewState->set('scope.evaluationRealisationTache.evaluateur_id', $id);
-        
+
 
         $evaluationRealisationTacheService =  new EvaluationRealisationTacheService();
         $evaluationRealisationTaches_view_data = $evaluationRealisationTacheService->prepareDataForIndexView();
         extract($evaluationRealisationTaches_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgEvaluateurs::evaluateur._show', array_merge(compact('itemEvaluateur'),$evaluationRealisationProjet_compact_value, $evaluationRealisationTache_compact_value));
-        }
-
-        return view('PkgEvaluateurs::evaluateur.show', array_merge(compact('itemEvaluateur'),$evaluationRealisationProjet_compact_value, $evaluationRealisationTache_compact_value));
+        return array_merge(compact('itemEvaluateur'),$evaluationRealisationProjet_compact_value, $evaluationRealisationTache_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgEvaluateurs::evaluateur._show', $viewData);
+        }
+
+        return view('PkgEvaluateurs::evaluateur.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('evaluateur.edit_' . $id);
 
@@ -207,12 +222,21 @@ class BaseEvaluateurController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemEvaluateur','users', 'affectationProjets'),$evaluationRealisationProjet_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgEvaluateurs::evaluateur._edit', array_merge(compact('bulkEdit' , 'itemEvaluateur','users', 'affectationProjets'),$evaluationRealisationProjet_compact_value));
+            return view('PkgEvaluateurs::evaluateur._edit', $viewData);
         }
 
-        return view('PkgEvaluateurs::evaluateur.edit', array_merge(compact('bulkEdit' ,'itemEvaluateur','users', 'affectationProjets'),$evaluationRealisationProjet_compact_value));
-
+        return view('PkgEvaluateurs::evaluateur.edit', $viewData);
 
     }
     /**

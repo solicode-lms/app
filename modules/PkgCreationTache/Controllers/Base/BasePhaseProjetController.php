@@ -70,19 +70,27 @@ class BasePhaseProjetController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemPhaseProjet = $this->phaseProjetService->createInstance();
- 
+
 
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemPhaseProjet');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgCreationTache::phaseProjet._fields', compact('bulkEdit' ,'itemPhaseProjet'));
+            return view('PkgCreationTache::phaseProjet._fields', $viewData);
         }
-        return view('PkgCreationTache::phaseProjet.create', compact('bulkEdit' ,'itemPhaseProjet'));
+
+        return view('PkgCreationTache::phaseProjet.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -145,30 +153,37 @@ class BasePhaseProjetController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('phaseProjet.show_' . $id);
 
         $itemPhaseProjet = $this->phaseProjetService->edit($id);
 
 
         $this->viewState->set('scope.tache.phase_projet_id', $id);
-        
+
 
         $tacheService =  new TacheService();
         $taches_view_data = $tacheService->prepareDataForIndexView();
         extract($taches_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgCreationTache::phaseProjet._show', array_merge(compact('itemPhaseProjet'),$tache_compact_value));
-        }
-
-        return view('PkgCreationTache::phaseProjet.show', array_merge(compact('itemPhaseProjet'),$tache_compact_value));
+        return array_merge(compact('itemPhaseProjet'),$tache_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgCreationTache::phaseProjet._show', $viewData);
+        }
+
+        return view('PkgCreationTache::phaseProjet.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('phaseProjet.edit_' . $id);
 
@@ -187,12 +202,21 @@ class BasePhaseProjetController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemPhaseProjet',),$tache_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgCreationTache::phaseProjet._edit', array_merge(compact('bulkEdit' , 'itemPhaseProjet',),$tache_compact_value));
+            return view('PkgCreationTache::phaseProjet._edit', $viewData);
         }
 
-        return view('PkgCreationTache::phaseProjet.edit', array_merge(compact('bulkEdit' ,'itemPhaseProjet',),$tache_compact_value));
-
+        return view('PkgCreationTache::phaseProjet.edit', $viewData);
 
     }
     /**

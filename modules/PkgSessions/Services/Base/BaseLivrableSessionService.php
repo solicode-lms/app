@@ -247,6 +247,8 @@ class BaseLivrableSessionService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('livrableSession');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'livrableSession_viewTypes',
@@ -259,7 +261,8 @@ class BaseLivrableSessionService extends BaseService
             'livrableSession_title',
             'contextKey',
             'livrableSessions_permissions',
-            'livrableSessions_permissionsByItem'
+            'livrableSessions_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

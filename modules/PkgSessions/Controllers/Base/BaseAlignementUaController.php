@@ -75,21 +75,29 @@ class BaseAlignementUaController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemAlignementUa = $this->alignementUaService->createInstance();
- 
+
 
         $uniteApprentissages = $this->uniteApprentissageService->all();
         $sessionFormations = $this->sessionFormationService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemAlignementUa', 'uniteApprentissages', 'sessionFormations');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgSessions::alignementUa._fields', compact('bulkEdit' ,'itemAlignementUa', 'uniteApprentissages', 'sessionFormations'));
+            return view('PkgSessions::alignementUa._fields', $viewData);
         }
-        return view('PkgSessions::alignementUa.create', compact('bulkEdit' ,'itemAlignementUa', 'uniteApprentissages', 'sessionFormations'));
+
+        return view('PkgSessions::alignementUa.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -154,23 +162,30 @@ class BaseAlignementUaController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('alignementUa.show_' . $id);
 
         $itemAlignementUa = $this->alignementUaService->edit($id);
 
 
-        if (request()->ajax()) {
-            return view('PkgSessions::alignementUa._show', array_merge(compact('itemAlignementUa'),));
-        }
-
-        return view('PkgSessions::alignementUa.show', array_merge(compact('itemAlignementUa'),));
+        return array_merge(compact('itemAlignementUa'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgSessions::alignementUa._show', $viewData);
+        }
+
+        return view('PkgSessions::alignementUa.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('alignementUa.edit_' . $id);
 
@@ -184,12 +199,21 @@ class BaseAlignementUaController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemAlignementUa','uniteApprentissages', 'sessionFormations'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgSessions::alignementUa._fields', array_merge(compact('bulkEdit' , 'itemAlignementUa','uniteApprentissages', 'sessionFormations'),));
+            return view('PkgSessions::alignementUa._fields', $viewData);
         }
 
-        return view('PkgSessions::alignementUa.edit', array_merge(compact('bulkEdit' ,'itemAlignementUa','uniteApprentissages', 'sessionFormations'),));
-
+        return view('PkgSessions::alignementUa.edit', $viewData);
 
     }
     /**

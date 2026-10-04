@@ -73,20 +73,28 @@ class BaseSysControllerController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemSysController = $this->sysControllerService->createInstance();
- 
+
 
         $sysModules = $this->sysModuleService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemSysController', 'sysModules');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('Core::sysController._fields', compact('bulkEdit' ,'itemSysController', 'sysModules'));
+            return view('Core::sysController._fields', $viewData);
         }
-        return view('Core::sysController.create', compact('bulkEdit' ,'itemSysController', 'sysModules'));
+
+        return view('Core::sysController.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -150,30 +158,37 @@ class BaseSysControllerController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('sysController.show_' . $id);
 
         $itemSysController = $this->sysControllerService->edit($id);
 
 
         $this->viewState->set('scope.permission.controller_id', $id);
-        
+
 
         $permissionService =  new PermissionService();
         $permissions_view_data = $permissionService->prepareDataForIndexView();
         extract($permissions_view_data);
 
-        if (request()->ajax()) {
-            return view('Core::sysController._show', array_merge(compact('itemSysController'),$permission_compact_value));
-        }
-
-        return view('Core::sysController.show', array_merge(compact('itemSysController'),$permission_compact_value));
+        return array_merge(compact('itemSysController'),$permission_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('Core::sysController._show', $viewData);
+        }
+
+        return view('Core::sysController.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('sysController.edit_' . $id);
 
@@ -193,12 +208,21 @@ class BaseSysControllerController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemSysController','sysModules'),$permission_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('Core::sysController._edit', array_merge(compact('bulkEdit' , 'itemSysController','sysModules'),$permission_compact_value));
+            return view('Core::sysController._edit', $viewData);
         }
 
-        return view('Core::sysController.edit', array_merge(compact('bulkEdit' ,'itemSysController','sysModules'),$permission_compact_value));
-
+        return view('Core::sysController.edit', $viewData);
 
     }
     /**

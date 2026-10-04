@@ -75,20 +75,28 @@ class BaseEModelController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemEModel = $this->eModelService->createInstance();
- 
+
 
         $ePackages = $this->ePackageService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemEModel', 'ePackages');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgGapp::eModel._fields', compact('bulkEdit' ,'itemEModel', 'ePackages'));
+            return view('PkgGapp::eModel._fields', $viewData);
         }
-        return view('PkgGapp::eModel.create', compact('bulkEdit' ,'itemEModel', 'ePackages'));
+
+        return view('PkgGapp::eModel.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -152,51 +160,58 @@ class BaseEModelController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('eModel.show_' . $id);
 
         $itemEModel = $this->eModelService->edit($id);
 
 
         $this->viewState->set('scope.eDataField.e_model_id', $id);
-        
+
 
         $eDataFieldService =  new EDataFieldService();
         $eDataFields_view_data = $eDataFieldService->prepareDataForIndexView();
         extract($eDataFields_view_data);
 
         $this->viewState->set('scope.eMetadatum.e_model_id', $id);
-        
+
 
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_view_data = $eMetadatumService->prepareDataForIndexView();
         extract($eMetadata_view_data);
 
         $this->viewState->set('scope.eRelationship.source_e_model_id', $id);
-        
+
 
         $eRelationshipService =  new ERelationshipService();
         $eRelationships_view_data = $eRelationshipService->prepareDataForIndexView();
         extract($eRelationships_view_data);
 
         $this->viewState->set('scope.eRelationship.target_e_model_id', $id);
-        
+
 
         $eRelationshipService =  new ERelationshipService();
         $eRelationships_view_data = $eRelationshipService->prepareDataForIndexView();
         extract($eRelationships_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgGapp::eModel._show', array_merge(compact('itemEModel'),$eDataField_compact_value, $eMetadatum_compact_value, $eRelationship_compact_value, $eRelationship_compact_value));
-        }
-
-        return view('PkgGapp::eModel.show', array_merge(compact('itemEModel'),$eDataField_compact_value, $eMetadatum_compact_value, $eRelationship_compact_value, $eRelationship_compact_value));
+        return array_merge(compact('itemEModel'),$eDataField_compact_value, $eMetadatum_compact_value, $eRelationship_compact_value, $eRelationship_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgGapp::eModel._show', $viewData);
+        }
+
+        return view('PkgGapp::eModel.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('eModel.edit_' . $id);
 
@@ -223,12 +238,21 @@ class BaseEModelController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemEModel','ePackages'),$eDataField_compact_value, $eMetadatum_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgGapp::eModel._edit', array_merge(compact('bulkEdit' , 'itemEModel','ePackages'),$eDataField_compact_value, $eMetadatum_compact_value));
+            return view('PkgGapp::eModel._edit', $viewData);
         }
 
-        return view('PkgGapp::eModel.edit', array_merge(compact('bulkEdit' ,'itemEModel','ePackages'),$eDataField_compact_value, $eMetadatum_compact_value));
-
+        return view('PkgGapp::eModel.edit', $viewData);
 
     }
     /**

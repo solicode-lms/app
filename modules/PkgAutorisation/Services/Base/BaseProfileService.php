@@ -244,6 +244,8 @@ class BaseProfileService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('profile');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'profile_viewTypes',
@@ -256,7 +258,8 @@ class BaseProfileService extends BaseService
             'profile_title',
             'contextKey',
             'profiles_permissions',
-            'profiles_permissionsByItem'
+            'profiles_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

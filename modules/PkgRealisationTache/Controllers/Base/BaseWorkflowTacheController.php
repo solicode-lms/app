@@ -73,20 +73,28 @@ class BaseWorkflowTacheController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemWorkflowTache = $this->workflowTacheService->createInstance();
- 
+
 
         $sysColors = $this->sysColorService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemWorkflowTache', 'sysColors');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgRealisationTache::workflowTache._fields', compact('bulkEdit' ,'itemWorkflowTache', 'sysColors'));
+            return view('PkgRealisationTache::workflowTache._fields', $viewData);
         }
-        return view('PkgRealisationTache::workflowTache.create', compact('bulkEdit' ,'itemWorkflowTache', 'sysColors'));
+
+        return view('PkgRealisationTache::workflowTache.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -150,30 +158,37 @@ class BaseWorkflowTacheController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('workflowTache.show_' . $id);
 
         $itemWorkflowTache = $this->workflowTacheService->edit($id);
 
 
         $this->viewState->set('scope.etatRealisationTache.workflow_tache_id', $id);
-        
+
 
         $etatRealisationTacheService =  new EtatRealisationTacheService();
         $etatRealisationTaches_view_data = $etatRealisationTacheService->prepareDataForIndexView();
         extract($etatRealisationTaches_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgRealisationTache::workflowTache._show', array_merge(compact('itemWorkflowTache'),$etatRealisationTache_compact_value));
-        }
-
-        return view('PkgRealisationTache::workflowTache.show', array_merge(compact('itemWorkflowTache'),$etatRealisationTache_compact_value));
+        return array_merge(compact('itemWorkflowTache'),$etatRealisationTache_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgRealisationTache::workflowTache._show', $viewData);
+        }
+
+        return view('PkgRealisationTache::workflowTache.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('workflowTache.edit_' . $id);
 
@@ -193,12 +208,21 @@ class BaseWorkflowTacheController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemWorkflowTache','sysColors'),$etatRealisationTache_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgRealisationTache::workflowTache._edit', array_merge(compact('bulkEdit' , 'itemWorkflowTache','sysColors'),$etatRealisationTache_compact_value));
+            return view('PkgRealisationTache::workflowTache._edit', $viewData);
         }
 
-        return view('PkgRealisationTache::workflowTache.edit', array_merge(compact('bulkEdit' ,'itemWorkflowTache','sysColors'),$etatRealisationTache_compact_value));
-
+        return view('PkgRealisationTache::workflowTache.edit', $viewData);
 
     }
     /**

@@ -75,21 +75,29 @@ class BaseHistoriqueRealisationTacheController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemHistoriqueRealisationTache = $this->historiqueRealisationTacheService->createInstance();
- 
+
 
         $realisationTaches = $this->realisationTacheService->all();
         $users = $this->userService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemHistoriqueRealisationTache', 'realisationTaches', 'users');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgRealisationTache::historiqueRealisationTache._fields', compact('bulkEdit' ,'itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
+            return view('PkgRealisationTache::historiqueRealisationTache._fields', $viewData);
         }
-        return view('PkgRealisationTache::historiqueRealisationTache.create', compact('bulkEdit' ,'itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
+
+        return view('PkgRealisationTache::historiqueRealisationTache.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -154,23 +162,30 @@ class BaseHistoriqueRealisationTacheController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('historiqueRealisationTache.show_' . $id);
 
         $itemHistoriqueRealisationTache = $this->historiqueRealisationTacheService->edit($id);
 
 
-        if (request()->ajax()) {
-            return view('PkgRealisationTache::historiqueRealisationTache._show', array_merge(compact('itemHistoriqueRealisationTache'),));
-        }
-
-        return view('PkgRealisationTache::historiqueRealisationTache.show', array_merge(compact('itemHistoriqueRealisationTache'),));
+        return array_merge(compact('itemHistoriqueRealisationTache'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgRealisationTache::historiqueRealisationTache._show', $viewData);
+        }
+
+        return view('PkgRealisationTache::historiqueRealisationTache.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('historiqueRealisationTache.edit_' . $id);
 
@@ -184,12 +199,21 @@ class BaseHistoriqueRealisationTacheController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemHistoriqueRealisationTache','realisationTaches', 'users'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgRealisationTache::historiqueRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemHistoriqueRealisationTache','realisationTaches', 'users'),));
+            return view('PkgRealisationTache::historiqueRealisationTache._fields', $viewData);
         }
 
-        return view('PkgRealisationTache::historiqueRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemHistoriqueRealisationTache','realisationTaches', 'users'),));
-
+        return view('PkgRealisationTache::historiqueRealisationTache.edit', $viewData);
 
     }
     /**

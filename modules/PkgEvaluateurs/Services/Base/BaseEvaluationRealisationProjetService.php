@@ -283,6 +283,8 @@ class BaseEvaluationRealisationProjetService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('evaluationRealisationProjet');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'evaluationRealisationProjet_viewTypes',
@@ -295,7 +297,8 @@ class BaseEvaluationRealisationProjetService extends BaseService
             'evaluationRealisationProjet_title',
             'contextKey',
             'evaluationRealisationProjets_permissions',
-            'evaluationRealisationProjets_permissionsByItem'
+            'evaluationRealisationProjets_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

@@ -211,6 +211,8 @@ class BaseAnneeFormationService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('anneeFormation');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'anneeFormation_viewTypes',
@@ -223,7 +225,8 @@ class BaseAnneeFormationService extends BaseService
             'anneeFormation_title',
             'contextKey',
             'anneeFormations_permissions',
-            'anneeFormations_permissionsByItem'
+            'anneeFormations_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

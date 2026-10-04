@@ -275,6 +275,8 @@ class BaseRealisationUaService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('realisationUa');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'realisationUa_viewTypes',
@@ -287,7 +289,8 @@ class BaseRealisationUaService extends BaseService
             'realisationUa_title',
             'contextKey',
             'realisationUas_permissions',
-            'realisationUas_permissionsByItem'
+            'realisationUas_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

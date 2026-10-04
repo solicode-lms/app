@@ -81,12 +81,11 @@ class BaseReponseQcmController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemReponseQcm = $this->reponseQcmService->createInstance();
- 
+
 
         $realisationQcms = $this->realisationQcmService->all();
         $questions = $this->questionService->all();
@@ -94,10 +93,19 @@ class BaseReponseQcmController extends AdminController
         $realisationUaPrototypes = $this->realisationUaPrototypeService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemReponseQcm', 'realisationQcms', 'questions', 'propositionReponses', 'realisationUaPrototypes');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgQcm::reponseQcm._fields', compact('bulkEdit' ,'itemReponseQcm', 'realisationQcms', 'questions', 'propositionReponses', 'realisationUaPrototypes'));
+            return view('PkgQcm::reponseQcm._fields', $viewData);
         }
-        return view('PkgQcm::reponseQcm.create', compact('bulkEdit' ,'itemReponseQcm', 'realisationQcms', 'questions', 'propositionReponses', 'realisationUaPrototypes'));
+
+        return view('PkgQcm::reponseQcm.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -164,23 +172,30 @@ class BaseReponseQcmController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('reponseQcm.show_' . $id);
 
         $itemReponseQcm = $this->reponseQcmService->edit($id);
 
 
-        if (request()->ajax()) {
-            return view('PkgQcm::reponseQcm._show', array_merge(compact('itemReponseQcm'),));
-        }
-
-        return view('PkgQcm::reponseQcm.show', array_merge(compact('itemReponseQcm'),));
+        return array_merge(compact('itemReponseQcm'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgQcm::reponseQcm._show', $viewData);
+        }
+
+        return view('PkgQcm::reponseQcm.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('reponseQcm.edit_' . $id);
 
@@ -196,12 +211,21 @@ class BaseReponseQcmController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemReponseQcm','realisationQcms', 'questions', 'propositionReponses', 'realisationUaPrototypes'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgQcm::reponseQcm._fields', array_merge(compact('bulkEdit' , 'itemReponseQcm','realisationQcms', 'questions', 'propositionReponses', 'realisationUaPrototypes'),));
+            return view('PkgQcm::reponseQcm._fields', $viewData);
         }
 
-        return view('PkgQcm::reponseQcm.edit', array_merge(compact('bulkEdit' ,'itemReponseQcm','realisationQcms', 'questions', 'propositionReponses', 'realisationUaPrototypes'),));
-
+        return view('PkgQcm::reponseQcm.edit', $viewData);
 
     }
     /**

@@ -74,20 +74,28 @@ class BaseModuleController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemModule = $this->moduleService->createInstance();
- 
+
 
         $filieres = $this->filiereService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemModule', 'filieres');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgFormation::module._fields', compact('bulkEdit' ,'itemModule', 'filieres'));
+            return view('PkgFormation::module._fields', $viewData);
         }
-        return view('PkgFormation::module.create', compact('bulkEdit' ,'itemModule', 'filieres'));
+
+        return view('PkgFormation::module.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -151,37 +159,44 @@ class BaseModuleController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('module.show_' . $id);
 
         $itemModule = $this->moduleService->edit($id);
 
 
         $this->viewState->set('scope.competence.module_id', $id);
-        
+
 
         $competenceService =  new CompetenceService();
         $competences_view_data = $competenceService->prepareDataForIndexView();
         extract($competences_view_data);
 
         $this->viewState->set('scope.realisationModule.module_id', $id);
-        
+
 
         $realisationModuleService =  new RealisationModuleService();
         $realisationModules_view_data = $realisationModuleService->prepareDataForIndexView();
         extract($realisationModules_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgFormation::module._show', array_merge(compact('itemModule'),$competence_compact_value, $realisationModule_compact_value));
-        }
-
-        return view('PkgFormation::module.show', array_merge(compact('itemModule'),$competence_compact_value, $realisationModule_compact_value));
+        return array_merge(compact('itemModule'),$competence_compact_value, $realisationModule_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgFormation::module._show', $viewData);
+        }
+
+        return view('PkgFormation::module.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('module.edit_' . $id);
 
@@ -208,12 +223,21 @@ class BaseModuleController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemModule','filieres'),$competence_compact_value, $realisationModule_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgFormation::module._edit', array_merge(compact('bulkEdit' , 'itemModule','filieres'),$competence_compact_value, $realisationModule_compact_value));
+            return view('PkgFormation::module._edit', $viewData);
         }
 
-        return view('PkgFormation::module.edit', array_merge(compact('bulkEdit' ,'itemModule','filieres'),$competence_compact_value, $realisationModule_compact_value));
-
+        return view('PkgFormation::module.edit', $viewData);
 
     }
     /**

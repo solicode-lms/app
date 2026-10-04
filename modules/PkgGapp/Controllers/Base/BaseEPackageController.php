@@ -70,19 +70,27 @@ class BaseEPackageController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemEPackage = $this->ePackageService->createInstance();
- 
+
 
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemEPackage');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgGapp::ePackage._fields', compact('bulkEdit' ,'itemEPackage'));
+            return view('PkgGapp::ePackage._fields', $viewData);
         }
-        return view('PkgGapp::ePackage.create', compact('bulkEdit' ,'itemEPackage'));
+
+        return view('PkgGapp::ePackage.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -145,30 +153,37 @@ class BaseEPackageController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('ePackage.show_' . $id);
 
         $itemEPackage = $this->ePackageService->edit($id);
 
 
         $this->viewState->set('scope.eModel.e_package_id', $id);
-        
+
 
         $eModelService =  new EModelService();
         $eModels_view_data = $eModelService->prepareDataForIndexView();
         extract($eModels_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgGapp::ePackage._show', array_merge(compact('itemEPackage'),$eModel_compact_value));
-        }
-
-        return view('PkgGapp::ePackage.show', array_merge(compact('itemEPackage'),$eModel_compact_value));
+        return array_merge(compact('itemEPackage'),$eModel_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgGapp::ePackage._show', $viewData);
+        }
+
+        return view('PkgGapp::ePackage.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('ePackage.edit_' . $id);
 
@@ -187,12 +202,21 @@ class BaseEPackageController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemEPackage',),$eModel_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgGapp::ePackage._edit', array_merge(compact('bulkEdit' , 'itemEPackage',),$eModel_compact_value));
+            return view('PkgGapp::ePackage._edit', $viewData);
         }
 
-        return view('PkgGapp::ePackage.edit', array_merge(compact('bulkEdit' ,'itemEPackage',),$eModel_compact_value));
-
+        return view('PkgGapp::ePackage.edit', $viewData);
 
     }
     /**

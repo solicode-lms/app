@@ -264,6 +264,8 @@ class BaseERelationshipService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('eRelationship');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'eRelationship_viewTypes',
@@ -276,7 +278,8 @@ class BaseERelationshipService extends BaseService
             'eRelationship_title',
             'contextKey',
             'eRelationships_permissions',
-            'eRelationships_permissionsByItem'
+            'eRelationships_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

@@ -71,19 +71,27 @@ class BasePhaseEvaluationController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemPhaseEvaluation = $this->phaseEvaluationService->createInstance();
- 
+
 
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemPhaseEvaluation');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgCompetences::phaseEvaluation._fields', compact('bulkEdit' ,'itemPhaseEvaluation'));
+            return view('PkgCompetences::phaseEvaluation._fields', $viewData);
         }
-        return view('PkgCompetences::phaseEvaluation.create', compact('bulkEdit' ,'itemPhaseEvaluation'));
+
+        return view('PkgCompetences::phaseEvaluation.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -146,37 +154,44 @@ class BasePhaseEvaluationController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('phaseEvaluation.show_' . $id);
 
         $itemPhaseEvaluation = $this->phaseEvaluationService->edit($id);
 
 
         $this->viewState->set('scope.critereEvaluation.phase_evaluation_id', $id);
-        
+
 
         $critereEvaluationService =  new CritereEvaluationService();
         $critereEvaluations_view_data = $critereEvaluationService->prepareDataForIndexView();
         extract($critereEvaluations_view_data);
 
         $this->viewState->set('scope.tache.phase_evaluation_id', $id);
-        
+
 
         $tacheService =  new TacheService();
         $taches_view_data = $tacheService->prepareDataForIndexView();
         extract($taches_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgCompetences::phaseEvaluation._show', array_merge(compact('itemPhaseEvaluation'),$critereEvaluation_compact_value, $tache_compact_value));
-        }
-
-        return view('PkgCompetences::phaseEvaluation.show', array_merge(compact('itemPhaseEvaluation'),$critereEvaluation_compact_value, $tache_compact_value));
+        return array_merge(compact('itemPhaseEvaluation'),$critereEvaluation_compact_value, $tache_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::phaseEvaluation._show', $viewData);
+        }
+
+        return view('PkgCompetences::phaseEvaluation.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('phaseEvaluation.edit_' . $id);
 
@@ -202,12 +217,21 @@ class BasePhaseEvaluationController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemPhaseEvaluation',),$critereEvaluation_compact_value, $tache_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgCompetences::phaseEvaluation._edit', array_merge(compact('bulkEdit' , 'itemPhaseEvaluation',),$critereEvaluation_compact_value, $tache_compact_value));
+            return view('PkgCompetences::phaseEvaluation._edit', $viewData);
         }
 
-        return view('PkgCompetences::phaseEvaluation.edit', array_merge(compact('bulkEdit' ,'itemPhaseEvaluation',),$critereEvaluation_compact_value, $tache_compact_value));
-
+        return view('PkgCompetences::phaseEvaluation.edit', $viewData);
 
     }
     /**

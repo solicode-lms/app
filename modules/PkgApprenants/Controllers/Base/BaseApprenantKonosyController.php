@@ -69,19 +69,27 @@ class BaseApprenantKonosyController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemApprenantKonosy = $this->apprenantKonosyService->createInstance();
- 
+
 
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemApprenantKonosy');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenantKonosy._fields', compact('bulkEdit' ,'itemApprenantKonosy'));
+            return view('PkgApprenants::apprenantKonosy._fields', $viewData);
         }
-        return view('PkgApprenants::apprenantKonosy.create', compact('bulkEdit' ,'itemApprenantKonosy'));
+
+        return view('PkgApprenants::apprenantKonosy.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -144,23 +152,30 @@ class BaseApprenantKonosyController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('apprenantKonosy.show_' . $id);
 
         $itemApprenantKonosy = $this->apprenantKonosyService->edit($id);
 
 
-        if (request()->ajax()) {
-            return view('PkgApprenants::apprenantKonosy._show', array_merge(compact('itemApprenantKonosy'),));
-        }
-
-        return view('PkgApprenants::apprenantKonosy.show', array_merge(compact('itemApprenantKonosy'),));
+        return array_merge(compact('itemApprenantKonosy'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgApprenants::apprenantKonosy._show', $viewData);
+        }
+
+        return view('PkgApprenants::apprenantKonosy.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('apprenantKonosy.edit_' . $id);
 
@@ -172,12 +187,21 @@ class BaseApprenantKonosyController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemApprenantKonosy',),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenantKonosy._fields', array_merge(compact('bulkEdit' , 'itemApprenantKonosy',),));
+            return view('PkgApprenants::apprenantKonosy._fields', $viewData);
         }
 
-        return view('PkgApprenants::apprenantKonosy.edit', array_merge(compact('bulkEdit' ,'itemApprenantKonosy',),));
-
+        return view('PkgApprenants::apprenantKonosy.edit', $viewData);
 
     }
     /**

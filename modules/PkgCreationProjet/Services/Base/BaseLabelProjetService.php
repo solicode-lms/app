@@ -246,6 +246,8 @@ class BaseLabelProjetService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('labelProjet');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'labelProjet_viewTypes',
@@ -258,7 +260,8 @@ class BaseLabelProjetService extends BaseService
             'labelProjet_title',
             'contextKey',
             'labelProjets_permissions',
-            'labelProjets_permissionsByItem'
+            'labelProjets_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

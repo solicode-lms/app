@@ -76,21 +76,29 @@ class BaseTacheAffectationController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemTacheAffectation = $this->tacheAffectationService->createInstance();
- 
+
 
         $taches = $this->tacheService->all();
         $affectationProjets = $this->affectationProjetService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemTacheAffectation', 'taches', 'affectationProjets');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgRealisationTache::tacheAffectation._fields', compact('bulkEdit' ,'itemTacheAffectation', 'taches', 'affectationProjets'));
+            return view('PkgRealisationTache::tacheAffectation._fields', $viewData);
         }
-        return view('PkgRealisationTache::tacheAffectation.create', compact('bulkEdit' ,'itemTacheAffectation', 'taches', 'affectationProjets'));
+
+        return view('PkgRealisationTache::tacheAffectation.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -155,30 +163,37 @@ class BaseTacheAffectationController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('tacheAffectation.show_' . $id);
 
         $itemTacheAffectation = $this->tacheAffectationService->edit($id);
 
 
         $this->viewState->set('scope.realisationTache.tache_affectation_id', $id);
-        
+
 
         $realisationTacheService =  new RealisationTacheService();
         $realisationTaches_view_data = $realisationTacheService->prepareDataForIndexView();
         extract($realisationTaches_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgRealisationTache::tacheAffectation._show', array_merge(compact('itemTacheAffectation'),$realisationTache_compact_value));
-        }
-
-        return view('PkgRealisationTache::tacheAffectation.show', array_merge(compact('itemTacheAffectation'),$realisationTache_compact_value));
+        return array_merge(compact('itemTacheAffectation'),$realisationTache_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgRealisationTache::tacheAffectation._show', $viewData);
+        }
+
+        return view('PkgRealisationTache::tacheAffectation.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('tacheAffectation.edit_' . $id);
 
@@ -199,12 +214,21 @@ class BaseTacheAffectationController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemTacheAffectation','taches', 'affectationProjets'),$realisationTache_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgRealisationTache::tacheAffectation._edit', array_merge(compact('bulkEdit' , 'itemTacheAffectation','taches', 'affectationProjets'),$realisationTache_compact_value));
+            return view('PkgRealisationTache::tacheAffectation._edit', $viewData);
         }
 
-        return view('PkgRealisationTache::tacheAffectation.edit', array_merge(compact('bulkEdit' ,'itemTacheAffectation','taches', 'affectationProjets'),$realisationTache_compact_value));
-
+        return view('PkgRealisationTache::tacheAffectation.edit', $viewData);
 
     }
     /**

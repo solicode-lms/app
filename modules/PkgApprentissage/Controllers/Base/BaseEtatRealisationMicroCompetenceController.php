@@ -72,20 +72,28 @@ class BaseEtatRealisationMicroCompetenceController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemEtatRealisationMicroCompetence = $this->etatRealisationMicroCompetenceService->createInstance();
- 
+
 
         $sysColors = $this->sysColorService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemEtatRealisationMicroCompetence', 'sysColors');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgApprentissage::etatRealisationMicroCompetence._fields', compact('bulkEdit' ,'itemEtatRealisationMicroCompetence', 'sysColors'));
+            return view('PkgApprentissage::etatRealisationMicroCompetence._fields', $viewData);
         }
-        return view('PkgApprentissage::etatRealisationMicroCompetence.create', compact('bulkEdit' ,'itemEtatRealisationMicroCompetence', 'sysColors'));
+
+        return view('PkgApprentissage::etatRealisationMicroCompetence.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -149,23 +157,30 @@ class BaseEtatRealisationMicroCompetenceController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('etatRealisationMicroCompetence.show_' . $id);
 
         $itemEtatRealisationMicroCompetence = $this->etatRealisationMicroCompetenceService->edit($id);
 
 
-        if (request()->ajax()) {
-            return view('PkgApprentissage::etatRealisationMicroCompetence._show', array_merge(compact('itemEtatRealisationMicroCompetence'),));
-        }
-
-        return view('PkgApprentissage::etatRealisationMicroCompetence.show', array_merge(compact('itemEtatRealisationMicroCompetence'),));
+        return array_merge(compact('itemEtatRealisationMicroCompetence'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgApprentissage::etatRealisationMicroCompetence._show', $viewData);
+        }
+
+        return view('PkgApprentissage::etatRealisationMicroCompetence.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('etatRealisationMicroCompetence.edit_' . $id);
 
@@ -178,12 +193,21 @@ class BaseEtatRealisationMicroCompetenceController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemEtatRealisationMicroCompetence','sysColors'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgApprentissage::etatRealisationMicroCompetence._fields', array_merge(compact('bulkEdit' , 'itemEtatRealisationMicroCompetence','sysColors'),));
+            return view('PkgApprentissage::etatRealisationMicroCompetence._fields', $viewData);
         }
 
-        return view('PkgApprentissage::etatRealisationMicroCompetence.edit', array_merge(compact('bulkEdit' ,'itemEtatRealisationMicroCompetence','sysColors'),));
-
+        return view('PkgApprentissage::etatRealisationMicroCompetence.edit', $viewData);
 
     }
     /**

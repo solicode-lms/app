@@ -247,6 +247,8 @@ class BaseAffectationQcmProjetService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('affectationQcmProjet');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'affectationQcmProjet_viewTypes',
@@ -259,7 +261,8 @@ class BaseAffectationQcmProjetService extends BaseService
             'affectationQcmProjet_title',
             'contextKey',
             'affectationQcmProjets_permissions',
-            'affectationQcmProjets_permissionsByItem'
+            'affectationQcmProjets_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

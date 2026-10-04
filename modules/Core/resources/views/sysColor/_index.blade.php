@@ -71,6 +71,7 @@
                                 icon="fas fa-chart-bar text-info"
                                 :stats="$sysColors_stats"
                             />
+                            <x-crud-context-badges :scopeVariables="$scopeVariables ?? []" />
                         </div>
                         <div class="col-sm-4">
                             <div class="d-flex align-items-center justify-content-end">

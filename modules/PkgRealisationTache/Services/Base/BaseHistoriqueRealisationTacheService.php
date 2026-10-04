@@ -250,6 +250,8 @@ class BaseHistoriqueRealisationTacheService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('historiqueRealisationTache');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'historiqueRealisationTache_viewTypes',
@@ -262,7 +264,8 @@ class BaseHistoriqueRealisationTacheService extends BaseService
             'historiqueRealisationTache_title',
             'contextKey',
             'historiqueRealisationTaches_permissions',
-            'historiqueRealisationTaches_permissionsByItem'
+            'historiqueRealisationTaches_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

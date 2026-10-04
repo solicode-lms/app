@@ -228,6 +228,8 @@ class BaseFeatureService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('feature');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'feature_viewTypes',
@@ -240,7 +242,8 @@ class BaseFeatureService extends BaseService
             'feature_title',
             'contextKey',
             'features_permissions',
-            'features_permissionsByItem'
+            'features_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

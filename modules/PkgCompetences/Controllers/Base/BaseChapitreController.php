@@ -75,21 +75,29 @@ class BaseChapitreController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemChapitre = $this->chapitreService->createInstance();
- 
+
 
         $uniteApprentissages = $this->uniteApprentissageService->all();
         $formateurs = $this->formateurService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemChapitre', 'uniteApprentissages', 'formateurs');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgCompetences::chapitre._fields', compact('bulkEdit' ,'itemChapitre', 'uniteApprentissages', 'formateurs'));
+            return view('PkgCompetences::chapitre._fields', $viewData);
         }
-        return view('PkgCompetences::chapitre.create', compact('bulkEdit' ,'itemChapitre', 'uniteApprentissages', 'formateurs'));
+
+        return view('PkgCompetences::chapitre.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -154,23 +162,30 @@ class BaseChapitreController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('chapitre.show_' . $id);
 
         $itemChapitre = $this->chapitreService->edit($id);
 
 
-        if (request()->ajax()) {
-            return view('PkgCompetences::chapitre._show', array_merge(compact('itemChapitre'),));
-        }
-
-        return view('PkgCompetences::chapitre.show', array_merge(compact('itemChapitre'),));
+        return array_merge(compact('itemChapitre'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::chapitre._show', $viewData);
+        }
+
+        return view('PkgCompetences::chapitre.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('chapitre.edit_' . $id);
 
@@ -184,12 +199,21 @@ class BaseChapitreController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemChapitre','uniteApprentissages', 'formateurs'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgCompetences::chapitre._fields', array_merge(compact('bulkEdit' , 'itemChapitre','uniteApprentissages', 'formateurs'),));
+            return view('PkgCompetences::chapitre._fields', $viewData);
         }
 
-        return view('PkgCompetences::chapitre.edit', array_merge(compact('bulkEdit' ,'itemChapitre','uniteApprentissages', 'formateurs'),));
-
+        return view('PkgCompetences::chapitre.edit', $viewData);
 
     }
     /**

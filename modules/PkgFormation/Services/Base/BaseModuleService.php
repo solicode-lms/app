@@ -237,6 +237,8 @@ class BaseModuleService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('module');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'module_viewTypes',
@@ -249,7 +251,8 @@ class BaseModuleService extends BaseService
             'module_title',
             'contextKey',
             'modules_permissions',
-            'modules_permissionsByItem'
+            'modules_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

@@ -210,6 +210,8 @@ class BaseNatureLivrableService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('natureLivrable');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'natureLivrable_viewTypes',
@@ -222,7 +224,8 @@ class BaseNatureLivrableService extends BaseService
             'natureLivrable_title',
             'contextKey',
             'natureLivrables_permissions',
-            'natureLivrables_permissionsByItem'
+            'natureLivrables_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

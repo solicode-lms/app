@@ -242,6 +242,8 @@ class BaseEvaluateurService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('evaluateur');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'evaluateur_viewTypes',
@@ -254,7 +256,8 @@ class BaseEvaluateurService extends BaseService
             'evaluateur_title',
             'contextKey',
             'evaluateurs_permissions',
-            'evaluateurs_permissionsByItem'
+            'evaluateurs_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

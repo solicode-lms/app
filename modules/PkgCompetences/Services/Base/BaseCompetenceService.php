@@ -247,6 +247,8 @@ class BaseCompetenceService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('competence');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'competence_viewTypes',
@@ -259,7 +261,8 @@ class BaseCompetenceService extends BaseService
             'competence_title',
             'contextKey',
             'competences_permissions',
-            'competences_permissionsByItem'
+            'competences_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

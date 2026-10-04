@@ -229,6 +229,8 @@ class BaseFeatureDomainService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('featureDomain');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'featureDomain_viewTypes',
@@ -241,7 +243,8 @@ class BaseFeatureDomainService extends BaseService
             'featureDomain_title',
             'contextKey',
             'featureDomains_permissions',
-            'featureDomains_permissionsByItem'
+            'featureDomains_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

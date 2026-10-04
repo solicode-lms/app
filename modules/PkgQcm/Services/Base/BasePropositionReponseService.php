@@ -229,6 +229,8 @@ class BasePropositionReponseService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('propositionReponse');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'propositionReponse_viewTypes',
@@ -241,7 +243,8 @@ class BasePropositionReponseService extends BaseService
             'propositionReponse_title',
             'contextKey',
             'propositionReponses_permissions',
-            'propositionReponses_permissionsByItem'
+            'propositionReponses_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

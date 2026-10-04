@@ -72,20 +72,28 @@ class BaseSpecialiteController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemSpecialite = $this->specialiteService->createInstance();
- 
+
 
         $formateurs = $this->formateurService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemSpecialite', 'formateurs');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgFormation::specialite._fields', compact('bulkEdit' ,'itemSpecialite', 'formateurs'));
+            return view('PkgFormation::specialite._fields', $viewData);
         }
-        return view('PkgFormation::specialite.create', compact('bulkEdit' ,'itemSpecialite', 'formateurs'));
+
+        return view('PkgFormation::specialite.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -149,23 +157,30 @@ class BaseSpecialiteController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('specialite.show_' . $id);
 
         $itemSpecialite = $this->specialiteService->edit($id);
 
 
-        if (request()->ajax()) {
-            return view('PkgFormation::specialite._show', array_merge(compact('itemSpecialite'),));
-        }
-
-        return view('PkgFormation::specialite.show', array_merge(compact('itemSpecialite'),));
+        return array_merge(compact('itemSpecialite'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgFormation::specialite._show', $viewData);
+        }
+
+        return view('PkgFormation::specialite.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('specialite.edit_' . $id);
 
@@ -178,12 +193,21 @@ class BaseSpecialiteController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemSpecialite','formateurs'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgFormation::specialite._fields', array_merge(compact('bulkEdit' , 'itemSpecialite','formateurs'),));
+            return view('PkgFormation::specialite._fields', $viewData);
         }
 
-        return view('PkgFormation::specialite.edit', array_merge(compact('bulkEdit' ,'itemSpecialite','formateurs'),));
-
+        return view('PkgFormation::specialite.edit', $viewData);
 
     }
     /**

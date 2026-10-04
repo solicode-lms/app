@@ -70,19 +70,27 @@ class BaseEMetadataDefinitionController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->createInstance();
- 
+
 
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemEMetadataDefinition');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._fields', compact('bulkEdit' ,'itemEMetadataDefinition'));
+            return view('PkgGapp::eMetadataDefinition._fields', $viewData);
         }
-        return view('PkgGapp::eMetadataDefinition.create', compact('bulkEdit' ,'itemEMetadataDefinition'));
+
+        return view('PkgGapp::eMetadataDefinition.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -145,30 +153,37 @@ class BaseEMetadataDefinitionController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('eMetadataDefinition.show_' . $id);
 
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->edit($id);
 
 
         $this->viewState->set('scope.eMetadatum.e_metadata_definition_id', $id);
-        
+
 
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_view_data = $eMetadatumService->prepareDataForIndexView();
         extract($eMetadata_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._show', array_merge(compact('itemEMetadataDefinition'),$eMetadatum_compact_value));
-        }
-
-        return view('PkgGapp::eMetadataDefinition.show', array_merge(compact('itemEMetadataDefinition'),$eMetadatum_compact_value));
+        return array_merge(compact('itemEMetadataDefinition'),$eMetadatum_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgGapp::eMetadataDefinition._show', $viewData);
+        }
+
+        return view('PkgGapp::eMetadataDefinition.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('eMetadataDefinition.edit_' . $id);
 
@@ -187,12 +202,21 @@ class BaseEMetadataDefinitionController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemEMetadataDefinition',),$eMetadatum_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._edit', array_merge(compact('bulkEdit' , 'itemEMetadataDefinition',),$eMetadatum_compact_value));
+            return view('PkgGapp::eMetadataDefinition._edit', $viewData);
         }
 
-        return view('PkgGapp::eMetadataDefinition.edit', array_merge(compact('bulkEdit' ,'itemEMetadataDefinition',),$eMetadatum_compact_value));
-
+        return view('PkgGapp::eMetadataDefinition.edit', $viewData);
 
     }
     /**

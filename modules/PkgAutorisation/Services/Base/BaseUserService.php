@@ -225,6 +225,8 @@ class BaseUserService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('user');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'user_viewTypes',
@@ -237,7 +239,8 @@ class BaseUserService extends BaseService
             'user_title',
             'contextKey',
             'users_permissions',
-            'users_permissionsByItem'
+            'users_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

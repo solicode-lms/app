@@ -73,20 +73,28 @@ class BaseEtatRealisationModuleController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemEtatRealisationModule = $this->etatRealisationModuleService->createInstance();
- 
+
 
         $sysColors = $this->sysColorService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemEtatRealisationModule', 'sysColors');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgApprentissage::etatRealisationModule._fields', compact('bulkEdit' ,'itemEtatRealisationModule', 'sysColors'));
+            return view('PkgApprentissage::etatRealisationModule._fields', $viewData);
         }
-        return view('PkgApprentissage::etatRealisationModule.create', compact('bulkEdit' ,'itemEtatRealisationModule', 'sysColors'));
+
+        return view('PkgApprentissage::etatRealisationModule.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -150,30 +158,37 @@ class BaseEtatRealisationModuleController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('etatRealisationModule.show_' . $id);
 
         $itemEtatRealisationModule = $this->etatRealisationModuleService->edit($id);
 
 
         $this->viewState->set('scope.realisationModule.etat_realisation_module_id', $id);
-        
+
 
         $realisationModuleService =  new RealisationModuleService();
         $realisationModules_view_data = $realisationModuleService->prepareDataForIndexView();
         extract($realisationModules_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgApprentissage::etatRealisationModule._show', array_merge(compact('itemEtatRealisationModule'),$realisationModule_compact_value));
-        }
-
-        return view('PkgApprentissage::etatRealisationModule.show', array_merge(compact('itemEtatRealisationModule'),$realisationModule_compact_value));
+        return array_merge(compact('itemEtatRealisationModule'),$realisationModule_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgApprentissage::etatRealisationModule._show', $viewData);
+        }
+
+        return view('PkgApprentissage::etatRealisationModule.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('etatRealisationModule.edit_' . $id);
 
@@ -193,12 +208,21 @@ class BaseEtatRealisationModuleController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemEtatRealisationModule','sysColors'),$realisationModule_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgApprentissage::etatRealisationModule._edit', array_merge(compact('bulkEdit' , 'itemEtatRealisationModule','sysColors'),$realisationModule_compact_value));
+            return view('PkgApprentissage::etatRealisationModule._edit', $viewData);
         }
 
-        return view('PkgApprentissage::etatRealisationModule.edit', array_merge(compact('bulkEdit' ,'itemEtatRealisationModule','sysColors'),$realisationModule_compact_value));
-
+        return view('PkgApprentissage::etatRealisationModule.edit', $viewData);
 
     }
     /**

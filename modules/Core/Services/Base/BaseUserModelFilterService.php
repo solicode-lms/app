@@ -228,6 +228,8 @@ class BaseUserModelFilterService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('userModelFilter');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'userModelFilter_viewTypes',
@@ -240,7 +242,8 @@ class BaseUserModelFilterService extends BaseService
             'userModelFilter_title',
             'contextKey',
             'userModelFilters_permissions',
-            'userModelFilters_permissionsByItem'
+            'userModelFilters_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

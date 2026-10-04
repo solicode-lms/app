@@ -70,19 +70,27 @@ class BaseNiveauxScolaireController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemNiveauxScolaire = $this->niveauxScolaireService->createInstance();
- 
+
 
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemNiveauxScolaire');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgApprenants::niveauxScolaire._fields', compact('bulkEdit' ,'itemNiveauxScolaire'));
+            return view('PkgApprenants::niveauxScolaire._fields', $viewData);
         }
-        return view('PkgApprenants::niveauxScolaire.create', compact('bulkEdit' ,'itemNiveauxScolaire'));
+
+        return view('PkgApprenants::niveauxScolaire.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -145,30 +153,37 @@ class BaseNiveauxScolaireController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('niveauxScolaire.show_' . $id);
 
         $itemNiveauxScolaire = $this->niveauxScolaireService->edit($id);
 
 
         $this->viewState->set('scope.apprenant.niveaux_scolaire_id', $id);
-        
+
 
         $apprenantService =  new ApprenantService();
         $apprenants_view_data = $apprenantService->prepareDataForIndexView();
         extract($apprenants_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgApprenants::niveauxScolaire._show', array_merge(compact('itemNiveauxScolaire'),$apprenant_compact_value));
-        }
-
-        return view('PkgApprenants::niveauxScolaire.show', array_merge(compact('itemNiveauxScolaire'),$apprenant_compact_value));
+        return array_merge(compact('itemNiveauxScolaire'),$apprenant_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgApprenants::niveauxScolaire._show', $viewData);
+        }
+
+        return view('PkgApprenants::niveauxScolaire.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('niveauxScolaire.edit_' . $id);
 
@@ -187,12 +202,21 @@ class BaseNiveauxScolaireController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemNiveauxScolaire',),$apprenant_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgApprenants::niveauxScolaire._edit', array_merge(compact('bulkEdit' , 'itemNiveauxScolaire',),$apprenant_compact_value));
+            return view('PkgApprenants::niveauxScolaire._edit', $viewData);
         }
 
-        return view('PkgApprenants::niveauxScolaire.edit', array_merge(compact('bulkEdit' ,'itemNiveauxScolaire',),$apprenant_compact_value));
-
+        return view('PkgApprenants::niveauxScolaire.edit', $viewData);
 
     }
     /**

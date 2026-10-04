@@ -79,25 +79,33 @@ class BaseLivrablesRealisationController extends AdminController
     }
     /**
      */
-    public function create() {
+    protected function dataForCreateView() {
         // ownedByUser
         if(Auth::user()->hasRole('apprenant')){
            $this->viewState->set('scope_form.livrablesRealisation.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
-
         // scopeDataByRole
         $itemLivrablesRealisation = $this->livrablesRealisationService->createInstance();
- 
+
 
         $livrables = $this->livrableService->all();
         $realisationProjets = $this->realisationProjetService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemLivrablesRealisation', 'livrables', 'realisationProjets');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('bulkEdit' ,'itemLivrablesRealisation', 'livrables', 'realisationProjets'));
+            return view('PkgRealisationProjets::livrablesRealisation._fields', $viewData);
         }
-        return view('PkgRealisationProjets::livrablesRealisation.create', compact('bulkEdit' ,'itemLivrablesRealisation', 'livrables', 'realisationProjets'));
+
+        return view('PkgRealisationProjets::livrablesRealisation.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -166,24 +174,31 @@ class BaseLivrablesRealisationController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('livrablesRealisation.show_' . $id);
 
         $itemLivrablesRealisation = $this->livrablesRealisationService->edit($id);
         $this->authorize('view', $itemLivrablesRealisation);
 
 
-        if (request()->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._show', array_merge(compact('itemLivrablesRealisation'),));
-        }
-
-        return view('PkgRealisationProjets::livrablesRealisation.show', array_merge(compact('itemLivrablesRealisation'),));
+        return array_merge(compact('itemLivrablesRealisation'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgRealisationProjets::livrablesRealisation._show', $viewData);
+        }
+
+        return view('PkgRealisationProjets::livrablesRealisation.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
 
@@ -198,12 +213,21 @@ class BaseLivrablesRealisationController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemLivrablesRealisation','livrables', 'realisationProjets'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._fields', array_merge(compact('bulkEdit' , 'itemLivrablesRealisation','livrables', 'realisationProjets'),));
+            return view('PkgRealisationProjets::livrablesRealisation._fields', $viewData);
         }
 
-        return view('PkgRealisationProjets::livrablesRealisation.edit', array_merge(compact('bulkEdit' ,'itemLivrablesRealisation','livrables', 'realisationProjets'),));
-
+        return view('PkgRealisationProjets::livrablesRealisation.edit', $viewData);
 
     }
     /**

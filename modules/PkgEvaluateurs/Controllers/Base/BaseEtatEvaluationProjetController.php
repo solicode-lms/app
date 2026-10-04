@@ -73,20 +73,28 @@ class BaseEtatEvaluationProjetController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemEtatEvaluationProjet = $this->etatEvaluationProjetService->createInstance();
- 
+
 
         $sysColors = $this->sysColorService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemEtatEvaluationProjet', 'sysColors');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgEvaluateurs::etatEvaluationProjet._fields', compact('bulkEdit' ,'itemEtatEvaluationProjet', 'sysColors'));
+            return view('PkgEvaluateurs::etatEvaluationProjet._fields', $viewData);
         }
-        return view('PkgEvaluateurs::etatEvaluationProjet.create', compact('bulkEdit' ,'itemEtatEvaluationProjet', 'sysColors'));
+
+        return view('PkgEvaluateurs::etatEvaluationProjet.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -150,30 +158,37 @@ class BaseEtatEvaluationProjetController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('etatEvaluationProjet.show_' . $id);
 
         $itemEtatEvaluationProjet = $this->etatEvaluationProjetService->edit($id);
 
 
         $this->viewState->set('scope.evaluationRealisationProjet.etat_evaluation_projet_id', $id);
-        
+
 
         $evaluationRealisationProjetService =  new EvaluationRealisationProjetService();
         $evaluationRealisationProjets_view_data = $evaluationRealisationProjetService->prepareDataForIndexView();
         extract($evaluationRealisationProjets_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgEvaluateurs::etatEvaluationProjet._show', array_merge(compact('itemEtatEvaluationProjet'),$evaluationRealisationProjet_compact_value));
-        }
-
-        return view('PkgEvaluateurs::etatEvaluationProjet.show', array_merge(compact('itemEtatEvaluationProjet'),$evaluationRealisationProjet_compact_value));
+        return array_merge(compact('itemEtatEvaluationProjet'),$evaluationRealisationProjet_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgEvaluateurs::etatEvaluationProjet._show', $viewData);
+        }
+
+        return view('PkgEvaluateurs::etatEvaluationProjet.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('etatEvaluationProjet.edit_' . $id);
 
@@ -193,12 +208,21 @@ class BaseEtatEvaluationProjetController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemEtatEvaluationProjet','sysColors'),$evaluationRealisationProjet_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgEvaluateurs::etatEvaluationProjet._edit', array_merge(compact('bulkEdit' , 'itemEtatEvaluationProjet','sysColors'),$evaluationRealisationProjet_compact_value));
+            return view('PkgEvaluateurs::etatEvaluationProjet._edit', $viewData);
         }
 
-        return view('PkgEvaluateurs::etatEvaluationProjet.edit', array_merge(compact('bulkEdit' ,'itemEtatEvaluationProjet','sysColors'),$evaluationRealisationProjet_compact_value));
-
+        return view('PkgEvaluateurs::etatEvaluationProjet.edit', $viewData);
 
     }
     /**

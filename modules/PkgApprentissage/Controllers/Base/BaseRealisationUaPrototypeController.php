@@ -82,26 +82,34 @@ class BaseRealisationUaPrototypeController extends AdminController
     }
     /**
      */
-    public function create() {
+    protected function dataForCreateView() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->set('scope_form.realisationUaPrototype.realisationtache.realisationprojet.affectationprojet.projet.formateur.user_id'  , $this->sessionState->get('user_id'));
         }
 
-
         // scopeDataByRole
         $itemRealisationUaPrototype = $this->realisationUaPrototypeService->createInstance();
- 
+
 
         $realisationTaches = $this->realisationTacheService->all();
         $realisationUas = $this->realisationUaService->all();
         $reponseQcms = $this->reponseQcmService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemRealisationUaPrototype', 'realisationTaches', 'realisationUas', 'reponseQcms');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationUaPrototype._fields', compact('bulkEdit' ,'itemRealisationUaPrototype', 'realisationTaches', 'realisationUas', 'reponseQcms'));
+            return view('PkgApprentissage::realisationUaPrototype._fields', $viewData);
         }
-        return view('PkgApprentissage::realisationUaPrototype.create', compact('bulkEdit' ,'itemRealisationUaPrototype', 'realisationTaches', 'realisationUas', 'reponseQcms'));
+
+        return view('PkgApprentissage::realisationUaPrototype.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -171,24 +179,31 @@ class BaseRealisationUaPrototypeController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('realisationUaPrototype.show_' . $id);
 
         $itemRealisationUaPrototype = $this->realisationUaPrototypeService->edit($id);
         $this->authorize('view', $itemRealisationUaPrototype);
 
 
-        if (request()->ajax()) {
-            return view('PkgApprentissage::realisationUaPrototype._show', array_merge(compact('itemRealisationUaPrototype'),));
-        }
-
-        return view('PkgApprentissage::realisationUaPrototype.show', array_merge(compact('itemRealisationUaPrototype'),));
+        return array_merge(compact('itemRealisationUaPrototype'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgApprentissage::realisationUaPrototype._show', $viewData);
+        }
+
+        return view('PkgApprentissage::realisationUaPrototype.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('realisationUaPrototype.edit_' . $id);
 
@@ -204,12 +219,21 @@ class BaseRealisationUaPrototypeController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemRealisationUaPrototype','realisationTaches', 'realisationUas', 'reponseQcms'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationUaPrototype._fields', array_merge(compact('bulkEdit' , 'itemRealisationUaPrototype','realisationTaches', 'realisationUas', 'reponseQcms'),));
+            return view('PkgApprentissage::realisationUaPrototype._fields', $viewData);
         }
 
-        return view('PkgApprentissage::realisationUaPrototype.edit', array_merge(compact('bulkEdit' ,'itemRealisationUaPrototype','realisationTaches', 'realisationUas', 'reponseQcms'),));
-
+        return view('PkgApprentissage::realisationUaPrototype.edit', $viewData);
 
     }
     /**

@@ -210,6 +210,8 @@ class BaseEPackageService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('ePackage');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'ePackage_viewTypes',
@@ -222,7 +224,8 @@ class BaseEPackageService extends BaseService
             'ePackage_title',
             'contextKey',
             'ePackages_permissions',
-            'ePackages_permissionsByItem'
+            'ePackages_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

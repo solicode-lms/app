@@ -72,20 +72,28 @@ class BaseUserModelFilterController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemUserModelFilter = $this->userModelFilterService->createInstance();
- 
+
 
         $users = $this->userService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemUserModelFilter', 'users');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('Core::userModelFilter._fields', compact('bulkEdit' ,'itemUserModelFilter', 'users'));
+            return view('Core::userModelFilter._fields', $viewData);
         }
-        return view('Core::userModelFilter.create', compact('bulkEdit' ,'itemUserModelFilter', 'users'));
+
+        return view('Core::userModelFilter.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -149,23 +157,30 @@ class BaseUserModelFilterController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('userModelFilter.show_' . $id);
 
         $itemUserModelFilter = $this->userModelFilterService->edit($id);
 
 
-        if (request()->ajax()) {
-            return view('Core::userModelFilter._show', array_merge(compact('itemUserModelFilter'),));
-        }
-
-        return view('Core::userModelFilter.show', array_merge(compact('itemUserModelFilter'),));
+        return array_merge(compact('itemUserModelFilter'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('Core::userModelFilter._show', $viewData);
+        }
+
+        return view('Core::userModelFilter.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('userModelFilter.edit_' . $id);
 
@@ -178,12 +193,21 @@ class BaseUserModelFilterController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemUserModelFilter','users'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('Core::userModelFilter._fields', array_merge(compact('bulkEdit' , 'itemUserModelFilter','users'),));
+            return view('Core::userModelFilter._fields', $viewData);
         }
 
-        return view('Core::userModelFilter.edit', array_merge(compact('bulkEdit' ,'itemUserModelFilter','users'),));
-
+        return view('Core::userModelFilter.edit', $viewData);
 
     }
     /**

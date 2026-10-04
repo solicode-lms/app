@@ -210,6 +210,8 @@ class BaseWidgetOperationService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('widgetOperation');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'widgetOperation_viewTypes',
@@ -222,7 +224,8 @@ class BaseWidgetOperationService extends BaseService
             'widgetOperation_title',
             'contextKey',
             'widgetOperations_permissions',
-            'widgetOperations_permissionsByItem'
+            'widgetOperations_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

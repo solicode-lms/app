@@ -74,20 +74,28 @@ class BaseMicroCompetenceController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemMicroCompetence = $this->microCompetenceService->createInstance();
- 
+
 
         $competences = $this->competenceService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemMicroCompetence', 'competences');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgCompetences::microCompetence._fields', compact('bulkEdit' ,'itemMicroCompetence', 'competences'));
+            return view('PkgCompetences::microCompetence._fields', $viewData);
         }
-        return view('PkgCompetences::microCompetence.create', compact('bulkEdit' ,'itemMicroCompetence', 'competences'));
+
+        return view('PkgCompetences::microCompetence.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -151,30 +159,37 @@ class BaseMicroCompetenceController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('microCompetence.show_' . $id);
 
         $itemMicroCompetence = $this->microCompetenceService->edit($id);
 
 
         $this->viewState->set('scope.uniteApprentissage.micro_competence_id', $id);
-        
+
 
         $uniteApprentissageService =  new UniteApprentissageService();
         $uniteApprentissages_view_data = $uniteApprentissageService->prepareDataForIndexView();
         extract($uniteApprentissages_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgCompetences::microCompetence._show', array_merge(compact('itemMicroCompetence'),$uniteApprentissage_compact_value));
-        }
-
-        return view('PkgCompetences::microCompetence.show', array_merge(compact('itemMicroCompetence'),$uniteApprentissage_compact_value));
+        return array_merge(compact('itemMicroCompetence'),$uniteApprentissage_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::microCompetence._show', $viewData);
+        }
+
+        return view('PkgCompetences::microCompetence.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('microCompetence.edit_' . $id);
 
@@ -201,12 +216,21 @@ class BaseMicroCompetenceController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemMicroCompetence','competences'),$uniteApprentissage_compact_value, $realisationMicroCompetence_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgCompetences::microCompetence._edit', array_merge(compact('bulkEdit' , 'itemMicroCompetence','competences'),$uniteApprentissage_compact_value, $realisationMicroCompetence_compact_value));
+            return view('PkgCompetences::microCompetence._edit', $viewData);
         }
 
-        return view('PkgCompetences::microCompetence.edit', array_merge(compact('bulkEdit' ,'itemMicroCompetence','competences'),$uniteApprentissage_compact_value, $realisationMicroCompetence_compact_value));
-
+        return view('PkgCompetences::microCompetence.edit', $viewData);
 
     }
     /**

@@ -254,6 +254,8 @@ class BaseNotificationService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('notification');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'notification_viewTypes',
@@ -266,7 +268,8 @@ class BaseNotificationService extends BaseService
             'notification_title',
             'contextKey',
             'notifications_permissions',
-            'notifications_permissionsByItem'
+            'notifications_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

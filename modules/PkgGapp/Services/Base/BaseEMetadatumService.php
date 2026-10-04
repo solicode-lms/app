@@ -271,6 +271,8 @@ class BaseEMetadatumService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('eMetadatum');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'eMetadatum_viewTypes',
@@ -283,7 +285,8 @@ class BaseEMetadatumService extends BaseService
             'eMetadatum_title',
             'contextKey',
             'eMetadata_permissions',
-            'eMetadata_permissionsByItem'
+            'eMetadata_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

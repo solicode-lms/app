@@ -211,6 +211,8 @@ class BaseNiveauxScolaireService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('niveauxScolaire');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'niveauxScolaire_viewTypes',
@@ -223,7 +225,8 @@ class BaseNiveauxScolaireService extends BaseService
             'niveauxScolaire_title',
             'contextKey',
             'niveauxScolaires_permissions',
-            'niveauxScolaires_permissionsByItem'
+            'niveauxScolaires_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

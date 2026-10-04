@@ -78,21 +78,29 @@ class BaseSessionFormationController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemSessionFormation = $this->sessionFormationService->createInstance();
- 
+
 
         $filieres = $this->filiereService->all();
         $anneeFormations = $this->anneeFormationService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemSessionFormation', 'filieres', 'anneeFormations');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgSessions::sessionFormation._fields', compact('bulkEdit' ,'itemSessionFormation', 'filieres', 'anneeFormations'));
+            return view('PkgSessions::sessionFormation._fields', $viewData);
         }
-        return view('PkgSessions::sessionFormation.create', compact('bulkEdit' ,'itemSessionFormation', 'filieres', 'anneeFormations'));
+
+        return view('PkgSessions::sessionFormation.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -157,44 +165,51 @@ class BaseSessionFormationController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('sessionFormation.show_' . $id);
 
         $itemSessionFormation = $this->sessionFormationService->edit($id);
 
 
         $this->viewState->set('scope.alignementUa.session_formation_id', $id);
-        
+
 
         $alignementUaService =  new AlignementUaService();
         $alignementUas_view_data = $alignementUaService->prepareDataForIndexView();
         extract($alignementUas_view_data);
 
         $this->viewState->set('scope.livrableSession.session_formation_id', $id);
-        
+
 
         $livrableSessionService =  new LivrableSessionService();
         $livrableSessions_view_data = $livrableSessionService->prepareDataForIndexView();
         extract($livrableSessions_view_data);
 
         $this->viewState->set('scope.projet.session_formation_id', $id);
-        
+
 
         $projetService =  new ProjetService();
         $projets_view_data = $projetService->prepareDataForIndexView();
         extract($projets_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgSessions::sessionFormation._show', array_merge(compact('itemSessionFormation'),$alignementUa_compact_value, $livrableSession_compact_value, $projet_compact_value));
-        }
-
-        return view('PkgSessions::sessionFormation.show', array_merge(compact('itemSessionFormation'),$alignementUa_compact_value, $livrableSession_compact_value, $projet_compact_value));
+        return array_merge(compact('itemSessionFormation'),$alignementUa_compact_value, $livrableSession_compact_value, $projet_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgSessions::sessionFormation._show', $viewData);
+        }
+
+        return view('PkgSessions::sessionFormation.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('sessionFormation.edit_' . $id);
 
@@ -229,12 +244,21 @@ class BaseSessionFormationController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemSessionFormation','filieres', 'anneeFormations'),$alignementUa_compact_value, $livrableSession_compact_value, $projet_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgSessions::sessionFormation._edit', array_merge(compact('bulkEdit' , 'itemSessionFormation','filieres', 'anneeFormations'),$alignementUa_compact_value, $livrableSession_compact_value, $projet_compact_value));
+            return view('PkgSessions::sessionFormation._edit', $viewData);
         }
 
-        return view('PkgSessions::sessionFormation.edit', array_merge(compact('bulkEdit' ,'itemSessionFormation','filieres', 'anneeFormations'),$alignementUa_compact_value, $livrableSession_compact_value, $projet_compact_value));
-
+        return view('PkgSessions::sessionFormation.edit', $viewData);
 
     }
     /**

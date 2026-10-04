@@ -270,6 +270,8 @@ class BaseFormateurService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('formateur');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'formateur_viewTypes',
@@ -282,7 +284,8 @@ class BaseFormateurService extends BaseService
             'formateur_title',
             'contextKey',
             'formateurs_permissions',
-            'formateurs_permissionsByItem'
+            'formateurs_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

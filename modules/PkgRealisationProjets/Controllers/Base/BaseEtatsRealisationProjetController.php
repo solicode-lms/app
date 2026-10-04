@@ -73,21 +73,29 @@ class BaseEtatsRealisationProjetController extends AdminController
     }
     /**
      */
-    public function create() {
+    protected function dataForCreateView() {
         // ownedByUser
-
 
         // scopeDataByRole
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->createInstance();
- 
+
 
         $sysColors = $this->sysColorService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemEtatsRealisationProjet', 'sysColors');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('bulkEdit' ,'itemEtatsRealisationProjet', 'sysColors'));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', $viewData);
         }
-        return view('PkgRealisationProjets::etatsRealisationProjet.create', compact('bulkEdit' ,'itemEtatsRealisationProjet', 'sysColors'));
+
+        return view('PkgRealisationProjets::etatsRealisationProjet.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -152,24 +160,31 @@ class BaseEtatsRealisationProjetController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('etatsRealisationProjet.show_' . $id);
 
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->edit($id);
         $this->authorize('view', $itemEtatsRealisationProjet);
 
 
-        if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._show', array_merge(compact('itemEtatsRealisationProjet'),));
-        }
-
-        return view('PkgRealisationProjets::etatsRealisationProjet.show', array_merge(compact('itemEtatsRealisationProjet'),));
+        return array_merge(compact('itemEtatsRealisationProjet'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgRealisationProjets::etatsRealisationProjet._show', $viewData);
+        }
+
+        return view('PkgRealisationProjets::etatsRealisationProjet.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('etatsRealisationProjet.edit_' . $id);
 
@@ -183,12 +198,21 @@ class BaseEtatsRealisationProjetController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemEtatsRealisationProjet','sysColors'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('bulkEdit' , 'itemEtatsRealisationProjet','sysColors'),));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', $viewData);
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('bulkEdit' ,'itemEtatsRealisationProjet','sysColors'),));
-
+        return view('PkgRealisationProjets::etatsRealisationProjet.edit', $viewData);
 
     }
     /**

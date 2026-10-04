@@ -76,21 +76,29 @@ class BaseSysModelController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemSysModel = $this->sysModelService->createInstance();
- 
+
 
         $sysModules = $this->sysModuleService->all();
         $sysColors = $this->sysColorService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemSysModel', 'sysModules', 'sysColors');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('Core::sysModel._fields', compact('bulkEdit' ,'itemSysModel', 'sysModules', 'sysColors'));
+            return view('Core::sysModel._fields', $viewData);
         }
-        return view('Core::sysModel.create', compact('bulkEdit' ,'itemSysModel', 'sysModules', 'sysColors'));
+
+        return view('Core::sysModel.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -155,30 +163,37 @@ class BaseSysModelController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('sysModel.show_' . $id);
 
         $itemSysModel = $this->sysModelService->edit($id);
 
 
         $this->viewState->set('scope.widget.model_id', $id);
-        
+
 
         $widgetService =  new WidgetService();
         $widgets_view_data = $widgetService->prepareDataForIndexView();
         extract($widgets_view_data);
 
-        if (request()->ajax()) {
-            return view('Core::sysModel._show', array_merge(compact('itemSysModel'),$widget_compact_value));
-        }
-
-        return view('Core::sysModel.show', array_merge(compact('itemSysModel'),$widget_compact_value));
+        return array_merge(compact('itemSysModel'),$widget_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('Core::sysModel._show', $viewData);
+        }
+
+        return view('Core::sysModel.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('sysModel.edit_' . $id);
 
@@ -199,12 +214,21 @@ class BaseSysModelController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemSysModel','sysModules', 'sysColors'),$widget_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('Core::sysModel._edit', array_merge(compact('bulkEdit' , 'itemSysModel','sysModules', 'sysColors'),$widget_compact_value));
+            return view('Core::sysModel._edit', $viewData);
         }
 
-        return view('Core::sysModel.edit', array_merge(compact('bulkEdit' ,'itemSysModel','sysModules', 'sysColors'),$widget_compact_value));
-
+        return view('Core::sysModel.edit', $viewData);
 
     }
     /**

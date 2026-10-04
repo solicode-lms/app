@@ -83,16 +83,15 @@ class BaseLivrableController extends AdminController
     }
     /**
      */
-    public function create() {
+    protected function dataForCreateView() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->set('scope_form.livrable.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
-
         // scopeDataByRole
         $itemLivrable = $this->livrableService->createInstance();
- 
+
         // scopeDataInEditContext
         $value = $itemLivrable->getNestedValue('projet_id');
         $key = 'scope.tache.projet_id';
@@ -103,10 +102,19 @@ class BaseLivrableController extends AdminController
         $taches = $this->tacheService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemLivrable', 'natureLivrables', 'projets', 'taches');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', compact('bulkEdit' ,'itemLivrable', 'natureLivrables', 'projets', 'taches'));
+            return view('PkgCreationProjet::livrable._fields', $viewData);
         }
-        return view('PkgCreationProjet::livrable.create', compact('bulkEdit' ,'itemLivrable', 'natureLivrables', 'projets', 'taches'));
+
+        return view('PkgCreationProjet::livrable.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -180,8 +188,7 @@ class BaseLivrableController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('livrable.show_' . $id);
 
         $itemLivrable = $this->livrableService->edit($id);
@@ -189,22 +196,30 @@ class BaseLivrableController extends AdminController
 
 
         $this->viewState->set('scope.livrablesRealisation.livrable_id', $id);
-        
+
 
         $livrablesRealisationService =  new LivrablesRealisationService();
         $livrablesRealisations_view_data = $livrablesRealisationService->prepareDataForIndexView();
         extract($livrablesRealisations_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._show', array_merge(compact('itemLivrable'),$livrablesRealisation_compact_value));
-        }
-
-        return view('PkgCreationProjet::livrable.show', array_merge(compact('itemLivrable'),$livrablesRealisation_compact_value));
+        return array_merge(compact('itemLivrable'),$livrablesRealisation_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::livrable._show', $viewData);
+        }
+
+        return view('PkgCreationProjet::livrable.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('livrable.edit_' . $id);
 
@@ -224,12 +239,21 @@ class BaseLivrableController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemLivrable','natureLivrables', 'projets', 'taches'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', array_merge(compact('bulkEdit' , 'itemLivrable','natureLivrables', 'projets', 'taches'),));
+            return view('PkgCreationProjet::livrable._fields', $viewData);
         }
 
-        return view('PkgCreationProjet::livrable.edit', array_merge(compact('bulkEdit' ,'itemLivrable','natureLivrables', 'projets', 'taches'),));
-
+        return view('PkgCreationProjet::livrable.edit', $viewData);
 
     }
     /**

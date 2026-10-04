@@ -70,19 +70,27 @@ class BaseNationaliteController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemNationalite = $this->nationaliteService->createInstance();
- 
+
 
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemNationalite');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgApprenants::nationalite._fields', compact('bulkEdit' ,'itemNationalite'));
+            return view('PkgApprenants::nationalite._fields', $viewData);
         }
-        return view('PkgApprenants::nationalite.create', compact('bulkEdit' ,'itemNationalite'));
+
+        return view('PkgApprenants::nationalite.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -145,30 +153,37 @@ class BaseNationaliteController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('nationalite.show_' . $id);
 
         $itemNationalite = $this->nationaliteService->edit($id);
 
 
         $this->viewState->set('scope.apprenant.nationalite_id', $id);
-        
+
 
         $apprenantService =  new ApprenantService();
         $apprenants_view_data = $apprenantService->prepareDataForIndexView();
         extract($apprenants_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgApprenants::nationalite._show', array_merge(compact('itemNationalite'),$apprenant_compact_value));
-        }
-
-        return view('PkgApprenants::nationalite.show', array_merge(compact('itemNationalite'),$apprenant_compact_value));
+        return array_merge(compact('itemNationalite'),$apprenant_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgApprenants::nationalite._show', $viewData);
+        }
+
+        return view('PkgApprenants::nationalite.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('nationalite.edit_' . $id);
 
@@ -187,12 +202,21 @@ class BaseNationaliteController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemNationalite',),$apprenant_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgApprenants::nationalite._edit', array_merge(compact('bulkEdit' , 'itemNationalite',),$apprenant_compact_value));
+            return view('PkgApprenants::nationalite._edit', $viewData);
         }
 
-        return view('PkgApprenants::nationalite.edit', array_merge(compact('bulkEdit' ,'itemNationalite',),$apprenant_compact_value));
-
+        return view('PkgApprenants::nationalite.edit', $viewData);
 
     }
     /**

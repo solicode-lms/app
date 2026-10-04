@@ -47,10 +47,6 @@ class BaseQuestionController extends AdminController
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
 
-        // ownedByUser
-        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.question.qcm.formateur.user_id') == null){
-           $this->viewState->init('scope.question.qcm.formateur.user_id'  , $this->sessionState->get('user_id'));
-        }
 
 
 
@@ -81,25 +77,29 @@ class BaseQuestionController extends AdminController
     }
     /**
      */
-    public function create() {
-        // ownedByUser
-        if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.question.qcm.formateur.user_id'  , $this->sessionState->get('user_id'));
-        }
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemQuestion = $this->questionService->createInstance();
- 
+
 
         $qcms = $this->qcmService->all();
         $uniteApprentissages = $this->uniteApprentissageService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemQuestion', 'qcms', 'uniteApprentissages');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgQcm::question._fields', compact('bulkEdit' ,'itemQuestion', 'qcms', 'uniteApprentissages'));
+            return view('PkgQcm::question._fields', $viewData);
         }
-        return view('PkgQcm::question.create', compact('bulkEdit' ,'itemQuestion', 'qcms', 'uniteApprentissages'));
+
+        return view('PkgQcm::question.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -115,10 +115,6 @@ class BaseQuestionController extends AdminController
 
         // Même traitement de create 
 
-        // ownedByUser
-        if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.question.qcm.formateur.user_id'  , $this->sessionState->get('user_id'));
-        }
  
          $itemQuestion = $this->questionService->find($question_ids[0]);
          
@@ -168,44 +164,49 @@ class BaseQuestionController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('question.show_' . $id);
 
         $itemQuestion = $this->questionService->edit($id);
-        $this->authorize('view', $itemQuestion);
 
 
         $this->viewState->set('scope.propositionReponse.question_id', $id);
-        
+
 
         $propositionReponseService =  new PropositionReponseService();
         $propositionReponses_view_data = $propositionReponseService->prepareDataForIndexView();
         extract($propositionReponses_view_data);
 
         $this->viewState->set('scope.reponseQcm.question_id', $id);
-        
+
 
         $reponseQcmService =  new ReponseQcmService();
         $reponseQcms_view_data = $reponseQcmService->prepareDataForIndexView();
         extract($reponseQcms_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgQcm::question._show', array_merge(compact('itemQuestion'),$propositionReponse_compact_value, $reponseQcm_compact_value));
-        }
-
-        return view('PkgQcm::question.show', array_merge(compact('itemQuestion'),$propositionReponse_compact_value, $reponseQcm_compact_value));
+        return array_merge(compact('itemQuestion'),$propositionReponse_compact_value, $reponseQcm_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgQcm::question._show', $viewData);
+        }
+
+        return view('PkgQcm::question.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('question.edit_' . $id);
 
 
         $itemQuestion = $this->questionService->edit($id);
-        $this->authorize('edit', $itemQuestion);
 
 
         $qcms = $this->qcmService->getAllForSelect($itemQuestion->qcm);
@@ -228,20 +229,26 @@ class BaseQuestionController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemQuestion','qcms', 'uniteApprentissages'),$propositionReponse_compact_value, $reponseQcm_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgQcm::question._edit', array_merge(compact('bulkEdit' , 'itemQuestion','qcms', 'uniteApprentissages'),$propositionReponse_compact_value, $reponseQcm_compact_value));
+            return view('PkgQcm::question._edit', $viewData);
         }
 
-        return view('PkgQcm::question.edit', array_merge(compact('bulkEdit' ,'itemQuestion','qcms', 'uniteApprentissages'),$propositionReponse_compact_value, $reponseQcm_compact_value));
-
+        return view('PkgQcm::question.edit', $viewData);
 
     }
     /**
      */
     public function update(QuestionRequest $request, string $id) {
-        // Vérifie si l'utilisateur peut mettre à jour l'objet 
-        $question = $this->questionService->find($id);
-        $this->authorize('update', $question);
 
         $validatedData = $request->validated();
         $question = $this->questionService->update($id, $validatedData);
@@ -378,9 +385,6 @@ class BaseQuestionController extends AdminController
     /**
      */
     public function destroy(Request $request, string $id) {
-        // Vérifie si l'utilisateur peut mettre à jour l'objet 
-        $question = $this->questionService->find($id);
-        $this->authorize('delete', $question);
 
         $question = $this->questionService->destroy($id);
 
@@ -417,9 +421,6 @@ class BaseQuestionController extends AdminController
         }
         foreach ($question_ids as $id) {
             $entity = $this->questionService->find($id);
-            // Vérifie si l'utilisateur peut mettre à jour l'objet 
-            $question = $this->questionService->find($id);
-            $this->authorize('delete', $question);
             $this->questionService->destroy($id);
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [

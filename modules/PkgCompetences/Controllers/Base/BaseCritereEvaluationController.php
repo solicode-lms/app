@@ -75,21 +75,29 @@ class BaseCritereEvaluationController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemCritereEvaluation = $this->critereEvaluationService->createInstance();
- 
+
 
         $phaseEvaluations = $this->phaseEvaluationService->all();
         $uniteApprentissages = $this->uniteApprentissageService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemCritereEvaluation', 'phaseEvaluations', 'uniteApprentissages');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgCompetences::critereEvaluation._fields', compact('bulkEdit' ,'itemCritereEvaluation', 'phaseEvaluations', 'uniteApprentissages'));
+            return view('PkgCompetences::critereEvaluation._fields', $viewData);
         }
-        return view('PkgCompetences::critereEvaluation.create', compact('bulkEdit' ,'itemCritereEvaluation', 'phaseEvaluations', 'uniteApprentissages'));
+
+        return view('PkgCompetences::critereEvaluation.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -154,23 +162,30 @@ class BaseCritereEvaluationController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('critereEvaluation.show_' . $id);
 
         $itemCritereEvaluation = $this->critereEvaluationService->edit($id);
 
 
-        if (request()->ajax()) {
-            return view('PkgCompetences::critereEvaluation._show', array_merge(compact('itemCritereEvaluation'),));
-        }
-
-        return view('PkgCompetences::critereEvaluation.show', array_merge(compact('itemCritereEvaluation'),));
+        return array_merge(compact('itemCritereEvaluation'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::critereEvaluation._show', $viewData);
+        }
+
+        return view('PkgCompetences::critereEvaluation.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('critereEvaluation.edit_' . $id);
 
@@ -184,12 +199,21 @@ class BaseCritereEvaluationController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemCritereEvaluation','phaseEvaluations', 'uniteApprentissages'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgCompetences::critereEvaluation._fields', array_merge(compact('bulkEdit' , 'itemCritereEvaluation','phaseEvaluations', 'uniteApprentissages'),));
+            return view('PkgCompetences::critereEvaluation._fields', $viewData);
         }
 
-        return view('PkgCompetences::critereEvaluation.edit', array_merge(compact('bulkEdit' ,'itemCritereEvaluation','phaseEvaluations', 'uniteApprentissages'),));
-
+        return view('PkgCompetences::critereEvaluation.edit', $viewData);
 
     }
     /**

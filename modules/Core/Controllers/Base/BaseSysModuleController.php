@@ -75,20 +75,28 @@ class BaseSysModuleController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemSysModule = $this->sysModuleService->createInstance();
- 
+
 
         $sysColors = $this->sysColorService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemSysModule', 'sysColors');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('Core::sysModule._fields', compact('bulkEdit' ,'itemSysModule', 'sysColors'));
+            return view('Core::sysModule._fields', $viewData);
         }
-        return view('Core::sysModule.create', compact('bulkEdit' ,'itemSysModule', 'sysColors'));
+
+        return view('Core::sysModule.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -152,44 +160,51 @@ class BaseSysModuleController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('sysModule.show_' . $id);
 
         $itemSysModule = $this->sysModuleService->edit($id);
 
 
         $this->viewState->set('scope.featureDomain.sys_module_id', $id);
-        
+
 
         $featureDomainService =  new FeatureDomainService();
         $featureDomains_view_data = $featureDomainService->prepareDataForIndexView();
         extract($featureDomains_view_data);
 
         $this->viewState->set('scope.sysController.sys_module_id', $id);
-        
+
 
         $sysControllerService =  new SysControllerService();
         $sysControllers_view_data = $sysControllerService->prepareDataForIndexView();
         extract($sysControllers_view_data);
 
         $this->viewState->set('scope.sysModel.sys_module_id', $id);
-        
+
 
         $sysModelService =  new SysModelService();
         $sysModels_view_data = $sysModelService->prepareDataForIndexView();
         extract($sysModels_view_data);
 
-        if (request()->ajax()) {
-            return view('Core::sysModule._show', array_merge(compact('itemSysModule'),$featureDomain_compact_value, $sysController_compact_value, $sysModel_compact_value));
-        }
-
-        return view('Core::sysModule.show', array_merge(compact('itemSysModule'),$featureDomain_compact_value, $sysController_compact_value, $sysModel_compact_value));
+        return array_merge(compact('itemSysModule'),$featureDomain_compact_value, $sysController_compact_value, $sysModel_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('Core::sysModule._show', $viewData);
+        }
+
+        return view('Core::sysModule.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('sysModule.edit_' . $id);
 
@@ -223,12 +238,21 @@ class BaseSysModuleController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemSysModule','sysColors'),$featureDomain_compact_value, $sysController_compact_value, $sysModel_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('Core::sysModule._edit', array_merge(compact('bulkEdit' , 'itemSysModule','sysColors'),$featureDomain_compact_value, $sysController_compact_value, $sysModel_compact_value));
+            return view('Core::sysModule._edit', $viewData);
         }
 
-        return view('Core::sysModule.edit', array_merge(compact('bulkEdit' ,'itemSysModule','sysColors'),$featureDomain_compact_value, $sysController_compact_value, $sysModel_compact_value));
-
+        return view('Core::sysModule.edit', $viewData);
 
     }
     /**

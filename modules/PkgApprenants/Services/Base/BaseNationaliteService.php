@@ -211,6 +211,8 @@ class BaseNationaliteService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('nationalite');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'nationalite_viewTypes',
@@ -223,7 +225,8 @@ class BaseNationaliteService extends BaseService
             'nationalite_title',
             'contextKey',
             'nationalites_permissions',
-            'nationalites_permissionsByItem'
+            'nationalites_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

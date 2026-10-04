@@ -247,6 +247,8 @@ class BaseCritereEvaluationService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('critereEvaluation');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'critereEvaluation_viewTypes',
@@ -259,7 +261,8 @@ class BaseCritereEvaluationService extends BaseService
             'critereEvaluation_title',
             'contextKey',
             'critereEvaluations_permissions',
-            'critereEvaluations_permissionsByItem'
+            'critereEvaluations_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

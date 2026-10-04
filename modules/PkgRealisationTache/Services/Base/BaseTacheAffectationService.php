@@ -246,6 +246,8 @@ class BaseTacheAffectationService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('tacheAffectation');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'tacheAffectation_viewTypes',
@@ -258,7 +260,8 @@ class BaseTacheAffectationService extends BaseService
             'tacheAffectation_title',
             'contextKey',
             'tacheAffectations_permissions',
-            'tacheAffectations_permissionsByItem'
+            'tacheAffectations_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

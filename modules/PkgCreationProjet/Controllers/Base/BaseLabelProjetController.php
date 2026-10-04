@@ -81,12 +81,11 @@ class BaseLabelProjetController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemLabelProjet = $this->labelProjetService->createInstance();
- 
+
 
         $projets = $this->projetService->all();
         $sysColors = $this->sysColorService->all();
@@ -94,10 +93,19 @@ class BaseLabelProjetController extends AdminController
         $taches = $this->tacheService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemLabelProjet', 'projets', 'sysColors', 'realisationTaches', 'taches');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgCreationProjet::labelProjet._fields', compact('bulkEdit' ,'itemLabelProjet', 'projets', 'sysColors', 'realisationTaches', 'taches'));
+            return view('PkgCreationProjet::labelProjet._fields', $viewData);
         }
-        return view('PkgCreationProjet::labelProjet.create', compact('bulkEdit' ,'itemLabelProjet', 'projets', 'sysColors', 'realisationTaches', 'taches'));
+
+        return view('PkgCreationProjet::labelProjet.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -164,23 +172,30 @@ class BaseLabelProjetController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('labelProjet.show_' . $id);
 
         $itemLabelProjet = $this->labelProjetService->edit($id);
 
 
-        if (request()->ajax()) {
-            return view('PkgCreationProjet::labelProjet._show', array_merge(compact('itemLabelProjet'),));
-        }
-
-        return view('PkgCreationProjet::labelProjet.show', array_merge(compact('itemLabelProjet'),));
+        return array_merge(compact('itemLabelProjet'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::labelProjet._show', $viewData);
+        }
+
+        return view('PkgCreationProjet::labelProjet.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('labelProjet.edit_' . $id);
 
@@ -196,12 +211,21 @@ class BaseLabelProjetController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemLabelProjet','projets', 'sysColors', 'realisationTaches', 'taches'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgCreationProjet::labelProjet._fields', array_merge(compact('bulkEdit' , 'itemLabelProjet','projets', 'sysColors', 'realisationTaches', 'taches'),));
+            return view('PkgCreationProjet::labelProjet._fields', $viewData);
         }
 
-        return view('PkgCreationProjet::labelProjet.edit', array_merge(compact('bulkEdit' ,'itemLabelProjet','projets', 'sysColors', 'realisationTaches', 'taches'),));
-
+        return view('PkgCreationProjet::labelProjet.edit', $viewData);
 
     }
     /**

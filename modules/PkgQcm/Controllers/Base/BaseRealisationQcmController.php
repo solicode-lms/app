@@ -89,7 +89,7 @@ class BaseRealisationQcmController extends AdminController
     }
     /**
      */
-    public function create() {
+    protected function dataForCreateView() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->set('scope_form.realisationQcm.apprenant.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
@@ -98,10 +98,9 @@ class BaseRealisationQcmController extends AdminController
            $this->viewState->set('scope_form.realisationQcm.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
-
         // scopeDataByRole
         $itemRealisationQcm = $this->realisationQcmService->createInstance();
- 
+
 
         $affectationQcmProjets = $this->affectationQcmProjetService->all();
         $qcms = $this->qcmService->all();
@@ -109,10 +108,19 @@ class BaseRealisationQcmController extends AdminController
         $etatRealisationQcms = $this->etatRealisationQcmService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemRealisationQcm', 'affectationQcmProjets', 'qcms', 'apprenants', 'etatRealisationQcms');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgQcm::realisationQcm._fields', compact('bulkEdit' ,'itemRealisationQcm', 'affectationQcmProjets', 'qcms', 'apprenants', 'etatRealisationQcms'));
+            return view('PkgQcm::realisationQcm._fields', $viewData);
         }
-        return view('PkgQcm::realisationQcm.create', compact('bulkEdit' ,'itemRealisationQcm', 'affectationQcmProjets', 'qcms', 'apprenants', 'etatRealisationQcms'));
+
+        return view('PkgQcm::realisationQcm.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -186,24 +194,31 @@ class BaseRealisationQcmController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('realisationQcm.show_' . $id);
 
         $itemRealisationQcm = $this->realisationQcmService->edit($id);
         $this->authorize('view', $itemRealisationQcm);
 
 
-        if (request()->ajax()) {
-            return view('PkgQcm::realisationQcm._show', array_merge(compact('itemRealisationQcm'),));
-        }
-
-        return view('PkgQcm::realisationQcm.show', array_merge(compact('itemRealisationQcm'),));
+        return array_merge(compact('itemRealisationQcm'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgQcm::realisationQcm._show', $viewData);
+        }
+
+        return view('PkgQcm::realisationQcm.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('realisationQcm.edit_' . $id);
 
@@ -227,12 +242,21 @@ class BaseRealisationQcmController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemRealisationQcm','affectationQcmProjets', 'qcms', 'apprenants', 'etatRealisationQcms'),$reponseQcm_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgQcm::realisationQcm._edit', array_merge(compact('bulkEdit' , 'itemRealisationQcm','affectationQcmProjets', 'qcms', 'apprenants', 'etatRealisationQcms'),$reponseQcm_compact_value));
+            return view('PkgQcm::realisationQcm._edit', $viewData);
         }
 
-        return view('PkgQcm::realisationQcm.edit', array_merge(compact('bulkEdit' ,'itemRealisationQcm','affectationQcmProjets', 'qcms', 'apprenants', 'etatRealisationQcms'),$reponseQcm_compact_value));
-
+        return view('PkgQcm::realisationQcm.edit', $viewData);
 
     }
     /**
@@ -508,11 +532,6 @@ class BaseRealisationQcmController extends AdminController
                 $message
             );
         }
-
-        // Si l'action est appelle sans ajax, il faut lancer les job, créer par la modification 
-        // de réalisation des tâches 
-        $asyncService = new \Modules\Core\Services\TraitementAsyncService();
-        $asyncService->runArtisanInBackground('traitement:run');
         return redirect()->route('RealisationQcm.index')->with(
             'success',
             "Le QCM a été réinitialisé avec succès"

@@ -228,6 +228,8 @@ class BaseSousGroupeService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('sousGroupe');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'sousGroupe_viewTypes',
@@ -240,7 +242,8 @@ class BaseSousGroupeService extends BaseService
             'sousGroupe_title',
             'contextKey',
             'sousGroupes_permissions',
-            'sousGroupes_permissionsByItem'
+            'sousGroupes_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

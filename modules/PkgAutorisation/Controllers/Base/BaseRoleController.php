@@ -78,22 +78,30 @@ class BaseRoleController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemRole = $this->roleService->createInstance();
- 
+
 
         $permissions = $this->permissionService->all();
         $widgets = $this->widgetService->all();
         $users = $this->userService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemRole', 'permissions', 'widgets', 'users');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', compact('bulkEdit' ,'itemRole', 'permissions', 'widgets', 'users'));
+            return view('PkgAutorisation::role._fields', $viewData);
         }
-        return view('PkgAutorisation::role.create', compact('bulkEdit' ,'itemRole', 'permissions', 'widgets', 'users'));
+
+        return view('PkgAutorisation::role.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -159,23 +167,30 @@ class BaseRoleController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('role.show_' . $id);
 
         $itemRole = $this->roleService->edit($id);
 
 
-        if (request()->ajax()) {
-            return view('PkgAutorisation::role._show', array_merge(compact('itemRole'),));
-        }
-
-        return view('PkgAutorisation::role.show', array_merge(compact('itemRole'),));
+        return array_merge(compact('itemRole'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgAutorisation::role._show', $viewData);
+        }
+
+        return view('PkgAutorisation::role.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('role.edit_' . $id);
 
@@ -190,12 +205,21 @@ class BaseRoleController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemRole','permissions', 'widgets', 'users'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', array_merge(compact('bulkEdit' , 'itemRole','permissions', 'widgets', 'users'),));
+            return view('PkgAutorisation::role._fields', $viewData);
         }
 
-        return view('PkgAutorisation::role.edit', array_merge(compact('bulkEdit' ,'itemRole','permissions', 'widgets', 'users'),));
-
+        return view('PkgAutorisation::role.edit', $viewData);
 
     }
     /**

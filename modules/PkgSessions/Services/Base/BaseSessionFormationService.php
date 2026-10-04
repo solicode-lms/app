@@ -270,6 +270,8 @@ class BaseSessionFormationService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('sessionFormation');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'sessionFormation_viewTypes',
@@ -282,7 +284,8 @@ class BaseSessionFormationService extends BaseService
             'sessionFormation_title',
             'contextKey',
             'sessionFormations_permissions',
-            'sessionFormations_permissionsByItem'
+            'sessionFormations_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

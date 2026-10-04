@@ -72,19 +72,27 @@ class BaseAnneeFormationController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemAnneeFormation = $this->anneeFormationService->createInstance();
- 
+
 
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemAnneeFormation');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgFormation::anneeFormation._fields', compact('bulkEdit' ,'itemAnneeFormation'));
+            return view('PkgFormation::anneeFormation._fields', $viewData);
         }
-        return view('PkgFormation::anneeFormation.create', compact('bulkEdit' ,'itemAnneeFormation'));
+
+        return view('PkgFormation::anneeFormation.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -147,44 +155,51 @@ class BaseAnneeFormationController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('anneeFormation.show_' . $id);
 
         $itemAnneeFormation = $this->anneeFormationService->edit($id);
 
 
         $this->viewState->set('scope.affectationProjet.annee_formation_id', $id);
-        
+
 
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
         extract($affectationProjets_view_data);
 
         $this->viewState->set('scope.groupe.annee_formation_id', $id);
-        
+
 
         $groupeService =  new GroupeService();
         $groupes_view_data = $groupeService->prepareDataForIndexView();
         extract($groupes_view_data);
 
         $this->viewState->set('scope.sessionFormation.annee_formation_id', $id);
-        
+
 
         $sessionFormationService =  new SessionFormationService();
         $sessionFormations_view_data = $sessionFormationService->prepareDataForIndexView();
         extract($sessionFormations_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgFormation::anneeFormation._show', array_merge(compact('itemAnneeFormation'),$affectationProjet_compact_value, $groupe_compact_value, $sessionFormation_compact_value));
-        }
-
-        return view('PkgFormation::anneeFormation.show', array_merge(compact('itemAnneeFormation'),$affectationProjet_compact_value, $groupe_compact_value, $sessionFormation_compact_value));
+        return array_merge(compact('itemAnneeFormation'),$affectationProjet_compact_value, $groupe_compact_value, $sessionFormation_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgFormation::anneeFormation._show', $viewData);
+        }
+
+        return view('PkgFormation::anneeFormation.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('anneeFormation.edit_' . $id);
 
@@ -217,12 +232,21 @@ class BaseAnneeFormationController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value, $sessionFormation_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgFormation::anneeFormation._edit', array_merge(compact('bulkEdit' , 'itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value, $sessionFormation_compact_value));
+            return view('PkgFormation::anneeFormation._edit', $viewData);
         }
 
-        return view('PkgFormation::anneeFormation.edit', array_merge(compact('bulkEdit' ,'itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value, $sessionFormation_compact_value));
-
+        return view('PkgFormation::anneeFormation.edit', $viewData);
 
     }
     /**

@@ -81,22 +81,30 @@ class BaseRealisationUaController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemRealisationUa = $this->realisationUaService->createInstance();
- 
+
 
         $uniteApprentissages = $this->uniteApprentissageService->all();
         $realisationMicroCompetences = $this->realisationMicroCompetenceService->all();
         $etatRealisationUas = $this->etatRealisationUaService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemRealisationUa', 'uniteApprentissages', 'realisationMicroCompetences', 'etatRealisationUas');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationUa._fields', compact('bulkEdit' ,'itemRealisationUa', 'uniteApprentissages', 'realisationMicroCompetences', 'etatRealisationUas'));
+            return view('PkgApprentissage::realisationUa._fields', $viewData);
         }
-        return view('PkgApprentissage::realisationUa.create', compact('bulkEdit' ,'itemRealisationUa', 'uniteApprentissages', 'realisationMicroCompetences', 'etatRealisationUas'));
+
+        return view('PkgApprentissage::realisationUa.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -162,44 +170,51 @@ class BaseRealisationUaController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('realisationUa.show_' . $id);
 
         $itemRealisationUa = $this->realisationUaService->edit($id);
 
 
         $this->viewState->set('scope.realisationChapitre.realisation_ua_id', $id);
-        
+
 
         $realisationChapitreService =  new RealisationChapitreService();
         $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
         extract($realisationChapitres_view_data);
 
         $this->viewState->set('scope.realisationUaPrototype.realisation_ua_id', $id);
-        
+
 
         $realisationUaPrototypeService =  new RealisationUaPrototypeService();
         $realisationUaPrototypes_view_data = $realisationUaPrototypeService->prepareDataForIndexView();
         extract($realisationUaPrototypes_view_data);
 
         $this->viewState->set('scope.realisationUaProjet.realisation_ua_id', $id);
-        
+
 
         $realisationUaProjetService =  new RealisationUaProjetService();
         $realisationUaProjets_view_data = $realisationUaProjetService->prepareDataForIndexView();
         extract($realisationUaProjets_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgApprentissage::realisationUa._show', array_merge(compact('itemRealisationUa'),$realisationChapitre_compact_value, $realisationUaPrototype_compact_value, $realisationUaProjet_compact_value));
-        }
-
-        return view('PkgApprentissage::realisationUa.show', array_merge(compact('itemRealisationUa'),$realisationChapitre_compact_value, $realisationUaPrototype_compact_value, $realisationUaProjet_compact_value));
+        return array_merge(compact('itemRealisationUa'),$realisationChapitre_compact_value, $realisationUaPrototype_compact_value, $realisationUaProjet_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgApprentissage::realisationUa._show', $viewData);
+        }
+
+        return view('PkgApprentissage::realisationUa.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('realisationUa.edit_' . $id);
 
@@ -235,12 +250,21 @@ class BaseRealisationUaController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemRealisationUa','uniteApprentissages', 'realisationMicroCompetences', 'etatRealisationUas'),$realisationChapitre_compact_value, $realisationUaPrototype_compact_value, $realisationUaProjet_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationUa._edit', array_merge(compact('bulkEdit' , 'itemRealisationUa','uniteApprentissages', 'realisationMicroCompetences', 'etatRealisationUas'),$realisationChapitre_compact_value, $realisationUaPrototype_compact_value, $realisationUaProjet_compact_value));
+            return view('PkgApprentissage::realisationUa._edit', $viewData);
         }
 
-        return view('PkgApprentissage::realisationUa.edit', array_merge(compact('bulkEdit' ,'itemRealisationUa','uniteApprentissages', 'realisationMicroCompetences', 'etatRealisationUas'),$realisationChapitre_compact_value, $realisationUaPrototype_compact_value, $realisationUaProjet_compact_value));
-
+        return view('PkgApprentissage::realisationUa.edit', $viewData);
 
     }
     /**

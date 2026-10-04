@@ -75,21 +75,29 @@ class BasePropositionReponseController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemPropositionReponse = $this->propositionReponseService->createInstance();
- 
+
 
         $questions = $this->questionService->all();
         $reponseQcms = $this->reponseQcmService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemPropositionReponse', 'questions', 'reponseQcms');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgQcm::propositionReponse._fields', compact('bulkEdit' ,'itemPropositionReponse', 'questions', 'reponseQcms'));
+            return view('PkgQcm::propositionReponse._fields', $viewData);
         }
-        return view('PkgQcm::propositionReponse.create', compact('bulkEdit' ,'itemPropositionReponse', 'questions', 'reponseQcms'));
+
+        return view('PkgQcm::propositionReponse.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -154,23 +162,30 @@ class BasePropositionReponseController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('propositionReponse.show_' . $id);
 
         $itemPropositionReponse = $this->propositionReponseService->edit($id);
 
 
-        if (request()->ajax()) {
-            return view('PkgQcm::propositionReponse._show', array_merge(compact('itemPropositionReponse'),));
-        }
-
-        return view('PkgQcm::propositionReponse.show', array_merge(compact('itemPropositionReponse'),));
+        return array_merge(compact('itemPropositionReponse'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgQcm::propositionReponse._show', $viewData);
+        }
+
+        return view('PkgQcm::propositionReponse.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('propositionReponse.edit_' . $id);
 
@@ -184,12 +199,21 @@ class BasePropositionReponseController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemPropositionReponse','questions', 'reponseQcms'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgQcm::propositionReponse._fields', array_merge(compact('bulkEdit' , 'itemPropositionReponse','questions', 'reponseQcms'),));
+            return view('PkgQcm::propositionReponse._fields', $viewData);
         }
 
-        return view('PkgQcm::propositionReponse.edit', array_merge(compact('bulkEdit' ,'itemPropositionReponse','questions', 'reponseQcms'),));
-
+        return view('PkgQcm::propositionReponse.edit', $viewData);
 
     }
     /**

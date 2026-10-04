@@ -292,6 +292,8 @@ class BaseRealisationProjetService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('realisationProjet');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'realisationProjet_viewTypes',
@@ -304,7 +306,8 @@ class BaseRealisationProjetService extends BaseService
             'realisationProjet_title',
             'contextKey',
             'realisationProjets_permissions',
-            'realisationProjets_permissionsByItem'
+            'realisationProjets_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

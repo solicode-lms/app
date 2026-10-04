@@ -172,25 +172,11 @@ class BaseQuestionService extends BaseService
 
         $stats = $this->initStats();
 
-        // Ajouter les statistiques du propriétaire
-        //$contexteState = $this->getContextState();
-        // if ($contexteState !== null) {
-        //     $stats[] = $contexteState;
-        // }
         
 
         return $stats;
     }
 
-    public function getContextState()
-    {
-        $value = $this->viewState->generateTitleFromVariables();
-        return [
-                "icon" => "fas fa-filter",
-                "label" => "Filtre",
-                "value" =>  $value
-        ];
-    }
 
 
 
@@ -265,6 +251,8 @@ class BaseQuestionService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('question');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'question_viewTypes',
@@ -277,7 +265,8 @@ class BaseQuestionService extends BaseService
             'question_title',
             'contextKey',
             'questions_permissions',
-            'questions_permissionsByItem'
+            'questions_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

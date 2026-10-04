@@ -80,20 +80,28 @@ class BaseUserController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemUser = $this->userService->createInstance();
- 
+
 
         $roles = $this->roleService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemUser', 'roles');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._fields', compact('bulkEdit' ,'itemUser', 'roles'));
+            return view('PkgAutorisation::user._fields', $viewData);
         }
-        return view('PkgAutorisation::user.create', compact('bulkEdit' ,'itemUser', 'roles'));
+
+        return view('PkgAutorisation::user.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -157,79 +165,86 @@ class BaseUserController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('user.show_' . $id);
 
         $itemUser = $this->userService->edit($id);
 
 
         $this->viewState->set('scope.apprenant.user_id', $id);
-        
+
 
         $apprenantService =  new ApprenantService();
         $apprenants_view_data = $apprenantService->prepareDataForIndexView();
         extract($apprenants_view_data);
 
         $this->viewState->set('scope.formateur.user_id', $id);
-        
+
 
         $formateurService =  new FormateurService();
         $formateurs_view_data = $formateurService->prepareDataForIndexView();
         extract($formateurs_view_data);
 
         $this->viewState->set('scope.evaluateur.user_id', $id);
-        
+
 
         $evaluateurService =  new EvaluateurService();
         $evaluateurs_view_data = $evaluateurService->prepareDataForIndexView();
         extract($evaluateurs_view_data);
 
         $this->viewState->set('scope.profile.user_id', $id);
-        
+
 
         $profileService =  new ProfileService();
         $profiles_view_data = $profileService->prepareDataForIndexView();
         extract($profiles_view_data);
 
         $this->viewState->set('scope.historiqueRealisationTache.user_id', $id);
-        
+
 
         $historiqueRealisationTacheService =  new HistoriqueRealisationTacheService();
         $historiqueRealisationTaches_view_data = $historiqueRealisationTacheService->prepareDataForIndexView();
         extract($historiqueRealisationTaches_view_data);
 
         $this->viewState->set('scope.notification.user_id', $id);
-        
+
 
         $notificationService =  new NotificationService();
         $notifications_view_data = $notificationService->prepareDataForIndexView();
         extract($notifications_view_data);
 
         $this->viewState->set('scope.userModelFilter.user_id', $id);
-        
+
 
         $userModelFilterService =  new UserModelFilterService();
         $userModelFilters_view_data = $userModelFilterService->prepareDataForIndexView();
         extract($userModelFilters_view_data);
 
         $this->viewState->set('scope.widgetUtilisateur.user_id', $id);
-        
+
 
         $widgetUtilisateurService =  new WidgetUtilisateurService();
         $widgetUtilisateurs_view_data = $widgetUtilisateurService->prepareDataForIndexView();
         extract($widgetUtilisateurs_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgAutorisation::user._show', array_merge(compact('itemUser'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
-        }
-
-        return view('PkgAutorisation::user.show', array_merge(compact('itemUser'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
+        return array_merge(compact('itemUser'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgAutorisation::user._show', $viewData);
+        }
+
+        return view('PkgAutorisation::user.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('user.edit_' . $id);
 
@@ -277,12 +292,21 @@ class BaseUserController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $notification_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._edit', array_merge(compact('bulkEdit' , 'itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $notification_compact_value));
+            return view('PkgAutorisation::user._edit', $viewData);
         }
 
-        return view('PkgAutorisation::user.edit', array_merge(compact('bulkEdit' ,'itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $notification_compact_value));
-
+        return view('PkgAutorisation::user.edit', $viewData);
 
     }
     /**

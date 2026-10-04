@@ -320,6 +320,8 @@ class BaseRealisationMicroCompetenceService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('realisationMicroCompetence');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'realisationMicroCompetence_viewTypes',
@@ -332,7 +334,8 @@ class BaseRealisationMicroCompetenceService extends BaseService
             'realisationMicroCompetence_title',
             'contextKey',
             'realisationMicroCompetences_permissions',
-            'realisationMicroCompetences_permissionsByItem'
+            'realisationMicroCompetences_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

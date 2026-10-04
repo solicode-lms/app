@@ -76,12 +76,11 @@ class BaseMobilisationUaController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemMobilisationUa = $this->mobilisationUaService->createInstance();
- 
+
         // scopeDataInEditContext
         $value = $itemMobilisationUa->getNestedValue('projet.filiere_id');
         $key = 'scope.uniteApprentissage.microCompetence.competence.module.filiere_id';
@@ -91,10 +90,19 @@ class BaseMobilisationUaController extends AdminController
         $projets = $this->projetService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemMobilisationUa', 'uniteApprentissages', 'projets');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgCreationProjet::mobilisationUa._fields', compact('bulkEdit' ,'itemMobilisationUa', 'uniteApprentissages', 'projets'));
+            return view('PkgCreationProjet::mobilisationUa._fields', $viewData);
         }
-        return view('PkgCreationProjet::mobilisationUa.create', compact('bulkEdit' ,'itemMobilisationUa', 'uniteApprentissages', 'projets'));
+
+        return view('PkgCreationProjet::mobilisationUa.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -163,30 +171,37 @@ class BaseMobilisationUaController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('mobilisationUa.show_' . $id);
 
         $itemMobilisationUa = $this->mobilisationUaService->edit($id);
 
 
         $this->viewState->set('scope.tache.mobilisation_ua_id', $id);
-        
+
 
         $tacheService =  new TacheService();
         $taches_view_data = $tacheService->prepareDataForIndexView();
         extract($taches_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgCreationProjet::mobilisationUa._show', array_merge(compact('itemMobilisationUa'),$tache_compact_value));
-        }
-
-        return view('PkgCreationProjet::mobilisationUa.show', array_merge(compact('itemMobilisationUa'),$tache_compact_value));
+        return array_merge(compact('itemMobilisationUa'),$tache_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::mobilisationUa._show', $viewData);
+        }
+
+        return view('PkgCreationProjet::mobilisationUa.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('mobilisationUa.edit_' . $id);
 
@@ -211,12 +226,21 @@ class BaseMobilisationUaController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemMobilisationUa','uniteApprentissages', 'projets'),$tache_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgCreationProjet::mobilisationUa._edit', array_merge(compact('bulkEdit' , 'itemMobilisationUa','uniteApprentissages', 'projets'),$tache_compact_value));
+            return view('PkgCreationProjet::mobilisationUa._edit', $viewData);
         }
 
-        return view('PkgCreationProjet::mobilisationUa.edit', array_merge(compact('bulkEdit' ,'itemMobilisationUa','uniteApprentissages', 'projets'),$tache_compact_value));
-
+        return view('PkgCreationProjet::mobilisationUa.edit', $viewData);
 
     }
     /**

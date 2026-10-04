@@ -78,22 +78,30 @@ class BaseEMetadatumController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemEMetadatum = $this->eMetadatumService->createInstance();
- 
+
 
         $eModels = $this->eModelService->all();
         $eDataFields = $this->eDataFieldService->all();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemEMetadatum', 'eModels', 'eDataFields', 'eMetadataDefinitions');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._fields', compact('bulkEdit' ,'itemEMetadatum', 'eModels', 'eDataFields', 'eMetadataDefinitions'));
+            return view('PkgGapp::eMetadatum._fields', $viewData);
         }
-        return view('PkgGapp::eMetadatum.create', compact('bulkEdit' ,'itemEMetadatum', 'eModels', 'eDataFields', 'eMetadataDefinitions'));
+
+        return view('PkgGapp::eMetadatum.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -159,23 +167,30 @@ class BaseEMetadatumController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('eMetadatum.show_' . $id);
 
         $itemEMetadatum = $this->eMetadatumService->edit($id);
 
 
-        if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._show', array_merge(compact('itemEMetadatum'),));
-        }
-
-        return view('PkgGapp::eMetadatum.show', array_merge(compact('itemEMetadatum'),));
+        return array_merge(compact('itemEMetadatum'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgGapp::eMetadatum._show', $viewData);
+        }
+
+        return view('PkgGapp::eMetadatum.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('eMetadatum.edit_' . $id);
 
@@ -190,12 +205,21 @@ class BaseEMetadatumController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemEMetadatum','eModels', 'eDataFields', 'eMetadataDefinitions'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._fields', array_merge(compact('bulkEdit' , 'itemEMetadatum','eModels', 'eDataFields', 'eMetadataDefinitions'),));
+            return view('PkgGapp::eMetadatum._fields', $viewData);
         }
 
-        return view('PkgGapp::eMetadatum.edit', array_merge(compact('bulkEdit' ,'itemEMetadatum','eModels', 'eDataFields', 'eMetadataDefinitions'),));
-
+        return view('PkgGapp::eMetadatum.edit', $viewData);
 
     }
     /**

@@ -249,6 +249,8 @@ class BaseUniteApprentissageService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('uniteApprentissage');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'uniteApprentissage_viewTypes',
@@ -261,7 +263,8 @@ class BaseUniteApprentissageService extends BaseService
             'uniteApprentissage_title',
             'contextKey',
             'uniteApprentissages_permissions',
-            'uniteApprentissages_permissionsByItem'
+            'uniteApprentissages_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

@@ -73,20 +73,28 @@ class BaseFeatureDomainController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemFeatureDomain = $this->featureDomainService->createInstance();
- 
+
 
         $sysModules = $this->sysModuleService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemFeatureDomain', 'sysModules');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('Core::featureDomain._fields', compact('bulkEdit' ,'itemFeatureDomain', 'sysModules'));
+            return view('Core::featureDomain._fields', $viewData);
         }
-        return view('Core::featureDomain.create', compact('bulkEdit' ,'itemFeatureDomain', 'sysModules'));
+
+        return view('Core::featureDomain.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -150,30 +158,37 @@ class BaseFeatureDomainController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('featureDomain.show_' . $id);
 
         $itemFeatureDomain = $this->featureDomainService->edit($id);
 
 
         $this->viewState->set('scope.feature.feature_domain_id', $id);
-        
+
 
         $featureService =  new FeatureService();
         $features_view_data = $featureService->prepareDataForIndexView();
         extract($features_view_data);
 
-        if (request()->ajax()) {
-            return view('Core::featureDomain._show', array_merge(compact('itemFeatureDomain'),$feature_compact_value));
-        }
-
-        return view('Core::featureDomain.show', array_merge(compact('itemFeatureDomain'),$feature_compact_value));
+        return array_merge(compact('itemFeatureDomain'),$feature_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('Core::featureDomain._show', $viewData);
+        }
+
+        return view('Core::featureDomain.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('featureDomain.edit_' . $id);
 
@@ -193,12 +208,21 @@ class BaseFeatureDomainController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemFeatureDomain','sysModules'),$feature_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('Core::featureDomain._edit', array_merge(compact('bulkEdit' , 'itemFeatureDomain','sysModules'),$feature_compact_value));
+            return view('Core::featureDomain._edit', $viewData);
         }
 
-        return view('Core::featureDomain.edit', array_merge(compact('bulkEdit' ,'itemFeatureDomain','sysModules'),$feature_compact_value));
-
+        return view('Core::featureDomain.edit', $viewData);
 
     }
     /**

@@ -73,20 +73,28 @@ class BaseSectionWidgetController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemSectionWidget = $this->sectionWidgetService->createInstance();
- 
+
 
         $sysColors = $this->sysColorService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemSectionWidget', 'sysColors');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgWidgets::sectionWidget._fields', compact('bulkEdit' ,'itemSectionWidget', 'sysColors'));
+            return view('PkgWidgets::sectionWidget._fields', $viewData);
         }
-        return view('PkgWidgets::sectionWidget.create', compact('bulkEdit' ,'itemSectionWidget', 'sysColors'));
+
+        return view('PkgWidgets::sectionWidget.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -150,30 +158,37 @@ class BaseSectionWidgetController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('sectionWidget.show_' . $id);
 
         $itemSectionWidget = $this->sectionWidgetService->edit($id);
 
 
         $this->viewState->set('scope.widget.section_widget_id', $id);
-        
+
 
         $widgetService =  new WidgetService();
         $widgets_view_data = $widgetService->prepareDataForIndexView();
         extract($widgets_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgWidgets::sectionWidget._show', array_merge(compact('itemSectionWidget'),$widget_compact_value));
-        }
-
-        return view('PkgWidgets::sectionWidget.show', array_merge(compact('itemSectionWidget'),$widget_compact_value));
+        return array_merge(compact('itemSectionWidget'),$widget_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgWidgets::sectionWidget._show', $viewData);
+        }
+
+        return view('PkgWidgets::sectionWidget.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('sectionWidget.edit_' . $id);
 
@@ -193,12 +208,21 @@ class BaseSectionWidgetController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemSectionWidget','sysColors'),$widget_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgWidgets::sectionWidget._edit', array_merge(compact('bulkEdit' , 'itemSectionWidget','sysColors'),$widget_compact_value));
+            return view('PkgWidgets::sectionWidget._edit', $viewData);
         }
 
-        return view('PkgWidgets::sectionWidget.edit', array_merge(compact('bulkEdit' ,'itemSectionWidget','sysColors'),$widget_compact_value));
-
+        return view('PkgWidgets::sectionWidget.edit', $viewData);
 
     }
     /**

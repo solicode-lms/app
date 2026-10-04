@@ -83,22 +83,30 @@ class BaseFormateurController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemFormateur = $this->formateurService->createInstance();
- 
+
 
         $users = $this->userService->all();
         $specialites = $this->specialiteService->all();
         $groupes = $this->groupeService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemFormateur', 'users', 'specialites', 'groupes');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._fields', compact('bulkEdit' ,'itemFormateur', 'users', 'specialites', 'groupes'));
+            return view('PkgFormation::formateur._fields', $viewData);
         }
-        return view('PkgFormation::formateur.create', compact('bulkEdit' ,'itemFormateur', 'users', 'specialites', 'groupes'));
+
+        return view('PkgFormation::formateur.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -164,58 +172,65 @@ class BaseFormateurController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('formateur.show_' . $id);
 
         $itemFormateur = $this->formateurService->edit($id);
 
 
         $this->viewState->set('scope.chapitre.formateur_id', $id);
-        
+
 
         $chapitreService =  new ChapitreService();
         $chapitres_view_data = $chapitreService->prepareDataForIndexView();
         extract($chapitres_view_data);
 
         $this->viewState->set('scope.commentaireRealisationTache.formateur_id', $id);
-        
+
 
         $commentaireRealisationTacheService =  new CommentaireRealisationTacheService();
         $commentaireRealisationTaches_view_data = $commentaireRealisationTacheService->prepareDataForIndexView();
         extract($commentaireRealisationTaches_view_data);
 
         $this->viewState->set('scope.etatRealisationTache.formateur_id', $id);
-        
+
 
         $etatRealisationTacheService =  new EtatRealisationTacheService();
         $etatRealisationTaches_view_data = $etatRealisationTacheService->prepareDataForIndexView();
         extract($etatRealisationTaches_view_data);
 
         $this->viewState->set('scope.projet.formateur_id', $id);
-        
+
 
         $projetService =  new ProjetService();
         $projets_view_data = $projetService->prepareDataForIndexView();
         extract($projets_view_data);
 
         $this->viewState->set('scope.qcm.formateur_id', $id);
-        
+
 
         $qcmService =  new QcmService();
         $qcms_view_data = $qcmService->prepareDataForIndexView();
         extract($qcms_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgFormation::formateur._show', array_merge(compact('itemFormateur'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $projet_compact_value, $qcm_compact_value));
-        }
-
-        return view('PkgFormation::formateur.show', array_merge(compact('itemFormateur'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $projet_compact_value, $qcm_compact_value));
+        return array_merge(compact('itemFormateur'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $projet_compact_value, $qcm_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgFormation::formateur._show', $viewData);
+        }
+
+        return view('PkgFormation::formateur.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('formateur.edit_' . $id);
 
@@ -251,12 +266,21 @@ class BaseFormateurController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemFormateur','users', 'specialites', 'groupes'),$chapitre_compact_value, $etatRealisationTache_compact_value, $qcm_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._edit', array_merge(compact('bulkEdit' , 'itemFormateur','users', 'specialites', 'groupes'),$chapitre_compact_value, $etatRealisationTache_compact_value, $qcm_compact_value));
+            return view('PkgFormation::formateur._edit', $viewData);
         }
 
-        return view('PkgFormation::formateur.edit', array_merge(compact('bulkEdit' ,'itemFormateur','users', 'specialites', 'groupes'),$chapitre_compact_value, $etatRealisationTache_compact_value, $qcm_compact_value));
-
+        return view('PkgFormation::formateur.edit', $viewData);
 
     }
     /**

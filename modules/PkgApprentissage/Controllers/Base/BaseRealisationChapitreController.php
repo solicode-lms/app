@@ -88,7 +88,7 @@ class BaseRealisationChapitreController extends AdminController
     }
     /**
      */
-    public function create() {
+    protected function dataForCreateView() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->set('scope_form.realisationChapitre.RealisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -97,10 +97,9 @@ class BaseRealisationChapitreController extends AdminController
            $this->viewState->set('scope_form.realisationChapitre.RealisationUa.RealisationMicroCompetence.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
-
         // scopeDataByRole
         $itemRealisationChapitre = $this->realisationChapitreService->createInstance();
- 
+
 
         $chapitres = $this->chapitreService->all();
         $etatRealisationChapitres = $this->etatRealisationChapitreService->all();
@@ -108,10 +107,19 @@ class BaseRealisationChapitreController extends AdminController
         $realisationTaches = $this->realisationTacheService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemRealisationChapitre', 'chapitres', 'etatRealisationChapitres', 'realisationUas', 'realisationTaches');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationChapitre._fields', compact('bulkEdit' ,'itemRealisationChapitre', 'chapitres', 'etatRealisationChapitres', 'realisationUas', 'realisationTaches'));
+            return view('PkgApprentissage::realisationChapitre._fields', $viewData);
         }
-        return view('PkgApprentissage::realisationChapitre.create', compact('bulkEdit' ,'itemRealisationChapitre', 'chapitres', 'etatRealisationChapitres', 'realisationUas', 'realisationTaches'));
+
+        return view('PkgApprentissage::realisationChapitre.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -185,24 +193,31 @@ class BaseRealisationChapitreController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('realisationChapitre.show_' . $id);
 
         $itemRealisationChapitre = $this->realisationChapitreService->edit($id);
         $this->authorize('view', $itemRealisationChapitre);
 
 
-        if (request()->ajax()) {
-            return view('PkgApprentissage::realisationChapitre._show', array_merge(compact('itemRealisationChapitre'),));
-        }
-
-        return view('PkgApprentissage::realisationChapitre.show', array_merge(compact('itemRealisationChapitre'),));
+        return array_merge(compact('itemRealisationChapitre'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgApprentissage::realisationChapitre._show', $viewData);
+        }
+
+        return view('PkgApprentissage::realisationChapitre.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('realisationChapitre.edit_' . $id);
 
@@ -219,12 +234,21 @@ class BaseRealisationChapitreController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemRealisationChapitre','chapitres', 'etatRealisationChapitres', 'realisationUas', 'realisationTaches'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationChapitre._fields', array_merge(compact('bulkEdit' , 'itemRealisationChapitre','chapitres', 'etatRealisationChapitres', 'realisationUas', 'realisationTaches'),));
+            return view('PkgApprentissage::realisationChapitre._fields', $viewData);
         }
 
-        return view('PkgApprentissage::realisationChapitre.edit', array_merge(compact('bulkEdit' ,'itemRealisationChapitre','chapitres', 'etatRealisationChapitres', 'realisationUas', 'realisationTaches'),));
-
+        return view('PkgApprentissage::realisationChapitre.edit', $viewData);
 
     }
     /**

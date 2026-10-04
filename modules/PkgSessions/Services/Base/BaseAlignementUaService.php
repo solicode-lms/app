@@ -246,6 +246,8 @@ class BaseAlignementUaService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('alignementUa');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'alignementUa_viewTypes',
@@ -258,7 +260,8 @@ class BaseAlignementUaService extends BaseService
             'alignementUa_title',
             'contextKey',
             'alignementUas_permissions',
-            'alignementUas_permissionsByItem'
+            'alignementUas_permissionsByItem',
+            'scopeVariables'
         );
     
         return [

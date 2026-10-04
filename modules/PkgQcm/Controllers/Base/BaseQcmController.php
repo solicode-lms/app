@@ -79,24 +79,32 @@ class BaseQcmController extends AdminController
     }
     /**
      */
-    public function create() {
+    protected function dataForCreateView() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->set('scope_form.qcm.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
-
         // scopeDataByRole
         $itemQcm = $this->qcmService->createInstance();
- 
+
 
         $formateurs = $this->formateurService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemQcm', 'formateurs');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgQcm::qcm._fields', compact('bulkEdit' ,'itemQcm', 'formateurs'));
+            return view('PkgQcm::qcm._fields', $viewData);
         }
-        return view('PkgQcm::qcm.create', compact('bulkEdit' ,'itemQcm', 'formateurs'));
+
+        return view('PkgQcm::qcm.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -164,8 +172,7 @@ class BaseQcmController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('qcm.show_' . $id);
 
         $itemQcm = $this->qcmService->edit($id);
@@ -173,36 +180,44 @@ class BaseQcmController extends AdminController
 
 
         $this->viewState->set('scope.affectationQcmProjet.qcm_id', $id);
-        
+
 
         $affectationQcmProjetService =  new AffectationQcmProjetService();
         $affectationQcmProjets_view_data = $affectationQcmProjetService->prepareDataForIndexView();
         extract($affectationQcmProjets_view_data);
 
         $this->viewState->set('scope.question.qcm_id', $id);
-        
+
 
         $questionService =  new QuestionService();
         $questions_view_data = $questionService->prepareDataForIndexView();
         extract($questions_view_data);
 
         $this->viewState->set('scope.realisationQcm.qcm_id', $id);
-        
+
 
         $realisationQcmService =  new RealisationQcmService();
         $realisationQcms_view_data = $realisationQcmService->prepareDataForIndexView();
         extract($realisationQcms_view_data);
 
-        if (request()->ajax()) {
-            return view('PkgQcm::qcm._show', array_merge(compact('itemQcm'),$affectationQcmProjet_compact_value, $question_compact_value, $realisationQcm_compact_value));
-        }
-
-        return view('PkgQcm::qcm.show', array_merge(compact('itemQcm'),$affectationQcmProjet_compact_value, $question_compact_value, $realisationQcm_compact_value));
+        return array_merge(compact('itemQcm'),$affectationQcmProjet_compact_value, $question_compact_value, $realisationQcm_compact_value);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgQcm::qcm._show', $viewData);
+        }
+
+        return view('PkgQcm::qcm.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('qcm.edit_' . $id);
 
@@ -237,12 +252,21 @@ class BaseQcmController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemQcm','formateurs'),$affectationQcmProjet_compact_value, $question_compact_value, $realisationQcm_compact_value);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgQcm::qcm._edit', array_merge(compact('bulkEdit' , 'itemQcm','formateurs'),$affectationQcmProjet_compact_value, $question_compact_value, $realisationQcm_compact_value));
+            return view('PkgQcm::qcm._edit', $viewData);
         }
 
-        return view('PkgQcm::qcm.edit', array_merge(compact('bulkEdit' ,'itemQcm','formateurs'),$affectationQcmProjet_compact_value, $question_compact_value, $realisationQcm_compact_value));
-
+        return view('PkgQcm::qcm.edit', $viewData);
 
     }
     /**

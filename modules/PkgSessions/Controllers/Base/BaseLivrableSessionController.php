@@ -75,21 +75,29 @@ class BaseLivrableSessionController extends AdminController
     }
     /**
      */
-    public function create() {
-
+    protected function dataForCreateView() {
 
         // scopeDataByRole
         $itemLivrableSession = $this->livrableSessionService->createInstance();
- 
+
 
         $sessionFormations = $this->sessionFormationService->all();
         $natureLivrables = $this->natureLivrableService->all();
 
         $bulkEdit = false;
+        return compact('bulkEdit' ,'itemLivrableSession', 'sessionFormations', 'natureLivrables');
+
+    }
+    /**
+     */
+    public function create() {
+        $viewData = $this->dataForCreateView();
+
         if (request()->ajax()) {
-            return view('PkgSessions::livrableSession._fields', compact('bulkEdit' ,'itemLivrableSession', 'sessionFormations', 'natureLivrables'));
+            return view('PkgSessions::livrableSession._fields', $viewData);
         }
-        return view('PkgSessions::livrableSession.create', compact('bulkEdit' ,'itemLivrableSession', 'sessionFormations', 'natureLivrables'));
+
+        return view('PkgSessions::livrableSession.create', $viewData);
     }
     /**
      * @DynamicPermissionIgnore
@@ -154,23 +162,30 @@ class BaseLivrableSessionController extends AdminController
     }
     /**
      */
-    public function show(string $id) {
-
+    protected function dataForShowView(string $id) {
         $this->viewState->setContextKey('livrableSession.show_' . $id);
 
         $itemLivrableSession = $this->livrableSessionService->edit($id);
 
 
-        if (request()->ajax()) {
-            return view('PkgSessions::livrableSession._show', array_merge(compact('itemLivrableSession'),));
-        }
-
-        return view('PkgSessions::livrableSession.show', array_merge(compact('itemLivrableSession'),));
+        return array_merge(compact('itemLivrableSession'),);
 
     }
     /**
      */
-    public function edit(string $id) {
+    public function show(string $id) {
+        $viewData = $this->dataForShowView($id);
+
+        if (request()->ajax()) {
+            return view('PkgSessions::livrableSession._show', $viewData);
+        }
+
+        return view('PkgSessions::livrableSession.show', $viewData);
+
+    }
+    /**
+     */
+    protected function dataForEditView(string $id) {
 
         $this->viewState->setContextKey('livrableSession.edit_' . $id);
 
@@ -184,12 +199,21 @@ class BaseLivrableSessionController extends AdminController
 
         $bulkEdit = false;
 
+        $viewData = array_merge(compact('bulkEdit' , 'itemLivrableSession','sessionFormations', 'natureLivrables'),);
+
+        return $viewData;
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+        $viewData = $this->dataForEditView($id);
+
         if (request()->ajax()) {
-            return view('PkgSessions::livrableSession._fields', array_merge(compact('bulkEdit' , 'itemLivrableSession','sessionFormations', 'natureLivrables'),));
+            return view('PkgSessions::livrableSession._fields', $viewData);
         }
 
-        return view('PkgSessions::livrableSession.edit', array_merge(compact('bulkEdit' ,'itemLivrableSession','sessionFormations', 'natureLivrables'),));
-
+        return view('PkgSessions::livrableSession.edit', $viewData);
 
     }
     /**

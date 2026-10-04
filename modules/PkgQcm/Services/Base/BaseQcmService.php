@@ -245,6 +245,8 @@ class BaseQcmService extends BaseService
             }
         }
 
+        $scopeVariables = $this->viewState->getScopeVariablesTitles('qcm');
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'qcm_viewTypes',
@@ -257,7 +259,8 @@ class BaseQcmService extends BaseService
             'qcm_title',
             'contextKey',
             'qcms_permissions',
-            'qcms_permissionsByItem'
+            'qcms_permissionsByItem',
+            'scopeVariables'
         );
     
         return [
