@@ -414,20 +414,38 @@ export class FormUI  {
 
     }
     static initializeSelect2() {
+        function formatColor(option) {
+            if (!option.id) {
+                return option.text;
+            }
+            let color = $(option.element).data('color') || option.color; // color can be passed dynamically
+            if (!color && $(option.element).attr('data-color')) {
+                color = $(option.element).attr('data-color');
+            }
+            if (color) {
+                return $('<span class="color-option"><span class="color-box" style="display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:5px; background-color:' + color + ';"></span>' + option.text + '</span>');
+            }
+            return option.text;
+        }
+
         // Initialise les éléments Select2
         $('.select2').each(function() {
 
             const $el = $(this);
             if (!$el.is('select')) return;
+            if ($el.hasClass('select2-hidden-accessible')) return; // Déjà initialisé
 
             let placeholder = $(this).data('label') || "Sélectionnez une option"; // Récupérer data-label ou valeur par défaut
 
-            // TODO Il faut ajouter  allowClear: true si le champs nullable
-            $(this).select2({
+            let select2Config = {
                 placeholder: placeholder, // Utiliser data-label comme placeholder
                 width: '100%',
                 allowClear: true,
-            });
+                templateResult: formatColor,
+                templateSelection: formatColor
+            };
+
+            $(this).select2(select2Config);
         });
     }
     static initializeRichText() {

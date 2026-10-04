@@ -1,39 +1,49 @@
-<article class="tache-card" @if(isset($equipe)) style="border-left: 4px solid {{ $equipeColor }}; border-radius: 4px;" @endif>
+@php
+    $realisationChapitre = $entity->realisationChapitres?->first();
+    $tacheRef = $entity->tache;
+    $affectationId = $entity->realisationProjet?->affectation_projet_id;
+    $apprenantId   = $entity->realisationProjet?->apprenant_id;
+    $chapitreUrl   = $realisationChapitre?->chapitre?->lien;
+
+    // Lien filtre Projet seul
+    $projetFilterUrl = $affectationId
+        ? route('realisationTaches.index', [
+            'filter.realisationTache.RealisationProjet.Affectation_projet_id' => $affectationId,
+          ])
+        : null;
+
+    // Lien filtre Projet + Tâche
+    $tacheFilterUrl = $affectationId && $entity->tache_id
+        ? route('realisationTaches.index', [
+            'filter.realisationTache.RealisationProjet.Affectation_projet_id' => $affectationId,
+            'filter.realisationTache.tache_id'                                => $entity->tache_id,
+          ])
+        : null;
+
+    // Lien filtre Projet + Apprenant
+    $apprenantFilterUrl = $affectationId && $apprenantId
+        ? route('realisationTaches.index', [
+            'filter.realisationTache.RealisationProjet.Affectation_projet_id' => $affectationId,
+            'filter.realisationTache.RealisationProjet.Apprenant_id'          => $apprenantId,
+          ])
+        : null;
+        
+    // Equipe
+    $equipe = $tacheRef?->equipeProjet;
+    $equipeColor = $equipe?->sysColor?->hex;
+@endphp
+
+<article class="tache-card {{ $equipeColor ? 'has-equipe' : '' }}" 
+    @if($equipeColor) 
+        style="
+            --equipe-color: {{ $equipeColor }}; 
+            --equipe-bg: {{ $equipeColor }}0A; 
+            --equipe-shadow: {{ $equipeColor }}20; 
+            --equipe-shadow-hover: {{ $equipeColor }}33;
+        " 
+    @endif
+>
     <header class="tache-header">
-        @php
-            $realisationChapitre = $entity->realisationChapitres?->first();
-            $tacheRef = $entity->tache;
-            $affectationId = $entity->realisationProjet?->affectation_projet_id;
-            $apprenantId   = $entity->realisationProjet?->apprenant_id;
-            $chapitreUrl   = $realisationChapitre?->chapitre?->lien;
-
-            // Lien filtre Projet seul
-            $projetFilterUrl = $affectationId
-                ? route('realisationTaches.index', [
-                    'filter.realisationTache.RealisationProjet.Affectation_projet_id' => $affectationId,
-                  ])
-                : null;
-
-            // Lien filtre Projet + Tâche
-            $tacheFilterUrl = $affectationId && $entity->tache_id
-                ? route('realisationTaches.index', [
-                    'filter.realisationTache.RealisationProjet.Affectation_projet_id' => $affectationId,
-                    'filter.realisationTache.tache_id'                                => $entity->tache_id,
-                  ])
-                : null;
-
-            // Lien filtre Projet + Apprenant
-            $apprenantFilterUrl = $affectationId && $apprenantId
-                ? route('realisationTaches.index', [
-                    'filter.realisationTache.RealisationProjet.Affectation_projet_id' => $affectationId,
-                    'filter.realisationTache.RealisationProjet.Apprenant_id'          => $apprenantId,
-                  ])
-                : null;
-                
-            // Equipe
-            $equipe = $tacheRef?->equipeProjet;
-            $equipeColor = $equipe?->sysColor?->hex ?? '#17a2b8'; // Fallback color
-        @endphp
 
         <h2 class="tache-titre d-flex align-items-center gap-1">
             {{-- Titre = lien filtre projet+tâche --}}
@@ -126,10 +136,10 @@
 
         {{-- Equipe --}}
         @if(isset($equipe))
-            <div class="mt-1 d-flex align-items-center gap-1">
-                <i class="fas fa-users mr-1" style="color: {{ $equipeColor }};"></i>
-                <strong style="color: {{ $equipeColor }};">Équipe :</strong>
-                <span class="badge" style="background-color: {{ $equipeColor }}; color: #fff;" data-toggle="tooltip" title="{{ $equipe->description }}">
+            <div class="mt-1 text-muted">
+                <i class="fas fa-users mr-1"></i>
+                <strong>Équipe :</strong>
+                <span data-toggle="tooltip" title="{{ $equipe->description }}">
                     {{ $equipe->nom }}
                 </span>
             </div>

@@ -169,6 +169,12 @@ _populate(selectEl, items) {
   // ④ Ajouter les nouvelles options
   items.forEach(item => {
     const opt = new Option(item.label ?? item.toString, item.id ?? item.value);
+    
+    // Injecter la couleur si présente dans l'item
+    if (item.sys_color && item.sys_color.hex) {
+        opt.dataset.color = item.sys_color.hex;
+    }
+
     // Si multiple, marquer comme sélectionnée si dans prev
     if (isMultiple && Array.isArray(prev) && prev.includes(opt.value)) {
       opt.selected = true;

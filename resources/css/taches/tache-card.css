@@ -199,3 +199,14 @@ small.text-muted.d-block:has(+ .tache-card) {
     color: #6b7280;
     font-style: italic;
 }
+/* Style dynamique pour les équipes */
+.tache-card.has-equipe {
+    border-left: 6px solid var(--equipe-color);
+    background: linear-gradient(to right, var(--equipe-bg), transparent);
+    box-shadow: 0 2px 10px var(--equipe-shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.tache-card.has-equipe:hover {
+    box-shadow: 0 4px 15px var(--equipe-shadow-hover);
+    transform: translateY(-2px);
+}

@@ -46,7 +46,9 @@
             </select>
             @break
         @case('Relation')
-        
+        @php
+            $hasColor = false;
+        @endphp
         <select id="filter_{{ $field }}" 
         data-label="{{$label}}" 
         @if(!empty($targetDynamicDropdown)) data-target-dynamic-dropdown="{{ $targetDynamicDropdown }}" @endif
@@ -55,7 +57,14 @@
         name="{{ $field }}" class="form-select form-control form-control-sm select2">
             <option value="">{{ $label }}</option>
             @foreach ($options as $option)
+                @php
+                    $color = null;
+                    if (is_object($option['label']) && method_exists($option['label'], 'sysColor') && $option['label']->sysColor) {
+                        $color = $option['label']->sysColor->hex;
+                    }
+                @endphp
                 <option value="{{ $option['id'] }}" 
+                        @if($color) data-color="{{ $color }}" @endif
                         {{ request($field) == $option['id'] ? 'selected' : '' }}>
                     {{ $option['label'] }}
                 </option>
