@@ -11492,11 +11492,24 @@
     },
     {
         "id": 880,
+        "reference": "Tache_equipe_projet_id",
+        "name": "equipe_projet_id",
+        "column_name": "equipe_projet_id",
+        "data_type": "ManyToOne",
+        "field_order": 10,
+        "db_nullable": 1,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 0,
+        "description": "ManyToOne between taches and equipe_projets"
+    },
+    {
+        "id": 881,
         "reference": "Tache_phase_projet_id",
         "name": "phase_projet_id",
         "column_name": "phase_projet_id",
         "data_type": "ManyToOne",
-        "field_order": 10,
+        "field_order": 11,
         "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
@@ -11504,12 +11517,12 @@
         "description": "ManyToOne between taches and phase_projets"
     },
     {
-        "id": 881,
+        "id": 882,
         "reference": "Tache_note",
         "name": "note",
         "column_name": "note",
         "data_type": "Float",
-        "field_order": 11,
+        "field_order": 12,
         "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
@@ -11517,12 +11530,12 @@
         "description": "Field in table taches"
     },
     {
-        "id": 882,
+        "id": 883,
         "reference": "Tache_is_live_coding_task",
         "name": "is_live_coding_task",
         "column_name": "is_live_coding_task",
         "data_type": "Boolean",
-        "field_order": 12,
+        "field_order": 13,
         "db_nullable": 0,
         "db_primaryKey": 0,
         "db_unique": 0,
@@ -11531,23 +11544,10 @@
         "description": "Indique si la tâche fait partie du live coding des apprenants"
     },
     {
-        "id": 883,
+        "id": 884,
         "reference": "Tache_created_at",
         "name": "created_at",
         "column_name": "created_at",
-        "data_type": "Date",
-        "field_order": 13,
-        "db_nullable": 1,
-        "db_primaryKey": 0,
-        "db_unique": 0,
-        "calculable": 0,
-        "description": "Field in table taches"
-    },
-    {
-        "id": 884,
-        "reference": "Tache_updated_at",
-        "name": "updated_at",
-        "column_name": "updated_at",
         "data_type": "Date",
         "field_order": 14,
         "db_nullable": 1,
@@ -11558,11 +11558,24 @@
     },
     {
         "id": 885,
+        "reference": "Tache_updated_at",
+        "name": "updated_at",
+        "column_name": "updated_at",
+        "data_type": "Date",
+        "field_order": 15,
+        "db_nullable": 1,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 0,
+        "description": "Field in table taches"
+    },
+    {
+        "id": 886,
         "reference": "Tache_phase_evaluation_id",
         "name": "phase_evaluation_id",
         "column_name": "phase_evaluation_id",
         "data_type": "ManyToOne",
-        "field_order": 15,
+        "field_order": 16,
         "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
@@ -11570,12 +11583,12 @@
         "description": "ManyToOne between taches and phase_evaluations"
     },
     {
-        "id": 886,
+        "id": 887,
         "reference": "Tache_chapitre_id",
         "name": "chapitre_id",
         "column_name": "chapitre_id",
         "data_type": "ManyToOne",
-        "field_order": 16,
+        "field_order": 17,
         "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
@@ -11583,12 +11596,12 @@
         "description": "ManyToOne between taches and chapitres"
     },
     {
-        "id": 887,
+        "id": 888,
         "reference": "Tache_mobilisation_ua_id",
         "name": "mobilisation_ua_id",
         "column_name": "mobilisation_ua_id",
         "data_type": "ManyToOne",
-        "field_order": 17,
+        "field_order": 18,
         "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
@@ -11596,12 +11609,12 @@
         "description": "ManyToOne between taches and mobilisation_uas"
     },
     {
-        "id": 888,
+        "id": 889,
         "reference": "Tache_projet_origine_note_id",
         "name": "projet_origine_note_id",
         "column_name": "projet_origine_note_id",
         "data_type": "ManyToOne",
-        "field_order": 18,
+        "field_order": 19,
         "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
@@ -11609,7 +11622,7 @@
         "description": "ManyToOne between taches and projets"
     },
     {
-        "id": 889,
+        "id": 890,
         "reference": "UniteApprentissage_id",
         "name": "id",
         "column_name": "id",
@@ -11622,7 +11635,7 @@
         "description": "Field in table unite_apprentissages"
     },
     {
-        "id": 890,
+        "id": 891,
         "reference": "UniteApprentissage_code",
         "name": "code",
         "column_name": "code",
@@ -11635,7 +11648,7 @@
         "description": "Field in table unite_apprentissages"
     },
     {
-        "id": 891,
+        "id": 892,
         "reference": "UniteApprentissage_reference",
         "name": "reference",
         "column_name": "reference",
@@ -11648,7 +11661,7 @@
         "description": "Field in table unite_apprentissages"
     },
     {
-        "id": 892,
+        "id": 893,
         "reference": "UniteApprentissage_nom",
         "name": "nom",
         "column_name": "nom",
@@ -11661,7 +11674,7 @@
         "description": "Field in table unite_apprentissages"
     },
     {
-        "id": 893,
+        "id": 894,
         "reference": "UniteApprentissage_lien",
         "name": "lien",
         "column_name": "lien",
@@ -11674,7 +11687,7 @@
         "description": "Field in table unite_apprentissages"
     },
     {
-        "id": 894,
+        "id": 895,
         "reference": "UniteApprentissage_description",
         "name": "description",
         "column_name": "description",
@@ -11687,7 +11700,7 @@
         "description": "Field in table unite_apprentissages"
     },
     {
-        "id": 895,
+        "id": 896,
         "reference": "UniteApprentissage_ordre",
         "name": "ordre",
         "column_name": "ordre",
@@ -11701,7 +11714,7 @@
         "description": "Field in table unite_apprentissages"
     },
     {
-        "id": 896,
+        "id": 897,
         "reference": "UniteApprentissage_micro_competence_id",
         "name": "micro_competence_id",
         "column_name": "micro_competence_id",
@@ -11714,7 +11727,7 @@
         "description": "ManyToOne between unite_apprentissages and micro_competences"
     },
     {
-        "id": 897,
+        "id": 898,
         "reference": "UniteApprentissage_created_at",
         "name": "created_at",
         "column_name": "created_at",
@@ -11727,7 +11740,7 @@
         "description": "Field in table unite_apprentissages"
     },
     {
-        "id": 898,
+        "id": 899,
         "reference": "UniteApprentissage_updated_at",
         "name": "updated_at",
         "column_name": "updated_at",
@@ -11740,7 +11753,7 @@
         "description": "Field in table unite_apprentissages"
     },
     {
-        "id": 899,
+        "id": 900,
         "reference": "UserModelFilter_id",
         "name": "id",
         "column_name": "id",
@@ -11753,7 +11766,7 @@
         "description": "Field in table user_model_filters"
     },
     {
-        "id": 900,
+        "id": 901,
         "reference": "UserModelFilter_user_id",
         "name": "user_id",
         "column_name": "user_id",
@@ -11766,7 +11779,7 @@
         "description": "ManyToOne between user_model_filters and users"
     },
     {
-        "id": 901,
+        "id": 902,
         "reference": "UserModelFilter_model_name",
         "name": "model_name",
         "column_name": "model_name",
@@ -11779,7 +11792,7 @@
         "description": "Field in table user_model_filters"
     },
     {
-        "id": 902,
+        "id": 903,
         "reference": "UserModelFilter_context_key",
         "name": "context_key",
         "column_name": "context_key",
@@ -11792,7 +11805,7 @@
         "description": "Field in table user_model_filters"
     },
     {
-        "id": 903,
+        "id": 904,
         "reference": "UserModelFilter_filters",
         "name": "filters",
         "column_name": "filters",
@@ -11805,7 +11818,7 @@
         "description": "Field in table user_model_filters"
     },
     {
-        "id": 904,
+        "id": 905,
         "reference": "UserModelFilter_created_at",
         "name": "created_at",
         "column_name": "created_at",
@@ -11818,7 +11831,7 @@
         "description": "Field in table user_model_filters"
     },
     {
-        "id": 905,
+        "id": 906,
         "reference": "UserModelFilter_updated_at",
         "name": "updated_at",
         "column_name": "updated_at",
@@ -11831,7 +11844,7 @@
         "description": "Field in table user_model_filters"
     },
     {
-        "id": 906,
+        "id": 907,
         "reference": "User_id",
         "name": "id",
         "column_name": "id",
@@ -11844,7 +11857,7 @@
         "description": "Field in table users"
     },
     {
-        "id": 907,
+        "id": 908,
         "reference": "User_name",
         "name": "name",
         "column_name": "name",
@@ -11857,7 +11870,7 @@
         "description": "Field in table users"
     },
     {
-        "id": 908,
+        "id": 909,
         "reference": "User_email",
         "name": "email",
         "column_name": "email",
@@ -11870,7 +11883,7 @@
         "description": "Field in table users"
     },
     {
-        "id": 909,
+        "id": 910,
         "reference": "User_email_verified_at",
         "name": "email_verified_at",
         "column_name": "email_verified_at",
@@ -11883,7 +11896,7 @@
         "description": "Field in table users"
     },
     {
-        "id": 910,
+        "id": 911,
         "reference": "User_password",
         "name": "password",
         "column_name": "password",
@@ -11896,7 +11909,7 @@
         "description": "Field in table users"
     },
     {
-        "id": 911,
+        "id": 912,
         "reference": "User_must_change_password",
         "name": "must_change_password",
         "column_name": "must_change_password",
@@ -11910,7 +11923,7 @@
         "description": "Field in table users"
     },
     {
-        "id": 912,
+        "id": 913,
         "reference": "User_remember_token",
         "name": "remember_token",
         "column_name": "remember_token",
@@ -11923,7 +11936,7 @@
         "description": "Field in table users"
     },
     {
-        "id": 913,
+        "id": 914,
         "reference": "User_reference",
         "name": "reference",
         "column_name": "reference",
@@ -11936,7 +11949,7 @@
         "description": "Field in table users"
     },
     {
-        "id": 914,
+        "id": 915,
         "reference": "User_created_at",
         "name": "created_at",
         "column_name": "created_at",
@@ -11949,7 +11962,7 @@
         "description": "Field in table users"
     },
     {
-        "id": 915,
+        "id": 916,
         "reference": "User_updated_at",
         "name": "updated_at",
         "column_name": "updated_at",
@@ -11962,7 +11975,7 @@
         "description": "Field in table users"
     },
     {
-        "id": 916,
+        "id": 917,
         "reference": "WidgetOperation_id",
         "name": "id",
         "column_name": "id",
@@ -11975,7 +11988,7 @@
         "description": "Field in table widget_operations"
     },
     {
-        "id": 917,
+        "id": 918,
         "reference": "WidgetOperation_operation",
         "name": "operation",
         "column_name": "operation",
@@ -11988,7 +12001,7 @@
         "description": "Field in table widget_operations"
     },
     {
-        "id": 918,
+        "id": 919,
         "reference": "WidgetOperation_description",
         "name": "description",
         "column_name": "description",
@@ -12001,7 +12014,7 @@
         "description": "Field in table widget_operations"
     },
     {
-        "id": 919,
+        "id": 920,
         "reference": "WidgetOperation_reference",
         "name": "reference",
         "column_name": "reference",
@@ -12014,7 +12027,7 @@
         "description": "Field in table widget_operations"
     },
     {
-        "id": 920,
+        "id": 921,
         "reference": "WidgetOperation_created_at",
         "name": "created_at",
         "column_name": "created_at",
@@ -12027,7 +12040,7 @@
         "description": "Field in table widget_operations"
     },
     {
-        "id": 921,
+        "id": 922,
         "reference": "WidgetOperation_updated_at",
         "name": "updated_at",
         "column_name": "updated_at",
@@ -12040,7 +12053,7 @@
         "description": "Field in table widget_operations"
     },
     {
-        "id": 922,
+        "id": 923,
         "reference": "WidgetType_id",
         "name": "id",
         "column_name": "id",
@@ -12053,7 +12066,7 @@
         "description": "Field in table widget_types"
     },
     {
-        "id": 923,
+        "id": 924,
         "reference": "WidgetType_type",
         "name": "type",
         "column_name": "type",
@@ -12066,7 +12079,7 @@
         "description": "Field in table widget_types"
     },
     {
-        "id": 924,
+        "id": 925,
         "reference": "WidgetType_description",
         "name": "description",
         "column_name": "description",
@@ -12079,7 +12092,7 @@
         "description": "Field in table widget_types"
     },
     {
-        "id": 925,
+        "id": 926,
         "reference": "WidgetType_reference",
         "name": "reference",
         "column_name": "reference",
@@ -12092,7 +12105,7 @@
         "description": "Field in table widget_types"
     },
     {
-        "id": 926,
+        "id": 927,
         "reference": "WidgetType_created_at",
         "name": "created_at",
         "column_name": "created_at",
@@ -12105,7 +12118,7 @@
         "description": "Field in table widget_types"
     },
     {
-        "id": 927,
+        "id": 928,
         "reference": "WidgetType_updated_at",
         "name": "updated_at",
         "column_name": "updated_at",
@@ -12118,7 +12131,7 @@
         "description": "Field in table widget_types"
     },
     {
-        "id": 928,
+        "id": 929,
         "reference": "WidgetUtilisateur_id",
         "name": "id",
         "column_name": "id",
@@ -12131,7 +12144,7 @@
         "description": "Field in table widget_utilisateurs"
     },
     {
-        "id": 929,
+        "id": 930,
         "reference": "WidgetUtilisateur_user_id",
         "name": "user_id",
         "column_name": "user_id",
@@ -12144,7 +12157,7 @@
         "description": "ManyToOne between widget_utilisateurs and users"
     },
     {
-        "id": 930,
+        "id": 931,
         "reference": "WidgetUtilisateur_widget_id",
         "name": "widget_id",
         "column_name": "widget_id",
@@ -12157,7 +12170,7 @@
         "description": "ManyToOne between widget_utilisateurs and widgets"
     },
     {
-        "id": 931,
+        "id": 932,
         "reference": "WidgetUtilisateur_ordre",
         "name": "ordre",
         "column_name": "ordre",
@@ -12171,7 +12184,7 @@
         "description": "Field in table widget_utilisateurs"
     },
     {
-        "id": 932,
+        "id": 933,
         "reference": "WidgetUtilisateur_titre",
         "name": "titre",
         "column_name": "titre",
@@ -12184,7 +12197,7 @@
         "description": "Field in table widget_utilisateurs"
     },
     {
-        "id": 933,
+        "id": 934,
         "reference": "WidgetUtilisateur_sous_titre",
         "name": "sous_titre",
         "column_name": "sous_titre",
@@ -12197,7 +12210,7 @@
         "description": "Field in table widget_utilisateurs"
     },
     {
-        "id": 934,
+        "id": 935,
         "reference": "WidgetUtilisateur_visible",
         "name": "visible",
         "column_name": "visible",
@@ -12211,7 +12224,7 @@
         "description": "Field in table widget_utilisateurs"
     },
     {
-        "id": 935,
+        "id": 936,
         "reference": "WidgetUtilisateur_created_at",
         "name": "created_at",
         "column_name": "created_at",
@@ -12224,7 +12237,7 @@
         "description": "Field in table widget_utilisateurs"
     },
     {
-        "id": 936,
+        "id": 937,
         "reference": "WidgetUtilisateur_updated_at",
         "name": "updated_at",
         "column_name": "updated_at",
@@ -12237,7 +12250,7 @@
         "description": "Field in table widget_utilisateurs"
     },
     {
-        "id": 937,
+        "id": 938,
         "reference": "Widget_id",
         "name": "id",
         "column_name": "id",
@@ -12250,7 +12263,7 @@
         "description": "Field in table widgets"
     },
     {
-        "id": 938,
+        "id": 939,
         "reference": "Widget_name",
         "name": "name",
         "column_name": "name",
@@ -12263,7 +12276,7 @@
         "description": "Field in table widgets"
     },
     {
-        "id": 939,
+        "id": 940,
         "reference": "Widget_type_id",
         "name": "type_id",
         "column_name": "type_id",
@@ -12276,7 +12289,7 @@
         "description": "ManyToOne between widgets and widget_types"
     },
     {
-        "id": 940,
+        "id": 941,
         "reference": "Widget_model_id",
         "name": "model_id",
         "column_name": "model_id",
@@ -12289,7 +12302,7 @@
         "description": "ManyToOne between widgets and sys_models"
     },
     {
-        "id": 941,
+        "id": 942,
         "reference": "Widget_operation_id",
         "name": "operation_id",
         "column_name": "operation_id",
@@ -12302,7 +12315,7 @@
         "description": "ManyToOne between widgets and widget_operations"
     },
     {
-        "id": 942,
+        "id": 943,
         "reference": "Widget_color",
         "name": "color",
         "column_name": "color",
@@ -12315,7 +12328,7 @@
         "description": "Field in table widgets"
     },
     {
-        "id": 943,
+        "id": 944,
         "reference": "Widget_icon",
         "name": "icon",
         "column_name": "icon",
@@ -12328,7 +12341,7 @@
         "description": "Field in table widgets"
     },
     {
-        "id": 944,
+        "id": 945,
         "reference": "Widget_label",
         "name": "label",
         "column_name": "label",
@@ -12341,7 +12354,7 @@
         "description": "Field in table widgets"
     },
     {
-        "id": 945,
+        "id": 946,
         "reference": "Widget_parameters",
         "name": "parameters",
         "column_name": "parameters",
@@ -12354,7 +12367,7 @@
         "description": "Field in table widgets"
     },
     {
-        "id": 946,
+        "id": 947,
         "reference": "Widget_reference",
         "name": "reference",
         "column_name": "reference",
@@ -12367,7 +12380,7 @@
         "description": "Field in table widgets"
     },
     {
-        "id": 947,
+        "id": 948,
         "reference": "Widget_section_widget_id",
         "name": "section_widget_id",
         "column_name": "section_widget_id",
@@ -12380,7 +12393,7 @@
         "description": "ManyToOne between widgets and section_widgets"
     },
     {
-        "id": 948,
+        "id": 949,
         "reference": "Widget_ordre",
         "name": "ordre",
         "column_name": "ordre",
@@ -12393,7 +12406,7 @@
         "description": "Field in table widgets"
     },
     {
-        "id": 949,
+        "id": 950,
         "reference": "Widget_sys_color_id",
         "name": "sys_color_id",
         "column_name": "sys_color_id",
@@ -12406,7 +12419,7 @@
         "description": "ManyToOne between widgets and sys_colors"
     },
     {
-        "id": 950,
+        "id": 951,
         "reference": "Widget_created_at",
         "name": "created_at",
         "column_name": "created_at",
@@ -12419,7 +12432,7 @@
         "description": "Field in table widgets"
     },
     {
-        "id": 951,
+        "id": 952,
         "reference": "Widget_updated_at",
         "name": "updated_at",
         "column_name": "updated_at",
@@ -12432,7 +12445,7 @@
         "description": "Field in table widgets"
     },
     {
-        "id": 952,
+        "id": 953,
         "reference": "WorkflowTache_id",
         "name": "id",
         "column_name": "id",
@@ -12445,7 +12458,7 @@
         "description": "Field in table workflow_taches"
     },
     {
-        "id": 953,
+        "id": 954,
         "reference": "WorkflowTache_code",
         "name": "code",
         "column_name": "code",
@@ -12458,7 +12471,7 @@
         "description": "Field in table workflow_taches"
     },
     {
-        "id": 954,
+        "id": 955,
         "reference": "WorkflowTache_titre",
         "name": "titre",
         "column_name": "titre",
@@ -12471,7 +12484,7 @@
         "description": "Field in table workflow_taches"
     },
     {
-        "id": 955,
+        "id": 956,
         "reference": "WorkflowTache_description",
         "name": "description",
         "column_name": "description",
@@ -12484,7 +12497,7 @@
         "description": "Field in table workflow_taches"
     },
     {
-        "id": 956,
+        "id": 957,
         "reference": "WorkflowTache_is_editable_only_by_formateur",
         "name": "is_editable_only_by_formateur",
         "column_name": "is_editable_only_by_formateur",
@@ -12498,7 +12511,7 @@
         "description": "Indique si cet état est modifiable uniquement par le formateur"
     },
     {
-        "id": 957,
+        "id": 958,
         "reference": "WorkflowTache_reference",
         "name": "reference",
         "column_name": "reference",
@@ -12511,7 +12524,7 @@
         "description": "Field in table workflow_taches"
     },
     {
-        "id": 958,
+        "id": 959,
         "reference": "WorkflowTache_ordre",
         "name": "ordre",
         "column_name": "ordre",
@@ -12524,7 +12537,7 @@
         "description": "Field in table workflow_taches"
     },
     {
-        "id": 959,
+        "id": 960,
         "reference": "WorkflowTache_sys_color_id",
         "name": "sys_color_id",
         "column_name": "sys_color_id",
@@ -12537,7 +12550,7 @@
         "description": "ManyToOne between workflow_taches and sys_colors"
     },
     {
-        "id": 960,
+        "id": 961,
         "reference": "WorkflowTache_created_at",
         "name": "created_at",
         "column_name": "created_at",
@@ -12550,7 +12563,7 @@
         "description": "Field in table workflow_taches"
     },
     {
-        "id": 961,
+        "id": 962,
         "reference": "WorkflowTache_updated_at",
         "name": "updated_at",
         "column_name": "updated_at",
@@ -12563,7 +12576,7 @@
         "description": "Field in table workflow_taches"
     },
     {
-        "id": 962,
+        "id": 963,
         "reference": "affectation_projets_evaluateurs_affectation_projet_evaluateur_m2m_m2m",
         "name": "Evaluateur",
         "column_name": "",
@@ -12576,7 +12589,7 @@
         "description": "Field for ManyToMany relation with Evaluateur"
     },
     {
-        "id": 963,
+        "id": 964,
         "reference": "evaluateurs_affectation_projets_affectation_projet_evaluateur_m2m_m2m",
         "name": "AffectationProjet",
         "column_name": "",
@@ -12589,7 +12602,7 @@
         "description": "Field for ManyToMany relation with AffectationProjet"
     },
     {
-        "id": 964,
+        "id": 965,
         "reference": "annee_formations_hasMany_affectation_projets_annee_formation_id",
         "name": "AffectationProjet",
         "column_name": "annee_formation_id",
@@ -12602,7 +12615,7 @@
         "description": "Field for HasMany relation with AffectationProjet"
     },
     {
-        "id": 965,
+        "id": 966,
         "reference": "groupes_hasMany_affectation_projets_groupe_id",
         "name": "AffectationProjet",
         "column_name": "groupe_id",
@@ -12615,7 +12628,7 @@
         "description": "Field for HasMany relation with AffectationProjet"
     },
     {
-        "id": 966,
+        "id": 967,
         "reference": "projets_hasMany_affectation_projets_projet_id",
         "name": "AffectationProjet",
         "column_name": "projet_id",
@@ -12628,7 +12641,7 @@
         "description": "Field for HasMany relation with AffectationProjet"
     },
     {
-        "id": 967,
+        "id": 968,
         "reference": "sous_groupes_hasMany_affectation_projets_sous_groupe_id",
         "name": "AffectationProjet",
         "column_name": "sous_groupe_id",
@@ -12641,7 +12654,7 @@
         "description": "Field for HasMany relation with AffectationProjet"
     },
     {
-        "id": 968,
+        "id": 969,
         "reference": "affectation_projets_hasMany_affectation_qcm_projets_affectation_projet_id",
         "name": "AffectationQcmProjet",
         "column_name": "affectation_projet_id",
@@ -12654,7 +12667,7 @@
         "description": "Field for HasMany relation with AffectationQcmProjet"
     },
     {
-        "id": 969,
+        "id": 970,
         "reference": "qcms_hasMany_affectation_qcm_projets_qcm_id",
         "name": "AffectationQcmProjet",
         "column_name": "qcm_id",
@@ -12667,7 +12680,7 @@
         "description": "Field for HasMany relation with AffectationQcmProjet"
     },
     {
-        "id": 970,
+        "id": 971,
         "reference": "session_formations_hasMany_alignement_uas_session_formation_id",
         "name": "AlignementUa",
         "column_name": "session_formation_id",
@@ -12680,7 +12693,7 @@
         "description": "Field for HasMany relation with AlignementUa"
     },
     {
-        "id": 971,
+        "id": 972,
         "reference": "unite_apprentissages_hasMany_alignement_uas_unite_apprentissage_id",
         "name": "AlignementUa",
         "column_name": "unite_apprentissage_id",
@@ -12693,7 +12706,7 @@
         "description": "Field for HasMany relation with AlignementUa"
     },
     {
-        "id": 972,
+        "id": 973,
         "reference": "apprenants_equipe_projets_apprenant_equipe_projet_m2m_m2m",
         "name": "EquipeProjet",
         "column_name": "",
@@ -12706,7 +12719,7 @@
         "description": "Field for ManyToMany relation with EquipeProjet"
     },
     {
-        "id": 973,
+        "id": 974,
         "reference": "equipe_projets_apprenants_apprenant_equipe_projet_m2m_m2m",
         "name": "Apprenant",
         "column_name": "",
@@ -12719,7 +12732,7 @@
         "description": "Field for ManyToMany relation with Apprenant"
     },
     {
-        "id": 974,
+        "id": 975,
         "reference": "apprenants_groupes_apprenant_groupe_m2m_m2m",
         "name": "Groupe",
         "column_name": "",
@@ -12732,7 +12745,7 @@
         "description": "Field for ManyToMany relation with Groupe"
     },
     {
-        "id": 975,
+        "id": 976,
         "reference": "groupes_apprenants_apprenant_groupe_m2m_m2m",
         "name": "Apprenant",
         "column_name": "",
@@ -12745,7 +12758,7 @@
         "description": "Field for ManyToMany relation with Apprenant"
     },
     {
-        "id": 976,
+        "id": 977,
         "reference": "apprenants_sous_groupes_apprenant_sous_groupe_m2m_m2m",
         "name": "SousGroupe",
         "column_name": "",
@@ -12758,7 +12771,7 @@
         "description": "Field for ManyToMany relation with SousGroupe"
     },
     {
-        "id": 977,
+        "id": 978,
         "reference": "sous_groupes_apprenants_apprenant_sous_groupe_m2m_m2m",
         "name": "Apprenant",
         "column_name": "",
@@ -12771,7 +12784,7 @@
         "description": "Field for ManyToMany relation with Apprenant"
     },
     {
-        "id": 978,
+        "id": 979,
         "reference": "nationalites_hasMany_apprenants_nationalite_id",
         "name": "Apprenant",
         "column_name": "nationalite_id",
@@ -12784,7 +12797,7 @@
         "description": "Field for HasMany relation with Apprenant"
     },
     {
-        "id": 979,
+        "id": 980,
         "reference": "niveaux_scolaires_hasMany_apprenants_niveaux_scolaire_id",
         "name": "Apprenant",
         "column_name": "niveaux_scolaire_id",
@@ -12797,7 +12810,7 @@
         "description": "Field for HasMany relation with Apprenant"
     },
     {
-        "id": 980,
+        "id": 981,
         "reference": "users_hasMany_apprenants_user_id",
         "name": "Apprenant",
         "column_name": "user_id",
@@ -12810,7 +12823,7 @@
         "description": "Field for HasMany relation with Apprenant"
     },
     {
-        "id": 981,
+        "id": 982,
         "reference": "formateurs_hasMany_chapitres_formateur_id",
         "name": "Chapitre",
         "column_name": "formateur_id",
@@ -12823,7 +12836,7 @@
         "description": "Field for HasMany relation with Chapitre"
     },
     {
-        "id": 982,
+        "id": 983,
         "reference": "unite_apprentissages_hasMany_chapitres_unite_apprentissage_id",
         "name": "Chapitre",
         "column_name": "unite_apprentissage_id",
@@ -12836,7 +12849,7 @@
         "description": "Field for HasMany relation with Chapitre"
     },
     {
-        "id": 983,
+        "id": 984,
         "reference": "apprenants_hasMany_commentaire_realisation_taches_apprenant_id",
         "name": "CommentaireRealisationTache",
         "column_name": "apprenant_id",
@@ -12849,7 +12862,7 @@
         "description": "Field for HasMany relation with CommentaireRealisationTache"
     },
     {
-        "id": 984,
+        "id": 985,
         "reference": "formateurs_hasMany_commentaire_realisation_taches_formateur_id",
         "name": "CommentaireRealisationTache",
         "column_name": "formateur_id",
@@ -12862,7 +12875,7 @@
         "description": "Field for HasMany relation with CommentaireRealisationTache"
     },
     {
-        "id": 985,
+        "id": 986,
         "reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id",
         "name": "CommentaireRealisationTache",
         "column_name": "realisation_tache_id",
@@ -12875,7 +12888,7 @@
         "description": "Field for HasMany relation with CommentaireRealisationTache"
     },
     {
-        "id": 986,
+        "id": 987,
         "reference": "modules_hasMany_competences_module_id",
         "name": "Competence",
         "column_name": "module_id",
@@ -12888,7 +12901,7 @@
         "description": "Field for HasMany relation with Competence"
     },
     {
-        "id": 987,
+        "id": 988,
         "reference": "phase_evaluations_hasMany_critere_evaluations_phase_evaluation_id",
         "name": "CritereEvaluation",
         "column_name": "phase_evaluation_id",
@@ -12901,7 +12914,7 @@
         "description": "Field for HasMany relation with CritereEvaluation"
     },
     {
-        "id": 988,
+        "id": 989,
         "reference": "unite_apprentissages_hasMany_critere_evaluations_unite_apprentissage_id",
         "name": "CritereEvaluation",
         "column_name": "unite_apprentissage_id",
@@ -12914,7 +12927,7 @@
         "description": "Field for HasMany relation with CritereEvaluation"
     },
     {
-        "id": 989,
+        "id": 990,
         "reference": "e_models_hasMany_e_data_fields_e_model_id",
         "name": "EDataField",
         "column_name": "e_model_id",
@@ -12927,7 +12940,7 @@
         "description": "Field for HasMany relation with EDataField"
     },
     {
-        "id": 990,
+        "id": 991,
         "reference": "e_relationships_hasMany_e_data_fields_e_relationship_id",
         "name": "EDataField",
         "column_name": "e_relationship_id",
@@ -12940,7 +12953,7 @@
         "description": "Field for HasMany relation with EDataField"
     },
     {
-        "id": 991,
+        "id": 992,
         "reference": "e_data_fields_hasMany_e_metadata_e_data_field_id",
         "name": "EMetadatum",
         "column_name": "e_data_field_id",
@@ -12953,7 +12966,7 @@
         "description": "Field for HasMany relation with EMetadatum"
     },
     {
-        "id": 992,
+        "id": 993,
         "reference": "e_metadata_definitions_hasMany_e_metadata_e_metadata_definition_id",
         "name": "EMetadatum",
         "column_name": "e_metadata_definition_id",
@@ -12966,7 +12979,7 @@
         "description": "Field for HasMany relation with EMetadatum"
     },
     {
-        "id": 993,
+        "id": 994,
         "reference": "e_models_hasMany_e_metadata_e_model_id",
         "name": "EMetadatum",
         "column_name": "e_model_id",
@@ -12979,7 +12992,7 @@
         "description": "Field for HasMany relation with EMetadatum"
     },
     {
-        "id": 994,
+        "id": 995,
         "reference": "e_packages_hasMany_e_models_e_package_id",
         "name": "EModel",
         "column_name": "e_package_id",
@@ -12992,7 +13005,7 @@
         "description": "Field for HasMany relation with EModel"
     },
     {
-        "id": 995,
+        "id": 996,
         "reference": "e_models_hasMany_e_relationships_source_e_model_id",
         "name": "ERelationship",
         "column_name": "source_e_model_id",
@@ -13005,7 +13018,7 @@
         "description": "Field for HasMany relation with ERelationship"
     },
     {
-        "id": 996,
+        "id": 997,
         "reference": "e_models_hasMany_e_relationships_target_e_model_id",
         "name": "ERelationship",
         "column_name": "target_e_model_id",
@@ -13018,7 +13031,7 @@
         "description": "Field for HasMany relation with ERelationship"
     },
     {
-        "id": 997,
+        "id": 998,
         "reference": "projets_hasMany_equipe_projets_projet_id",
         "name": "EquipeProjet",
         "column_name": "projet_id",
@@ -13031,7 +13044,7 @@
         "description": "Field for HasMany relation with EquipeProjet"
     },
     {
-        "id": 998,
+        "id": 999,
         "reference": "sys_colors_hasMany_etat_evaluation_projets_sys_color_id",
         "name": "EtatEvaluationProjet",
         "column_name": "sys_color_id",
@@ -13044,7 +13057,7 @@
         "description": "Field for HasMany relation with EtatEvaluationProjet"
     },
     {
-        "id": 999,
+        "id": 1000,
         "reference": "sys_colors_hasMany_etat_realisation_chapitres_sys_color_id",
         "name": "EtatRealisationChapitre",
         "column_name": "sys_color_id",
@@ -13057,7 +13070,7 @@
         "description": "Field for HasMany relation with EtatRealisationChapitre"
     },
     {
-        "id": 1000,
+        "id": 1001,
         "reference": "sys_colors_hasMany_etat_realisation_competences_sys_color_id",
         "name": "EtatRealisationCompetence",
         "column_name": "sys_color_id",
@@ -13070,7 +13083,7 @@
         "description": "Field for HasMany relation with EtatRealisationCompetence"
     },
     {
-        "id": 1001,
+        "id": 1002,
         "reference": "sys_colors_hasMany_etat_realisation_micro_competences_sys_color_id",
         "name": "EtatRealisationMicroCompetence",
         "column_name": "sys_color_id",
@@ -13083,7 +13096,7 @@
         "description": "Field for HasMany relation with EtatRealisationMicroCompetence"
     },
     {
-        "id": 1002,
+        "id": 1003,
         "reference": "sys_colors_hasMany_etat_realisation_modules_sys_color_id",
         "name": "EtatRealisationModule",
         "column_name": "sys_color_id",
@@ -13096,7 +13109,7 @@
         "description": "Field for HasMany relation with EtatRealisationModule"
     },
     {
-        "id": 1003,
+        "id": 1004,
         "reference": "sys_colors_hasMany_etat_realisation_qcms_sys_color_id",
         "name": "EtatRealisationQcm",
         "column_name": "sys_color_id",
@@ -13109,7 +13122,7 @@
         "description": "Field for HasMany relation with EtatRealisationQcm"
     },
     {
-        "id": 1004,
+        "id": 1005,
         "reference": "formateurs_hasMany_etat_realisation_taches_formateur_id",
         "name": "EtatRealisationTache",
         "column_name": "formateur_id",
@@ -13122,7 +13135,7 @@
         "description": "Field for HasMany relation with EtatRealisationTache"
     },
     {
-        "id": 1005,
+        "id": 1006,
         "reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id",
         "name": "EtatRealisationTache",
         "column_name": "sys_color_id",
@@ -13135,7 +13148,7 @@
         "description": "Field for HasMany relation with EtatRealisationTache"
     },
     {
-        "id": 1006,
+        "id": 1007,
         "reference": "workflow_taches_hasMany_etat_realisation_taches_workflow_tache_id",
         "name": "EtatRealisationTache",
         "column_name": "workflow_tache_id",
@@ -13148,7 +13161,7 @@
         "description": "Field for HasMany relation with EtatRealisationTache"
     },
     {
-        "id": 1007,
+        "id": 1008,
         "reference": "sys_colors_hasMany_etat_realisation_uas_sys_color_id",
         "name": "EtatRealisationUa",
         "column_name": "sys_color_id",
@@ -13161,7 +13174,7 @@
         "description": "Field for HasMany relation with EtatRealisationUa"
     },
     {
-        "id": 1008,
+        "id": 1009,
         "reference": "sys_colors_hasMany_etats_realisation_projets_sys_color_id",
         "name": "EtatsRealisationProjet",
         "column_name": "sys_color_id",
@@ -13174,7 +13187,7 @@
         "description": "Field for HasMany relation with EtatsRealisationProjet"
     },
     {
-        "id": 1009,
+        "id": 1010,
         "reference": "users_hasMany_evaluateurs_user_id",
         "name": "Evaluateur",
         "column_name": "user_id",
@@ -13187,7 +13200,7 @@
         "description": "Field for HasMany relation with Evaluateur"
     },
     {
-        "id": 1010,
+        "id": 1011,
         "reference": "etat_evaluation_projets_hasMany_evaluation_realisation_projets_etat_evaluation_projet_id",
         "name": "EvaluationRealisationProjet",
         "column_name": "etat_evaluation_projet_id",
@@ -13200,7 +13213,7 @@
         "description": "Field for HasMany relation with EvaluationRealisationProjet"
     },
     {
-        "id": 1011,
+        "id": 1012,
         "reference": "evaluateurs_hasMany_evaluation_realisation_projets_evaluateur_id",
         "name": "EvaluationRealisationProjet",
         "column_name": "evaluateur_id",
@@ -13213,7 +13226,7 @@
         "description": "Field for HasMany relation with EvaluationRealisationProjet"
     },
     {
-        "id": 1012,
+        "id": 1013,
         "reference": "realisation_projets_hasMany_evaluation_realisation_projets_realisation_projet_id",
         "name": "EvaluationRealisationProjet",
         "column_name": "realisation_projet_id",
@@ -13226,7 +13239,7 @@
         "description": "Field for HasMany relation with EvaluationRealisationProjet"
     },
     {
-        "id": 1013,
+        "id": 1014,
         "reference": "evaluateurs_hasMany_evaluation_realisation_taches_evaluateur_id",
         "name": "EvaluationRealisationTache",
         "column_name": "evaluateur_id",
@@ -13239,7 +13252,7 @@
         "description": "Field for HasMany relation with EvaluationRealisationTache"
     },
     {
-        "id": 1014,
+        "id": 1015,
         "reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id",
         "name": "EvaluationRealisationTache",
         "column_name": "realisation_tache_id",
@@ -13252,7 +13265,7 @@
         "description": "Field for HasMany relation with EvaluationRealisationTache"
     },
     {
-        "id": 1015,
+        "id": 1016,
         "reference": "evaluation_realisation_projets_hasMany_evaluation_realisation_taches_evaluation_realisation_projet_id",
         "name": "EvaluationRealisationTache",
         "column_name": "evaluation_realisation_projet_id",
@@ -13265,7 +13278,7 @@
         "description": "Field for HasMany relation with EvaluationRealisationTache"
     },
     {
-        "id": 1016,
+        "id": 1017,
         "reference": "sys_modules_hasMany_feature_domains_sys_module_id",
         "name": "FeatureDomain",
         "column_name": "sys_module_id",
@@ -13278,7 +13291,7 @@
         "description": "Field for HasMany relation with FeatureDomain"
     },
     {
-        "id": 1017,
+        "id": 1018,
         "reference": "features_permissions_feature_permission_m2m_m2m",
         "name": "Permission",
         "column_name": "",
@@ -13291,7 +13304,7 @@
         "description": "Field for ManyToMany relation with Permission"
     },
     {
-        "id": 1018,
+        "id": 1019,
         "reference": "permissions_features_feature_permission_m2m_m2m",
         "name": "Feature",
         "column_name": "",
@@ -13304,7 +13317,7 @@
         "description": "Field for ManyToMany relation with Feature"
     },
     {
-        "id": 1019,
+        "id": 1020,
         "reference": "feature_domains_hasMany_features_feature_domain_id",
         "name": "Feature",
         "column_name": "feature_domain_id",
@@ -13317,7 +13330,7 @@
         "description": "Field for HasMany relation with Feature"
     },
     {
-        "id": 1020,
+        "id": 1021,
         "reference": "formateurs_groupes_formateur_groupe_m2m_m2m",
         "name": "Groupe",
         "column_name": "",
@@ -13330,7 +13343,7 @@
         "description": "Field for ManyToMany relation with Groupe"
     },
     {
-        "id": 1021,
+        "id": 1022,
         "reference": "groupes_formateurs_formateur_groupe_m2m_m2m",
         "name": "Formateur",
         "column_name": "",
@@ -13343,7 +13356,7 @@
         "description": "Field for ManyToMany relation with Formateur"
     },
     {
-        "id": 1022,
+        "id": 1023,
         "reference": "formateurs_specialites_formateur_specialite_m2m_m2m",
         "name": "Specialite",
         "column_name": "",
@@ -13356,7 +13369,7 @@
         "description": "Field for ManyToMany relation with Specialite"
     },
     {
-        "id": 1023,
+        "id": 1024,
         "reference": "specialites_formateurs_formateur_specialite_m2m_m2m",
         "name": "Formateur",
         "column_name": "",
@@ -13369,7 +13382,7 @@
         "description": "Field for ManyToMany relation with Formateur"
     },
     {
-        "id": 1024,
+        "id": 1025,
         "reference": "users_hasMany_formateurs_user_id",
         "name": "Formateur",
         "column_name": "user_id",
@@ -13382,7 +13395,7 @@
         "description": "Field for HasMany relation with Formateur"
     },
     {
-        "id": 1025,
+        "id": 1026,
         "reference": "annee_formations_hasMany_groupes_annee_formation_id",
         "name": "Groupe",
         "column_name": "annee_formation_id",
@@ -13395,7 +13408,7 @@
         "description": "Field for HasMany relation with Groupe"
     },
     {
-        "id": 1026,
+        "id": 1027,
         "reference": "filieres_hasMany_groupes_filiere_id",
         "name": "Groupe",
         "column_name": "filiere_id",
@@ -13408,7 +13421,7 @@
         "description": "Field for HasMany relation with Groupe"
     },
     {
-        "id": 1027,
+        "id": 1028,
         "reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
         "name": "HistoriqueRealisationTache",
         "column_name": "realisation_tache_id",
@@ -13421,7 +13434,7 @@
         "description": "Field for HasMany relation with HistoriqueRealisationTache"
     },
     {
-        "id": 1028,
+        "id": 1029,
         "reference": "users_hasMany_historique_realisation_taches_user_id",
         "name": "HistoriqueRealisationTache",
         "column_name": "user_id",
@@ -13434,7 +13447,7 @@
         "description": "Field for HasMany relation with HistoriqueRealisationTache"
     },
     {
-        "id": 1029,
+        "id": 1030,
         "reference": "projets_hasMany_label_projets_projet_id",
         "name": "LabelProjet",
         "column_name": "projet_id",
@@ -13447,7 +13460,7 @@
         "description": "Field for HasMany relation with LabelProjet"
     },
     {
-        "id": 1030,
+        "id": 1031,
         "reference": "sys_colors_hasMany_label_projets_sys_color_id",
         "name": "LabelProjet",
         "column_name": "sys_color_id",
@@ -13460,7 +13473,7 @@
         "description": "Field for HasMany relation with LabelProjet"
     },
     {
-        "id": 1031,
+        "id": 1032,
         "reference": "label_projets_realisation_taches_label_realisation_tache_m2m_m2m",
         "name": "RealisationTache",
         "column_name": "",
@@ -13473,7 +13486,7 @@
         "description": "Field for ManyToMany relation with RealisationTache"
     },
     {
-        "id": 1032,
+        "id": 1033,
         "reference": "realisation_taches_label_projets_label_realisation_tache_m2m_m2m",
         "name": "LabelProjet",
         "column_name": "",
@@ -13486,7 +13499,7 @@
         "description": "Field for ManyToMany relation with LabelProjet"
     },
     {
-        "id": 1033,
+        "id": 1034,
         "reference": "label_projets_taches_label_tache_m2m_m2m",
         "name": "Tache",
         "column_name": "",
@@ -13499,12 +13512,12 @@
         "description": "Field for ManyToMany relation with Tache"
     },
     {
-        "id": 1034,
+        "id": 1035,
         "reference": "taches_label_projets_label_tache_m2m_m2m",
         "name": "LabelProjet",
         "column_name": "",
         "data_type": "ManyToMany",
-        "field_order": 19,
+        "field_order": 20,
         "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
@@ -13512,7 +13525,7 @@
         "description": "Field for ManyToMany relation with LabelProjet"
     },
     {
-        "id": 1035,
+        "id": 1036,
         "reference": "nature_livrables_hasMany_livrable_sessions_nature_livrable_id",
         "name": "LivrableSession",
         "column_name": "nature_livrable_id",
@@ -13525,7 +13538,7 @@
         "description": "Field for HasMany relation with LivrableSession"
     },
     {
-        "id": 1036,
+        "id": 1037,
         "reference": "session_formations_hasMany_livrable_sessions_session_formation_id",
         "name": "LivrableSession",
         "column_name": "session_formation_id",
@@ -13538,7 +13551,7 @@
         "description": "Field for HasMany relation with LivrableSession"
     },
     {
-        "id": 1037,
+        "id": 1038,
         "reference": "livrables_taches_livrable_tache_m2m_m2m",
         "name": "Tache",
         "column_name": "",
@@ -13551,12 +13564,12 @@
         "description": "Field for ManyToMany relation with Tache"
     },
     {
-        "id": 1038,
+        "id": 1039,
         "reference": "taches_livrables_livrable_tache_m2m_m2m",
         "name": "Livrable",
         "column_name": "",
         "data_type": "ManyToMany",
-        "field_order": 20,
+        "field_order": 21,
         "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
@@ -13564,7 +13577,7 @@
         "description": "Field for ManyToMany relation with Livrable"
     },
     {
-        "id": 1039,
+        "id": 1040,
         "reference": "nature_livrables_hasMany_livrables_nature_livrable_id",
         "name": "Livrable",
         "column_name": "nature_livrable_id",
@@ -13577,7 +13590,7 @@
         "description": "Field for HasMany relation with Livrable"
     },
     {
-        "id": 1040,
+        "id": 1041,
         "reference": "projets_hasMany_livrables_projet_id",
         "name": "Livrable",
         "column_name": "projet_id",
@@ -13590,7 +13603,7 @@
         "description": "Field for HasMany relation with Livrable"
     },
     {
-        "id": 1041,
+        "id": 1042,
         "reference": "livrables_hasMany_livrables_realisations_livrable_id",
         "name": "LivrablesRealisation",
         "column_name": "livrable_id",
@@ -13603,7 +13616,7 @@
         "description": "Field for HasMany relation with LivrablesRealisation"
     },
     {
-        "id": 1042,
+        "id": 1043,
         "reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id",
         "name": "LivrablesRealisation",
         "column_name": "realisation_projet_id",
@@ -13616,7 +13629,7 @@
         "description": "Field for HasMany relation with LivrablesRealisation"
     },
     {
-        "id": 1043,
+        "id": 1044,
         "reference": "competences_hasMany_micro_competences_competence_id",
         "name": "MicroCompetence",
         "column_name": "competence_id",
@@ -13629,7 +13642,7 @@
         "description": "Field for HasMany relation with MicroCompetence"
     },
     {
-        "id": 1044,
+        "id": 1045,
         "reference": "projets_hasMany_mobilisation_uas_projet_id",
         "name": "MobilisationUa",
         "column_name": "projet_id",
@@ -13642,7 +13655,7 @@
         "description": "Field for HasMany relation with MobilisationUa"
     },
     {
-        "id": 1045,
+        "id": 1046,
         "reference": "unite_apprentissages_hasMany_mobilisation_uas_unite_apprentissage_id",
         "name": "MobilisationUa",
         "column_name": "unite_apprentissage_id",
@@ -13655,7 +13668,7 @@
         "description": "Field for HasMany relation with MobilisationUa"
     },
     {
-        "id": 1046,
+        "id": 1047,
         "reference": "filieres_hasMany_modules_filiere_id",
         "name": "Module",
         "column_name": "filiere_id",
@@ -13668,7 +13681,7 @@
         "description": "Field for HasMany relation with Module"
     },
     {
-        "id": 1047,
+        "id": 1048,
         "reference": "users_hasMany_notifications_user_id",
         "name": "Notification",
         "column_name": "user_id",
@@ -13681,7 +13694,7 @@
         "description": "Field for HasMany relation with Notification"
     },
     {
-        "id": 1048,
+        "id": 1049,
         "reference": "sys_controllers_hasMany_permissions_controller_id",
         "name": "Permission",
         "column_name": "controller_id",
@@ -13694,7 +13707,7 @@
         "description": "Field for HasMany relation with Permission"
     },
     {
-        "id": 1049,
+        "id": 1050,
         "reference": "users_hasMany_profiles_user_id",
         "name": "Profile",
         "column_name": "user_id",
@@ -13707,7 +13720,7 @@
         "description": "Field for HasMany relation with Profile"
     },
     {
-        "id": 1050,
+        "id": 1051,
         "reference": "filieres_hasMany_projets_filiere_id",
         "name": "Projet",
         "column_name": "filiere_id",
@@ -13720,7 +13733,7 @@
         "description": "Field for HasMany relation with Projet"
     },
     {
-        "id": 1051,
+        "id": 1052,
         "reference": "formateurs_hasMany_projets_formateur_id",
         "name": "Projet",
         "column_name": "formateur_id",
@@ -13733,7 +13746,7 @@
         "description": "Field for HasMany relation with Projet"
     },
     {
-        "id": 1052,
+        "id": 1053,
         "reference": "groupes_hasMany_projets_groupe_id",
         "name": "Projet",
         "column_name": "groupe_id",
@@ -13746,7 +13759,7 @@
         "description": "Field for HasMany relation with Projet"
     },
     {
-        "id": 1053,
+        "id": 1054,
         "reference": "session_formations_hasMany_projets_session_formation_id",
         "name": "Projet",
         "column_name": "session_formation_id",
@@ -13759,7 +13772,7 @@
         "description": "Field for HasMany relation with Projet"
     },
     {
-        "id": 1054,
+        "id": 1055,
         "reference": "proposition_reponses_reponse_qcms_proposition_reponse_reponse_qcm_m2m_m2m",
         "name": "ReponseQcm",
         "column_name": "",
@@ -13772,7 +13785,7 @@
         "description": "Field for ManyToMany relation with ReponseQcm"
     },
     {
-        "id": 1055,
+        "id": 1056,
         "reference": "reponse_qcms_proposition_reponses_proposition_reponse_reponse_qcm_m2m_m2m",
         "name": "PropositionReponse",
         "column_name": "",
@@ -13785,7 +13798,7 @@
         "description": "Field for ManyToMany relation with PropositionReponse"
     },
     {
-        "id": 1056,
+        "id": 1057,
         "reference": "questions_hasMany_proposition_reponses_question_id",
         "name": "PropositionReponse",
         "column_name": "question_id",
@@ -13798,7 +13811,7 @@
         "description": "Field for HasMany relation with PropositionReponse"
     },
     {
-        "id": 1057,
+        "id": 1058,
         "reference": "formateurs_hasMany_qcms_formateur_id",
         "name": "Qcm",
         "column_name": "formateur_id",
@@ -13811,7 +13824,7 @@
         "description": "Field for HasMany relation with Qcm"
     },
     {
-        "id": 1058,
+        "id": 1059,
         "reference": "qcms_hasMany_questions_qcm_id",
         "name": "Question",
         "column_name": "qcm_id",
@@ -13824,7 +13837,7 @@
         "description": "Field for HasMany relation with Question"
     },
     {
-        "id": 1059,
+        "id": 1060,
         "reference": "unite_apprentissages_hasMany_questions_unite_apprentissage_id",
         "name": "Question",
         "column_name": "unite_apprentissage_id",
@@ -13837,7 +13850,7 @@
         "description": "Field for HasMany relation with Question"
     },
     {
-        "id": 1060,
+        "id": 1061,
         "reference": "etat_realisation_chapitres_hasMany_realisation_chapitres_etat_realisation_chapitre_id",
         "name": "RealisationChapitre",
         "column_name": "etat_realisation_chapitre_id",
@@ -13850,7 +13863,7 @@
         "description": "Field for HasMany relation with RealisationChapitre"
     },
     {
-        "id": 1061,
+        "id": 1062,
         "reference": "chapitres_hasMany_realisation_chapitres_chapitre_id",
         "name": "RealisationChapitre",
         "column_name": "chapitre_id",
@@ -13863,7 +13876,7 @@
         "description": "Field for HasMany relation with RealisationChapitre"
     },
     {
-        "id": 1062,
+        "id": 1063,
         "reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
         "name": "RealisationChapitre",
         "column_name": "realisation_tache_id",
@@ -13876,7 +13889,7 @@
         "description": "Field for HasMany relation with RealisationChapitre"
     },
     {
-        "id": 1063,
+        "id": 1064,
         "reference": "realisation_uas_hasMany_realisation_chapitres_realisation_ua_id",
         "name": "RealisationChapitre",
         "column_name": "realisation_ua_id",
@@ -13889,7 +13902,7 @@
         "description": "Field for HasMany relation with RealisationChapitre"
     },
     {
-        "id": 1064,
+        "id": 1065,
         "reference": "apprenants_hasMany_realisation_competences_apprenant_id",
         "name": "RealisationCompetence",
         "column_name": "apprenant_id",
@@ -13902,7 +13915,7 @@
         "description": "Field for HasMany relation with RealisationCompetence"
     },
     {
-        "id": 1065,
+        "id": 1066,
         "reference": "competences_hasMany_realisation_competences_competence_id",
         "name": "RealisationCompetence",
         "column_name": "competence_id",
@@ -13915,7 +13928,7 @@
         "description": "Field for HasMany relation with RealisationCompetence"
     },
     {
-        "id": 1066,
+        "id": 1067,
         "reference": "etat_realisation_competences_hasMany_realisation_competences_etat_realisation_competence_id",
         "name": "RealisationCompetence",
         "column_name": "etat_realisation_competence_id",
@@ -13928,7 +13941,7 @@
         "description": "Field for HasMany relation with RealisationCompetence"
     },
     {
-        "id": 1067,
+        "id": 1068,
         "reference": "realisation_modules_hasMany_realisation_competences_realisation_module_id",
         "name": "RealisationCompetence",
         "column_name": "realisation_module_id",
@@ -13941,7 +13954,7 @@
         "description": "Field for HasMany relation with RealisationCompetence"
     },
     {
-        "id": 1068,
+        "id": 1069,
         "reference": "etat_realisation_micro_competences_hasMany_realisation_micro_competences_etat_realisation_micro_competence_id",
         "name": "RealisationMicroCompetence",
         "column_name": "etat_realisation_micro_competence_id",
@@ -13954,7 +13967,7 @@
         "description": "Field for HasMany relation with RealisationMicroCompetence"
     },
     {
-        "id": 1069,
+        "id": 1070,
         "reference": "apprenants_hasMany_realisation_micro_competences_apprenant_id",
         "name": "RealisationMicroCompetence",
         "column_name": "apprenant_id",
@@ -13967,7 +13980,7 @@
         "description": "Field for HasMany relation with RealisationMicroCompetence"
     },
     {
-        "id": 1070,
+        "id": 1071,
         "reference": "micro_competences_hasMany_realisation_micro_competences_micro_competence_id",
         "name": "RealisationMicroCompetence",
         "column_name": "micro_competence_id",
@@ -13980,7 +13993,7 @@
         "description": "Field for HasMany relation with RealisationMicroCompetence"
     },
     {
-        "id": 1071,
+        "id": 1072,
         "reference": "realisation_competences_hasMany_realisation_micro_competences_realisation_competence_id",
         "name": "RealisationMicroCompetence",
         "column_name": "realisation_competence_id",
@@ -13993,7 +14006,7 @@
         "description": "Field for HasMany relation with RealisationMicroCompetence"
     },
     {
-        "id": 1072,
+        "id": 1073,
         "reference": "apprenants_hasMany_realisation_modules_apprenant_id",
         "name": "RealisationModule",
         "column_name": "apprenant_id",
@@ -14006,7 +14019,7 @@
         "description": "Field for HasMany relation with RealisationModule"
     },
     {
-        "id": 1073,
+        "id": 1074,
         "reference": "etat_realisation_modules_hasMany_realisation_modules_etat_realisation_module_id",
         "name": "RealisationModule",
         "column_name": "etat_realisation_module_id",
@@ -14019,7 +14032,7 @@
         "description": "Field for HasMany relation with RealisationModule"
     },
     {
-        "id": 1074,
+        "id": 1075,
         "reference": "modules_hasMany_realisation_modules_module_id",
         "name": "RealisationModule",
         "column_name": "module_id",
@@ -14032,7 +14045,7 @@
         "description": "Field for HasMany relation with RealisationModule"
     },
     {
-        "id": 1075,
+        "id": 1076,
         "reference": "affectation_projets_hasMany_realisation_projets_affectation_projet_id",
         "name": "RealisationProjet",
         "column_name": "affectation_projet_id",
@@ -14045,7 +14058,7 @@
         "description": "Field for HasMany relation with RealisationProjet"
     },
     {
-        "id": 1076,
+        "id": 1077,
         "reference": "apprenants_hasMany_realisation_projets_apprenant_id",
         "name": "RealisationProjet",
         "column_name": "apprenant_id",
@@ -14058,7 +14071,7 @@
         "description": "Field for HasMany relation with RealisationProjet"
     },
     {
-        "id": 1077,
+        "id": 1078,
         "reference": "etats_realisation_projets_hasMany_realisation_projets_etats_realisation_projet_id",
         "name": "RealisationProjet",
         "column_name": "etats_realisation_projet_id",
@@ -14071,7 +14084,7 @@
         "description": "Field for HasMany relation with RealisationProjet"
     },
     {
-        "id": 1078,
+        "id": 1079,
         "reference": "affectation_qcm_projets_hasMany_realisation_qcms_affectation_qcm_projet_id",
         "name": "RealisationQcm",
         "column_name": "affectation_qcm_projet_id",
@@ -14084,7 +14097,7 @@
         "description": "Field for HasMany relation with RealisationQcm"
     },
     {
-        "id": 1079,
+        "id": 1080,
         "reference": "apprenants_hasMany_realisation_qcms_apprenant_id",
         "name": "RealisationQcm",
         "column_name": "apprenant_id",
@@ -14097,7 +14110,7 @@
         "description": "Field for HasMany relation with RealisationQcm"
     },
     {
-        "id": 1080,
+        "id": 1081,
         "reference": "etat_realisation_qcms_hasMany_realisation_qcms_etat_realisation_qcm_id",
         "name": "RealisationQcm",
         "column_name": "etat_realisation_qcm_id",
@@ -14110,7 +14123,7 @@
         "description": "Field for HasMany relation with RealisationQcm"
     },
     {
-        "id": 1081,
+        "id": 1082,
         "reference": "qcms_hasMany_realisation_qcms_qcm_id",
         "name": "RealisationQcm",
         "column_name": "qcm_id",
@@ -14123,7 +14136,7 @@
         "description": "Field for HasMany relation with RealisationQcm"
     },
     {
-        "id": 1082,
+        "id": 1083,
         "reference": "etat_realisation_taches_hasMany_realisation_taches_etat_realisation_tache_id",
         "name": "RealisationTache",
         "column_name": "etat_realisation_tache_id",
@@ -14136,7 +14149,7 @@
         "description": "Field for HasMany relation with RealisationTache"
     },
     {
-        "id": 1083,
+        "id": 1084,
         "reference": "realisation_projets_hasMany_realisation_taches_realisation_projet_id",
         "name": "RealisationTache",
         "column_name": "realisation_projet_id",
@@ -14149,7 +14162,7 @@
         "description": "Field for HasMany relation with RealisationTache"
     },
     {
-        "id": 1084,
+        "id": 1085,
         "reference": "tache_affectations_hasMany_realisation_taches_tache_affectation_id",
         "name": "RealisationTache",
         "column_name": "tache_affectation_id",
@@ -14162,12 +14175,12 @@
         "description": "Field for HasMany relation with RealisationTache"
     },
     {
-        "id": 1085,
+        "id": 1086,
         "reference": "taches_hasMany_realisation_taches_tache_id",
         "name": "RealisationTache",
         "column_name": "tache_id",
         "data_type": "HasMany",
-        "field_order": 21,
+        "field_order": 22,
         "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
@@ -14175,7 +14188,7 @@
         "description": "Field for HasMany relation with RealisationTache"
     },
     {
-        "id": 1086,
+        "id": 1087,
         "reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
         "name": "RealisationUaProjet",
         "column_name": "realisation_tache_id",
@@ -14188,7 +14201,7 @@
         "description": "Field for HasMany relation with RealisationUaProjet"
     },
     {
-        "id": 1087,
+        "id": 1088,
         "reference": "realisation_uas_hasMany_realisation_ua_projets_realisation_ua_id",
         "name": "RealisationUaProjet",
         "column_name": "realisation_ua_id",
@@ -14201,7 +14214,7 @@
         "description": "Field for HasMany relation with RealisationUaProjet"
     },
     {
-        "id": 1088,
+        "id": 1089,
         "reference": "realisation_ua_prototypes_reponse_qcms_realisation_ua_prototype_reponse_qcm_m2m_m2m",
         "name": "ReponseQcm",
         "column_name": "",
@@ -14214,7 +14227,7 @@
         "description": "Field for ManyToMany relation with ReponseQcm"
     },
     {
-        "id": 1089,
+        "id": 1090,
         "reference": "reponse_qcms_realisation_ua_prototypes_realisation_ua_prototype_reponse_qcm_m2m_m2m",
         "name": "RealisationUaPrototype",
         "column_name": "",
@@ -14227,7 +14240,7 @@
         "description": "Field for ManyToMany relation with RealisationUaPrototype"
     },
     {
-        "id": 1090,
+        "id": 1091,
         "reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
         "name": "RealisationUaPrototype",
         "column_name": "realisation_tache_id",
@@ -14240,7 +14253,7 @@
         "description": "Field for HasMany relation with RealisationUaPrototype"
     },
     {
-        "id": 1091,
+        "id": 1092,
         "reference": "realisation_uas_hasMany_realisation_ua_prototypes_realisation_ua_id",
         "name": "RealisationUaPrototype",
         "column_name": "realisation_ua_id",
@@ -14253,7 +14266,7 @@
         "description": "Field for HasMany relation with RealisationUaPrototype"
     },
     {
-        "id": 1092,
+        "id": 1093,
         "reference": "etat_realisation_uas_hasMany_realisation_uas_etat_realisation_ua_id",
         "name": "RealisationUa",
         "column_name": "etat_realisation_ua_id",
@@ -14266,7 +14279,7 @@
         "description": "Field for HasMany relation with RealisationUa"
     },
     {
-        "id": 1093,
+        "id": 1094,
         "reference": "realisation_micro_competences_hasMany_realisation_uas_realisation_micro_competence_id",
         "name": "RealisationUa",
         "column_name": "realisation_micro_competence_id",
@@ -14279,7 +14292,7 @@
         "description": "Field for HasMany relation with RealisationUa"
     },
     {
-        "id": 1094,
+        "id": 1095,
         "reference": "unite_apprentissages_hasMany_realisation_uas_unite_apprentissage_id",
         "name": "RealisationUa",
         "column_name": "unite_apprentissage_id",
@@ -14292,7 +14305,7 @@
         "description": "Field for HasMany relation with RealisationUa"
     },
     {
-        "id": 1095,
+        "id": 1096,
         "reference": "questions_hasMany_reponse_qcms_question_id",
         "name": "ReponseQcm",
         "column_name": "question_id",
@@ -14305,7 +14318,7 @@
         "description": "Field for HasMany relation with ReponseQcm"
     },
     {
-        "id": 1096,
+        "id": 1097,
         "reference": "realisation_qcms_hasMany_reponse_qcms_realisation_qcm_id",
         "name": "ReponseQcm",
         "column_name": "realisation_qcm_id",
@@ -14318,7 +14331,7 @@
         "description": "Field for HasMany relation with ReponseQcm"
     },
     {
-        "id": 1097,
+        "id": 1098,
         "reference": "projets_hasMany_resources_projet_id",
         "name": "Resource",
         "column_name": "projet_id",
@@ -14331,7 +14344,7 @@
         "description": "Field for HasMany relation with Resource"
     },
     {
-        "id": 1098,
+        "id": 1099,
         "reference": "permissions_roles_role_has_permissions_m2m_m2m",
         "name": "Role",
         "column_name": "",
@@ -14344,7 +14357,7 @@
         "description": "Field for ManyToMany relation with Role"
     },
     {
-        "id": 1099,
+        "id": 1100,
         "reference": "roles_permissions_role_has_permissions_m2m_m2m",
         "name": "Permission",
         "column_name": "",
@@ -14357,7 +14370,7 @@
         "description": "Field for ManyToMany relation with Permission"
     },
     {
-        "id": 1100,
+        "id": 1101,
         "reference": "roles_widgets_role_widget_m2m_m2m",
         "name": "Widget",
         "column_name": "",
@@ -14370,7 +14383,7 @@
         "description": "Field for ManyToMany relation with Widget"
     },
     {
-        "id": 1101,
+        "id": 1102,
         "reference": "widgets_roles_role_widget_m2m_m2m",
         "name": "Role",
         "column_name": "",
@@ -14383,7 +14396,7 @@
         "description": "Field for ManyToMany relation with Role"
     },
     {
-        "id": 1102,
+        "id": 1103,
         "reference": "sys_colors_hasMany_section_widgets_sys_color_id",
         "name": "SectionWidget",
         "column_name": "sys_color_id",
@@ -14396,7 +14409,7 @@
         "description": "Field for HasMany relation with SectionWidget"
     },
     {
-        "id": 1103,
+        "id": 1104,
         "reference": "annee_formations_hasMany_session_formations_annee_formation_id",
         "name": "SessionFormation",
         "column_name": "annee_formation_id",
@@ -14409,7 +14422,7 @@
         "description": "Field for HasMany relation with SessionFormation"
     },
     {
-        "id": 1104,
+        "id": 1105,
         "reference": "filieres_hasMany_session_formations_filiere_id",
         "name": "SessionFormation",
         "column_name": "filiere_id",
@@ -14422,7 +14435,7 @@
         "description": "Field for HasMany relation with SessionFormation"
     },
     {
-        "id": 1105,
+        "id": 1106,
         "reference": "groupes_hasMany_sous_groupes_groupe_id",
         "name": "SousGroupe",
         "column_name": "groupe_id",
@@ -14435,7 +14448,7 @@
         "description": "Field for HasMany relation with SousGroupe"
     },
     {
-        "id": 1106,
+        "id": 1107,
         "reference": "sys_modules_hasMany_sys_controllers_sys_module_id",
         "name": "SysController",
         "column_name": "sys_module_id",
@@ -14448,7 +14461,7 @@
         "description": "Field for HasMany relation with SysController"
     },
     {
-        "id": 1107,
+        "id": 1108,
         "reference": "sys_colors_hasMany_sys_models_sys_color_id",
         "name": "SysModel",
         "column_name": "sys_color_id",
@@ -14461,7 +14474,7 @@
         "description": "Field for HasMany relation with SysModel"
     },
     {
-        "id": 1108,
+        "id": 1109,
         "reference": "sys_modules_hasMany_sys_models_sys_module_id",
         "name": "SysModel",
         "column_name": "sys_module_id",
@@ -14474,7 +14487,7 @@
         "description": "Field for HasMany relation with SysModel"
     },
     {
-        "id": 1109,
+        "id": 1110,
         "reference": "sys_colors_hasMany_sys_modules_sys_color_id",
         "name": "SysModule",
         "column_name": "sys_color_id",
@@ -14487,7 +14500,7 @@
         "description": "Field for HasMany relation with SysModule"
     },
     {
-        "id": 1110,
+        "id": 1111,
         "reference": "affectation_projets_hasMany_tache_affectations_affectation_projet_id",
         "name": "TacheAffectation",
         "column_name": "affectation_projet_id",
@@ -14500,12 +14513,12 @@
         "description": "Field for HasMany relation with TacheAffectation"
     },
     {
-        "id": 1111,
+        "id": 1112,
         "reference": "taches_hasMany_tache_affectations_tache_id",
         "name": "TacheAffectation",
         "column_name": "tache_id",
         "data_type": "HasMany",
-        "field_order": 22,
+        "field_order": 23,
         "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
@@ -14513,7 +14526,7 @@
         "description": "Field for HasMany relation with TacheAffectation"
     },
     {
-        "id": 1112,
+        "id": 1113,
         "reference": "chapitres_hasMany_taches_chapitre_id",
         "name": "Tache",
         "column_name": "chapitre_id",
@@ -14526,7 +14539,20 @@
         "description": "Field for HasMany relation with Tache"
     },
     {
-        "id": 1113,
+        "id": 1114,
+        "reference": "equipe_projets_hasMany_taches_equipe_projet_id",
+        "name": "Tache",
+        "column_name": "equipe_projet_id",
+        "data_type": "HasMany",
+        "field_order": 8,
+        "db_nullable": 1,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 0,
+        "description": "Field for HasMany relation with Tache"
+    },
+    {
+        "id": 1115,
         "reference": "mobilisation_uas_hasMany_taches_mobilisation_ua_id",
         "name": "Tache",
         "column_name": "mobilisation_ua_id",
@@ -14539,7 +14565,7 @@
         "description": "Field for HasMany relation with Tache"
     },
     {
-        "id": 1114,
+        "id": 1116,
         "reference": "phase_evaluations_hasMany_taches_phase_evaluation_id",
         "name": "Tache",
         "column_name": "phase_evaluation_id",
@@ -14552,7 +14578,7 @@
         "description": "Field for HasMany relation with Tache"
     },
     {
-        "id": 1115,
+        "id": 1117,
         "reference": "phase_projets_hasMany_taches_phase_projet_id",
         "name": "Tache",
         "column_name": "phase_projet_id",
@@ -14565,7 +14591,7 @@
         "description": "Field for HasMany relation with Tache"
     },
     {
-        "id": 1116,
+        "id": 1118,
         "reference": "projets_hasMany_taches_projet_id",
         "name": "Tache",
         "column_name": "projet_id",
@@ -14578,7 +14604,7 @@
         "description": "Field for HasMany relation with Tache"
     },
     {
-        "id": 1117,
+        "id": 1119,
         "reference": "projets_hasMany_taches_projet_origine_note_id",
         "name": "Tache",
         "column_name": "projet_origine_note_id",
@@ -14591,7 +14617,7 @@
         "description": "Field for HasMany relation with Tache"
     },
     {
-        "id": 1118,
+        "id": 1120,
         "reference": "micro_competences_hasMany_unite_apprentissages_micro_competence_id",
         "name": "UniteApprentissage",
         "column_name": "micro_competence_id",
@@ -14604,7 +14630,7 @@
         "description": "Field for HasMany relation with UniteApprentissage"
     },
     {
-        "id": 1119,
+        "id": 1121,
         "reference": "users_hasMany_user_model_filters_user_id",
         "name": "UserModelFilter",
         "column_name": "user_id",
@@ -14617,7 +14643,7 @@
         "description": "Field for HasMany relation with UserModelFilter"
     },
     {
-        "id": 1120,
+        "id": 1122,
         "reference": "users_hasMany_widget_utilisateurs_user_id",
         "name": "WidgetUtilisateur",
         "column_name": "user_id",
@@ -14630,7 +14656,7 @@
         "description": "Field for HasMany relation with WidgetUtilisateur"
     },
     {
-        "id": 1121,
+        "id": 1123,
         "reference": "widgets_hasMany_widget_utilisateurs_widget_id",
         "name": "WidgetUtilisateur",
         "column_name": "widget_id",
@@ -14643,7 +14669,7 @@
         "description": "Field for HasMany relation with WidgetUtilisateur"
     },
     {
-        "id": 1122,
+        "id": 1124,
         "reference": "sys_models_hasMany_widgets_model_id",
         "name": "Widget",
         "column_name": "model_id",
@@ -14656,7 +14682,7 @@
         "description": "Field for HasMany relation with Widget"
     },
     {
-        "id": 1123,
+        "id": 1125,
         "reference": "widget_operations_hasMany_widgets_operation_id",
         "name": "Widget",
         "column_name": "operation_id",
@@ -14669,7 +14695,7 @@
         "description": "Field for HasMany relation with Widget"
     },
     {
-        "id": 1124,
+        "id": 1126,
         "reference": "section_widgets_hasMany_widgets_section_widget_id",
         "name": "Widget",
         "column_name": "section_widget_id",
@@ -14682,7 +14708,7 @@
         "description": "Field for HasMany relation with Widget"
     },
     {
-        "id": 1125,
+        "id": 1127,
         "reference": "sys_colors_hasMany_widgets_sys_color_id",
         "name": "Widget",
         "column_name": "sys_color_id",
@@ -14695,7 +14721,7 @@
         "description": "Field for HasMany relation with Widget"
     },
     {
-        "id": 1126,
+        "id": 1128,
         "reference": "widget_types_hasMany_widgets_type_id",
         "name": "Widget",
         "column_name": "type_id",
@@ -14708,7 +14734,7 @@
         "description": "Field for HasMany relation with Widget"
     },
     {
-        "id": 1127,
+        "id": 1129,
         "reference": "sys_colors_hasMany_workflow_taches_sys_color_id",
         "name": "WorkflowTache",
         "column_name": "sys_color_id",
@@ -14721,7 +14747,7 @@
         "description": "Field for HasMany relation with WorkflowTache"
     },
     {
-        "id": 1128,
+        "id": 1130,
         "reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m",
         "name": "User",
         "column_name": "",
@@ -14734,7 +14760,7 @@
         "description": "Field for ManyToMany relation with User"
     },
     {
-        "id": 1129,
+        "id": 1131,
         "reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m",
         "name": "Role",
         "column_name": "",
@@ -14747,7 +14773,7 @@
         "description": "Field for ManyToMany relation with Role"
     },
     {
-        "id": 1130,
+        "id": 1132,
         "reference": "Apprenant-NombreTacheEnCours",
         "name": "nombre_realisation_taches_en_cours",
         "column_name": "nombre_realisation_taches_en_cours",
@@ -14761,7 +14787,7 @@
         "description": ""
     },
     {
-        "id": 1131,
+        "id": 1133,
         "reference": "Apprenant-nom_filiere",
         "name": "nom_filiere",
         "column_name": "nom_filiere",
@@ -14775,7 +14801,7 @@
         "description": ""
     },
     {
-        "id": 1132,
+        "id": 1134,
         "reference": "Apprenant-duree_sans_terminer_tache",
         "name": "duree_sans_terminer_tache",
         "column_name": "duree_sans_terminer_tache",
@@ -14789,7 +14815,7 @@
         "description": ""
     },
     {
-        "id": 1133,
+        "id": 1135,
         "reference": "Apprenant_derniere_activite",
         "name": "derniere_activite",
         "column_name": "derniere_activite",
@@ -14803,7 +14829,7 @@
         "description": "derniere_activite"
     },
     {
-        "id": 1134,
+        "id": 1136,
         "reference": "EDataField-displayOrder",
         "name": "displayOrder",
         "column_name": "displayOrder",
@@ -14817,7 +14843,7 @@
         "description": "<p><br></p>"
     },
     {
-        "id": 1135,
+        "id": 1137,
         "reference": "EDataField-displayInTable",
         "name": "displayInTable",
         "column_name": "displayInTable",
@@ -14831,7 +14857,7 @@
         "description": ""
     },
     {
-        "id": 1136,
+        "id": 1138,
         "reference": "EModel-icone",
         "name": "icone",
         "column_name": "icone",
@@ -14845,7 +14871,7 @@
         "description": ""
     },
     {
-        "id": 1137,
+        "id": 1139,
         "reference": "EvaluationRealisationProjet-NomApprenant",
         "name": "nomApprenant",
         "column_name": "nomApprenant",
@@ -14859,7 +14885,7 @@
         "description": ""
     },
     {
-        "id": 1138,
+        "id": 1140,
         "reference": "EvaluationRealisationProjet-note",
         "name": "note",
         "column_name": "note",
@@ -14873,7 +14899,7 @@
         "description": ""
     },
     {
-        "id": 1139,
+        "id": 1141,
         "reference": "EvaluationRealisationProjet-bareme_note",
         "name": "bareme_note",
         "column_name": "bareme_note",
@@ -14887,7 +14913,7 @@
         "description": ""
     },
     {
-        "id": 1140,
+        "id": 1142,
         "reference": "EvaluationRealisationTache-nombre_livrables",
         "name": "nombre_livrables",
         "column_name": "nombre_livrables",
@@ -14901,7 +14927,7 @@
         "description": ""
     },
     {
-        "id": 1141,
+        "id": 1143,
         "reference": "MicroCompetence-filiere",
         "name": "filiere",
         "column_name": "filiere",
@@ -14915,7 +14941,7 @@
         "description": ""
     },
     {
-        "id": 1142,
+        "id": 1144,
         "reference": "RealisationChapitre_apprenant",
         "name": "apprenant",
         "column_name": "apprenant",
@@ -14929,7 +14955,7 @@
         "description": "<p>Afficher le nom et prénom de l'apprenant</p>"
     },
     {
-        "id": 1143,
+        "id": 1145,
         "reference": "RealisationTache-nombre_livrables",
         "name": "nombre_livrables",
         "column_name": "nombre_livrables",
@@ -14943,7 +14969,7 @@
         "description": ""
     },
     {
-        "id": 1144,
+        "id": 1146,
         "reference": "RealisationTache-nom_prenom_apprenant",
         "name": "nom_prenom_apprenant",
         "column_name": "nom_prenom_apprenant",
@@ -14957,7 +14983,7 @@
         "description": ""
     },
     {
-        "id": 1145,
+        "id": 1147,
         "reference": "RealisationTache-projet_title",
         "name": "projet_title",
         "column_name": "projet_title",
@@ -14971,7 +14997,7 @@
         "description": ""
     },
     {
-        "id": 1146,
+        "id": 1148,
         "reference": "RealisationTache-deadline",
         "name": "deadline",
         "column_name": "deadline",
@@ -14985,7 +15011,7 @@
         "description": ""
     },
     {
-        "id": 1147,
+        "id": 1149,
         "reference": "RealisationTache_travail_a_faire",
         "name": "travail_a_faire",
         "column_name": "travail_a_faire",
@@ -14999,7 +15025,7 @@
         "description": "<p><br></p>"
     },
     {
-        "id": 1148,
+        "id": 1150,
         "reference": "RealisationUaProjet_criteres_evaluation",
         "name": "criteres_evaluation",
         "column_name": "criteres_evaluation",
@@ -15013,7 +15039,7 @@
         "description": ""
     },
     {
-        "id": 1149,
+        "id": 1151,
         "reference": "RealisationUaPrototype_criteres_evaluation",
         "name": "criteres_evaluation",
         "column_name": "criteres_evaluation",
@@ -15027,7 +15053,7 @@
         "description": ""
     },
     {
-        "id": 1150,
+        "id": 1152,
         "reference": "UniteApprentissage_nom_filiere",
         "name": "nom_filiere",
         "column_name": "nom_filiere",
@@ -15041,7 +15067,7 @@
         "description": ""
     },
     {
-        "id": 1151,
+        "id": 1153,
         "reference": "Widget-package",
         "name": "package",
         "column_name": "package",
@@ -15055,7 +15081,7 @@
         "description": ""
     },
     {
-        "id": 1152,
+        "id": 1154,
         "reference": "WidgetUtilisateur-sys_module_id",
         "name": "sys_module_id",
         "column_name": "sys_module_id",
@@ -15069,7 +15095,7 @@
         "description": ""
     },
     {
-        "id": 1153,
+        "id": 1155,
         "reference": "WidgetUtilisateur-package",
         "name": "package",
         "column_name": "package",
@@ -15083,7 +15109,7 @@
         "description": ""
     },
     {
-        "id": 1154,
+        "id": 1156,
         "reference": "WidgetUtilisateur-type",
         "name": "type",
         "column_name": "type",

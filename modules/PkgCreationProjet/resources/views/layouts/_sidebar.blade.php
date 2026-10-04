@@ -1,25 +1,25 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-projet', 'index-equipeProjet'])
+@accessiblePermissions(['index-equipeProjet', 'index-projet'])
 @if($accessiblePermissions->isNotEmpty())
     @if($accessiblePermissions->count() === 1)
         {{-- Cas d’un seul élément accessible --}}
-            @can('index-projet')
-            <li class="nav-item" id="menu-projets">
-                <a href="{{ route('projets.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgCreationProjet/projets') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-rocket"></i>
-                    <p>{{__('PkgCreationProjet::projet.plural')}}</p>
-                </a>
-            </li>
-            @endcan
             @can('index-equipeProjet')
             <li class="nav-item" id="menu-equipeProjets">
                 <a href="{{ route('equipeProjets.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgCreationProjet/equipeProjets') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-table"></i>
                     <p>{{__('PkgCreationProjet::equipeProjet.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-projet')
+            <li class="nav-item" id="menu-projets">
+                <a href="{{ route('projets.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgCreationProjet/projets') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-rocket"></i>
+                    <p>{{__('PkgCreationProjet::projet.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -34,19 +34,19 @@
             </p>
         </a>
         <ul class="nav nav-treeview">
-            @can('index-projet') 
-            <li class="nav-item" id="menu-projets">
-                <a href="{{ route('projets.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/projets') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-rocket"></i>
-                    <p>{{__('PkgCreationProjet::projet.plural')}}</p>
-                </a>
-            </li>
-            @endcan
             @can('index-equipeProjet') 
             <li class="nav-item" id="menu-equipeProjets">
                 <a href="{{ route('equipeProjets.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/equipeProjets') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-table"></i>
                     <p>{{__('PkgCreationProjet::equipeProjet.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-projet') 
+            <li class="nav-item" id="menu-projets">
+                <a href="{{ route('projets.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/projets') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-rocket"></i>
+                    <p>{{__('PkgCreationProjet::projet.plural')}}</p>
                 </a>
             </li>
             @endcan

@@ -998,9 +998,9 @@
         "value_boolean": 0,
         "value_float": 0,
         "value_json": {
-            "targetDynamicDropdown": "#session_formation_id",
-            "targetDynamicDropdownApiUrl": "route('sessionFormations.getData')",
-            "targetDynamicDropdownFilter": "filiere_id"
+            "targetDynamicDropdown": "#session_formation_id, #groupe_id",
+            "targetDynamicDropdownApiUrl": "route('sessionFormations.getData'), route('groupes.getData')",
+            "targetDynamicDropdownFilter": "filiere_id, filiere_id"
         },
         "e_data_field_reference": "Projet_filiere_id",
         "e_metadata_definition_reference": "dynamicDropdown"

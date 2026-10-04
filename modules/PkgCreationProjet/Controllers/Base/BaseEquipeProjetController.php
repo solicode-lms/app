@@ -6,6 +6,7 @@ namespace Modules\PkgCreationProjet\Controllers\Base;
 use Modules\PkgCreationProjet\Services\EquipeProjetService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgCreationProjet\Services\ProjetService;
+use Modules\PkgCreationTache\Services\TacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -152,7 +153,7 @@ class BaseEquipeProjetController extends AdminController
 
         }
 
-        return redirect()->route('equipeProjets.index')->with(
+        return redirect()->route('equipeProjets.edit', ['equipeProjet' => $equipeProjet->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $equipeProjet,
@@ -168,7 +169,14 @@ class BaseEquipeProjetController extends AdminController
         $itemEquipeProjet = $this->equipeProjetService->edit($id);
 
 
-        return array_merge(compact('itemEquipeProjet'),);
+        $this->viewState->set('scope.tache.equipe_projet_id', $id);
+
+
+        $tacheService =  new TacheService();
+        $taches_view_data = $tacheService->prepareDataForIndexView();
+        extract($taches_view_data);
+
+        return array_merge(compact('itemEquipeProjet'),$tache_compact_value);
 
     }
     /**
@@ -197,9 +205,16 @@ class BaseEquipeProjetController extends AdminController
         $apprenants = $this->apprenantService->getAllForSelect($itemEquipeProjet->apprenants);
 
 
+        $this->viewState->set('scope.tache.equipe_projet_id', $id);
+        
+
+        $tacheService =  new TacheService();
+        $taches_view_data = $tacheService->prepareDataForIndexView();
+        extract($taches_view_data);
+
         $bulkEdit = false;
 
-        $viewData = array_merge(compact('bulkEdit' , 'itemEquipeProjet','projets', 'apprenants'),);
+        $viewData = array_merge(compact('bulkEdit' , 'itemEquipeProjet','projets', 'apprenants'),$tache_compact_value);
 
         return $viewData;
 
@@ -210,7 +225,7 @@ class BaseEquipeProjetController extends AdminController
         $viewData = $this->dataForEditView($id);
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::equipeProjet._fields', $viewData);
+            return view('PkgCreationProjet::equipeProjet._edit', $viewData);
         }
 
         return view('PkgCreationProjet::equipeProjet.edit', $viewData);

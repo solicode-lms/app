@@ -310,5 +310,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "equipe_projets_apprenants_apprenant_equipe_projet_m2m_m2m",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "equipe_projets_hasMany_taches_equipe_projet_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "equipe_projets_hasMany_taches_equipe_projet_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "equipe_projets_hasMany_taches_equipe_projet_id_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "equipe_projets_hasMany_taches_equipe_projet_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "equipe_projets_hasMany_taches_equipe_projet_id_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "equipe_projets_hasMany_taches_equipe_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "equipe_projets_hasMany_taches_equipe_projet_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "equipe_projets_hasMany_taches_equipe_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

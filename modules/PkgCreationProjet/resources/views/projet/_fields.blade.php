@@ -50,9 +50,9 @@
           </label>
                       <select 
             id="filiere_id" 
-            data-target-dynamic-dropdown='#session_formation_id'
-            data-target-dynamic-dropdown-api-url='{{route('sessionFormations.getData')}}'
-            data-target-dynamic-dropdown-filter='filiere_id'
+            data-target-dynamic-dropdown='#session_formation_id, #groupe_id'
+            data-target-dynamic-dropdown-api-url='{{route('sessionFormations.getData'), route('groupes.getData')}}'
+            data-target-dynamic-dropdown-filter='filiere_id, filiere_id'
             required
             data-calcul='true'
             

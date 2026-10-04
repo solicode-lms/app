@@ -13,9 +13,9 @@ description: Détermine la configuration JSON des métadonnées Gapp (scope, fil
 2. **Workflow Gapp (CRITIQUE)** : 
    - L'ajout des métadonnées se fait **principalement via l'application Web Gapp**. L'application sauvegarde ces informations directement dans la **base de données**.
    - Gapp lit les métadonnées **depuis la base de données**, et non depuis les fichiers JSON.
-   - Les fichiers JSON (`app_meta_data/`) servent uniquement à initialiser/restaurer la base de données (ex: nouveau projet, ou base provenant d'un serveur de déploiement où les tables Gapp sont vides).
+   - Les fichiers JSON (`db_schemas/`) servent uniquement à initialiser/restaurer la base de données (ex: nouveau projet, ou base provenant d'un serveur de déploiement où les tables Gapp sont vides).
    - L'application Web Gapp exécute **automatiquement** les commandes (ex: `gapp make:crud NomModel`) après l'ajout en base.
-3. **Read-Only** : Ce skill fournit la structure JSON correcte. Le développeur peut soit l'utiliser dans l'interface Web, soit la mettre dans le JSON (dans ce cas, il devra synchroniser la BDD avec `gapp meta:sync`).
+3. **Read-Only (INTERDICTION STRICTE)** : Il est **strictement interdit** pour l'agent de modifier quoi que ce soit dans le dossier `db_schemas/`. Ce dossier est exclusivement géré par Gapp via son interface web.
 4. **Français** : La documentation et les instructions générées doivent être en français.
 5. **Généralisation des modifications (Issues)** : En cas de modification exceptionnelle d'un fichier maintenu par Gapp (après autorisation stricte du développeur), vous devez OBLIGATOIREMENT demander sa généralisation sur tous les CRUDs. Pour cela, créez un fichier de ticket (issue en Markdown) dans le dossier `cahiers-charges/PkgGapp/issues/` détaillant précisément la modification à apporter au générateur Gapp. **RÈGLE STRICTE** : Le ticket doit impérativement lister les fichiers impactés (mentionnant leur ligne de lock Gapp) et inclure les blocs de code exacts qui ont été ajoutés ou modifiés manuellement.
 
@@ -23,23 +23,17 @@ description: Détermine la configuration JSON des métadonnées Gapp (scope, fil
 
 ## ⚡ Actions (Orchestration)
 
-### Action Unique : Générer Métadonnée & Explications
-> **Description** : Produire un bloc JSON strict pour Gapp (`scopeDataInEditContext`, `scopeDataByRole`, ou `ownedByUser`) et expliquer au développeur comment l'intégrer.
-- **Capacités Utilisées** :
-  - `capacités/capacite-metadonnees-gapp.md` (Structures JSON)
-  - `capacités/capacite-scope-edit-context.md` (Explication détaillée des scopes d'édition)
-  - `capacités/capacite-commandes-gapp.md` (Commandes)
-  - `capacités/capacite-viewFormGroups.md` (Groupement des champs)
-- **Entrées** : Type de métadonnée, entité cible, relations, rôle.
-- **Sorties** : Bloc JSON à fournir au développeur, suivi des instructions d'application via l'interface Web ou via les fichiers JSON.
+### Action Unique : Fournir Métadonnée au Développeur
+> **Description** : Lorsque l'utilisateur demande la création ou la modification d'une métadonnée Gapp, **ne jamais modifier les fichiers dans `db_schemas/`**. Au lieu de cela, fournir uniquement les informations nécessaires au développeur pour qu'il le fasse lui-même dans l'interface Web Gapp.
+- **Format de Sortie Obligatoire** :
+  - **Nom de la Métadonnée** : (ex: `dynamicDropdown`)
+  - **Contexte d'Application** : (Model ou Champ concerné)
+  - **Valeur de Configuration** : (Bloc JSON complet et formaté à copier-coller dans Gapp)
 - **📝 Instructions d'Orchestration** :
-  1. Identifier le type de métadonnée et son format exact via `capacite-metadonnees-gapp.md`.
+  1. Identifier le type de métadonnée et son format exact via les capacités.
   2. Valider formellement la structure des tables et relations avec `db-savoir`.
-  3. Afficher le JSON au développeur de manière concise.
-  4. Fournir les **étapes exactes, compactes et strictes** pour appliquer la métadonnée en indiquant **uniquement** de passer par l'Application Web Gapp :
-     - "Ouvrez l'interface Gapp."
-     - "Ajoutez/modifiez la métadonnée dans l'entité."
-     - "La base de données et le code sont synchronisés automatiquement après sauvegarde."
+  3. Afficher STRICTEMENT le nom, le contexte et la valeur (le JSON).
+  4. Ne proposer aucune commande artisan `gapp meta:sync` puisque la synchro et les commandes CRUD sont gérées par l'interface Web après l'insertion.
 
 ### Action 2 : Ajouter une Métadonnée comme Capacité
 > **Description** : Mettre à jour le référentiel de connaissances du skill `sys-gapp` en documentant un nouveau type de métadonnée.

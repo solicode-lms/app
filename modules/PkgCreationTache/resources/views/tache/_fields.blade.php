@@ -591,6 +591,52 @@
   
     
 
+    
+    <div class="row">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="equipe_projet_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="equipe_projet_id" 
+              id="bulk_field_equipe_projet_id" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="equipe_projet_id">
+            {{ ucfirst(__('PkgCreationProjet::equipeProjet.singular')) }}
+            
+          </label>
+                      <select 
+            id="equipe_projet_id" 
+            
+            
+            
+            name="equipe_projet_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($equipeProjets as $equipeProjet)
+                    <option value="{{ $equipeProjet->id }}"
+                        {{ (isset($itemTache) && $itemTache->equipe_projet_id == $equipeProjet->id) || (old('equipe_projet_id>') == $equipeProjet->id) ? 'selected' : '' }}>
+                        {{ $equipeProjet }}
+                    </option>
+                @endforeach
+            </select>
+          @error('equipe_projet_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+
+    </div>
+  
+
 
     </div>
 

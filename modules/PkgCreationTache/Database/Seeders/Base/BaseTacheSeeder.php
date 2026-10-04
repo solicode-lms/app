@@ -80,6 +80,11 @@ class BaseTacheSeeder extends Seeder
                     $projet_id = \Modules\PkgCreationProjet\Models\Projet::where('reference', $row["projet_reference"])
                         ->value('id');
                 }
+                $equipe_projet_id = null;
+                if (!empty($row["equipe_projet_reference"])) {
+                    $equipe_projet_id = \Modules\PkgCreationProjet\Models\EquipeProjet::where('reference', $row["equipe_projet_reference"])
+                        ->value('id');
+                }
                 $phase_projet_id = null;
                 if (!empty($row["phase_projet_reference"])) {
                     $phase_projet_id = \Modules\PkgCreationTache\Models\PhaseProjet::where('reference', $row["phase_projet_reference"])
@@ -116,6 +121,7 @@ class BaseTacheSeeder extends Seeder
                         "dateDebut" => isset($row["dateDebut"]) && $row["dateDebut"] !== "" ? $row["dateDebut"] : null,
                         "dateFin" => isset($row["dateFin"]) && $row["dateFin"] !== "" ? $row["dateFin"] : null,
                         "note" => isset($row["note"]) && $row["note"] !== "" ? $row["note"] : null,
+                        "equipe_projet_id" => $equipe_projet_id,
                         "phase_projet_id" => $phase_projet_id,
                         "is_live_coding_task" => isset($row["is_live_coding_task"]) && $row["is_live_coding_task"] !== "" ? $row["is_live_coding_task"] : null,
                         "phase_evaluation_id" => $phase_evaluation_id,

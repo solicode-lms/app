@@ -13,6 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgApprenants\Models\Apprenant;
+use Modules\PkgCreationTache\Models\Tache;
 
 /**
  * Classe BaseEquipeProjet
@@ -78,6 +79,15 @@ class BaseEquipeProjet extends BaseModel
         return $this->belongsToMany(Apprenant::class, 'apprenant_equipe_projet');
     }
 
+    /**
+     * Relation HasMany pour EquipeProjets.
+     *
+     * @return HasMany
+     */
+    public function taches(): HasMany
+    {
+        return $this->hasMany(Tache::class, 'equipe_projet_id', 'id');
+    }
 
 
 
