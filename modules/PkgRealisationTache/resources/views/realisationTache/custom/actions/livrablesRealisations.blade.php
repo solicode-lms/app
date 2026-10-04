@@ -27,7 +27,7 @@
             'scope.livrable.projet_id' => $entity->realisationProjet->affectationProjet->projet_id,
             'scope.livrablesRealisation.realisation_projet_id' => $entity->realisation_projet_id,
     ]) }}"
-    class="btn btn-default btn-sm context-state actionEntity showIndex d-none d-md-inline d-lg-inline "
+    class="btn btn-default btn-sm context-state actionEntity showIndex d-none d-md-inline d-lg-inline btn-action-secondary "
     data-id="{{ $entity->id }}">
     <i class="fas fa-file-alt"></i>
 </a>
