@@ -53,58 +53,21 @@ trait TacheRelationsTrait
             : null;
 
         foreach ($realisationProjets as $realisationProjet) {
-            // Unicité : on vérifie si la tâche est déjà réalisée pour cet apprenant
-            $exists = $tache->realisationTaches()
-                ->where('realisation_projet_id', $realisationProjet->id)
-                ->exists();
+            // Appel à la méthode centralisée
+            $realisationTache = $realisationTacheService->initialiserRealisationTache($tache, $realisationProjet, $etatInitial);
 
-            if ($exists) {
-                continue;
-            }
-
-            // Création de la RealisationTache
-            $realisationTache = $realisationTacheService->create([
-                'tache_id' => $tache->id,
-                'realisation_projet_id' => $realisationProjet->id,
-                'etat_realisation_tache_id' => $etatInitial?->id,
-                'dateDebut' => $tache->dateDebut,
-                'dateFin' => $tache->dateFin,
-            ]);
-
-            // Si la création est annulée (ex: chapitre déjà validé), on saute cette itération
-            if (!$realisationTache) {
-                continue;
-            }
-
-            // Notifications aux apprenants pour la nouvelle tâche
-            $userApprenantId = $realisationProjet->apprenant?->user_id;
-            if ($userApprenantId) {
-                $notificationService->sendNotificationToReadData(
-                    'realisationTache',
-                    $realisationTache->id,
-                    $userApprenantId,
-                    "Nouvelle tâche attribuée : {$tache->titre}",
-                    "Vous avez une nouvelle tâche à réaliser : {$tache->titre}",
-                    NotificationType::NOUVELLE_TACHE->value
-                );
-            }
-
-            // Si l’affectation de projet a des évaluateurs, créer les évaluations
-            $affectation = $realisationProjet->affectationProjet;
-            if ($affectation?->evaluateurs->isNotEmpty()) {
-                foreach ($affectation->evaluateurs as $evaluateur) {
-                    $evaluationProjet = EvaluationRealisationProjet::firstWhere([
-                        'realisation_projet_id' => $realisationProjet->id,
-                        'evaluateur_id' => $evaluateur->id,
-                    ]);
-
-                    if (!empty($evaluationProjet)) {
-                        $evaluationTacheService->create([
-                            'realisation_tache_id' => $realisationTache->id,
-                            'evaluateur_id' => $evaluateur->id,
-                            'evaluation_realisation_projet_id' => $evaluationProjet->id,
-                        ]);
-                    }
+            if ($realisationTache) {
+                // Notifications aux apprenants pour la nouvelle tâche
+                $userApprenantId = $realisationProjet->apprenant?->user_id;
+                if ($userApprenantId) {
+                    $notificationService->sendNotificationToReadData(
+                        'realisationTache',
+                        $realisationTache->id,
+                        $userApprenantId,
+                        "Nouvelle tâche attribuée : {$tache->titre}",
+                        "Vous avez une nouvelle tâche à réaliser : {$tache->titre}",
+                        NotificationType::NOUVELLE_TACHE->value
+                    );
                 }
             }
         }

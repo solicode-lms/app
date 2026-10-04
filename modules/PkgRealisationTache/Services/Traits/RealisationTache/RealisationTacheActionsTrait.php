@@ -12,6 +12,58 @@ use Modules\PkgRealisationTache\Services\WorkflowTacheService;
 
 trait RealisationTacheActionsTrait
 {
+    /**
+     * Initialise une RealisationTache pour un apprenant et crée les évaluations liées si nécessaire.
+     * Cette méthode centralise la logique de création appelée depuis TacheRelationsTrait et RealisationProjetCrudTrait.
+     * 
+     * @param \Modules\PkgCreationTache\Models\Tache $tache
+     * @param \Modules\PkgRealisationProjets\Models\RealisationProjet $realisationProjet
+     * @param \Modules\PkgRealisationTache\Models\EtatRealisationTache|null $etatInitial
+     * @return RealisationTache|null
+     */
+    public function initialiserRealisationTache($tache, $realisationProjet, $etatInitial = null)
+    {
+        // 1. Vérification d'existence
+        if ($this->existsForTacheAndProject($tache->id, $realisationProjet->id)) {
+            return null;
+        }
+
+        // 2. Création de la RealisationTache
+        $realisationTache = $this->create([
+            'tache_id' => $tache->id,
+            'realisation_projet_id' => $realisationProjet->id,
+            'etat_realisation_tache_id' => $etatInitial?->id,
+            'dateDebut' => $tache->dateDebut,
+            'dateFin' => $tache->dateFin,
+        ]);
+
+        if (!$realisationTache) {
+            return null;
+        }
+
+        // 3. Création des Évaluations liées (si évaluateurs assignés)
+        $affectation = $realisationProjet->affectationProjet;
+        if ($affectation && $affectation->evaluateurs && $affectation->evaluateurs->isNotEmpty()) {
+            $evaluationTacheService = app(\Modules\PkgEvaluateurs\Services\EvaluationRealisationTacheService::class);
+            foreach ($affectation->evaluateurs as $evaluateur) {
+                $evaluationProjet = \Modules\PkgEvaluateurs\Models\EvaluationRealisationProjet::firstWhere([
+                    'realisation_projet_id' => $realisationProjet->id,
+                    'evaluateur_id' => $evaluateur->id,
+                ]);
+
+                if ($evaluationProjet) {
+                    $evaluationTacheService->create([
+                        'realisation_tache_id' => $realisationTache->id,
+                        'evaluateur_id' => $evaluateur->id,
+                        'evaluation_realisation_projet_id' => $evaluationProjet->id,
+                    ]);
+                }
+            }
+        }
+
+        return $realisationTache;
+    }
+
 
 
     /**

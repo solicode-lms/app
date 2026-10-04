@@ -94,47 +94,8 @@ trait RealisationProjetCrudTrait
                 }
             }
 
-            // Vérification existence pour éviter doublons via méthode dédiée
-            $exists = $realisationTacheService->existsForTacheAndProject($tache->id, $realisationProjet->id);
-
-            if ($exists) {
-                continue;
-            }
-
-            // Création de la RealisationTache
-            // Note : Les hooks de RealisationTacheService (before/afterCreateRules) géreront :
-            // - La déduction de tache_affectation_id
-            // - La synchro des compétences (RealisationUaPrototype/Projet)
-            $realisationTache = $realisationTacheService->create([
-                'tache_id' => $tache->id,
-                'realisation_projet_id' => $realisationProjet->id,
-                'etat_realisation_tache_id' => $etatInitial?->id,
-                'dateDebut' => $tache->dateDebut,
-                'dateFin' => $tache->dateFin,
-            ]);
-
-            if (!$realisationTache) {
-                continue;
-            }
-
-            // Création des Évaluations liées (si évaluateurs assignés)
-            if ($evaluateurs->isNotEmpty()) {
-                foreach ($evaluateurs as $evaluateur) {
-                    // Retrouver l'évaluation projet parente
-                    $evaluationProjet = \Modules\PkgEvaluateurs\Models\EvaluationRealisationProjet::where([
-                        'realisation_projet_id' => $realisationProjet->id,
-                        'evaluateur_id' => $evaluateur->id,
-                    ])->first();
-
-                    if ($evaluationProjet) {
-                        $evaluationTacheService->create([
-                            'realisation_tache_id' => $realisationTache->id,
-                            'evaluateur_id' => $evaluateur->id,
-                            'evaluation_realisation_projet_id' => $evaluationProjet->id,
-                        ]);
-                    }
-                }
-            }
+            // Appel à la méthode centralisée
+            $realisationTacheService->initialiserRealisationTache($tache, $realisationProjet, $etatInitial);
         }
     }
 
