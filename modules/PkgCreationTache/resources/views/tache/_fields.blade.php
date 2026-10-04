@@ -165,7 +165,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($projets as $projet)
-                    <option value="{{ $projet->id }}"
+                    <option value="{{ $projet->id }}" 
                         {{ (isset($itemTache) && $itemTache->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
                         {{ $projet }}
                     </option>
@@ -285,7 +285,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($chapitres as $chapitre)
-                    <option value="{{ $chapitre->id }}"
+                    <option value="{{ $chapitre->id }}" 
                         {{ (isset($itemTache) && $itemTache->chapitre_id == $chapitre->id) || (old('chapitre_id>') == $chapitre->id) ? 'selected' : '' }}>
                         {{ $chapitre }}
                     </option>
@@ -371,7 +371,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($phaseEvaluations as $phaseEvaluation)
-                    <option value="{{ $phaseEvaluation->id }}"
+                    <option value="{{ $phaseEvaluation->id }}" 
                         {{ (isset($itemTache) && $itemTache->phase_evaluation_id == $phaseEvaluation->id) || (old('phase_evaluation_id>') == $phaseEvaluation->id) ? 'selected' : '' }}>
                         {{ $phaseEvaluation }}
                     </option>
@@ -411,7 +411,7 @@
                 multiple="multiple">
                
                 @foreach ($livrables as $livrable)
-                    <option value="{{ $livrable->id }}"
+                    <option value="{{ $livrable->id }}" 
                         {{ (isset($itemTache) && $itemTache->livrables && $itemTache->livrables->contains('id', $livrable->id)) || (is_array(old('livrables')) && in_array($livrable->id, old('livrables'))) ? 'selected' : '' }}>
                         {{ $livrable }}
                     </option>
@@ -451,7 +451,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($mobilisationUas as $mobilisationUa)
-                    <option value="{{ $mobilisationUa->id }}"
+                    <option value="{{ $mobilisationUa->id }}" 
                         {{ (isset($itemTache) && $itemTache->mobilisation_ua_id == $mobilisationUa->id) || (old('mobilisation_ua_id>') == $mobilisationUa->id) ? 'selected' : '' }}>
                         {{ $mobilisationUa }}
                     </option>
@@ -491,7 +491,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($projetOrigineNotes as $projet)
-                    <option value="{{ $projet->id }}"
+                    <option value="{{ $projet->id }}" 
                         {{ (isset($itemTache) && $itemTache->projet_origine_note_id == $projet->id) || (old('projet_origine_note_id>') == $projet->id) ? 'selected' : '' }}>
                         {{ $projet }}
                     </option>
@@ -613,8 +613,7 @@
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($equipeProjets as $equipeProjet)
-                    <option value="{{ $equipeProjet->id }}"
-                        @if(method_exists($equipeProjet, 'sysColor') && $equipeProjet->sysColor) data-color="{{ $equipeProjet->sysColor->hex }}" @endif
+                    <option value="{{ $equipeProjet->id }}" data-color="{{ $equipeProjet->sysColor?->hex }}" 
                         {{ (isset($itemTache) && $itemTache->equipe_projet_id == $equipeProjet->id) || (old('equipe_projet_id>') == $equipeProjet->id) ? 'selected' : '' }}>
                         {{ $equipeProjet }}
                     </option>
