@@ -27,12 +27,12 @@ Se référer à `capacité-regles-table.md` pour les interdictions d'ID et le no
 - Utilisez `foreignId()->constrained()->onDelete('cascade')` pour chaque clé.
 - Ajoutez `$table->timestamps();`.
 
-Exemple :
+Exemple de table pivot générée (ex: pour la relation entre Apprenant et EquipeProjet) :
 ```php
-Schema::create('label_tache', function (Blueprint $table) {
-    $table->foreignId('tache_id')->constrained('taches')->onDelete('cascade');
-    $table->foreignId('label_projet_id')->constrained('label_projets')->onDelete('cascade');
+Schema::create('apprenant_equipe_projet', function (Blueprint $table) {
     $table->timestamps();
+    $table->foreignId('equipe_projet_id')->constrained('equipe_projets')->onDelete('cascade');
+    $table->foreignId('apprenant_id')->constrained('apprenants')->onDelete('cascade');
 });
 ```
 

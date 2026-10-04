@@ -1,0 +1,47 @@
+classDiagram
+    namespace PkgCreationProjet {
+        class Projet {
+            id
+            titre
+            description
+            reference
+        }
+        class EquipeProjet {
+            +int id
+            +int projet_id
+            +String nom
+            +String reference
+        }
+    }
+    
+    namespace PkgCreationTache {
+        class Tache {
+            +int id
+            +int projet_id
+            +int equipe_projet_id
+            +String nom
+            +String reference
+        }
+    }
+
+    namespace PkgApprenants {
+        class Apprenant {
+            +int id
+            +String nom
+        }
+    }
+    
+    namespace PkgRealisationTache {
+        class RealisationTache {
+            +int id
+            +int tache_id
+            +int apprenant_id
+        }
+    }
+
+    Projet "1" --> "*" EquipeProjet : contient
+    EquipeProjet "*" --> "*" Apprenant : est composé de
+    Projet "1" --> "*" Tache : possède
+    Tache "*" --> "0..1" EquipeProjet : est assignée à
+    Tache "1" --> "*" RealisationTache : engendre
+    RealisationTache "*" --> "1" Apprenant : est réalisée par

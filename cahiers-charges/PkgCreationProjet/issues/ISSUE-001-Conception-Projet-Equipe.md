@@ -21,6 +21,7 @@ Les `Tache`s du projet peuvent optionnellement être affectées à un groupe sp�
 
 ### Modifications demandées
 1. **Module `PkgCreationProjet` (Projet)** :
+   - Ajout d'une clé étrangère `groupe_id` (nullable) dans la table `projets` pour lier le projet au groupe global (classe).
    - Création d'une entité `EquipeProjet` (Sous-groupe) qui appartient à un `Projet`.
    - Création de la relation Many-to-Many entre `EquipeProjet` et `Apprenant`.
 2. **Module `PkgCreationTache` (Tache)** :
@@ -36,10 +37,11 @@ Les `Tache`s du projet peuvent optionnellement être affectées à un groupe sp�
 classDiagram
     namespace PkgCreationProjet {
         class Projet {
-            +int id
-            +String titre
-            +String description
-            +String reference
+            id
+            titre
+            description
+            reference
+            +int groupe_id
         }
         class EquipeProjet {
             +int id
@@ -64,6 +66,10 @@ classDiagram
             +int id
             +String nom
         }
+        class Groupe {
+            +int id
+            +String nom
+        }
     }
     
     namespace PkgRealisationTache {
@@ -74,6 +80,7 @@ classDiagram
         }
     }
 
+    Projet "*" --> "0..1" Groupe : appartient à
     Projet "1" --> "*" EquipeProjet : contient
     EquipeProjet "*" --> "*" Apprenant : est composé de
     Projet "1" --> "*" Tache : possède
@@ -85,9 +92,10 @@ classDiagram
 ## 4. Impact sur les Composants et Skills Nécessaires
 
 Pour implémenter cette issue, les skills suivants seront mobilisés :
-- `app-migration` : Création de la table `equipe_projets`, table pivot `apprenant_equipe_projet`, modification de `taches` (ajout `equipe_projet_id`).
-- `app-model` : Mise à jour des modèles `Projet`, `Tache` et création du modèle `EquipeProjet`.
-- `sys-gapp` : Synchronisation des métadonnées et régénération des CRUD.
+- **Générateur Gapp** : C'est le générateur `gapp` qui portera les modifications dans les Modèles (dossier Base) et créera/régénérera les CRUD (Contrôleurs, Vues, Routes).
+- `app-migration` : Création de la table `equipe_projets`, table pivot `apprenant_equipe_projet`, modification de `taches` (ajout `equipe_projet_id`) et modification de `projets` (ajout `groupe_id`).
+- `app-model` : Le générateur `gapp` s'occupe des modèles de base, mais ce skill servira pour les relations ou méthodes personnalisées dans les classes enfants.
+- `sys-gapp` : Synchronisation des métadonnées Gapp pour prendre en compte les nouveaux champs et entités.
 - `app-service` : Mise à jour de `TacheService` et `RealisationTacheService` pour appliquer la logique métier (filtrage des apprenants).
 - `app-controller` & `app-blade` : Mise à jour de l'interface pour permettre l'ajout d'équipes et l'affectation d'apprenants, et sélection de l'équipe dans le formulaire de création de tâche.
 
@@ -96,3 +104,33 @@ Pour implémenter cette issue, les skills suivants seront mobilisés :
 - **RG2** : Un apprenant ne peut appartenir qu'à une seule équipe pour un même projet.
 - **RG3** : Lors de la création d'une `Tache`, le formateur peut sélectionner une `EquipeProjet`. Si sélectionnée, la tâche est exclusive à ce groupe.
 - **RG4** : La génération des `RealisationTache` pour une `Tache` spécifique à une équipe ne cible que les apprenants membres de cette équipe.
+
+## 6. Migration des Données Existantes (Script de mise à jour)
+Afin de maintenir la cohérence de l'historique, un script (commande Artisan ou Seeder spécifique) devra être créé pour mettre à jour les projets existants :
+- **Règle de migration** : Pour chaque projet existant, affecter le `groupe_id` en récupérant le groupe de la première `AffectationProjet` qui y est liée. S'il n'y a pas d'affectation, utiliser le premier groupe affecté par le formateur propriétaire du projet.
+
+## 7. Plan de Réalisation (Sprints)
+
+### Sprint 1 : Base de données, Modèles et Migration
+- **Objectif** : Mettre en place l'infrastructure de données et mettre à jour l'historique.
+- **Tâches** :
+  - Créer les migrations pour ajouter `groupe_id` à `projets`, créer la table `equipe_projets`, et la table pivot `apprenant_equipe_projet`.
+  - Exécuter le script de migration de données pour associer les projets existants à leurs classes (groupes).
+  - Synchroniser via Gapp (`gapp meta:sync`) et générer les CRUD de base (`gapp make:crud EquipeProjet`).
+
+### Sprint 2 : Interfaces et Affectations
+- **Objectif** : Permettre au formateur de structurer ses équipes et ses tâches.
+- **Tâches** :
+  - Dans l'interface de gestion de Projet, ajouter l'onglet/vue pour créer des `EquipeProjet` et y affecter des apprenants.
+  - Ajouter le champ `equipe_projet_id` dans la table `taches` (migration).
+  - Modifier le formulaire de création/édition d'une Tâche pour permettre de sélectionner optionnellement une `EquipeProjet`.
+
+### Sprint 3 : Logique Métier (Génération des réalisations)
+- **Objectif** : Appliquer les règles de gestion sur la génération des `RealisationTache`.
+- **Tâches** :
+  - Modifier le service métier (`TacheService` / `RealisationTacheService`) responsable de l'initialisation des réalisations.
+  - **Logique** : 
+    - Si la tâche a un `equipe_projet_id`, récupérer uniquement les apprenants liés à cette équipe.
+    - Sinon, récupérer tous les apprenants du projet (via le `groupe_id` global).
+    - Générer les `RealisationTache` pour cette sélection d'apprenants.
+  - Effectuer les tests pour valider les règles RG3 et RG4.
