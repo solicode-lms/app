@@ -156,11 +156,20 @@ trait ProjetCrudTrait
      */
     public function beforeUpdateRules($projet)
     {
-        // Empêcher la modification de la session de formation
-        if (isset($projet['session_formation_id'])) {
-            $original = $this->model->find($projet['id'] ?? null);
-            if ($original && $original->session_formation_id != $projet['session_formation_id']) {
-                throw new BlException('La session de formation ne peut pas être modifiée une fois le projet créé.');
+        // Empêcher la modification de la filière, du groupe et de la session de formation
+        $original = $this->model->find($projet['id'] ?? null);
+        
+        if ($original) {
+            $champsProteges = [
+                'session_formation_id' => 'La session de formation',
+                'filiere_id' => 'La filière',
+                'groupe_id' => 'Le groupe',
+            ];
+            
+            foreach ($champsProteges as $champ => $libelle) {
+                if (isset($projet[$champ]) && $original->{$champ} != $projet[$champ]) {
+                    throw new BlException("$libelle ne peut pas être modifiée une fois le projet créé.");
+                }
             }
         }
     }

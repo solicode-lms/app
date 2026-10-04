@@ -46,6 +46,10 @@ class BaseEquipeProjetController extends AdminController
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.equipeProjet.Projet.formateurs.user_id') == null){
+           $this->viewState->init('scope.equipeProjet.Projet.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
 
 
 
@@ -77,6 +81,10 @@ class BaseEquipeProjetController extends AdminController
     /**
      */
     protected function dataForCreateView() {
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.equipeProjet.Projet.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
 
         // scopeDataByRole
         $itemEquipeProjet = $this->equipeProjetService->createInstance();
@@ -114,6 +122,10 @@ class BaseEquipeProjetController extends AdminController
 
         // Même traitement de create 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.equipeProjet.Projet.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
  
          $itemEquipeProjet = $this->equipeProjetService->find($equipeProjet_ids[0]);
          
@@ -167,6 +179,7 @@ class BaseEquipeProjetController extends AdminController
         $this->viewState->setContextKey('equipeProjet.show_' . $id);
 
         $itemEquipeProjet = $this->equipeProjetService->edit($id);
+        $this->authorize('view', $itemEquipeProjet);
 
 
         $this->viewState->set('scope.tache.equipe_projet_id', $id);
@@ -199,6 +212,7 @@ class BaseEquipeProjetController extends AdminController
 
 
         $itemEquipeProjet = $this->equipeProjetService->edit($id);
+        $this->authorize('edit', $itemEquipeProjet);
 
 
         $projets = $this->projetService->getAllForSelect($itemEquipeProjet->projet);
@@ -234,6 +248,9 @@ class BaseEquipeProjetController extends AdminController
     /**
      */
     public function update(EquipeProjetRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $equipeProjet = $this->equipeProjetService->find($id);
+        $this->authorize('update', $equipeProjet);
 
         $validatedData = $request->validated();
         $equipeProjet = $this->equipeProjetService->update($id, $validatedData);
@@ -370,6 +387,9 @@ class BaseEquipeProjetController extends AdminController
     /**
      */
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $equipeProjet = $this->equipeProjetService->find($id);
+        $this->authorize('delete', $equipeProjet);
 
         $equipeProjet = $this->equipeProjetService->destroy($id);
 
@@ -406,6 +426,9 @@ class BaseEquipeProjetController extends AdminController
         }
         foreach ($equipeProjet_ids as $id) {
             $entity = $this->equipeProjetService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $equipeProjet = $this->equipeProjetService->find($id);
+            $this->authorize('delete', $equipeProjet);
             $this->equipeProjetService->destroy($id);
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [

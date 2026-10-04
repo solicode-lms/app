@@ -382,7 +382,6 @@ class BaseProjetService extends BaseService
     {
         // Champs considérés comme inline
         $inlineFields = [
-            'groupe_id',
             'titre',
             'Tache',
             'Livrable'
@@ -424,22 +423,6 @@ class BaseProjetService extends BaseService
         ];
 
        switch ($field) {
-            case 'groupe_id':
-                 $values = (new \Modules\PkgApprenants\Services\GroupeService())
-                    ->getAllForSelect($e->groupe)
-                    ->map(fn($entity) => [
-                        'value' => (int) $entity->id,
-                        'label' => (string) $entity,
-                    ])
-                    ->toArray();
-
-                return $this->computeFieldMeta($e, $field, $meta, 'select', [
-                    'required' => true,
-                    'options'  => [
-                        'source' => 'static',
-                        'values' => $values,
-                    ],
-                ]);
             case 'titre':
                 return $this->computeFieldMeta($e, $field, $meta, 'string');
             case 'Tache':
@@ -485,18 +468,6 @@ class BaseProjetService extends BaseService
 
         foreach ($fields as $field) {
             switch ($field) {
-                case 'groupe_id':
-                    $html = view('Core::fields_by_type.manytoone', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => '',
-                        'relationName' => 'groupe'
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
-
-
-
                 case 'titre':
                     // Vue custom définie pour ce champ
                     $html = view('PkgCreationProjet::projet.custom.fields.titre', [

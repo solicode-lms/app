@@ -21,7 +21,7 @@ use Modules\PkgCreationTache\Models\Tache;
  */
 class BaseEquipeProjet extends BaseModel
 {
-    use HasFactory, HasDynamicContext;
+    use HasFactory, HasDynamicContext, OwnedByUser;
 
     /**
      * Eager-load par défaut les relations belongsTo listées dans manyToOne
@@ -35,7 +35,8 @@ class BaseEquipeProjet extends BaseModel
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
-        $this->isOwnedByUser =  false;
+        $this->isOwnedByUser =  true;
+        $this->ownerRelationPath = "Projet.formateurs.user";
     }
 
     
