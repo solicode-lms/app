@@ -152,11 +152,7 @@ td.wrappable {
   white-space: normal;      /* texte et éléments inline peuvent passer à la ligne */
   word-break: break-word;   /* coupe les mots trop longs si besoin */
 }
-td.wrappable a.btn {
-  display: inline-block;    /* conserve l’aspect bouton tout en permettant le wrap */
-  margin: 2px 0;            /* petite marge verticale entre lignes */
-}
-
+ 
 /* Formulaire */
 
 
@@ -442,16 +438,26 @@ ul.livrable li .text-muted {
 }
 
 /* 🎨 UI/UX : Simplicité & Minimalisme (Modern Admin) */
+.crud-actions-cell form {
+    margin: 0;
+    display: flex;
+}
+
 .crud-actions-cell .btn {
     border-radius: 6px !important;
     transition: all 0.2s ease-in-out;
     box-shadow: none !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 34px !important;
+    height: 34px !important;
+    padding: 0 !important; /* Unifie la taille (<a> vs <button>) */
 }
 
 /* Actions Principales (Show, Edit) : Outline clean */
 .crud-actions-cell .btn-action-main {
     font-size: 0.95rem !important;
-    padding: 5px 10px !important;
     background-color: #ffffff !important;
     border: 1px solid #e2e8f0 !important;
     color: #475569 !important;
@@ -465,7 +471,6 @@ ul.livrable li .text-muted {
 /* Action Delete : Danger Outline */
 .crud-actions-cell .btn-action-delete {
     font-size: 0.95rem !important;
-    padding: 5px 10px !important;
     background-color: #ffffff !important;
     border: 1px solid #fee2e2 !important;
     color: #ef4444 !important;
@@ -479,10 +484,11 @@ ul.livrable li .text-muted {
 /* Actions Secondaires : Fantômes (Ghost Buttons) */
 .crud-actions-cell .btn-action-secondary {
     font-size: 0.85rem !important;
-    padding: 4px 8px !important;
     background-color: transparent !important;
     border: 1px solid transparent !important;
     color: #94a3b8 !important;
+    width: 30px !important;
+    height: 30px !important;
 }
 .crud-actions-cell .btn-action-secondary:hover {
     background-color: #f1f5f9 !important;
