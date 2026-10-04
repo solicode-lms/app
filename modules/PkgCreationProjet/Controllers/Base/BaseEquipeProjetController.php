@@ -47,8 +47,8 @@ class BaseEquipeProjetController extends AdminController
 
 
         // ownedByUser
-        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.equipeProjet.Projet.formateurs.user_id') == null){
-           $this->viewState->init('scope.equipeProjet.Projet.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.equipeProjet.Projet.formateur.user_id') == null){
+           $this->viewState->init('scope.equipeProjet.Projet.formateur.user_id'  , $this->sessionState->get('user_id'));
         }
 
 
@@ -83,7 +83,7 @@ class BaseEquipeProjetController extends AdminController
     protected function dataForCreateView() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.equipeProjet.Projet.formateurs.user_id'  , $this->sessionState->get('user_id'));
+           $this->viewState->set('scope_form.equipeProjet.Projet.formateur.user_id'  , $this->sessionState->get('user_id'));
         }
 
         // scopeDataByRole
@@ -124,7 +124,7 @@ class BaseEquipeProjetController extends AdminController
 
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.equipeProjet.Projet.formateurs.user_id'  , $this->sessionState->get('user_id'));
+           $this->viewState->set('scope_form.equipeProjet.Projet.formateur.user_id'  , $this->sessionState->get('user_id'));
         }
  
          $itemEquipeProjet = $this->equipeProjetService->find($equipeProjet_ids[0]);

@@ -36,7 +36,7 @@ class BaseEquipeProjet extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
-        $this->ownerRelationPath = "Projet.formateurs.user";
+        $this->ownerRelationPath = "Projet.formateur.user";
     }
 
     

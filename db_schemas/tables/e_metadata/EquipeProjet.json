@@ -346,8 +346,8 @@
             {
                 "role": "formateur",
                 "dataScope": "scope",
-                "userModelName": "Formateur",
-                "ownerRelationPath": "Projet.Formateur"
+                "userModelName": "User",
+                "ownerRelationPath": "Projet.formateur.user"
             }
         ],
         "e_model_reference": "equipe_projets",
