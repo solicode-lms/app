@@ -25,9 +25,11 @@ class BaseEquipeProjetService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'projet_id',
         'nom',
-        'reference'
+        'sys_color_id',
+        'description',
+        'reference',
+        'projet_id'
     ];
 
 
@@ -104,6 +106,23 @@ class BaseEquipeProjetService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('equipeProjet');
         $this->fieldsFilterable = [];
         
+            
+                if (!array_key_exists('sys_color_id', $scopeVariables)) {
+
+
+                    $sysColorService = new \Modules\Core\Services\SysColorService();
+                    $sysColorIds = $this->getAvailableFilterValues('sys_color_id');
+                    $sysColors = $sysColorService->getByIds($sysColorIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("Core::sysColor.plural"), 
+                        'sys_color_id', 
+                        \Modules\Core\Models\SysColor::class, 
+                        'name',
+                        $sysColors
+                    );
+                }
+            
             
                 if (!array_key_exists('projet_id', $scopeVariables)) {
 
@@ -310,8 +329,9 @@ class BaseEquipeProjetService extends BaseService
     {
         // Champs considérés comme inline
         $inlineFields = [
-            'projet_id',
-            'nom'
+            'nom',
+            'sys_color_id',
+            'projet_id'
         ];
 
         // Récupération des champs autorisés par rôle via getFieldsEditable()
@@ -350,6 +370,24 @@ class BaseEquipeProjetService extends BaseService
         ];
 
        switch ($field) {
+            case 'nom':
+                return $this->computeFieldMeta($e, $field, $meta, 'string');
+            case 'sys_color_id':
+                 $values = (new \Modules\Core\Services\SysColorService())
+                    ->getAllForSelect($e->sysColor)
+                    ->map(fn($entity) => [
+                        'value' => (int) $entity->id,
+                        'label' => (string) $entity,
+                    ])
+                    ->toArray();
+
+                return $this->computeFieldMeta($e, $field, $meta, 'select', [
+                    'required' => true,
+                    'options'  => [
+                        'source' => 'static',
+                        'values' => $values,
+                    ],
+                ]);
             case 'projet_id':
                  $values = (new \Modules\PkgCreationProjet\Services\ProjetService())
                     ->getAllForSelect($e->projet)
@@ -366,8 +404,6 @@ class BaseEquipeProjetService extends BaseService
                         'values' => $values,
                     ],
                 ]);
-            case 'nom':
-                return $this->computeFieldMeta($e, $field, $meta, 'string');
             default:
                 abort(404, "Champ $field non pris en charge pour l’édition inline.");
         }
@@ -407,6 +443,26 @@ class BaseEquipeProjetService extends BaseService
 
         foreach ($fields as $field) {
             switch ($field) {
+                case 'nom':
+                    $html = view('Core::fields_by_type.string', [
+                        'entity' => $e,
+                        'column' => $field,
+                        'nature' => ''
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+                case 'sys_color_id':
+                    $html = view('Core::fields_by_type.manytoone', [
+                        'entity' => $e,
+                        'column' => $field,
+                        'nature' => 'couleur',
+                        'relationName' => 'sysColor'
+                    ])->render();
+                    $out[$field] = ['html' => $html];
+                    break;
+
+
+
                 case 'projet_id':
                     $html = view('Core::fields_by_type.manytoone', [
                         'entity' => $e,
@@ -419,14 +475,6 @@ class BaseEquipeProjetService extends BaseService
 
 
 
-                case 'nom':
-                    $html = view('Core::fields_by_type.string', [
-                        'entity' => $e,
-                        'column' => $field,
-                        'nature' => ''
-                    ])->render();
-                    $out[$field] = ['html' => $html];
-                    break;
 
                 default:
                     // fallback générique si champ non pris en charge

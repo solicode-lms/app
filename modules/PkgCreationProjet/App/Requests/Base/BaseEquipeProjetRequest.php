@@ -29,9 +29,11 @@ class BaseEquipeProjetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'projet_id' => 'required',
             'nom' => 'required|string|max:255',
-            'apprenants' => 'nullable|array'
+            'apprenants' => 'nullable|array',
+            'sys_color_id' => 'nullable',
+            'description' => 'nullable|string',
+            'projet_id' => 'required'
         ];
     }
 
@@ -43,11 +45,13 @@ class BaseEquipeProjetRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::EquipeProjet.projet_id')]),
             'nom.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::EquipeProjet.nom')]),
             'nom.max' => __('validation.nomMax'),
             'apprenants.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::EquipeProjet.apprenants')]),
-            'apprenants.array' => __('validation.array', ['attribute' => __('PkgCreationProjet::EquipeProjet.apprenants')])
+            'apprenants.array' => __('validation.array', ['attribute' => __('PkgCreationProjet::EquipeProjet.apprenants')]),
+            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::EquipeProjet.sys_color_id')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::EquipeProjet.description')]),
+            'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::EquipeProjet.projet_id')])
         ];
     }
 

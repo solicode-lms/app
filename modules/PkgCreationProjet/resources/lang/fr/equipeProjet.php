@@ -6,4 +6,5 @@ return [
     'projet_id' => 'Projet',
     'nom' => 'Nom',
     'reference' => 'Référence',
+    'description' => 'Description'
 ];

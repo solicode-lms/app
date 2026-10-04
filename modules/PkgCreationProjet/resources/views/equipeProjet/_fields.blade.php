@@ -30,47 +30,7 @@
 
     
     <div class="row">
-        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemEquipeProjet" field="projet_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="projet_id" 
-              id="bulk_field_projet_id" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="projet_id">
-            {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="projet_id" 
-            required
-            
-            
-            name="projet_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($projets as $projet)
-                    <option value="{{ $projet->id }}"
-                        {{ (isset($itemEquipeProjet) && $itemEquipeProjet->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
-                        {{ $projet }}
-                    </option>
-                @endforeach
-            </select>
-          @error('projet_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEquipeProjet" field="nom" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemEquipeProjet" field="nom" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -139,6 +99,120 @@
                 @endforeach
             </select>
           @error('apprenants')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEquipeProjet" field="sys_color_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="sys_color_id" 
+              id="bulk_field_sys_color_id" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="sys_color_id">
+            {{ ucfirst(__('Core::sysColor.singular')) }}
+            
+          </label>
+                      <select 
+            id="sys_color_id" 
+            
+            
+            
+            name="sys_color_id" 
+            class="form-control select2Color">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sysColors as $sysColor)
+                    <option value="{{ $sysColor->id }}" data-color="{{ $sysColor->hex }}" 
+                        {{ (isset($itemEquipeProjet) && $itemEquipeProjet->sys_color_id == $sysColor->id) || (old('sys_color_id>') == $sysColor->id) ? 'selected' : '' }}>
+                        {{ $sysColor }}
+                    </option>
+                @endforeach
+            </select>
+          @error('sys_color_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEquipeProjet" field="description" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-12">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="description" 
+              id="bulk_field_description" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="description">
+            {{ ucfirst(__('PkgCreationProjet::equipeProjet.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                
+                
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemEquipeProjet->description ?? '')) !!}
+                </textarea>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEquipeProjet" field="projet_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="projet_id" 
+              id="bulk_field_projet_id" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="projet_id">
+            {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
+            id="projet_id" 
+            required
+            
+            
+            name="projet_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($projets as $projet)
+                    <option value="{{ $projet->id }}"
+                        {{ (isset($itemEquipeProjet) && $itemEquipeProjet->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
+                        {{ $projet }}
+                    </option>
+                @endforeach
+            </select>
+          @error('projet_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

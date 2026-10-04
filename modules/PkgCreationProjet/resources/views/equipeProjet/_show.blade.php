@@ -6,18 +6,6 @@
             <div class="row no-gutters mb-4">
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemEquipeProjet->projet)
-                  {{ $itemEquipeProjet->projet }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
-                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::equipeProjet.nom')) }}</small>
     {{-- Affichage texte par défaut --}}
     @if(!is_null($itemEquipeProjet->nom) && $itemEquipeProjet->nom !== '')
@@ -42,6 +30,46 @@
                   @else
                   <span class="text-muted">—</span>
                   @endif                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('Core::sysColor.singular')) }}</small>
+                  @if($itemEquipeProjet->sysColor)
+                  @php
+                    $related = $itemEquipeProjet->sysColor;
+                  @endphp
+                  <span 
+                    class="badge" 
+                    style="background-color: {{ $related->hex }}; color: #fff;"
+                  >
+                    {{ $related }}
+                  </span>
+                  @else
+                  <span class="text-muted">—</span>
+                  @endif
+                </div>
+            </div>
+            <div class="show_group col-12 col-md-12 col-lg-12 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::equipeProjet.description')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemEquipeProjet->description) && $itemEquipeProjet->description !== '')
+                    {!! $itemEquipeProjet->description !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}</small>
+
+                {{-- Affichage texte classique --}}
+                @if($itemEquipeProjet->projet)
+                  {{ $itemEquipeProjet->projet }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
             </div>
             @if(
                   (auth()->user()?->can('show-tache') && $itemEquipeProjet->taches->isNotEmpty())  

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
+use Modules\Core\Models\SysColor;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgCreationTache\Models\Tache;
@@ -29,6 +30,7 @@ class BaseEquipeProjet extends BaseModel
      * @var array
      */
     protected $with = [
+      //  'sysColor',
       //  'projet'
     ];
 
@@ -46,12 +48,17 @@ class BaseEquipeProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'projet_id', 'nom', 'reference'
+        'nom', 'sys_color_id', 'description', 'reference', 'projet_id'
     ];
     public $manyToMany = [
         'Apprenant' => ['relation' => 'apprenants' , "foreign_key" => "apprenant_id" ]
     ];
     public $manyToOne = [
+        'sysColor' => [
+            'model' => "Modules\\Core\\Models\\SysColor",
+            'relation' => 'sysColor' , 
+            "foreign_key" => "sys_color_id", 
+            ],
         'projet' => [
             'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
             'relation' => 'projet' , 
@@ -60,6 +67,15 @@ class BaseEquipeProjet extends BaseModel
     ];
 
 
+    /**
+     * Relation BelongsTo pour SysColor.
+     *
+     * @return BelongsTo
+     */
+    public function sysColor(): BelongsTo
+    {
+        return $this->belongsTo(SysColor::class, 'sys_color_id', 'id');
+    }
     /**
      * Relation BelongsTo pour Projet.
      *

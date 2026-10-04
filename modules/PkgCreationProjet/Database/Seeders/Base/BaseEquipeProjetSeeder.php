@@ -75,6 +75,11 @@ class BaseEquipeProjetSeeder extends Seeder
             if ($row) {
 
 
+                $sys_color_id = null;
+                if (!empty($row["sys_color_reference"])) {
+                    $sys_color_id = \Modules\Core\Models\SysColor::where('reference', $row["sys_color_reference"])
+                        ->value('id');
+                }
                 $projet_id = null;
                 if (!empty($row["projet_reference"])) {
                     $projet_id = \Modules\PkgCreationProjet\Models\Projet::where('reference', $row["projet_reference"])
@@ -83,8 +88,10 @@ class BaseEquipeProjetSeeder extends Seeder
 
 
                 $equipeProjetData =[
-                        "projet_id" => $projet_id,
                         "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
+                        "sys_color_id" => $sys_color_id,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
+                        "projet_id" => $projet_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
 

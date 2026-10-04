@@ -57,10 +57,12 @@ class BaseEquipeProjetImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new EquipeProjet([
-             'projet_id' => $values[0] ?? null,
-             'nom' => $values[1] ?? null,
+             'nom' => $values[0] ?? null,
+             'apprenants' => $values[1] ?? null,
+             'sys_color_id' => $values[2] ?? null,
+             'description' => $values[3] ?? null,
              'reference' => $reference,
-             'apprenants' => $values[3] ?? null,
+             'projet_id' => $values[5] ?? null,
         ]);
 
 

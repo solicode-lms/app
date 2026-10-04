@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
+use Modules\PkgCreationProjet\Models\EquipeProjet;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\Core\Models\SysModel;
 use Modules\PkgEvaluateurs\Models\EtatEvaluationProjet;
@@ -54,6 +55,15 @@ class BaseSysColor extends BaseModel
 
 
 
+    /**
+     * Relation HasMany pour SysColors.
+     *
+     * @return HasMany
+     */
+    public function equipeProjets(): HasMany
+    {
+        return $this->hasMany(EquipeProjet::class, 'sys_color_id', 'id');
+    }
     /**
      * Relation HasMany pour SysColors.
      *

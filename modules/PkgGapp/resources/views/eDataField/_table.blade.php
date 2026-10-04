@@ -14,7 +14,6 @@
                 <x-sortable-column :sortable="true" width="15" field="e_model_id" modelname="eDataField" label="{!!ucfirst(__('PkgGapp::eModel.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="10"  field="data_type" modelname="eDataField" label="{!!ucfirst(__('PkgGapp::eDataField.data_type'))!!}" />
                 <x-sortable-column :sortable="true" width="8"  field="displayInTable" modelname="eDataField" label="{!!ucfirst(__('PkgGapp::eDataField.displayInTable'))!!}" />
-                <x-sortable-column :sortable="true" width="29"  field="EMetadatum" modelname="eDataField" label="{!!ucfirst(__('PkgGapp::eMetadatum.plural'))!!}" />
                 <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -47,14 +46,6 @@
                         <span class="{{ $eDataField->displayInTable ? 'text-success' : 'text-danger' }}">
                             {{ $eDataField->displayInTable ? 'Oui' : 'Non' }}
                         </span>
-
-                    </td>
-                    <td style="max-width: 29%;white-space: normal;" class=" text-truncate" data-id="{{$eDataField->id}}" data-field="EMetadatum">
-                        <ul>
-                            @foreach ($eDataField->eMetadata as $eMetadatum)
-                                <li>{{$eMetadatum}} </li>
-                            @endforeach
-                        </ul>
 
                     </td>
                     <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">

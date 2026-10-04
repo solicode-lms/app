@@ -36,6 +36,14 @@
                             <a class="nav-link active" id="sysColor-hasmany-tabs-home-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-home" role="tab" aria-controls="sysColor-hasmany-tabs-home" aria-selected="true">{{__('Core::sysColor.singular')}}</a>
                         </li>
 
+                         @if($itemSysColor->equipeProjets?->count() > 0 || auth()->user()?->can('create-equipeProjet'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="sysColor-hasmany-tabs-equipeProjet-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-equipeProjet" role="tab" aria-controls="sysColor-hasmany-tabs-equipeProjet" aria-selected="false">
+                                <i class="nav-icon fas fa-users"></i>
+                                {{ucfirst(__('PkgCreationProjet::equipeProjet.plural'))}}
+                            </a>
+                        </li>
+                        @endif
                          @if($itemSysColor->etatRealisationTaches?->count() > 0 || auth()->user()?->can('create-etatRealisationTache'))
                         <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-etatRealisationTache-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatRealisationTache" role="tab" aria-controls="sysColor-hasmany-tabs-etatRealisationTache" aria-selected="false">
@@ -166,6 +174,11 @@
                                 @include('Core::sysColor._fields')
                             </div>
 
+                            @if($itemSysColor->equipeProjets?->count() > 0 || auth()->user()?->can('create-equipeProjet'))
+                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-equipeProjet" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-equipeProjet-tab">
+                                @include('PkgCreationProjet::equipeProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
+                            </div>
+                            @endif
                             @if($itemSysColor->etatRealisationTaches?->count() > 0 || auth()->user()?->can('create-etatRealisationTache'))
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatRealisationTache" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatRealisationTache-tab">
                                 @include('PkgRealisationTache::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])

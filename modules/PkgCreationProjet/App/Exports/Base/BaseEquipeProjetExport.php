@@ -32,17 +32,21 @@ class BaseEquipeProjetExport implements FromCollection, WithHeadings, ShouldAuto
     {
         if ($this->format === 'csv') {
             return [
-                'projet_reference' => 'projet_reference',
                 'nom' => 'nom',
-                'reference' => 'reference',
                 'apprenants' => 'apprenants',
+                'sys_color_reference' => 'sys_color_reference',
+                'description' => 'description',
+                'reference' => 'reference',
+                'projet_reference' => 'projet_reference',
             ];
         } else {
             return [
-                'projet_reference' => __('PkgCreationProjet::projet.singular'),
                 'nom' => __('PkgCreationProjet::equipeProjet.nom'),
-                'reference' => __('Core::msg.reference'),
                     'apprenants' => __('PkgApprenants::apprenant.plural'),
+                'sys_color_reference' => __('Core::sysColor.singular'),
+                'description' => __('PkgCreationProjet::equipeProjet.description'),
+                'reference' => __('Core::msg.reference'),
+                'projet_reference' => __('PkgCreationProjet::projet.singular'),
             ];
         }
     }
@@ -54,12 +58,14 @@ class BaseEquipeProjetExport implements FromCollection, WithHeadings, ShouldAuto
     {
         return $this->data->map(function ($equipeProjet) {
             return [
-                'projet_reference' => $equipeProjet->projet?->reference,
                 'nom' => $equipeProjet->nom,
-                'reference' => $equipeProjet->reference,
                 'apprenants' => $equipeProjet->apprenants
                     ->pluck('reference')
                     ->implode('|'),
+                'sys_color_reference' => $equipeProjet->sysColor?->reference,
+                'description' => $equipeProjet->description,
+                'reference' => $equipeProjet->reference,
+                'projet_reference' => $equipeProjet->projet?->reference,
             ];
         });
     }

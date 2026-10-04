@@ -6,6 +6,7 @@ namespace Modules\PkgCreationProjet\Controllers\Base;
 use Modules\PkgCreationProjet\Services\EquipeProjetService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgCreationProjet\Services\ProjetService;
+use Modules\Core\Services\SysColorService;
 use Modules\PkgCreationTache\Services\TacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,13 +26,15 @@ class BaseEquipeProjetController extends AdminController
     protected $equipeProjetService;
     protected $apprenantService;
     protected $projetService;
+    protected $sysColorService;
 
-    public function __construct(EquipeProjetService $equipeProjetService, ApprenantService $apprenantService, ProjetService $projetService) {
+    public function __construct(EquipeProjetService $equipeProjetService, ApprenantService $apprenantService, ProjetService $projetService, SysColorService $sysColorService) {
         parent::__construct();
         $this->service  =  $equipeProjetService;
         $this->equipeProjetService = $equipeProjetService;
         $this->apprenantService = $apprenantService;
         $this->projetService = $projetService;
+        $this->sysColorService = $sysColorService;
     }
 
     /**
@@ -90,11 +93,12 @@ class BaseEquipeProjetController extends AdminController
         $itemEquipeProjet = $this->equipeProjetService->createInstance();
 
 
+        $sysColors = $this->sysColorService->all();
         $projets = $this->projetService->all();
         $apprenants = $this->apprenantService->all();
 
         $bulkEdit = false;
-        return compact('bulkEdit' ,'itemEquipeProjet', 'projets', 'apprenants');
+        return compact('bulkEdit' ,'itemEquipeProjet', 'sysColors', 'projets', 'apprenants');
 
     }
     /**
@@ -130,8 +134,9 @@ class BaseEquipeProjetController extends AdminController
          $itemEquipeProjet = $this->equipeProjetService->find($equipeProjet_ids[0]);
          
  
-        $projets = $this->projetService->getAllForSelect($itemEquipeProjet->projet);
         $apprenants = $this->apprenantService->getAllForSelect($itemEquipeProjet->apprenants);
+        $sysColors = $this->sysColorService->getAllForSelect($itemEquipeProjet->sysColor);
+        $projets = $this->projetService->getAllForSelect($itemEquipeProjet->projet);
 
         $bulkEdit = true;
 
@@ -139,9 +144,9 @@ class BaseEquipeProjetController extends AdminController
         $itemEquipeProjet = $this->equipeProjetService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgCreationProjet::equipeProjet._fields', compact('bulkEdit', 'equipeProjet_ids', 'itemEquipeProjet', 'projets', 'apprenants'));
+            return view('PkgCreationProjet::equipeProjet._fields', compact('bulkEdit', 'equipeProjet_ids', 'itemEquipeProjet', 'sysColors', 'projets', 'apprenants'));
         }
-        return view('PkgCreationProjet::equipeProjet.bulk-edit', compact('bulkEdit', 'equipeProjet_ids', 'itemEquipeProjet', 'projets', 'apprenants'));
+        return view('PkgCreationProjet::equipeProjet.bulk-edit', compact('bulkEdit', 'equipeProjet_ids', 'itemEquipeProjet', 'sysColors', 'projets', 'apprenants'));
     }
     /**
      */
@@ -215,8 +220,9 @@ class BaseEquipeProjetController extends AdminController
         $this->authorize('edit', $itemEquipeProjet);
 
 
-        $projets = $this->projetService->getAllForSelect($itemEquipeProjet->projet);
         $apprenants = $this->apprenantService->getAllForSelect($itemEquipeProjet->apprenants);
+        $sysColors = $this->sysColorService->getAllForSelect($itemEquipeProjet->sysColor);
+        $projets = $this->projetService->getAllForSelect($itemEquipeProjet->projet);
 
 
         $this->viewState->set('scope.tache.equipe_projet_id', $id);
@@ -228,7 +234,7 @@ class BaseEquipeProjetController extends AdminController
 
         $bulkEdit = false;
 
-        $viewData = array_merge(compact('bulkEdit' , 'itemEquipeProjet','projets', 'apprenants'),$tache_compact_value);
+        $viewData = array_merge(compact('bulkEdit' , 'itemEquipeProjet','sysColors', 'projets', 'apprenants'),$tache_compact_value);
 
         return $viewData;
 

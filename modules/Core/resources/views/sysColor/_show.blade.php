@@ -27,6 +27,21 @@
                 </div>
             </div>
             @if(
+                  (auth()->user()?->can('show-equipeProjet') && $itemSysColor->equipeProjets->isNotEmpty())  
+                  || auth()->user()?->can('create-equipeProjet')
+                  || (auth()->user()?->can('edit-equipeProjet')  && $itemSysColor->equipeProjets->isNotEmpty() )
+                  )
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::equipeProjet.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgCreationProjet::equipeProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.show_' . $itemSysColor->id])
+                  </div>
+                  </div>
+            </div>
+            @endif
+
+            @if(
                   (auth()->user()?->can('show-etatRealisationTache') && $itemSysColor->etatRealisationTaches->isNotEmpty())  
                   || auth()->user()?->can('create-etatRealisationTache')
                   || (auth()->user()?->can('edit-etatRealisationTache')  && $itemSysColor->etatRealisationTaches->isNotEmpty() )
