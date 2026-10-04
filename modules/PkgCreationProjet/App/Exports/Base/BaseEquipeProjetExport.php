@@ -34,8 +34,8 @@ class BaseEquipeProjetExport implements FromCollection, WithHeadings, ShouldAuto
             return [
                 'nom' => 'nom',
                 'apprenants' => 'apprenants',
-                'sys_color_reference' => 'sys_color_reference',
                 'description' => 'description',
+                'sys_color_reference' => 'sys_color_reference',
                 'reference' => 'reference',
                 'projet_reference' => 'projet_reference',
             ];
@@ -43,8 +43,8 @@ class BaseEquipeProjetExport implements FromCollection, WithHeadings, ShouldAuto
             return [
                 'nom' => __('PkgCreationProjet::equipeProjet.nom'),
                     'apprenants' => __('PkgApprenants::apprenant.plural'),
-                'sys_color_reference' => __('Core::sysColor.singular'),
                 'description' => __('PkgCreationProjet::equipeProjet.description'),
+                'sys_color_reference' => __('Core::sysColor.singular'),
                 'reference' => __('Core::msg.reference'),
                 'projet_reference' => __('PkgCreationProjet::projet.singular'),
             ];
@@ -62,8 +62,8 @@ class BaseEquipeProjetExport implements FromCollection, WithHeadings, ShouldAuto
                 'apprenants' => $equipeProjet->apprenants
                     ->pluck('reference')
                     ->implode('|'),
-                'sys_color_reference' => $equipeProjet->sysColor?->reference,
                 'description' => $equipeProjet->description,
+                'sys_color_reference' => $equipeProjet->sysColor?->reference,
                 'reference' => $equipeProjet->reference,
                 'projet_reference' => $equipeProjet->projet?->reference,
             ];

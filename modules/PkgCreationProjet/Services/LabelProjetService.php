@@ -1,7 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
-
 namespace Modules\PkgCreationProjet\Services;
 use Modules\PkgCreationProjet\Services\Base\BaseLabelProjetService;
 

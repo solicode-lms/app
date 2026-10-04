@@ -26,8 +26,8 @@ class BaseEquipeProjetService extends BaseService
      */
     protected $fieldsSearchable = [
         'nom',
-        'sys_color_id',
         'description',
+        'sys_color_id',
         'reference',
         'projet_id'
     ];

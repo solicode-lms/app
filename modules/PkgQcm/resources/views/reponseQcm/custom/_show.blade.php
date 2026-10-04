@@ -1,3 +1,1 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
-
 @extends('PkgQcm::reponseQcm._show')

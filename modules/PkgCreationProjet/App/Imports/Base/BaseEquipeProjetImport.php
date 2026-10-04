@@ -59,8 +59,8 @@ class BaseEquipeProjetImport implements ToModel, WithHeadingRow
         return new EquipeProjet([
              'nom' => $values[0] ?? null,
              'apprenants' => $values[1] ?? null,
-             'sys_color_id' => $values[2] ?? null,
-             'description' => $values[3] ?? null,
+             'description' => $values[2] ?? null,
+             'sys_color_id' => $values[3] ?? null,
              'reference' => $reference,
              'projet_id' => $values[5] ?? null,
         ]);

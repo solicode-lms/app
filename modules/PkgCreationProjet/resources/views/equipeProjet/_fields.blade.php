@@ -105,6 +105,40 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEquipeProjet" field="description" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-12">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="description" 
+              id="bulk_field_description" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="description">
+            {{ ucfirst(__('PkgCreationProjet::equipeProjet.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                
+                
+                id="description">
+                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemEquipeProjet->description ?? '')) !!}
+                </textarea>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemEquipeProjet" field="sys_color_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
@@ -139,40 +173,6 @@
                 @endforeach
             </select>
           @error('sys_color_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEquipeProjet" field="description" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-12">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="description" 
-              id="bulk_field_description" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="description">
-            {{ ucfirst(__('PkgCreationProjet::equipeProjet.description')) }}
-            
-          </label>
-                      <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                
-                
-                id="description">
-                {!! \App\Helpers\TextHelper::sanitizeTextarea(old('description', $itemEquipeProjet->description ?? '')) !!}
-                </textarea>
-          @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

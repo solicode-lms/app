@@ -1,7 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
-
 namespace Modules\PkgSessions\Services;
 use Modules\PkgSessions\Services\Base\BaseLivrableSessionService;
 

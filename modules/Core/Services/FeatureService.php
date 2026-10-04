@@ -1,7 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
-
 namespace Modules\Core\Services;
 use Modules\Core\Services\Base\BaseFeatureService;
 

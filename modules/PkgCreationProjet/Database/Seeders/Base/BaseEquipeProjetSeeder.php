@@ -89,8 +89,8 @@ class BaseEquipeProjetSeeder extends Seeder
 
                 $equipeProjetData =[
                         "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
-                        "sys_color_id" => $sys_color_id,
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
+                        "sys_color_id" => $sys_color_id,
                         "projet_id" => $projet_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

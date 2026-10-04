@@ -1,7 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
-
 namespace Modules\PkgAutorisation\Services;
 use Modules\PkgAutorisation\Services\Base\BaseRoleService;
 

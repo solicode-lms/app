@@ -1,7 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
-
 namespace Modules\PkgEvaluateurs\Services;
 use Modules\PkgEvaluateurs\Services\Base\BaseEtatEvaluationProjetService;
 

@@ -48,7 +48,7 @@ class BaseEquipeProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'sys_color_id', 'description', 'reference', 'projet_id'
+        'nom', 'description', 'sys_color_id', 'reference', 'projet_id'
     ];
     public $manyToMany = [
         'Apprenant' => ['relation' => 'apprenants' , "foreign_key" => "apprenant_id" ]
