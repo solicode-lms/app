@@ -15,7 +15,7 @@
                 <x-sortable-column :sortable="true" width="11" field="competence_id" modelname="microCompetence" label="{!!ucfirst(__('PkgCompetences::competence.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="6"  field="lien" modelname="microCompetence" label="{!!ucfirst(__('PkgCompetences::microCompetence.lien'))!!}" />
                 <x-sortable-column :sortable="false" width="27.5"  field="UniteApprentissage" modelname="microCompetence" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.plural'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -63,7 +63,9 @@
                         </ul>
 
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
                         @if($microCompetences_permissions['startFormation-microCompetence'])
                         <x-action-button :entity="$microCompetence" actionName="startFormation">
                             <a 
@@ -73,19 +75,19 @@
                             data-id="{{$microCompetence->id}}" 
                             data-url="{{ route('microCompetences.startFormation', ['id' => $microCompetence->id]) }}" 
                             data-action-type="confirm"
-                            class="btn btn-default btn-sm context-state actionEntity">
+                            class="btn btn-default btn-sm context-state actionEntity btn-action-secondary">
                                 <i class="fas fa-graduation-cap"></i>
                             </a>
                         </x-action-button>
                         @endif
                         
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($microCompetences_permissions['edit-microCompetence'])
                         <x-action-button :entity="$microCompetence" actionName="edit">
                         @if($microCompetences_permissionsByItem['update'][$microCompetence->id])
-                            <a href="{{ route('microCompetences.edit', ['microCompetence' => $microCompetence->id]) }}" data-id="{{$microCompetence->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('microCompetences.edit', ['microCompetence' => $microCompetence->id]) }}" data-id="{{$microCompetence->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -94,7 +96,7 @@
                         @if($microCompetences_permissions['show-microCompetence'])
                         <x-action-button :entity="$microCompetence" actionName="show">
                         @if($microCompetences_permissionsByItem['view'][$microCompetence->id])
-                            <a href="{{ route('microCompetences.show', ['microCompetence' => $microCompetence->id]) }}" data-id="{{$microCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('microCompetences.show', ['microCompetence' => $microCompetence->id]) }}" data-id="{{$microCompetence->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -107,13 +109,15 @@
                             <form class="context-state" action="{{ route('microCompetences.destroy',['microCompetence' => $microCompetence->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$microCompetence->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$microCompetence->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

@@ -11,7 +11,7 @@
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="41"  field="type" modelname="widgetType" label="{!!ucfirst(__('PkgWidgets::widgetType.type'))!!}" />
                 <x-sortable-column :sortable="true" width="41"  field="description" modelname="widgetType" label="{!!ucfirst(__('PkgWidgets::widgetType.description'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -32,15 +32,17 @@
                    
 
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($widgetTypes_permissions['edit-widgetType'])
                         <x-action-button :entity="$widgetType" actionName="edit">
                         @if($widgetTypes_permissionsByItem['update'][$widgetType->id])
-                            <a href="{{ route('widgetTypes.edit', ['widgetType' => $widgetType->id]) }}" data-id="{{$widgetType->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('widgetTypes.edit', ['widgetType' => $widgetType->id]) }}" data-id="{{$widgetType->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -49,7 +51,7 @@
                         @if($widgetTypes_permissions['show-widgetType'])
                         <x-action-button :entity="$widgetType" actionName="show">
                         @if($widgetTypes_permissionsByItem['view'][$widgetType->id])
-                            <a href="{{ route('widgetTypes.show', ['widgetType' => $widgetType->id]) }}" data-id="{{$widgetType->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('widgetTypes.show', ['widgetType' => $widgetType->id]) }}" data-id="{{$widgetType->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -62,13 +64,15 @@
                             <form class="context-state" action="{{ route('widgetTypes.destroy',['widgetType' => $widgetType->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$widgetType->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$widgetType->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

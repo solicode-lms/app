@@ -13,7 +13,7 @@
                 <x-sortable-column :sortable="true" width="26"  field="titre" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::sessionFormation.titre'))!!}" />
                 <x-sortable-column :sortable="false" width="26"  field="objectifs_pedagogique" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::sessionFormation.objectifs_pedagogique'))!!}" />
                 <x-sortable-column :sortable="false" width="26"  field="AlignementUa" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::alignementUa.plural'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -39,7 +39,9 @@
                     <td style="max-width: 26%;white-space: normal;" class=" text-truncate" data-id="{{$sessionFormation->id}}" data-field="AlignementUa" >
                         @include('PkgSessions::sessionFormation.custom.fields.alignementUas', ['entity' => $sessionFormation])
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
                         @if($sessionFormations_permissions['add_projet-sessionFormation'])
                         <x-action-button :entity="$sessionFormation" actionName="add_projet">
                             <a 
@@ -49,19 +51,19 @@
                             data-id="{{$sessionFormation->id}}" 
                             data-url="{{ route('sessionFormations.add_projet', ['id' => $sessionFormation->id]) }}" 
                             data-action-type="confirm"
-                            class="btn btn-default btn-sm context-state actionEntity">
+                            class="btn btn-default btn-sm context-state actionEntity btn-action-secondary">
                                 <i class="fas fa-folder-plus"></i>
                             </a>
                         </x-action-button>
                         @endif
                         
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($sessionFormations_permissions['edit-sessionFormation'])
                         <x-action-button :entity="$sessionFormation" actionName="edit">
                         @if($sessionFormations_permissionsByItem['update'][$sessionFormation->id])
-                            <a href="{{ route('sessionFormations.edit', ['sessionFormation' => $sessionFormation->id]) }}" data-id="{{$sessionFormation->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('sessionFormations.edit', ['sessionFormation' => $sessionFormation->id]) }}" data-id="{{$sessionFormation->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -70,7 +72,7 @@
                         @if($sessionFormations_permissions['show-sessionFormation'])
                         <x-action-button :entity="$sessionFormation" actionName="show">
                         @if($sessionFormations_permissionsByItem['view'][$sessionFormation->id])
-                            <a href="{{ route('sessionFormations.show', ['sessionFormation' => $sessionFormation->id]) }}" data-id="{{$sessionFormation->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('sessionFormations.show', ['sessionFormation' => $sessionFormation->id]) }}" data-id="{{$sessionFormation->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -83,13 +85,15 @@
                             <form class="context-state" action="{{ route('sessionFormations.destroy',['sessionFormation' => $sessionFormation->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$sessionFormation->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$sessionFormation->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

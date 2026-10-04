@@ -10,7 +10,7 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="82"  field="nom" modelname="natureLivrable" label="{!!ucfirst(__('PkgCreationProjet::natureLivrable.nom'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -25,15 +25,17 @@
                         {{ $natureLivrable->nom }}
 
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($natureLivrables_permissions['edit-natureLivrable'])
                         <x-action-button :entity="$natureLivrable" actionName="edit">
                         @if($natureLivrables_permissionsByItem['update'][$natureLivrable->id])
-                            <a href="{{ route('natureLivrables.edit', ['natureLivrable' => $natureLivrable->id]) }}" data-id="{{$natureLivrable->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('natureLivrables.edit', ['natureLivrable' => $natureLivrable->id]) }}" data-id="{{$natureLivrable->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -42,7 +44,7 @@
                         @if($natureLivrables_permissions['show-natureLivrable'])
                         <x-action-button :entity="$natureLivrable" actionName="show">
                         @if($natureLivrables_permissionsByItem['view'][$natureLivrable->id])
-                            <a href="{{ route('natureLivrables.show', ['natureLivrable' => $natureLivrable->id]) }}" data-id="{{$natureLivrable->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('natureLivrables.show', ['natureLivrable' => $natureLivrable->id]) }}" data-id="{{$natureLivrable->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -55,13 +57,15 @@
                             <form class="context-state" action="{{ route('natureLivrables.destroy',['natureLivrable' => $natureLivrable->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$natureLivrable->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$natureLivrable->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

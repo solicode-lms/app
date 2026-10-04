@@ -10,7 +10,7 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="82"  field="name" modelname="sysColor" label="{!!ucfirst(__('Core::sysColor.name'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -25,15 +25,17 @@
                         {{ $sysColor->name }}
 
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($sysColors_permissions['edit-sysColor'])
                         <x-action-button :entity="$sysColor" actionName="edit">
                         @if($sysColors_permissionsByItem['update'][$sysColor->id])
-                            <a href="{{ route('sysColors.edit', ['sysColor' => $sysColor->id]) }}" data-id="{{$sysColor->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('sysColors.edit', ['sysColor' => $sysColor->id]) }}" data-id="{{$sysColor->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -42,7 +44,7 @@
                         @if($sysColors_permissions['show-sysColor'])
                         <x-action-button :entity="$sysColor" actionName="show">
                         @if($sysColors_permissionsByItem['view'][$sysColor->id])
-                            <a href="{{ route('sysColors.show', ['sysColor' => $sysColor->id]) }}" data-id="{{$sysColor->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('sysColors.show', ['sysColor' => $sysColor->id]) }}" data-id="{{$sysColor->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -55,13 +57,15 @@
                             <form class="context-state" action="{{ route('sysColors.destroy',['sysColor' => $sysColor->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$sysColor->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$sysColor->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

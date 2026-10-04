@@ -13,7 +13,7 @@
                 <x-sortable-column :sortable="true" width="20.5" field="sys_module_id" modelname="sysModel" label="{!!ucfirst(__('Core::sysModule.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="20.5" field="sys_color_id" modelname="sysModel" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="icone" modelname="sysModel" label="{!!ucfirst(__('Core::sysModel.icone'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -45,15 +45,17 @@
                         </div>
 
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($sysModels_permissions['edit-sysModel'])
                         <x-action-button :entity="$sysModel" actionName="edit">
                         @if($sysModels_permissionsByItem['update'][$sysModel->id])
-                            <a href="{{ route('sysModels.edit', ['sysModel' => $sysModel->id]) }}" data-id="{{$sysModel->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('sysModels.edit', ['sysModel' => $sysModel->id]) }}" data-id="{{$sysModel->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -62,7 +64,7 @@
                         @if($sysModels_permissions['show-sysModel'])
                         <x-action-button :entity="$sysModel" actionName="show">
                         @if($sysModels_permissionsByItem['view'][$sysModel->id])
-                            <a href="{{ route('sysModels.show', ['sysModel' => $sysModel->id]) }}" data-id="{{$sysModel->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('sysModels.show', ['sysModel' => $sysModel->id]) }}" data-id="{{$sysModel->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -75,13 +77,15 @@
                             <form class="context-state" action="{{ route('sysModels.destroy',['sysModel' => $sysModel->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$sysModel->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$sysModel->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

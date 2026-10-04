@@ -13,7 +13,7 @@
                 <x-sortable-column :sortable="true" width="26"  field="code" modelname="etatRealisationCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationCompetence.code'))!!}" />
                 <x-sortable-column :sortable="true" width="26"  field="nom" modelname="etatRealisationCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationCompetence.nom'))!!}" />
                 <x-sortable-column :sortable="true" width="26" field="sys_color_id" modelname="etatRealisationCompetence" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -45,15 +45,17 @@
                         />
 
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($etatRealisationCompetences_permissions['edit-etatRealisationCompetence'])
                         <x-action-button :entity="$etatRealisationCompetence" actionName="edit">
                         @if($etatRealisationCompetences_permissionsByItem['update'][$etatRealisationCompetence->id])
-                            <a href="{{ route('etatRealisationCompetences.edit', ['etatRealisationCompetence' => $etatRealisationCompetence->id]) }}" data-id="{{$etatRealisationCompetence->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('etatRealisationCompetences.edit', ['etatRealisationCompetence' => $etatRealisationCompetence->id]) }}" data-id="{{$etatRealisationCompetence->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -62,7 +64,7 @@
                         @if($etatRealisationCompetences_permissions['show-etatRealisationCompetence'])
                         <x-action-button :entity="$etatRealisationCompetence" actionName="show">
                         @if($etatRealisationCompetences_permissionsByItem['view'][$etatRealisationCompetence->id])
-                            <a href="{{ route('etatRealisationCompetences.show', ['etatRealisationCompetence' => $etatRealisationCompetence->id]) }}" data-id="{{$etatRealisationCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('etatRealisationCompetences.show', ['etatRealisationCompetence' => $etatRealisationCompetence->id]) }}" data-id="{{$etatRealisationCompetence->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -75,13 +77,15 @@
                             <form class="context-state" action="{{ route('etatRealisationCompetences.destroy',['etatRealisationCompetence' => $etatRealisationCompetence->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$etatRealisationCompetence->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$etatRealisationCompetence->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

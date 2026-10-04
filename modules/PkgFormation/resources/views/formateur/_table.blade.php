@@ -13,7 +13,7 @@
                 <x-sortable-column :sortable="true" width="20.5"  field="prenom" modelname="formateur" label="{!!ucfirst(__('PkgFormation::formateur.prenom'))!!}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="specialites" modelname="formateur" label="{!!ucfirst(__('PkgFormation::specialite.plural'))!!}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="groupes" modelname="formateur" label="{!!ucfirst(__('PkgApprenants::groupe.plural'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -46,7 +46,9 @@
                             @endforeach
                         </ul>
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
                         @if($formateurs_permissions['initPassword-formateur'])
                         <x-action-button :entity="$formateur" actionName="initPassword">
                             <a 
@@ -56,19 +58,19 @@
                             data-id="{{$formateur->id}}" 
                             data-url="{{ route('formateurs.initPassword', ['id' => $formateur->id]) }}" 
                             data-action-type="confirm"
-                            class="btn btn-default btn-sm context-state actionEntity">
+                            class="btn btn-default btn-sm context-state actionEntity btn-action-secondary">
                                 <i class="fas fa-unlock-alt"></i>
                             </a>
                         </x-action-button>
                         @endif
                         
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($formateurs_permissions['edit-formateur'])
                         <x-action-button :entity="$formateur" actionName="edit">
                         @if($formateurs_permissionsByItem['update'][$formateur->id])
-                            <a href="{{ route('formateurs.edit', ['formateur' => $formateur->id]) }}" data-id="{{$formateur->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('formateurs.edit', ['formateur' => $formateur->id]) }}" data-id="{{$formateur->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -77,7 +79,7 @@
                         @if($formateurs_permissions['show-formateur'])
                         <x-action-button :entity="$formateur" actionName="show">
                         @if($formateurs_permissionsByItem['view'][$formateur->id])
-                            <a href="{{ route('formateurs.show', ['formateur' => $formateur->id]) }}" data-id="{{$formateur->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('formateurs.show', ['formateur' => $formateur->id]) }}" data-id="{{$formateur->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -90,13 +92,15 @@
                             <form class="context-state" action="{{ route('formateurs.destroy',['formateur' => $formateur->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$formateur->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$formateur->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

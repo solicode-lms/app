@@ -11,7 +11,7 @@
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="41" field="realisation_qcm_id" modelname="reponseQcm" label="{!!ucfirst(__('PkgQcm::realisationQcm.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="41" field="question_id" modelname="reponseQcm" label="{!!ucfirst(__('PkgQcm::question.singular'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -30,15 +30,17 @@
                         {{  $reponseQcm->question }}
 
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($reponseQcms_permissions['edit-reponseQcm'])
                         <x-action-button :entity="$reponseQcm" actionName="edit">
                         @if($reponseQcms_permissionsByItem['update'][$reponseQcm->id])
-                            <a href="{{ route('reponseQcms.edit', ['reponseQcm' => $reponseQcm->id]) }}" data-id="{{$reponseQcm->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('reponseQcms.edit', ['reponseQcm' => $reponseQcm->id]) }}" data-id="{{$reponseQcm->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -47,7 +49,7 @@
                         @if($reponseQcms_permissions['show-reponseQcm'])
                         <x-action-button :entity="$reponseQcm" actionName="show">
                         @if($reponseQcms_permissionsByItem['view'][$reponseQcm->id])
-                            <a href="{{ route('reponseQcms.show', ['reponseQcm' => $reponseQcm->id]) }}" data-id="{{$reponseQcm->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('reponseQcms.show', ['reponseQcm' => $reponseQcm->id]) }}" data-id="{{$reponseQcm->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -60,13 +62,15 @@
                             <form class="context-state" action="{{ route('reponseQcms.destroy',['reponseQcm' => $reponseQcm->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$reponseQcm->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$reponseQcm->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

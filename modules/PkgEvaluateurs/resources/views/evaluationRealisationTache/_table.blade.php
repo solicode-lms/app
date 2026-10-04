@@ -12,7 +12,7 @@
                 <x-sortable-column :sortable="true" width="50" field="realisation_tache_id" modelname="evaluationRealisationTache" label="{!!ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.realisation_tache_id'))!!}" />
                 <x-sortable-column :sortable="true" width="16"  field="note" modelname="evaluationRealisationTache" label="{!!ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.note'))!!}" />
                 <x-sortable-column :sortable="true" width="16"  field="nombre_livrables" modelname="evaluationRealisationTache" label="{!!ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.nombre_livrables'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -32,15 +32,17 @@
                     <td style="max-width: 16%;white-space: normal;" class=" text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="nombre_livrables" >
                         @include('PkgEvaluateurs::evaluationRealisationTache.custom.fields.nombre_livrables', ['entity' => $evaluationRealisationTache])
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($evaluationRealisationTaches_permissions['edit-evaluationRealisationTache'])
                         <x-action-button :entity="$evaluationRealisationTache" actionName="edit">
                         @if($evaluationRealisationTaches_permissionsByItem['update'][$evaluationRealisationTache->id])
-                            <a href="{{ route('evaluationRealisationTaches.edit', ['evaluationRealisationTache' => $evaluationRealisationTache->id]) }}" data-id="{{$evaluationRealisationTache->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('evaluationRealisationTaches.edit', ['evaluationRealisationTache' => $evaluationRealisationTache->id]) }}" data-id="{{$evaluationRealisationTache->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -49,7 +51,7 @@
                         @if($evaluationRealisationTaches_permissions['show-evaluationRealisationTache'])
                         <x-action-button :entity="$evaluationRealisationTache" actionName="show">
                         @if($evaluationRealisationTaches_permissionsByItem['view'][$evaluationRealisationTache->id])
-                            <a href="{{ route('evaluationRealisationTaches.show', ['evaluationRealisationTache' => $evaluationRealisationTache->id]) }}" data-id="{{$evaluationRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('evaluationRealisationTaches.show', ['evaluationRealisationTache' => $evaluationRealisationTache->id]) }}" data-id="{{$evaluationRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -62,13 +64,15 @@
                             <form class="context-state" action="{{ route('evaluationRealisationTaches.destroy',['evaluationRealisationTache' => $evaluationRealisationTache->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$evaluationRealisationTache->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$evaluationRealisationTache->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

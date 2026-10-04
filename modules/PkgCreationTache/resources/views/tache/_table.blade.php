@@ -15,7 +15,7 @@
                 <x-sortable-column :sortable="true" width="10"  field="note" modelname="tache" label="{!!ucfirst(__('PkgCreationTache::tache.note'))!!}" />
                 <x-sortable-column :sortable="true" width="9" field="equipe_projet_id" modelname="tache" label="{!!ucfirst(__('PkgCreationProjet::equipeProjet.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="9"  field="livrables" modelname="tache" label="{!!ucfirst(__('PkgCreationProjet::livrable.plural'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -53,15 +53,17 @@
                             @endforeach
                         </ul>
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($taches_permissions['edit-tache'])
                         <x-action-button :entity="$tache" actionName="edit">
                         @if($taches_permissionsByItem['update'][$tache->id])
-                            <a href="{{ route('taches.edit', ['tache' => $tache->id]) }}" data-id="{{$tache->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('taches.edit', ['tache' => $tache->id]) }}" data-id="{{$tache->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -70,7 +72,7 @@
                         @if($taches_permissions['show-tache'])
                         <x-action-button :entity="$tache" actionName="show">
                         @if($taches_permissionsByItem['view'][$tache->id])
-                            <a href="{{ route('taches.show', ['tache' => $tache->id]) }}" data-id="{{$tache->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('taches.show', ['tache' => $tache->id]) }}" data-id="{{$tache->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -83,13 +85,15 @@
                             <form class="context-state" action="{{ route('taches.destroy',['tache' => $tache->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$tache->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$tache->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

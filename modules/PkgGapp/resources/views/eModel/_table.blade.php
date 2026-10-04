@@ -12,7 +12,7 @@
                 <x-sortable-column :sortable="true" width="7"  field="icone" modelname="eModel" label="{!!ucfirst(__('PkgGapp::eModel.icone'))!!}" />
                 <x-sortable-column :sortable="true" width="37.5"  field="name" modelname="eModel" label="{!!ucfirst(__('PkgGapp::eModel.name'))!!}" />
                 <x-sortable-column :sortable="true" width="37.5" field="e_package_id" modelname="eModel" label="{!!ucfirst(__('PkgGapp::ePackage.singular'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -37,15 +37,17 @@
                         {{  $eModel->ePackage }}
 
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($eModels_permissions['edit-eModel'])
                         <x-action-button :entity="$eModel" actionName="edit">
                         @if($eModels_permissionsByItem['update'][$eModel->id])
-                            <a href="{{ route('eModels.edit', ['eModel' => $eModel->id]) }}" data-id="{{$eModel->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('eModels.edit', ['eModel' => $eModel->id]) }}" data-id="{{$eModel->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -54,7 +56,7 @@
                         @if($eModels_permissions['show-eModel'])
                         <x-action-button :entity="$eModel" actionName="show">
                         @if($eModels_permissionsByItem['view'][$eModel->id])
-                            <a href="{{ route('eModels.show', ['eModel' => $eModel->id]) }}" data-id="{{$eModel->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('eModels.show', ['eModel' => $eModel->id]) }}" data-id="{{$eModel->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -67,13 +69,15 @@
                             <form class="context-state" action="{{ route('eModels.destroy',['eModel' => $eModel->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$eModel->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$eModel->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

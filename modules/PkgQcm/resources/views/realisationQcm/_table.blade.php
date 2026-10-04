@@ -13,7 +13,7 @@
                 <x-sortable-column :sortable="true" width="20.5" field="apprenant_id" modelname="realisationQcm" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="20.5" field="etat_realisation_qcm_id" modelname="realisationQcm" label="{!!ucfirst(__('PkgQcm::etatRealisationQcm.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="note_obtenu" modelname="realisationQcm" label="{!!ucfirst(__('PkgQcm::realisationQcm.note_obtenu'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -44,7 +44,9 @@
                     <td style="max-width: 20.5%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationQcm->id}}" data-field="note_obtenu" >
                         @include('PkgQcm::realisationQcm.custom.fields.note_obtenu', ['entity' => $realisationQcm])
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
                         @if($realisationQcms_permissions['passer-qcm'])
                         <x-action-button :entity="$realisationQcm" actionName="passerQcm">
                             <a
@@ -53,7 +55,7 @@
                                 href="{{ route('passerQcm.index', [
                                         'realisation_qcm_id' => $realisationQcm->id,
                                 ]) }}"
-                                class="btn btn-info btn-sm actionEntity"
+                                class="btn btn-info btn-sm actionEntity btn-action-secondary"
                                 data-id="{{ $realisationQcm->id }}">
                                 <i class="fas fa-play-circle"></i>
                             </a>
@@ -68,19 +70,19 @@
                             data-id="{{$realisationQcm->id}}" 
                             data-url="{{ route('realisationQcms.initQcm', ['id' => $realisationQcm->id]) }}" 
                             data-action-type="confirm"
-                            class="btn btn-default btn-sm context-state actionEntity">
+                            class="btn btn-default btn-sm context-state actionEntity btn-action-secondary">
                                 <i class="fas fa-redo"></i>
                             </a>
                         </x-action-button>
                         @endif
                         
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($realisationQcms_permissions['edit-realisationQcm'])
                         <x-action-button :entity="$realisationQcm" actionName="edit">
                         @if($realisationQcms_permissionsByItem['update'][$realisationQcm->id])
-                            <a href="{{ route('realisationQcms.edit', ['realisationQcm' => $realisationQcm->id]) }}" data-id="{{$realisationQcm->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('realisationQcms.edit', ['realisationQcm' => $realisationQcm->id]) }}" data-id="{{$realisationQcm->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -89,7 +91,7 @@
                         @if($realisationQcms_permissions['show-realisationQcm'])
                         <x-action-button :entity="$realisationQcm" actionName="show">
                         @if($realisationQcms_permissionsByItem['view'][$realisationQcm->id])
-                            <a href="{{ route('realisationQcms.show', ['realisationQcm' => $realisationQcm->id]) }}" data-id="{{$realisationQcm->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('realisationQcms.show', ['realisationQcm' => $realisationQcm->id]) }}" data-id="{{$realisationQcm->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -102,13 +104,15 @@
                             <form class="context-state" action="{{ route('realisationQcms.destroy',['realisationQcm' => $realisationQcm->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$realisationQcm->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$realisationQcm->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

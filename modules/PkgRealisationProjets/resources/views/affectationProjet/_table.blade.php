@@ -14,7 +14,7 @@
                 <x-sortable-column :sortable="true" width="16.4"  field="date_debut" modelname="affectationProjet" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.date_debut'))!!}" />
                 <x-sortable-column :sortable="true" width="16.4"  field="date_fin" modelname="affectationProjet" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin'))!!}" />
                 <x-sortable-column :sortable="false" width="16.4"  field="evaluateurs" modelname="affectationProjet" label="{!!ucfirst(__('PkgEvaluateurs::evaluateur.plural'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -46,7 +46,9 @@
                             @endforeach
                         </ul>
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
                         @if($affectationProjets_permissions['exportPV-affectationProjet'])
                         <x-action-button :entity="$affectationProjet" actionName="exportPV">
                             <a 
@@ -56,19 +58,19 @@
                             data-id="{{$affectationProjet->id}}" 
                             data-url="{{ route('affectationProjets.exportPV', ['id' => $affectationProjet->id]) }}" 
                             data-action-type="downloadMode"
-                            class="btn btn-default btn-sm context-state actionEntity">
+                            class="btn btn-default btn-sm context-state actionEntity btn-action-secondary">
                                 <i class="fas fa-file-excel"></i>
                             </a>
                         </x-action-button>
                         @endif
                         
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($affectationProjets_permissions['edit-affectationProjet'])
                         <x-action-button :entity="$affectationProjet" actionName="edit">
                         @if($affectationProjets_permissionsByItem['update'][$affectationProjet->id])
-                            <a href="{{ route('affectationProjets.edit', ['affectationProjet' => $affectationProjet->id]) }}" data-id="{{$affectationProjet->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('affectationProjets.edit', ['affectationProjet' => $affectationProjet->id]) }}" data-id="{{$affectationProjet->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -77,7 +79,7 @@
                         @if($affectationProjets_permissions['show-affectationProjet'])
                         <x-action-button :entity="$affectationProjet" actionName="show">
                         @if($affectationProjets_permissionsByItem['view'][$affectationProjet->id])
-                            <a href="{{ route('affectationProjets.show', ['affectationProjet' => $affectationProjet->id]) }}" data-id="{{$affectationProjet->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('affectationProjets.show', ['affectationProjet' => $affectationProjet->id]) }}" data-id="{{$affectationProjet->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -90,13 +92,15 @@
                             <form class="context-state" action="{{ route('affectationProjets.destroy',['affectationProjet' => $affectationProjet->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$affectationProjet->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$affectationProjet->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

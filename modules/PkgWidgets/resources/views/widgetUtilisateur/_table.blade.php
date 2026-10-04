@@ -14,7 +14,7 @@
                 <x-sortable-column :sortable="true" width="19.25"  field="package" modelname="widgetUtilisateur" label="{!!ucfirst(__('PkgWidgets::widgetUtilisateur.package'))!!}" />
                 <x-sortable-column :sortable="true" width="19.25"  field="type" modelname="widgetUtilisateur" label="{!!ucfirst(__('PkgWidgets::widgetUtilisateur.type'))!!}" />
                 <x-sortable-column :sortable="true" width="19.25"  field="visible" modelname="widgetUtilisateur" label="{!!ucfirst(__('PkgWidgets::widgetUtilisateur.visible'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -49,15 +49,17 @@
                         </span>
 
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($widgetUtilisateurs_permissions['edit-widgetUtilisateur'])
                         <x-action-button :entity="$widgetUtilisateur" actionName="edit">
                         @if($widgetUtilisateurs_permissionsByItem['update'][$widgetUtilisateur->id])
-                            <a href="{{ route('widgetUtilisateurs.edit', ['widgetUtilisateur' => $widgetUtilisateur->id]) }}" data-id="{{$widgetUtilisateur->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('widgetUtilisateurs.edit', ['widgetUtilisateur' => $widgetUtilisateur->id]) }}" data-id="{{$widgetUtilisateur->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -66,7 +68,7 @@
                         @if($widgetUtilisateurs_permissions['show-widgetUtilisateur'])
                         <x-action-button :entity="$widgetUtilisateur" actionName="show">
                         @if($widgetUtilisateurs_permissionsByItem['view'][$widgetUtilisateur->id])
-                            <a href="{{ route('widgetUtilisateurs.show', ['widgetUtilisateur' => $widgetUtilisateur->id]) }}" data-id="{{$widgetUtilisateur->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('widgetUtilisateurs.show', ['widgetUtilisateur' => $widgetUtilisateur->id]) }}" data-id="{{$widgetUtilisateur->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -79,13 +81,15 @@
                             <form class="context-state" action="{{ route('widgetUtilisateurs.destroy',['widgetUtilisateur' => $widgetUtilisateur->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$widgetUtilisateur->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$widgetUtilisateur->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

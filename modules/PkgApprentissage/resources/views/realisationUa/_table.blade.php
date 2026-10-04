@@ -14,7 +14,7 @@
                 <x-sortable-column :sortable="true" width="20"  field="progression_cache" modelname="realisationUa" label="{!!ucfirst(__('PkgApprentissage::realisationUa.progression_cache'))!!}" />
                 <x-sortable-column :sortable="true" width="11.333333333333334"  field="note_cache" modelname="realisationUa" label="{!!ucfirst(__('PkgApprentissage::realisationUa.note_cache'))!!}" />
                 <x-sortable-column :sortable="true" width="11.333333333333334"  field="note_cc_cache" modelname="realisationUa" label="{!!ucfirst(__('PkgApprentissage::realisationUa.note_cc_cache'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -47,15 +47,17 @@
                     <td style="max-width: 11.333333333333334%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUa->id}}" data-field="note_cc_cache" >
                         @include('PkgApprentissage::realisationUa.custom.fields.note_cc_cache', ['entity' => $realisationUa])
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($realisationUas_permissions['edit-realisationUa'])
                         <x-action-button :entity="$realisationUa" actionName="edit">
                         @if($realisationUas_permissionsByItem['update'][$realisationUa->id])
-                            <a href="{{ route('realisationUas.edit', ['realisationUa' => $realisationUa->id]) }}" data-id="{{$realisationUa->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('realisationUas.edit', ['realisationUa' => $realisationUa->id]) }}" data-id="{{$realisationUa->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -64,7 +66,7 @@
                         @if($realisationUas_permissions['show-realisationUa'])
                         <x-action-button :entity="$realisationUa" actionName="show">
                         @if($realisationUas_permissionsByItem['view'][$realisationUa->id])
-                            <a href="{{ route('realisationUas.show', ['realisationUa' => $realisationUa->id]) }}" data-id="{{$realisationUa->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('realisationUas.show', ['realisationUa' => $realisationUa->id]) }}" data-id="{{$realisationUa->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -77,13 +79,15 @@
                             <form class="context-state" action="{{ route('realisationUas.destroy',['realisationUa' => $realisationUa->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$realisationUa->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$realisationUa->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

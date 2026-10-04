@@ -13,7 +13,7 @@
                 <x-sortable-column :sortable="true" width="32.5"  field="progression_cache" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.progression_cache'))!!}" />
                 <x-sortable-column :sortable="true" width="10"  field="note_cache" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.note_cache'))!!}" />
                 <x-sortable-column :sortable="true" width="7"  field="lien_livrable" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.lien_livrable'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -44,15 +44,17 @@
 
 
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($realisationMicroCompetences_permissions['edit-realisationMicroCompetence'])
                         <x-action-button :entity="$realisationMicroCompetence" actionName="edit">
                         @if($realisationMicroCompetences_permissionsByItem['update'][$realisationMicroCompetence->id])
-                            <a href="{{ route('realisationMicroCompetences.edit', ['realisationMicroCompetence' => $realisationMicroCompetence->id]) }}" data-id="{{$realisationMicroCompetence->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('realisationMicroCompetences.edit', ['realisationMicroCompetence' => $realisationMicroCompetence->id]) }}" data-id="{{$realisationMicroCompetence->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -61,7 +63,7 @@
                         @if($realisationMicroCompetences_permissions['show-realisationMicroCompetence'])
                         <x-action-button :entity="$realisationMicroCompetence" actionName="show">
                         @if($realisationMicroCompetences_permissionsByItem['view'][$realisationMicroCompetence->id])
-                            <a href="{{ route('realisationMicroCompetences.show', ['realisationMicroCompetence' => $realisationMicroCompetence->id]) }}" data-id="{{$realisationMicroCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('realisationMicroCompetences.show', ['realisationMicroCompetence' => $realisationMicroCompetence->id]) }}" data-id="{{$realisationMicroCompetence->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -74,13 +76,15 @@
                             <form class="context-state" action="{{ route('realisationMicroCompetences.destroy',['realisationMicroCompetence' => $realisationMicroCompetence->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$realisationMicroCompetence->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$realisationMicroCompetence->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

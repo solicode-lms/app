@@ -12,7 +12,7 @@
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="name" modelname="permission" label="{!!ucfirst(__('PkgAutorisation::permission.name'))!!}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="controller_id" modelname="permission" label="{!!ucfirst(__('Core::sysController.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="roles" modelname="permission" label="{!!ucfirst(__('PkgAutorisation::role.plural'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -38,15 +38,17 @@
                             @endforeach
                         </ul>
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($permissions_permissions['edit-permission'])
                         <x-action-button :entity="$permission" actionName="edit">
                         @if($permissions_permissionsByItem['update'][$permission->id])
-                            <a href="{{ route('permissions.edit', ['permission' => $permission->id]) }}" data-id="{{$permission->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('permissions.edit', ['permission' => $permission->id]) }}" data-id="{{$permission->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -55,7 +57,7 @@
                         @if($permissions_permissions['show-permission'])
                         <x-action-button :entity="$permission" actionName="show">
                         @if($permissions_permissionsByItem['view'][$permission->id])
-                            <a href="{{ route('permissions.show', ['permission' => $permission->id]) }}" data-id="{{$permission->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('permissions.show', ['permission' => $permission->id]) }}" data-id="{{$permission->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -68,13 +70,15 @@
                             <form class="context-state" action="{{ route('permissions.destroy',['permission' => $permission->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$permission->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$permission->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

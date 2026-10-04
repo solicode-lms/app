@@ -10,7 +10,7 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="30" field="unite_apprentissage_id" modelname="mobilisationUa" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.singular'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -25,15 +25,17 @@
                         {{  $mobilisationUa->uniteApprentissage }}
 
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($mobilisationUas_permissions['edit-mobilisationUa'])
                         <x-action-button :entity="$mobilisationUa" actionName="edit">
                         @if($mobilisationUas_permissionsByItem['update'][$mobilisationUa->id])
-                            <a href="{{ route('mobilisationUas.edit', ['mobilisationUa' => $mobilisationUa->id]) }}" data-id="{{$mobilisationUa->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('mobilisationUas.edit', ['mobilisationUa' => $mobilisationUa->id]) }}" data-id="{{$mobilisationUa->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -42,7 +44,7 @@
                         @if($mobilisationUas_permissions['show-mobilisationUa'])
                         <x-action-button :entity="$mobilisationUa" actionName="show">
                         @if($mobilisationUas_permissionsByItem['view'][$mobilisationUa->id])
-                            <a href="{{ route('mobilisationUas.show', ['mobilisationUa' => $mobilisationUa->id]) }}" data-id="{{$mobilisationUa->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('mobilisationUas.show', ['mobilisationUa' => $mobilisationUa->id]) }}" data-id="{{$mobilisationUa->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -55,13 +57,15 @@
                             <form class="context-state" action="{{ route('mobilisationUas.destroy',['mobilisationUa' => $mobilisationUa->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$mobilisationUa->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$mobilisationUa->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

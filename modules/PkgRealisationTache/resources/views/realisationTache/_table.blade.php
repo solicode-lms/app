@@ -12,7 +12,7 @@
                 <x-sortable-column :sortable="true" width="40" field="tache_id" modelname="realisationTache" label="{!!ucfirst(__('PkgCreationTache::tache.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="20" field="etat_realisation_tache_id" modelname="realisationTache" label="{!!ucfirst(__('PkgRealisationTache::realisationTache.etat_realisation_tache_id'))!!}" />
                 <x-sortable-column :sortable="true" width="20"  field="nombre_livrables" modelname="realisationTache" label="{!!ucfirst(__('PkgRealisationTache::realisationTache.nombre_livrables'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -32,7 +32,9 @@
                     <td style="max-width: 20%;white-space: normal;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="nombre_livrables" >
                         @include('PkgRealisationTache::realisationTache.custom.fields.nombre_livrables', ['entity' => $realisationTache])
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
                         @if($realisationTaches_permissions['index-livrablesRealisation'])
                         <x-action-button :entity="$realisationTache" actionName="livrablesRealisations">
                             <a
@@ -44,20 +46,20 @@
                                         'scope.livrable.projet_id' => $realisationTache->realisationProjet->affectationProjet->projet_id,
                                         'scope.livrablesRealisation.realisation_projet_id' => $realisationTache->realisation_projet_id,
                                 ]) }}"
-                                class="btn btn-default btn-sm context-state actionEntity showIndex"
+                                class="btn btn-default btn-sm context-state actionEntity showIndex btn-action-secondary"
                                 data-id="{{ $realisationTache->id }}">
                                 <i class="fas fa-file-alt"></i>
                             </a>
                         </x-action-button>
                         @endif
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($realisationTaches_permissions['edit-realisationTache'])
                         <x-action-button :entity="$realisationTache" actionName="edit">
                         @if($realisationTaches_permissionsByItem['update'][$realisationTache->id])
-                            <a href="{{ route('realisationTaches.edit', ['realisationTache' => $realisationTache->id]) }}" data-id="{{$realisationTache->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('realisationTaches.edit', ['realisationTache' => $realisationTache->id]) }}" data-id="{{$realisationTache->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -66,7 +68,7 @@
                         @if($realisationTaches_permissions['show-realisationTache'])
                         <x-action-button :entity="$realisationTache" actionName="show">
                         @if($realisationTaches_permissionsByItem['view'][$realisationTache->id])
-                            <a href="{{ route('realisationTaches.show', ['realisationTache' => $realisationTache->id]) }}" data-id="{{$realisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('realisationTaches.show', ['realisationTache' => $realisationTache->id]) }}" data-id="{{$realisationTache->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -79,13 +81,15 @@
                             <form class="context-state" action="{{ route('realisationTaches.destroy',['realisationTache' => $realisationTache->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$realisationTache->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$realisationTache->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

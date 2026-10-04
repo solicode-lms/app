@@ -12,7 +12,7 @@
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="title" modelname="notification" label="{!!ucfirst(__('PkgNotification::notification.title'))!!}" />
                 <x-sortable-column :sortable="false" width="27.333333333333332"  field="message" modelname="notification" label="{!!ucfirst(__('PkgNotification::notification.message'))!!}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="sent_at" modelname="notification" label="{!!ucfirst(__('PkgNotification::notification.sent_at'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -36,15 +36,17 @@
                     <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$notification->id}}" data-field="sent_at">
                         <x-deadline-display :value="$notification->sent_at" />
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($notifications_permissions['edit-notification'])
                         <x-action-button :entity="$notification" actionName="edit">
                         @if($notifications_permissionsByItem['update'][$notification->id])
-                            <a href="{{ route('notifications.edit', ['notification' => $notification->id]) }}" data-id="{{$notification->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('notifications.edit', ['notification' => $notification->id]) }}" data-id="{{$notification->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -53,7 +55,7 @@
                         @if($notifications_permissions['show-notification'])
                         <x-action-button :entity="$notification" actionName="show">
                         @if($notifications_permissionsByItem['view'][$notification->id])
-                            <a href="{{ route('notifications.show', ['notification' => $notification->id]) }}" data-id="{{$notification->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('notifications.show', ['notification' => $notification->id]) }}" data-id="{{$notification->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -66,13 +68,15 @@
                             <form class="context-state" action="{{ route('notifications.destroy',['notification' => $notification->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$notification->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$notification->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

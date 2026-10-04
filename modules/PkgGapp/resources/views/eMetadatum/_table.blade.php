@@ -12,7 +12,7 @@
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="e_model_id" modelname="eMetadatum" label="{!!ucfirst(__('PkgGapp::eModel.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="e_data_field_id" modelname="eMetadatum" label="{!!ucfirst(__('PkgGapp::eDataField.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="e_metadata_definition_id" modelname="eMetadatum" label="{!!ucfirst(__('PkgGapp::eMetadataDefinition.singular'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -34,15 +34,17 @@
                     <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadatum->id}}" data-field="e_metadata_definition_id" >
                         @include('PkgGapp::eMetadatum.custom.fields.eMetadataDefinition', ['entity' => $eMetadatum])
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($eMetadata_permissions['edit-eMetadatum'])
                         <x-action-button :entity="$eMetadatum" actionName="edit">
                         @if($eMetadata_permissionsByItem['update'][$eMetadatum->id])
-                            <a href="{{ route('eMetadata.edit', ['eMetadatum' => $eMetadatum->id]) }}" data-id="{{$eMetadatum->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('eMetadata.edit', ['eMetadatum' => $eMetadatum->id]) }}" data-id="{{$eMetadatum->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -51,7 +53,7 @@
                         @if($eMetadata_permissions['show-eMetadatum'])
                         <x-action-button :entity="$eMetadatum" actionName="show">
                         @if($eMetadata_permissionsByItem['view'][$eMetadatum->id])
-                            <a href="{{ route('eMetadata.show', ['eMetadatum' => $eMetadatum->id]) }}" data-id="{{$eMetadatum->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('eMetadata.show', ['eMetadatum' => $eMetadatum->id]) }}" data-id="{{$eMetadatum->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -64,13 +66,15 @@
                             <form class="context-state" action="{{ route('eMetadata.destroy',['eMetadatum' => $eMetadatum->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$eMetadatum->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$eMetadatum->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

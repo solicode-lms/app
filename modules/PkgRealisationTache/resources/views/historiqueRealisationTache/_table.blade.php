@@ -12,7 +12,7 @@
                 <x-sortable-column :sortable="true" width="50"  field="changement" modelname="historiqueRealisationTache" label="{!!ucfirst(__('PkgRealisationTache::historiqueRealisationTache.changement'))!!}" />
                 <x-sortable-column :sortable="true" width="15"  field="dateModification" modelname="historiqueRealisationTache" label="{!!ucfirst(__('PkgRealisationTache::historiqueRealisationTache.dateModification'))!!}" />
                 <x-sortable-column :sortable="true" width="17" field="user_id" modelname="historiqueRealisationTache" label="{!!ucfirst(__('PkgAutorisation::user.singular'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -36,15 +36,17 @@
                         {{  $historiqueRealisationTache->user }}
 
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($historiqueRealisationTaches_permissions['edit-historiqueRealisationTache'])
                         <x-action-button :entity="$historiqueRealisationTache" actionName="edit">
                         @if($historiqueRealisationTaches_permissionsByItem['update'][$historiqueRealisationTache->id])
-                            <a href="{{ route('historiqueRealisationTaches.edit', ['historiqueRealisationTache' => $historiqueRealisationTache->id]) }}" data-id="{{$historiqueRealisationTache->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('historiqueRealisationTaches.edit', ['historiqueRealisationTache' => $historiqueRealisationTache->id]) }}" data-id="{{$historiqueRealisationTache->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -53,7 +55,7 @@
                         @if($historiqueRealisationTaches_permissions['show-historiqueRealisationTache'])
                         <x-action-button :entity="$historiqueRealisationTache" actionName="show">
                         @if($historiqueRealisationTaches_permissionsByItem['view'][$historiqueRealisationTache->id])
-                            <a href="{{ route('historiqueRealisationTaches.show', ['historiqueRealisationTache' => $historiqueRealisationTache->id]) }}" data-id="{{$historiqueRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('historiqueRealisationTaches.show', ['historiqueRealisationTache' => $historiqueRealisationTache->id]) }}" data-id="{{$historiqueRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -66,13 +68,15 @@
                             <form class="context-state" action="{{ route('historiqueRealisationTaches.destroy',['historiqueRealisationTache' => $historiqueRealisationTache->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$historiqueRealisationTache->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$historiqueRealisationTache->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

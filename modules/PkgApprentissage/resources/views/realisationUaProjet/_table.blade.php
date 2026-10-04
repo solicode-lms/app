@@ -12,7 +12,7 @@
                 <x-sortable-column :sortable="true" width="35" field="realisation_tache_id" modelname="realisationUaProjet" label="{!!ucfirst(__('PkgApprentissage::realisationUaProjet.realisation_tache_id'))!!}" />
                 <x-sortable-column :sortable="true" width="11"  field="note" modelname="realisationUaProjet" label="{!!ucfirst(__('PkgApprentissage::realisationUaProjet.note'))!!}" />
                 <x-sortable-column :sortable="false" width="36"  field="criteres_evaluation" modelname="realisationUaProjet" label="{!!ucfirst(__('PkgApprentissage::realisationUaProjet.criteres_evaluation'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -32,15 +32,17 @@
                     <td style="max-width: 36%;white-space: normal;" class=" text-truncate" data-id="{{$realisationUaProjet->id}}" data-field="criteres_evaluation" >
                         @include('PkgApprentissage::realisationUaProjet.custom.fields.criteres_evaluation', ['entity' => $realisationUaProjet])
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($realisationUaProjets_permissions['edit-realisationUaProjet'])
                         <x-action-button :entity="$realisationUaProjet" actionName="edit">
                         @if($realisationUaProjets_permissionsByItem['update'][$realisationUaProjet->id])
-                            <a href="{{ route('realisationUaProjets.edit', ['realisationUaProjet' => $realisationUaProjet->id]) }}" data-id="{{$realisationUaProjet->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('realisationUaProjets.edit', ['realisationUaProjet' => $realisationUaProjet->id]) }}" data-id="{{$realisationUaProjet->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -49,7 +51,7 @@
                         @if($realisationUaProjets_permissions['show-realisationUaProjet'])
                         <x-action-button :entity="$realisationUaProjet" actionName="show">
                         @if($realisationUaProjets_permissionsByItem['view'][$realisationUaProjet->id])
-                            <a href="{{ route('realisationUaProjets.show', ['realisationUaProjet' => $realisationUaProjet->id]) }}" data-id="{{$realisationUaProjet->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('realisationUaProjets.show', ['realisationUaProjet' => $realisationUaProjet->id]) }}" data-id="{{$realisationUaProjet->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -62,13 +64,15 @@
                             <form class="context-state" action="{{ route('realisationUaProjets.destroy',['realisationUaProjet' => $realisationUaProjet->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$realisationUaProjet->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$realisationUaProjet->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

@@ -13,7 +13,7 @@
                 <x-sortable-column :sortable="true" width="20.5"  field="prenom" modelname="evaluateur" label="{!!ucfirst(__('PkgEvaluateurs::evaluateur.prenom'))!!}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="organism" modelname="evaluateur" label="{!!ucfirst(__('PkgEvaluateurs::evaluateur.organism'))!!}" />
                 <x-sortable-column :sortable="true" width="20.5" field="user_id" modelname="evaluateur" label="{!!ucfirst(__('PkgAutorisation::user.singular'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -40,7 +40,9 @@
                         {{  $evaluateur->user }}
 
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
                         @if($evaluateurs_permissions['initPassword-evaluateur'])
                         <x-action-button :entity="$evaluateur" actionName="initPassword">
                             <a 
@@ -50,19 +52,19 @@
                             data-id="{{$evaluateur->id}}" 
                             data-url="{{ route('evaluateurs.initPassword', ['id' => $evaluateur->id]) }}" 
                             data-action-type="confirm"
-                            class="btn btn-default btn-sm context-state actionEntity">
+                            class="btn btn-default btn-sm context-state actionEntity btn-action-secondary">
                                 <i class="fas fa-unlock-alt"></i>
                             </a>
                         </x-action-button>
                         @endif
                         
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($evaluateurs_permissions['edit-evaluateur'])
                         <x-action-button :entity="$evaluateur" actionName="edit">
                         @if($evaluateurs_permissionsByItem['update'][$evaluateur->id])
-                            <a href="{{ route('evaluateurs.edit', ['evaluateur' => $evaluateur->id]) }}" data-id="{{$evaluateur->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('evaluateurs.edit', ['evaluateur' => $evaluateur->id]) }}" data-id="{{$evaluateur->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -71,7 +73,7 @@
                         @if($evaluateurs_permissions['show-evaluateur'])
                         <x-action-button :entity="$evaluateur" actionName="show">
                         @if($evaluateurs_permissionsByItem['view'][$evaluateur->id])
-                            <a href="{{ route('evaluateurs.show', ['evaluateur' => $evaluateur->id]) }}" data-id="{{$evaluateur->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('evaluateurs.show', ['evaluateur' => $evaluateur->id]) }}" data-id="{{$evaluateur->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -84,13 +86,15 @@
                             <form class="context-state" action="{{ route('evaluateurs.destroy',['evaluateur' => $evaluateur->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$evaluateur->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$evaluateur->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

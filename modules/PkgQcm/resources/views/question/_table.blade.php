@@ -13,7 +13,7 @@
                 <x-sortable-column :sortable="false" width="26"  field="enonce" modelname="question" label="{!!ucfirst(__('PkgQcm::question.enonce'))!!}" />
                 <x-sortable-column :sortable="false" width="26"  field="PropositionReponse" modelname="question" label="{!!ucfirst(__('PkgQcm::propositionReponse.plural'))!!}" />
                 <x-sortable-column :sortable="true" width="26" field="unite_apprentissage_id" modelname="question" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.singular'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -48,15 +48,17 @@
                         {{  $question->uniteApprentissage }}
 
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($questions_permissions['edit-question'])
                         <x-action-button :entity="$question" actionName="edit">
                         @if($questions_permissionsByItem['update'][$question->id])
-                            <a href="{{ route('questions.edit', ['question' => $question->id]) }}" data-id="{{$question->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('questions.edit', ['question' => $question->id]) }}" data-id="{{$question->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -65,7 +67,7 @@
                         @if($questions_permissions['show-question'])
                         <x-action-button :entity="$question" actionName="show">
                         @if($questions_permissionsByItem['view'][$question->id])
-                            <a href="{{ route('questions.show', ['question' => $question->id]) }}" data-id="{{$question->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('questions.show', ['question' => $question->id]) }}" data-id="{{$question->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -78,13 +80,15 @@
                             <form class="context-state" action="{{ route('questions.destroy',['question' => $question->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$question->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$question->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

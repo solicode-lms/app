@@ -12,7 +12,7 @@
                 <x-sortable-column :sortable="true" width="40" field="chapitre_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="10" field="etat_realisation_chapitre_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgApprentissage::realisationChapitre.etat_realisation_chapitre_id'))!!}" />
                 <x-sortable-column :sortable="true" width="32"  field="apprenant" modelname="realisationChapitre" label="{!!ucfirst(__('PkgApprentissage::realisationChapitre.apprenant'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -39,15 +39,17 @@
                         {{ $realisationChapitre->apprenant }}
 
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($realisationChapitres_permissions['edit-realisationChapitre'])
                         <x-action-button :entity="$realisationChapitre" actionName="edit">
                         @if($realisationChapitres_permissionsByItem['update'][$realisationChapitre->id])
-                            <a href="{{ route('realisationChapitres.edit', ['realisationChapitre' => $realisationChapitre->id]) }}" data-id="{{$realisationChapitre->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('realisationChapitres.edit', ['realisationChapitre' => $realisationChapitre->id]) }}" data-id="{{$realisationChapitre->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -56,7 +58,7 @@
                         @if($realisationChapitres_permissions['show-realisationChapitre'])
                         <x-action-button :entity="$realisationChapitre" actionName="show">
                         @if($realisationChapitres_permissionsByItem['view'][$realisationChapitre->id])
-                            <a href="{{ route('realisationChapitres.show', ['realisationChapitre' => $realisationChapitre->id]) }}" data-id="{{$realisationChapitre->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('realisationChapitres.show', ['realisationChapitre' => $realisationChapitre->id]) }}" data-id="{{$realisationChapitre->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -69,13 +71,15 @@
                             <form class="context-state" action="{{ route('realisationChapitres.destroy',['realisationChapitre' => $realisationChapitre->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$realisationChapitre->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$realisationChapitre->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

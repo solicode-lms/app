@@ -11,7 +11,7 @@
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="41"  field="nom" modelname="sousGroupe" label="{!!ucfirst(__('PkgApprenants::sousGroupe.nom'))!!}" />
                 <x-sortable-column :sortable="true" width="41" field="groupe_id" modelname="sousGroupe" label="{!!ucfirst(__('PkgApprenants::groupe.singular'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -30,15 +30,17 @@
                         {{  $sousGroupe->groupe }}
 
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($sousGroupes_permissions['edit-sousGroupe'])
                         <x-action-button :entity="$sousGroupe" actionName="edit">
                         @if($sousGroupes_permissionsByItem['update'][$sousGroupe->id])
-                            <a href="{{ route('sousGroupes.edit', ['sousGroupe' => $sousGroupe->id]) }}" data-id="{{$sousGroupe->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('sousGroupes.edit', ['sousGroupe' => $sousGroupe->id]) }}" data-id="{{$sousGroupe->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -47,7 +49,7 @@
                         @if($sousGroupes_permissions['show-sousGroupe'])
                         <x-action-button :entity="$sousGroupe" actionName="show">
                         @if($sousGroupes_permissionsByItem['view'][$sousGroupe->id])
-                            <a href="{{ route('sousGroupes.show', ['sousGroupe' => $sousGroupe->id]) }}" data-id="{{$sousGroupe->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('sousGroupes.show', ['sousGroupe' => $sousGroupe->id]) }}" data-id="{{$sousGroupe->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -60,13 +62,15 @@
                             <form class="context-state" action="{{ route('sousGroupes.destroy',['sousGroupe' => $sousGroupe->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$sousGroupe->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$sousGroupe->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach

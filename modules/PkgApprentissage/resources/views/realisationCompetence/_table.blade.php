@@ -12,7 +12,7 @@
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="competence_id" modelname="realisationCompetence" label="{!!ucfirst(__('PkgCompetences::competence.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="progression_cache" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationCompetence.progression_cache'))!!}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="note_cache" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationCompetence.note_cache'))!!}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <th class="text-center crud-actions-header">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -32,15 +32,17 @@
                     <td style="max-width: 27.333333333333332%;white-space: normal;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="note_cache" >
                         @include('PkgApprentissage::realisationCompetence.custom.fields.note_cache', ['entity' => $realisationCompetence])
                     </td>
-                    <td class="text-right wrappable" style="max-width: 15%;">
+                    <td class="text-right wrappable crud-actions-cell" style="max-width: 15%;">
+                        <div class="crud-actions-wrapper">
+                        <div class="actions-secondary-group">
 
+                        </div>
 
-                       
-
+                        <div class="actions-main-group">
                         @if($realisationCompetences_permissions['edit-realisationCompetence'])
                         <x-action-button :entity="$realisationCompetence" actionName="edit">
                         @if($realisationCompetences_permissionsByItem['update'][$realisationCompetence->id])
-                            <a href="{{ route('realisationCompetences.edit', ['realisationCompetence' => $realisationCompetence->id]) }}" data-id="{{$realisationCompetence->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('realisationCompetences.edit', ['realisationCompetence' => $realisationCompetence->id]) }}" data-id="{{$realisationCompetence->id}}" class="btn btn-sm btn-default context-state editEntity btn-action-main">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endif
@@ -49,7 +51,7 @@
                         @if($realisationCompetences_permissions['show-realisationCompetence'])
                         <x-action-button :entity="$realisationCompetence" actionName="show">
                         @if($realisationCompetences_permissionsByItem['view'][$realisationCompetence->id])
-                            <a href="{{ route('realisationCompetences.show', ['realisationCompetence' => $realisationCompetence->id]) }}" data-id="{{$realisationCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('realisationCompetences.show', ['realisationCompetence' => $realisationCompetence->id]) }}" data-id="{{$realisationCompetence->id}}" class="btn btn-default btn-sm context-state showEntity btn-action-main">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         @endif
@@ -62,13 +64,15 @@
                             <form class="context-state" action="{{ route('realisationCompetences.destroy',['realisationCompetence' => $realisationCompetence->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$realisationCompetence->id}}">
+                                <button type="submit" class="btn btn-sm btn-danger d-none d-lg-inline deleteEntity btn-action-delete" data-id="{{$realisationCompetence->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                         @endif
                         @endif
                         </x-action-button>
+                        </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach
