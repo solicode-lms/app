@@ -86,7 +86,14 @@ trait RealisationProjetCrudTrait
         $evaluateurs = $affectation->evaluateurs ?? collect();
 
         foreach ($projet->taches as $tache) {
-            // Vérification existence pour éviter doublons
+            // Si la tâche est spécifique à une équipe, on vérifie que l'apprenant en fait partie
+            if ($tache->equipe_projet_id) {
+                $apprenantsEquipeIds = $tache->equipeProjet->apprenants->pluck('id')->toArray();
+                if (!in_array($realisationProjet->apprenant_id, $apprenantsEquipeIds)) {
+                    continue; // Cet apprenant n'est pas dans l'équipe de cette tâche
+                }
+            }
+
             // Vérification existence pour éviter doublons via méthode dédiée
             $exists = $realisationTacheService->existsForTacheAndProject($tache->id, $realisationProjet->id);
 

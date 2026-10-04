@@ -30,6 +30,15 @@ trait TacheRelationsTrait
             ->affectationProjets
             ->flatMap(fn($affectation) => $affectation->realisationProjets);
 
+        // Si la tâche est assignée à une équipe spécifique, filtrer les apprenants
+        if ($tache->equipe_projet_id) {
+            $apprenantsEquipeIds = $tache->equipeProjet->apprenants->pluck('id')->toArray();
+            
+            $realisationProjets = $realisationProjets->filter(function($realisationProjet) use ($apprenantsEquipeIds) {
+                return in_array($realisationProjet->apprenant_id, $apprenantsEquipeIds);
+            });
+        }
+
         $realisationTacheService = new RealisationTacheService();
         $evaluationTacheService = new EvaluationRealisationTacheService();
         $etatService = new EtatRealisationTacheService();
