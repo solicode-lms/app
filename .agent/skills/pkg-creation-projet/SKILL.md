@@ -52,7 +52,8 @@ La mobilisation d'une UA est le pivot de la génération d'activités pour l'app
 
 ### Action C : Affectation et Réalisation
 > **Description** : Gérer le lien entre le Projet et les Groupes/Apprenants.
-- **Composants** : `AffectationProjetService`, `RealisationProjetService`.
+- **Composants** : `AffectationProjetService`, `RealisationProjetService`, `EquipeProjetService`.
+- **Règle Majeure** : Le `Groupe` affecté à un projet se récupère DIRECTEMENT depuis le modèle `Projet` (`$projet->groupe_id`), et NON via l'entité `AffectationProjet`. Lors de la sélection d'apprenants (ex: constitution des équipes), il faut toujours filtrer sur les apprenants de ce `$projet->groupe_id`.
 
 ---
 

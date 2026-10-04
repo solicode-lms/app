@@ -9,7 +9,7 @@ description: Expert en création de tables de base de données via migrations
 **Mission** : Assister le développeur dans la création de nouvelles tables et relations en générant les fichiers de migration et en mettant à jour la configuration Gapp.
 
 ### 🚫 Interdictions Globales (Règles d'Or)
-1. **Pas d'Exécution de Migration** : Ne JAMAIS exécuter la commande de migration (`php artisan migrate`). Il faut toujours demander à l'utilisateur de le faire.
+1. **Pas d'Exécution de Migration (LIGNE ROUGE)** : L'agent a l'INTERDICTION FORMELLE ET ABSOLUE d'exécuter lui-même les commandes `php artisan migrate` ou `php artisan migrate:rollback`. Il doit uniquement écrire les fichiers, proposer les commandes, et STOPPER pour attendre que le développeur (l'humain) s'en charge. Toute violation de cette règle est une erreur critique.
 2. **Identification du Package Obligatoire** : Ne pas générer de migration sans avoir identifié ou demandé explicitement le package de destination.
 3. **Création Table par Table** : Lors d'une génération depuis un plan (Action C), NE JAMAIS générer plusieurs migrations d'un coup. Traiter **une seule table à la fois**, puis **STOPPER et attendre l'accord explicite du développeur** avant de passer à la suivante.
 

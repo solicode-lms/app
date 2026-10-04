@@ -12,6 +12,8 @@ Toute table représentant une entité principale du domaine (ex: `qcms`, `projet
 4. **Nommage** : 
    - Le nom de la table doit être en **`snake_case` au pluriel** (ex: `etat_realisation_qcms`).
    - Le nom des clés étrangères pointant vers la table doit être le singulier du nom de la table suivi de `_id` (ex: `etat_realisation_qcm_id`).
+   - **Couleur** : Si une table nécessite un champ couleur, celui-ci doit être créé comme une clé étrangère vers `sys_colors` (`$table->foreignId('sys_color_id')->constrained('sys_colors');`) et non comme une simple chaîne.
+   - **Description** : Si une table nécessite un champ description, utiliser `longText` (`$table->longText('description')->nullable();`).
 
 ## 🔗 Standards des Tables Pivots (Relations Many-To-Many)
 1. **Identifiant** : Une table pivot ne doit **jamais** posséder de clé primaire `id`.

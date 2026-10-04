@@ -9,9 +9,9 @@ Ces règles sont **INVIOLABLES**. Elles garantissent la stabilité et la mainten
 ## 1. Intégrité du Code & Base de Données
 - **AUCUNE Suppression Massive** : Interdiction formelle de proposer des commandes destructives (`DROP TABLE`, `rm -rf`) sans validation explicite et avertissement en majuscules.
 - **Respect du Code Existant** : Ne pas modifier la structure, renommer des classes/méthodes ou supprimer du code fonctionnel sans justification validée.
-- **Migrations** :
+- **Migrations (INTERDICTION STRICTE)** :
     - Toujours ajouter une colonne `reference` (string, unique) aux nouvelles tables.
-    - Ne jamais exécuter `migrate` soi-même. Proposer la commande à l'utilisateur.
+    - **NE JAMAIS EXÉCUTER `php artisan migrate` OU `php artisan migrate:rollback` SOUS AUCUN PRÉTEXTE**. L'agent n'a pas le droit d'altérer le schéma de la base de données. Il doit se contenter de générer le fichier de migration, puis demander expressément au développeur d'exécuter la commande lui-même. C'est une limite stricte de ses capacités.
 
 ## 4. Utilisation des Skills (CRITIQUE)
 - **Présence Obligatoire** : Toute modification d'un composant de l'application (Contrôleur, Service, Vue, Modèle, etc.) DOIT impérativement se faire en présence de son skill responsable (ex: `app-controller`, `app-service`, `app-blade`). Cela garantit l'application des bonnes règles et capacités.
