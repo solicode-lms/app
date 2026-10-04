@@ -1,72 +1,51 @@
+# Mise à jour 11 - S3 Filière Développement Web
 
-# Ajouter S3 au Filiere : Développement Web 
+## 1. Résolution de problème de compétence C152
+- Réaffectation des micro-compétences de la compétence ID `9` (C152) vers la compétence ID `15` (C152).
+- Suppression de la compétence orpheline (ID `9`).
 
-## Résoudre de problème de compétence C152
+## 2. Exécution des Migrations et Seeders
 
-
-- Affecration des microCompétence de compététence id-9(C152) à son compétence(C152 , id=15)
-- Supprimer la compétence id = 9, 
-
-
-
-
-## Insertion de S3 à N1
-
-
+### En local (Windows)
 ```bash
-php artisan db:seed --class=Modules\PkgCompetences\Database\Seeders\CompetenceSeeder
-php artisan db:seed --class=Modules\PkgCompetences\Database\Seeders\MicroCompetenceSeeder
-php artisan db:seed --class=Modules\PkgCompetences\Database\Seeders\UniteApprentissageSeeder
-php artisan db:seed --class=Modules\PkgCompetences\Database\Seeders\ChapitreSeeder
+# Migration
+php artisan migrate
 
+# Insertion de S3 à N1
+php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\CompetenceSeeder"
+php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\MicroCompetenceSeeder"
+php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\UniteApprentissageSeeder"
+php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\ChapitreSeeder"
+php artisan db:seed --class="Modules\PkgSessions\Database\Seeders\SessionFormationSeeder"
+php artisan db:seed --class="Modules\PkgSessions\Database\Seeders\AlignementUaSeeder"
 
-# Reste
-php artisan db:seed --class=Modules\PkgSessions\Database\Seeders\SessionFormationSeeder
-php artisan db:seed --class=Modules\PkgSessions\Database\Seeders\AlignementUaSeeder
+# Phase évaluation
+php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\PhaseEvaluationSeeder"
+
+# Équipe
+php artisan db:seed --class="Modules\PkgCreationProjet\Database\Seeders\EquipeProjetSeeder"
 ```
 
-
- 
+### En production (Serveur Linux)
 ```bash
-sudo php artisan db:seed --class=Modules\\PkgCompetences\\Database\\Seeders\\CompetenceSeeder
-sudo php artisan db:seed --class=Modules\\PkgCompetences\\Database\\Seeders\\MicroCompetenceSeeder
-sudo php artisan db:seed --class=Modules\\PkgCompetences\\Database\\Seeders\\UniteApprentissageSeeder
-sudo php artisan db:seed --class=Modules\\PkgCompetences\\Database\\Seeders\\ChapitreSeeder
-sudo php artisan db:seed --class=Modules\\PkgSessions\\Database\\Seeders\\SessionFormationSeeder
-sudo php artisan db:seed --class=Modules\\PkgSessions\\Database\\Seeders\\AlignementUaSeeder
+# Migration
+sudo php artisan migrate
+
+# Insertion de S3 à N1
+sudo php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\CompetenceSeeder"
+sudo php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\MicroCompetenceSeeder"
+sudo php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\UniteApprentissageSeeder"
+sudo php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\ChapitreSeeder"
+sudo php artisan db:seed --class="Modules\PkgSessions\Database\Seeders\SessionFormationSeeder"
+sudo php artisan db:seed --class="Modules\PkgSessions\Database\Seeders\AlignementUaSeeder"
+
+# Phase évaluation
+sudo php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\PhaseEvaluationSeeder"
+
+# Équipe
+sudo php artisan db:seed --class="Modules\PkgCreationProjet\Database\Seeders\EquipeProjetSeeder"
 ```
 
-----
-
-## Phase évaluation 
-
-
-```bash
-php artisan db:seed --class=Modules\PkgCompetences\Database\Seeders\PhaseEvaluationSeeder
-
-sudo php artisan db:seed --class=Modules\\PkgCompetences\\Database\\Seeders\\PhaseEvaluationSeeder
-```
-
-
-----
-
-# équipe 
-
-
-php artisan db:seed --class=Modules\\PkgCreationProjet\\Database\\Seeders\\
-
-```bash
-php artisan db:seed --class=Modules\PkgCreationProjet\Database\Seeders\EquipeProjetSeeder
-
-sudo php artisan db:seed --class=Modules\\PkgCreationProjet\\Database\\Seeders\\EquipeProjetSeeder
-```
-
-## Ajouter les droit d'accès 
-
-- Formateur 
-   - EquipeProjet - Édition (Feature Édition for EquipeProjet)
-
-pour les autre : Admin, Apprenant 
-
-
-- 
+## 3. Ajouter les droits d'accès
+- **Formateur** : Ajouter la permission *EquipeProjet - Édition* (Feature Édition for EquipeProjet).
+- **Admin / Apprenant** : Configurer les droits associés.
