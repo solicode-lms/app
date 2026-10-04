@@ -1027,5 +1027,83 @@
         ],
         "e_model_reference": "projets",
         "e_metadata_definition_reference": "linksAction"
+    },
+    {
+        "reference": "Projet_groupe_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_groupe_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Projet_groupe_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_groupe_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Projet_groupe_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_groupe_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "Projet_groupe_id_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "Projet_groupe_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Projet_groupe_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_groupe_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Projet_groupe_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Projet_groupe_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Projet_groupe_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_groupe_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Projet_groupe_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_groupe_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Projet_groupe_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_groupe_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "projets_hasMany_equipe_projets_projet_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "projets_hasMany_equipe_projets_projet_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "projets_hasMany_equipe_projets_projet_id_displayOrder",
+        "value_integer": 16,
+        "e_data_field_reference": "projets_hasMany_equipe_projets_projet_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "projets_hasMany_equipe_projets_projet_id_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "projets_hasMany_equipe_projets_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "projets_hasMany_equipe_projets_projet_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "projets_hasMany_equipe_projets_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

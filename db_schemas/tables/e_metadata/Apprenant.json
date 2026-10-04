@@ -1559,5 +1559,35 @@
         "value_boolean": 1,
         "e_data_field_reference": "apprenants_hasMany_realisation_qcms_apprenant_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "apprenants_equipe_projets_apprenant_equipe_projet_m2m_m2m_displayOrder",
+        "value_integer": 23,
+        "e_data_field_reference": "apprenants_equipe_projets_apprenant_equipe_projet_m2m_m2m",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "apprenants_equipe_projets_apprenant_equipe_projet_m2m_m2m_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_equipe_projets_apprenant_equipe_projet_m2m_m2m",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "apprenants_equipe_projets_apprenant_equipe_projet_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "apprenants_equipe_projets_apprenant_equipe_projet_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "apprenants_equipe_projets_apprenant_equipe_projet_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_equipe_projets_apprenant_equipe_projet_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "apprenants_equipe_projets_apprenant_equipe_projet_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_equipe_projets_apprenant_equipe_projet_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
