@@ -30,7 +30,7 @@
 
     @if($entity->description)
         <div class="tache-description mt-2 text-muted" style="font-size: 0.9em;">
-            {{ \Illuminate\Support\Str::limit(strip_tags($entity->description), 150) }}
+            {{ \Illuminate\Support\Str::limit(html_entity_decode(strip_tags($entity->description)), 150) }}
         </div>
     @endif
 

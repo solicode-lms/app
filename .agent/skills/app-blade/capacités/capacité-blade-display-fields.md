@@ -11,10 +11,11 @@ Cette personnalisation sera utilisée par Gapp pour afficher le champ dans les l
 Contrairement aux formulaires (`custom/forms/`) qui sont résolus dynamiquement, Gapp doit physiquement intégrer le code de la vue custom dans son code généré `_table.blade.php` et `_show.blade.php`.
 - Pendant l'exécution de la commande de génération, Gapp scanne le dossier `custom/fields/`.
 - S'il trouve `note.blade.php`, il va écrire : `@include('...custom.fields.note', ['entity' => $item])` dans le tableau principal et dans la vue Show au lieu de son formatage par défaut.
-- **Action Obligatoire** : Toute création, modification ou suppression dans `custom/fields` impose une régénération. **NE JAMAIS exécuter la commande vous-même**. Vous devez impérativement proposer à l'utilisateur d'exécuter la commande suivante :
+- **Action Obligatoire** : Toute **création** ou **suppression** d'un fichier dans `custom/fields` impose une régénération. **NE JAMAIS exécuter la commande vous-même**. Vous devez impérativement proposer à l'utilisateur d'exécuter la commande suivante :
   ```bash
   gapp make:crud NomModele
   ```
+  **Nuance importante** : S'il s'agit d'une simple **modification** d'un fichier déjà existant (dont le `@include` est déjà présent dans la vue parente générée), **il est inutile de régénérer**. Laravel chargera le fichier dynamiquement.
 
 ## 3. Format du code
 Le fichier Blade ne reçoit que la portion HTML qui doit être affichée (sans balises de conteneur globales du tableau ou de la grille de formulaire).

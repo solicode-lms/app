@@ -35,3 +35,6 @@ Le projet utilise un générateur de code (Gapp).
 ## 5. Exécution et Validation des Modifications (Antigravity)
 - **Plan de Validation Obligatoire** : Lors de propositions de modifications structurelles, de refactoring, ou d'actions nécessitant l'accord explicite du développeur, l'agent DOIT toujours fournir un plan d'action sous forme d'**Artifact Antigravity**.
 - **Méthode** : Créer l'Artifact avec l'option `RequestFeedback: true` pour générer un bouton **Proceed** dans l'espace d'édition (UI Antigravity). Ne JAMAIS appliquer de modifications massives ou incertaines sans passer par ce plan validable.
+
+## 6. Apprentissage et Raffinement (CRITIQUE)
+- **Correction et Précédents** : Lorsque le développeur formule une correction technique (comportement, architecture, erreur d'analyse) ou signale un précédent (ex: "Dans ce cas, on n'a pas besoin de faire X..."), l'agent **DOIT OBLIGATOIREMENT** exécuter le workflow `raffinement-agent` (ou l'invoquer via `/raffinement-agent`). Le but est d'analyser la remarque, d'extraire la règle, et de mettre à jour la documentation `.agent/` (Skills/Rules) pour s'assurer que l'erreur ne se reproduise plus à l'avenir.
