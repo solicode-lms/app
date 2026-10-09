@@ -177,7 +177,10 @@ trait RealisationTacheGetterTrait
             \Modules\PkgCreationProjet\Models\EquipeProjet::class,
             "titre",
             "id",
-            $equipeProjets
+            $equipeProjets,
+            "[name='tache_id']",
+            route('taches.getData'),
+            "equipe_projet_id"
         );
         $filterEquipe['hidden'] = $equipeProjets->isEmpty(); // Proposé pour Gapp : cacher si vide
         $this->fieldsFilterable[] = $filterEquipe;
@@ -264,6 +267,13 @@ trait RealisationTacheGetterTrait
             Auth::user()->hasRole(Role::APPRENANT_ROLE) => $tacheService->getTacheByApprenantId($sessionState->get("apprenant_id")),
             default => Tache::all(),
         };
+
+        $equipeProjetId = $this->viewState->get('filter.realisationTache.tache.equipe_projet_id');
+        if (!empty($equipeProjetId)) {
+            $taches = collect($taches)->filter(function($tache) use ($equipeProjetId) {
+                return (string) $tache->equipe_projet_id === (string) $equipeProjetId;
+            });
+        }
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(
             __("PkgCreationTache::tache.plural"),
             'tache_id',
