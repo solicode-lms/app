@@ -28,6 +28,12 @@
         @endif
     </header>
 
+    @if($entity->description)
+        <div class="tache-description mt-2 text-muted" style="font-size: 0.9em;">
+            {{ \Illuminate\Support\Str::limit(strip_tags($entity->description), 150) }}
+        </div>
+    @endif
+
     <section class="tache-infos mt-2 mb-2">
 
         <span class="tache-priorite" data-toggle="tooltip" title="{{ ucfirst(__('PkgCreationTache::tache.priorite')) }}">
