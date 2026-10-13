@@ -57,6 +57,7 @@
 				"gutterIcon": true
 			}
 		},
-		"todo-tree.tree.showCountsInTree": true
+		"todo-tree.tree.showCountsInTree": true,
+		"hide-files.files": []
 	}
 }
