@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charte Graphique & Design System V2 — PkgTableauBord</title>
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js (CDN) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col" x-data="designSystemApp()">
+
+    <!-- Topbar / Header de Navigation Globale -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-sm">
+                    TB
+                </div>
+                <div>
+                    <h1 class="text-base font-bold text-slate-900 leading-tight">Design System V2 &bull; PkgTableauBord</h1>
+                    <p class="text-xs text-slate-500">Living Styleguide — Solicode LMS Frontend V2</p>
+                </div>
+            </div>
+
+            <!-- Navigation Interne -->
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+                <a href="#tokens" class="hover:text-indigo-600 transition-colors">1. Tokens</a>
+                <a href="#atomes" class="hover:text-indigo-600 transition-colors">2. Éléments UI</a>
+                <a href="#organismes" class="hover:text-indigo-600 transition-colors">3. Composants Métier</a>
+                <a href="#simulateur" class="hover:text-indigo-600 transition-colors">4. Démonstrateur FIFO</a>
+            </nav>
+
+            <!-- Profil & Badge Standard -->
+            <div class="flex items-center gap-4">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Tailwind + Alpine.js
+                </span>
+                <div class="flex items-center gap-3 border-l pl-4 border-slate-200">
+                    <img class="h-9 w-9 rounded-full object-cover border border-slate-200" src="https://ui-avatars.com/api/?name=Formateur+Principal&background=e0e7ff&color=4338ca" alt="Avatar">
+                    <div class="text-left hidden lg:block">
+                        <div class="text-xs font-semibold text-slate-900">Dr. Fouad ESSARRAJ</div>
+                        <div class="text-[11px] text-slate-500">Superviseur SoliLMS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero / Présentation -->
+    <div class="bg-white border-b border-slate-200 py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="max-w-3xl">
+                <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-indigo-600 mb-2">
+                    <span>Référentiel Graphique & Ergonomique</span>
+                    <span>&bull;</span>
+                    <span>Conforme PkgPasserQcm</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                    Charte Visuelle des Tableaux de Bord de Pilotage
+                </h2>
+                <p class="text-sm sm:text-base text-slate-600 mt-2 leading-relaxed">
+                    Spécification des styles, des états dynamiques et de la bibliothèque de composants réutilisables pour les trois acteurs clés : 
+                    <span class="font-semibold text-slate-800">Apprenant</span> (cockpit d'auto-régulation), 
+                    <span class="font-semibold text-slate-800">Formateur</span> (régulation temps réel Live Coding FIFO) et 
+                    <span class="font-semibold text-slate-800">Responsable</span> (gouvernance docimologique 65/35 & intégrité IA).
+                </p>
+            </div>
+            <!-- Badges d'architecture -->
+            <div class="flex flex-wrap md:flex-col gap-2 shrink-0">
+                <div class="px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs font-medium text-slate-700 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Zéro Bootstrap / jQuery
+                </div>
+                <div class="px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs font-medium text-slate-700 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    9 Indicateurs de Recherche
+                </div>
+                <div class="px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs font-medium text-slate-700 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    Règle Docimologique 65/35
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteneur Principal -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16 flex-grow">
+
+        <!-- ========================================================================= -->
+        <!-- 1. TOKENS GRAPHIQUES -->
+        <!-- ========================================================================= -->
+        <section id="tokens" class="space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Volet 1</span>
+                <h3 class="text-xl font-bold text-slate-900 mt-0.5">Tokens Graphiques & Fondations Visuelles</h3>
+            </div>
+
+            <!-- 1.1 Typographie -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-500">1.1. Typographie officielle (Google Fonts: Inter)</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 pt-2">
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+                        <div class="text-xs font-mono text-slate-400 mb-1">text-xs (12px)</div>
+                        <div class="text-xs font-medium text-slate-800">Badge & Timestamps</div>
+                        <div class="text-[11px] text-slate-500 mt-1">Horodatage file FIFO</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+                        <div class="text-xs font-mono text-slate-400 mb-1">text-sm (14px)</div>
+                        <div class="text-sm font-medium text-slate-800">Libellés de navigation</div>
+                        <div class="text-xs text-slate-500 mt-1">Descriptions didactiques</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+                        <div class="text-xs font-mono text-slate-400 mb-1">text-base (16px)</div>
+                        <div class="text-base font-semibold text-slate-800">Textes courants</div>
+                        <div class="text-xs text-slate-500 mt-1">Intitulés de boutons</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+                        <div class="text-xs font-mono text-slate-400 mb-1">text-lg / xl (18-20px)</div>
+                        <div class="text-lg font-bold text-slate-900">Titres de Sections</div>
+                        <div class="text-xs text-slate-500 mt-1">En-têtes de consoles</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+                        <div class="text-xs font-mono text-slate-400 mb-1">text-3xl (30px)</div>
+                        <div class="text-3xl font-extrabold text-slate-900">14 min</div>
+                        <div class="text-xs text-slate-500 mt-1">Valeurs KPI majeures</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.2 Nuancier Fonctionnel -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-500">1.2. Palette Chromatique Fonctionnelle & Sémantique</h4>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <!-- Slate Base -->
+                    <div class="rounded-xl border border-slate-200 overflow-hidden">
+                        <div class="h-16 bg-slate-100 flex items-center justify-center font-mono text-xs text-slate-700 font-bold">slate-50/100</div>
+                        <div class="p-3 bg-white">
+                            <p class="text-xs font-bold text-slate-900">Fond & Surface</p>
+                            <p class="text-[11px] text-slate-500 mt-0.5">Arrière-plan global reposant</p>
+                        </div>
+                    </div>
+                    <!-- Indigo Identité -->
+                    <div class="rounded-xl border border-indigo-200 overflow-hidden">
+                        <div class="h-16 bg-indigo-600 flex items-center justify-center font-mono text-xs text-white font-bold">indigo-600</div>
+                        <div class="p-3 bg-white">
+                            <p class="text-xs font-bold text-indigo-900">Accent SoliLMS</p>
+                            <p class="text-[11px] text-slate-500 mt-0.5">Actions prioritaires & filtres</p>
+                        </div>
+                    </div>
+                    <!-- Emerald Succès -->
+                    <div class="rounded-xl border border-emerald-200 overflow-hidden">
+                        <div class="h-16 bg-emerald-500 flex items-center justify-center font-mono text-xs text-white font-bold">emerald-500</div>
+                        <div class="p-3 bg-white">
+                            <p class="text-xs font-bold text-emerald-900">Succès / Optimal</p>
+                            <p class="text-[11px] text-slate-500 mt-0.5">Gating validé, ICP &ge; 90%</p>
+                        </div>
+                    </div>
+                    <!-- Amber Révision -->
+                    <div class="rounded-xl border border-amber-200 overflow-hidden">
+                        <div class="h-16 bg-amber-500 flex items-center justify-center font-mono text-xs text-white font-bold">amber-500</div>
+                        <div class="p-3 bg-white">
+                            <p class="text-xs font-bold text-amber-900">Alerte / Révision</p>
+                            <p class="text-[11px] text-slate-500 mt-0.5">Boucle révision, attente</p>
+                        </div>
+                    </div>
+                    <!-- Rose Critique -->
+                    <div class="rounded-xl border border-rose-200 overflow-hidden">
+                        <div class="h-16 bg-rose-500 flex items-center justify-center font-mono text-xs text-white font-bold">rose-500</div>
+                        <div class="p-3 bg-white">
+                            <p class="text-xs font-bold text-rose-900">Critique / Blocage</p>
+                            <p class="text-[11px] text-slate-500 mt-0.5">Seuil 10min, écart IA &gt; 5</p>
+                        </div>
+                    </div>
+                    <!-- Sky FIFO -->
+                    <div class="rounded-xl border border-sky-200 overflow-hidden">
+                        <div class="h-16 bg-sky-500 flex items-center justify-center font-mono text-xs text-white font-bold">sky-500</div>
+                        <div class="p-3 bg-white">
+                            <p class="text-xs font-bold text-sky-900">File FIFO Live</p>
+                            <p class="text-[11px] text-slate-500 mt-0.5">Attente de passage prototype</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 2. ÉLÉMENTS ATOMIQUES & MOLÉCULAIRES -->
+        <!-- ========================================================================= -->
+        <section id="atomes" class="space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Volet 2</span>
+                <h3 class="text-xl font-bold text-slate-900 mt-0.5">Composants UI de Base (Atomes & Molécules)</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Badges d'état fonctionnels -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-500">2.1. Badges & Statuts Métier</h4>
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Gating Validé (Essai 1)
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-200">
+                            <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
+                            En file FIFO (Rang #2)
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            Besoin de Révision
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200">
+                            <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                            Bloqué &gt; 10 min
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">
+                            Non présenté
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Boutons d'Action Contextuels -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-500">2.2. Boutons d'Action Réactifs</h4>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <button class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Démarrer Live Coding
+                        </button>
+                        <button class="px-4 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-semibold rounded-xl transition flex items-center gap-2">
+                            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                            Session Groupe (4x4)
+                        </button>
+                        <button class="px-4 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold rounded-xl transition flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            Déclencher Remédiation
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Jauges & Progressions Segmentées -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-500">2.3. Barres Segmentées & Micro-Jauges</h4>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+                                <span>Avancement Sprint 3 (Niveau 1 & Prototype N2)</span>
+                                <span class="text-indigo-600 font-bold">78%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden flex">
+                                <div class="bg-emerald-500 h-full" style="width: 55%" title="Validé (55%)"></div>
+                                <div class="bg-amber-400 h-full" style="width: 23%" title="En validation (23%)"></div>
+                                <div class="bg-slate-200 h-full" style="width: 22%" title="Restant (22%)"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+                                <span>Indicateur Couverture Pédagogique (ICP &ge; 90%)</span>
+                                <span class="text-emerald-700 font-bold">92.4%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                <div class="bg-emerald-500 h-full rounded-full" style="width: 92.4%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avatars avec badge d'attente FIFO -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-500">2.4. Identité Apprenant & Timers</h4>
+                    <div class="flex items-center gap-4">
+                        <div class="relative">
+                            <img class="w-12 h-12 rounded-full object-cover border-2 border-indigo-500" src="https://ui-avatars.com/api/?name=Yassine+El+Amrani&background=c7d2fe&color=3730a3" alt="Avatar">
+                            <span class="absolute -top-1 -right-1 bg-indigo-600 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white">
+                                #1
+                            </span>
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-slate-900">Yassine El Amrani</div>
+                            <div class="text-xs text-slate-500 flex items-center gap-1.5 mt-0.5">
+                                <svg class="w-3.5 h-3.5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                En attente depuis : <span class="font-mono font-semibold text-slate-800">08:42 min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 3. COMPOSANTS MÉTIER ORGANISMES -->
+        <!-- ========================================================================= -->
+        <section id="organismes" class="space-y-8">
+            <div class="border-b border-slate-200 pb-3">
+                <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Volet 3</span>
+                <h3 class="text-xl font-bold text-slate-900 mt-0.5">Composants Métier Dashboard (Organismes)</h3>
+            </div>
+
+            <!-- 3.1 Grille de KPI Stat Cards -->
+            <div class="space-y-3">
+                <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-500">3.1. Grille de Cartes KPI Réactives</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    
+                    <!-- KPI 1 : T_amorcage -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-medium text-slate-500">Temps d'Amorçage</span>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700">
+                                -18% vs moy.
+                            </span>
+                        </div>
+                        <div class="mt-3 flex items-baseline gap-2">
+                            <span class="text-3xl font-extrabold text-slate-900 tracking-tight">18 min</span>
+                            <span class="text-xs text-slate-400 font-mono">(T_amorçage)</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2">Délai moyen d'activation de la 1ère tâche du sprint.</p>
+                        <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                            <span>Seuil critique</span>
+                            <span class="font-semibold text-slate-700">&gt; 45 min</span>
+                        </div>
+                    </div>
+
+                    <!-- KPI 2 : R_gating -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-medium text-slate-500">Réussite Gating 1er Essai</span>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700">
+                                Objectif atteint
+                            </span>
+                        </div>
+                        <div class="mt-3 flex items-baseline gap-2">
+                            <span class="text-3xl font-extrabold text-emerald-600 tracking-tight">84.2%</span>
+                            <span class="text-xs text-slate-400 font-mono">(R_gating)</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2">Prototypes Niveau 2 validés sans révision préalable.</p>
+                        <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                            <span>Promotion active</span>
+                            <span class="font-semibold text-slate-700">21 / 25 apprenants</span>
+                        </div>
+                    </div>
+
+                    <!-- KPI 3 : T_file -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-medium text-slate-500">Délai Attente FIFO</span>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-700">
+                                Charge élevée
+                            </span>
+                        </div>
+                        <div class="mt-3 flex items-baseline gap-2">
+                            <span class="text-3xl font-extrabold text-amber-600 tracking-tight">12:30</span>
+                            <span class="text-xs text-slate-400 font-mono">(T_file)</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2">Temps moyen entre demande et passage Live Coding.</p>
+                        <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                            <span>Apprenants en attente</span>
+                            <span class="font-semibold text-amber-700">5 en file active</span>
+                        </div>
+                    </div>
+
+                    <!-- KPI 4 : Intégrité IA (Pearson r) -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-medium text-slate-500">Corrélation IA (Pearson)</span>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-50 text-indigo-700">
+                                Forte corrélation
+                            </span>
+                        </div>
+                        <div class="mt-3 flex items-baseline gap-2">
+                            <span class="text-3xl font-extrabold text-indigo-600 tracking-tight">r = 0.88</span>
+                            <span class="text-xs text-slate-400 font-mono">(Annexe M)</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2">Cohérence Prototype surveillé (N2) vs Projet IA (N3).</p>
+                        <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                            <span>Cas divergents (&Delta; &gt; 5)</span>
+                            <span class="font-semibold text-rose-600">1 apprenant</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3.2 Bannière d'Alerte "Seuil 10 min Post-Live Coding" -->
+            <div class="space-y-3">
+                <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-500">3.2. Flashbox Alerte Seuil 10 min Post-Live Coding</h4>
+                <div class="bg-rose-50 border-2 border-rose-200 rounded-2xl p-5 sm:p-6 shadow-sm" x-data="{ dismissed: false }" x-show="!dismissed" x-cloak>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-rose-500 text-white flex items-center justify-center shrink-0 shadow-sm">
+                                <svg class="w-6 h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h5 class="text-base font-bold text-rose-900">Alerte Didactique : 2 Apprenants bloqués au-delà du seuil de 10 min</h5>
+                                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-200 text-rose-800">Action Requise</span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-rose-700 mt-1">
+                                    Aucune soumission de livrable détectée 10 minutes après la fin de la séance plénière de Live Coding.
+                                    Le protocole pédagogique prescrit la constitution d'un trinôme d'entraide ou un étayage immédiat.
+                                </p>
+                                <!-- Liste d'apprenants en alerte -->
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="inline-flex items-center gap-2 bg-white px-2.5 py-1 rounded-lg border border-rose-200 text-xs font-semibold text-rose-800 shadow-xs">
+                                        <span>Amine Mansouri</span>
+                                        <span class="text-rose-500 font-mono text-[11px] font-normal">+14 min</span>
+                                    </span>
+                                    <span class="inline-flex items-center gap-2 bg-white px-2.5 py-1 rounded-lg border border-rose-200 text-xs font-semibold text-rose-800 shadow-xs">
+                                        <span>Sara Bennani</span>
+                                        <span class="text-rose-500 font-mono text-[11px] font-normal">+11 min</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Boutons d'action remédiation -->
+                        <div class="flex sm:flex-col gap-2 shrink-0 w-full sm:w-auto">
+                            <button @click="alert('Trinôme d\'entraide assigné automatiquement avec un pair tuteur validé.')" class="w-full sm:w-auto px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shadow-sm transition">
+                                Assigner Trinôme d'Entraide
+                            </button>
+                            <button @click="dismissed = true" class="w-full sm:w-auto px-3 py-1.5 text-xs text-rose-600 hover:bg-rose-100 rounded-lg transition text-center">
+                                Ignorer temporairement
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3.3 Visualisation Graphique : Scatter Plot Corrélation IA (Annexe M) -->
+            <div class="space-y-3">
+                <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-500">3.3. Analyse de Dispersion & Détection de Plagiat IA (Scatter Plot)</h4>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h5 class="text-sm font-bold text-slate-900">Notes Prototype N2 (Surveillé) vs Projet N3 (IA Autonome)</h5>
+                                <p class="text-xs text-slate-500">Détection visuelle des apprenants avec écart &Delta; &gt; 5 points (Zone critique orange/rouge)</p>
+                            </div>
+                            <span class="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-md border border-indigo-200">
+                                Pearson r = 0.88
+                            </span>
+                        </div>
+
+                        <!-- Graphique SVG Interactif -->
+                        <div class="relative bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <svg viewBox="0 0 400 240" class="w-full h-56">
+                                <!-- Grille & Axes -->
+                                <line x1="40" y1="20" x2="40" y2="200" stroke="#cbd5e1" stroke-width="1.5" />
+                                <line x1="40" y1="200" x2="380" y2="200" stroke="#cbd5e1" stroke-width="1.5" />
+                                
+                                <!-- Ligne d'égalité y = x (Idéale) -->
+                                <line x1="40" y1="200" x2="380" y2="30" stroke="#94a3b8" stroke-dasharray="4" stroke-width="1.5" />
+                                
+                                <!-- Zone de suspicion (N3 >> N2) -->
+                                <polygon points="40,200 40,90 200,30 380,30" fill="#fee2e2" opacity="0.35" />
+
+                                <!-- Points normaux (Emerald/Indigo) -->
+                                <circle cx="80" cy="170" r="5" fill="#4f46e5" class="hover:r-7 transition-all cursor-pointer"><title>Karim : N2=6/20, N3=8/20 (Conforme)</title></circle>
+                                <circle cx="140" cy="140" r="5" fill="#4f46e5" class="hover:r-7 transition-all cursor-pointer"><title>Salma : N2=10/20, N3=11/20 (Conforme)</title></circle>
+                                <circle cx="210" cy="110" r="5" fill="#4f46e5" class="hover:r-7 transition-all cursor-pointer"><title>Mehdi : N2=14/20, N3=15/20 (Conforme)</title></circle>
+                                <circle cx="270" cy="80" r="5" fill="#10b981" class="hover:r-7 transition-all cursor-pointer"><title>Nour : N2=17/20, N3=18/20 (Excellence)</title></circle>
+                                <circle cx="310" cy="65" r="5" fill="#10b981" class="hover:r-7 transition-all cursor-pointer"><title>Omar : N2=19/20, N3=19.5/20 (Excellence)</title></circle>
+
+                                <!-- Point DIVERGENT (Rose/Rouge) : N2=8, N3=18 -->
+                                <circle cx="120" cy="50" r="7" fill="#ef4444" stroke="#b91c1c" stroke-width="2" class="animate-ping" opacity="0.7"></circle>
+                                <circle cx="120" cy="50" r="7" fill="#ef4444" stroke="#b91c1c" stroke-width="2" class="cursor-pointer">
+                                    <title>Alerte IA: Yassir (N2=8/20 vs N3=18/20) - Divergence Delta = +10 pts</title>
+                                </circle>
+
+                                <!-- Légendes des axes -->
+                                <text x="180" y="225" font-size="10" fill="#64748b" font-weight="600">Note Prototype N2 (Surveillé)</text>
+                                <text x="5" y="115" font-size="10" fill="#64748b" font-weight="600" transform="rotate(-90 20,115)">Note Projet N3 (IA)</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Fiche didactique d'interprétation -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Protocole Docimologique</span>
+                            <h5 class="text-sm font-bold text-slate-900 mt-1">Interprétation de la Règle 65/35</h5>
+                            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                                Le coefficient de Pearson $r$ mesure l'alignement entre les compétences réelles démontrées en direct (Live Coding) et les livrables finals assistés par IA générative.
+                            </p>
+                            <div class="mt-4 p-3 bg-rose-50 rounded-lg border border-rose-200 text-xs">
+                                <div class="font-bold text-rose-800">1 Cas Divergent Détecté :</div>
+                                <div class="text-slate-700 mt-1">
+                                    <strong>Yassir :</strong> $N2 = 8/20$ &bull; $N3 = 18/20$<br>
+                                    Écart $\Delta = +10$ pts (&gt; seuil critique de 5 pts).
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="mt-4 w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition">
+                            Convoquer Jury de Vérification
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 4. DÉMONSTRATEUR INTERACTIF (SIMULATEUR FIFO ALPINE.JS) -->
+        <!-- ========================================================================= -->
+        <section id="simulateur" class="space-y-6">
+            <div class="border-b border-slate-200 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Volet 4</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-0.5">Démonstrateur Interactif : Console FIFO Live Coding</h3>
+                </div>
+                <!-- Filtre de promotion simulé -->
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-medium text-slate-500">Groupe :</span>
+                    <select class="text-xs font-semibold bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        <option>Développement Web & Mobile — Groupe 1</option>
+                        <option>Développement Web & Mobile — Groupe 2</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Console de file d'attente animée par Alpine.js -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="p-5 border-b border-slate-200 bg-slate-50/50 flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">
+                            <span x-text="fifoList.length"></span>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-slate-900">File d'Attente Active des Soutenances</h4>
+                            <p class="text-xs text-slate-500">Ordre d'arrivée strict (FIFO) &bull; Prototype Niveau 2</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <button @click="ajouterApprenant()" class="px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-lg shadow-2xs transition flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            Simuler Arrivée Apprenant
+                        </button>
+                        <button @click="passerSessionGroupe()" :disabled="fifoList.length < 4" class="px-3 py-1.5 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 disabled:opacity-50 text-indigo-700 text-xs font-semibold rounded-lg transition">
+                            Lancer Session 4x4
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Table interactive de la File FIFO -->
+                <div class="divide-y divide-slate-200">
+                    <template x-for="(item, index) in fifoList" :key="item.id">
+                        <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-slate-50/80 transition"
+                             :class="{ 'bg-indigo-50/40 border-l-4 border-indigo-600': item.status === 'EN_COURS' }">
+                            
+                            <!-- Rang & Infos apprenant -->
+                            <div class="flex items-center gap-4">
+                                <span class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold"
+                                      :class="item.status === 'EN_COURS' ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600'"
+                                      x-text="'#' + (index + 1)">
+                                </span>
+                                
+                                <img class="w-10 h-10 rounded-full object-cover border border-slate-200" :src="item.avatar" alt="Avatar">
+                                
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-sm font-bold text-slate-900" x-text="item.nom"></span>
+                                        <span class="px-2 py-0.5 rounded text-[10px] font-bold"
+                                              :class="{
+                                                'bg-indigo-100 text-indigo-800': item.status === 'EN_COURS',
+                                                'bg-sky-100 text-sky-800': item.status === 'EN_ATTENTE',
+                                                'bg-amber-100 text-amber-800': item.status === 'REVISION'
+                                              }"
+                                              x-text="item.statusLabel">
+                                        </span>
+                                    </div>
+                                    <div class="text-xs text-slate-500 mt-0.5 flex items-center gap-3">
+                                        <span>Projet : <strong class="text-slate-700 font-medium" x-text="item.projet"></strong></span>
+                                        <span>&bull;</span>
+                                        <span>Essai #<strong class="text-slate-700 font-medium" x-text="item.essai"></strong></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Timers et Actions en un clic -->
+                            <div class="flex items-center justify-between sm:justify-end gap-4">
+                                <!-- Timer live -->
+                                <div class="text-right">
+                                    <div class="text-xs text-slate-400 font-medium">Temps d'attente</div>
+                                    <div class="text-xs font-mono font-bold text-slate-700 flex items-center gap-1"
+                                         :class="{ 'text-rose-600': item.attenteMinutes >= 15 }">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        <span x-text="formatTimer(item.secondes)"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Actions formateur -->
+                                <div class="flex items-center gap-2">
+                                    <template x-if="item.status === 'EN_ATTENTE'">
+                                        <button @click="demarrerPassage(item.id)" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg shadow-2xs transition">
+                                            Démarrer Live
+                                        </button>
+                                    </template>
+
+                                    <template x-if="item.status === 'EN_COURS'">
+                                        <div class="flex items-center gap-2">
+                                            <button @click="validerPassage(item.id)" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg shadow-2xs transition">
+                                                Valider Gating
+                                            </button>
+                                            <button @click="ajournerPassage(item.id)" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-lg shadow-2xs transition">
+                                                Révision
+                                            </button>
+                                        </div>
+                                    </template>
+
+                                    <button @click="supprimer(item.id)" class="p-1.5 text-slate-400 hover:text-rose-600 rounded-lg transition" title="Retirer de la file">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template x-if="fifoList.length === 0">
+                        <div class="p-8 text-center text-slate-400 text-sm">
+                            Aucun apprenant en file d'attente pour le moment. Cliquez sur "Simuler Arrivée Apprenant".
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Officiel -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-16 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <strong>Solicode LMS V2</strong> &bull; Module PkgTableauBord &bull; Conforme standards Gapp & Annexe M
+            </div>
+            <div class="flex items-center gap-4 text-slate-600">
+                <a href="#tokens" class="hover:text-indigo-600">Tokens</a>
+                <a href="#atomes" class="hover:text-indigo-600">Composants</a>
+                <a href="#organismes" class="hover:text-indigo-600">Indicateurs</a>
+                <a href="#simulateur" class="hover:text-indigo-600">Console FIFO</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script de Logique Alpine.js pour la Démo -->
+    <script>
+        function designSystemApp() {
+            return {
+                fifoList: [
+                    { id: 1, nom: 'Yassine El Amrani', avatar: 'https://ui-avatars.com/api/?name=Yassine+El+Amrani&background=c7d2fe&color=3730a3', projet: 'Plateforme E-Commerce', essai: 1, status: 'EN_COURS', statusLabel: 'En Live Coding', secondes: 345, attenteMinutes: 5 },
+                    { id: 2, nom: 'Khadija Mansour', avatar: 'https://ui-avatars.com/api/?name=Khadija+Mansour&background=fed7aa&color=c2410c', projet: 'API Rest Sécurisée', essai: 1, status: 'EN_ATTENTE', statusLabel: 'En attente', secondes: 780, attenteMinutes: 13 },
+                    { id: 3, nom: 'Nabil Tazi', avatar: 'https://ui-avatars.com/api/?name=Nabil+Tazi&background=bbf7d0&color=15803d', projet: 'Dashboard Analytique', essai: 2, status: 'EN_ATTENTE', statusLabel: 'En attente', secondes: 1020, attenteMinutes: 17 }
+                ],
+                nextId: 4,
+
+                init() {
+                    // Timer actif incrémenté toutes les secondes
+                    setInterval(() => {
+                        this.fifoList.forEach(item => {
+                            item.secondes++;
+                            item.attenteMinutes = Math.floor(item.secondes / 60);
+                        });
+                    }, 1000);
+                },
+
+                formatTimer(totalSecondes) {
+                    const minutes = Math.floor(totalSecondes / 60);
+                    const secondes = totalSecondes % 60;
+                    return String(minutes).padStart(2, '0') + ':' + String(secondes).padStart(2, '0');
+                },
+
+                demarrerPassage(id) {
+                    this.fifoList.forEach(item => {
+                        if (item.id === id) {
+                            item.status = 'EN_COURS';
+                            item.statusLabel = 'En Live Coding';
+                        }
+                    });
+                },
+
+                validerPassage(id) {
+                    alert('Gating Validé avec succès pour cet apprenant. Notification enregistrée.');
+                    this.fifoList = this.fifoList.filter(item => item.id !== id);
+                },
+
+                ajournerPassage(id) {
+                    alert('L\'apprenant est renvoyé en révision (Besoin de révision).');
+                    this.fifoList = this.fifoList.filter(item => item.id !== id);
+                },
+
+                supprimer(id) {
+                    this.fifoList = this.fifoList.filter(item => item.id !== id);
+                },
+
+                ajouterApprenant() {
+                    const prenoms = ['Hamza', 'Meriem', 'Zineb', 'Othmane', 'Houda'];
+                    const nom = prenoms[Math.floor(Math.random() * prenoms.length)] + ' ' + ['Alami', 'Chraibi', 'Idrissi', 'Berrada'][Math.floor(Math.random() * 4)];
+                    this.fifoList.push({
+                        id: this.nextId++,
+                        nom: nom,
+                        avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(nom)}&background=e2e8f0&color=334155`,
+                        projet: 'Sprint 3 : Prototype N2',
+                        essai: 1,
+                        status: 'EN_ATTENTE',
+                        statusLabel: 'En attente',
+                        secondes: 0,
+                        attenteMinutes: 0
+                    });
+                },
+
+                passerSessionGroupe() {
+                    alert('Lancement de la session collective mutualisée 4x4 (4 prototypes simultanés).');
+                }
+            };
+        }
+    </script>
+</body>
+</html>
