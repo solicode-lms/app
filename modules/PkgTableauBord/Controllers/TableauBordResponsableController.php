@@ -39,6 +39,7 @@ class TableauBordResponsableController extends AdminController
         $kpiGating = $this->tableauBordService->getIndicateurGatingResponsable($groupeIds, $projetActif?->id);
         $kpiRevision = $this->tableauBordService->getIndicateurRevisionResponsable($groupeIds, $projetActif?->id);
         $kpiChargeLogistique = $this->tableauBordService->getIndicateurChargeLogistiqueResponsable();
+        $kpiFileAttente = $this->tableauBordService->getIndicateurFileAttenteResponsable($groupeIds, $projetActif?->id);
 
         return view('PkgTableauBord::responsable.index', [
             'user' => $user,
@@ -47,6 +48,7 @@ class TableauBordResponsableController extends AdminController
             'kpiGating' => $kpiGating,
             'kpiRevision' => $kpiRevision,
             'kpiChargeLogistique' => $kpiChargeLogistique,
+            'kpiFileAttente' => $kpiFileAttente,
             'projets' => $projets,
             'projetActif' => $projetActif,
             'sessions' => $projets,

@@ -76,6 +76,7 @@ class TableauBordApprenantController extends AdminController
         $kpiAmorcage = $this->tableauBordService->getIndicateurAmorcageApprenant($realisationProjet);
         $kpiGating = $this->tableauBordService->getIndicateurGatingApprenant($realisationProjet);
         $kpiRevision = $this->tableauBordService->getIndicateurRevisionApprenant($realisationProjet);
+        $kpiFileAttente = $this->tableauBordService->getIndicateurFileAttenteApprenant($realisationProjet, $user);
 
         return view('PkgTableauBord::apprenant.index', [
             'user' => $user,
@@ -84,6 +85,7 @@ class TableauBordApprenantController extends AdminController
             'kpiAmorcage' => $kpiAmorcage,
             'kpiGating' => $kpiGating,
             'kpiRevision' => $kpiRevision,
+            'kpiFileAttente' => $kpiFileAttente,
             'projets' => $projets,
             'projetActif' => $projetActif,
             'sessions' => $projets,

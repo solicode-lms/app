@@ -107,8 +107,12 @@ class BaseRealisationTacheSeeder extends Seeder
                         "note" => isset($row["note"]) && $row["note"] !== "" ? $row["note"] : null,
                         "is_live_coding" => isset($row["is_live_coding"]) && $row["is_live_coding"] !== "" ? $row["is_live_coding"] : null,
                         "cache_nombre_revisions" => isset($row["cache_nombre_revisions"]) && $row["cache_nombre_revisions"] !== "" ? $row["cache_nombre_revisions"] : null,
+                        "cache_date_entree_file" => isset($row["cache_date_entree_file"]) && $row["cache_date_entree_file"] !== "" ? $row["cache_date_entree_file"] : null,
                         "remarques_formateur" => isset($row["remarques_formateur"]) && $row["remarques_formateur"] !== "" ? $row["remarques_formateur"] : null,
+                        "cache_date_debut_live_coding" => isset($row["cache_date_debut_live_coding"]) && $row["cache_date_debut_live_coding"] !== "" ? $row["cache_date_debut_live_coding"] : null,
                         "remarques_apprenant" => isset($row["remarques_apprenant"]) && $row["remarques_apprenant"] !== "" ? $row["remarques_apprenant"] : null,
+                        "cache_delai_attente_minutes" => isset($row["cache_delai_attente_minutes"]) && $row["cache_delai_attente_minutes"] !== "" ? $row["cache_delai_attente_minutes"] : null,
+                        "cache_session_live_coding_id" => isset($row["cache_session_live_coding_id"]) && $row["cache_session_live_coding_id"] !== "" ? $row["cache_session_live_coding_id"] : null,
                         "tache_affectation_id" => $tache_affectation_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

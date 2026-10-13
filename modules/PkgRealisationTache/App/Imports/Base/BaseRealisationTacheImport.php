@@ -66,10 +66,14 @@ class BaseRealisationTacheImport implements ToModel, WithHeadingRow
              'note' => $values[6] ?? null,
              'is_live_coding' => $values[7] ?? null,
              'cache_nombre_revisions' => $values[8] ?? null,
-             'remarques_formateur' => $values[9] ?? null,
-             'remarques_apprenant' => $values[10] ?? null,
-             'tache_affectation_id' => $values[11] ?? null,
-             'labelProjets' => $values[12] ?? null,
+             'cache_date_entree_file' => $values[9] ?? null,
+             'remarques_formateur' => $values[10] ?? null,
+             'cache_date_debut_live_coding' => $values[11] ?? null,
+             'remarques_apprenant' => $values[12] ?? null,
+             'cache_delai_attente_minutes' => $values[13] ?? null,
+             'cache_session_live_coding_id' => $values[14] ?? null,
+             'tache_affectation_id' => $values[15] ?? null,
+             'labelProjets' => $values[16] ?? null,
              'reference' => $reference,
         ]);
 

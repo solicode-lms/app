@@ -118,6 +118,13 @@ trait RealisationTacheJobTrait
                     if ($etatWorkflowCode === 'REVISION_NECESSAIRE') {
                         $this->incrementerNombreRevisions($realisationTache);
                     }
+
+                    // Sprint 5 : Indicateur 05 (T_file) - Horodatage entrée file FIFO & prise en charge Live Coding
+                    if ($etatWorkflowCode === 'READY_FOR_LIVE_CODING') {
+                        $this->enregistrerEntreeFileLiveCoding($realisationTache);
+                    } elseif ($etatWorkflowCode === 'IN_LIVE_CODING') {
+                        $this->enregistrerPriseEnChargeLiveCoding($realisationTache);
+                    }
                 }
 
             // Calcule de progression de Live coding

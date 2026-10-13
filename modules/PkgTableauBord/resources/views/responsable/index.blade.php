@@ -48,7 +48,7 @@
             <p class="text-xs text-slate-400">Suivi global du rythme d'amorce des projets ($T_{\text{amorçage}}$) et du taux de validation directe du prototype ($R_{\text{gating}}$).</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
             <!-- Carte Macroscopique Globale Amorçage (Indicateur 01) -->
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
                 <div class="flex items-center justify-between">
@@ -77,18 +77,22 @@
 
             <!-- Carte Macroscopique Globale Charge Administrative (Indicateur 04) -->
             @include('PkgTableauBord::components.kpi-charge-logistique', ['type' => 'responsable', 'kpi' => $kpiChargeLogistique])
+
+            <!-- Carte Macroscopique Globale Latence File FIFO (Indicateur 05) -->
+            @include('PkgTableauBord::components.kpi-file-attente', ['type' => 'responsable', 'kpi' => $kpiFileAttente])
         </div>
 
         <!-- Matrice Comparative / Benchmark Réel des Promotions -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
             <div class="p-5 border-b border-slate-200 bg-slate-50/70">
                 <h4 class="text-sm font-bold text-slate-900">Matrice Comparative Inter-Promotions</h4>
-                <p class="text-xs text-slate-500">Benchmark des cohortes pour l'harmonisation du rythme pédagogique ($T_{\text{amorçage}}$, $R_{\text{gating}}$ & $F_{\text{révision}}$)</p>
+                <p class="text-xs text-slate-500">Benchmark des cohortes pour l'harmonisation du rythme pédagogique ($T_{\text{amorçage}}$, $R_{\text{gating}}$, $F_{\text{révision}}$ & $T_{\text{file}}$)</p>
             </div>
 
             @php
                 $gatingByAff = collect($kpiGating['benchmark'] ?? [])->keyBy('affectation_id');
                 $revisionByAff = collect($kpiRevision['benchmark'] ?? [])->keyBy('affectation_id');
+                $fileByAff = collect($kpiFileAttente['benchmark'] ?? [])->keyBy('affectation_id');
             @endphp
 
             <div class="overflow-x-auto">
@@ -100,6 +104,7 @@
                             <th class="py-3 px-4">Taux d'Amorçage</th>
                             <th class="py-3 px-4">Validation Prototype ($R_{\text{gating}}$)</th>
                             <th class="py-3 px-4">Stabilité & Reprises ($F_{\text{révision}}$)</th>
+                            <th class="py-3 px-4">Attente File ($T_{\text{file}}$)</th>
                             <th class="py-3 px-5 text-right">Statut</th>
                         </tr>
                     </thead>
@@ -109,6 +114,7 @@
                                 $gatingItem = $gatingByAff->get($item['affectation_id']);
                                 $tauxGating = $gatingItem['taux_gating'] ?? null;
                                 $revItem = $revisionByAff->get($item['affectation_id']);
+                                $fileItem = $fileByAff->get($item['affectation_id']);
                             @endphp
                             <tr class="hover:bg-slate-50/80 transition">
                                 <td class="py-3 px-5 font-bold text-slate-900">{{ $item['groupe_code'] }} ({{ $item['groupe_nom'] }})</td>
@@ -131,6 +137,14 @@
                                     @if($revItem)
                                         <span class="font-bold text-slate-800">{{ $revItem['frequence_formatee'] }}</span>
                                         <span class="text-[10px] text-slate-400 block">{{ $revItem['taux_premier_jet_formate'] }} 1er jet</span>
+                                    @else
+                                        <span class="text-slate-400">--</span>
+                                    @endif
+                                </td>
+                                <td class="py-3 px-4 font-mono">
+                                    @if($fileItem)
+                                        <span class="font-bold text-slate-800">{{ $fileItem['delai_moyen_formate'] }}</span>
+                                        <span class="text-[10px] text-slate-400 block">{{ $fileItem['total_en_attente'] }} en file</span>
                                     @else
                                         <span class="text-slate-400">--</span>
                                     @endif

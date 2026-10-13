@@ -38,8 +38,12 @@ class BaseRealisationTacheRequest extends FormRequest
             'note' => 'nullable',
             'is_live_coding' => 'nullable|boolean',
             'cache_nombre_revisions' => 'required|integer',
+            'cache_date_entree_file' => 'nullable',
             'remarques_formateur' => 'nullable|string',
+            'cache_date_debut_live_coding' => 'nullable',
             'remarques_apprenant' => 'nullable|string',
+            'cache_delai_attente_minutes' => 'nullable|integer',
+            'cache_session_live_coding_id' => 'nullable|string|max:255',
             'tache_affectation_id' => 'required',
             'labelProjets' => 'nullable|array'
         ];
@@ -62,8 +66,13 @@ class BaseRealisationTacheRequest extends FormRequest
             'note.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.note')]),
             'is_live_coding.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.is_live_coding')]),
             'cache_nombre_revisions.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.cache_nombre_revisions')]),
+            'cache_date_entree_file.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.cache_date_entree_file')]),
             'remarques_formateur.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.remarques_formateur')]),
+            'cache_date_debut_live_coding.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.cache_date_debut_live_coding')]),
             'remarques_apprenant.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.remarques_apprenant')]),
+            'cache_delai_attente_minutes.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.cache_delai_attente_minutes')]),
+            'cache_session_live_coding_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.cache_session_live_coding_id')]),
+            'cache_session_live_coding_id.max' => __('validation.cache_session_live_coding_idMax'),
             'tache_affectation_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.tache_affectation_id')]),
             'labelProjets.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.labelProjets')]),
             'labelProjets.array' => __('validation.array', ['attribute' => __('PkgRealisationTache::RealisationTache.labelProjets')])

@@ -1,9 +1,9 @@
 ---
 name: pkg-tableau-bord
-description: Expert du module PkgTableauBord — Architecture de données, calculs des Indicateurs 01 (T_amorcage), 02 (R_gating), 03 (F_revision) et 04 (C_logistique), et composants UI V2. Enrichi de façon itérative par sprint.
+description: Expert du module PkgTableauBord — Architecture de données, calculs des Indicateurs 01 (T_amorcage), 02 (R_gating), 03 (F_revision), 04 (C_logistique) et 05 (T_file), et composants UI V2. Enrichi de façon itérative par sprint.
 ---
 
-# Skill : Expert Tableau de Bord (PkgTableauBord) — Sprints 1, 2, 3 & 4
+# Skill : Expert Tableau de Bord (PkgTableauBord) — Sprints 1, 2, 3, 4 & 5
 
 ## 🎯 Périmètre Global
 **Mission** : Fournir à l'IA une maîtrise rigoureuse de l'architecture, des flux de données, des calculs statistiques et des composants graphiques du module **PkgTableauBord** pour les indicateurs développés :
@@ -11,9 +11,10 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
 - **Sprint 2 : Indicateur 02 — Validation du Prototype / Gating ($R_{\text{gating}}$)**
 - **Sprint 3 : Indicateur 03 — Qualité du code & Boucles de révision ($F_{\text{révision}}$)**
 - **Sprint 4 : Indicateur 04 — Charge Logistique & Administrative du Formateur ($C_{\text{logistique}}$)**
+- **Sprint 5 : Indicateur 05 — Délai Moyen de la File d'Attente Live Coding ($T_{\text{file}}$)**
 
 > [!NOTE]
-> **Démarche Itérative** : Conformément à la méthodologie projet, ce skill est enrichi sprint par sprint. Il contient uniquement les connaissances et règles des Sprints 1 à 4, sans anticiper les sprints ultérieurs (5 à 9).
+> **Démarche Itérative** : Conformément à la méthodologie projet, ce skill est enrichi sprint par sprint. Il contient uniquement les connaissances et règles des Sprints 1 à 5, sans anticiper les sprints ultérieurs (6 à 9).
 
 ### 🚫 Interdictions Globales (Règles d'Or)
 1. **Zéro Calcul dans les Contrôleurs ou Blade (CRITIQUE)** : Il est formellement interdit de calculer un indicateur, une moyenne ou une formule mathématique dans un contrôleur ou une vue Blade. Tout calcul passe exclusivement par la couche Service (`TableauBordService`, `DashboardIndicateur01Trait`, `DashboardIndicateur02Trait`, `DashboardIndicateur03Trait`).
@@ -74,18 +75,27 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
   - Service : `DashboardIndicateur04Trait` (individuel et macro responsable)
   - UI V2 : `kpi-charge-logistique.blade.php`
 
+### Action G : Réguler la File FIFO et Calculer l'Indicateur 05 ($T_{\text{file}}$)
+> **Description** : Expliquer le cycle de vie dans la file FIFO, le calcul du rang pour l'apprenant, la console d'arbitrage 1-à-1 vs mutualisation 4x4, et le benchmark des délais d'attente.
+- **Ressources Utilisées** :
+  - `cahiers-charges/PkgTableauBord/indicateurs/ind-05-delai-file-attente.md`
+- **Sorties** :
+  - Colonnes `realisation_taches` : `cache_date_entree_file`, `cache_date_debut_live_coding`, `cache_delai_attente_minutes`, `cache_session_live_coding_id`
+  - Service : `DashboardIndicateur05Trait`
+  - UI V2 : `kpi-file-attente.blade.php`, `file-attente-console.blade.php`, bandeau dynamique apprenant
+
 ---
 
 ## 🛠️ Règles de Gestion (Savoir-Faire Métier)
 
 ### 1. `règle-gestion-bdd-pkg-tableau-bord.md`
-- **Rôle** : Description des colonnes `cache_` et de la table `log_activite_formateurs` pour les Sprints 1 à 4.
+- **Rôle** : Description des colonnes `cache_` et de la table `log_activite_formateurs` pour les Sprints 1 à 5.
 
 ### 2. `règle-gestion-indicateurs-pkg-tableau-bord.md`
-- **Rôle** : Spécification complète des Indicateurs 01 ($T_{\text{amorçage}}$), 02 ($R_{\text{gating}}$), 03 ($F_{\text{révision}}$) et 04 ($C_{\text{logistique}}$).
+- **Rôle** : Spécification complète des Indicateurs 01 ($T_{\text{amorçage}}$), 02 ($R_{\text{gating}}$), 03 ($F_{\text{révision}}$), 04 ($C_{\text{logistique}}$) et 05 ($T_{\text{file}}$).
 
 ### 3. `règle-gestion-fonctionnalites-pkg-tableau-bord.md`
-- **Rôle** : Fonctionnalités des Sprints 1 à 4 pour les trois profils (Apprenant, Formateur, Responsable).
+- **Rôle** : Fonctionnalités des Sprints 1 à 5 pour les trois profils (Apprenant, Formateur, Responsable).
 
 ---
 
@@ -116,3 +126,9 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
    - $2.5\,h < C \le 5.0\,h/\text{sem}$ : badge ambre (*"Charge notable"*).
    - $> 5.0\,h/\text{sem}$ : badge rose (*"Surcharge bureaucratique"*).
 4. La vue Responsable agrège la moyenne d'équipe et dresse le benchmark individuel par formateur.
+
+### Scénario 5 : Régulation de la File Live Coding ($T_{\text{file}}$)
+1. Dès que l'apprenant soumet son prototype N2, la tâche passe à `READY_FOR_LIVE_CODING` et fige `cache_date_entree_file = now()`.
+2. L'apprenant voit en temps réel son rang d'attente FIFO (ex: Rang #2, ~18 min estimées).
+3. Le formateur consulte sa console ordonnée ASC et appelle le suivant, ou active une session mutualisée 4x4 si la file s'accumule (> 4 apprenants ou attente > 60 min).
+4. Au passage à `IN_LIVE_CODING`, `cache_date_debut_live_coding` est enregistré et `cache_delai_attente_minutes` est calculé.

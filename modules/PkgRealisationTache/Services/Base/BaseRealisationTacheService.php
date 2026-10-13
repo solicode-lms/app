@@ -34,8 +34,12 @@ class BaseRealisationTacheService extends BaseService
         'note',
         'is_live_coding',
         'cache_nombre_revisions',
+        'cache_date_entree_file',
         'remarques_formateur',
+        'cache_date_debut_live_coding',
         'remarques_apprenant',
+        'cache_delai_attente_minutes',
+        'cache_session_live_coding_id',
         'tache_affectation_id',
         'reference'
     ];
