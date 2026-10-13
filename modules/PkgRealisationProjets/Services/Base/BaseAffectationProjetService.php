@@ -28,6 +28,7 @@ class BaseAffectationProjetService extends BaseService
         'projet_id',
         'groupe_id',
         'sous_groupe_id',
+        'cache_date_lancement',
         'annee_formation_id',
         'date_debut',
         'date_fin',

@@ -159,6 +159,78 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="cache_date_premiere_soumission" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="cache_date_premiere_soumission" 
+              id="bulk_field_cache_date_premiere_soumission" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="cache_date_premiere_soumission">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.cache_date_premiere_soumission')) }}
+            
+          </label>
+                      <input
+                name="cache_date_premiere_soumission"
+                type="text"
+                class="form-control datetimepicker"
+                
+                
+                
+                id="cache_date_premiere_soumission"
+                placeholder="{{ __('PkgRealisationProjets::realisationProjet.cache_date_premiere_soumission') }}"
+                value="{{ $itemRealisationProjet ? $itemRealisationProjet->cache_date_premiere_soumission : old('cache_date_premiere_soumission') }}">
+
+          @error('cache_date_premiere_soumission')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="cache_date_lancement" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="cache_date_lancement" 
+              id="bulk_field_cache_date_lancement" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="cache_date_lancement">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.cache_date_lancement')) }}
+            
+          </label>
+                      <input
+                name="cache_date_lancement"
+                type="text"
+                class="form-control datetimepicker"
+                
+                
+                
+                id="cache_date_lancement"
+                placeholder="{{ __('PkgRealisationProjets::realisationProjet.cache_date_lancement') }}"
+                value="{{ $itemRealisationProjet ? $itemRealisationProjet->cache_date_lancement : old('cache_date_lancement') }}">
+
+          @error('cache_date_lancement')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="note_cache" :bulkEdit="$bulkEdit">
       @php $canEditnote_cache = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'root')) : (empty($itemRealisationProjet->id) || Auth::user()->hasAnyRole(explode(',', 'root')) ); @endphp
 

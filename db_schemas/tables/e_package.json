@@ -142,5 +142,13 @@
         "description": "Automatically generated package for PkgPasserQcm",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 19,
+        "reference": "PkgTableauBord",
+        "name": "PkgTableauBord",
+        "description": "Automatically generated package for PkgTableauBord",
+        "created_at": null,
+        "updated_at": null
     }
 ]

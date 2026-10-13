@@ -18,6 +18,28 @@
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.cache_date_premiere_soumission')) }}</small>
+                  <span>
+                    @if ($itemRealisationProjet->cache_date_premiere_soumission)
+                    {{ \Carbon\Carbon::parse($itemRealisationProjet->cache_date_premiere_soumission)->isoFormat('LLL') }}
+                    @else
+                    —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.cache_date_lancement')) }}</small>
+                  <span>
+                    @if ($itemRealisationProjet->cache_date_lancement)
+                    {{ \Carbon\Carbon::parse($itemRealisationProjet->cache_date_lancement)->isoFormat('LLL') }}
+                    @else
+                    —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.note_cache')) }}</small>
 @include('PkgRealisationProjets::realisationProjet.custom.fields.note_cache',['entity' => $itemRealisationProjet])
                 </div>

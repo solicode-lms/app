@@ -949,5 +949,77 @@
         "value_float": 0,
         "e_data_field_reference": "RealisationProjet_progression_validation_cache",
         "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_premiere_soumission_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "RealisationProjet_cache_date_premiere_soumission",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_premiere_soumission_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_date_premiere_soumission",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_premiere_soumission_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationProjet_cache_date_premiere_soumission",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_premiere_soumission_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_date_premiere_soumission",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_premiere_soumission_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_date_premiere_soumission",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_premiere_soumission_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_date_premiere_soumission",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_lancement_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "RealisationProjet_cache_date_lancement",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_lancement_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_date_lancement",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_lancement_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationProjet_cache_date_lancement",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_lancement_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_date_lancement",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_lancement_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_date_lancement",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_lancement_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_date_lancement",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

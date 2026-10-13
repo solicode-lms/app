@@ -102,6 +102,7 @@ class BaseAffectationProjetSeeder extends Seeder
                         "projet_id" => $projet_id,
                         "groupe_id" => $groupe_id,
                         "sous_groupe_id" => $sous_groupe_id,
+                        "cache_date_lancement" => isset($row["cache_date_lancement"]) && $row["cache_date_lancement"] !== "" ? $row["cache_date_lancement"] : null,
                         "annee_formation_id" => $annee_formation_id,
                         "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,

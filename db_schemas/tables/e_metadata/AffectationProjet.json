@@ -883,5 +883,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "affectation_projets_hasMany_affectation_qcm_projets_affectation_projet_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "AffectationProjet_cache_date_lancement_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "AffectationProjet_cache_date_lancement",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "AffectationProjet_cache_date_lancement_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "AffectationProjet_cache_date_lancement",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "AffectationProjet_cache_date_lancement_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AffectationProjet_cache_date_lancement",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AffectationProjet_cache_date_lancement_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AffectationProjet_cache_date_lancement",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AffectationProjet_cache_date_lancement_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AffectationProjet_cache_date_lancement",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "AffectationProjet_cache_date_lancement_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AffectationProjet_cache_date_lancement",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
