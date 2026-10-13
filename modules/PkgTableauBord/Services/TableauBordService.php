@@ -4,8 +4,9 @@ namespace Modules\PkgTableauBord\Services;
 
 use Modules\PkgTableauBord\Services\Traits\DashboardIndicateur01Trait;
 use Modules\PkgTableauBord\Services\Traits\DashboardIndicateur02Trait;
+use Modules\PkgTableauBord\Services\Traits\DashboardSessionTrait;
 
 class TableauBordService
 {
-    use DashboardIndicateur01Trait, DashboardIndicateur02Trait;
+    use DashboardIndicateur01Trait, DashboardIndicateur02Trait, DashboardSessionTrait;
 }

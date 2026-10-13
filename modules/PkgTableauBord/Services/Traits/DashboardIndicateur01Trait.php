@@ -143,15 +143,19 @@ trait DashboardIndicateur01Trait
      * Récupère les données de l'Indicateur 01 pour le tableau de bord du Responsable.
      *
      * @param array $groupeIds
+     * @param int|null $projetId
      * @return array
      */
-    public function getIndicateurAmorcageResponsable(array $groupeIds = []): array
+    public function getIndicateurAmorcageResponsable(array $groupeIds = [], ?int $projetId = null): array
     {
         $realisationProjetService = app(RealisationProjetService::class);
 
-        $query = AffectationProjet::with(['groupe', 'realisationProjets']);
+        $query = AffectationProjet::with(['groupe', 'realisationProjets', 'projet']);
         if (!empty($groupeIds)) {
             $query->whereIn('groupe_id', $groupeIds);
+        }
+        if (!empty($projetId)) {
+            $query->where('projet_id', $projetId);
         }
         $affectations = $query->latest('date_debut')->take(10)->get();
 

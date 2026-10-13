@@ -27,16 +27,24 @@ class TableauBordFormateurController extends AdminController
         $user = Auth::user();
         $formateur = Formateur::where('user_id', $user->id)->first();
 
-        // Récupérer l'affectation active (soit par filtre ID, soit la plus récente)
+        // Résolution du Projet actif (session de formation du formateur)
+        $requestedProjetId = $request->get('projet_id') ?? $request->get('session_formation_id');
+        $projets = $this->tableauBordService->getSessionsProjetDisponibles($user);
+        $projetActif = $this->tableauBordService->resolveActiveProjet($requestedProjetId, $user);
+
+        // Récupérer l'affectation active (soit par filtre ID, soit par projet actif, soit la plus récente)
         $affectationProjetId = $request->get('affectation_projet_id');
         $affectationProjet = null;
 
         if ($affectationProjetId) {
-            $affectationProjet = AffectationProjet::with(['projet', 'groupe'])->find($affectationProjetId);
+            $affectationProjet = AffectationProjet::with(['projet.formateur', 'groupe'])->find($affectationProjetId);
         }
 
         if (!$affectationProjet) {
-            $query = AffectationProjet::with(['projet', 'groupe']);
+            $query = AffectationProjet::with(['projet.formateur', 'groupe']);
+            if ($projetActif) {
+                $query->where('projet_id', $projetActif->id);
+            }
             if ($formateur) {
                 $query->whereHas('projet', function ($q) use ($formateur) {
                     $q->where('formateur_id', $formateur->id);
@@ -45,13 +53,32 @@ class TableauBordFormateurController extends AdminController
             $affectationProjet = $query->latest('date_debut')->first();
         }
 
+        // Fallback contextuel sur le projet sélectionné
+        if (!$affectationProjet && $projetActif) {
+            $affectationProjet = AffectationProjet::with(['projet.formateur', 'groupe'])
+                ->where('projet_id', $projetActif->id)
+                ->latest('date_debut')
+                ->first();
+        }
+
+        // Fallback global de prévisualisation
         if (!$affectationProjet) {
-            $affectationProjet = AffectationProjet::with(['projet', 'groupe'])->latest('date_debut')->first();
+            $affectationProjet = AffectationProjet::with(['projet.formateur', 'groupe'])->latest('date_debut')->first();
         }
 
         $kpiAmorcage = $this->tableauBordService->getIndicateurAmorcageFormateur($affectationProjet);
         $kpiGating = $this->tableauBordService->getIndicateurGatingFormateur($affectationProjet);
 
-        return view('PkgTableauBord::formateur.index', compact('user', 'formateur', 'affectationProjet', 'kpiAmorcage', 'kpiGating'));
+        return view('PkgTableauBord::formateur.index', [
+            'user' => $user,
+            'formateur' => $formateur,
+            'affectationProjet' => $affectationProjet,
+            'kpiAmorcage' => $kpiAmorcage,
+            'kpiGating' => $kpiGating,
+            'projets' => $projets,
+            'projetActif' => $projetActif,
+            'sessions' => $projets,
+            'sessionFormationActive' => $projetActif,
+        ]);
     }
 }

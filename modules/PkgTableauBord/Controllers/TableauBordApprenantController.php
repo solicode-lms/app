@@ -27,23 +27,47 @@ class TableauBordApprenantController extends AdminController
         $user = Auth::user();
         $apprenant = Apprenant::where('user_id', $user->id)->first();
 
-        // Récupérer le projet en cours de l'apprenant
+        // Résolution du Projet actif (session de projet du formateur)
+        $requestedProjetId = $request->get('projet_id') ?? $request->get('session_formation_id');
+        $projets = $this->tableauBordService->getSessionsProjetDisponibles($user);
+        $projetActif = $this->tableauBordService->resolveActiveProjet($requestedProjetId, $user);
+
+        // Récupérer le projet de l'apprenant pour le projet actif
         $realisationProjet = null;
         if ($apprenant) {
+            $query = RealisationProjet::with([
+                'affectationProjet.projet.formateur',
+                'affectationProjet.groupe',
+                'apprenant'
+            ])->where('apprenant_id', $apprenant->id);
+
+            if ($projetActif) {
+                $query->whereHas('affectationProjet', function ($q) use ($projetActif) {
+                    $q->where('projet_id', $projetActif->id);
+                });
+            }
+
+            $realisationProjet = $query->latest('date_debut')->first();
+        }
+
+        // Fallback contextuel sur le projet sélectionné
+        if (!$realisationProjet && $projetActif) {
             $realisationProjet = RealisationProjet::with([
-                'affectationProjet.projet',
+                'affectationProjet.projet.formateur',
                 'affectationProjet.groupe',
                 'apprenant'
             ])
-            ->where('apprenant_id', $apprenant->id)
+            ->whereHas('affectationProjet', function ($q) use ($projetActif) {
+                $q->where('projet_id', $projetActif->id);
+            })
             ->latest('date_debut')
             ->first();
         }
 
-        // Fallback pour la prévisualisation si aucun projet direct
+        // Fallback global de prévisualisation
         if (!$realisationProjet) {
             $realisationProjet = RealisationProjet::with([
-                'affectationProjet.projet',
+                'affectationProjet.projet.formateur',
                 'affectationProjet.groupe',
                 'apprenant'
             ])->latest('date_debut')->first();
@@ -52,6 +76,16 @@ class TableauBordApprenantController extends AdminController
         $kpiAmorcage = $this->tableauBordService->getIndicateurAmorcageApprenant($realisationProjet);
         $kpiGating = $this->tableauBordService->getIndicateurGatingApprenant($realisationProjet);
 
-        return view('PkgTableauBord::apprenant.index', compact('user', 'apprenant', 'realisationProjet', 'kpiAmorcage', 'kpiGating'));
+        return view('PkgTableauBord::apprenant.index', [
+            'user' => $user,
+            'apprenant' => $apprenant,
+            'realisationProjet' => $realisationProjet,
+            'kpiAmorcage' => $kpiAmorcage,
+            'kpiGating' => $kpiGating,
+            'projets' => $projets,
+            'projetActif' => $projetActif,
+            'sessions' => $projets,
+            'sessionFormationActive' => $projetActif,
+        ]);
     }
 }

@@ -4,14 +4,26 @@
 @section('page_title', 'Mon Tableau de Bord')
 @section('page_subtitle', 'Suivi d\'avancement et régulation du démarrage de projet')
 
+@section('actions')
+    @include('PkgTableauBord::components.session-selector', ['sessions' => $sessions ?? collect(), 'sessionActive' => $sessionFormationActive ?? null])
+@endsection
+
 @section('content')
     <!-- En-tête contextuel Apprenant & Projet en cours -->
     <section class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
-                    Espace Apprenant
-                </span>
+                <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                        Espace Apprenant
+                    </span>
+                    @if(isset($projetActif) || isset($sessionFormationActive))
+                        @php $currentActive = $projetActif ?? $sessionFormationActive; @endphp
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100/70 text-indigo-800 border border-indigo-300">
+                            Projet : {{ $currentActive->titre }}
+                        </span>
+                    @endif
+                </div>
                 <h2 class="text-xl font-bold text-slate-900 mt-1">
                     Bonjour, {{ $apprenant->prenom ?? (Auth::user()?->name ?? 'Apprenant') }} 👋
                 </h2>

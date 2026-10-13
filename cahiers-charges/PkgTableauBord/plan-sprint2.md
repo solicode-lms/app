@@ -144,9 +144,10 @@ graph TD
 **Objectif** : Créer le composant graphique réutilisable et intégrer l'Indicateur 02 dans les vues respectant `layouts.admin-v2`.
 - **Fichiers créés / modifiés** :
   1. `modules/PkgTableauBord/resources/views/components/kpi-gating.blade.php` : Composant Blade V2 avec Tailwind CSS affichant le statut apprenant ou la jauge formateur/responsable.
-  2. `modules/PkgTableauBord/resources/views/apprenant/index.blade.php` : Intégration de la carte *"Validation du Prototype"* aux côtés de l'Indicateur 01.
-  3. `modules/PkgTableauBord/resources/views/formateur/index.blade.php` : Intégration de la carte *"Validation au 1er passage"* et du bloc de convocation à l'atelier de remédiation.
-  4. `modules/PkgTableauBord/resources/views/responsable/index.blade.php` : Ajout de la colonne $R_{\text{gating}}$ dans la matrice benchmark inter-promotions.
+  2. `modules/PkgTableauBord/resources/views/components/session-selector.blade.php` : Sélecteur dynamique de la session de projet active (`Projet` du formateur) dans le header (`@section('actions')`), avec persistance en session PHP (`active_projet_id`).
+  3. `modules/PkgTableauBord/resources/views/apprenant/index.blade.php` : Intégration du sélecteur de session et de la carte *"Validation du Prototype"* aux côtés de l'Indicateur 01.
+  4. `modules/PkgTableauBord/resources/views/formateur/index.blade.php` : Intégration du sélecteur de session, de la carte *"Validation au 1er passage"* et du bloc de convocation à l'atelier de remédiation.
+  5. `modules/PkgTableauBord/resources/views/responsable/index.blade.php` : Intégration du sélecteur de session et ajout de la colonne $R_{\text{gating}}$ dans la matrice benchmark inter-promotions.
 
 ---
 

@@ -155,9 +155,10 @@ trait DashboardIndicateur02Trait
      * Récupère les données de l'Indicateur 02 pour le tableau de bord du Responsable.
      *
      * @param array $groupeIds
+     * @param int|null $projetId
      * @return array
      */
-    public function getIndicateurGatingResponsable(array $groupeIds = []): array
+    public function getIndicateurGatingResponsable(array $groupeIds = [], ?int $projetId = null): array
     {
         $rpQuery = RealisationProjet::query();
         if (!empty($groupeIds)) {
@@ -165,13 +166,21 @@ trait DashboardIndicateur02Trait
                 $q->whereIn('groupe_id', $groupeIds);
             });
         }
+        if (!empty($projetId)) {
+            $rpQuery->whereHas('affectationProjet', function ($q) use ($projetId) {
+                $q->where('projet_id', $projetId);
+            });
+        }
         $totalGlobalEvalues = (clone $rpQuery)->whereNotNull('cache_est_valide_prototype_premier_essai')->count();
         $totalGlobalValides1er = (clone $rpQuery)->where('cache_est_valide_prototype_premier_essai', true)->count();
         $tauxGlobal = $totalGlobalEvalues > 0 ? round(($totalGlobalValides1er / $totalGlobalEvalues) * 100, 1) : 75.0;
 
-        $query = AffectationProjet::with(['groupe', 'realisationProjets']);
+        $query = AffectationProjet::with(['groupe', 'realisationProjets', 'projet']);
         if (!empty($groupeIds)) {
             $query->whereIn('groupe_id', $groupeIds);
+        }
+        if (!empty($projetId)) {
+            $query->where('projet_id', $projetId);
         }
         $affectations = $query->latest('date_debut')->take(10)->get();
 

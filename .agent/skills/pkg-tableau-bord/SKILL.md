@@ -53,7 +53,7 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
 - **Sorties** :
   - Layout : `layouts.admin-v2`
   - Vues : `PkgTableauBord::apprenant.index`, `PkgTableauBord::formateur.index`, `PkgTableauBord::responsable.index`
-  - Composants : `PkgTableauBord::components.kpi-amorcage`, `PkgTableauBord::components.kpi-gating`
+  - Composants : `PkgTableauBord::components.kpi-amorcage`, `PkgTableauBord::components.kpi-gating`, `PkgTableauBord::components.session-selector`
   - Navigation : Intégration dans `resources/views/layouts/menu-sidebar.blade.php` conditionnée par rôles.
 
 ---

@@ -29,10 +29,24 @@ class TableauBordResponsableController extends AdminController
             $groupeIds = explode(',', $groupeIds);
         }
 
-        $groupes = Groupe::orderBy('nom')->get();
-        $kpiAmorcage = $this->tableauBordService->getIndicateurAmorcageResponsable($groupeIds);
-        $kpiGating = $this->tableauBordService->getIndicateurGatingResponsable($groupeIds);
+        // Résolution du Projet actif (session de formation du formateur)
+        $requestedProjetId = $request->get('projet_id') ?? $request->get('session_formation_id');
+        $projets = $this->tableauBordService->getSessionsProjetDisponibles($user);
+        $projetActif = $this->tableauBordService->resolveActiveProjet($requestedProjetId, $user);
 
-        return view('PkgTableauBord::responsable.index', compact('user', 'groupes', 'kpiAmorcage', 'kpiGating'));
+        $groupes = Groupe::orderBy('nom')->get();
+        $kpiAmorcage = $this->tableauBordService->getIndicateurAmorcageResponsable($groupeIds, $projetActif?->id);
+        $kpiGating = $this->tableauBordService->getIndicateurGatingResponsable($groupeIds, $projetActif?->id);
+
+        return view('PkgTableauBord::responsable.index', [
+            'user' => $user,
+            'groupes' => $groupes,
+            'kpiAmorcage' => $kpiAmorcage,
+            'kpiGating' => $kpiGating,
+            'projets' => $projets,
+            'projetActif' => $projetActif,
+            'sessions' => $projets,
+            'sessionFormationActive' => $projetActif,
+        ]);
     }
 }
