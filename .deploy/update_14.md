@@ -23,4 +23,5 @@ php artisan dashboard:simuler-file-attente
 php artisan dashboard:simuler-remediations
 php artisan dashboard:simuler-integrite-ia
 php artisan dashboard:simuler-couverture-pedagogique
+php artisan dashboard:simuler-docimologie
 ```

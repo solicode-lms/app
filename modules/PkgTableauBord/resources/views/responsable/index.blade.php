@@ -111,6 +111,7 @@
                 $interventionByAff = collect($kpiIntervention['benchmark'] ?? [])->keyBy('affectation_id');
                 $integriteByAff = collect($kpiIntegriteIA['benchmark'] ?? [])->keyBy('affectation_id');
                 $couvertureByGroupe = collect($kpiCouverture['groupes_benchmark'] ?? [])->keyBy('groupe_nom');
+                $docimologieByGroupe = collect($kpiDocimologie['groupes_benchmark'] ?? [])->keyBy('groupe_nom');
             @endphp
 
             <div class="overflow-x-auto">
@@ -126,6 +127,7 @@
                             <th class="py-3 px-4">Remédiation ($T_{\text{intervention}}$)</th>
                             <th class="py-3 px-4">Cohérence IA ($r$)</th>
                             <th class="py-3 px-4">Couverture Référentiel (ICP)</th>
+                            <th class="py-3 px-4">Docimologie 65/35 (&tau;)</th>
                             <th class="py-3 px-5 text-right">Statut</th>
                         </tr>
                     </thead>
@@ -139,6 +141,7 @@
                                 $intervItem = $interventionByAff->get($item['affectation_id']);
                                 $integItem = $integriteByAff->get($item['affectation_id']);
                                 $couvItem = $couvertureByGroupe->get($item['groupe_code']);
+                                $dociItem = $docimologieByGroupe->get($item['groupe_code']);
                             @endphp
                             <tr class="hover:bg-slate-50/80 transition">
                                 <td class="py-3 px-5 font-bold text-slate-900">{{ $item['groupe_code'] }} ({{ $item['groupe_nom'] }})</td>
@@ -200,6 +203,17 @@
                                     @else
                                         <span class="font-bold text-emerald-700">{{ $kpiCouverture['taux_macro_formate'] ?? '85%' }}</span>
                                         <span class="text-[10px] text-emerald-600 block">Conforme</span>
+                                    @endif
+                                </td>
+                                <td class="py-3 px-4 font-mono">
+                                    @if($dociItem)
+                                        <span class="font-bold text-indigo-700">{{ $dociItem['taux_completude_formate'] }}</span>
+                                        <span class="text-[10px] {{ $dociItem['badge_class'] ?? 'text-slate-400' }} px-1.5 py-0.5 rounded block w-fit">
+                                            {{ $dociItem['statut_badge'] ?? 'Certifié' }}
+                                        </span>
+                                    @else
+                                        <span class="font-bold text-indigo-700">100%</span>
+                                        <span class="text-[10px] text-emerald-600 block">Certifié</span>
                                     @endif
                                 </td>
                                 <td class="py-3 px-5 text-right">

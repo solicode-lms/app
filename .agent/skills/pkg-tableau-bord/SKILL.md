@@ -116,6 +116,19 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
   - UI V2 : `kpi-couverture-pedagogique.blade.php`, `impasses-pedagogiques-panel.blade.php`
   - Artisan : `dashboard:simuler-couverture-pedagogique`
 
+### Action K : Appliquer la Règle Docimologique 65/35 & Sceller les Bordereaux Officiels
+> **Description** : Expliquer l'algorithme officiel de calcul de la note CC (sur 20) et de la note EFM (sur 40) selon la pondération 65% Prototype + 35% Projet, le contrôle de complétude 100%, le scellement officiel par empreinte SHA-256 et la génération des bordereaux officiels.
+- **Ressources Utilisées** :
+  - `cahiers-charges/PkgTableauBord/indicateurs/ind-09-conformite-conversion-65-35.md`
+  - `cahiers-charges/PkgTableauBord/plan-sprint9.md`
+- **Sorties** :
+  - Colonnes BDD : `note_cc_officielle`, `note_efm_officielle`, `statut_docimologique` sur `realisation_modules`
+  - Table : `bordereaux_officiels`
+  - Modèle : `Modules\PkgTableauBord\Models\BordereauxOfficiel`
+  - Service : `DashboardIndicateur09Trait`
+  - UI V2 : `kpi-docimologie.blade.php`, `bordereau-officiel-panel.blade.php`
+  - Artisan : `dashboard:simuler-docimologie`
+
 ---
 
 ## 🛠️ Règles de Gestion (Savoir-Faire Métier)
@@ -184,5 +197,13 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
 2. L'apprenant suit sa progression personnelle : $C_{\text{validées}} / C_{\text{prescrites}}$ et sa jauge d'assimilation (ex: $85\%$).
 3. Le formateur analyse l'$\text{ICP}$ collectif de cohorte ($\text{ICP} = \frac{\sum C_{\text{validées}}}{N \times C_{\text{référentiel}}} \times 100$) et consulte le **Diagnostic des Impasses Didactiques** identifiant toute compétence à $< 50\%$ de validation pour planifier des ateliers de remédiation ciblés.
 4. Le responsable supervise le benchmark macroscopique inter-promotions comparant la conformité face au seuil national ($\ge 85\%$) dans la matrice comparative.
+
+### Scénario 9 : Règle Docimologique 65/35 & Scellement des Bordereaux
+1. Les notes des prototypes ($N2$) et du projet libre ($N3$) sont combinées pour calculer :
+   - $\text{Note CC} = \overline{N2} \in [0, 20]$ (Contrôle Continu).
+   - $\text{Note EFM} = 2 \times (0{,}65 \times \text{Note CC} + 0{,}35 \times N3) \in [0, 40]$ (Examen Fin de Module).
+2. L'apprenant consulte sa moyenne provisoire de CC et sa note sommative estimée dans un cadre de transparence totale.
+3. Le formateur vérifie la complétude de sa classe ($100\%$ requis avant scellement). Dès que tous les apprenants sont notés, il actionne le scellement officiel qui horodate et génère l'empreinte cryptographique SHA-256 dans `bordereaux_officiels`.
+4. Le responsable de formation s'assure que le taux de conformité atteint $100\%$ ($\tau_{\text{conformité}} = 100\%$, zéro divergence arithmétique) et télécharge les bordereaux institutionnels certifiés pour le jury et l'administration.
 
 
