@@ -1,18 +1,19 @@
 ---
 name: pkg-tableau-bord
-description: Expert du module PkgTableauBord — Architecture de données, calculs des Indicateurs 01 (T_amorcage), 02 (R_gating) et 03 (F_revision), et composants UI V2. Enrichi de façon itérative par sprint.
+description: Expert du module PkgTableauBord — Architecture de données, calculs des Indicateurs 01 (T_amorcage), 02 (R_gating), 03 (F_revision) et 04 (C_logistique), et composants UI V2. Enrichi de façon itérative par sprint.
 ---
 
-# Skill : Expert Tableau de Bord (PkgTableauBord) — Sprints 1, 2 & 3
+# Skill : Expert Tableau de Bord (PkgTableauBord) — Sprints 1, 2, 3 & 4
 
 ## 🎯 Périmètre Global
 **Mission** : Fournir à l'IA une maîtrise rigoureuse de l'architecture, des flux de données, des calculs statistiques et des composants graphiques du module **PkgTableauBord** pour les indicateurs développés :
 - **Sprint 1 : Indicateur 01 — Démarrage du travail ($T_{\text{amorçage}}$)**
 - **Sprint 2 : Indicateur 02 — Validation du Prototype / Gating ($R_{\text{gating}}$)**
 - **Sprint 3 : Indicateur 03 — Qualité du code & Boucles de révision ($F_{\text{révision}}$)**
+- **Sprint 4 : Indicateur 04 — Charge Logistique & Administrative du Formateur ($C_{\text{logistique}}$)**
 
 > [!NOTE]
-> **Démarche Itérative** : Conformément à la méthodologie projet, ce skill est enrichi sprint par sprint. Il contient uniquement les connaissances et règles des Sprints 1, 2 et 3, sans anticiper les sprints ultérieurs (4 à 9).
+> **Démarche Itérative** : Conformément à la méthodologie projet, ce skill est enrichi sprint par sprint. Il contient uniquement les connaissances et règles des Sprints 1 à 4, sans anticiper les sprints ultérieurs (5 à 9).
 
 ### 🚫 Interdictions Globales (Règles d'Or)
 1. **Zéro Calcul dans les Contrôleurs ou Blade (CRITIQUE)** : Il est formellement interdit de calculer un indicateur, une moyenne ou une formule mathématique dans un contrôleur ou une vue Blade. Tout calcul passe exclusivement par la couche Service (`TableauBordService`, `DashboardIndicateur01Trait`, `DashboardIndicateur02Trait`, `DashboardIndicateur03Trait`).
@@ -63,18 +64,28 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
   - `docs/calcul-indicateur-boucles-revision.md`
 - **Sorties** : Fréquence unitaire, micro (Apprenant), méso (Formateur avec Top 3 tâches) et macro (Responsable avec benchmark).
 
+### Action F : Télémétrer ou Calculer l'Indicateur 04 ($C_{\text{logistique}}$)
+> **Description** : Expliquer le dispositif de télémétrie client (heartbeat avec verrou d'inactivité à 5 min), l'ingestion API et le calcul de la charge hebdomadaire ($T_{\text{pilotage}}$, $T_{\text{file}}$, $T_{\text{bordereaux}}$).
+- **Ressources Utilisées** :
+  - `cahiers-charges/PkgTableauBord/indicateurs/ind-04-charge-logistique.md`
+- **Sorties** :
+  - Table : `log_activite_formateurs`
+  - Télémétrie : `ActiviteFormateurController@ping`, composant JS `telemetrie-activite.blade.php`
+  - Service : `DashboardIndicateur04Trait` (individuel et macro responsable)
+  - UI V2 : `kpi-charge-logistique.blade.php`
+
 ---
 
 ## 🛠️ Règles de Gestion (Savoir-Faire Métier)
 
 ### 1. `règle-gestion-bdd-pkg-tableau-bord.md`
-- **Rôle** : Description des colonnes `cache_` ajoutées aux tables SoliLMS (`affectation_projets`, `realisation_projets`, `realisation_taches`) pour les Sprints 1, 2 et 3.
+- **Rôle** : Description des colonnes `cache_` et de la table `log_activite_formateurs` pour les Sprints 1 à 4.
 
 ### 2. `règle-gestion-indicateurs-pkg-tableau-bord.md`
-- **Rôle** : Spécification complète des Indicateurs 01 ($T_{\text{amorçage}}$), 02 ($R_{\text{gating}}$) et 03 ($F_{\text{révision}}$) : modélisation mathématique, seuils d'alerte et actions.
+- **Rôle** : Spécification complète des Indicateurs 01 ($T_{\text{amorçage}}$), 02 ($R_{\text{gating}}$), 03 ($F_{\text{révision}}$) et 04 ($C_{\text{logistique}}$).
 
 ### 3. `règle-gestion-fonctionnalites-pkg-tableau-bord.md`
-- **Rôle** : Fonctionnalités des Sprints 1, 2 et 3 pour les trois profils (Apprenant, Formateur, Responsable).
+- **Rôle** : Fonctionnalités des Sprints 1 à 4 pour les trois profils (Apprenant, Formateur, Responsable).
 
 ---
 
@@ -96,3 +107,12 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
 2. Incrémenter `cache_nombre_revisions`.
 3. Calculer $F_{\text{révision}} = \frac{\sum \text{rejets}}{\text{total tâches}}$ et $\tau_{\text{conforme\_1er\_jet}} = \frac{\text{tâches sans rejet}}{\text{total tâches}} \times 100$.
 4. Extraire le Top 3 des tâches concentrant le plus grand nombre de rejets pour le formateur.
+
+### Scénario 4 : Suivi de la Charge Administrative ($C_{\text{logistique}}$)
+1. Ping régulier de 60s émis par `telemetrie-activite.blade.php` tant qu'il y a des interactions utilisateur (< 5 min d'inactivité).
+2. Endpoint `ActiviteFormateurController@ping` incrémente `duree_secondes` dans `log_activite_formateurs`.
+3. `DashboardIndicateur04Trait` convertit en heures décimales par semaine :
+   - $\le 2.5\,h/\text{sem}$ : badge vert (*"Logistique optimisée"*).
+   - $2.5\,h < C \le 5.0\,h/\text{sem}$ : badge ambre (*"Charge notable"*).
+   - $> 5.0\,h/\text{sem}$ : badge rose (*"Surcharge bureaucratique"*).
+4. La vue Responsable agrège la moyenne d'équipe et dresse le benchmark individuel par formateur.

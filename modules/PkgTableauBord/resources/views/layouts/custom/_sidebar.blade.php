@@ -1,0 +1,1 @@
+@extends('PkgTableauBord::layouts._sidebar')

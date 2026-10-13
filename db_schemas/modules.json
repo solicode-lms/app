@@ -210,7 +210,9 @@
 
 , "PkgTableauBord": {
     "name": "PkgTableauBord",
-    "tables": []
+    "tables": [
+        "log_activite_formateurs"
+    ]
 }
 
 

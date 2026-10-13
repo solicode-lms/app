@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\PkgTableauBord\Controllers\ActiviteFormateurController;
 use Modules\PkgTableauBord\Controllers\TableauBordApprenantController;
 use Modules\PkgTableauBord\Controllers\TableauBordFormateurController;
 use Modules\PkgTableauBord\Controllers\TableauBordResponsableController;
@@ -10,11 +11,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/apprenant', [TableauBordApprenantController::class, 'index'])->name('apprenant');
         Route::get('/formateur', [TableauBordFormateurController::class, 'index'])->name('formateur');
         Route::get('/responsable', [TableauBordResponsableController::class, 'index'])->name('responsable');
+        Route::post('/telemetrie/activite', [ActiviteFormateurController::class, 'ping'])->name('telemetrie.activite');
     });
 
     Route::prefix('admin/PkgTableauBord')->name('admin.PkgTableauBord.')->group(function () {
         Route::get('/apprenant', [TableauBordApprenantController::class, 'index'])->name('apprenant');
         Route::get('/formateur', [TableauBordFormateurController::class, 'index'])->name('formateur');
         Route::get('/responsable', [TableauBordResponsableController::class, 'index'])->name('responsable');
+        Route::post('/telemetrie/activite', [ActiviteFormateurController::class, 'ping'])->name('telemetrie.activite');
     });
 });

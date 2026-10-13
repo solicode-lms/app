@@ -49,10 +49,11 @@
             <p class="text-xs text-slate-400">Régulation du rythme de démarrage et validation des fondamentaux techniques au Live Coding.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'formateur', 'kpi' => $kpiAmorcage])
             @include('PkgTableauBord::components.kpi-gating', ['type' => 'formateur', 'kpi' => $kpiGating])
             @include('PkgTableauBord::components.kpi-revision', ['type' => 'formateur', 'kpi' => $kpiRevision])
+            @include('PkgTableauBord::components.kpi-charge-logistique', ['type' => 'formateur', 'kpi' => $kpiChargeLogistique])
         </div>
 
         <!-- Top 3 Tâches Nécessitant un Réalignement Didactique -->
@@ -128,4 +129,7 @@
             @endif
         </div>
     </section>
+
+    <!-- Télémétrie d'activité formateur avec verrou d'inactivité à 5 minutes -->
+    @include('PkgTableauBord::components.telemetrie-activite', ['typeActivite' => 'PILOTAGE_KANBAN'])
 @endsection

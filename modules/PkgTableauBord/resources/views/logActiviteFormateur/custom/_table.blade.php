@@ -1,0 +1,1 @@
+@extends('PkgTableauBord::logActiviteFormateur._table')
