@@ -98,6 +98,16 @@
                             </div>
                             <span class="w-1.5 h-1.5 rounded-full {{ Request::is('tableau-bord/apprenant*') ? 'bg-indigo-600' : 'bg-transparent' }}"></span>
                         </a>
+
+                        <!-- Rapport Recherche / Mémoire -->
+                        <a href="{{ route('tableau-bord.recherche') }}" 
+                           class="flex items-center justify-between px-3 py-2.5 rounded-xl font-semibold text-xs transition {{ Request::is('tableau-bord/recherche*') ? 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-2xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-microscope text-sm {{ Request::is('tableau-bord/recherche*') ? 'text-indigo-600' : 'text-slate-400' }}"></i>
+                                <span>Rapport Mémoire</span>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-100 text-amber-700 border border-amber-200">R&D</span>
+                        </a>
                     @elseif(Auth::user()->hasAnyRole(['formateur', 'admin-formateur']))
                         <a href="{{ route('tableau-bord.formateur') }}" 
                            class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-xs bg-indigo-50 text-indigo-700 border border-indigo-100 shadow-2xs">
