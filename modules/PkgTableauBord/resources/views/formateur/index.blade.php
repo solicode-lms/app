@@ -30,37 +30,64 @@
         </div>
     </section>
 
-    <!-- Indicateur 01 Fonctionnel : Temps moyen de mise au travail -->
+    <!-- Indicateurs Fonctionnels de Pilotage Didactique -->
     <section class="space-y-4">
         <div>
-            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Indicateur 01 — Démarrage du travail de la promotion</h3>
-            <p class="text-xs text-slate-400">Délai moyen d'activation de la première tâche et suivi des apprenants en attente.</p>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Indicateurs de Pilotage Didactique</h3>
+            <p class="text-xs text-slate-400">Régulation du rythme de démarrage et validation des fondamentaux techniques au Live Coding.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'formateur', 'kpi' => $kpiAmorcage])
+            @include('PkgTableauBord::components.kpi-gating', ['type' => 'formateur', 'kpi' => $kpiGating])
         </div>
 
-        <!-- Liste des apprenants en retard d'amorçage si présents -->
-        @if(!empty($kpiAmorcage['apprenants_en_retard']))
-            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5 shadow-2xs">
-                <div class="flex items-center gap-3">
-                    <i class="fas fa-triangle-exclamation text-amber-600 text-lg"></i>
-                    <div>
-                        <h4 class="text-xs font-bold text-amber-900 uppercase tracking-wider">Apprenants n'ayant pas encore amorcé leur projet</h4>
-                        <p class="text-xs text-amber-700 mt-0.5">Ces stagiaires n'ont soumis aucun travail sur le projet actuel.</p>
+        <!-- Deux colonnes d'alertes : Retard amorçage & Remédiation requise -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <!-- Liste des apprenants en retard d'amorçage si présents -->
+            @if(!empty($kpiAmorcage['apprenants_en_retard']))
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5 shadow-2xs">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-triangle-exclamation text-amber-600 text-lg"></i>
+                        <div>
+                            <h4 class="text-xs font-bold text-amber-900 uppercase tracking-wider">Apprenants n'ayant pas encore amorcé leur projet</h4>
+                            <p class="text-xs text-amber-700 mt-0.5">Ces stagiaires n'ont soumis aucun travail sur le projet actuel.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        @foreach($kpiAmorcage['apprenants_en_retard'] as $stagiaire)
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-white text-slate-700 border border-amber-200 shadow-2xs">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                {{ $stagiaire['nom_complet'] }}
+                            </span>
+                        @endforeach
                     </div>
                 </div>
+            @endif
 
-                <div class="mt-4 flex flex-wrap gap-2">
-                    @foreach($kpiAmorcage['apprenants_en_retard'] as $stagiaire)
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-white text-slate-700 border border-amber-200 shadow-2xs">
-                            <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                            {{ $stagiaire['nom_complet'] }}
-                        </span>
-                    @endforeach
+            <!-- Liste des apprenants orientés en remédiation prototype si présents -->
+            @if(!empty($kpiGating['apprenants_en_remediation']))
+                <div class="bg-rose-50 border border-rose-200 rounded-2xl p-5 shadow-2xs">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-user-clock text-rose-600 text-lg"></i>
+                        <div>
+                            <h4 class="text-xs font-bold text-rose-900 uppercase tracking-wider">Stagiaires en Remédiation (Live Coding non validé)</h4>
+                            <p class="text-xs text-rose-700 mt-0.5">Ces apprenants n'ont pas validé au 1er passage et doivent consolider leurs prérequis.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        @foreach($kpiGating['apprenants_en_remediation'] as $stagiaire)
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-white text-slate-700 border border-rose-200 shadow-2xs">
+                                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                                {{ $stagiaire['nom_complet'] }}
+                                <span class="text-[10px] text-slate-400">({{ $stagiaire['tentatives'] }} passage{{ $stagiaire['tentatives'] > 1 ? 's' : '' }})</span>
+                            </span>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
-        @endif
+            @endif
+        </div>
     </section>
 @endsection

@@ -30,15 +30,16 @@
         </div>
     </section>
 
-    <!-- Indicateur 01 Fonctionnel : Démarrage du travail (T_amorçage) -->
+    <!-- Indicateurs Pédagogiques Fonctionnels -->
     <section class="space-y-4">
         <div>
-            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Indicateur 01 — Démarrage du travail</h3>
-            <p class="text-xs text-slate-400">Temps écoulé entre le lancement officiel du projet et votre premier travail soumis.</p>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Indicateurs de Régulation Pédagogique</h3>
+            <p class="text-xs text-slate-400">Suivi en direct de votre rythme d'amorçage et de la validation de vos jalons techniques.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'apprenant', 'kpi' => $kpiAmorcage])
+            @include('PkgTableauBord::components.kpi-gating', ['type' => 'apprenant', 'kpi' => $kpiGating])
         </div>
     </section>
 @endsection

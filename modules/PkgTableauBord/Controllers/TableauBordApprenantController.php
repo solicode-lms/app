@@ -50,7 +50,8 @@ class TableauBordApprenantController extends AdminController
         }
 
         $kpiAmorcage = $this->tableauBordService->getIndicateurAmorcageApprenant($realisationProjet);
+        $kpiGating = $this->tableauBordService->getIndicateurGatingApprenant($realisationProjet);
 
-        return view('PkgTableauBord::apprenant.index', compact('user', 'apprenant', 'realisationProjet', 'kpiAmorcage'));
+        return view('PkgTableauBord::apprenant.index', compact('user', 'apprenant', 'realisationProjet', 'kpiAmorcage', 'kpiGating'));
     }
 }

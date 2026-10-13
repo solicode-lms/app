@@ -116,7 +116,7 @@ graph TD
        - Si premier essai : fige `cache_est_valide_prototype_premier_essai = $estValide`.
        - Si validé : renseigne `cache_date_validation_prototype = now()`.
   2. `modules/PkgRealisationTache/Services/Traits/RealisationTache/RealisationTacheJobTrait.php` :
-     - Déclencheur : Lorsqu'une tâche de prototype (Niveau 2 / `is_live_coding`) passe à `APPROVED` ou `NOT_VALIDATED` / `REVISION_NECESSAIRE`, déclenche le calcul sur le `RealisationProjet`.
+     - Déclencheur : Lorsqu'une tâche de prototype (Phase d'évaluation N2 / `$realisationTache->isPrototype()`) passe à `APPROVED` ou `NOT_VALIDATED` / `REVISION_NECESSAIRE`, déclenche le calcul sur le `RealisationProjet`.
 
 ---
 

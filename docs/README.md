@@ -8,3 +8,4 @@ Veuillez consulter le dépôt externe pour lire ou mettre à jour la documentati
 
 ## Commandes Artisan Utiles
 - [Rattrapage des données d'amorçage (`php artisan dashboard:recalculer-amorcage`)](file:///c:/AppServer/solicode-lms/docs/commande-artisan-amorcage.md)
+- [Rattrapage des données de validation prototype (`php artisan dashboard:recalculer-gating`)](file:///c:/AppServer/solicode-lms/docs/commande-artisan-gating.md)

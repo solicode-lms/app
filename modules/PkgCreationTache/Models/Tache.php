@@ -19,4 +19,13 @@ class Tache extends BaseTache
          return  $this->projet->reference . "-" .  $this->titre;
     }
 
+    /**
+     * Détermine si la tâche est une épreuve de Prototype (Phase d'évaluation N2).
+     *
+     * @return bool
+     */
+    public function isPrototype(): bool
+    {
+        return optional($this->phaseEvaluation)->code === 'N2';
+    }
 }

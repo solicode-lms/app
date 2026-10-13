@@ -106,6 +106,16 @@ class RealisationTache extends BaseRealisationTache
         return ($this->tache?->titre ?? "") . " - " . $this->realisationProjet?->apprenant ?? "";
     }
 
+    /**
+     * Détermine si la tâche réalisée est une épreuve de Prototype (Phase d'évaluation N2).
+     *
+     * @return bool
+     */
+    public function isPrototype(): bool
+    {
+        return $this->tache?->isPrototype() ?? false;
+    }
+
     // public function getRevisionsBeforePriority(): Collection
     // {
     //     return (new RealisationTacheService)

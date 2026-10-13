@@ -55,10 +55,11 @@ $$R_{\text{gating}} = \frac{N_{\text{validés\_essai\_1}}}{N_{\text{évalués}}}
 $$R_{\text{gating\_macro}} = \frac{\sum_{g=1}^{G} N_{\text{validés\_essai\_1}}(g)}{\sum_{g=1}^{G} N_{\text{évalués}}(g)} \times 100$$
 
 ### 3. Algorithme Événementiel (Temps Réel)
-1. Le formateur évalue la tâche Niveau 2 / Live Coding (`RealisationTache`).
-2. Interception par `RealisationTacheJobTrait::updatedObserverJob`.
-3. Incrémentation de `realisationProjet->cache_nombre_tentatives_prototype`.
-4. Si `tentative == 1` :
+1. Détection de la tâche Prototype : Une tâche est de type Prototype si et seulement si sa phase d'évaluation liée est Niveau 2 (`tache->phaseEvaluation->code === 'N2'`).
+2. Le formateur évalue cette tâche Prototype (`RealisationTache`).
+3. Interception par `RealisationTacheJobTrait::updatedObserverJob`.
+4. Incrémentation de `realisationProjet->cache_nombre_tentatives_prototype`.
+5. Si `tentative == 1` :
    - Fige `realisationProjet->cache_est_valide_prototype_premier_essai = ($estValide ? true : false)`.
-5. Si `tentative > 1` :
+6. Si `tentative > 1` :
    - Maintient la valeur initiale (garantie d'idempotence docimologique).

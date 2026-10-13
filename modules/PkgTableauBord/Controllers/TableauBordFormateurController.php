@@ -50,7 +50,8 @@ class TableauBordFormateurController extends AdminController
         }
 
         $kpiAmorcage = $this->tableauBordService->getIndicateurAmorcageFormateur($affectationProjet);
+        $kpiGating = $this->tableauBordService->getIndicateurGatingFormateur($affectationProjet);
 
-        return view('PkgTableauBord::formateur.index', compact('user', 'formateur', 'affectationProjet', 'kpiAmorcage'));
+        return view('PkgTableauBord::formateur.index', compact('user', 'formateur', 'affectationProjet', 'kpiAmorcage', 'kpiGating'));
     }
 }

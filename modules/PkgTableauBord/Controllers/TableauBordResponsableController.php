@@ -5,7 +5,7 @@ namespace Modules\PkgTableauBord\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
-use Modules\PkgFormation\Models\Groupe;
+use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgTableauBord\Services\TableauBordService;
 
 class TableauBordResponsableController extends AdminController
@@ -31,7 +31,8 @@ class TableauBordResponsableController extends AdminController
 
         $groupes = Groupe::orderBy('nom')->get();
         $kpiAmorcage = $this->tableauBordService->getIndicateurAmorcageResponsable($groupeIds);
+        $kpiGating = $this->tableauBordService->getIndicateurGatingResponsable($groupeIds);
 
-        return view('PkgTableauBord::responsable.index', compact('user', 'groupes', 'kpiAmorcage'));
+        return view('PkgTableauBord::responsable.index', compact('user', 'groupes', 'kpiAmorcage', 'kpiGating'));
     }
 }

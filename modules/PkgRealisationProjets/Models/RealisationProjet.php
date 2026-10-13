@@ -20,6 +20,15 @@ class RealisationProjet extends BaseRealisationProjet
         return ($this->affectationProjet ?? "") . "-" . ($this->apprenant ?? "") ;
     }
 
+    protected function casts(): array
+    {
+        return [
+            'cache_est_valide_prototype_premier_essai' => 'boolean',
+            'cache_nombre_tentatives_prototype' => 'integer',
+            'cache_date_validation_prototype' => 'datetime',
+        ];
+    }
+
 
 
     protected static function booted(): void

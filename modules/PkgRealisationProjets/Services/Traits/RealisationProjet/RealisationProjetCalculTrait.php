@@ -141,5 +141,60 @@ trait RealisationProjetCalculTrait
 
         return max(0, (int) $lancement->diffInMinutes($soumission, false));
     }
+
+    /**
+     * Met à jour le compteur de tentatives et le résultat de validation au premier essai
+     * du prototype (Live Coding / Gating Niveau 2).
+     *
+     * @param RealisationProjet $projet
+     * @param bool $estValide
+     * @return void
+     */
+    public function mettreAJourGatingPrototype(RealisationProjet $projet, bool $estValide): void
+    {
+        $tentatives = (int) ($projet->cache_nombre_tentatives_prototype ?? 0) + 1;
+        $updateData = [
+            'cache_nombre_tentatives_prototype' => $tentatives,
+        ];
+
+        // 1. Règle d'or Gating : La variable binaire premier essai est définitivement figée à la tentative 1
+        if (is_null($projet->cache_est_valide_prototype_premier_essai)) {
+            $updateData['cache_est_valide_prototype_premier_essai'] = $estValide;
+        }
+
+        // 2. Si la soutenance est validée avec succès, on enregistre la date de validation
+        if ($estValide && is_null($projet->cache_date_validation_prototype)) {
+            $updateData['cache_date_validation_prototype'] = now();
+        }
+
+        $projet->update($updateData);
+    }
+
+    /**
+     * Détermine le statut textuel standardisé du gating de prototype pour l'affichage UI.
+     *
+     * @param RealisationProjet $projet
+     * @return string
+     */
+    public function determinerStatutGating(RealisationProjet $projet): string
+    {
+        $premierEssai = $projet->cache_est_valide_prototype_premier_essai;
+        $tentatives = (int) ($projet->cache_nombre_tentatives_prototype ?? 0);
+        $dateValidation = $projet->cache_date_validation_prototype;
+
+        if (is_null($premierEssai) && $tentatives === 0) {
+            return 'NON_EVALUE';
+        }
+
+        if ($premierEssai === true) {
+            return 'VALIDE_1ER_ESSAI';
+        }
+
+        if ($premierEssai === false && !is_null($dateValidation)) {
+            return 'VALIDE_APRES_REMEDIATION';
+        }
+
+        return 'EN_REMEDIATION';
+    }
 }
 

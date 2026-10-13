@@ -105,6 +105,14 @@ trait RealisationTacheJobTrait
                 if (in_array($etatWorkflowCode, ['TO_APPROVE', 'READY_FOR_LIVE_CODING'])) {
                     $realisationProjetService->mettreAJourDatePremiereSoumission($realisationTache->realisationProjet);
                 }
+
+                // Sprint 2 : Indicateur 02 (R_gating) - Enregistrement évaluation prototype (phaseEvaluation = N2)
+                $isPrototype = $realisationTache->isPrototype();
+
+                if ($isPrototype && in_array($etatWorkflowCode, ['APPROVED', 'NOT_VALIDATED', 'REVISION_NECESSAIRE'])) {
+                    $estValide = ($etatWorkflowCode === 'APPROVED') || (($realisationTache->note ?? 0) >= 10);
+                    $realisationProjetService->mettreAJourGatingPrototype($realisationTache->realisationProjet, $estValide);
+                }
             }
 
             // Calcule de progression de Live coding

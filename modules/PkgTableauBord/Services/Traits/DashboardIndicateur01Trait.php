@@ -3,7 +3,7 @@
 namespace Modules\PkgTableauBord\Services\Traits;
 
 use Carbon\Carbon;
-use Modules\PkgFormation\Models\Groupe;
+use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
