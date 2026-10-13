@@ -127,11 +127,12 @@
             <p class="text-xs text-slate-400">Suivi en direct de votre rythme d'amorçage et de la validation de vos jalons techniques.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
             @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'apprenant', 'kpi' => $kpiAmorcage])
             @include('PkgTableauBord::components.kpi-gating', ['type' => 'apprenant', 'kpi' => $kpiGating])
             @include('PkgTableauBord::components.kpi-revision', ['type' => 'apprenant', 'kpi' => $kpiRevision])
             @include('PkgTableauBord::components.kpi-couverture-pedagogique', ['type' => 'apprenant', 'kpi' => $kpiCouverture])
+            @include('PkgTableauBord::components.kpi-docimologie', ['type' => 'apprenant', 'kpi' => $kpiDocimologie])
         </div>
 
         @if(!empty($kpiIntegriteIA['a_des_notes']))

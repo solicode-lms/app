@@ -74,6 +74,7 @@ class TableauBordFormateurController extends AdminController
         $kpiIntervention = $this->tableauBordService->getIndicateurInterventionFormateur($affectationProjet, $formateur);
         $kpiIntegriteIA = $this->tableauBordService->getIndicateurIntegriteFormateur($affectationProjet);
         $kpiCouverture = $this->tableauBordService->getIndicateurCouvertureFormateur($affectationProjet, $affectationProjet?->groupe);
+        $kpiDocimologie = $this->tableauBordService->getIndicateurDocimologieFormateur($affectationProjet, $affectationProjet?->groupe);
 
         return view('PkgTableauBord::formateur.index', [
             'user' => $user,
@@ -87,6 +88,7 @@ class TableauBordFormateurController extends AdminController
             'kpiIntervention' => $kpiIntervention,
             'kpiIntegriteIA' => $kpiIntegriteIA,
             'kpiCouverture' => $kpiCouverture,
+            'kpiDocimologie' => $kpiDocimologie,
             'projets' => $projets,
             'projetActif' => $projetActif,
             'sessions' => $projets,

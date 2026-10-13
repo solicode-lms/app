@@ -48,7 +48,10 @@
             <p class="text-xs text-slate-400">Suivi global du rythme d'amorce des projets ($T_{\text{amorçage}}$) et du taux de validation directe du prototype ($R_{\text{gating}}$).</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-8 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-9 gap-4">
+            <!-- Carte Macroscopique Globale Docimologie 65/35 (Indicateur 09) -->
+            @include('PkgTableauBord::components.kpi-docimologie', ['type' => 'responsable', 'kpi' => $kpiDocimologie])
+
             <!-- Carte Macroscopique Globale Couverture Pédagogique (Indicateur 08) -->
             @include('PkgTableauBord::components.kpi-couverture-pedagogique', ['type' => 'responsable', 'kpi' => $kpiCouverture])
 

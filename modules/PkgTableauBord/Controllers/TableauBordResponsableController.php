@@ -43,6 +43,7 @@ class TableauBordResponsableController extends AdminController
         $kpiIntervention = $this->tableauBordService->getIndicateurInterventionResponsable($groupeIds, $projetActif?->id);
         $kpiIntegriteIA = $this->tableauBordService->getIndicateurIntegriteResponsable($groupeIds, $projetActif?->id);
         $kpiCouverture = $this->tableauBordService->getIndicateurCouvertureResponsable($groupeIds, $projetActif?->id);
+        $kpiDocimologie = $this->tableauBordService->getIndicateurDocimologieResponsable($groupeIds, $projetActif?->id);
 
         return view('PkgTableauBord::responsable.index', [
             'user' => $user,
@@ -55,6 +56,7 @@ class TableauBordResponsableController extends AdminController
             'kpiIntervention' => $kpiIntervention,
             'kpiIntegriteIA' => $kpiIntegriteIA,
             'kpiCouverture' => $kpiCouverture,
+            'kpiDocimologie' => $kpiDocimologie,
             'projets' => $projets,
             'projetActif' => $projetActif,
             'sessions' => $projets,

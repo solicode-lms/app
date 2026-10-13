@@ -80,6 +80,7 @@ class TableauBordApprenantController extends AdminController
         $kpiIntervention = $this->tableauBordService->getIndicateurInterventionApprenant($realisationProjet, $user);
         $kpiIntegriteIA = $this->tableauBordService->getIndicateurIntegriteApprenant($realisationProjet);
         $kpiCouverture = $this->tableauBordService->getIndicateurCouvertureApprenant($realisationProjet, $apprenant);
+        $kpiDocimologie = $this->tableauBordService->getIndicateurDocimologieApprenant($realisationProjet, $apprenant);
 
         return view('PkgTableauBord::apprenant.index', [
             'user' => $user,
@@ -92,6 +93,7 @@ class TableauBordApprenantController extends AdminController
             'kpiIntervention' => $kpiIntervention,
             'kpiIntegriteIA' => $kpiIntegriteIA,
             'kpiCouverture' => $kpiCouverture,
+            'kpiDocimologie' => $kpiDocimologie,
             'projets' => $projets,
             'projetActif' => $projetActif,
             'sessions' => $projets,
