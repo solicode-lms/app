@@ -1,57 +1,41 @@
-# Règle de Gestion : Fonctionnalités PkgTableauBord
+# Règle de Gestion : Fonctionnalités PkgTableauBord (Sprint 1)
 
-Ce document décrit les fonctionnalités et cas d'utilisation opérationnels du module `PkgTableauBord` déclinés par profil d'acteur.
+Ce document décrit les fonctionnalités du module `PkgTableauBord` pour le **Sprint 1 (Indicateur 01 — $T_{\text{amorçage}}$)** déclinées par profil d'acteur.
+Les fonctionnalités des sprints suivants seront intégrées de manière itérative.
 
 ---
 
-## 1. Tableau de Bord Apprenant (Auto-Régulation & Cap Pédagogique)
+## 1. Tableau de Bord Apprenant (Sprint 1)
 
 - **Acteur** : Apprenant.
-- **Objectif** : Fournir une visibilité complète sur son rythme, réduire l'anxiété de démarrage et expliciter les conditions de passage d'étape.
-- **Fonctionnalités Clés** :
-  1. **Suivi d'Amorçage Individuel** : Visualisation de son temps d'amorçage ($T_{\text{amorçage}}$) comparé au rythme de la classe, avec lien direct vers le tutoriel d'amorce.
-  2. **Statut Gating Prototype** : Visualisation claire de la condition d'accès au projet fil rouge (*En préparation*, *Validé au 1er essai*, ou *En remédiation*).
-  3. **File d'Attente Live Coding** : Affichage en direct de son rang dans la file FIFO et du temps d'attente estimé.
-  4. **Jauge de Progression & Note Estimée** : Calcul indicatif continu de la note de contrôle continu (CC sur 20) selon les prototypes validés.
-  5. **Zone d'Assistance Post-Live Coding** : Notification bienveillante d'aide si la tâche bascule à l'état `BESOIN_REVISION`.
+- **Objectif** : Auto-régulation et réduction de l'anxiété de démarrage.
+- **Fonctionnalité Sprint 1** :
+  - **Carte KPI *"Mon délai de démarrage"*** :
+    - Affichage de son temps d'amorçage individuel formaté (ex: `1h15`).
+    - Statut visuel immédiat : Badge vert `Dans les temps` si $\le \text{moyenne promo}$ (ou $\le 90\text{ min}$), sinon badge d'alerte `En retard`.
+    - Comparatif didactique : Mention de la moyenne de la classe (ex: `Moyenne classe : 1h45`).
+    - Explication contextuelle : *"Délai entre le lancement du sprint et votre premier rendu soumis."*
 
 ---
 
-## 2. Tableau de Bord Formateur (Console de Pilotage & Régulation Temps Réel)
+## 2. Tableau de Bord Formateur (Sprint 1)
 
 - **Acteur** : Formateur.
-- **Objectif** : Disposer d'un cockpit unifié pour piloter la classe en direct, fluidifier les évaluations et intervenir immédiatement sur les blocages.
-- **Fonctionnalités Clés** :
-  1. **Console Interactive de File FIFO** :
-     - Liste ordonnée en temps réel des apprenants prêts pour le Live Coding Prototype (`READY_FOR_LIVE_CODING`).
-     - Prise en charge 1-à-1 (*"Appeler pour Live Coding"* $\rightarrow$ bascule à `IN_LIVE_CODING`).
-     - Prise en charge groupée (*"Lancer session mutualisée jusqu'à 4 apprenants"* pour désengorger la file).
-     - Clôture d'épreuve : attribution de la note et décision binaire (`APPROVED` ou `NOT_VALIDATED`).
-  2. **Surveillance Didactique Seuil $+10$ Minutes** :
-     - Déclenchement automatique 10 min après le Live Coding des pairs.
-     - Liste rouge des apprenants présents n'ayant pas soumis leur livrable.
-     - Bouton d'action directe : *"Créer atelier de soutien / Trinôme d'entraide"*.
-  3. **Monitoring de la Charge Logistique** :
-     - Suivi du volume horaire hebdomadaire ($C_{\text{logistique}}$) avec ventilation (Kanban, File FIFO, Bordereaux).
-  4. **Génération & Audit 65/35** :
-     - Prévisualisation du tableau de conversion officielle (CC sur 20 / EFM sur 40).
-     - Alerte sur les évaluations incomplètes avant soumission au secrétariat.
+- **Objectif** : Pilotage du lancement de session et identification immédiate des apprenants en difficulté d'amorce.
+- **Fonctionnalités Sprint 1** :
+  - **Carte KPI *"Temps moyen de mise au travail"*** :
+    - Valeur moyenne de la cohorte formatée (ex: `1h45`).
+    - Badge de rythme : `Optimal (<= 2h)` ou `Alerte (> 2h)`.
+    - Ratio de cohorte : Nombre d'apprenants amorcés sur l'effectif total (ex: `17 / 20 (3 en attente)`).
+    - Liste des apprenants en retard d'amorçage pour relance ciblée.
 
 ---
 
-## 3. Tableau de Bord Responsable de Formation (Gouvernance & Intégrité Docimologique)
+## 3. Tableau de Bord Responsable de Formation (Sprint 1)
 
 - **Acteur** : Responsable de formation / Directeur pédagogique.
-- **Objectif** : Assurer la gouvernance académique, la conformité réglementaire au référentiel et l'intégrité face à l'usage de l'intelligence artificielle.
-- **Fonctionnalités Clés** :
-  1. **Indicateur de Couverture Pédagogique ($\text{ICP}$)** :
-     - Suivi du taux d'acquisition des micro-compétences nationales sur chaque promotion.
-     - Détection matricielle des impasses pédagogiques (micro-compétences avec taux de validation $< 50\%$).
-  2. **Audit d'Intégrité face à l'IA ($r$ de Pearson)** :
-     - Mesure statistique de la corrélation linéaire entre la maîtrise en direct ($N2$) et le projet final ($N3$).
-     - Détection automatique et liste nominative des apprenants en surperformance suspecte ($\Delta_{\text{IA}} > +5$ pts).
-  3. **Certification des Bordereaux 65/35 ($\tau_{\text{conformité}}$)** :
-     - Contrôle de la complétude docimologique ($100\%$ sans omission ni divergence).
-     - Exportation officielle en 1 clic des bordereaux CC et EFM scellés et prêts pour transmission administrative.
-  4. **Benchmark Inter-Groupes** :
-     - Comparaison des rythmes d'amorçage, délais d'attente et taux de révision entre filières et groupes.
+- **Objectif** : Suivi macroscopique et harmonisation du rythme de prise en main des sprints entre cohortes.
+- **Fonctionnalités Sprint 1** :
+  - **Carte KPI *"Délai moyen de prise en main du sprint"*** :
+    - Temps moyen global de démarrage sur la filière (ex: `1h50`).
+    - Benchmark comparatif entre promotions (ex: `DWB-101 (1h45)` vs `DMB-101 (1h55)`).

@@ -125,6 +125,7 @@ description: Expert unifié de la gestion, création et maintenance des composan
    - **Skills par package (Modules métier)** : Ces experts maîtrisent les règles d'un package donné (ex: `pkg-apprentissage`). Leurs sous-fichiers s'appellent des **Règles de Gestion** et doivent être placés dans `règles-gestion/`. Il FAUT créer :
      - `règle-gestion-bdd-[nom].md` : Structure de la base de données.
      - `règle-gestion-fonctionnalites-[nom].md` : Les fonctionnalités en format texte.
+    - **Enrichissement Itératif par Sprint (Règle Métier)** : Lorsqu'un module est développé par sprint, son skill `pkg-*` associé doit documenter **exclusivement le périmètre du sprint en cours**. Il est enrichi itérativement, sprint par sprint, pour refléter fidèlement l'état réel et validé de la réalisation sans anticiper sur les sprints futurs.
 3. **Architecture** : `.agent/` est le seul domaine d'intervention.
 4. **Nomenclature** : Tout en `kebab-case` (dossiers et fichiers).
 5. **Séparation des Préoccupations (SoC)** :

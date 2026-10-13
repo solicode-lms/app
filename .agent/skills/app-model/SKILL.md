@@ -26,6 +26,7 @@ L'application Solicode LMS utilise un générateur de code (Gapp) qui impose des
 2. **Modèles Enfants** : Les modifications personnalisées (ajout de Casts, de relations complexes ou de méthodes spécifiques) doivent se faire dans la classe enfant qui étend le modèle de base généré.
 3. **En-tête de protection** : Si un modèle enfant possède la mention `// Ce fichier est maintenu par ESSARRAJ Fouad` (ou l'en-tête de protection Gapp), il est **interdit** de le modifier.
    - *Exception* : Si la modification est indispensable (ex: ajouter un cast d'Enum), il faut avertir l'utilisateur et lui demander s'il faut supprimer l'en-tête avant d'appliquer la modification.
+4. **Attributs `$fillable` (Gestion exclusive par Gapp)** : Il est formellement interdit de surcharger `$fillable` ou d'injecter `mergeFillable` dans `__construct` des modèles enfants pour les nouvelles colonnes BDD. La liste des colonnes assignables est gérée **exclusivement par Gapp** dans les classes `Base/` via le cycle : `php artisan migrate` $\rightarrow$ `gapp meta:sync` $\rightarrow$ `gapp make:crud NomModel`.
 
 ## ⚡ Actions (Orchestration)
 

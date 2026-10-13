@@ -26,6 +26,7 @@ Le projet utilise un générateur de code (Gapp).
     1. Migration BDD (`php artisan migrate`)
     2. Sync Gapp (`gapp meta:sync`)
     3. Regeneration CRUD (`gapp make:crud NomModel`)
+- **Attributs `$fillable` (INTERDICTION DE SURCHARGE MANUELLE)** : Ne JAMAIS surcharger `$fillable` ou injecter `mergeFillable` dans le constructeur des classes enfants Eloquent. La liste des colonnes assignables est régénérée automatiquement par Gapp dans les classes `Base/` lors de l'exécution de `gapp make:crud NomModel`.
 - **Héritage** : Ne jamais modifier les classes `Base/`. Toujours surcharger dans la classe enfant (ex: `Tache extends BaseTache`).
 
 ## 3. Sécurité
