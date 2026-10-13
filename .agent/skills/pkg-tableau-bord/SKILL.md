@@ -105,6 +105,17 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
   - Service : `DashboardIndicateur07Trait`
   - UI V2 : `kpi-integrite-ia.blade.php`, `scatter-plot-ia.blade.php`, tableau d'audit formateur
 
+### Action J : Évaluer la Couverture Pédagogique Nationale (ICP) & Diagnostiquer les Impasses
+> **Description** : Expliquer la modélisation mathématique du taux d'assimilation du programme national (Indicateur de Couverture Pédagogique — $\text{ICP}$), le calcul individuel apprenant, la détection des impasses didactiques ($< 50\%$ de validation en cohorte), et le benchmark macroscopique multi-promotions.
+- **Ressources Utilisées** :
+  - `cahiers-charges/PkgTableauBord/indicateurs/ind-08-couverture-pedagogique.md`
+  - `cahiers-charges/PkgTableauBord/plan-sprint8.md`
+- **Sorties** :
+  - Index BDD : `idx_rmc_appr_etat`, `idx_rmc_mc_etat`
+  - Service : `DashboardIndicateur08Trait`
+  - UI V2 : `kpi-couverture-pedagogique.blade.php`, `impasses-pedagogiques-panel.blade.php`
+  - Artisan : `dashboard:simuler-couverture-pedagogique`
+
 ---
 
 ## 🛠️ Règles de Gestion (Savoir-Faire Métier)
@@ -167,5 +178,11 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
 3. Pour chaque apprenant, l'écart $\Delta_{\text{IA}} = N3 - N2$ est calculé.
 4. Si $\Delta_{\text{IA}} > 5.0\text{ pts}$, une alerte rouge s'affiche dans le tableau des soutenances du formateur (*"Vérifier maîtrise du code en soutenance"*).
 5. La vue Responsable trace le nuage de points interactif SVG (Scatter Plot) avec polygone d'anomalie rouge et bouton de convocation de jury.
+
+### Scénario 8 : Couverture Pédagogique du Référentiel National ($\text{ICP}$)
+1. Le calcul agrège l'ensemble des validations des micro-compétences nationales sur la table optimisée `realisation_micro_competences`.
+2. L'apprenant suit sa progression personnelle : $C_{\text{validées}} / C_{\text{prescrites}}$ et sa jauge d'assimilation (ex: $85\%$).
+3. Le formateur analyse l'$\text{ICP}$ collectif de cohorte ($\text{ICP} = \frac{\sum C_{\text{validées}}}{N \times C_{\text{référentiel}}} \times 100$) et consulte le **Diagnostic des Impasses Didactiques** identifiant toute compétence à $< 50\%$ de validation pour planifier des ateliers de remédiation ciblés.
+4. Le responsable supervise le benchmark macroscopique inter-promotions comparant la conformité face au seuil national ($\ge 85\%$) dans la matrice comparative.
 
 

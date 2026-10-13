@@ -49,7 +49,8 @@
             <p class="text-xs text-slate-400">Régulation du rythme de démarrage et validation des fondamentaux techniques au Live Coding.</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-7 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-8 gap-4">
+            @include('PkgTableauBord::components.kpi-couverture-pedagogique', ['type' => 'formateur', 'kpi' => $kpiCouverture])
             @include('PkgTableauBord::components.kpi-integrite-ia', ['type' => 'formateur', 'kpi' => $kpiIntegriteIA])
             @include('PkgTableauBord::components.kpi-intervention', ['type' => 'formateur', 'kpi' => $kpiIntervention])
             @include('PkgTableauBord::components.kpi-file-attente', ['type' => 'formateur', 'kpi' => $kpiFileAttente])
@@ -58,6 +59,9 @@
             @include('PkgTableauBord::components.kpi-revision', ['type' => 'formateur', 'kpi' => $kpiRevision])
             @include('PkgTableauBord::components.kpi-charge-logistique', ['type' => 'formateur', 'kpi' => $kpiChargeLogistique])
         </div>
+
+        <!-- Diagnostic Didactique : Impasses & Points de Fragilité (< 50%) (Indicateur 08 — ICP) -->
+        @include('PkgTableauBord::components.impasses-pedagogiques-panel', ['kpi' => $kpiCouverture])
 
         <!-- Flashbox Alerte Critique : Apprenants en Rupture Didactique (+10 min) (Indicateur 06 — T_intervention) -->
         @include('PkgTableauBord::components.flashbox-alerte-blocages', ['kpi' => $kpiIntervention])

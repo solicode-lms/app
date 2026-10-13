@@ -48,7 +48,10 @@
             <p class="text-xs text-slate-400">Suivi global du rythme d'amorce des projets ($T_{\text{amorçage}}$) et du taux de validation directe du prototype ($R_{\text{gating}}$).</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-7 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-8 gap-4">
+            <!-- Carte Macroscopique Globale Couverture Pédagogique (Indicateur 08) -->
+            @include('PkgTableauBord::components.kpi-couverture-pedagogique', ['type' => 'responsable', 'kpi' => $kpiCouverture])
+
             <!-- Carte Macroscopique Globale Amorçage (Indicateur 01) -->
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
                 <div class="flex items-center justify-between">
@@ -104,6 +107,7 @@
                 $fileByAff = collect($kpiFileAttente['benchmark'] ?? [])->keyBy('affectation_id');
                 $interventionByAff = collect($kpiIntervention['benchmark'] ?? [])->keyBy('affectation_id');
                 $integriteByAff = collect($kpiIntegriteIA['benchmark'] ?? [])->keyBy('affectation_id');
+                $couvertureByGroupe = collect($kpiCouverture['groupes_benchmark'] ?? [])->keyBy('groupe_nom');
             @endphp
 
             <div class="overflow-x-auto">
@@ -118,6 +122,7 @@
                             <th class="py-3 px-4">Attente File ($T_{\text{file}}$)</th>
                             <th class="py-3 px-4">Remédiation ($T_{\text{intervention}}$)</th>
                             <th class="py-3 px-4">Cohérence IA ($r$)</th>
+                            <th class="py-3 px-4">Couverture Référentiel (ICP)</th>
                             <th class="py-3 px-5 text-right">Statut</th>
                         </tr>
                     </thead>
@@ -130,6 +135,7 @@
                                 $fileItem = $fileByAff->get($item['affectation_id']);
                                 $intervItem = $interventionByAff->get($item['affectation_id']);
                                 $integItem = $integriteByAff->get($item['affectation_id']);
+                                $couvItem = $couvertureByGroupe->get($item['groupe_code']);
                             @endphp
                             <tr class="hover:bg-slate-50/80 transition">
                                 <td class="py-3 px-5 font-bold text-slate-900">{{ $item['groupe_code'] }} ({{ $item['groupe_nom'] }})</td>
@@ -180,6 +186,17 @@
                                         </span>
                                     @else
                                         <span class="text-slate-400">--</span>
+                                    @endif
+                                </td>
+                                <td class="py-3 px-4 font-mono">
+                                    @if($couvItem)
+                                        <span class="font-bold text-emerald-700">{{ $couvItem['icp_formate'] }}</span>
+                                        <span class="text-[10px] {{ $couvItem['badge_class'] ?? 'text-slate-400' }} px-1.5 py-0.5 rounded block w-fit">
+                                            {{ $couvItem['statut_badge'] ?? 'Optimal' }}
+                                        </span>
+                                    @else
+                                        <span class="font-bold text-emerald-700">{{ $kpiCouverture['taux_macro_formate'] ?? '85%' }}</span>
+                                        <span class="text-[10px] text-emerald-600 block">Conforme</span>
                                     @endif
                                 </td>
                                 <td class="py-3 px-5 text-right">
