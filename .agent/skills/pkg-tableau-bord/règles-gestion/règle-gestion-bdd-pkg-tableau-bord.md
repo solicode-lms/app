@@ -30,5 +30,22 @@ Pour permettre des calculs d'amorçage instantanés sans jointures lourdes ni re
 
 ---
 
-## 4. Évolution Itérative
-Ce fichier sera enrichi sprint par sprint avec les nouvelles colonnes et tables dédiées au fur et à mesure de l'avancement.
+## 4. Gouvernance Gapp & `$fillable` (Règle Inviolable)
+
+- **Interdiction de Surcharge Manuelle** : Ne **JAMAIS** surcharger la propriété `$fillable` ou appeler `$this->mergeFillable()` dans le constructeur des modèles enfants Eloquent (`RealisationProjet`, `AffectationProjet`).
+- **Synchronisation Automatique** : Lors de l'ajout de nouvelles colonnes en base :
+  1. Le développeur applique la migration (`php artisan migrate`).
+  2. Métadonnées synchronisées via `gapp meta:sync`.
+  3. Classes de base régénérées via `gapp make:crud RealisationProjet` et `gapp make:crud AffectationProjet`.
+
+---
+
+## 5. Commande Artisan de Rattrapage & Maintenance
+
+Pour initialiser ou synchroniser les colonnes `cache_` sur les données existantes de la base :
+```bash
+php artisan dashboard:recalculer-amorcage
+```
+- **Rôle** : Calcule `cache_date_lancement` pour chaque affectation, synchronise chaque réalisation de projet liée, et reconstitue `cache_date_premiere_soumission` à partir de `historique_realisation_taches`.
+- **Garantie d'Idempotence** : Ne réécrit jamais une date de première soumission déjà existante.
+- **Documentation** : Fiche technique disponible dans [docs/commande-artisan-amorcage.md](file:///c:/AppServer/solicode-lms/docs/commande-artisan-amorcage.md).
