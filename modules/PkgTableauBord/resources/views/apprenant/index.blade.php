@@ -132,5 +132,15 @@
             @include('PkgTableauBord::components.kpi-gating', ['type' => 'apprenant', 'kpi' => $kpiGating])
             @include('PkgTableauBord::components.kpi-revision', ['type' => 'apprenant', 'kpi' => $kpiRevision])
         </div>
+
+        @if(!empty($kpiIntegriteIA['a_des_notes']))
+            <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-2xs flex items-center justify-between text-xs text-slate-700">
+                <div class="flex items-center gap-2.5">
+                    <i class="fas fa-scale-balanced text-indigo-600"></i>
+                    <span><strong>Concordance Évaluative :</strong> Prototype surveillé <strong class="text-slate-900">{{ $kpiIntegriteIA['note_n2'] }}/20</strong> &bull; Projet outillé <strong class="text-slate-900">{{ $kpiIntegriteIA['note_n3'] }}/20</strong> ({{ $kpiIntegriteIA['concordance'] }})</span>
+                </div>
+                <span class="font-mono font-bold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded border border-indigo-200">{{ $kpiIntegriteIA['delta_formate'] }}</span>
+            </div>
+        @endif
     </section>
 @endsection

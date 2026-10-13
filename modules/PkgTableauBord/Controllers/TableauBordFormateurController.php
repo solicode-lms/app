@@ -72,6 +72,7 @@ class TableauBordFormateurController extends AdminController
         $kpiChargeLogistique = $this->tableauBordService->getIndicateurChargeLogistiqueFormateur($formateur);
         $kpiFileAttente = $this->tableauBordService->getIndicateurFileAttenteFormateur($affectationProjet);
         $kpiIntervention = $this->tableauBordService->getIndicateurInterventionFormateur($affectationProjet, $formateur);
+        $kpiIntegriteIA = $this->tableauBordService->getIndicateurIntegriteFormateur($affectationProjet);
 
         return view('PkgTableauBord::formateur.index', [
             'user' => $user,
@@ -83,6 +84,7 @@ class TableauBordFormateurController extends AdminController
             'kpiChargeLogistique' => $kpiChargeLogistique,
             'kpiFileAttente' => $kpiFileAttente,
             'kpiIntervention' => $kpiIntervention,
+            'kpiIntegriteIA' => $kpiIntegriteIA,
             'projets' => $projets,
             'projetActif' => $projetActif,
             'sessions' => $projets,

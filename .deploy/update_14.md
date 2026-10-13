@@ -21,4 +21,5 @@ php artisan dashboard:recalculer-revisions
 php artisan dashboard:simuler-activite-formateurs
 php artisan dashboard:simuler-file-attente
 php artisan dashboard:simuler-remediations
+php artisan dashboard:simuler-integrite-ia
 ```

@@ -49,7 +49,8 @@
             <p class="text-xs text-slate-400">Régulation du rythme de démarrage et validation des fondamentaux techniques au Live Coding.</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-7 gap-4">
+            @include('PkgTableauBord::components.kpi-integrite-ia', ['type' => 'formateur', 'kpi' => $kpiIntegriteIA])
             @include('PkgTableauBord::components.kpi-intervention', ['type' => 'formateur', 'kpi' => $kpiIntervention])
             @include('PkgTableauBord::components.kpi-file-attente', ['type' => 'formateur', 'kpi' => $kpiFileAttente])
             @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'formateur', 'kpi' => $kpiAmorcage])
@@ -85,6 +86,57 @@
                             <div class="text-[11px] text-slate-500">{{ $tacheItem['explication'] }}</div>
                         </div>
                     @endforeach
+                </div>
+            </div>
+        @endif
+
+        <!-- Tableau d'Audit Docimologique : Soutenances & Concordance IA (Indicateur 07 — Pearson r) -->
+        @if(!empty($kpiIntegriteIA['apprenants']))
+            <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h4 class="text-sm font-bold text-slate-900">Contrôle Docimologique des Soutenances (Indicateur 07 — Usage IA)</h4>
+                            <span class="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">
+                                {{ $kpiIntegriteIA['r_formate'] }}
+                            </span>
+                        </div>
+                        <p class="text-xs text-slate-500">Confrontation des notes de Live Coding Prototype ($N2$) et de Projet libre outillé par IA ($N3$).</p>
+                    </div>
+                    <span class="text-xs font-bold {{ $kpiIntegriteIA['badge_class'] }} px-2.5 py-1 rounded-lg">
+                        {{ $kpiIntegriteIA['badge_label'] }}
+                    </span>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead>
+                            <tr class="border-b border-slate-200 text-slate-500 font-semibold bg-slate-50/50">
+                                <th class="py-2.5 px-4">Stagiaire</th>
+                                <th class="py-2.5 px-4">Note Prototype ($N2$)</th>
+                                <th class="py-2.5 px-4">Note Projet ($N3$)</th>
+                                <th class="py-2.5 px-4">Écart (&Delta; = N3 - N2)</th>
+                                <th class="py-2.5 px-4 text-right">Diagnostic Docimologique</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            @foreach($kpiIntegriteIA['apprenants'] as $appr)
+                                <tr class="hover:bg-slate-50/80 transition {{ $appr['est_alerte'] ? 'bg-rose-50/40' : '' }}">
+                                    <td class="py-2.5 px-4 font-bold text-slate-900">{{ $appr['nom_complet'] }}</td>
+                                    <td class="py-2.5 px-4 font-mono font-bold text-slate-700">{{ $appr['note_n2'] }} / 20</td>
+                                    <td class="py-2.5 px-4 font-mono font-bold text-indigo-700">{{ $appr['note_n3'] }} / 20</td>
+                                    <td class="py-2.5 px-4 font-mono font-black {{ $appr['est_alerte'] ? 'text-rose-600' : ($appr['est_vigilance'] ? 'text-amber-600' : 'text-emerald-600') }}">
+                                        {{ $appr['delta_formate'] }}
+                                    </td>
+                                    <td class="py-2.5 px-4 text-right">
+                                        <span class="px-2.5 py-0.5 rounded-full text-[11px] {{ $appr['badge_class'] }}">
+                                            {{ $appr['badge_label'] }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         @endif

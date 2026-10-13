@@ -95,6 +95,16 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
   - Service : `DashboardIndicateur06Trait`
   - UI V2 : `kpi-intervention.blade.php`, `flashbox-alerte-blocages.blade.php`, bandeau bienveillant apprenant
 
+### Action I : Mesurer la Concordance Docimologique & Intégrité face à l'IA ($r$)
+> **Description** : Expliquer le calcul du coefficient de corrélation linéaire de Pearson ($r \in [-1, +1]$) confrontant les notes du prototype surveillé ($N2$) et du projet libre assisté par IA ($N3$), la détection des alertes d'écart suspect ($\Delta_{\text{IA}} > +5\text{ pts}$), le tableau d'audit des soutenances et le Scatter Plot SVG interactif.
+- **Ressources Utilisées** :
+  - `cahiers-charges/PkgTableauBord/indicateurs/ind-07-integrite-ia-pearson.md`
+  - `cahiers-charges/PkgTableauBord/plan-sprint7.md`
+- **Sorties** :
+  - Index BDD : `idx_rup_ua_note`, `idx_ruproj_ua_note`
+  - Service : `DashboardIndicateur07Trait`
+  - UI V2 : `kpi-integrite-ia.blade.php`, `scatter-plot-ia.blade.php`, tableau d'audit formateur
+
 ---
 
 ## 🛠️ Règles de Gestion (Savoir-Faire Métier)
@@ -150,4 +160,12 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
 3. Le formateur voit apparaître la **Flashbox Alerte Rouge** avec les apprenants bloqués (`+14 min`, `+11 min`) et déclenche un étayage (Trinôme d'entraide ou Atelier de soutien).
 4. Dès l'intervention enregistrée dans `remediations`, le taux $T_{\text{intervention}}$ augmente ($\ge 85\%$ = Excellence).
 5. L'apprenant concerné voit un message bienveillant d'accompagnement l'invitant à solliciter son formateur et ses pairs.
+
+### Scénario 7 : Audit de Concordance Docimologique & Intégrité IA ($r$)
+1. Les notes de prototype ($N2$) et de projet libre ($N3$) sont saisies sur 20.
+2. `DashboardIndicateur07Trait` calcule le coefficient de Pearson $r$ sur la promotion et évalue la zone ($\ge 0.70$ = Alignement Robuste).
+3. Pour chaque apprenant, l'écart $\Delta_{\text{IA}} = N3 - N2$ est calculé.
+4. Si $\Delta_{\text{IA}} > 5.0\text{ pts}$, une alerte rouge s'affiche dans le tableau des soutenances du formateur (*"Vérifier maîtrise du code en soutenance"*).
+5. La vue Responsable trace le nuage de points interactif SVG (Scatter Plot) avec polygone d'anomalie rouge et bouton de convocation de jury.
+
 
