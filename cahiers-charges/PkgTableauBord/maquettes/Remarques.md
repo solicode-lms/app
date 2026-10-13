@@ -1,9 +1,6 @@
 
+- Module :Backend Laravel ORM • Sprint 3
+  - Le sprint est par projet et non par module 
+  - On peut donner seulement : Session 3 : Page d'aceuille Blog
 
-- La classe contient 20 apprenants
-- Exemple de code classe : DWB-101, DMB-101
-- 28 min (T_file)
-  - ne pas affiche (T_file)
-    - ne pas affiche les code des indicateur
-- On doit Proposer des Label à des indicateur pour être simplement compris par les apprenant, formateur et responsable de formation
-  - Ces Label doit être proposer et valider avant de l'appliquer aux maquettes.
+- Micro-compétences validées sur le programme du module., on peut pas parelr de module, on peut parter pour tous les module, car dans un projet on lance plusieurs unité, qui fait partie de plusieurs modules
