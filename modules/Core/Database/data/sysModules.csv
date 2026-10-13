@@ -17,3 +17,4 @@
 "5","Gestion des sessions","PkgSessions","Contient les tables liées aux sessions, livrables et alignements UA","1","1","primary","PkgSessions"
 "20","PkgQcm","PkgQcm","","1","1","dark","PkgQcm"
 "21","Passer QCM","PkgPasserQcm","","1","1","dark","PkgPasserQcm"
+"22","Tableau de bord","PkgTableauBord","","1","1","dark","PkgTableauBord"

@@ -71,3 +71,10 @@ Cette règle s'applique partout où les filtres sont nécessaires **hors du flux
 - Endpoints API filtrant par contexte utilisateur
 - Traitements batch ou tâches planifiées
 
+## 7. Champs Calculables & Dénormalisés (Préfixe `cache_`)
+- **Règle de Nommage Obligatoire** : Tout champ persisté en base de données issu d'un calcul ou d'une dénormalisation pour accélérer les requêtes (KPIs, agrégations statistiques) **DOIT impérativement être préfixé par `cache_`** (ex : `cache_date_premiere_soumission`, `cache_date_lancement`).
+- **Gouvernance & Calcul** :
+    - Ces champs sont maintenus à jour via les traits de calcul dédiés (`{Model}CalculTrait`) et/ou les Jobs/Observers (`JobManager`).
+    - L'initialisation doit être idempotente (ex : ne pas écraser une date de première soumission si elle existe déjà).
+
+

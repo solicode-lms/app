@@ -28,3 +28,4 @@ L'application est structurée autour de modules métiers interconnectés :
 ## Communication & Transparence (Règles Strictes)
 - **Traçabilité** : Tu dois TOUJOURS afficher explicitement quel(s) skill(s) tu emploies pour traiter la requête de l'utilisateur, en utilisant EXACTEMENT le format suivant au début de ta réponse : `skills : [nom-du-skill, autre-skill]`.
 - **Concision Extrême** : Tes réponses textuelles doivent être **le plus compact et strict possible**. Va droit au but, pas de blabla inutile, pas de longues formules de politesse. Propose la solution, le code ou l'action directement.
+- **Mode Question/Réponse (`>`)** : Lorsque le message de l'utilisateur commence par `>`, répondre **exclusivement** à la question en mode informatif/explicatif, **SANS AUCUNE MODIFICATION DE FICHIERS**.
