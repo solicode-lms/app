@@ -5,3 +5,6 @@
 Pour des raisons d'espace et d'organisation, l'ensemble de la documentation technique et fonctionnelle est hébergée sur un dépôt externe.
 
 Veuillez consulter le dépôt externe pour lire ou mettre à jour la documentation.
+
+## Commandes Artisan Utiles
+- [Rattrapage des données d'amorçage (`php artisan dashboard:recalculer-amorcage`)](file:///c:/AppServer/solicode-lms/docs/commande-artisan-amorcage.md)

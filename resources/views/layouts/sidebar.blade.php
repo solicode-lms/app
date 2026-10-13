@@ -1,4 +1,3 @@
-{{-- // TODO : Affichage de menu par couleur de rôle  --}}
 <aside class="main-sidebar sidebar-dark-info elevation-4">
     {{-- Logo --}}
     <a href="{{ route('dashbaord') }}" class="brand-link">

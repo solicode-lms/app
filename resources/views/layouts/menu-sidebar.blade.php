@@ -28,6 +28,62 @@
     </a>
 </li>
 
+{{-- Tableau de bord V2 par Acteur --}}
+@auth
+    @if(Auth::user()->hasAnyRole(['admin', 'root']))
+        <li class="nav-item has-treeview {{ Request::is('tableau-bord*') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link {{ Request::is('tableau-bord*') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-chart-line"></i>
+                <p>
+                    Tableaux de bord (V2)
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('tableau-bord.responsable') }}" class="nav-link {{ Request::is('tableau-bord/responsable*') ? 'active' : '' }}">
+                        <i class="nav-icon far fa-circle text-primary"></i>
+                        <p>Responsable</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('tableau-bord.formateur') }}" class="nav-link {{ Request::is('tableau-bord/formateur*') ? 'active' : '' }}">
+                        <i class="nav-icon far fa-circle text-info"></i>
+                        <p>Formateur</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('tableau-bord.apprenant') }}" class="nav-link {{ Request::is('tableau-bord/apprenant*') ? 'active' : '' }}">
+                        <i class="nav-icon far fa-circle text-success"></i>
+                        <p>Apprenant</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    @elseif(Auth::user()->hasAnyRole(['formateur', 'admin-formateur']))
+        <li class="nav-item">
+            <a href="{{ route('tableau-bord.formateur') }}" class="nav-link {{ Request::is('tableau-bord/formateur*') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-chart-line"></i>
+                <p>Tableau de bord (V2)</p>
+            </a>
+        </li>
+    @elseif(Auth::user()->hasRole('apprenant'))
+        <li class="nav-item">
+            <a href="{{ route('tableau-bord.apprenant') }}" class="nav-link {{ Request::is('tableau-bord/apprenant*') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-chart-line"></i>
+                <p>Tableau de bord (V2)</p>
+            </a>
+        </li>
+    @else
+        <li class="nav-item">
+            <a href="{{ route('tableau-bord.responsable') }}" class="nav-link {{ Request::is('tableau-bord*') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-chart-line"></i>
+                <p>Tableau de bord (V2)</p>
+            </a>
+        </li>
+    @endif
+@endauth
+
 
 {{-- Charger les menus des modules dynamiquement --}}
 @foreach ($dynamicMenus as $menu)

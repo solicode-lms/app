@@ -22,12 +22,13 @@ trait AffectationProjetCalculTrait
             return Carbon::parse($affectation->cache_date_lancement);
         }
 
-        // Recherche de la première tâche passée en "IN_PROGRESS" par un apprenant du groupe
+        // Recherche de la première tâche démarrée par un apprenant du groupe
         $premierDemarrage = HistoriqueRealisationTache::whereHas('realisationTache.realisationProjet', function ($q) use ($affectation) {
                 $q->where('affectation_projet_id', $affectation->id);
             })
-            ->whereHas('etatRealisationTache.workflowTache', function ($q) {
-                $q->where('code', 'IN_PROGRESS');
+            ->where(function ($q) {
+                $q->where('changement', 'like', '%En cours%')
+                  ->orWhere('changement', 'like', '%IN_PROGRESS%');
             })
             ->min('created_at');
 

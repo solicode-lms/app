@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Tableau de Bord Apprenant — Solicode LMS</title>
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+
+    <div class="flex min-h-screen">
+
+        <!-- ========================================================================= -->
+        <!-- SIDEBAR GAUCHE APPRENANT -->
+        <!-- ========================================================================= -->
+        <aside id="app-sidebar" class="w-64 bg-white border-r border-slate-200 flex flex-col shrink-0 sticky top-0 h-screen z-40 transition-all duration-300">
+            <!-- Logo SoliLMS & Bouton Masquer -->
+            <div class="h-16 flex items-center justify-between px-5 border-b border-slate-200">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-sm">
+                        SL
+                    </div>
+                    <div>
+                        <div class="text-sm font-bold text-slate-900 leading-tight">Solicode LMS</div>
+                        <div class="text-[10px] text-slate-400 font-medium">Espace Apprenant</div>
+                    </div>
+                </div>
+                <button onclick="toggleSidebar()" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition" title="Masquer le menu">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
+                </button>
+            </div>
+
+            <!-- Fiche Mini-Profil -->
+            <div class="p-4 border-b border-slate-100 bg-slate-50/60 flex items-center gap-3">
+                <img class="w-10 h-10 rounded-full object-cover border-2 border-indigo-500 shadow-xs" src="https://ui-avatars.com/api/?name={{ urlencode(($apprenant->prenom ?? Auth::user()->name ?? 'Yassine') . '+' . ($apprenant->nom ?? 'El Amrani')) }}&background=c7d2fe&color=3730a3" alt="Avatar">
+                <div class="min-w-0">
+                    <div class="text-xs font-bold text-slate-900 truncate">{{ ($apprenant->prenom ?? Auth::user()->name ?? 'Yassine') }} {{ ($apprenant->nom ?? '') }}</div>
+                    <div class="text-[11px] text-slate-500 truncate">Classe {{ $realisationProjet->affectationProjet->groupe->code ?? 'DWB-101' }}</div>
+                </div>
+            </div>
+
+            <!-- Navigation Principale -->
+            <nav class="flex-grow p-4 space-y-1.5 overflow-y-auto">
+                <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-3 mb-2">Menu Principal</div>
+
+                <!-- Dashboard (Actif) -->
+                <a href="{{ route('tableau-bord.apprenant') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-indigo-50 text-indigo-700 font-bold text-xs border border-indigo-100 shadow-2xs">
+                    <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    <span>Tableau de bord</span>
+                </a>
+
+                <!-- Session active -->
+                <a href="#" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        <span>Session 3 (Blog)</span>
+                    </div>
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                </a>
+
+                <!-- Tâches & Livrables -->
+                <a href="#taches" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                        <span>Mes Tâches</span>
+                    </div>
+                    <span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-slate-100 text-slate-600">4</span>
+                </a>
+
+                <!-- File Live Coding FIFO -->
+                <a href="#" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>File Live Coding</span>
+                    </div>
+                    <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-sky-100 text-sky-800">Rang #2</span>
+                </a>
+
+                <!-- Compétences Référentiel -->
+                <a href="#" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                        <span>Compétences Référentiel</span>
+                    </div>
+                    <span class="text-[11px] font-bold text-emerald-600">85%</span>
+                </a>
+
+                <!-- Évaluations QCM -->
+                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition">
+                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <span>Passer un QCM</span>
+                </a>
+            </nav>
+
+            <!-- Pied de Sidebar : Statut présence -->
+            <div class="p-4 border-t border-slate-200 text-xs">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span class="text-slate-600 font-medium">Présence : <strong class="text-slate-900">En présentiel</strong></span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-1">Salle 04 &bull; Machine 12</div>
+            </div>
+        </aside>
+
+        <!-- ========================================================================= -->
+        <!-- ZONE DE CONTENU PRINCIPALE (DROITE) -->
+        <!-- ========================================================================= -->
+        <div class="flex-1 flex flex-col min-w-0">
+
+            <!-- Header Navbar Apprenant -->
+            <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+                <div class="px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <button onclick="toggleSidebar()" class="p-2 -ml-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition" title="Afficher / Masquer la barre latérale">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        </button>
+                        <div>
+                            <h1 class="text-base font-bold text-slate-900 leading-tight">Mon Tableau de Bord</h1>
+                            <p class="text-xs text-slate-500">Suivi d'avancement & Indicateurs d'apprentissage</p>
+                        </div>
+                    </div>
+
+                    <!-- Projet & Session Active -->
+                    <div class="hidden sm:flex items-center gap-2 bg-slate-100/80 px-3.5 py-1.5 rounded-xl border border-slate-200/60 text-xs">
+                        <span class="font-semibold text-slate-700">Projet :</span>
+                        <span class="text-indigo-700 font-bold">{{ $realisationProjet->affectationProjet->projet->titre ?? 'Blog Personnel' }}</span>
+                        <span class="text-slate-300">&bull;</span>
+                        <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded-md text-[11px]">Session 3 : Page d'accueil Blog</span>
+                    </div>
+
+                    <!-- Statut Rapide -->
+                    <div class="flex items-center gap-3">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            Prêt pour Soutenance
+                        </span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="p-4 sm:p-6 lg:p-8 space-y-8 flex-grow">
+
+                <!-- 1. STATUT OPÉRATIONNEL IMMÉDIAT & FILE D'ATTENTE -->
+                <section class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm relative overflow-hidden">
+                    <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 border border-sky-200 flex items-center justify-center shrink-0">
+                                <svg class="w-6 h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-sky-100 text-sky-800 border border-sky-200">
+                                        File de Soutenance Active
+                                    </span>
+                                </div>
+                                <h2 class="text-lg sm:text-xl font-extrabold text-slate-900 mt-1">
+                                    Votre rang de passage en direct : <span class="text-indigo-600">Rang #2</span>
+                                </h2>
+                                <p class="text-xs sm:text-sm text-slate-500 mt-1">
+                                    Prototype Niveau 2 soumis à 14h27. Temps d'attente estimé : <strong class="text-slate-800">18 minutes</strong> &bull; Passage formateur prévu à <strong class="text-slate-800">14h45</strong>.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/80 flex items-center gap-4 shrink-0 w-full lg:w-auto">
+                            <div>
+                                <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Livrable à soutenir</div>
+                                <div class="text-xs font-bold text-slate-900">Prototype — Page d'accueil Blog</div>
+                            </div>
+                            <a href="#taches" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg shadow-xs transition">
+                                Revoir mon code
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-slate-100 flex items-center gap-2 text-xs text-slate-600">
+                        <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span><strong>Conseil méthodologique :</strong> Gardez votre IDE ouvert sur la branche <code class="bg-slate-100 px-1 py-0.5 rounded text-indigo-700 font-mono font-semibold">feature/prototype-n2</code> pour fluidifier le démarrage de la soutenance individuelle.</span>
+                    </div>
+                </section>
+
+                <!-- 2. CARTES KPI INDIVIDUELS -->
+                <section class="space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Mes Indicateurs de Maîtrise & Régulation</h3>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                        
+                        <!-- KPI 1 DYNAMIQUE : Démarrage du sprint (Indicateur 01 T_amorçage) -->
+                        @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'apprenant', 'kpi' => $kpiAmorcage])
+
+                        <!-- KPI 2 : Validation du Prototype -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-500">Validation du Prototype</span>
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    Validé (1er essai)
+                                </span>
+                            </div>
+                            <div class="mt-3 flex items-baseline gap-2">
+                                <span class="text-3xl font-extrabold text-emerald-600 tracking-tight">Validé</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Validation directe sans séance de remédiation intermédiaire.</p>
+                            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span>Accès Projet Fil Rouge</span>
+                                <span class="font-bold text-emerald-700 flex items-center gap-1">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                                    Débloqué (Niveau 3)
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- KPI 3 : Progression dans le référentiel -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-500">Progression dans le référentiel</span>
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                                    85% validé
+                                </span>
+                            </div>
+                            <div class="mt-3 flex items-baseline gap-2">
+                                <span class="text-3xl font-extrabold text-indigo-600 tracking-tight">85%</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Micro-compétences validées sur l'ensemble du référentiel.</p>
+                            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span>Compétences acquises</span>
+                                <span class="font-bold text-slate-800">17 / 20 compétences</span>
+                            </div>
+                        </div>
+
+                        <!-- KPI 4 : Moyenne provisoire Contrôle Continu -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-500">Moyenne provisoire de Contrôle Continu</span>
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                                    Note CC
+                                </span>
+                            </div>
+                            <div class="mt-3 flex items-baseline gap-2">
+                                <span class="text-3xl font-extrabold text-slate-900 tracking-tight">16.5<span class="text-base text-slate-400 font-normal">/20</span></span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Estimation basée sur vos prototypes et tutoriels validés.</p>
+                            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span>Poids officiel EFM</span>
+                                <span class="font-bold text-slate-800">Composante 65%</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. PROGRESSION DU SPRINT & QUALITÉ DU CODE -->
+                <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm lg:col-span-2 space-y-5">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-900">Progression &bull; Session 3 : Page d'accueil Blog</h4>
+                                <p class="text-xs text-slate-500">3 tutoriels d'imitation (N1) + 1 prototype autonome (N2)</p>
+                            </div>
+                            <span class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 self-start sm:self-auto">
+                                75% Complété
+                            </span>
+                        </div>
+
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs font-bold text-slate-700">
+                                <span>Étapes validées en soutenance (3/4)</span>
+                                <span class="text-indigo-600">En attente de soutenance prototype</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden flex shadow-inner">
+                                <div class="bg-emerald-500 h-full" style="width: 75%"></div>
+                                <div class="bg-sky-400 h-full animate-pulse" style="width: 25%"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80 flex items-center justify-between">
+                            <div>
+                                <div class="text-xs font-bold text-slate-900">Qualité du premier rendu</div>
+                                <div class="text-xs text-slate-500 mt-0.5">Taux de validation au 1er jet : <strong class="text-emerald-700">85% de réussite directe</strong> (0.2 reprise par tâche en moyenne).</div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-white border border-slate-200 text-slate-700 shadow-2xs">
+                                0.2 reprise / tâche
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                        <h4 class="text-sm font-bold text-slate-900 border-b border-slate-100 pb-3">Règles de Soutenance Live Coding</h4>
+                        <ul class="space-y-3 text-xs text-slate-600">
+                            <li class="flex items-start gap-2.5">
+                                <span class="w-5 h-5 rounded-full bg-indigo-50 text-indigo-700 flex items-center justify-center font-bold shrink-0 mt-0.5">1</span>
+                                <span>Présenter les migrations avec colonne <code class="text-indigo-600 font-mono font-bold">reference</code>.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="w-5 h-5 rounded-full bg-indigo-50 text-indigo-700 flex items-center justify-center font-bold shrink-0 mt-0.5">2</span>
+                                <span>Démontrer la résolution du problème N+1 via Eloquent <code>with()</code>.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="w-5 h-5 rounded-full bg-indigo-50 text-indigo-700 flex items-center justify-center font-bold shrink-0 mt-0.5">3</span>
+                                <span>Répondre à 2 questions de code en direct posées par le formateur.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 4. SECTION OPÉRATIONNELLE : TÂCHES DU SPRINT -->
+                <section id="taches" class="space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900">Mes Tâches d'Apprentissage & Historique des Livrables</h3>
+                            <p class="text-xs text-slate-500">Flux didactique : Niveau 1 Imiter &bull; Niveau 2 Adapter</p>
+                        </div>
+                        <div class="text-xs font-semibold text-slate-600 bg-white border border-slate-200 px-3 py-1.5 rounded-lg shadow-2xs">
+                            Total : 4 tâches ordonnées
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-mono font-bold text-slate-400">TUTO-01 &bull; N1</span>
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Validé</span>
+                            </div>
+                            <h4 class="text-xs font-bold text-slate-900 leading-snug">Modèles Eloquent & Migrations</h4>
+                            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                                <span>Révisions : <strong class="text-emerald-700">0</strong></span>
+                                <span class="text-slate-400">Hier</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-mono font-bold text-slate-400">TUTO-02 &bull; N1</span>
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Validé</span>
+                            </div>
+                            <h4 class="text-xs font-bold text-slate-900 leading-snug">Relations One-to-Many</h4>
+                            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                                <span>Révisions : <strong class="text-amber-700">1</strong></span>
+                                <span class="text-slate-400">Hier</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-mono font-bold text-slate-400">TUTO-03 &bull; N1</span>
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Validé</span>
+                            </div>
+                            <h4 class="text-xs font-bold text-slate-900 leading-snug">Scopes Locaux & Requêtage</h4>
+                            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                                <span>Révisions : <strong class="text-emerald-700">0</strong></span>
+                                <span class="text-slate-400">Ce matin</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-indigo-50/40 p-4 rounded-xl border-2 border-indigo-300 shadow-sm space-y-3 relative">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-mono font-bold text-indigo-700">PROTO-01 &bull; N2</span>
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-100 text-sky-800 border border-sky-200">En file #2</span>
+                            </div>
+                            <h4 class="text-xs font-bold text-slate-900 leading-snug">Prototype Page d'accueil Blog</h4>
+                            <div class="pt-2 border-t border-indigo-100 flex items-center justify-between text-[11px] text-slate-600">
+                                <span>Rang : <strong class="text-indigo-700">#2</strong></span>
+                                <span class="text-slate-500 font-mono">14h27</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+
+            <!-- Footer Standard Apprenant -->
+            <footer class="bg-white border-t border-slate-200 py-5 px-4 sm:px-6 lg:px-8 text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3 mt-auto">
+                <div>
+                    <strong>Solicode LMS V2</strong> &bull; Cockpit Apprenant &bull; Suivi d'apprentissage & progression
+                </div>
+                <div class="text-slate-400">
+                    Actualisation automatique &bull; Session active
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Script Minimal Vanilla JS pour Masquer/Afficher la Sidebar -->
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('app-sidebar');
+            sidebar.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
