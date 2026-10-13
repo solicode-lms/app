@@ -106,6 +106,7 @@ class BaseRealisationTacheSeeder extends Seeder
                         "remarque_evaluateur" => isset($row["remarque_evaluateur"]) && $row["remarque_evaluateur"] !== "" ? $row["remarque_evaluateur"] : null,
                         "note" => isset($row["note"]) && $row["note"] !== "" ? $row["note"] : null,
                         "is_live_coding" => isset($row["is_live_coding"]) && $row["is_live_coding"] !== "" ? $row["is_live_coding"] : null,
+                        "cache_nombre_revisions" => isset($row["cache_nombre_revisions"]) && $row["cache_nombre_revisions"] !== "" ? $row["cache_nombre_revisions"] : null,
                         "remarques_formateur" => isset($row["remarques_formateur"]) && $row["remarques_formateur"] !== "" ? $row["remarques_formateur"] : null,
                         "remarques_apprenant" => isset($row["remarques_apprenant"]) && $row["remarques_apprenant"] !== "" ? $row["remarques_apprenant"] : null,
                         "tache_affectation_id" => $tache_affectation_id,

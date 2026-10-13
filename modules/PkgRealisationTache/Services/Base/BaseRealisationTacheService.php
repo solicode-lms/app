@@ -33,6 +33,7 @@ class BaseRealisationTacheService extends BaseService
         'remarque_evaluateur',
         'note',
         'is_live_coding',
+        'cache_nombre_revisions',
         'remarques_formateur',
         'remarques_apprenant',
         'tache_affectation_id',

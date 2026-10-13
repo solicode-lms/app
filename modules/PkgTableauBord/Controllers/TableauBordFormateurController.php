@@ -68,6 +68,7 @@ class TableauBordFormateurController extends AdminController
 
         $kpiAmorcage = $this->tableauBordService->getIndicateurAmorcageFormateur($affectationProjet);
         $kpiGating = $this->tableauBordService->getIndicateurGatingFormateur($affectationProjet);
+        $kpiRevision = $this->tableauBordService->getIndicateurRevisionFormateur($affectationProjet);
 
         return view('PkgTableauBord::formateur.index', [
             'user' => $user,
@@ -75,6 +76,7 @@ class TableauBordFormateurController extends AdminController
             'affectationProjet' => $affectationProjet,
             'kpiAmorcage' => $kpiAmorcage,
             'kpiGating' => $kpiGating,
+            'kpiRevision' => $kpiRevision,
             'projets' => $projets,
             'projetActif' => $projetActif,
             'sessions' => $projets,

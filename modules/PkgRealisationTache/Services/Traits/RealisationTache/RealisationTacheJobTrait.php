@@ -109,11 +109,16 @@ trait RealisationTacheJobTrait
                 // Sprint 2 : Indicateur 02 (R_gating) - Enregistrement évaluation prototype (phaseEvaluation = N2)
                 $isPrototype = $realisationTache->isPrototype();
 
-                if ($isPrototype && in_array($etatWorkflowCode, ['APPROVED', 'NOT_VALIDATED', 'REVISION_NECESSAIRE'])) {
-                    $estValide = ($etatWorkflowCode === 'APPROVED') || (($realisationTache->note ?? 0) >= 10);
-                    $realisationProjetService->mettreAJourGatingPrototype($realisationTache->realisationProjet, $estValide);
+                    if ($isPrototype && in_array($etatWorkflowCode, ['APPROVED', 'NOT_VALIDATED', 'REVISION_NECESSAIRE'])) {
+                        $estValide = ($etatWorkflowCode === 'APPROVED') || (($realisationTache->note ?? 0) >= 10);
+                        $realisationProjetService->mettreAJourGatingPrototype($realisationTache->realisationProjet, $estValide);
+                    }
+
+                    // Sprint 3 : Indicateur 03 (F_révision) - Incrémentation lors d'un renvoi en révision
+                    if ($etatWorkflowCode === 'REVISION_NECESSAIRE') {
+                        $this->incrementerNombreRevisions($realisationTache);
+                    }
                 }
-            }
 
             // Calcule de progression de Live coding
             $tacheAffectationService = app(TacheAffectationService::class);

@@ -37,12 +37,14 @@ class TableauBordResponsableController extends AdminController
         $groupes = Groupe::orderBy('nom')->get();
         $kpiAmorcage = $this->tableauBordService->getIndicateurAmorcageResponsable($groupeIds, $projetActif?->id);
         $kpiGating = $this->tableauBordService->getIndicateurGatingResponsable($groupeIds, $projetActif?->id);
+        $kpiRevision = $this->tableauBordService->getIndicateurRevisionResponsable($groupeIds, $projetActif?->id);
 
         return view('PkgTableauBord::responsable.index', [
             'user' => $user,
             'groupes' => $groupes,
             'kpiAmorcage' => $kpiAmorcage,
             'kpiGating' => $kpiGating,
+            'kpiRevision' => $kpiRevision,
             'projets' => $projets,
             'projetActif' => $projetActif,
             'sessions' => $projets,

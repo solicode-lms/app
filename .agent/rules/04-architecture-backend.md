@@ -77,4 +77,8 @@ Cette règle s'applique partout où les filtres sont nécessaires **hors du flux
     - Ces champs sont maintenus à jour via les traits de calcul dédiés (`{Model}CalculTrait`) et/ou les Jobs/Observers (`JobManager`).
     - L'initialisation doit être idempotente (ex : ne pas écraser une date de première soumission si elle existe déjà).
 
+## 8. Évitement de l'Erreur MySQL 1093 sur les Updates Dénormalisés
+- **Problème** : Lorsqu'un modèle Eloquent possède des scopes globaux complexes (ou des relations injectant des sous-requêtes sur la même table, comme `RealisationTache` et `apprenant_actif`), appeler `Model::where('id', $id)->update(...)` ou `increment(...)` provoque l'erreur MySQL `1093: You can't specify target table for update in FROM clause`.
+- **Solution Obligatoire** : Pour les mises à jour directes par clé primaire ou les incrémentations de compteurs `cache_`, toujours utiliser `DB::table('table_name')->where('id', $id)->update(...)` ou `Model::withoutGlobalScopes()->where('id', $id)->update(...)`.
+
 

@@ -45,4 +45,18 @@ class RealisationTacheService extends BaseRealisationTacheService
         'realisationProjet.realisationTaches.tache',
     ];
 
+    /**
+     * Incrémente le compteur dénormalisé de révisions lors d'un renvoi en correction.
+     *
+     * @param RealisationTache $realisationTache
+     * @return void
+     */
+    public function incrementerNombreRevisions(RealisationTache $realisationTache): void
+    {
+        if (\Illuminate\Support\Facades\Schema::hasColumn('realisation_taches', 'cache_nombre_revisions')) {
+            \Illuminate\Support\Facades\DB::table('realisation_taches')
+                ->where('id', $realisationTache->id)
+                ->increment('cache_nombre_revisions');
+        }
+    }
 }

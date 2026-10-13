@@ -163,6 +163,17 @@
 
             </div>
             <div class="row no-gutters mb-4">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.cache_nombre_revisions')) }}</small>
+                  <span>
+                    @if(! is_null($itemRealisationTache->cache_nombre_revisions))
+                      {{ $itemRealisationTache->cache_nombre_revisions }}
+                    @else
+                      —
+                    @endif
+                  </span>                </div>
+            </div>
             @if(
                   (auth()->user()?->can('show-evaluationRealisationTache') && $itemRealisationTache->evaluationRealisationTaches->isNotEmpty())  
                   || auth()->user()?->can('create-evaluationRealisationTache')

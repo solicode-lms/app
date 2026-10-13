@@ -52,7 +52,33 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'formateur', 'kpi' => $kpiAmorcage])
             @include('PkgTableauBord::components.kpi-gating', ['type' => 'formateur', 'kpi' => $kpiGating])
+            @include('PkgTableauBord::components.kpi-revision', ['type' => 'formateur', 'kpi' => $kpiRevision])
         </div>
+
+        <!-- Top 3 Tâches Nécessitant un Réalignement Didactique -->
+        @if(!empty($kpiRevision['top_taches']))
+            <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-900">Tâches Nécessitant un Réalignement Didactique</h4>
+                        <p class="text-xs text-slate-500">Tâches concentrant le plus grand nombre de rejets formateurs ({{ $kpiRevision['frequence_formatee'] }})</p>
+                    </div>
+                    <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200">Top 3 Révélateur</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    @foreach($kpiRevision['top_taches'] as $tacheItem)
+                        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80 space-y-1">
+                            <div class="flex items-center justify-between text-xs font-bold text-slate-900">
+                                <span class="truncate pr-2" title="{{ $tacheItem['titre'] }}">{{ $tacheItem['titre'] }}</span>
+                                <span class="text-rose-600 font-mono shrink-0">{{ $tacheItem['frequence_formatee'] }}</span>
+                            </div>
+                            <div class="text-[11px] text-slate-500">{{ $tacheItem['explication'] }}</div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
 
         <!-- Deux colonnes d'alertes : Retard amorçage & Remédiation requise -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
