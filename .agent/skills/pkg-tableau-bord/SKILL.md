@@ -1,80 +1,85 @@
 ---
 name: pkg-tableau-bord
-description: Expert du module PkgTableauBord — Architecture de données, calcul de l'Indicateur 01 (T_amorcage) et composants UI V2. Enrichi de façon itérative par sprint.
+description: Expert du module PkgTableauBord — Architecture de données, calculs des Indicateurs 01 (T_amorcage) et 02 (R_gating), et composants UI V2. Enrichi de façon itérative par sprint.
 ---
 
-# Skill : Expert Tableau de Bord (PkgTableauBord) — Sprint 1
+# Skill : Expert Tableau de Bord (PkgTableauBord) — Sprints 1 & 2
 
 ## 🎯 Périmètre Global
-**Mission** : Fournir à l'IA une maîtrise rigoureuse de l'architecture, des flux de données, des calculs statistiques et des composants graphiques du module **PkgTableauBord** pour le **Sprint 1 : Indicateur 01 — Démarrage du travail ($T_{\text{amorçage}}$)**.
+**Mission** : Fournir à l'IA une maîtrise rigoureuse de l'architecture, des flux de données, des calculs statistiques et des composants graphiques du module **PkgTableauBord** pour les indicateurs développés :
+- **Sprint 1 : Indicateur 01 — Démarrage du travail ($T_{\text{amorçage}}$)**
+- **Sprint 2 : Indicateur 02 — Validation du Prototype / Gating ($R_{\text{gating}}$)**
 
 > [!NOTE]
-> **Démarche Itérative** : Conformément à la méthodologie projet, ce skill est développé de façon itérative sprint par sprint. Il contient uniquement les connaissances et règles du Sprint 1, et sera enrichi lors de chaque sprint subséquent.
+> **Démarche Itérative** : Conformément à la méthodologie projet, ce skill est enrichi sprint par sprint. Il contient uniquement les connaissances et règles des Sprints 1 et 2, sans anticiper les sprints ultérieurs (3 à 9).
 
 ### 🚫 Interdictions Globales (Règles d'Or)
-1. **Zéro Calcul dans les Contrôleurs ou Blade (CRITIQUE)** : Il est formellement interdit de calculer un indicateur, une moyenne ou une formule mathématique dans un contrôleur ou une vue Blade. Tout calcul passe exclusivement par la couche Service (`TableauBordService`, `DashboardIndicateur01Trait`).
+1. **Zéro Calcul dans les Contrôleurs ou Blade (CRITIQUE)** : Il est formellement interdit de calculer un indicateur, une moyenne ou une formule mathématique dans un contrôleur ou une vue Blade. Tout calcul passe exclusivement par la couche Service (`TableauBordService`, `DashboardIndicateur01Trait`, `DashboardIndicateur02Trait`).
 2. **Ordre d'Appel ViewState Obligatoire** : Toujours appeler `$this->viewState->setContextKeyIfEmpty(...)` **AVANT** tout appel à `loadLastFilterIfEmpty()` pour retrouver les filtres persistés de l'utilisateur.
-3. **Intégrité BDD & Convention `cache_`** : Ne jamais modifier les fichiers `Base/` générés par Gapp. Tout champ dénormalisé ou issu d'un calcul pour accélérer les requêtes KPI DOIT porter le préfixe `cache_` (ex: `cache_date_lancement`, `cache_date_premiere_soumission`). L'agent ne doit jamais exécuter `php artisan migrate` (réservé au développeur).
-4. **Stack Frontend V2** : Interdiction d'utiliser Bootstrap ou jQuery pour les composants du tableau de bord. Utiliser exclusivement Tailwind CSS et Alpine.js avec une architecture orientée composants.
-5. **Architecture Layout V2 & Vues Épurées (CRITIQUE)** :
+3. **Intégrité BDD & Convention `cache_`** : Ne jamais modifier les fichiers `Base/` générés par Gapp. Tout champ dénormalisé ou issu d'un calcul pour accélérer les requêtes KPI DOIT porter le préfixe `cache_`. L'agent ne doit jamais exécuter `php artisan migrate` (réservé au développeur).
+4. **Surcharge `$fillable` Interdite** : Ne jamais surcharger `$fillable` manuellement dans les modèles enfants ; la synchronisation est régénérée automatiquement par Gapp dans les classes `Base/` via `gapp make:crud`.
+5. **Stack Frontend V2 & Layout Partagé (CRITIQUE)** :
    - Toute vue de tableau de bord V2 doit obligatoirement étendre `@extends('layouts.admin-v2')`.
    - Interdiction formelle de recopier la structure globale de maquette (doctype, head, aside sidebar, header, footer, scripts) dans les vues Blade de contenu.
-   - Les vues de production contiennent exclusivement les indicateurs fonctionnels calculés du sprint en cours, à l'exclusion de toute carte ou bloc factice issu de maquettes des sprints futurs.
+   - Les vues de production contiennent exclusivement les indicateurs fonctionnels calculés des sprints actifs (Indicateurs 01 et 02), à l'exclusion de toute carte ou bloc factice issu de maquettes des sprints futurs.
 
 ---
 
-## ⚡ Actions (Orchestration Sprint 1)
+## ⚡ Actions (Orchestration Sprints 1 & 2)
 
-### Action A : Comprendre la Structure de Données (Sprint 1)
-> **Description** : Expliquer les colonnes d'enrichissement et relations de données pour l'indicateur d'amorçage.
+### Action A : Comprendre la Structure de Données
+> **Description** : Expliquer les colonnes d'enrichissement et relations de données pour les indicateurs d'amorçage et de gating.
 - **Ressources Utilisées** :
   - `règles-gestion/règle-gestion-bdd-pkg-tableau-bord.md`
-- **Entrées** : `Question sur cache_date_lancement ou cache_date_premiere_soumission`
-- **Sorties** : Description des colonnes, index, règles de persistance, tables d'accueil (`affectation_projets`, `realisation_projets`) et commande artisan de rattrapage `php artisan dashboard:recalculer-amorcage`.
+- **Entrées** : `Question sur les colonnes cache_`
+- **Sorties** : Description des colonnes, index, règles de persistance, tables d'accueil (`affectation_projets`, `realisation_projets`) et commandes artisan de rattrapage.
 
 ### Action B : Calculer ou Déboguer l'Indicateur 01 ($T_{\text{amorçage}}$)
 > **Description** : Expliquer, implémenter ou corriger l'algorithme du temps d'amorçage individuel et collectif.
 - **Ressources Utilisées** :
   - `règles-gestion/règle-gestion-indicateurs-pkg-tableau-bord.md`
-- **Entrées** : `RealisationProjetId`, `AffectationProjetId`, `GroupeIds`
 - **Sorties** : Formule mathématique, seuils d'alerte didactiques, code PHP de calcul et formatage (ex: `1h15`).
 
-### Action C : Concevoir et Intégrer les Composants Dashboard V2
+### Action C : Calculer ou Déboguer l'Indicateur 02 ($R_{\text{gating}}$)
+> **Description** : Expliquer, implémenter ou corriger l'algorithme du taux de validation du prototype dès le premier essai.
+- **Ressources Utilisées** :
+  - `règles-gestion/règle-gestion-indicateurs-pkg-tableau-bord.md`
+- **Sorties** : Formule micro/méso/macro, détection de premier essai, seuils d'excellence/alerte et gestion des remédiations.
+
+### Action D : Concevoir et Intégrer les Composants Dashboard V2
 > **Description** : Guider la création des composants Blade réactifs avec Tailwind CSS pour les 3 acteurs et leur intégration navigation.
 - **Ressources Utilisées** :
   - `règles-gestion/règle-gestion-fonctionnalites-pkg-tableau-bord.md`
 - **Sorties** :
   - Layout : `layouts.admin-v2`
   - Vues : `PkgTableauBord::apprenant.index`, `PkgTableauBord::formateur.index`, `PkgTableauBord::responsable.index`
-  - Composant : `PkgTableauBord::components.kpi-amorcage`
+  - Composants : `PkgTableauBord::components.kpi-amorcage`, `PkgTableauBord::components.kpi-gating`
   - Navigation : Intégration dans `resources/views/layouts/menu-sidebar.blade.php` conditionnée par rôles.
 
 ---
 
-## 🛠️ Règles de Gestion (Savoir-Faire Métier Sprint 1)
+## 🛠️ Règles de Gestion (Savoir-Faire Métier)
 
 ### 1. `règle-gestion-bdd-pkg-tableau-bord.md`
-- **Rôle** : Description des colonnes `cache_` ajoutées aux tables SoliLMS (`affectation_projets` et `realisation_projets`).
+- **Rôle** : Description des colonnes `cache_` ajoutées aux tables SoliLMS (`affectation_projets` et `realisation_projets`) pour les Sprints 1 et 2.
 
 ### 2. `règle-gestion-indicateurs-pkg-tableau-bord.md`
-- **Rôle** : Spécification complète de l'Indicateur 01 ($T_{\text{amorçage}}$) : modélisation mathématique, seuils d'alerte et actions.
+- **Rôle** : Spécification complète des Indicateurs 01 ($T_{\text{amorçage}}$) et 02 ($R_{\text{gating}}$) : modélisation mathématique, seuils d'alerte et actions.
 
 ### 3. `règle-gestion-fonctionnalites-pkg-tableau-bord.md`
-- **Rôle** : Fonctionnalités du Sprint 1 pour les trois profils (Apprenant, Formateur, Responsable).
+- **Rôle** : Fonctionnalités des Sprints 1 et 2 pour les trois profils (Apprenant, Formateur, Responsable).
 
 ---
 
-## 🔄 Scénarios d'Exécution (Sprint 1)
+## 🔄 Scénarios d'Exécution
 
-### Scénario 1 : "Comment est calculé le temps d'amorçage d'un apprenant ?"
+### Scénario 1 : Calcul de l'amorçage ($T_{\text{amorçage}}$)
 1. Lire `règle-gestion-indicateurs-pkg-tableau-bord.md`.
-2. Vérifier que `cache_date_premiere_soumission` et `cache_date_lancement` sont renseignés sur `realisation_projets`.
-3. Calculer la différence en minutes : `cache_date_premiere_soumission - cache_date_lancement`.
-4. Formater en heures et minutes (ex: `75 min` $\rightarrow$ `1h15`).
-5. Comparer à la moyenne de la promotion pour afficher le badge d'état (*Dans les temps* vs *En retard*).
+2. Calculer l'écart `cache_date_premiere_soumission - cache_date_lancement` en minutes.
+3. Comparer à la moyenne de promotion pour badge vert ("Dans les temps") ou rouge ("En retard").
 
-### Scénario 2 : "Quand est renseignée la première soumission ?"
-1. Déclencheur : Une tâche passe à l'état `TO_APPROVE` ou `READY_FOR_LIVE_CODING`.
-2. Événement intercepté par `RealisationTacheJobTrait::updatedObserverJob`.
-3. Si `realisationProjet->cache_date_premiere_soumission` est `null`, mettre à jour avec `now()`.
-4. Si déjà renseigné : ne rien faire (idempotence).
+### Scénario 2 : Évaluation du Prototype ($R_{\text{gating}}$)
+1. Lors de l'évaluation de la tâche N2 / Live Coding par le formateur :
+2. Incrémenter `cache_nombre_tentatives_prototype`.
+3. Si `tentative == 1`, figer `cache_est_valide_prototype_premier_essai` (`true` si `APPROVED`, `false` sinon).
+4. Si `tentative > 1`, préserver le résultat de la 1ère tentative (idempotence de l'indicateur).

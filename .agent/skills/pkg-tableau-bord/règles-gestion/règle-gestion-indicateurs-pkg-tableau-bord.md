@@ -1,12 +1,13 @@
-# Règle de Gestion : Indicateur 01 — Démarrage du Travail ($T_{\text{amorçage}}$)
+# Règle de Gestion : Spécification des Indicateurs (Sprints 1 & 2)
 
-Ce document détaille la modélisation mathématique, les seuils d'alerte et l'algorithme d'implémentation de l'**Indicateur 01** (Sprint 1 du module `PkgTableauBord`).
-Les indicateurs des sprints ultérieurs seront intégrés de façon itérative.
+Ce document détaille la modélisation mathématique, les seuils d'alerte et les algorithmes des indicateurs développés dans le module `PkgTableauBord`.
+Les indicateurs des sprints ultérieurs (3 à 9) seront intégrés de façon itérative.
 
 ---
 
-## 1. Fiche Synthétique de l'Indicateur 01
+## ⏱️ Indicateur 01 : Démarrage du Travail ($T_{\text{amorçage}}$) — Sprint 1
 
+### 1. Fiche Synthétique
 | Paramètre | Valeur |
 | :--- | :--- |
 | **N° & Symbole** | **01** — $T_{\text{amorçage}}$ |
@@ -15,37 +16,49 @@ Les indicateurs des sprints ultérieurs seront intégrés de façon itérative.
 | **Unité** | Minutes / Heures (ex: `1h15`) |
 | **Seuil Vert (Optimal)** | $\le 1{,}5\,\text{h}$ ($90\text{ min}$) |
 | **Seuil Rouge (Alerte)** | $> 3{,}0\,\text{h}$ ($180\text{ min}$) |
-| **Action Dashboard Immédiate** | Assistance ciblée sur l'environnement de développement ou tutoriel d'amorce. |
+
+### 2. Formule Mathématique
+- **Individuel** : $T_{\text{amorçage}}(i) = \text{cache\_date\_premiere\_soumission}(i) - \text{cache\_date\_lancement}$
+- **Collectif** : $T_{\text{amorçage}} = \frac{1}{N} \sum_{i=1}^{N} T_{\text{amorçage}}(i)$
+- **Déclencheur** : Première tâche soumise (`TO_APPROVE` / `READY_FOR_LIVE_CODING`) $\rightarrow$ fige la date dans `realisation_projets.cache_date_premiere_soumission`.
 
 ---
 
-## 2. Formules Mathématiques & Règles de Calcul
+## 🛡️ Indicateur 02 : Validation du Prototype au Premier Essai ($R_{\text{gating}}$) — Sprint 2
 
-### A. Calcul Individuel (Apprenant) :
-$$T_{\text{amorçage}}(i) = \text{cache\_date\_premiere\_soumission}(i) - \text{cache\_date\_lancement}$$
-- Mesure la latence entre le top départ donné par le formateur et la première tâche soumise par l'apprenant.
-- Converti et affiché en heures et minutes (ex: `1h15`).
+### 1. Fiche Synthétique
+| Paramètre | Valeur |
+| :--- | :--- |
+| **N° & Symbole** | **02** — $R_{\text{gating}}$ |
+| **Nom de l'Indicateur** | Taux de validation au gating dès le premier essai |
+| **Axe Pédagogique** | H1 — Assimilation des fondamentaux et prévention de l'illusion de maîtrise |
+| **Unité** | Pourcentage ($0 \le R_{\text{gating}} \le 100\%$) |
+| **Seuil Vert (Excellence)** | $\ge 80\,\%$ |
+| **Seuil Orange (Vigilance)** | $65\,\% \le R_{\text{gating}} < 80\,\%$ |
+| **Seuil Rouge (Alerte)** | $< 65\,\%$ (Illusion d'acquis structurelle, remédiation impérative) |
 
-### B. Calcul Collectif (Cohorte / Promotion) :
-$$T_{\text{amorçage}} = \frac{1}{N} \sum_{i=1}^{N} T_{\text{amorçage}}(i)$$
-- Moyenne calculée sur l'ensemble des apprenants ayant amorcé au moins une tâche.
-- Ratio d'amorce : $N_{\text{amorcés}} / N_{\text{total}}$ (ex: `17 / 20 apprenants démarrés`).
+### 2. Formules Mathématiques
 
-### C. Calcul Macroscopique (Responsable) :
-- Moyenne globale inter-cohortes et benchmark comparatif (ex: `DWB-101 (1h45)` vs `DMB-101 (1h55)`).
+#### A. Micro (Individuel — Apprenant $i$) :
+$$\text{Gating}_1(i) = \begin{cases} 
+1 & \text{si validé dès la tentative 1 (statut } \text{APPROVED} \text{ ou note } \ge 10) \\
+0 & \text{si ajourné à la tentative 1 (statut } \text{NOT\_VALIDATED} \text{ / Révision)}
+\end{cases}$$
+- Si ajourné, l'apprenant passe en atelier de remédiation et effectue une seconde tentative ($\text{tentative} = 2$), mais son statut $\text{Gating}_1(i)$ reste définitivement fixé à $0$.
 
----
+#### B. Méso (Collectif — Promotion / Groupe) :
+$$R_{\text{gating}} = \frac{N_{\text{validés\_essai\_1}}}{N_{\text{évalués}}} \times 100$$
+- $N_{\text{validés\_essai\_1}}$ : Effectif des apprenants ayant réussi dès la 1ère évaluation.
+- $N_{\text{évalués}}$ : Effectif total ayant subi au moins une évaluation de prototype.
 
-## 3. Algorithmes & Cycle de Vie Événementiel
+#### C. Macro (Établissement — Gouvernance) :
+$$R_{\text{gating\_macro}} = \frac{\sum_{g=1}^{G} N_{\text{validés\_essai\_1}}(g)}{\sum_{g=1}^{G} N_{\text{évalués}}(g)} \times 100$$
 
-### Déclencheur Temps Réel (JobManager) :
-1. Une `RealisationTache` change d'état vers `TO_APPROVE` ou `READY_FOR_LIVE_CODING`.
-2. L'observer `RealisationTacheJobTrait::updatedObserverJob` intercepte l'événement.
-3. Si `$realisationProjet->cache_date_premiere_soumission` est `NULL` :
-   - Fige `cache_date_premiere_soumission = now()`.
-   - Synchronise `$realisationProjet->cache_date_lancement = $affectationProjet->cache_date_lancement`.
-4. Si déjà renseigné : conserve la valeur initiale (règle d'idempotence stricte).
-
-### Calcul de Secours de la Date de Lancement :
-Si `cache_date_lancement` n'a pas été renseigné explicitement par le formateur :
-$$\text{cache\_date\_lancement} = \min \left( \text{MIN}(\text{date\_passage\_IN\_PROGRESS}), \, \text{date\_debut à 09:00} \right)$$
+### 3. Algorithme Événementiel (Temps Réel)
+1. Le formateur évalue la tâche Niveau 2 / Live Coding (`RealisationTache`).
+2. Interception par `RealisationTacheJobTrait::updatedObserverJob`.
+3. Incrémentation de `realisationProjet->cache_nombre_tentatives_prototype`.
+4. Si `tentative == 1` :
+   - Fige `realisationProjet->cache_est_valide_prototype_premier_essai = ($estValide ? true : false)`.
+5. Si `tentative > 1` :
+   - Maintient la valeur initiale (garantie d'idempotence docimologique).
