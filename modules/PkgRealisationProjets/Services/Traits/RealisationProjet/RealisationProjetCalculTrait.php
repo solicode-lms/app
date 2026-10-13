@@ -96,4 +96,50 @@ trait RealisationProjetCalculTrait
             'bareme_cache' => round($baremeTotal, 2),
         ]);
     }
+
+    /**
+     * Initialise de manière idempotente la date de première soumission d'une tâche
+     * du projet et synchronise la date de lancement dénormalisée.
+     *
+     * @param RealisationProjet $projet
+     * @return void
+     */
+    public function mettreAJourDatePremiereSoumission(RealisationProjet $projet): void
+    {
+        $updateData = [];
+
+        // 1. Si la date de première soumission n'a jamais été posée, on fige now()
+        if (is_null($projet->cache_date_premiere_soumission)) {
+            $updateData['cache_date_premiere_soumission'] = now();
+        }
+
+        // 2. Synchronisation de la date de lancement si absente sur la réalisation
+        if (is_null($projet->cache_date_lancement) && $projet->affectationProjet) {
+            $affectationProjetService = app(\Modules\PkgRealisationProjets\Services\AffectationProjetService::class);
+            $updateData['cache_date_lancement'] = $affectationProjetService->determinerDateLancement($projet->affectationProjet);
+        }
+
+        if (!empty($updateData)) {
+            $projet->update($updateData);
+        }
+    }
+
+    /**
+     * Calcule le temps d'amorçage individuel en minutes (T_amorçage = première soumission - lancement).
+     *
+     * @param RealisationProjet $projet
+     * @return int|null
+     */
+    public function calculerTempsAmorcageMinutes(RealisationProjet $projet): ?int
+    {
+        if (is_null($projet->cache_date_premiere_soumission) || is_null($projet->cache_date_lancement)) {
+            return null;
+        }
+
+        $soumission = \Carbon\Carbon::parse($projet->cache_date_premiere_soumission);
+        $lancement = \Carbon\Carbon::parse($projet->cache_date_lancement);
+
+        return max(0, (int) $lancement->diffInMinutes($soumission, false));
+    }
 }
+

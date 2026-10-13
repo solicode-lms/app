@@ -99,6 +99,12 @@ trait RealisationTacheJobTrait
                 $jobManager->setLabel("Mise à jour progression projet");
                 $realisationProjetService->mettreAJourProgressionDepuisEtatDesTaches($realisationTache->realisationProjet);
                 $jobManager->tick();
+
+                // Sprint 1 : Indicateur 01 (T_amorçage) - Enregistrement date première soumission
+                $etatWorkflowCode = optional($realisationTache->etatRealisationTache?->workflowTache)->code;
+                if (in_array($etatWorkflowCode, ['TO_APPROVE', 'READY_FOR_LIVE_CODING'])) {
+                    $realisationProjetService->mettreAJourDatePremiereSoumission($realisationTache->realisationProjet);
+                }
             }
 
             // Calcule de progression de Live coding
