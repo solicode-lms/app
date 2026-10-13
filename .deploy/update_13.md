@@ -25,3 +25,9 @@ php artisan db:seed --class=Modules\Core\Database\Seeders\Base\BaseSysModuleSeed
 ````bash
 sudo php artisan db:seed --class=Modules\\Core\\Database\\Seeders\\Base\\BaseSysModuleSeeder
 ````
+
+
+
+```bash
+php artisan dashboard:recalculer-amorcage
+```

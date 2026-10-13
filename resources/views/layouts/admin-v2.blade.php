@@ -148,8 +148,8 @@
             <!-- Header Top Navbar V2 -->
             <header class="bg-white border-b border-slate-200 h-16 sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center gap-3">
-                    <button onclick="toggleSidebar()" class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition lg:hidden" title="Ouvrir le menu">
-                        <i class="fas fa-bars text-sm"></i>
+                    <button onclick="toggleSidebar()" class="p-2 -ml-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition" title="Afficher / Masquer le menu">
+                        <i class="fas fa-bars text-base"></i>
                     </button>
                     <div>
                         <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight">
@@ -195,7 +195,6 @@
         function toggleSidebar() {
             const sidebar = document.getElementById('app-sidebar');
             if (sidebar) {
-                sidebar.classList.toggle('-translate-x-full');
                 sidebar.classList.toggle('hidden');
             }
         }
