@@ -16,6 +16,10 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
 2. **Ordre d'Appel ViewState Obligatoire** : Toujours appeler `$this->viewState->setContextKeyIfEmpty(...)` **AVANT** tout appel à `loadLastFilterIfEmpty()` pour retrouver les filtres persistés de l'utilisateur.
 3. **Intégrité BDD & Convention `cache_`** : Ne jamais modifier les fichiers `Base/` générés par Gapp. Tout champ dénormalisé ou issu d'un calcul pour accélérer les requêtes KPI DOIT porter le préfixe `cache_` (ex: `cache_date_lancement`, `cache_date_premiere_soumission`). L'agent ne doit jamais exécuter `php artisan migrate` (réservé au développeur).
 4. **Stack Frontend V2** : Interdiction d'utiliser Bootstrap ou jQuery pour les composants du tableau de bord. Utiliser exclusivement Tailwind CSS et Alpine.js avec une architecture orientée composants.
+5. **Architecture Layout V2 & Vues Épurées (CRITIQUE)** :
+   - Toute vue de tableau de bord V2 doit obligatoirement étendre `@extends('layouts.admin-v2')`.
+   - Interdiction formelle de recopier la structure globale de maquette (doctype, head, aside sidebar, header, footer, scripts) dans les vues Blade de contenu.
+   - Les vues de production contiennent exclusivement les indicateurs fonctionnels calculés du sprint en cours, à l'exclusion de toute carte ou bloc factice issu de maquettes des sprints futurs.
 
 ---
 
@@ -26,7 +30,7 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
 - **Ressources Utilisées** :
   - `règles-gestion/règle-gestion-bdd-pkg-tableau-bord.md`
 - **Entrées** : `Question sur cache_date_lancement ou cache_date_premiere_soumission`
-- **Sorties** : Description des colonnes, index, règles de persistance et tables d'accueil (`affectation_projets`, `realisation_projets`).
+- **Sorties** : Description des colonnes, index, règles de persistance, tables d'accueil (`affectation_projets`, `realisation_projets`) et commande artisan de rattrapage `php artisan dashboard:recalculer-amorcage`.
 
 ### Action B : Calculer ou Déboguer l'Indicateur 01 ($T_{\text{amorçage}}$)
 > **Description** : Expliquer, implémenter ou corriger l'algorithme du temps d'amorçage individuel et collectif.
@@ -36,10 +40,14 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
 - **Sorties** : Formule mathématique, seuils d'alerte didactiques, code PHP de calcul et formatage (ex: `1h15`).
 
 ### Action C : Concevoir et Intégrer les Composants Dashboard V2
-> **Description** : Guider la création des composants Blade réactifs avec Tailwind CSS pour les 3 acteurs.
+> **Description** : Guider la création des composants Blade réactifs avec Tailwind CSS pour les 3 acteurs et leur intégration navigation.
 - **Ressources Utilisées** :
   - `règles-gestion/règle-gestion-fonctionnalites-pkg-tableau-bord.md`
-- **Sorties** : Carte KPI Apprenant (*"Mon délai de démarrage"*), Formateur (*"Temps moyen de mise au travail"*), Responsable (*"Délai moyen de prise en main du sprint"*).
+- **Sorties** :
+  - Layout : `layouts.admin-v2`
+  - Vues : `PkgTableauBord::apprenant.index`, `PkgTableauBord::formateur.index`, `PkgTableauBord::responsable.index`
+  - Composant : `PkgTableauBord::components.kpi-amorcage`
+  - Navigation : Intégration dans `resources/views/layouts/menu-sidebar.blade.php` conditionnée par rôles.
 
 ---
 
