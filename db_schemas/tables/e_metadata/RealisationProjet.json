@@ -1021,5 +1021,119 @@
         "value_boolean": 1,
         "e_data_field_reference": "RealisationProjet_cache_date_lancement",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_cache_nombre_tentatives_prototype_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_nombre_tentatives_prototype",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "RealisationProjet_cache_nombre_tentatives_prototype_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationProjet_cache_nombre_tentatives_prototype",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationProjet_cache_nombre_tentatives_prototype_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_nombre_tentatives_prototype",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationProjet_cache_nombre_tentatives_prototype_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationProjet_cache_nombre_tentatives_prototype",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationProjet_cache_nombre_tentatives_prototype_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_nombre_tentatives_prototype",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationProjet_cache_nombre_tentatives_prototype_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_nombre_tentatives_prototype",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_cache_nombre_tentatives_prototype_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_nombre_tentatives_prototype",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_cache_est_valide_prototype_premier_essai_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "RealisationProjet_cache_est_valide_prototype_premier_essai",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationProjet_cache_est_valide_prototype_premier_essai_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_est_valide_prototype_premier_essai",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationProjet_cache_est_valide_prototype_premier_essai_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationProjet_cache_est_valide_prototype_premier_essai",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationProjet_cache_est_valide_prototype_premier_essai_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_est_valide_prototype_premier_essai",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationProjet_cache_est_valide_prototype_premier_essai_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_est_valide_prototype_premier_essai",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_cache_est_valide_prototype_premier_essai_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_est_valide_prototype_premier_essai",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_validation_prototype_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "RealisationProjet_cache_date_validation_prototype",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_validation_prototype_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_date_validation_prototype",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_validation_prototype_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationProjet_cache_date_validation_prototype",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_validation_prototype_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_date_validation_prototype",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_validation_prototype_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_date_validation_prototype",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_cache_date_validation_prototype_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_cache_date_validation_prototype",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

@@ -51,7 +51,7 @@ class BaseRealisationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'affectation_projet_id', 'apprenant_id', 'etats_realisation_projet_id', 'cache_date_premiere_soumission', 'progression_validation_cache', 'cache_date_lancement', 'note_cache', 'date_debut', 'date_fin', 'bareme_cache', 'progression_execution_cache', 'rapport', 'reference'
+        'affectation_projet_id', 'apprenant_id', 'etats_realisation_projet_id', 'cache_date_premiere_soumission', 'progression_validation_cache', 'cache_date_lancement', 'note_cache', 'date_debut', 'cache_nombre_tentatives_prototype', 'date_fin', 'cache_est_valide_prototype_premier_essai', 'cache_date_validation_prototype', 'bareme_cache', 'progression_execution_cache', 'rapport', 'reference'
     ];
     public $manyToOne = [
         'affectationProjet' => [

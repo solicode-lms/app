@@ -37,7 +37,10 @@ class BaseRealisationProjetRequest extends FormRequest
             'cache_date_lancement' => 'nullable',
             'note_cache' => 'nullable',
             'date_debut' => 'required',
+            'cache_nombre_tentatives_prototype' => 'required|integer',
             'date_fin' => 'nullable',
+            'cache_est_valide_prototype_premier_essai' => 'nullable|boolean',
+            'cache_date_validation_prototype' => 'nullable',
             'bareme_cache' => 'nullable',
             'progression_execution_cache' => 'nullable',
             'rapport' => 'nullable|string'
@@ -60,7 +63,10 @@ class BaseRealisationProjetRequest extends FormRequest
             'cache_date_lancement.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.cache_date_lancement')]),
             'note_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.note_cache')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.date_debut')]),
+            'cache_nombre_tentatives_prototype.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.cache_nombre_tentatives_prototype')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.date_fin')]),
+            'cache_est_valide_prototype_premier_essai.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.cache_est_valide_prototype_premier_essai')]),
+            'cache_date_validation_prototype.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.cache_date_validation_prototype')]),
             'bareme_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.bareme_cache')]),
             'progression_execution_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.progression_execution_cache')]),
             'rapport.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.rapport')])

@@ -309,6 +309,41 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="cache_nombre_tentatives_prototype" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="cache_nombre_tentatives_prototype" 
+              id="bulk_field_cache_nombre_tentatives_prototype" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="cache_nombre_tentatives_prototype">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.cache_nombre_tentatives_prototype')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
+                name="cache_nombre_tentatives_prototype"
+                type="number"
+                class="form-control"
+                required
+                
+                
+                id="cache_nombre_tentatives_prototype"
+                placeholder="{{ __('PkgRealisationProjets::realisationProjet.cache_nombre_tentatives_prototype') }}"
+                value="{{ $itemRealisationProjet ? $itemRealisationProjet->cache_nombre_tentatives_prototype : old('cache_nombre_tentatives_prototype') }}">
+          @error('cache_nombre_tentatives_prototype')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="date_fin" :bulkEdit="$bulkEdit">
       @php $canEditdate_fin = $bulkEdit ? Auth::user()->hasAnyRole(explode(',', 'root')) : (empty($itemRealisationProjet->id) || Auth::user()->hasAnyRole(explode(',', 'root')) ); @endphp
 
@@ -342,6 +377,78 @@
                 value="{{ $itemRealisationProjet ? $itemRealisationProjet->date_fin : old('date_fin') }}">
 
           @error('date_fin')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="cache_est_valide_prototype_premier_essai" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="cache_est_valide_prototype_premier_essai" 
+              id="bulk_field_cache_est_valide_prototype_premier_essai" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="cache_est_valide_prototype_premier_essai">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.cache_est_valide_prototype_premier_essai')) }}
+            
+          </label>
+                      <input type="hidden" name="cache_est_valide_prototype_premier_essai" value="0">
+            <input
+                name="cache_est_valide_prototype_premier_essai"
+                type="checkbox"
+                class="form-control d-block"
+                
+                
+                
+                id="cache_est_valide_prototype_premier_essai"
+                value="1"
+                {{ old('cache_est_valide_prototype_premier_essai', $itemRealisationProjet ? $itemRealisationProjet->cache_est_valide_prototype_premier_essai : 0) ? 'checked' : '' }}>
+          @error('cache_est_valide_prototype_premier_essai')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="cache_date_validation_prototype" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="cache_date_validation_prototype" 
+              id="bulk_field_cache_date_validation_prototype" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="cache_date_validation_prototype">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.cache_date_validation_prototype')) }}
+            
+          </label>
+                      <input
+                name="cache_date_validation_prototype"
+                type="text"
+                class="form-control datetimepicker"
+                
+                
+                
+                id="cache_date_validation_prototype"
+                placeholder="{{ __('PkgRealisationProjets::realisationProjet.cache_date_validation_prototype') }}"
+                value="{{ $itemRealisationProjet ? $itemRealisationProjet->cache_date_validation_prototype : old('cache_date_validation_prototype') }}">
+
+          @error('cache_date_validation_prototype')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
