@@ -937,6 +937,18 @@
     },
     {
         "id": 79,
+        "reference": "remediations",
+        "name": "Remediation",
+        "table_name": "remediations",
+        "icon": "fa-table",
+        "description": "Automatically generated model for remediations",
+        "e_package_id": 19,
+        "is_pivot_table": 0,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 80,
         "reference": "reponse_qcms",
         "name": "ReponseQcm",
         "table_name": "reponse_qcms",
@@ -948,7 +960,7 @@
         "updated_at": null
     },
     {
-        "id": 80,
+        "id": 81,
         "reference": "resources",
         "name": "Resource",
         "table_name": "resources",
@@ -960,7 +972,7 @@
         "updated_at": null
     },
     {
-        "id": 81,
+        "id": 82,
         "reference": "role_has_permissions",
         "name": "RoleHasPermission",
         "table_name": "role_has_permissions",
@@ -972,7 +984,7 @@
         "updated_at": null
     },
     {
-        "id": 82,
+        "id": 83,
         "reference": "role_widget",
         "name": "RoleWidget",
         "table_name": "role_widget",
@@ -984,7 +996,7 @@
         "updated_at": null
     },
     {
-        "id": 83,
+        "id": 84,
         "reference": "roles",
         "name": "Role",
         "table_name": "roles",
@@ -996,7 +1008,7 @@
         "updated_at": null
     },
     {
-        "id": 84,
+        "id": 85,
         "reference": "section_widgets",
         "name": "SectionWidget",
         "table_name": "section_widgets",
@@ -1008,7 +1020,7 @@
         "updated_at": null
     },
     {
-        "id": 85,
+        "id": 86,
         "reference": "session_formations",
         "name": "SessionFormation",
         "table_name": "session_formations",
@@ -1020,7 +1032,7 @@
         "updated_at": null
     },
     {
-        "id": 86,
+        "id": 87,
         "reference": "sous_groupes",
         "name": "SousGroupe",
         "table_name": "sous_groupes",
@@ -1032,7 +1044,7 @@
         "updated_at": null
     },
     {
-        "id": 87,
+        "id": 88,
         "reference": "specialites",
         "name": "Specialite",
         "table_name": "specialites",
@@ -1044,7 +1056,7 @@
         "updated_at": null
     },
     {
-        "id": 88,
+        "id": 89,
         "reference": "sys_colors",
         "name": "SysColor",
         "table_name": "sys_colors",
@@ -1056,7 +1068,7 @@
         "updated_at": null
     },
     {
-        "id": 89,
+        "id": 90,
         "reference": "sys_controllers",
         "name": "SysController",
         "table_name": "sys_controllers",
@@ -1068,7 +1080,7 @@
         "updated_at": null
     },
     {
-        "id": 90,
+        "id": 91,
         "reference": "sys_models",
         "name": "SysModel",
         "table_name": "sys_models",
@@ -1080,7 +1092,7 @@
         "updated_at": null
     },
     {
-        "id": 91,
+        "id": 92,
         "reference": "sys_modules",
         "name": "SysModule",
         "table_name": "sys_modules",
@@ -1092,7 +1104,7 @@
         "updated_at": null
     },
     {
-        "id": 92,
+        "id": 93,
         "reference": "tache_affectations",
         "name": "TacheAffectation",
         "table_name": "tache_affectations",
@@ -1104,7 +1116,7 @@
         "updated_at": null
     },
     {
-        "id": 93,
+        "id": 94,
         "reference": "taches",
         "name": "Tache",
         "table_name": "taches",
@@ -1116,7 +1128,7 @@
         "updated_at": null
     },
     {
-        "id": 94,
+        "id": 95,
         "reference": "unite_apprentissages",
         "name": "UniteApprentissage",
         "table_name": "unite_apprentissages",
@@ -1128,7 +1140,7 @@
         "updated_at": null
     },
     {
-        "id": 95,
+        "id": 96,
         "reference": "user_model_filters",
         "name": "UserModelFilter",
         "table_name": "user_model_filters",
@@ -1140,7 +1152,7 @@
         "updated_at": null
     },
     {
-        "id": 96,
+        "id": 97,
         "reference": "users",
         "name": "User",
         "table_name": "users",
@@ -1152,7 +1164,7 @@
         "updated_at": null
     },
     {
-        "id": 97,
+        "id": 98,
         "reference": "widget_operations",
         "name": "WidgetOperation",
         "table_name": "widget_operations",
@@ -1164,7 +1176,7 @@
         "updated_at": null
     },
     {
-        "id": 98,
+        "id": 99,
         "reference": "widget_types",
         "name": "WidgetType",
         "table_name": "widget_types",
@@ -1176,7 +1188,7 @@
         "updated_at": null
     },
     {
-        "id": 99,
+        "id": 100,
         "reference": "widget_utilisateurs",
         "name": "WidgetUtilisateur",
         "table_name": "widget_utilisateurs",
@@ -1188,7 +1200,7 @@
         "updated_at": null
     },
     {
-        "id": 100,
+        "id": 101,
         "reference": "widgets",
         "name": "Widget",
         "table_name": "widgets",
@@ -1200,7 +1212,7 @@
         "updated_at": null
     },
     {
-        "id": 101,
+        "id": 102,
         "reference": "workflow_taches",
         "name": "WorkflowTache",
         "table_name": "workflow_taches",

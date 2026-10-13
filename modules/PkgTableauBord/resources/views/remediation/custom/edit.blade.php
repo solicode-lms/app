@@ -1,0 +1,1 @@
+@extends('PkgTableauBord::remediation.edit')

@@ -211,7 +211,8 @@
 , "PkgTableauBord": {
     "name": "PkgTableauBord",
     "tables": [
-        "log_activite_formateurs"
+        "log_activite_formateurs",
+        "remediations"
     ]
 }
 

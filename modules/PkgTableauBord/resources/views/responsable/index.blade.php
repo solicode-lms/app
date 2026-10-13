@@ -48,7 +48,7 @@
             <p class="text-xs text-slate-400">Suivi global du rythme d'amorce des projets ($T_{\text{amorçage}}$) et du taux de validation directe du prototype ($R_{\text{gating}}$).</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
             <!-- Carte Macroscopique Globale Amorçage (Indicateur 01) -->
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
                 <div class="flex items-center justify-between">
@@ -80,19 +80,23 @@
 
             <!-- Carte Macroscopique Globale Latence File FIFO (Indicateur 05) -->
             @include('PkgTableauBord::components.kpi-file-attente', ['type' => 'responsable', 'kpi' => $kpiFileAttente])
+
+            <!-- Carte Macroscopique Globale Remédiation (Indicateur 06) -->
+            @include('PkgTableauBord::components.kpi-intervention', ['type' => 'responsable', 'kpi' => $kpiIntervention])
         </div>
 
         <!-- Matrice Comparative / Benchmark Réel des Promotions -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
             <div class="p-5 border-b border-slate-200 bg-slate-50/70">
                 <h4 class="text-sm font-bold text-slate-900">Matrice Comparative Inter-Promotions</h4>
-                <p class="text-xs text-slate-500">Benchmark des cohortes pour l'harmonisation du rythme pédagogique ($T_{\text{amorçage}}$, $R_{\text{gating}}$, $F_{\text{révision}}$ & $T_{\text{file}}$)</p>
+                <p class="text-xs text-slate-500">Benchmark des cohortes pour l'harmonisation du rythme pédagogique ($T_{\text{amorçage}}$, $R_{\text{gating}}$, $F_{\text{révision}}$, $T_{\text{file}}$ & $T_{\text{intervention}}$)</p>
             </div>
 
             @php
                 $gatingByAff = collect($kpiGating['benchmark'] ?? [])->keyBy('affectation_id');
                 $revisionByAff = collect($kpiRevision['benchmark'] ?? [])->keyBy('affectation_id');
                 $fileByAff = collect($kpiFileAttente['benchmark'] ?? [])->keyBy('affectation_id');
+                $interventionByAff = collect($kpiIntervention['benchmark'] ?? [])->keyBy('affectation_id');
             @endphp
 
             <div class="overflow-x-auto">
@@ -105,6 +109,7 @@
                             <th class="py-3 px-4">Validation Prototype ($R_{\text{gating}}$)</th>
                             <th class="py-3 px-4">Stabilité & Reprises ($F_{\text{révision}}$)</th>
                             <th class="py-3 px-4">Attente File ($T_{\text{file}}$)</th>
+                            <th class="py-3 px-4">Remédiation ($T_{\text{intervention}}$)</th>
                             <th class="py-3 px-5 text-right">Statut</th>
                         </tr>
                     </thead>
@@ -115,6 +120,7 @@
                                 $tauxGating = $gatingItem['taux_gating'] ?? null;
                                 $revItem = $revisionByAff->get($item['affectation_id']);
                                 $fileItem = $fileByAff->get($item['affectation_id']);
+                                $intervItem = $interventionByAff->get($item['affectation_id']);
                             @endphp
                             <tr class="hover:bg-slate-50/80 transition">
                                 <td class="py-3 px-5 font-bold text-slate-900">{{ $item['groupe_code'] }} ({{ $item['groupe_nom'] }})</td>
@@ -149,6 +155,14 @@
                                         <span class="text-slate-400">--</span>
                                     @endif
                                 </td>
+                                <td class="py-3 px-4 font-mono">
+                                    @if($intervItem)
+                                        <span class="font-bold text-slate-800">{{ $intervItem['taux_intervention_formate'] }}</span>
+                                        <span class="text-[10px] text-slate-400 block">{{ $intervItem['en_attente_soutien'] }} en attente</span>
+                                    @else
+                                        <span class="text-slate-400">--</span>
+                                    @endif
+                                </td>
                                 <td class="py-3 px-5 text-right">
                                     @php
                                         $estConforme = $item['taux_amorce'] >= 75 
@@ -164,7 +178,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="py-6 text-center text-slate-400">Aucune donnée de promotion disponible.</td>
+                                <td colspan="7" class="py-6 text-center text-slate-400">Aucune donnée de promotion disponible.</td>
                             </tr>
                         @endforelse
                     </tbody>

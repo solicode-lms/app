@@ -52,11 +52,27 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemFormateur->logActiviteFormateurs?->count() > 0 || auth()->user()?->can('create-logActiviteFormateur'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="formateur-hasmany-tabs-logActiviteFormateur-tab" data-toggle="pill" href="#formateur-hasmany-tabs-logActiviteFormateur" role="tab" aria-controls="formateur-hasmany-tabs-logActiviteFormateur" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgTableauBord::logActiviteFormateur.plural'))}}
+                            </a>
+                        </li>
+                        @endif
                          @if($itemFormateur->qcms?->count() > 0 || auth()->user()?->can('create-qcm'))
                         <li class="nav-item">
                             <a class="nav-link" id="formateur-hasmany-tabs-qcm-tab" data-toggle="pill" href="#formateur-hasmany-tabs-qcm" role="tab" aria-controls="formateur-hasmany-tabs-qcm" aria-selected="false">
                                 <i class="nav-icon fas fa-file-alt"></i>
                                 {{ucfirst(__('PkgQcm::qcm.plural'))}}
+                            </a>
+                        </li>
+                        @endif
+                         @if($itemFormateur->remediations?->count() > 0 || auth()->user()?->can('create-remediation'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="formateur-hasmany-tabs-remediation-tab" data-toggle="pill" href="#formateur-hasmany-tabs-remediation" role="tab" aria-controls="formateur-hasmany-tabs-remediation" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgTableauBord::remediation.plural'))}}
                             </a>
                         </li>
                         @endif
@@ -80,9 +96,19 @@
                                 @include('PkgRealisationTache::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
                             </div>
                             @endif
+                            @if($itemFormateur->logActiviteFormateurs?->count() > 0 || auth()->user()?->can('create-logActiviteFormateur'))
+                            <div class="tab-pane fade" id="formateur-hasmany-tabs-logActiviteFormateur" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-logActiviteFormateur-tab">
+                                @include('PkgTableauBord::logActiviteFormateur._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
+                            </div>
+                            @endif
                             @if($itemFormateur->qcms?->count() > 0 || auth()->user()?->can('create-qcm'))
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-qcm" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-qcm-tab">
                                 @include('PkgQcm::qcm._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
+                            </div>
+                            @endif
+                            @if($itemFormateur->remediations?->count() > 0 || auth()->user()?->can('create-remediation'))
+                            <div class="tab-pane fade" id="formateur-hasmany-tabs-remediation" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-remediation-tab">
+                                @include('PkgTableauBord::remediation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
                             </div>
                             @endif
 

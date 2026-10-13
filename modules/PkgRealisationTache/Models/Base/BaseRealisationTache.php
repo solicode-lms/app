@@ -22,6 +22,7 @@ use Modules\PkgApprentissage\Models\RealisationChapitre;
 use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 use Modules\PkgApprentissage\Models\RealisationUaProjet;
 use Modules\PkgApprentissage\Models\RealisationUaPrototype;
+use Modules\PkgTableauBord\Models\Remediation;
 
 /**
  * Classe BaseRealisationTache
@@ -219,6 +220,15 @@ class BaseRealisationTache extends BaseModel
     public function realisationUaPrototypes(): HasMany
     {
         return $this->hasMany(RealisationUaPrototype::class, 'realisation_tache_id', 'id');
+    }
+    /**
+     * Relation HasMany pour RealisationTaches.
+     *
+     * @return HasMany
+     */
+    public function remediations(): HasMany
+    {
+        return $this->hasMany(Remediation::class, 'realisation_tache_id', 'id');
     }
 
 

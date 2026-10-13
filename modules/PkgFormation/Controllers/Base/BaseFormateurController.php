@@ -9,7 +9,9 @@ use Modules\PkgFormation\Services\SpecialiteService;
 use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgCompetences\Services\ChapitreService;
 use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
+use Modules\PkgTableauBord\Services\LogActiviteFormateurService;
 use Modules\PkgQcm\Services\QcmService;
+use Modules\PkgTableauBord\Services\RemediationService;
 use Modules\PkgRealisationTache\Services\CommentaireRealisationTacheService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Illuminate\Http\Request;
@@ -206,6 +208,13 @@ class BaseFormateurController extends AdminController
         $projets_view_data = $projetService->prepareDataForIndexView();
         extract($projets_view_data);
 
+        $this->viewState->set('scope.logActiviteFormateur.formateur_id', $id);
+
+
+        $logActiviteFormateurService =  new LogActiviteFormateurService();
+        $logActiviteFormateurs_view_data = $logActiviteFormateurService->prepareDataForIndexView();
+        extract($logActiviteFormateurs_view_data);
+
         $this->viewState->set('scope.qcm.formateur_id', $id);
 
 
@@ -213,7 +222,14 @@ class BaseFormateurController extends AdminController
         $qcms_view_data = $qcmService->prepareDataForIndexView();
         extract($qcms_view_data);
 
-        return array_merge(compact('itemFormateur'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $projet_compact_value, $qcm_compact_value);
+        $this->viewState->set('scope.remediation.formateur_id', $id);
+
+
+        $remediationService =  new RemediationService();
+        $remediations_view_data = $remediationService->prepareDataForIndexView();
+        extract($remediations_view_data);
+
+        return array_merge(compact('itemFormateur'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $projet_compact_value, $logActiviteFormateur_compact_value, $qcm_compact_value, $remediation_compact_value);
 
     }
     /**
@@ -257,6 +273,13 @@ class BaseFormateurController extends AdminController
         $etatRealisationTaches_view_data = $etatRealisationTacheService->prepareDataForIndexView();
         extract($etatRealisationTaches_view_data);
 
+        $this->viewState->set('scope.logActiviteFormateur.formateur_id', $id);
+        
+
+        $logActiviteFormateurService =  new LogActiviteFormateurService();
+        $logActiviteFormateurs_view_data = $logActiviteFormateurService->prepareDataForIndexView();
+        extract($logActiviteFormateurs_view_data);
+
         $this->viewState->set('scope.qcm.formateur_id', $id);
         
 
@@ -264,9 +287,16 @@ class BaseFormateurController extends AdminController
         $qcms_view_data = $qcmService->prepareDataForIndexView();
         extract($qcms_view_data);
 
+        $this->viewState->set('scope.remediation.formateur_id', $id);
+        
+
+        $remediationService =  new RemediationService();
+        $remediations_view_data = $remediationService->prepareDataForIndexView();
+        extract($remediations_view_data);
+
         $bulkEdit = false;
 
-        $viewData = array_merge(compact('bulkEdit' , 'itemFormateur','users', 'specialites', 'groupes'),$chapitre_compact_value, $etatRealisationTache_compact_value, $qcm_compact_value);
+        $viewData = array_merge(compact('bulkEdit' , 'itemFormateur','users', 'specialites', 'groupes'),$chapitre_compact_value, $etatRealisationTache_compact_value, $logActiviteFormateur_compact_value, $qcm_compact_value, $remediation_compact_value);
 
         return $viewData;
 

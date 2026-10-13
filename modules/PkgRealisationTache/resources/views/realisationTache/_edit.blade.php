@@ -44,6 +44,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemRealisationTache->remediations?->count() > 0 || auth()->user()?->can('create-remediation'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="realisationTache-hasmany-tabs-remediation-tab" data-toggle="pill" href="#realisationTache-hasmany-tabs-remediation" role="tab" aria-controls="realisationTache-hasmany-tabs-remediation" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgTableauBord::remediation.plural'))}}
+                            </a>
+                        </li>
+                        @endif
 
                        
                         </ul>
@@ -57,6 +65,11 @@
                             @if($itemRealisationTache->historiqueRealisationTaches?->count() > 0 || auth()->user()?->can('create-historiqueRealisationTache'))
                             <div class="tab-pane fade" id="realisationTache-hasmany-tabs-historiqueRealisationTache" role="tabpanel" aria-labelledby="realisationTache-hasmany-tabs-historiqueRealisationTache-tab">
                                 @include('PkgRealisationTache::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+                            </div>
+                            @endif
+                            @if($itemRealisationTache->remediations?->count() > 0 || auth()->user()?->can('create-remediation'))
+                            <div class="tab-pane fade" id="realisationTache-hasmany-tabs-remediation" role="tabpanel" aria-labelledby="realisationTache-hasmany-tabs-remediation-tab">
+                                @include('PkgTableauBord::remediation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
                             </div>
                             @endif
 

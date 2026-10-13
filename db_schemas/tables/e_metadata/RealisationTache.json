@@ -1812,5 +1812,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "RealisationTache_cache_session_live_coding_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "realisation_taches_hasMany_remediations_realisation_tache_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_taches_hasMany_remediations_realisation_tache_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "realisation_taches_hasMany_remediations_realisation_tache_id_displayOrder",
+        "value_integer": 28,
+        "e_data_field_reference": "realisation_taches_hasMany_remediations_realisation_tache_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "realisation_taches_hasMany_remediations_realisation_tache_id_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "realisation_taches_hasMany_remediations_realisation_tache_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "realisation_taches_hasMany_remediations_realisation_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_taches_hasMany_remediations_realisation_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

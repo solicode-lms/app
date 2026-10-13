@@ -14,6 +14,7 @@ use Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService;
 use Modules\PkgApprentissage\Services\RealisationChapitreService;
 use Modules\PkgApprentissage\Services\RealisationUaProjetService;
 use Modules\PkgApprentissage\Services\RealisationUaPrototypeService;
+use Modules\PkgTableauBord\Services\RemediationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -261,7 +262,14 @@ class BaseRealisationTacheController extends AdminController
         $realisationUaPrototypes_view_data = $realisationUaPrototypeService->prepareDataForIndexView();
         extract($realisationUaPrototypes_view_data);
 
-        return array_merge(compact('itemRealisationTache'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value);
+        $this->viewState->set('scope.remediation.realisation_tache_id', $id);
+
+
+        $remediationService =  new RemediationService();
+        $remediations_view_data = $remediationService->prepareDataForIndexView();
+        extract($remediations_view_data);
+
+        return array_merge(compact('itemRealisationTache'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value, $remediation_compact_value);
 
     }
     /**
@@ -337,9 +345,16 @@ class BaseRealisationTacheController extends AdminController
         $realisationUaPrototypes_view_data = $realisationUaPrototypeService->prepareDataForIndexView();
         extract($realisationUaPrototypes_view_data);
 
+        $this->viewState->set('scope.remediation.realisation_tache_id', $id);
+        
+
+        $remediationService =  new RemediationService();
+        $remediations_view_data = $remediationService->prepareDataForIndexView();
+        extract($remediations_view_data);
+
         $bulkEdit = false;
 
-        $viewData = array_merge(compact('bulkEdit' , 'itemRealisationTache','taches', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'labelProjets'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value);
+        $viewData = array_merge(compact('bulkEdit' , 'itemRealisationTache','taches', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'labelProjets'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value, $remediation_compact_value);
 
         return $viewData;
 

@@ -18,7 +18,9 @@ use Modules\PkgCompetences\Models\Chapitre;
 use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgTableauBord\Models\LogActiviteFormateur;
 use Modules\PkgQcm\Models\Qcm;
+use Modules\PkgTableauBord\Models\Remediation;
 
 /**
  * Classe BaseFormateur
@@ -135,9 +137,27 @@ class BaseFormateur extends BaseModel
      *
      * @return HasMany
      */
+    public function logActiviteFormateurs(): HasMany
+    {
+        return $this->hasMany(LogActiviteFormateur::class, 'formateur_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Formateurs.
+     *
+     * @return HasMany
+     */
     public function qcms(): HasMany
     {
         return $this->hasMany(Qcm::class, 'formateur_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Formateurs.
+     *
+     * @return HasMany
+     */
+    public function remediations(): HasMany
+    {
+        return $this->hasMany(Remediation::class, 'formateur_id', 'id');
     }
 
 

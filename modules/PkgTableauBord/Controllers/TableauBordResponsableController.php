@@ -40,6 +40,7 @@ class TableauBordResponsableController extends AdminController
         $kpiRevision = $this->tableauBordService->getIndicateurRevisionResponsable($groupeIds, $projetActif?->id);
         $kpiChargeLogistique = $this->tableauBordService->getIndicateurChargeLogistiqueResponsable();
         $kpiFileAttente = $this->tableauBordService->getIndicateurFileAttenteResponsable($groupeIds, $projetActif?->id);
+        $kpiIntervention = $this->tableauBordService->getIndicateurInterventionResponsable($groupeIds, $projetActif?->id);
 
         return view('PkgTableauBord::responsable.index', [
             'user' => $user,
@@ -49,6 +50,7 @@ class TableauBordResponsableController extends AdminController
             'kpiRevision' => $kpiRevision,
             'kpiChargeLogistique' => $kpiChargeLogistique,
             'kpiFileAttente' => $kpiFileAttente,
+            'kpiIntervention' => $kpiIntervention,
             'projets' => $projets,
             'projetActif' => $projetActif,
             'sessions' => $projets,

@@ -76,12 +76,34 @@
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin_live_coding_collectif')) }}</small>
+                  <span>
+                    @if ($itemAffectationProjet->date_fin_live_coding_collectif)
+                    {{ \Carbon\Carbon::parse($itemAffectationProjet->date_fin_live_coding_collectif)->isoFormat('LLL') }}
+                    @else
+                    —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin')) }}</small>
                   <span>
                     @if ($itemAffectationProjet->date_fin)
                     {{ \Carbon\Carbon::parse($itemAffectationProjet->date_fin)->isoFormat('LLL') }}
                     @else
                     —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.seuil_blocage_minutes')) }}</small>
+                  <span>
+                    @if(! is_null($itemAffectationProjet->seuil_blocage_minutes))
+                      {{ $itemAffectationProjet->seuil_blocage_minutes }}
+                    @else
+                      —
                     @endif
                   </span>                </div>
             </div>

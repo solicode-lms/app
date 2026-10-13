@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-logActiviteFormateur'])
+@accessiblePermissions(['index-logActiviteFormateur', 'index-remediation'])
 @if($accessiblePermissions->isNotEmpty())
     @if($accessiblePermissions->count() === 1)
         {{-- Cas d’un seul élément accessible --}}
@@ -11,6 +11,15 @@
                    class="nav-link {{ Request::is('admin/PkgTableauBord/logActiviteFormateurs') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-table"></i>
                     <p>{{__('PkgTableauBord::logActiviteFormateur.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-remediation')
+            <li class="nav-item" id="menu-remediations">
+                <a href="{{ route('remediations.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgTableauBord/remediations') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>{{__('PkgTableauBord::remediation.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -30,6 +39,14 @@
                 <a href="{{ route('logActiviteFormateurs.index') }}" class="nav-link {{ Request::is('admin/PkgTableauBord/logActiviteFormateurs') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-table"></i>
                     <p>{{__('PkgTableauBord::logActiviteFormateur.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-remediation') 
+            <li class="nav-item" id="menu-remediations">
+                <a href="{{ route('remediations.index') }}" class="nav-link {{ Request::is('admin/PkgTableauBord/remediations') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>{{__('PkgTableauBord::remediation.plural')}}</p>
                 </a>
             </li>
             @endcan

@@ -84,6 +84,17 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
   - Service : `DashboardIndicateur05Trait`
   - UI V2 : `kpi-file-attente.blade.php`, `file-attente-console.blade.php`, bandeau dynamique apprenant
 
+### Action H : Traiter l'Alerte Critique et Calculer l'Indicateur 06 ($T_{\text{intervention}}$)
+> **Description** : Expliquer le mécanisme d'alerte post-Live Coding (+10 min configurable via `seuil_blocage_minutes`), le calcul du taux de remédiation ($88\%$), l'étayage didactique (individuelle, trinôme d'entraide, atelier de soutien) et la Flashbox Alerte Rouge.
+- **Ressources Utilisées** :
+  - `cahiers-charges/PkgTableauBord/plan-sprint6.md`
+- **Sorties** :
+  - Colonnes `affectation_projets` : `date_fin_live_coding_collectif`, `seuil_blocage_minutes`
+  - Table : `remediations`
+  - Modèle : `Modules\PkgTableauBord\Models\Remediation`
+  - Service : `DashboardIndicateur06Trait`
+  - UI V2 : `kpi-intervention.blade.php`, `flashbox-alerte-blocages.blade.php`, bandeau bienveillant apprenant
+
 ---
 
 ## 🛠️ Règles de Gestion (Savoir-Faire Métier)
@@ -132,3 +143,11 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
 2. L'apprenant voit en temps réel son rang d'attente FIFO (ex: Rang #2, ~18 min estimées).
 3. Le formateur consulte sa console ordonnée ASC et appelle le suivant, ou active une session mutualisée 4x4 si la file s'accumule (> 4 apprenants ou attente > 60 min).
 4. Au passage à `IN_LIVE_CODING`, `cache_date_debut_live_coding` est enregistré et `cache_delai_attente_minutes` est calculé.
+
+### Scénario 6 : Détection des Ruptures et Prise en Charge ($T_{\text{intervention}}$)
+1. Le formateur clôture le Live Coding collectif (`date_fin_live_coding_collectif = now()`).
+2. Dès que le temps écoulé dépasse le seuil paramétré de l'affectation (`seuil_blocage_minutes`, défaut 10 min), les apprenants n'ayant pas encore soumis leur livrable de tutoriel sont flagués en rupture.
+3. Le formateur voit apparaître la **Flashbox Alerte Rouge** avec les apprenants bloqués (`+14 min`, `+11 min`) et déclenche un étayage (Trinôme d'entraide ou Atelier de soutien).
+4. Dès l'intervention enregistrée dans `remediations`, le taux $T_{\text{intervention}}$ augmente ($\ge 85\%$ = Excellence).
+5. L'apprenant concerné voit un message bienveillant d'accompagnement l'invitant à solliciter son formateur et ses pairs.
+
