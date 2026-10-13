@@ -74,15 +74,15 @@ cahiers-charges/PkgTableauBord/maquettes/
 
 ## 🛠️ 3. Technologies & Dépendances des Maquettes
 - Framework CSS : **Tailwind CSS via CDN** (`<script src="https://cdn.tailwindcss.com"></script>`).
-- Moteur Réactif : **Alpine.js via CDN** (`<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>`).
+- Approche : **HTML5 Statique pur** (validation ergonomique et visuelle des 9 KPI, sans dépendance Alpine.js ni framework dynamique).
 - Icônes : SVG inline (Heroicons).
 - Polices : Google Fonts `Inter`.
 
 ---
 
 ## ✅ 4. Livrables & Validation de la Phase 4
-- [ ] Création du dossier `maquettes/`.
-- [ ] Réalisation et validation de `dashboard-apprenant.html`.
-- [ ] Réalisation et validation de `dashboard-formateur.html`.
-- [ ] Réalisation et validation de `dashboard-responsable.html`.
-- [ ] Revue d'utilisabilité dans le navigateur.
+- [x] Création du dossier `maquettes/`.
+- [x] Réalisation et validation de `dashboard-apprenant.html`.
+- [x] Réalisation et validation de `dashboard-formateur.html`.
+- [x] Réalisation et validation de `dashboard-responsable.html`.
+- [x] Revue d'utilisabilité dans le navigateur.

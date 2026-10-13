@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Console Formateur — Solicode LMS</title>
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+
+    <div class="flex min-h-screen">
+
+        <!-- ========================================================================= -->
+        <!-- SIDEBAR GAUCHE FORMATEUR -->
+        <!-- ========================================================================= -->
+        <aside id="app-sidebar" class="w-64 bg-white border-r border-slate-200 flex flex-col shrink-0 sticky top-0 h-screen z-40 transition-all duration-300">
+            <!-- Logo SoliLMS & Bouton Masquer -->
+            <div class="h-16 flex items-center justify-between px-5 border-b border-slate-200">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-sm">
+                        SL
+                    </div>
+                    <div>
+                        <div class="text-sm font-bold text-slate-900 leading-tight">Solicode LMS</div>
+                        <div class="text-[10px] text-slate-400 font-medium">Console Formateur</div>
+                    </div>
+                </div>
+                <button onclick="toggleSidebar()" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition" title="Masquer le menu">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
+                </button>
+            </div>
+
+            <!-- Fiche Formateur -->
+            <div class="p-4 border-b border-slate-100 bg-slate-50/60 flex items-center gap-3">
+                <img class="w-10 h-10 rounded-full object-cover border-2 border-indigo-500 shadow-xs" src="https://ui-avatars.com/api/?name=Fouad+Essarraj&background=e0e7ff&color=4338ca" alt="Avatar Formateur">
+                <div class="min-w-0">
+                    <div class="text-xs font-bold text-slate-900 truncate">Dr. Fouad ESSARRAJ</div>
+                    <div class="text-[11px] text-slate-500 truncate">Formateur Réf. DWWM</div>
+                </div>
+            </div>
+
+            <!-- Navigation Principale Formateur -->
+            <nav class="flex-grow p-4 space-y-1.5 overflow-y-auto">
+                <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-3 mb-2">Pilotage Didactique</div>
+
+                <!-- Dashboard (Actif) -->
+                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-indigo-50 text-indigo-700 font-bold text-xs border border-indigo-100 shadow-2xs">
+                    <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    <span>Tableau de Bord</span>
+                </a>
+
+                <!-- File d'Attente FIFO (ind-05) -->
+                <a href="#fifo" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>File Live Coding</span>
+                    </div>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-100 text-sky-800">4</span>
+                </a>
+
+                <!-- Alertes Seuil 10 min (ind-06) -->
+                <a href="#alertes" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        <span>Alertes Seuil 10 min</span>
+                    </div>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800 animate-pulse">2</span>
+                </a>
+
+                <!-- Suivi des Apprenants -->
+                <a href="#" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <span>Stagiaires Classe</span>
+                    </div>
+                    <span class="text-[11px] font-mono text-slate-400">25</span>
+                </a>
+
+                <!-- Modules & Unités d'Apprentissage -->
+                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition">
+                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    <span>Affectation UA & Projets</span>
+                </a>
+
+                <!-- Bordereau Officiel 65/35 -->
+                <a href="#docimologie" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>Bordereau 65/35</span>
+                    </div>
+                    <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">100%</span>
+                </a>
+            </nav>
+
+            <!-- Pied de Sidebar : Widget Logistique (ind-04) -->
+            <div class="p-4 border-t border-slate-200 text-xs bg-slate-50/50">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="text-slate-500 font-medium">Charge Administrative</span>
+                    <strong class="text-slate-800 font-mono">1h45 / 3h</strong>
+                </div>
+                <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                    <div class="bg-indigo-600 h-full rounded-full" style="width: 58%"></div>
+                </div>
+                <div class="text-[10px] text-slate-400 mt-1.5 flex items-center justify-between">
+                    <span>Objectif SoliLMS respecté</span>
+                    <span class="text-emerald-600 font-bold">&le; 2.5h</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ========================================================================= -->
+        <!-- ZONE DE CONTENU PRINCIPALE (DROITE) -->
+        <!-- ========================================================================= -->
+        <div class="flex-1 flex flex-col min-w-0">
+
+            <!-- Header Navbar Formateur -->
+            <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+                <div class="px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <button onclick="toggleSidebar()" class="p-2 -ml-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition" title="Afficher / Masquer la barre latérale">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        </button>
+                        <div>
+                            <h1 class="text-base font-bold text-slate-900 leading-tight">Console de Classe</h1>
+                            <p class="text-xs text-slate-500">Régulation Live Coding en Temps Réel</p>
+                        </div>
+                    </div>
+
+                    <!-- Sélecteur de Classe & Module -->
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-2 bg-slate-100/80 px-3 py-1.5 rounded-xl border border-slate-200/60 text-xs">
+                            <span class="text-slate-500 font-medium">Classe :</span>
+                            <select class="bg-transparent font-bold text-slate-800 focus:outline-none cursor-pointer">
+                                <option>DWWM — Groupe 1</option>
+                                <option>DWWM — Groupe 2</option>
+                            </select>
+                        </div>
+
+                        <div class="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            24 / 25 Présents
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="p-4 sm:p-6 lg:p-8 space-y-8 flex-grow">
+
+                <!-- 1. CARTES KPI DE COHORTE -->
+                <section class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500">Indicateurs de Pilotage Didactique & Flux</h2>
+                        <span class="text-xs font-semibold text-indigo-600">Promotion DWWM-G1 &bull; Sprint 3</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                        
+                        <!-- KPI 1 : ind-05 Délai Attente FIFO -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-500">Délai Attente FIFO</span>
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                                    Charge Active
+                                </span>
+                            </div>
+                            <div class="mt-3 flex items-baseline gap-2">
+                                <span class="text-3xl font-extrabold text-amber-600 tracking-tight">28 min</span>
+                                <span class="text-xs text-slate-400 font-mono font-semibold">(T_file)</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Délai moyen d'attente entre soumission et passage.</p>
+                            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span>Apprenants en attente</span>
+                                <span class="font-bold text-amber-700">4 en file active</span>
+                            </div>
+                        </div>
+
+                        <!-- KPI 2 : ind-02 Taux Gating -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-500">Réussite Gating 1er Essai</span>
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                                    Vigilance (65-80%)
+                                </span>
+                            </div>
+                            <div class="mt-3 flex items-baseline gap-2">
+                                <span class="text-3xl font-extrabold text-slate-900 tracking-tight">76%</span>
+                                <span class="text-xs text-slate-400 font-mono font-semibold">(R_gating)</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">22 validés au 1er passage / 7 orientés en remédiation.</p>
+                            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span>Séance 2ème tentative</span>
+                                <span class="font-bold text-indigo-600">Planifier session (7)</span>
+                            </div>
+                        </div>
+
+                        <!-- KPI 3 : ind-01 Temps Amorçage Moyen -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-500">Temps d'Amorçage Moyen</span>
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    Optimal (&le; 2h)
+                                </span>
+                            </div>
+                            <div class="mt-3 flex items-baseline gap-2">
+                                <span class="text-3xl font-extrabold text-slate-900 tracking-tight">1h45</span>
+                                <span class="text-xs text-slate-400 font-mono font-semibold">(T_amorçage)</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Délai moyen d'activation de la première tâche du sprint.</p>
+                            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span>Stagiaires amorcés</span>
+                                <span class="font-bold text-slate-800">21 / 25 (4 en retard)</span>
+                            </div>
+                        </div>
+
+                        <!-- KPI 4 : ind-06 Taux Remédiation -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-500">Taux de Remédiation</span>
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    Excellence (&ge; 85%)
+                                </span>
+                            </div>
+                            <div class="mt-3 flex items-baseline gap-2">
+                                <span class="text-3xl font-extrabold text-emerald-600 tracking-tight">88%</span>
+                                <span class="text-xs text-slate-400 font-mono font-semibold">(T_intervention)</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Apprenants bloqués ayant reçu un étayage formalisé.</p>
+                            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span>En attente de soutien</span>
+                                <span class="font-bold text-rose-600">1 apprenant</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. FLASHBOX ALERTE SEUIL 10 MIN (ind-06) -->
+                <section id="alertes" class="bg-rose-50 border-2 border-rose-200 rounded-2xl p-5 sm:p-6 shadow-sm">
+                    <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-rose-500 text-white flex items-center justify-center shrink-0 shadow-sm">
+                                <svg class="w-6 h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="text-base font-bold text-rose-900">Alerte Didactique : 2 Apprenants n'ont pas soumis leur livrable au-delà du seuil de 10 min</h3>
+                                    <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-200 text-rose-800">Seuil Critique</span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-rose-700 mt-1">
+                                    Séance plénière de Live Coding terminée. Activation recommandée du trinôme d'entraide ou étayage direct.
+                                </p>
+                                
+                                <div class="mt-3 flex flex-wrap gap-2.5">
+                                    <div class="bg-white px-3 py-1.5 rounded-lg border border-rose-200 flex items-center gap-2 shadow-xs">
+                                        <img class="w-5 h-5 rounded-full" src="https://ui-avatars.com/api/?name=Amine+Mansouri&background=fee2e2&color=991b1b" alt="Amine">
+                                        <span class="text-xs font-bold text-rose-900">Amine Mansouri</span>
+                                        <span class="text-[11px] font-mono font-bold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">+14 min</span>
+                                    </div>
+                                    <div class="bg-white px-3 py-1.5 rounded-lg border border-rose-200 flex items-center gap-2 shadow-xs">
+                                        <img class="w-5 h-5 rounded-full" src="https://ui-avatars.com/api/?name=Sara+Bennani&background=fee2e2&color=991b1b" alt="Sara">
+                                        <span class="text-xs font-bold text-rose-900">Sara Bennani</span>
+                                        <span class="text-[11px] font-mono font-bold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">+11 min</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex sm:flex-col gap-2 shrink-0 w-full lg:w-auto">
+                            <button class="w-full sm:w-auto px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shadow-sm transition">
+                                Assigner Trinôme d'Entraide
+                            </button>
+                            <button class="w-full sm:w-auto px-4 py-2 bg-white hover:bg-rose-100 text-rose-700 border border-rose-300 text-xs font-bold rounded-xl transition">
+                                Ouvrir Atelier de Soutien
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. CONSOLE OPÉRATIONNELLE : FILE FIFO (ind-05) -->
+                <section id="fifo" class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden space-y-0">
+                    <div class="p-5 border-b border-slate-200 bg-slate-50/70 flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-extrabold text-sm">
+                                4
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-900">File d'Attente FIFO Live Coding &bull; Prototype Niveau 2</h3>
+                                <p class="text-xs text-slate-500">Ordre d'arrivée strict (date_entree_file ASC)</p>
+                            </div>
+                        </div>
+
+                        <button class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-xs transition flex items-center gap-1.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                            Lancer Session Mutualisée 4x4
+                        </button>
+                    </div>
+
+                    <div class="divide-y divide-slate-200">
+                        <!-- Rang #1 En cours -->
+                        <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-indigo-50/40 border-l-4 border-indigo-600">
+                            <div class="flex items-center gap-4">
+                                <span class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold bg-indigo-600 text-white shadow-xs">#1</span>
+                                <img class="w-10 h-10 rounded-full object-cover border border-slate-200 shadow-xs" src="https://ui-avatars.com/api/?name=Othmane+Chraibi&background=c7d2fe&color=3730a3" alt="Othmane">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-sm font-bold text-slate-900">Othmane Chraibi</span>
+                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-100 text-indigo-800 border border-indigo-200">En Live Coding Actif</span>
+                                    </div>
+                                    <div class="text-xs text-slate-500 mt-0.5">Prototype ORM — E-Commerce &bull; Essai #1</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg shadow-xs transition">Valider Gating</button>
+                                <button class="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-lg shadow-xs transition">Révision</button>
+                            </div>
+                        </div>
+
+                        <!-- Rang #2 Suivant -->
+                        <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-slate-50 transition">
+                            <div class="flex items-center gap-4">
+                                <span class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold bg-slate-100 text-slate-600">#2</span>
+                                <img class="w-10 h-10 rounded-full object-cover border border-slate-200 shadow-xs" src="https://ui-avatars.com/api/?name=Yassine+El+Amrani&background=fed7aa&color=c2410c" alt="Yassine">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-sm font-bold text-slate-900">Yassine El Amrani</span>
+                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-100 text-sky-800 border border-sky-200">Suivant</span>
+                                    </div>
+                                    <div class="text-xs text-slate-500 mt-0.5">Prototype ORM — E-Commerce &bull; Essai #1</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="text-xs font-mono font-bold text-slate-700">18:12 min</span>
+                                <button class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg shadow-xs transition">Appeler Yassine</button>
+                            </div>
+                        </div>
+
+                        <!-- Rang #3 -->
+                        <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-slate-50 transition">
+                            <div class="flex items-center gap-4">
+                                <span class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold bg-slate-100 text-slate-600">#3</span>
+                                <img class="w-10 h-10 rounded-full object-cover border border-slate-200 shadow-xs" src="https://ui-avatars.com/api/?name=Khadija+Mansour&background=bbf7d0&color=15803d" alt="Khadija">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-sm font-bold text-slate-900">Khadija Mansour</span>
+                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-100 text-sky-800 border border-sky-200">En attente</span>
+                                    </div>
+                                    <div class="text-xs text-slate-500 mt-0.5">Prototype ORM — E-Commerce &bull; Essai #1</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="text-xs font-mono font-bold text-slate-700">24:40 min</span>
+                                <button class="px-3.5 py-1.5 bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-semibold rounded-lg shadow-2xs transition">Mettre en attente</button>
+                            </div>
+                        </div>
+
+                        <!-- Rang #4 -->
+                        <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-slate-50 transition">
+                            <div class="flex items-center gap-4">
+                                <span class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold bg-slate-100 text-slate-600">#4</span>
+                                <img class="w-10 h-10 rounded-full object-cover border border-slate-200 shadow-xs" src="https://ui-avatars.com/api/?name=Nabil+Tazi&background=fecdd3&color=9f1239" alt="Nabil">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-sm font-bold text-slate-900">Nabil Tazi</span>
+                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200">Essai #2</span>
+                                    </div>
+                                    <div class="text-xs text-slate-500 mt-0.5">Prototype ORM — E-Commerce &bull; Essai #2</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="text-xs font-mono font-bold text-rose-600">32:15 min</span>
+                                <button class="px-3.5 py-1.5 bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-semibold rounded-lg shadow-2xs transition">Prioriser passage</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. QUALITÉ DU CODE & VÉRIFICATION DOCIMOLOGIQUE -->
+                <section id="docimologie" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Top 3 tâches bloquantes (ind-03) -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-900">Tâches Révélatrices / Bloquantes</h4>
+                                <p class="text-[11px] text-slate-500">Indicateur 03 : F_révision (0.8 itér./tâche)</p>
+                            </div>
+                            <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Top 3</span>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="flex items-center justify-between text-xs font-bold text-slate-900">
+                                    <span>TUTO-02 : Relations One-to-Many</span>
+                                    <span class="text-rose-600 font-mono">1.4 itér.</span>
+                                </div>
+                                <div class="text-[11px] text-slate-500 mt-1">9 apprenants ont nécessité au moins 2 reprises.</div>
+                            </div>
+
+                            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="flex items-center justify-between text-xs font-bold text-slate-900">
+                                    <span>TUTO-03 : Eager Loading & N+1</span>
+                                    <span class="text-amber-600 font-mono">0.9 itér.</span>
+                                </div>
+                                <div class="text-[11px] text-slate-500 mt-1">5 apprenants bloqués sur la méthode with().</div>
+                            </div>
+
+                            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="flex items-center justify-between text-xs font-bold text-slate-900">
+                                    <span>PROTO-01 : Scopes de filtrage</span>
+                                    <span class="text-emerald-600 font-mono">0.3 itér.</span>
+                                </div>
+                                <div class="text-[11px] text-slate-500 mt-1">Bonne appropriation de la syntaxe.</div>
+                            </div>
+                        </div>
+
+                        <button class="w-full py-2 bg-slate-100 hover:bg-slate-200/70 text-slate-700 text-xs font-bold rounded-xl transition">
+                            Point de clarification collectif
+                        </button>
+                    </div>
+
+                    <!-- Tableau des soutenances & conversion 65/35 (ind-07, ind-09) -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm lg:col-span-2 space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-900">Contrôle Docimologique & Intégrité IA (Pearson r)</h4>
+                                <p class="text-[11px] text-slate-500">Alignement Prototype N2 vs Projet N3 (Indicateurs 07 & 09)</p>
+                            </div>
+                            <span class="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200 self-start sm:self-auto">
+                                Bordereau 65/35 : Conforme (100%)
+                            </span>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead>
+                                    <tr class="border-b border-slate-200 text-slate-500 font-semibold">
+                                        <th class="pb-2">Apprenant</th>
+                                        <th class="pb-2">Note N2 (Surveillé)</th>
+                                        <th class="pb-2">Note N3 (Projet IA)</th>
+                                        <th class="pb-2">Écart &Delta; IA</th>
+                                        <th class="pb-2">Note CC (sur 20)</th>
+                                        <th class="pb-2 text-right">Note EFM (sur 40)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    <tr>
+                                        <td class="py-2.5 font-bold text-slate-900">Mehdi Bennani</td>
+                                        <td class="py-2.5 font-mono text-slate-700">14.0 / 20</td>
+                                        <td class="py-2.5 font-mono text-slate-700">15.0 / 20</td>
+                                        <td class="py-2.5"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">+1.0 (Conforme)</span></td>
+                                        <td class="py-2.5 font-bold text-slate-900">14.0</td>
+                                        <td class="py-2.5 font-bold text-indigo-700 text-right">28.7 / 40</td>
+                                    </tr>
+                                    <tr class="bg-rose-50/60">
+                                        <td class="py-2.5 font-bold text-rose-900">Yassir Alami</td>
+                                        <td class="py-2.5 font-mono text-rose-800 font-bold">08.0 / 20</td>
+                                        <td class="py-2.5 font-mono text-rose-800 font-bold">18.0 / 20</td>
+                                        <td class="py-2.5"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-200 text-rose-800 border border-rose-300">&Delta; = +10.0 (Alerte IA)</span></td>
+                                        <td class="py-2.5 font-bold text-rose-900">08.0</td>
+                                        <td class="py-2.5 font-bold text-rose-900 text-right">23.0 / 40</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2.5 font-bold text-slate-900">Nour Chraibi</td>
+                                        <td class="py-2.5 font-mono text-slate-700">17.5 / 20</td>
+                                        <td class="py-2.5 font-mono text-slate-700">18.0 / 20</td>
+                                        <td class="py-2.5"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">+0.5 (Optimal)</span></td>
+                                        <td class="py-2.5 font-bold text-slate-900">17.5</td>
+                                        <td class="py-2.5 font-bold text-indigo-700 text-right">35.3 / 40</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="pt-2 flex items-center justify-between text-xs">
+                            <span class="text-rose-700 font-semibold flex items-center gap-1">
+                                <svg class="w-4 h-4 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                1 cas suspect (&Delta; &gt; 5 pts) : Convoquer en vérification
+                            </span>
+                            <button class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg shadow-xs transition">
+                                Transmettre Bordereau 65/35
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+
+            <!-- Footer Standard Formateur -->
+            <footer class="bg-white border-t border-slate-200 py-5 px-4 sm:px-6 lg:px-8 text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3 mt-auto">
+                <div>
+                    <strong>Solicode LMS V2</strong> &bull; Console Formateur &bull; Conforme standards Annexe M
+                </div>
+                <div class="text-slate-400">
+                    24 apprenants en ligne &bull; Session active
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Script Minimal Vanilla JS pour Masquer/Afficher la Sidebar -->
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('app-sidebar');
+            sidebar.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>

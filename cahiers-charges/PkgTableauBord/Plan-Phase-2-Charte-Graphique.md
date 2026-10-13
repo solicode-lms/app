@@ -18,18 +18,20 @@ Ce livrable constitue le socle visuel et ergonomique obligatoire avant le dével
   - `text-lg` / `text-xl` (18px - 20px) : Titres de sections, sous-totaux et en-têtes de cartes.
   - `text-2xl` / `text-3xl` (24px - 30px) : Valeurs majeures des indicateurs KPI et métriques clés.
 
-### 1.2. Palette de Couleurs Sémantique & Fonctionnelle
-| Catégorie | Classes Tailwind (Fond / Texte / Bordure) | Usage Métier & Cas d'Application |
+### 1.2. Palette de Couleurs UI/UX Standard & Équilibrée
+La charte repose sur un équilibre visuel complet et professionnel (identité Indigo Solicode LMS, contrastes nets, boutons d'action valorisés et statuts sémantiques clairs) :
+
+| Catégorie | Teinte & Classes Tailwind (Fond / Texte / Bordure) | Usage Métier & Principe Ergonomique |
 | :--- | :--- | :--- |
-| **Fond d'application** | `bg-slate-50` | Arrière-plan global, repos visuel et contraste avec les cartes. |
-| **Surfaces & Cartes** | `bg-white border-slate-200` | Cartes KPI, tableaux, panneaux de commande et tiroirs latéraux. |
-| **Texte Principal** | `text-slate-900` | Valeurs chiffrées, titres et libellés majeurs. |
-| **Texte Secondaire** | `text-slate-500` | Sous-titres, unités de mesure, horodatages. |
-| **Accent & Identité** | `bg-indigo-600 text-indigo-700 border-indigo-200` | Boutons d'action prioritaires, filtres actifs, KPI principal. |
-| **Succès / Optimal** | `bg-emerald-50 text-emerald-700 border-emerald-200` | Gating validé, progression dans les temps, $\text{ICP} \ge 90\%$. |
-| **Alerte / Révision** | `bg-amber-50 text-amber-700 border-amber-200` | Temps d'attente élevé, boucle de révision active, retard modéré. |
-| **Critique / Blocage** | `bg-rose-50 text-rose-700 border-rose-200` | Apprenant bloqué $> 10$ min, écart IA important, note critique. |
-| **File FIFO / Neutre** | `bg-sky-50 text-sky-700 border-sky-200` | Statut en attente de passage, file d'attente Live Coding. |
+| **Fond d'application** | `bg-slate-50` | Arrière-plan standard propre et reposant. |
+| **Surfaces & Cartes** | `bg-white border-slate-200 shadow-sm` | Cartes KPI, consoles et conteneurs délimités. |
+| **Texte Principal** | `text-slate-900 font-bold` | Valeurs chiffrées majeures, titres de sections. |
+| **Texte Secondaire** | `text-slate-500` | Unités, labels d'indicateurs, métadonnées. |
+| **Action Principale** | `bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm` | Boutons d'action prioritaires (Identité SoliLMS). |
+| **Succès / Optimal** | `bg-emerald-50 text-emerald-700 border-emerald-200` | Gating validé au 1er essai, progression dans les temps, $\text{ICP} \ge 90\%$. |
+| **Avertissement / Révision** | `bg-amber-50 text-amber-700 border-amber-200` | Tâches en révision, délai d'attente élevé en file FIFO. |
+| **Alerte Critique** | `bg-rose-50 text-rose-700 border-rose-200` | Apprenant bloqué $> 10$ min, divergence docimologique IA $> 5$ pts. |
+| **File FIFO / Neutre** | `bg-sky-50 text-sky-700 border-sky-200` | Apprenant en attente dans la file Live Coding. |
 
 ---
 

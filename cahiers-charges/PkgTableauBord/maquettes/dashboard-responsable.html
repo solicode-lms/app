@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord Responsable — Solicode LMS</title>
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+
+    <div class="flex min-h-screen">
+
+        <!-- ========================================================================= -->
+        <!-- SIDEBAR GAUCHE RESPONSABLE -->
+        <!-- ========================================================================= -->
+        <aside id="app-sidebar" class="w-64 bg-white border-r border-slate-200 flex flex-col shrink-0 sticky top-0 h-screen z-40 transition-all duration-300">
+            <!-- Logo SoliLMS & Bouton Masquer -->
+            <div class="h-16 flex items-center justify-between px-5 border-b border-slate-200">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-sm">
+                        SL
+                    </div>
+                    <div>
+                        <div class="text-sm font-bold text-slate-900 leading-tight">Solicode LMS</div>
+                        <div class="text-[10px] text-slate-400 font-medium">Direction Académique</div>
+                    </div>
+                </div>
+                <button onclick="toggleSidebar()" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition" title="Masquer le menu">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
+                </button>
+            </div>
+
+            <!-- Fiche Responsable -->
+            <div class="p-4 border-b border-slate-100 bg-slate-50/60 flex items-center gap-3">
+                <img class="w-10 h-10 rounded-full object-cover border-2 border-indigo-500 shadow-xs" src="https://ui-avatars.com/api/?name=Direction+Pedagogique&background=e0e7ff&color=4338ca" alt="Avatar Responsable">
+                <div class="min-w-0">
+                    <div class="text-xs font-bold text-slate-900 truncate">Direction Pédagogique</div>
+                    <div class="text-[11px] text-slate-500 truncate">Supervision Nationale</div>
+                </div>
+            </div>
+
+            <!-- Navigation Principale Responsable -->
+            <nav class="flex-grow p-4 space-y-1.5 overflow-y-auto">
+                <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-3 mb-2">Gouvernance & Qualité</div>
+
+                <!-- Gouvernance Dashboard (Actif) -->
+                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-indigo-50 text-indigo-700 font-bold text-xs border border-indigo-100 shadow-2xs">
+                    <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    <span>Gouvernance Macro</span>
+                </a>
+
+                <!-- Couverture Référentiel ICP (ind-08) -->
+                <a href="#" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                        <span>Couverture (ICP)</span>
+                    </div>
+                    <span class="text-[11px] font-bold text-emerald-600">91.2%</span>
+                </a>
+
+                <!-- Intégrité IA & Pearson (ind-07) -->
+                <a href="#scatter" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path></svg>
+                        <span>Intégrité IA (Pearson)</span>
+                    </div>
+                    <span class="text-[11px] font-mono font-bold text-indigo-700 bg-indigo-50 px-1.5 py-0.2 rounded">r=0.78</span>
+                </a>
+
+                <!-- Bordereaux Officiels 65/35 (ind-09) -->
+                <a href="#bordereaux" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>Bordereaux 65/35</span>
+                    </div>
+                    <span class="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">100%</span>
+                </a>
+
+                <!-- Benchmark Inter-Groupes -->
+                <a href="#benchmark" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition">
+                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    <span>Benchmark Classes</span>
+                </a>
+
+                <!-- Exportations Officielles -->
+                <a href="#export" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition">
+                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    <span>Exports & Scellement</span>
+                </a>
+            </nav>
+
+            <!-- Pied de Sidebar : Conformité globale -->
+            <div class="p-4 border-t border-slate-200 text-xs bg-slate-50/50">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="text-slate-500 font-medium">Audit Réglementaire</span>
+                    <strong class="text-emerald-700 font-bold">Certifié</strong>
+                </div>
+                <div class="text-[11px] text-slate-400">Annexe M &bull; 100% Conforme</div>
+            </div>
+        </aside>
+
+        <!-- ========================================================================= -->
+        <!-- ZONE DE CONTENU PRINCIPALE (DROITE) -->
+        <!-- ========================================================================= -->
+        <div class="flex-1 flex flex-col min-w-0">
+
+            <!-- Header Navbar Responsable -->
+            <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+                <div class="px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <button onclick="toggleSidebar()" class="p-2 -ml-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition" title="Afficher / Masquer la barre latérale">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        </button>
+                        <div>
+                            <h1 class="text-base font-bold text-slate-900 leading-tight">Gouvernance Académique</h1>
+                            <p class="text-xs text-slate-500">Supervision Nationale & Docimologie Officielle</p>
+                        </div>
+                    </div>
+
+                    <!-- Filtres Institutionnels -->
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-2 bg-slate-100/80 px-3 py-1.5 rounded-xl border border-slate-200/60 text-xs">
+                            <span class="text-slate-500 font-medium">Centre :</span>
+                            <select class="bg-transparent font-bold text-slate-800 focus:outline-none cursor-pointer">
+                                <option>Solicode Tanger</option>
+                                <option>Solicode Tétouan</option>
+                            </select>
+                        </div>
+
+                        <div class="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-xs font-semibold">
+                            Session 2025/2026 &bull; S1
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="p-4 sm:p-6 lg:p-8 space-y-8 flex-grow">
+
+                <!-- 1. CARTES KPI DE GOUVERNANCE -->
+                <section class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500">Indicateurs Institutionnels & Certification Réglementaire</h2>
+                        <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                            Audit Conforme &bull; Annexe M
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                        
+                        <!-- KPI 1 : ind-08 Couverture ICP Macro -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-500">Couverture Référentiel</span>
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    Cible &ge; 90% Atteinte
+                                </span>
+                            </div>
+                            <div class="mt-3 flex items-baseline gap-2">
+                                <span class="text-3xl font-extrabold text-emerald-600 tracking-tight">91.2%</span>
+                                <span class="text-xs text-slate-400 font-mono font-semibold">(ICP Macro)</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Part des compétences nationales validées sur toutes les cohortes.</p>
+                            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span>Modules certifiables</span>
+                                <span class="font-bold text-slate-800">12 / 12 modules</span>
+                            </div>
+                        </div>
+
+                        <!-- KPI 2 : ind-09 Conformité 65/35 -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-500">Conformité Règle 65/35</span>
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    Zéro Divergence
+                                </span>
+                            </div>
+                            <div class="mt-3 flex items-baseline gap-2">
+                                <span class="text-3xl font-extrabold text-slate-900 tracking-tight">100%</span>
+                                <span class="text-xs text-slate-400 font-mono font-semibold">(&tau;_conformité)</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Bordereaux CC et EFM validés sans ressaisie ni anomalie de calcul.</p>
+                            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span>Statut administratif</span>
+                                <span class="font-bold text-emerald-700 flex items-center gap-1">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                                    Prêt pour scellement
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- KPI 3 : ind-07 Pearson r Global -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-500">Intégrité IA (Pearson r)</span>
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                                    Alignement Robuste
+                                </span>
+                            </div>
+                            <div class="mt-3 flex items-baseline gap-2">
+                                <span class="text-3xl font-extrabold text-indigo-600 tracking-tight">r = 0.78</span>
+                                <span class="text-xs text-slate-400 font-mono font-semibold">(Pearson r)</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Corrélation entre soutenance Live Coding (N2) et projet outillé (N3).</p>
+                            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span>Cas suspects (&Delta; &gt; 5)</span>
+                                <span class="font-bold text-rose-600">2 cas identifiés</span>
+                            </div>
+                        </div>
+
+                        <!-- KPI 4 : ind-04 Charge Logistique Macro -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-500">Charge Logistique Moy.</span>
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    -45% vs Historique
+                                </span>
+                            </div>
+                            <div class="mt-3 flex items-baseline gap-2">
+                                <span class="text-3xl font-extrabold text-slate-900 tracking-tight">2.1 h<span class="text-base text-slate-400 font-normal">/sem</span></span>
+                                <span class="text-xs text-slate-400 font-mono font-semibold">(C_logistique)</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Temps administratif hebdomadaire par formateur sur SoliLMS.</p>
+                            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span>Plafond fixé</span>
+                                <span class="font-bold text-slate-800">&le; 3h/semaine</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. SCATTER PLOT & ANALYSE D'INTÉGRITÉ IA (ind-07) -->
+                <section id="scatter" class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900">Modélisation Docimologique & Dispersion IA (Annexe M)</h3>
+                            <p class="text-xs text-slate-500">
+                                Croisement des notes du Prototype en Live Coding ($N2$, 65%) et du Projet fil rouge avec IA ($N3$, 35%)
+                            </p>
+                        </div>
+                        <span class="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 px-3 py-1 rounded-lg border border-indigo-200 self-start sm:self-auto">
+                            Coefficient de Pearson r = 0.78
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+                        <div class="lg:col-span-2 relative bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <svg viewBox="0 0 500 280" class="w-full h-64">
+                                <line x1="50" y1="20" x2="50" y2="240" stroke="#cbd5e1" stroke-width="1.5" />
+                                <line x1="50" y1="240" x2="480" y2="240" stroke="#cbd5e1" stroke-width="1.5" />
+                                
+                                <line x1="50" y1="130" x2="480" y2="130" stroke="#f1f5f9" stroke-width="1" stroke-dasharray="2 2" />
+                                <line x1="265" y1="20" x2="265" y2="240" stroke="#f1f5f9" stroke-width="1" stroke-dasharray="2 2" />
+
+                                <line x1="50" y1="240" x2="450" y2="30" stroke="#94a3b8" stroke-dasharray="4" stroke-width="1.5" />
+                                <polygon points="50,240 50,110 250,30 450,30" fill="#fee2e2" opacity="0.4" />
+
+                                <circle cx="100" cy="205" r="5" fill="#4f46e5"><title>Karim: N2=6/20, N3=7.5/20 (Conforme)</title></circle>
+                                <circle cx="160" cy="170" r="5" fill="#4f46e5"><title>Salma: N2=10/20, N3=11/20 (Conforme)</title></circle>
+                                <circle cx="210" cy="140" r="5" fill="#4f46e5"><title>Mehdi: N2=13/20, N3=14/20 (Conforme)</title></circle>
+                                <circle cx="270" cy="115" r="5" fill="#4f46e5"><title>Hamza: N2=15/20, N3=16/20 (Conforme)</title></circle>
+                                <circle cx="330" cy="85" r="5" fill="#10b981"><title>Nour: N2=17.5/20, N3=18/20 (Optimal)</title></circle>
+                                <circle cx="390" cy="55" r="5" fill="#10b981"><title>Omar: N2=19/20, N3=19.5/20 (Optimal)</title></circle>
+                                <circle cx="240" cy="125" r="5" fill="#4f46e5"><title>Khadija: N2=14/20, N3=15/20 (Conforme)</title></circle>
+                                <circle cx="310" cy="95" r="5" fill="#10b981"><title>Zineb: N2=16.5/20, N3=17/20 (Optimal)</title></circle>
+
+                                <circle cx="140" cy="65" r="7" fill="#ef4444" stroke="#991b1b" stroke-width="2">
+                                    <title>Alerte IA #1: Yassir (N2=8/20 vs N3=18/20, Delta = +10.0 pts)</title>
+                                </circle>
+                                <circle cx="190" cy="50" r="7" fill="#ef4444" stroke="#991b1b" stroke-width="2">
+                                    <title>Alerte IA #2: Bilal (N2=11/20 vs N3=18.5/20, Delta = +7.5 pts)</title>
+                                </circle>
+
+                                <text x="210" y="265" font-size="11" fill="#475569" font-weight="700">Note Prototype Surveillé N2 (65%)</text>
+                                <text x="5" y="145" font-size="11" fill="#475569" font-weight="700" transform="rotate(-90 25,145)">Note Projet Fil Rouge N3 (35%)</text>
+                                <text x="280" y="50" font-size="10" fill="#dc2626" font-weight="bold">Zone de suspicion (&Delta; &gt; +5 pts)</text>
+                            </svg>
+                        </div>
+
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/80 space-y-4">
+                            <div>
+                                <div class="text-[11px] font-bold uppercase tracking-wider text-indigo-700">Diagnostic d'Intégrité</div>
+                                <h4 class="text-sm font-bold text-slate-900 mt-1">2 Cas de Déconnexion IA Détectés</h4>
+                                <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                                    Le coefficient de Pearson $r = 0{,}78$ atteste d'un <strong>alignement didactique robuste</strong>. Deux cas présentent un écart disproportionné :
+                                </p>
+                            </div>
+
+                            <div class="space-y-2">
+                                <div class="p-2.5 bg-rose-50 rounded-lg border border-rose-200 text-xs">
+                                    <div class="font-bold text-rose-900">Yassir Alami (DWWM-G1)</div>
+                                    <div class="text-slate-600 mt-0.5">N2 : <strong>08.0</strong> &bull; N3 : <strong>18.0</strong> (&Delta; = <strong class="text-rose-700">+10.0 pts</strong>)</div>
+                                </div>
+                                <div class="p-2.5 bg-rose-50 rounded-lg border border-rose-200 text-xs">
+                                    <div class="font-bold text-rose-900">Bilal Chami (DWWM-G2)</div>
+                                    <div class="text-slate-600 mt-0.5">N2 : <strong>11.0</strong> &bull; N3 : <strong>18.5</strong> (&Delta; = <strong class="text-rose-700">+7.5 pts</strong>)</div>
+                                </div>
+                            </div>
+
+                            <button class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-xs transition">
+                                Convoquer Jury de Vérification Individuelle
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. MATRICE COMPARATIVE & EXPORT 65/35 -->
+                <section id="benchmark" class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden space-y-0">
+                    <div class="p-5 border-b border-slate-200 bg-slate-50/70 flex flex-wrap items-center justify-between gap-4">
+                        <div>
+                            <h3 class="text-sm font-bold text-slate-900">Matrice Comparative Inter-Promotions & Validation des Bordereaux</h3>
+                            <p class="text-xs text-slate-500">Benchmark des cohortes pour l'harmonisation des exigences pédagogiques</p>
+                        </div>
+
+                        <div id="export" class="flex items-center gap-2">
+                            <button class="px-3.5 py-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-bold rounded-xl shadow-2xs transition flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                Exporter CC (Excel)
+                            </button>
+                            <button class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-xs transition flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                Bordereaux EFM Scellés (PDF)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="border-b border-slate-200 text-slate-500 font-semibold bg-slate-50/50">
+                                    <th class="py-3 px-5">Groupe / Promotion</th>
+                                    <th class="py-3 px-4">Formateur Réf.</th>
+                                    <th class="py-3 px-4">Effectif</th>
+                                    <th class="py-3 px-4">Couverture ICP</th>
+                                    <th class="py-3 px-4">Réussite Gating</th>
+                                    <th class="py-3 px-4">Délai File Moy.</th>
+                                    <th class="py-3 px-4">Corrélation r IA</th>
+                                    <th class="py-3 px-5 text-right">Statut Bordereau 65/35</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50/80 transition">
+                                    <td class="py-3 px-5 font-bold text-slate-900">DWWM — Groupe 1</td>
+                                    <td class="py-3 px-4 text-slate-700">Dr. F. ESSARRAJ</td>
+                                    <td class="py-3 px-4 font-mono">25 stagiaires</td>
+                                    <td class="py-3 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">92.4% (Conforme)</span></td>
+                                    <td class="py-3 px-4 font-bold text-slate-800">76.0%</td>
+                                    <td class="py-3 px-4 font-mono text-slate-600">28 min</td>
+                                    <td class="py-3 px-4 font-mono font-bold text-indigo-700">0.88</td>
+                                    <td class="py-3 px-5 text-right"><span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Certifié & Validé</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/80 transition">
+                                    <td class="py-3 px-5 font-bold text-slate-900">DWWM — Groupe 2</td>
+                                    <td class="py-3 px-4 text-slate-700">M. A. TAZI</td>
+                                    <td class="py-3 px-4 font-mono">24 stagiaires</td>
+                                    <td class="py-3 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">89.5% (Conforme)</span></td>
+                                    <td class="py-3 px-4 font-bold text-slate-800">71.0%</td>
+                                    <td class="py-3 px-4 font-mono text-slate-600">32 min</td>
+                                    <td class="py-3 px-4 font-mono font-bold text-indigo-700">0.74</td>
+                                    <td class="py-3 px-5 text-right"><span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Certifié & Validé</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/80 transition">
+                                    <td class="py-3 px-5 font-bold text-slate-900">Data & IA — Groupe 1</td>
+                                    <td class="py-3 px-4 text-slate-700">Mme H. CHRAIBI</td>
+                                    <td class="py-3 px-4 font-mono">22 stagiaires</td>
+                                    <td class="py-3 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">94.0% (Excellence)</span></td>
+                                    <td class="py-3 px-4 font-bold text-emerald-700">86.4%</td>
+                                    <td class="py-3 px-4 font-mono text-slate-600">19 min</td>
+                                    <td class="py-3 px-4 font-mono font-bold text-indigo-700">0.82</td>
+                                    <td class="py-3 px-5 text-right"><span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Certifié & Validé</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/80 transition">
+                                    <td class="py-3 px-5 font-bold text-slate-900">CyberSécurité — Groupe 1</td>
+                                    <td class="py-3 px-4 text-slate-700">M. Y. BENNANI</td>
+                                    <td class="py-3 px-4 font-mono">20 stagiaires</td>
+                                    <td class="py-3 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">86.2% (Vigilance)</span></td>
+                                    <td class="py-3 px-4 font-bold text-amber-600">68.0%</td>
+                                    <td class="py-3 px-4 font-mono text-rose-600 font-bold">41 min</td>
+                                    <td class="py-3 px-4 font-mono font-bold text-indigo-700">0.71</td>
+                                    <td class="py-3 px-5 text-right"><span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300">En cours</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </main>
+
+            <!-- Footer Standard Responsable -->
+            <footer class="bg-white border-t border-slate-200 py-5 px-4 sm:px-6 lg:px-8 text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3 mt-auto">
+                <div>
+                    <strong>Solicode LMS V2</strong> &bull; Tableau de Bord de Gouvernance &bull; Docimologie Officielle Règle 65/35
+                </div>
+                <div class="text-slate-400">
+                    Certification des bordereaux horodatée &bull; Direction des Études
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Script Minimal Vanilla JS pour Masquer/Afficher la Sidebar -->
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('app-sidebar');
+            sidebar.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>

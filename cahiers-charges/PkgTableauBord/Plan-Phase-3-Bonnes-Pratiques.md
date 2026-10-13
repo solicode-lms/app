@@ -54,6 +54,6 @@ Tout écran de tableau de bord s'organise selon trois niveaux d'information vert
 ---
 
 ## ✅ 4. Livrables & Grille d'Évaluation de la Phase 3
-- [ ] Document de référence des bonnes pratiques finalisé.
-- [ ] Grille de revue ergonomique formalisée pour évaluer les maquettes de la Phase 4.
-- [ ] Validation de l'alignement didactique avec les hypothèses de recherche (H1, H2, H3).
+- [x] Document de référence des bonnes pratiques finalisé.
+- [x] Grille de revue ergonomique formalisée pour évaluer les maquettes de la Phase 4.
+- [x] Validation de l'alignement didactique avec les hypothèses de recherche (H1, H2, H3).
