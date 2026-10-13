@@ -33,7 +33,9 @@ class RecalculerAmorcageCommand extends Command
         $this->info("=== Démarrage du rattrapage des données d'amorçage ===");
 
         // 1. Mise à jour de cache_date_lancement sur affectation_projets
-        $affectations = AffectationProjet::all();
+        $affectations = AffectationProjet::whereHas('projet', function ($q) {
+            $q->sessionsFormation();
+        })->get();
         $this->info("Traitement de {$affectations->count()} affectations...");
 
         foreach ($affectations as $aff) {
@@ -42,7 +44,9 @@ class RecalculerAmorcageCommand extends Command
         }
 
         // 2. Mise à jour de cache_date_premiere_soumission et cache_date_lancement sur realisation_projets
-        $projets = RealisationProjet::with('affectationProjet')->get();
+        $projets = RealisationProjet::whereHas('affectationProjet.projet', function ($q) {
+            $q->sessionsFormation();
+        })->with('affectationProjet')->get();
         $this->info("Traitement de {$projets->count()} réalisations de projets...");
 
         $nbMisesAJour = 0;

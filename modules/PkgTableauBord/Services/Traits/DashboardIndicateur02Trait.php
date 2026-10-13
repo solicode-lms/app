@@ -160,7 +160,9 @@ trait DashboardIndicateur02Trait
      */
     public function getIndicateurGatingResponsable(array $groupeIds = [], ?int $projetId = null): array
     {
-        $rpQuery = RealisationProjet::query();
+        $rpQuery = RealisationProjet::whereHas('affectationProjet.projet', function ($q) {
+            $q->sessionsFormation();
+        });
         if (!empty($groupeIds)) {
             $rpQuery->whereHas('affectationProjet', function ($q) use ($groupeIds) {
                 $q->whereIn('groupe_id', $groupeIds);
@@ -175,7 +177,10 @@ trait DashboardIndicateur02Trait
         $totalGlobalValides1er = (clone $rpQuery)->where('cache_est_valide_prototype_premier_essai', true)->count();
         $tauxGlobal = $totalGlobalEvalues > 0 ? round(($totalGlobalValides1er / $totalGlobalEvalues) * 100, 1) : 75.0;
 
-        $query = AffectationProjet::with(['groupe', 'realisationProjets', 'projet']);
+        $query = AffectationProjet::with(['groupe', 'realisationProjets', 'projet'])
+            ->whereHas('projet', function ($q) {
+                $q->sessionsFormation();
+            });
         if (!empty($groupeIds)) {
             $query->whereIn('groupe_id', $groupeIds);
         }

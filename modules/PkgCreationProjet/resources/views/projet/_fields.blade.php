@@ -371,6 +371,42 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemProjet" field="is_session_formation" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="is_session_formation" 
+              id="bulk_field_is_session_formation" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="is_session_formation">
+            {{ ucfirst(__('PkgCreationProjet::projet.is_session_formation')) }}
+            
+          </label>
+                      <input type="hidden" name="is_session_formation" value="0">
+            <input
+                name="is_session_formation"
+                type="checkbox"
+                class="form-control d-block"
+                
+                
+                
+                id="is_session_formation"
+                value="1"
+                {{ old('is_session_formation', $itemProjet ? $itemProjet->is_session_formation : 0) ? 'checked' : '' }}>
+          @error('is_session_formation')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 
     </div>
   

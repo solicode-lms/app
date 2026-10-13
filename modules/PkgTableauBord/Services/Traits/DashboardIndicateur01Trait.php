@@ -150,7 +150,10 @@ trait DashboardIndicateur01Trait
     {
         $realisationProjetService = app(RealisationProjetService::class);
 
-        $query = AffectationProjet::with(['groupe', 'realisationProjets', 'projet']);
+        $query = AffectationProjet::with(['groupe', 'realisationProjets', 'projet'])
+            ->whereHas('projet', function ($q) {
+                $q->sessionsFormation();
+            });
         if (!empty($groupeIds)) {
             $query->whereIn('groupe_id', $groupeIds);
         }

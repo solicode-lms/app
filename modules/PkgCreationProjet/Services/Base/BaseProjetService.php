@@ -35,7 +35,8 @@ class BaseProjetService extends BaseService
         'description',
         'reference',
         'is_auto_insert_chapitres',
-        'is_auto_calcule_note_realisation'
+        'is_auto_calcule_note_realisation',
+        'is_session_formation'
     ];
 
 

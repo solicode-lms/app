@@ -15,6 +15,24 @@ class Projet extends BaseProjet
        'formateur'
     ];
 
+    protected $casts = [
+        'is_session_formation' => 'boolean',
+    ];
+
+    /**
+     * Scope pour filtrer les projets qui sont des sessions de formation.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSessionsFormation($query)
+    {
+        if (\Illuminate\Support\Facades\Schema::hasColumn('projets', 'is_session_formation')) {
+            return $query->where('is_session_formation', true);
+        }
+        return $query;
+    }
+
 
     // protected $with = [
     //    'filiere',

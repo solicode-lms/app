@@ -57,7 +57,7 @@ class BaseProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'filiere_id', 'groupe_id', 'session_formation_id', 'titre', 'travail_a_faire', 'critere_de_travail', 'formateur_id', 'description', 'reference', 'is_auto_insert_chapitres', 'is_auto_calcule_note_realisation'
+        'filiere_id', 'groupe_id', 'session_formation_id', 'titre', 'travail_a_faire', 'critere_de_travail', 'formateur_id', 'description', 'reference', 'is_auto_insert_chapitres', 'is_auto_calcule_note_realisation', 'is_session_formation'
     ];
     public $manyToOne = [
         'filiere' => [

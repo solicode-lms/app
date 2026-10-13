@@ -15,4 +15,5 @@ return [
     'affectationProjets' => 'affectation',
     'is_auto_insert_chapitres' => 'Insertion automatique des chapitres',
     'is_auto_calcule_note_realisation' => 'Calcul automatique de la note de réalisation',
+    'is_session_formation' => 'Session de formation',
 ];

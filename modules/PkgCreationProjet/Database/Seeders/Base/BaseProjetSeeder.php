@@ -109,6 +109,7 @@ class BaseProjetSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                         "is_auto_insert_chapitres" => isset($row["is_auto_insert_chapitres"]) && $row["is_auto_insert_chapitres"] !== "" ? $row["is_auto_insert_chapitres"] : null,
                         "is_auto_calcule_note_realisation" => isset($row["is_auto_calcule_note_realisation"]) && $row["is_auto_calcule_note_realisation"] !== "" ? $row["is_auto_calcule_note_realisation"] : null,
+                        "is_session_formation" => isset($row["is_session_formation"]) && $row["is_session_formation"] !== "" ? $row["is_session_formation"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
 

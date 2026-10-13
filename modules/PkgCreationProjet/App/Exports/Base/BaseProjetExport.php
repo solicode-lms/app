@@ -43,6 +43,7 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'reference' => 'reference',
                 'is_auto_insert_chapitres' => 'is_auto_insert_chapitres',
                 'is_auto_calcule_note_realisation' => 'is_auto_calcule_note_realisation',
+                'is_session_formation' => 'is_session_formation',
             ];
         } else {
             return [
@@ -57,6 +58,7 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'reference' => __('Core::msg.reference'),
                 'is_auto_insert_chapitres' => __('PkgCreationProjet::projet.is_auto_insert_chapitres'),
                 'is_auto_calcule_note_realisation' => __('PkgCreationProjet::projet.is_auto_calcule_note_realisation'),
+                'is_session_formation' => __('PkgCreationProjet::projet.is_session_formation'),
             ];
         }
     }
@@ -79,6 +81,7 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'reference' => $projet->reference,
                 'is_auto_insert_chapitres' => $projet->is_auto_insert_chapitres ? '1' : '0',
                 'is_auto_calcule_note_realisation' => $projet->is_auto_calcule_note_realisation ? '1' : '0',
+                'is_session_formation' => $projet->is_session_formation ? '1' : '0',
             ];
         });
     }

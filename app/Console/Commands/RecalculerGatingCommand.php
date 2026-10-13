@@ -35,7 +35,11 @@ class RecalculerGatingCommand extends Command
         $projets = RealisationProjet::with([
             'realisationTaches.tache.phaseEvaluation',
             'realisationTaches.etatRealisationTache.workflowTache'
-        ])->get();
+        ])
+        ->whereHas('affectationProjet.projet', function ($q) {
+            $q->sessionsFormation();
+        })
+        ->get();
 
         $this->info("Traitement de {$projets->count()} réalisations de projets...");
 
