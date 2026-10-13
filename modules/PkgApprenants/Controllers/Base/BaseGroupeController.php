@@ -9,6 +9,7 @@ use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgFormation\Services\AnneeFormationService;
 use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
+use Modules\PkgTableauBord\Services\BordereauxOfficielService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Modules\PkgApprenants\Services\SousGroupeService;
 use Illuminate\Http\Request;
@@ -188,6 +189,13 @@ class BaseGroupeController extends AdminController
         $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
         extract($affectationProjets_view_data);
 
+        $this->viewState->set('scope.bordereauxOfficiel.groupe_id', $id);
+
+
+        $bordereauxOfficielService =  new BordereauxOfficielService();
+        $bordereauxOfficiels_view_data = $bordereauxOfficielService->prepareDataForIndexView();
+        extract($bordereauxOfficiels_view_data);
+
         $this->viewState->set('scope.projet.groupe_id', $id);
 
 
@@ -202,7 +210,7 @@ class BaseGroupeController extends AdminController
         $sousGroupes_view_data = $sousGroupeService->prepareDataForIndexView();
         extract($sousGroupes_view_data);
 
-        return array_merge(compact('itemGroupe'),$affectationProjet_compact_value, $projet_compact_value, $sousGroupe_compact_value);
+        return array_merge(compact('itemGroupe'),$affectationProjet_compact_value, $bordereauxOfficiel_compact_value, $projet_compact_value, $sousGroupe_compact_value);
 
     }
     /**
@@ -240,6 +248,13 @@ class BaseGroupeController extends AdminController
         $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
         extract($affectationProjets_view_data);
 
+        $this->viewState->set('scope.bordereauxOfficiel.groupe_id', $id);
+        
+
+        $bordereauxOfficielService =  new BordereauxOfficielService();
+        $bordereauxOfficiels_view_data = $bordereauxOfficielService->prepareDataForIndexView();
+        extract($bordereauxOfficiels_view_data);
+
         $this->viewState->set('scope.projet.groupe_id', $id);
         
 
@@ -256,7 +271,7 @@ class BaseGroupeController extends AdminController
 
         $bulkEdit = false;
 
-        $viewData = array_merge(compact('bulkEdit' , 'itemGroupe','filieres', 'anneeFormations', 'apprenants', 'formateurs'),$affectationProjet_compact_value, $projet_compact_value, $sousGroupe_compact_value);
+        $viewData = array_merge(compact('bulkEdit' , 'itemGroupe','filieres', 'anneeFormations', 'apprenants', 'formateurs'),$affectationProjet_compact_value, $bordereauxOfficiel_compact_value, $projet_compact_value, $sousGroupe_compact_value);
 
         return $viewData;
 

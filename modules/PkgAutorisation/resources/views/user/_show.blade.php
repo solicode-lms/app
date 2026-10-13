@@ -99,6 +99,21 @@
             @endif
 
             @if(
+                  (auth()->user()?->can('show-bordereauxOfficiel') && $itemUser->bordereauxOfficiels->isNotEmpty())  
+                  || auth()->user()?->can('create-bordereauxOfficiel')
+                  || (auth()->user()?->can('edit-bordereauxOfficiel')  && $itemUser->bordereauxOfficiels->isNotEmpty() )
+                  )
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgTableauBord::bordereauxOfficiel.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgTableauBord::bordereauxOfficiel._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.show_' . $itemUser->id])
+                  </div>
+                  </div>
+            </div>
+            @endif
+
+            @if(
                   (auth()->user()?->can('show-evaluateur') && $itemUser->evaluateurs->isNotEmpty())  
                   || auth()->user()?->can('create-evaluateur')
                   || (auth()->user()?->can('edit-evaluateur')  && $itemUser->evaluateurs->isNotEmpty() )

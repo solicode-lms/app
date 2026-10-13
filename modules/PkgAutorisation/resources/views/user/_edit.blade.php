@@ -52,6 +52,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemUser->bordereauxOfficiels?->count() > 0 || auth()->user()?->can('create-bordereauxOfficiel'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="user-hasmany-tabs-bordereauxOfficiel-tab" data-toggle="pill" href="#user-hasmany-tabs-bordereauxOfficiel" role="tab" aria-controls="user-hasmany-tabs-bordereauxOfficiel" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgTableauBord::bordereauxOfficiel.plural'))}}
+                            </a>
+                        </li>
+                        @endif
                          @if($itemUser->evaluateurs?->count() > 0 || auth()->user()?->can('create-evaluateur'))
                         <li class="nav-item">
                             <a class="nav-link" id="user-hasmany-tabs-evaluateur-tab" data-toggle="pill" href="#user-hasmany-tabs-evaluateur" role="tab" aria-controls="user-hasmany-tabs-evaluateur" aria-selected="false">
@@ -94,6 +102,11 @@
                             @if($itemUser->formateurs?->count() > 0 || auth()->user()?->can('create-formateur'))
                             <div class="tab-pane fade" id="user-hasmany-tabs-formateur" role="tabpanel" aria-labelledby="user-hasmany-tabs-formateur-tab">
                                 @include('PkgFormation::formateur._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
+                            </div>
+                            @endif
+                            @if($itemUser->bordereauxOfficiels?->count() > 0 || auth()->user()?->can('create-bordereauxOfficiel'))
+                            <div class="tab-pane fade" id="user-hasmany-tabs-bordereauxOfficiel" role="tabpanel" aria-labelledby="user-hasmany-tabs-bordereauxOfficiel-tab">
+                                @include('PkgTableauBord::bordereauxOfficiel._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
                             </div>
                             @endif
                             @if($itemUser->evaluateurs?->count() > 0 || auth()->user()?->can('create-evaluateur'))

@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-logActiviteFormateur', 'index-remediation'])
+@accessiblePermissions(['index-logActiviteFormateur', 'index-remediation', 'index-bordereauxOfficiel'])
 @if($accessiblePermissions->isNotEmpty())
     @if($accessiblePermissions->count() === 1)
         {{-- Cas d’un seul élément accessible --}}
@@ -20,6 +20,15 @@
                    class="nav-link {{ Request::is('admin/PkgTableauBord/remediations') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-table"></i>
                     <p>{{__('PkgTableauBord::remediation.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-bordereauxOfficiel')
+            <li class="nav-item" id="menu-bordereauxOfficiels">
+                <a href="{{ route('bordereauxOfficiels.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgTableauBord/bordereauxOfficiels') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>{{__('PkgTableauBord::bordereauxOfficiel.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -47,6 +56,14 @@
                 <a href="{{ route('remediations.index') }}" class="nav-link {{ Request::is('admin/PkgTableauBord/remediations') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-table"></i>
                     <p>{{__('PkgTableauBord::remediation.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-bordereauxOfficiel') 
+            <li class="nav-item" id="menu-bordereauxOfficiels">
+                <a href="{{ route('bordereauxOfficiels.index') }}" class="nav-link {{ Request::is('admin/PkgTableauBord/bordereauxOfficiels') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>{{__('PkgTableauBord::bordereauxOfficiel.plural')}}</p>
                 </a>
             </li>
             @endcan

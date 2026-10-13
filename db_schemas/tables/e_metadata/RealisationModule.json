@@ -976,5 +976,119 @@
         ],
         "e_model_reference": "realisation_modules",
         "e_metadata_definition_reference": "indexActions"
+    },
+    {
+        "reference": "RealisationModule_note_cc_officielle_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "RealisationModule_note_cc_officielle",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationModule_note_cc_officielle_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationModule_note_cc_officielle",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationModule_note_cc_officielle_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationModule_note_cc_officielle",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationModule_note_cc_officielle_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationModule_note_cc_officielle",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationModule_note_cc_officielle_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationModule_note_cc_officielle",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationModule_note_cc_officielle_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationModule_note_cc_officielle",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationModule_note_efm_officielle_displayOrder",
+        "value_integer": 10,
+        "e_data_field_reference": "RealisationModule_note_efm_officielle",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationModule_note_efm_officielle_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationModule_note_efm_officielle",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationModule_note_efm_officielle_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationModule_note_efm_officielle",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationModule_note_efm_officielle_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationModule_note_efm_officielle",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationModule_note_efm_officielle_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationModule_note_efm_officielle",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationModule_note_efm_officielle_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationModule_note_efm_officielle",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationModule_statut_docimologique_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationModule_statut_docimologique",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "RealisationModule_statut_docimologique_displayOrder",
+        "value_integer": 11,
+        "e_data_field_reference": "RealisationModule_statut_docimologique",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationModule_statut_docimologique_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationModule_statut_docimologique",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationModule_statut_docimologique_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationModule_statut_docimologique",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationModule_statut_docimologique_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationModule_statut_docimologique",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationModule_statut_docimologique_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationModule_statut_docimologique",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationModule_statut_docimologique_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationModule_statut_docimologique",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

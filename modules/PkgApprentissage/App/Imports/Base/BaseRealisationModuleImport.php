@@ -67,11 +67,14 @@ class BaseRealisationModuleImport implements ToModel, WithHeadingRow
              'bareme_non_evalue_cache' => $values[7] ?? null,
              'commentaire_formateur' => $values[8] ?? null,
              'date_debut' => $values[9] ?? null,
-             'date_fin' => $values[10] ?? null,
+             'note_cc_officielle' => $values[10] ?? null,
+             'date_fin' => $values[11] ?? null,
+             'note_efm_officielle' => $values[12] ?? null,
+             'statut_docimologique' => $values[13] ?? null,
              'reference' => $reference,
-             'progression_ideal_cache' => $values[12] ?? null,
-             'taux_rythme_cache' => $values[13] ?? null,
-             'pourcentage_non_valide_cache' => $values[14] ?? null,
+             'progression_ideal_cache' => $values[15] ?? null,
+             'taux_rythme_cache' => $values[16] ?? null,
+             'pourcentage_non_valide_cache' => $values[17] ?? null,
         ]);
 
 

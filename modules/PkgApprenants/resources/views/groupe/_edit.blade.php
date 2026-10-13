@@ -44,6 +44,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemGroupe->bordereauxOfficiels?->count() > 0 || auth()->user()?->can('create-bordereauxOfficiel'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="groupe-hasmany-tabs-bordereauxOfficiel-tab" data-toggle="pill" href="#groupe-hasmany-tabs-bordereauxOfficiel" role="tab" aria-controls="groupe-hasmany-tabs-bordereauxOfficiel" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgTableauBord::bordereauxOfficiel.plural'))}}
+                            </a>
+                        </li>
+                        @endif
                          @if($itemGroupe->projets?->count() > 0 || auth()->user()?->can('create-projet'))
                         <li class="nav-item">
                             <a class="nav-link" id="groupe-hasmany-tabs-projet-tab" data-toggle="pill" href="#groupe-hasmany-tabs-projet" role="tab" aria-controls="groupe-hasmany-tabs-projet" aria-selected="false">
@@ -73,6 +81,11 @@
                             @if($itemGroupe->affectationProjets?->count() > 0 || auth()->user()?->can('create-affectationProjet'))
                             <div class="tab-pane fade" id="groupe-hasmany-tabs-affectationProjet" role="tabpanel" aria-labelledby="groupe-hasmany-tabs-affectationProjet-tab">
                                 @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'groupe.edit_' . $itemGroupe->id])
+                            </div>
+                            @endif
+                            @if($itemGroupe->bordereauxOfficiels?->count() > 0 || auth()->user()?->can('create-bordereauxOfficiel'))
+                            <div class="tab-pane fade" id="groupe-hasmany-tabs-bordereauxOfficiel" role="tabpanel" aria-labelledby="groupe-hasmany-tabs-bordereauxOfficiel-tab">
+                                @include('PkgTableauBord::bordereauxOfficiel._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'groupe.edit_' . $itemGroupe->id])
                             </div>
                             @endif
                             @if($itemGroupe->projets?->count() > 0 || auth()->user()?->can('create-projet'))

@@ -400,6 +400,42 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationModule" field="note_cc_officielle" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="note_cc_officielle" 
+              id="bulk_field_note_cc_officielle" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="note_cc_officielle">
+            {{ ucfirst(__('PkgApprentissage::realisationModule.note_cc_officielle')) }}
+            
+          </label>
+              <input
+        name="note_cc_officielle"
+        type="number"
+        class="form-control"
+        
+        
+        
+        id="note_cc_officielle"
+        step="0.01"
+        placeholder="{{ __('PkgApprentissage::realisationModule.note_cc_officielle') }}"
+        value="{{ $itemRealisationModule ? number_format($itemRealisationModule->note_cc_officielle, 2, '.', '') : old('note_cc_officielle') }}">
+          @error('note_cc_officielle')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationModule" field="date_fin" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
@@ -430,6 +466,77 @@
                 value="{{ $itemRealisationModule ? $itemRealisationModule->date_fin : old('date_fin') }}">
 
           @error('date_fin')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationModule" field="note_efm_officielle" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="note_efm_officielle" 
+              id="bulk_field_note_efm_officielle" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="note_efm_officielle">
+            {{ ucfirst(__('PkgApprentissage::realisationModule.note_efm_officielle')) }}
+            
+          </label>
+              <input
+        name="note_efm_officielle"
+        type="number"
+        class="form-control"
+        
+        
+        
+        id="note_efm_officielle"
+        step="0.01"
+        placeholder="{{ __('PkgApprentissage::realisationModule.note_efm_officielle') }}"
+        value="{{ $itemRealisationModule ? number_format($itemRealisationModule->note_efm_officielle, 2, '.', '') : old('note_efm_officielle') }}">
+          @error('note_efm_officielle')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationModule" field="statut_docimologique" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="statut_docimologique" 
+              id="bulk_field_statut_docimologique" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="statut_docimologique">
+            {{ ucfirst(__('PkgApprentissage::realisationModule.statut_docimologique')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
+                name="statut_docimologique"
+                type="input"
+                class="form-control"
+                required
+                
+                
+                id="statut_docimologique"
+                placeholder="{{ __('PkgApprentissage::realisationModule.statut_docimologique') }}"
+                value="{{ $itemRealisationModule ? $itemRealisationModule->statut_docimologique : old('statut_docimologique') }}">
+          @error('statut_docimologique')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

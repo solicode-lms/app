@@ -408,5 +408,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "annee_formations_hasMany_session_formations_annee_formation_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "annee_formations_hasMany_bordereaux_officiels_annee_formation_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "annee_formations_hasMany_bordereaux_officiels_annee_formation_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "annee_formations_hasMany_bordereaux_officiels_annee_formation_id_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "annee_formations_hasMany_bordereaux_officiels_annee_formation_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "annee_formations_hasMany_bordereaux_officiels_annee_formation_id_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "annee_formations_hasMany_bordereaux_officiels_annee_formation_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "annee_formations_hasMany_bordereaux_officiels_annee_formation_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "annee_formations_hasMany_bordereaux_officiels_annee_formation_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

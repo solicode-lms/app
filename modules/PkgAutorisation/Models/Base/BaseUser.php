@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgFormation\Models\Formateur;
+use Modules\PkgTableauBord\Models\BordereauxOfficiel;
 use Modules\PkgEvaluateurs\Models\Evaluateur;
 use Modules\PkgAutorisation\Models\Profile;
 use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
@@ -77,6 +78,15 @@ class BaseUser extends BaseModel
     public function formateurs(): HasMany
     {
         return $this->hasMany(Formateur::class, 'user_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Users.
+     *
+     * @return HasMany
+     */
+    public function genereParBordereauxOfficiels(): HasMany
+    {
+        return $this->hasMany(BordereauxOfficiel::class, 'genere_par_user_id', 'id');
     }
     /**
      * Relation HasMany pour Users.

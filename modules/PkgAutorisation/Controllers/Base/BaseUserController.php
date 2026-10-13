@@ -7,6 +7,7 @@ use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgAutorisation\Services\RoleService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgFormation\Services\FormateurService;
+use Modules\PkgTableauBord\Services\BordereauxOfficielService;
 use Modules\PkgEvaluateurs\Services\EvaluateurService;
 use Modules\PkgAutorisation\Services\ProfileService;
 use Modules\PkgNotification\Services\NotificationService;
@@ -185,6 +186,13 @@ class BaseUserController extends AdminController
         $formateurs_view_data = $formateurService->prepareDataForIndexView();
         extract($formateurs_view_data);
 
+        $this->viewState->set('scope.bordereauxOfficiel.genere_par_user_id', $id);
+
+
+        $bordereauxOfficielService =  new BordereauxOfficielService();
+        $bordereauxOfficiels_view_data = $bordereauxOfficielService->prepareDataForIndexView();
+        extract($bordereauxOfficiels_view_data);
+
         $this->viewState->set('scope.evaluateur.user_id', $id);
 
 
@@ -227,7 +235,7 @@ class BaseUserController extends AdminController
         $widgetUtilisateurs_view_data = $widgetUtilisateurService->prepareDataForIndexView();
         extract($widgetUtilisateurs_view_data);
 
-        return array_merge(compact('itemUser'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value);
+        return array_merge(compact('itemUser'),$apprenant_compact_value, $formateur_compact_value, $bordereauxOfficiel_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value);
 
     }
     /**
@@ -269,6 +277,13 @@ class BaseUserController extends AdminController
         $formateurs_view_data = $formateurService->prepareDataForIndexView();
         extract($formateurs_view_data);
 
+        $this->viewState->set('scope.bordereauxOfficiel.genere_par_user_id', $id);
+        
+
+        $bordereauxOfficielService =  new BordereauxOfficielService();
+        $bordereauxOfficiels_view_data = $bordereauxOfficielService->prepareDataForIndexView();
+        extract($bordereauxOfficiels_view_data);
+
         $this->viewState->set('scope.evaluateur.user_id', $id);
         
 
@@ -292,7 +307,7 @@ class BaseUserController extends AdminController
 
         $bulkEdit = false;
 
-        $viewData = array_merge(compact('bulkEdit' , 'itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $notification_compact_value);
+        $viewData = array_merge(compact('bulkEdit' , 'itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $bordereauxOfficiel_compact_value, $evaluateur_compact_value, $profile_compact_value, $notification_compact_value);
 
         return $viewData;
 

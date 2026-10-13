@@ -16,6 +16,7 @@ use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
+use Modules\PkgTableauBord\Models\BordereauxOfficiel;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgApprenants\Models\SousGroupe;
 
@@ -116,6 +117,15 @@ class BaseGroupe extends BaseModel
     public function affectationProjets(): HasMany
     {
         return $this->hasMany(AffectationProjet::class, 'groupe_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Groupes.
+     *
+     * @return HasMany
+     */
+    public function bordereauxOfficiels(): HasMany
+    {
+        return $this->hasMany(BordereauxOfficiel::class, 'groupe_id', 'id');
     }
     /**
      * Relation HasMany pour Groupes.

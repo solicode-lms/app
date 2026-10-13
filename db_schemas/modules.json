@@ -212,7 +212,8 @@
     "name": "PkgTableauBord",
     "tables": [
         "log_activite_formateurs",
-        "remediations"
+        "remediations",
+        "bordereaux_officiels"
     ]
 }
 

@@ -5,6 +5,7 @@
 namespace Modules\PkgFormation\Controllers\Base;
 use Modules\PkgFormation\Services\AnneeFormationService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
+use Modules\PkgTableauBord\Services\BordereauxOfficielService;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgSessions\Services\SessionFormationService;
 use Illuminate\Http\Request;
@@ -168,6 +169,13 @@ class BaseAnneeFormationController extends AdminController
         $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
         extract($affectationProjets_view_data);
 
+        $this->viewState->set('scope.bordereauxOfficiel.annee_formation_id', $id);
+
+
+        $bordereauxOfficielService =  new BordereauxOfficielService();
+        $bordereauxOfficiels_view_data = $bordereauxOfficielService->prepareDataForIndexView();
+        extract($bordereauxOfficiels_view_data);
+
         $this->viewState->set('scope.groupe.annee_formation_id', $id);
 
 
@@ -182,7 +190,7 @@ class BaseAnneeFormationController extends AdminController
         $sessionFormations_view_data = $sessionFormationService->prepareDataForIndexView();
         extract($sessionFormations_view_data);
 
-        return array_merge(compact('itemAnneeFormation'),$affectationProjet_compact_value, $groupe_compact_value, $sessionFormation_compact_value);
+        return array_merge(compact('itemAnneeFormation'),$affectationProjet_compact_value, $bordereauxOfficiel_compact_value, $groupe_compact_value, $sessionFormation_compact_value);
 
     }
     /**
@@ -216,6 +224,13 @@ class BaseAnneeFormationController extends AdminController
         $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
         extract($affectationProjets_view_data);
 
+        $this->viewState->set('scope.bordereauxOfficiel.annee_formation_id', $id);
+        
+
+        $bordereauxOfficielService =  new BordereauxOfficielService();
+        $bordereauxOfficiels_view_data = $bordereauxOfficielService->prepareDataForIndexView();
+        extract($bordereauxOfficiels_view_data);
+
         $this->viewState->set('scope.groupe.annee_formation_id', $id);
         
 
@@ -232,7 +247,7 @@ class BaseAnneeFormationController extends AdminController
 
         $bulkEdit = false;
 
-        $viewData = array_merge(compact('bulkEdit' , 'itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value, $sessionFormation_compact_value);
+        $viewData = array_merge(compact('bulkEdit' , 'itemAnneeFormation',),$affectationProjet_compact_value, $bordereauxOfficiel_compact_value, $groupe_compact_value, $sessionFormation_compact_value);
 
         return $viewData;
 

@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\Filiere;
 use Modules\PkgCompetences\Models\Competence;
 use Modules\PkgApprentissage\Models\RealisationModule;
+use Modules\PkgTableauBord\Models\BordereauxOfficiel;
 
 /**
  * Classe BaseModule
@@ -84,6 +85,15 @@ class BaseModule extends BaseModel
     public function realisationModules(): HasMany
     {
         return $this->hasMany(RealisationModule::class, 'module_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Modules.
+     *
+     * @return HasMany
+     */
+    public function bordereauxOfficiels(): HasMany
+    {
+        return $this->hasMany(BordereauxOfficiel::class, 'module_id', 'id');
     }
 
 

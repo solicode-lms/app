@@ -12,6 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
+use Modules\PkgTableauBord\Models\BordereauxOfficiel;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgSessions\Models\SessionFormation;
 
@@ -50,6 +51,15 @@ class BaseAnneeFormation extends BaseModel
     public function affectationProjets(): HasMany
     {
         return $this->hasMany(AffectationProjet::class, 'annee_formation_id', 'id');
+    }
+    /**
+     * Relation HasMany pour AnneeFormations.
+     *
+     * @return HasMany
+     */
+    public function bordereauxOfficiels(): HasMany
+    {
+        return $this->hasMany(BordereauxOfficiel::class, 'annee_formation_id', 'id');
     }
     /**
      * Relation HasMany pour AnneeFormations.

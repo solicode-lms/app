@@ -52,6 +52,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemModule->bordereauxOfficiels?->count() > 0 || auth()->user()?->can('create-bordereauxOfficiel'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="module-hasmany-tabs-bordereauxOfficiel-tab" data-toggle="pill" href="#module-hasmany-tabs-bordereauxOfficiel" role="tab" aria-controls="module-hasmany-tabs-bordereauxOfficiel" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgTableauBord::bordereauxOfficiel.plural'))}}
+                            </a>
+                        </li>
+                        @endif
 
                        
                         </ul>
@@ -70,6 +78,11 @@
                             @if($itemModule->realisationModules?->count() > 0 || auth()->user()?->can('create-realisationModule'))
                             <div class="tab-pane fade" id="module-hasmany-tabs-realisationModule" role="tabpanel" aria-labelledby="module-hasmany-tabs-realisationModule-tab">
                                 @include('PkgApprentissage::realisationModule._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'module.edit_' . $itemModule->id])
+                            </div>
+                            @endif
+                            @if($itemModule->bordereauxOfficiels?->count() > 0 || auth()->user()?->can('create-bordereauxOfficiel'))
+                            <div class="tab-pane fade" id="module-hasmany-tabs-bordereauxOfficiel" role="tabpanel" aria-labelledby="module-hasmany-tabs-bordereauxOfficiel-tab">
+                                @include('PkgTableauBord::bordereauxOfficiel._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'module.edit_' . $itemModule->id])
                             </div>
                             @endif
 

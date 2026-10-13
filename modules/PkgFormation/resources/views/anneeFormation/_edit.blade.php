@@ -44,6 +44,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemAnneeFormation->bordereauxOfficiels?->count() > 0 || auth()->user()?->can('create-bordereauxOfficiel'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="anneeFormation-hasmany-tabs-bordereauxOfficiel-tab" data-toggle="pill" href="#anneeFormation-hasmany-tabs-bordereauxOfficiel" role="tab" aria-controls="anneeFormation-hasmany-tabs-bordereauxOfficiel" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgTableauBord::bordereauxOfficiel.plural'))}}
+                            </a>
+                        </li>
+                        @endif
                          @if($itemAnneeFormation->groupes?->count() > 0 || auth()->user()?->can('create-groupe'))
                         <li class="nav-item">
                             <a class="nav-link" id="anneeFormation-hasmany-tabs-groupe-tab" data-toggle="pill" href="#anneeFormation-hasmany-tabs-groupe" role="tab" aria-controls="anneeFormation-hasmany-tabs-groupe" aria-selected="false">
@@ -73,6 +81,11 @@
                             @if($itemAnneeFormation->affectationProjets?->count() > 0 || auth()->user()?->can('create-affectationProjet'))
                             <div class="tab-pane fade" id="anneeFormation-hasmany-tabs-affectationProjet" role="tabpanel" aria-labelledby="anneeFormation-hasmany-tabs-affectationProjet-tab">
                                 @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'anneeFormation.edit_' . $itemAnneeFormation->id])
+                            </div>
+                            @endif
+                            @if($itemAnneeFormation->bordereauxOfficiels?->count() > 0 || auth()->user()?->can('create-bordereauxOfficiel'))
+                            <div class="tab-pane fade" id="anneeFormation-hasmany-tabs-bordereauxOfficiel" role="tabpanel" aria-labelledby="anneeFormation-hasmany-tabs-bordereauxOfficiel-tab">
+                                @include('PkgTableauBord::bordereauxOfficiel._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'anneeFormation.edit_' . $itemAnneeFormation->id])
                             </div>
                             @endif
                             @if($itemAnneeFormation->groupes?->count() > 0 || auth()->user()?->can('create-groupe'))

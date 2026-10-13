@@ -53,6 +53,21 @@
             @endif
 
             @if(
+                  (auth()->user()?->can('show-bordereauxOfficiel') && $itemAnneeFormation->bordereauxOfficiels->isNotEmpty())  
+                  || auth()->user()?->can('create-bordereauxOfficiel')
+                  || (auth()->user()?->can('edit-bordereauxOfficiel')  && $itemAnneeFormation->bordereauxOfficiels->isNotEmpty() )
+                  )
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgTableauBord::bordereauxOfficiel.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgTableauBord::bordereauxOfficiel._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'anneeFormation.show_' . $itemAnneeFormation->id])
+                  </div>
+                  </div>
+            </div>
+            @endif
+
+            @if(
                   (auth()->user()?->can('show-groupe') && $itemAnneeFormation->groupes->isNotEmpty())  
                   || auth()->user()?->can('create-groupe')
                   || (auth()->user()?->can('edit-groupe')  && $itemAnneeFormation->groupes->isNotEmpty() )

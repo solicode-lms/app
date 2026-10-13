@@ -7,6 +7,7 @@ use Modules\PkgFormation\Services\ModuleService;
 use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgCompetences\Services\CompetenceService;
 use Modules\PkgApprentissage\Services\RealisationModuleService;
+use Modules\PkgTableauBord\Services\BordereauxOfficielService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -179,7 +180,14 @@ class BaseModuleController extends AdminController
         $realisationModules_view_data = $realisationModuleService->prepareDataForIndexView();
         extract($realisationModules_view_data);
 
-        return array_merge(compact('itemModule'),$competence_compact_value, $realisationModule_compact_value);
+        $this->viewState->set('scope.bordereauxOfficiel.module_id', $id);
+
+
+        $bordereauxOfficielService =  new BordereauxOfficielService();
+        $bordereauxOfficiels_view_data = $bordereauxOfficielService->prepareDataForIndexView();
+        extract($bordereauxOfficiels_view_data);
+
+        return array_merge(compact('itemModule'),$competence_compact_value, $realisationModule_compact_value, $bordereauxOfficiel_compact_value);
 
     }
     /**
@@ -221,9 +229,16 @@ class BaseModuleController extends AdminController
         $realisationModules_view_data = $realisationModuleService->prepareDataForIndexView();
         extract($realisationModules_view_data);
 
+        $this->viewState->set('scope.bordereauxOfficiel.module_id', $id);
+        
+
+        $bordereauxOfficielService =  new BordereauxOfficielService();
+        $bordereauxOfficiels_view_data = $bordereauxOfficielService->prepareDataForIndexView();
+        extract($bordereauxOfficiels_view_data);
+
         $bulkEdit = false;
 
-        $viewData = array_merge(compact('bulkEdit' , 'itemModule','filieres'),$competence_compact_value, $realisationModule_compact_value);
+        $viewData = array_merge(compact('bulkEdit' , 'itemModule','filieres'),$competence_compact_value, $realisationModule_compact_value, $bordereauxOfficiel_compact_value);
 
         return $viewData;
 

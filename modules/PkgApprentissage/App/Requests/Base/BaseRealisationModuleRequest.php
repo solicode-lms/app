@@ -39,7 +39,10 @@ class BaseRealisationModuleRequest extends FormRequest
             'bareme_non_evalue_cache' => 'required',
             'commentaire_formateur' => 'nullable|string',
             'date_debut' => 'nullable',
+            'note_cc_officielle' => 'nullable',
             'date_fin' => 'nullable',
+            'note_efm_officielle' => 'nullable',
+            'statut_docimologique' => 'required|string|max:255',
             'progression_ideal_cache' => 'required',
             'taux_rythme_cache' => 'required',
             'pourcentage_non_valide_cache' => 'required'
@@ -64,7 +67,11 @@ class BaseRealisationModuleRequest extends FormRequest
             'bareme_non_evalue_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.bareme_non_evalue_cache')]),
             'commentaire_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.commentaire_formateur')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.date_debut')]),
+            'note_cc_officielle.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.note_cc_officielle')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.date_fin')]),
+            'note_efm_officielle.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.note_efm_officielle')]),
+            'statut_docimologique.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.statut_docimologique')]),
+            'statut_docimologique.max' => __('validation.statut_docimologiqueMax'),
             'progression_ideal_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.progression_ideal_cache')]),
             'taux_rythme_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.taux_rythme_cache')]),
             'pourcentage_non_valide_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.pourcentage_non_valide_cache')])
