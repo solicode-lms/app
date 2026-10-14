@@ -208,6 +208,20 @@ class ParametrePedagogiqueService
     }
 
     // =========================================================================
+    // ACCESSEURS SPÉCIFIQUES - INDICATEUR 03 : F_RÉVISION
+    // =========================================================================
+
+    public function getSeuilRevisionOptimal(?int $projetId = null): float
+    {
+        return (float) $this->get('revision_seuil_optimal', 0.5, $projetId);
+    }
+
+    public function getSeuilRevisionAlerte(?int $projetId = null): float
+    {
+        return (float) $this->get('revision_seuil_alerte', 1.2, $projetId);
+    }
+
+    // =========================================================================
     // ACCESSEURS SPÉCIFIQUES - INDICATEUR 06 : REMÉDIATION & LIVE CODING
     // =========================================================================
 

@@ -60,6 +60,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemRealisationTache->revisionTaches?->count() > 0 || auth()->user()?->can('create-revisionTache'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="realisationTache-hasmany-tabs-revisionTache-tab" data-toggle="pill" href="#realisationTache-hasmany-tabs-revisionTache" role="tab" aria-controls="realisationTache-hasmany-tabs-revisionTache" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgRealisationTache::revisionTache.plural'))}}
+                            </a>
+                        </li>
+                        @endif
 
                        
                         </ul>
@@ -83,6 +91,11 @@
                             @if($itemRealisationTache->remediations?->count() > 0 || auth()->user()?->can('create-remediation'))
                             <div class="tab-pane fade" id="realisationTache-hasmany-tabs-remediation" role="tabpanel" aria-labelledby="realisationTache-hasmany-tabs-remediation-tab">
                                 @include('PkgTableauBord::remediation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+                            </div>
+                            @endif
+                            @if($itemRealisationTache->revisionTaches?->count() > 0 || auth()->user()?->can('create-revisionTache'))
+                            <div class="tab-pane fade" id="realisationTache-hasmany-tabs-revisionTache" role="tabpanel" aria-labelledby="realisationTache-hasmany-tabs-revisionTache-tab">
+                                @include('PkgRealisationTache::revisionTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
                             </div>
                             @endif
 

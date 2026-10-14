@@ -114,9 +114,10 @@ trait RealisationTacheJobTrait
                         ->enregistrerTentativeLiveCoding($realisationTache, $etatWorkflowCode);
                 }
 
-                    // Sprint 3 : Indicateur 03 (F_révision) - Incrémentation lors d'un renvoi en révision
+                    // Sprint 3 : Indicateur 03 (F_révision) - Enregistrement structuré de la demande de révision
                     if ($etatWorkflowCode === 'REVISION_NECESSAIRE') {
-                        $this->incrementerNombreRevisions($realisationTache);
+                        app(\Modules\PkgRealisationTache\Services\RevisionTacheService::class)
+                            ->enregistrerDemandeRevision($realisationTache);
                     }
 
                     // Sprint 5 : Indicateur 05 (T_file) - Horodatage entrée file FIFO & prise en charge Live Coding

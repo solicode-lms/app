@@ -188,7 +188,7 @@ trait DashboardIndicateur02Trait
         if (!empty($projetId)) {
             $query->where('projet_id', $projetId);
         }
-        $affectations = $query->latest('date_debut')->take(10)->get();
+        $affectations = $query->latest('date_debut')->get();
 
         $benchmark = [];
 
@@ -315,10 +315,6 @@ trait DashboardIndicateur02Trait
             && empty($filters['projet_id']) 
             && empty($filters['formateur_id']) 
             && empty($filters['filiere_id']);
-
-        if ($isVisionGlobale) {
-            $query->take(10);
-        }
 
         $affectations = $query->latest('date_debut')->get();
 

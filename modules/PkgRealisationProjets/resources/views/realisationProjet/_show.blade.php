@@ -18,28 +18,6 @@
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.cache_date_premiere_soumission')) }}</small>
-                  <span>
-                    @if ($itemRealisationProjet->cache_date_premiere_soumission)
-                    {{ \Carbon\Carbon::parse($itemRealisationProjet->cache_date_premiere_soumission)->isoFormat('LLL') }}
-                    @else
-                    —
-                    @endif
-                  </span>                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.cache_date_lancement')) }}</small>
-                  <span>
-                    @if ($itemRealisationProjet->cache_date_lancement)
-                    {{ \Carbon\Carbon::parse($itemRealisationProjet->cache_date_lancement)->isoFormat('LLL') }}
-                    @else
-                    —
-                    @endif
-                  </span>                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.note_cache')) }}</small>
 @include('PkgRealisationProjets::realisationProjet.custom.fields.note_cache',['entity' => $itemRealisationProjet])
                 </div>
@@ -57,41 +35,10 @@
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.cache_nombre_tentatives_prototype')) }}</small>
-                  <span>
-                    @if(! is_null($itemRealisationProjet->cache_nombre_tentatives_prototype))
-                      {{ $itemRealisationProjet->cache_nombre_tentatives_prototype }}
-                    @else
-                      —
-                    @endif
-                  </span>                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_fin')) }}</small>
                   <span>
                     @if ($itemRealisationProjet->date_fin)
                     {{ \Carbon\Carbon::parse($itemRealisationProjet->date_fin)->isoFormat('LLL') }}
-                    @else
-                    —
-                    @endif
-                  </span>                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.cache_est_valide_prototype_premier_essai')) }}</small>
-                  @if($itemRealisationProjet->cache_est_valide_prototype_premier_essai)
-                  <span class="badge badge-success">{{ __('Oui') }}</span>
-                  @else
-                  <span class="badge badge-secondary">{{ __('Non') }}</span>
-                  @endif                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.cache_date_validation_prototype')) }}</small>
-                  <span>
-                    @if ($itemRealisationProjet->cache_date_validation_prototype)
-                    {{ \Carbon\Carbon::parse($itemRealisationProjet->cache_date_validation_prototype)->isoFormat('LLL') }}
                     @else
                     —
                     @endif

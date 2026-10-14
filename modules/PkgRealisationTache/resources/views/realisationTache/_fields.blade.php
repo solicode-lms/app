@@ -447,41 +447,6 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="cache_nombre_revisions" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="cache_nombre_revisions" 
-              id="bulk_field_cache_nombre_revisions" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="cache_nombre_revisions">
-            {{ ucfirst(__('PkgRealisationTache::realisationTache.cache_nombre_revisions')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <input
-                name="cache_nombre_revisions"
-                type="number"
-                class="form-control"
-                required
-                
-                
-                id="cache_nombre_revisions"
-                placeholder="{{ __('PkgRealisationTache::realisationTache.cache_nombre_revisions') }}"
-                value="{{ $itemRealisationTache ? $itemRealisationTache->cache_nombre_revisions : old('cache_nombre_revisions') }}">
-          @error('cache_nombre_revisions')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 
 @if($itemRealisationTache->id)
 @if(

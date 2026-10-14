@@ -215,4 +215,41 @@ class IndicateurDetailController extends AdminController
             'detail' => $detail,
         ]);
     }
+
+    /**
+     * Page de détail pour l'Indicateur 03 : Fréquence de Révision & Stabilité du Premier Jet (F_révision).
+     *
+     * @DynamicPermissionIgnore
+     */
+    public function revisions(Request $request)
+    {
+        $ctx = $this->resolveFilterContext($request);
+
+        $filters = [
+            'groupe_ids' => $ctx['targetGroupeIds'],
+            'projet_id' => $ctx['targetProjetId'],
+            'filiere_id' => $ctx['selectedFiliereId'],
+            'formateur_id' => $ctx['selectedFormateurId'],
+            'filter_type' => $ctx['filterType'],
+        ];
+
+        $detail = $this->tableauBordService->getIndicateurRevisionDetail($filters);
+
+        return view('PkgTableauBord::indicateurs.revisions', [
+            'user' => $ctx['user'],
+            'dashboardRoute' => $ctx['dashboardRoute'],
+            'isVisionGlobale' => $ctx['isVisionGlobale'],
+            'formateurs' => $ctx['formateurs'],
+            'selectedFormateurId' => $ctx['selectedFormateurId'],
+            'filieres' => $ctx['filieres'],
+            'selectedFiliereId' => $ctx['selectedFiliereId'],
+            'groupes' => $ctx['groupes'],
+            'selectedGroupeId' => $ctx['selectedGroupeId'],
+            'projets' => $ctx['projets'],
+            'selectedProjetId' => $ctx['selectedProjetId'],
+            'projetActif' => $ctx['projetActif'],
+            'filterType' => $ctx['filterType'],
+            'detail' => $detail,
+        ]);
+    }
 }

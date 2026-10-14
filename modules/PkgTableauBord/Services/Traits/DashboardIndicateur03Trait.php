@@ -206,7 +206,7 @@ trait DashboardIndicateur03Trait
             $query->where('projet_id', $projetId);
         }
 
-        $affectations = $query->latest('date_debut')->take(10)->get();
+        $affectations = $query->latest('date_debut')->get();
 
         $toutesLesRevisions = [];
         $benchmark = [];
@@ -253,6 +253,284 @@ trait DashboardIndicateur03Trait
             'frequence_globale' => $globalFreq,
             'frequence_globale_formatee' => "{$globalFreq} itér. / tâche",
             'benchmark' => $benchmark,
+        ];
+    }
+
+    /**
+     * Analyse granulaire détaillée pour l'Indicateur 03 : Fréquence de Révision & Stabilité du Premier Jet.
+     *
+     * @param array $filters
+     * @return array
+     */
+    public function getIndicateurRevisionDetail(array $filters = []): array
+    {
+        $parametreService = app(\Modules\PkgTableauBord\Services\ParametrePedagogiqueService::class);
+        $seuilOptimal = $parametreService->getSeuilRevisionOptimal($filters['projet_id'] ?? null);
+        $seuilAlerte = $parametreService->getSeuilRevisionAlerte($filters['projet_id'] ?? null);
+
+        $query = AffectationProjet::with([
+            'groupe.filiere',
+            'projet.formateur',
+            'realisationProjets.apprenant.user',
+            'realisationProjets.realisationTaches.tache',
+            'realisationProjets.realisationTaches.etatRealisationTache.workflowTache',
+            'realisationProjets.realisationTaches.revisionTaches'
+        ]);
+
+        if (!empty($filters['projet_id'])) {
+            $query->where('projet_id', $filters['projet_id']);
+        } elseif (($filters['type_projet'] ?? 'sessions') === 'sessions') {
+            $query->whereHas('projet', fn($q) => $q->sessionsFormation());
+        }
+
+        if (!empty($filters['groupe_id'])) {
+            $query->where('groupe_id', $filters['groupe_id']);
+        } elseif (!empty($filters['groupe_ids'])) {
+            $query->whereIn('groupe_id', $filters['groupe_ids']);
+        } elseif (!empty($filters['filiere_id'])) {
+            $query->whereHas('groupe', fn($q) => $q->where('filiere_id', $filters['filiere_id']));
+        }
+
+        if (!empty($filters['formateur_id'])) {
+            $query->whereHas('projet', fn($p) => $p->where('formateur_id', $filters['formateur_id']));
+        }
+
+        $affectations = $query->latest('date_debut')->get();
+
+        $apprenants = [];
+        $totalApprenants = 0;
+        $totalTaches = 0;
+        $totalRejets = 0;
+        $tachesSansReprise = 0;
+        $tachesCritiques = 0;
+
+        $tranches = [
+            'premier_jet' => 0,
+            'une_reprise' => 0,
+            'deux_trois_reprises' => 0,
+            'quatre_plus' => 0,
+        ];
+
+        $tachesPareto = [];
+        $benchmarkSessions = [];
+
+        foreach ($affectations as $aff) {
+            $totalSession = 0;
+            $tachesSession = 0;
+            $rejetsSession = 0;
+            $sansRepriseSession = 0;
+
+            foreach ($aff->realisationProjets as $rp) {
+                $totalApprenants++;
+                $totalSession++;
+                $apprenant = $rp->apprenant;
+
+                $tachesApprenant = 0;
+                $rejetsApprenant = 0;
+                $sansRepriseApprenant = 0;
+                $tachesDetails = [];
+                $tachePlusDifficile = null;
+                $maxRejetsTache = 0;
+
+                foreach ($rp->realisationTaches as $rt) {
+                    $totalTaches++;
+                    $tachesSession++;
+                    $tachesApprenant++;
+
+                    $nbRevisions = (int) ($rt->cache_nombre_revisions ?? 0);
+                    $totalRejets += $nbRevisions;
+                    $rejetsSession += $nbRevisions;
+                    $rejetsApprenant += $nbRevisions;
+
+                    if ($nbRevisions === 0) {
+                        $tachesSansReprise++;
+                        $sansRepriseSession++;
+                        $sansRepriseApprenant++;
+                        $tranches['premier_jet']++;
+                    } elseif ($nbRevisions === 1) {
+                        $tranches['une_reprise']++;
+                    } elseif ($nbRevisions <= 3) {
+                        $tachesCritiques++;
+                        $tranches['deux_trois_reprises']++;
+                    } else {
+                        $tachesCritiques++;
+                        $tranches['quatre_plus']++;
+                    }
+
+                    if ($nbRevisions > $maxRejetsTache) {
+                        $maxRejetsTache = $nbRevisions;
+                        $tachePlusDifficile = $rt->tache?->titre ?? "Tâche #{$rt->tache_id}";
+                    }
+
+                    $revisionsList = $rt->revisionTaches->map(function ($rev) {
+                        return [
+                            'id' => $rev->id,
+                            'tentative' => $rev->tentative,
+                            'date_demande' => $rev->date_demande ? \Carbon\Carbon::parse($rev->date_demande)->format('d/m/Y H:i') : '--',
+                            'message_formateur' => $rev->message_formateur,
+                            'est_valide' => (bool) $rev->est_valide,
+                        ];
+                    })->sortBy('tentative')->values()->all();
+
+                    $tachesDetails[] = [
+                        'id' => $rt->id,
+                        'tache_id' => $rt->tache_id,
+                        'titre' => $rt->tache?->titre ?? "Tâche #{$rt->tache_id}",
+                        'etat' => optional($rt->etatRealisationTache?->workflowTache)->code ?? 'UNKNOWN',
+                        'etat_titre' => $rt->etatRealisationTache?->nom ?? 'Inconnu',
+                        'nb_revisions' => $nbRevisions,
+                        'revisions' => $revisionsList,
+                    ];
+
+                    $tId = $rt->tache_id;
+                    if (!isset($tachesPareto[$tId])) {
+                        $tachesPareto[$tId] = [
+                            'tache_id' => $tId,
+                            'titre' => $rt->tache?->titre ?? "Tâche #{$tId}",
+                            'total_rejets' => 0,
+                            'total_evaluations' => 0,
+                            'apprenants_touches' => 0,
+                            'messages' => [],
+                        ];
+                    }
+                    $tachesPareto[$tId]['total_rejets'] += $nbRevisions;
+                    $tachesPareto[$tId]['total_evaluations']++;
+                    if ($nbRevisions > 0) {
+                        $tachesPareto[$tId]['apprenants_touches']++;
+                        foreach ($rt->revisionTaches as $rev) {
+                            if ($rev->message_formateur && !in_array($rev->message_formateur, $tachesPareto[$tId]['messages'])) {
+                                $tachesPareto[$tId]['messages'][] = $rev->message_formateur;
+                            }
+                        }
+                    }
+                }
+
+                $freqAppr = $tachesApprenant > 0 ? round($rejetsApprenant / $tachesApprenant, 2) : 0.0;
+                $taux1erAppr = $tachesApprenant > 0 ? round(($sansRepriseApprenant / $tachesApprenant) * 100, 1) : 100.0;
+
+                if ($tachesApprenant === 0) {
+                    $statutCode = 'non_evalue';
+                    $statutLabel = 'Non évalué';
+                    $statutBadge = 'bg-slate-50 text-slate-700 border-slate-200';
+                } elseif ($freqAppr < $seuilOptimal) {
+                    $statutCode = 'premier_jet';
+                    $statutLabel = 'Excellence';
+                    $statutBadge = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+                } elseif ($freqAppr <= $seuilAlerte) {
+                    $statutCode = 'ajustement';
+                    $statutLabel = 'Ajustements';
+                    $statutBadge = 'bg-sky-50 text-sky-700 border-sky-200';
+                } else {
+                    $statutCode = 'tattonnement';
+                    $statutLabel = 'Tâtonnement';
+                    $statutBadge = 'bg-rose-50 text-rose-700 border-rose-200';
+                }
+
+                $apprenants[] = [
+                    'id' => $apprenant?->id,
+                    'nom_complet' => ($apprenant?->prenom ?? '') . ' ' . ($apprenant?->nom ?? 'Stagiaire'),
+                    'prenom' => $apprenant?->prenom ?? '',
+                    'nom' => $apprenant?->nom ?? 'Stagiaire',
+                    'matricule' => $apprenant?->matricule ?? null,
+                    'avatar' => $apprenant?->profile_image ?? null,
+                    'groupe_code' => $aff->groupe?->code ?? ($aff->groupe?->nom ?? 'Promo'),
+                    'projet_titre' => $aff->projet?->titre ?? 'Session',
+                    'total_taches' => $tachesApprenant,
+                    'total_rejets' => $rejetsApprenant,
+                    'taches_sans_reprise' => $sansRepriseApprenant,
+                    'taux_premier_jet' => $taux1erAppr,
+                    'frequence_individuelle' => $freqAppr,
+                    'statut_code' => $statutCode,
+                    'statut_label' => $statutLabel,
+                    'statut_badge' => $statutBadge,
+                    'tache_critique' => $tachePlusDifficile ?? 'Aucune reprise',
+                    'taches_details' => $tachesDetails,
+                ];
+            }
+
+            $freqSession = $tachesSession > 0 ? round($rejetsSession / $tachesSession, 2) : 0.0;
+            $tauxSession = $tachesSession > 0 ? round(($sansRepriseSession / $tachesSession) * 100, 1) : 100.0;
+
+            if ($freqSession < $seuilOptimal) {
+                $statutSession = 'Excellence';
+                $statutSessionBadge = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+            } elseif ($freqSession <= $seuilAlerte) {
+                $statutSession = 'Vigilance';
+                $statutSessionBadge = 'bg-amber-50 text-amber-700 border-amber-200';
+            } else {
+                $statutSession = 'Alerte';
+                $statutSessionBadge = 'bg-rose-50 text-rose-700 border-rose-200';
+            }
+
+            $benchmarkSessions[] = [
+                'affectation_id' => $aff->id,
+                'session_titre' => $aff->projet?->titre ?? 'Session',
+                'date_debut' => $aff->date_debut ? \Carbon\Carbon::parse($aff->date_debut)->format('d/m/Y') : null,
+                'groupe_id' => $aff->groupe_id,
+                'groupe_code' => $aff->groupe?->code ?? 'Groupe',
+                'filiere_code' => $aff->groupe?->filiere?->code ?? ($aff->groupe?->filiere?->nom ?? '--'),
+                'total_apprenants' => $totalSession,
+                'total_taches' => $tachesSession,
+                'total_rejets' => $rejetsSession,
+                'frequence_revision' => $freqSession,
+                'frequence_formatee' => "{$freqSession} itér.",
+                'taux_premier_jet' => $tauxSession,
+                'taux_premier_jet_formate' => "{$tauxSession}%",
+                'statut' => $statutSession,
+                'statut_badge' => $statutSessionBadge,
+            ];
+        }
+
+        usort($tachesPareto, fn($a, $b) => $b['total_rejets'] <=> $a['total_rejets']);
+        foreach ($tachesPareto as &$tp) {
+            $moyen = $tp['total_evaluations'] > 0 ? round($tp['total_rejets'] / $tp['total_evaluations'], 2) : 0.0;
+            $tp['frequence_moyenne'] = $moyen;
+            if ($moyen < $seuilOptimal) {
+                $tp['diagnostic'] = 'Consigne limpide (Excellence)';
+                $tp['badge'] = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+            } elseif ($moyen <= $seuilAlerte) {
+                $tp['diagnostic'] = 'Ajustements techniques modérés';
+                $tp['badge'] = 'bg-amber-50 text-amber-700 border-amber-200';
+            } else {
+                $tp['diagnostic'] = 'Friction didactique / Consigne à clarifier';
+                $tp['badge'] = 'bg-rose-50 text-rose-700 border-rose-200';
+            }
+        }
+        unset($tp);
+
+        $frequenceGlobale = $totalTaches > 0 ? round($totalRejets / $totalTaches, 2) : 0.0;
+        $tauxPremierJetGlobal = $totalTaches > 0 ? round(($tachesSansReprise / $totalTaches) * 100, 1) : 100.0;
+
+        if ($frequenceGlobale < $seuilOptimal) {
+            $statutGlobal = 'Excellence didactique';
+            $statutGlobalBadge = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+        } elseif ($frequenceGlobale <= $seuilAlerte) {
+            $statutGlobal = 'Vigilance';
+            $statutGlobalBadge = 'bg-amber-50 text-amber-700 border-amber-200';
+        } else {
+            $statutGlobal = 'Alerte Tâtonnement';
+            $statutGlobalBadge = 'bg-rose-50 text-rose-700 border-rose-200';
+        }
+
+        return [
+            'frequence_moyenne' => $frequenceGlobale,
+            'frequence_formatee' => "{$frequenceGlobale} reprise / tâche",
+            'total_rejets' => $totalRejets,
+            'total_taches' => $totalTaches,
+            'taches_sans_reprise' => $tachesSansReprise,
+            'taches_critiques' => $tachesCritiques,
+            'total_apprenants' => $totalApprenants,
+            'taux_premier_jet' => $tauxPremierJetGlobal,
+            'taux_premier_jet_formate' => "{$tauxPremierJetGlobal}%",
+            'seuil_optimal' => $seuilOptimal,
+            'seuil_alerte' => $seuilAlerte,
+            'statut' => $statutGlobal,
+            'statut_badge' => $statutGlobalBadge,
+            'tranches' => $tranches,
+            'taches_pareto' => array_slice($tachesPareto, 0, 10),
+            'apprenants' => $apprenants,
+            'benchmark' => $benchmarkSessions,
+            'description' => 'Suivi de la stabilité du code, de l\'autonomie et détection des consignes pédagogiques ambiguës.',
         ];
     }
 

@@ -138,7 +138,8 @@
         "livrable_tache",
         "workflow_taches",
         "tache_affectations",
-        "live_codings"
+        "live_codings",
+        "revision_taches"
     ]
 },
 

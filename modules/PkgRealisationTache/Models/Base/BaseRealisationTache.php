@@ -24,6 +24,7 @@ use Modules\PkgApprentissage\Models\RealisationUaProjet;
 use Modules\PkgApprentissage\Models\RealisationUaPrototype;
 use Modules\PkgRealisationTache\Models\LiveCoding;
 use Modules\PkgTableauBord\Models\Remediation;
+use Modules\PkgRealisationTache\Models\RevisionTache;
 
 /**
  * Classe BaseRealisationTache
@@ -239,6 +240,15 @@ class BaseRealisationTache extends BaseModel
     public function remediations(): HasMany
     {
         return $this->hasMany(Remediation::class, 'realisation_tache_id', 'id');
+    }
+    /**
+     * Relation HasMany pour RealisationTaches.
+     *
+     * @return HasMany
+     */
+    public function revisionTaches(): HasMany
+    {
+        return $this->hasMany(RevisionTache::class, 'realisation_tache_id', 'id');
     }
 
 

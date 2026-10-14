@@ -958,7 +958,8 @@
     },
     {
         "reference": "RealisationProjet_cache_date_premiere_soumission_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_cache_date_premiere_soumission",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -982,7 +983,8 @@
     },
     {
         "reference": "RealisationProjet_cache_date_premiere_soumission_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_cache_date_premiere_soumission",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -994,7 +996,8 @@
     },
     {
         "reference": "RealisationProjet_cache_date_lancement_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_cache_date_lancement",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -1018,7 +1021,8 @@
     },
     {
         "reference": "RealisationProjet_cache_date_lancement_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_cache_date_lancement",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -1036,7 +1040,8 @@
     },
     {
         "reference": "RealisationProjet_cache_nombre_tentatives_prototype_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_cache_nombre_tentatives_prototype",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -1060,7 +1065,8 @@
     },
     {
         "reference": "RealisationProjet_cache_nombre_tentatives_prototype_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_cache_nombre_tentatives_prototype",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -1072,7 +1078,8 @@
     },
     {
         "reference": "RealisationProjet_cache_est_valide_prototype_premier_essai_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_cache_est_valide_prototype_premier_essai",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -1096,7 +1103,8 @@
     },
     {
         "reference": "RealisationProjet_cache_est_valide_prototype_premier_essai_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_cache_est_valide_prototype_premier_essai",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -1108,7 +1116,8 @@
     },
     {
         "reference": "RealisationProjet_cache_date_validation_prototype_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_cache_date_validation_prototype",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -1132,7 +1141,8 @@
     },
     {
         "reference": "RealisationProjet_cache_date_validation_prototype_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_cache_date_validation_prototype",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     }

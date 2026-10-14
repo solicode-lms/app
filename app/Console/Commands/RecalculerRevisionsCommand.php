@@ -3,10 +3,11 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
 use Modules\PkgRealisationTache\Models\RealisationTache;
-use Modules\PkgRealisationTache\Models\EtatRealisationTache;
+use Modules\PkgRealisationTache\Models\RevisionTache;
+use Modules\PkgRealisationTache\Services\RevisionTacheService;
 
 class RecalculerRevisionsCommand extends Command
 {
@@ -15,14 +16,14 @@ class RecalculerRevisionsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'dashboard:recalculer-revisions {--force : Forcer le recalcul même si les données existent déjà}';
+    protected $signature = 'dashboard:recalculer-revisions {--force : Forcer le recalcul et la régénération des révisions}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Peuple et met à jour les données de cache pour l\'indicateur des boucles de révision (F_révision)';
+    protected $description = 'Peuple la table revision_taches depuis l\'historique et met à jour le cache (Indicateur 03 — F_révision)';
 
     /**
      * Execute the console command.
@@ -31,64 +32,136 @@ class RecalculerRevisionsCommand extends Command
     {
         $this->info("=== Démarrage du rattrapage des données de Révision (Indicateur 03 — F_révision) ===");
 
-        if (!Schema::hasColumn('realisation_taches', 'cache_nombre_revisions')) {
-            $this->warn("⚠️ La colonne 'cache_nombre_revisions' n'existe pas encore en base de données. Veuillez exécuter 'php artisan migrate'.");
-            return 1;
+        $isForce = (bool) $this->option('force');
+        $service = app(RevisionTacheService::class);
+
+        if ($isForce) {
+            $this->warn("Option --force détectée : purge des révisions existantes...");
+            RevisionTache::query()->delete();
         }
 
-        $isForce = (bool) $this->option('force');
+        // Trouver toutes les tâches concernées par une révision ou une remarque formateur
+        $allRtIds = HistoriqueRealisationTache::where(function ($q) {
+            $q->where('changement', 'like', '%REVISION_NECESSAIRE%')
+              ->orWhere('changement', 'like', '%Remarques - formateur%');
+        })
+        ->orWhereIn('realisation_tache_id', RealisationTache::where('cache_nombre_revisions', '>', 0)->pluck('id'))
+        ->pluck('realisation_tache_id')
+        ->unique()
+        ->values();
 
-        // Récupérer les IDs d'états correspondant au workflow REVISION_NECESSAIRE
-        $etatRevisionIds = EtatRealisationTache::whereHas('workflowTache', function ($q) {
-            $q->where('code', 'REVISION_NECESSAIRE');
-        })->pluck('id')->toArray();
+        $this->info("Traitement de " . count($allRtIds) . " réalisations de tâches...");
 
-        $realisations = RealisationTache::with(['realisationProjet.affectationProjet.projet'])
-            ->whereHas('realisationProjet.affectationProjet.projet', function ($q) {
-                $q->sessionsFormation();
-            })
-            ->get();
+        $totalCrees = 0;
+        $totalTachesMisesAJour = 0;
 
-        $this->info("Traitement de {$realisations->count()} réalisations de tâches...");
-
-        $nbMisesAJour = 0;
-        $totalRejets = 0;
-
-        foreach ($realisations as $rt) {
-            if (!$isForce && $rt->cache_nombre_revisions > 0) {
-                $totalRejets += $rt->cache_nombre_revisions;
+        foreach ($allRtIds as $rtId) {
+            $realisationTache = RealisationTache::find($rtId);
+            if (!$realisationTache) {
                 continue;
             }
 
-            // Compter les passages par REVISION_NECESSAIRE dans l'historique
-            $nbRevisionsHistorique = HistoriqueRealisationTache::where('realisation_tache_id', $rt->id)
-                ->where(function ($q) use ($etatRevisionIds) {
-                    $q->where('changement', 'like', '%Révision nécessaire%')
-                      ->orWhere('changement', 'like', '%REVISION_NECESSAIRE%');
+            // Si des révisions existent déjà et que --force n'est pas activé, resynchroniser et passer
+            $existants = RevisionTache::where('realisation_tache_id', $rtId)->count();
+            if ($existants > 0 && !$isForce) {
+                $service->synchroniserCacheRevisionDepuisRevisionTaches($rtId);
+                continue;
+            }
+
+            $historiques = HistoriqueRealisationTache::where('realisation_tache_id', $rtId)
+                ->where(function ($q) {
+                    $q->where('changement', 'like', '%REVISION_NECESSAIRE%')
+                      ->orWhere('changement', 'like', '%Remarques - formateur%');
                 })
-                ->count();
+                ->orderBy('created_at', 'asc')
+                ->orderBy('id', 'asc')
+                ->get();
 
-            // Si actuellement en révision nécessaire mais non tracé dans l'historique
-            if ($nbRevisionsHistorique === 0 && in_array($rt->etat_realisation_tache_id, $etatRevisionIds)) {
-                $nbRevisionsHistorique = 1;
+            // Regroupement par session de révision (fenêtre de 15 minutes)
+            $groupes = [];
+            $groupeCourant = [];
+
+            foreach ($historiques as $h) {
+                if (empty($groupeCourant)) {
+                    $groupeCourant[] = $h;
+                } else {
+                    $dernier = end($groupeCourant);
+                    $diffMinutes = abs(\Carbon\Carbon::parse($h->created_at)->diffInMinutes(\Carbon\Carbon::parse($dernier->created_at)));
+                    if ($diffMinutes <= 15) {
+                        $groupeCourant[] = $h;
+                    } else {
+                        $groupes[] = $groupeCourant;
+                        $groupeCourant = [$h];
+                    }
+                }
+            }
+            if (!empty($groupeCourant)) {
+                $groupes[] = $groupeCourant;
             }
 
-            if ($rt->cache_nombre_revisions !== $nbRevisionsHistorique) {
-                \Illuminate\Support\Facades\DB::table('realisation_taches')
-                    ->where('id', $rt->id)
-                    ->update([
-                        'cache_nombre_revisions' => $nbRevisionsHistorique
-                    ]);
-                $nbMisesAJour++;
+            // Fallback si pas d'historique mais cache_nombre_revisions > 0
+            if (empty($groupes) && ($realisationTache->cache_nombre_revisions > 0)) {
+                $nb = (int) $realisationTache->cache_nombre_revisions;
+                for ($i = 1; $i <= $nb; $i++) {
+                    $groupes[] = [(object)[
+                        'created_at' => $realisationTache->updated_at ?? now(),
+                        'changement' => $realisationTache->remarques ?? null
+                    ]];
+                }
             }
 
-            $totalRejets += $nbRevisionsHistorique;
+            $tentative = 1;
+            foreach ($groupes as $grp) {
+                $premier = $grp[0];
+                $message = null;
+                foreach ($grp as $entry) {
+                    $msg = $service->extraireMessageFormateur($entry->changement ?? '');
+                    if ($msg) {
+                        $message = $msg;
+                        break;
+                    }
+                }
+
+                // Vérifier si la tâche a été validée ultérieurement
+                $dateDemande = \Carbon\Carbon::parse($premier->created_at);
+                $isValide = false;
+                $dateValidation = null;
+
+                $histoValidation = HistoriqueRealisationTache::where('realisation_tache_id', $rtId)
+                    ->where('created_at', '>', $dateDemande)
+                    ->where(function ($q) {
+                        $q->where('changement', 'like', '%APPROVED%')
+                          ->orWhere('changement', 'like', '%Validée%');
+                    })
+                    ->first();
+
+                if ($histoValidation) {
+                    $isValide = true;
+                    $dateValidation = $histoValidation->created_at;
+                }
+
+                RevisionTache::create([
+                    'reference' => 'REV-RT' . $rtId . '-' . $tentative . '-' . substr(uniqid(), -4),
+                    'realisation_tache_id' => $rtId,
+                    'tentative' => $tentative,
+                    'date_demande' => $dateDemande,
+                    'message_formateur' => $message,
+                    'date_validation' => $dateValidation,
+                    'est_valide' => $isValide,
+                ]);
+
+                $totalCrees++;
+                $tentative++;
+            }
+
+            $service->synchroniserCacheRevisionDepuisRevisionTaches($rtId);
+            $totalTachesMisesAJour++;
         }
 
-        $this->info("=== Fin du traitement ===");
-        $this->info("Réalisations mises à jour : {$nbMisesAJour}");
-        $this->info("Total rejets comptabilisés : {$totalRejets}");
+        $this->info("Rattrapage terminé avec succès !");
+        $this->line("- Révisions créées : <info>{$totalCrees}</info>");
+        $this->line("- Tâches resynchronisées : <info>{$totalTachesMisesAJour}</info>");
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

@@ -278,6 +278,21 @@
             </div>
             @endif
 
+            @if(
+                  (auth()->user()?->can('show-revisionTache') && $itemRealisationTache->revisionTaches->isNotEmpty())  
+                  || auth()->user()?->can('create-revisionTache')
+                  || (auth()->user()?->can('edit-revisionTache')  && $itemRealisationTache->revisionTaches->isNotEmpty() )
+                  )
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::revisionTache.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgRealisationTache::revisionTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.show_' . $itemRealisationTache->id])
+                  </div>
+                  </div>
+            </div>
+            @endif
+
             </div>
         </div>
         <div class="card-footer">

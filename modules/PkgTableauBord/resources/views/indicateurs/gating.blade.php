@@ -50,7 +50,7 @@
                     @if(!empty($isVisionGlobale))
                         <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1">
                             <i class="fas fa-globe text-[11px] text-emerald-600"></i>
-                            <span>Vision Globale (10 sessions de formation N2)</span>
+                            <span>Vision Globale ({{ count($detail['benchmark']) }} sessions de formation N2)</span>
                         </span>
                     @elseif($selectedGroupeId && $groupes->firstWhere('id', $selectedGroupeId))
                         <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200">
