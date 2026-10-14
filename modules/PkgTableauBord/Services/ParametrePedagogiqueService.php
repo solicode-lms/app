@@ -24,7 +24,7 @@ class ParametrePedagogiqueService
      */
     protected array $defaults = [
         // Indicateur 01 : Démarrage du sprint (T_amorçage)
-        'amorcage_seuil_optimal_groupe_minutes' => 120, // 2h
+        'amorcage_seuil_optimal_groupe_minutes' => 180, // 3h
         'amorcage_seuil_apprenant_minutes' => 90,        // 1h30
         'amorcage_delai_moyen_fallback_minutes' => 105,  // 1h45
 

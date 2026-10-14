@@ -45,9 +45,12 @@
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
-                    <span class="text-[11px] sm:text-xs font-bold text-slate-500 leading-tight block line-clamp-2" title="Temps moyen de mise au travail">
-                        Mise au travail
-                    </span>
+                    <a href="{{ route('admin.PkgTableauBord.indicateurs.amorcage', request()->query()) }}" 
+                       class="text-[11px] sm:text-xs font-bold text-slate-700 hover:text-indigo-600 leading-tight block line-clamp-2 transition" 
+                       title="Temps moyen de mise au travail — Cliquer pour le détail">
+                        <span>Mise au travail</span>
+                        <i class="fas fa-arrow-up-right-from-square text-[9px] ms-0.5 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </a>
                 </div>
                 <span class="shrink-0 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-bold {{ $kpi['statut_badge'] ?? 'bg-emerald-50 text-emerald-700 border border-emerald-200' }}" title="{{ $kpi['statut'] ?? '' }}">
                     <span class="w-1.5 h-1.5 rounded-full bg-current opacity-75 shrink-0"></span>
@@ -72,25 +75,37 @@
             </p>
         </div>
 
-        <div class="pt-2 mt-auto border-t border-slate-100 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs">
-            <span class="text-slate-500 font-medium truncate flex items-center gap-1.5" title="Nombre d'apprenants ayant activé leur première tâche">
-                <i class="fas fa-user-check text-[11px] text-emerald-600 shrink-0"></i>
-                <span>Apprenants amorcés</span>
-            </span>
-            <div class="flex items-center gap-1.5 shrink-0">
-                <span class="font-bold text-slate-900 font-mono text-xs">
-                    {{ $kpi['nb_amorces'] ?? 0 }}<span class="text-slate-400 font-normal">/{{ $kpi['total_apprenants'] ?? 0 }}</span>
-                    <span class="text-slate-500 font-normal text-[11px]">apprenants</span>
+        <div>
+            <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs">
+                <span class="text-slate-500 font-medium truncate flex items-center gap-1.5" title="Nombre d'apprenants ayant activé leur première tâche">
+                    <i class="fas fa-user-check text-[11px] text-emerald-600 shrink-0"></i>
+                    <span>Apprenants amorcés</span>
                 </span>
-                @if(!empty($kpi['nb_en_attente']) && $kpi['nb_en_attente'] > 0)
-                    <a href="#apprenants-non-amorces" class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100 hover:border-amber-300 transition" title="{{ $kpi['nb_en_attente'] }} apprenant(s) n'ont pas encore commencé — Cliquer pour voir la liste">
-                        {{ $kpi['nb_en_attente'] }} en attente
-                    </a>
-                @else
-                    <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200" title="100% des apprenants ont démarré le projet">
-                        Tous au travail
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <span class="font-bold text-slate-900 font-mono text-xs">
+                        {{ $kpi['nb_amorces'] ?? 0 }}<span class="text-slate-400 font-normal">/{{ $kpi['total_apprenants'] ?? 0 }}</span>
+                        <span class="text-slate-500 font-normal text-[11px]">apprenants</span>
                     </span>
-                @endif
+                    @if(!empty($kpi['nb_en_attente']) && $kpi['nb_en_attente'] > 0)
+                        <a href="#apprenants-non-amorces" class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100 hover:border-amber-300 transition" title="{{ $kpi['nb_en_attente'] }} apprenant(s) n'ont pas encore commencé — Cliquer pour voir la liste">
+                            {{ $kpi['nb_en_attente'] }} en attente
+                        </a>
+                    @else
+                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200" title="100% des apprenants ont démarré le projet">
+                            Tous au travail
+                        </span>
+                    @endif
+                </div>
+            </div>
+
+            <div class="pt-2 mt-1.5 border-t border-slate-50 flex items-center justify-between text-[11px]">
+                <span class="text-[10px] text-slate-400 font-medium">Indicateur #01</span>
+                <a href="{{ route('admin.PkgTableauBord.indicateurs.amorcage', request()->query()) }}" 
+                   class="text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-1 transition"
+                   title="Consulter l'analyse détaillée et la dispersion temporelle">
+                    <span>Analyse détaillée</span>
+                    <i class="fas fa-arrow-right text-[9px] group-hover:translate-x-0.5 transition-transform"></i>
+                </a>
             </div>
         </div>
     </div>

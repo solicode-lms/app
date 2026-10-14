@@ -1,58 +1,82 @@
 @props([
-'type' => 'formateur',
-'kpi' => []
+    'type' => 'formateur',
+    'kpi' => []
 ])
 
 @if($type === 'formateur')
-<!-- Carte KPI Formateur : Taux d'Intervention et de Remédiation ($T_intervention) -->
-<div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition flex flex-col justify-between">
-    <div>
-        <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-500">Prise en charge des blocages</span>
-            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold {{ $kpi['badge_class'] ?? 'bg-slate-100 text-slate-700' }}">
-                {{ $kpi['badge_label'] ?? 'Excellence' }}
-            </span>
+    <!-- Carte KPI Formateur : Taux d'Intervention et de Remédiation (T_intervention) -->
+    <div class="bg-white p-3.5 sm:p-4.5 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
+        <div>
+            <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
+                <div class="min-w-0 flex-1">
+                    <span class="text-[11px] sm:text-xs font-bold text-slate-500 leading-tight block line-clamp-2" title="Prise en charge des blocages (T_intervention)">
+                        Prise en charge blocages
+                    </span>
+                </div>
+                <span class="shrink-0 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-bold {{ $kpi['badge_class'] ?? 'bg-slate-100 text-slate-700' }}" title="{{ $kpi['badge_label'] ?? '' }}">
+                    <span class="w-1.5 h-1.5 rounded-full bg-current opacity-75 shrink-0"></span>
+                    <span class="truncate max-w-[95px] sm:max-w-[120px]">{{ $kpi['badge_label'] ?? 'Excellence' }}</span>
+                </span>
+            </div>
+
+            <div class="my-2 flex items-baseline gap-1.5">
+                <span class="text-2xl sm:text-3xl font-black text-emerald-600 tracking-tight font-mono">
+                    {{ $kpi['taux_intervention_formate'] ?? '100%' }}
+                </span>
+                <span class="text-[11px] text-slate-400 font-medium">couverture</span>
+            </div>
+
+            <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed mb-2" title="{{ $kpi['description'] ?? 'Taux de remédiation des blocages post-Live Coding (+10 min).' }}">
+                {{ $kpi['description'] ?? 'Taux de remédiation des blocages post-Live Coding (+' . ($kpi['seuil_minutes'] ?? 10) . ' min).' }}
+            </p>
         </div>
 
-        <div class="mt-3 flex items-baseline gap-2">
-            <span class="text-3xl font-extrabold text-emerald-600 tracking-tight font-mono">
-                {{ $kpi['taux_intervention_formate'] ?? '100%' }}
+        <div class="pt-2 mt-auto border-t border-slate-100 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs">
+            <span class="text-slate-500 font-medium truncate flex items-center gap-1.5" title="Nombre d'apprenants en attente d'intervention de remédiation">
+                <i class="fas fa-hand-holding-hand text-[11px] text-slate-400 shrink-0"></i>
+                <span>En attente :</span>
+            </span>
+            <span class="font-bold {{ ($kpi['en_attente_soutien'] ?? 0) > 0 ? 'text-rose-600' : 'text-emerald-700' }} font-mono text-xs shrink-0">
+                {{ $kpi['en_attente_soutien'] ?? 0 }} apprenant{{ ($kpi['en_attente_soutien'] ?? 0) > 1 ? 's' : '' }}
             </span>
         </div>
-
-        <p class="text-xs text-slate-500 mt-2">Taux de remédiation des blocages post-Live Coding (+{{ $kpi['seuil_minutes'] ?? 10 }} min).</p>
     </div>
 
-    <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
-        <span>En attente de soutien</span>
-        <span class="font-bold {{ ($kpi['en_attente_soutien'] ?? 0) > 0 ? 'text-rose-600' : 'text-emerald-700' }} font-mono">
-            {{ $kpi['en_attente_soutien'] ?? 0 }} apprenant{{ ($kpi['en_attente_soutien'] ?? 0) > 1 ? 's' : '' }}
-        </span>
-    </div>
-</div>
 @elseif($type === 'responsable')
-<!-- Carte KPI Responsable : Taux Moyen de Remédiation Macro ($T_intervention) -->
-<div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition flex flex-col justify-between">
-    <div>
-        <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-500">Taux Moyen Remédiation</span>
-            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                Indicateur 06
-            </span>
+    <!-- Carte KPI Responsable : Taux Moyen de Remédiation Macro (T_intervention) -->
+    <div class="bg-white p-3.5 sm:p-4.5 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
+        <div>
+            <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
+                <div class="min-w-0 flex-1">
+                    <span class="text-[11px] sm:text-xs font-bold text-slate-500 leading-tight block line-clamp-2" title="Taux Moyen Remédiation Macro (T_intervention)">
+                        Taux Moyen Remédiation
+                    </span>
+                </div>
+                <span class="shrink-0 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    Indicateur 06
+                </span>
+            </div>
+
+            <div class="my-2 flex items-baseline gap-1.5">
+                <span class="text-2xl sm:text-3xl font-black text-emerald-600 tracking-tight font-mono">
+                    {{ $kpi['taux_moyen_global_formate'] ?? '100%' }}
+                </span>
+                <span class="text-[11px] text-slate-400 font-medium">taux moyen macro</span>
+            </div>
+
+            <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed mb-2" title="Couverture didactique des décrochages post-séance inter-promotions.">
+                Couverture didactique des décrochages post-séance inter-promotions.
+            </p>
         </div>
 
-        <div class="mt-3 flex items-baseline gap-2">
-            <span class="text-3xl font-extrabold text-emerald-600 tracking-tight font-mono">
-                {{ $kpi['taux_moyen_global_formate'] ?? '100%' }}
+        <div class="pt-2 mt-auto border-t border-slate-100 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs">
+            <span class="text-slate-500 font-medium truncate flex items-center gap-1.5" title="Objectif cible de réactivité pédagogique">
+                <i class="fas fa-bullseye text-[11px] text-slate-400 shrink-0"></i>
+                <span>Cible réactivité</span>
+            </span>
+            <span class="font-bold text-slate-800 font-mono text-xs shrink-0">
+                &ge; 85%
             </span>
         </div>
-
-        <p class="text-xs text-slate-500 mt-2">Couverture didactique des décrochages post-séance inter-promotions.</p>
     </div>
-
-    <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
-        <span>Cible réactivité</span>
-        <span class="font-bold text-slate-800">&ge; 85%</span>
-    </div>
-</div>
 @endif

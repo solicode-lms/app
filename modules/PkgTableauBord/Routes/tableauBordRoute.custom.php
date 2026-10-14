@@ -5,6 +5,7 @@ use Modules\PkgTableauBord\Controllers\ActiviteFormateurController;
 use Modules\PkgTableauBord\Controllers\TableauBordApprenantController;
 use Modules\PkgTableauBord\Controllers\TableauBordFormateurController;
 use Modules\PkgTableauBord\Controllers\TableauBordRechercheController;
+use Modules\PkgTableauBord\Controllers\IndicateurDetailController;
 use Modules\PkgTableauBord\Controllers\TableauBordResponsableController;
 
 Route::middleware('auth')->group(function () {
@@ -14,5 +15,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/responsable', [TableauBordResponsableController::class, 'index'])->name('responsable');
         Route::get('/recherche', [TableauBordRechercheController::class, 'index'])->name('recherche');
         Route::post('/telemetrie/activite', [ActiviteFormateurController::class, 'ping'])->name('telemetrie.activite');
+
+        // Détails par indicateur
+        Route::prefix('indicateurs')->name('indicateurs.')->group(function () {
+            Route::get('/amorcage', [IndicateurDetailController::class, 'amorcage'])->name('amorcage');
+        });
     });
 });
