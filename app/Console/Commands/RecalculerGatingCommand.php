@@ -84,8 +84,6 @@ class RecalculerGatingCommand extends Command
                     $historiqueRejets = HistoriqueRealisationTache::where('realisation_tache_id', $prototypeTache->id)
                         ->where(function ($q) {
                             $q->where('changement', 'like', '%Non validée%')
-                              ->orWhere('changement', 'like', '%À réviser%')
-                              ->orWhere('changement', 'like', '%À faire%')
                               ->orWhere('changement', 'like', '%NOT_VALIDATED%')
                               ->orWhere('changement', 'like', '%EN_REMEDIATION%')
                               ->orWhere('changement', 'like', '%En remédiation%');

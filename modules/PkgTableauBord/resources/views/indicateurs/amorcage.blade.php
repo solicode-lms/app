@@ -6,7 +6,7 @@
 
 @section('actions')
 <div class="flex items-center gap-2">
-    <a href="{{ route('admin.PkgTableauBord.responsable', request()->query()) }}" 
+    <a href="{{ route($dashboardRoute ?? (auth()->user()?->hasAnyRole([\Modules\PkgAutorisation\Models\Role::ADMIN_ROLE, 'root', 'responsable']) ? 'admin.PkgTableauBord.responsable' : 'admin.PkgTableauBord.formateur'), request()->except('from')) }}" 
        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition shadow-2xs">
         <i class="fas fa-arrow-left text-slate-400"></i>
         <span>Retour Tableau de Bord</span>

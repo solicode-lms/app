@@ -115,8 +115,17 @@ class IndicateurDetailController extends AdminController
             $targetGroupeIds = [];
         }
 
+        if ($request->get('from') === 'formateur' || ($isFormateur && !$isAdminOrRoot)) {
+            $dashboardRoute = 'admin.PkgTableauBord.formateur';
+        } elseif ($request->get('from') === 'responsable' || $isAdminOrRoot) {
+            $dashboardRoute = 'admin.PkgTableauBord.responsable';
+        } else {
+            $dashboardRoute = $isFormateur ? 'admin.PkgTableauBord.formateur' : 'admin.PkgTableauBord.responsable';
+        }
+
         return [
             'user' => $user,
+            'dashboardRoute' => $dashboardRoute,
             'isVisionGlobale' => $isVisionGlobale,
             'formateurs' => $formateurs,
             'selectedFormateurId' => $selectedFormateurId,
@@ -154,6 +163,7 @@ class IndicateurDetailController extends AdminController
 
         return view('PkgTableauBord::indicateurs.amorcage', [
             'user' => $ctx['user'],
+            'dashboardRoute' => $ctx['dashboardRoute'],
             'isVisionGlobale' => $ctx['isVisionGlobale'],
             'formateurs' => $ctx['formateurs'],
             'selectedFormateurId' => $ctx['selectedFormateurId'],
@@ -190,6 +200,7 @@ class IndicateurDetailController extends AdminController
 
         return view('PkgTableauBord::indicateurs.gating', [
             'user' => $ctx['user'],
+            'dashboardRoute' => $ctx['dashboardRoute'],
             'isVisionGlobale' => $ctx['isVisionGlobale'],
             'formateurs' => $ctx['formateurs'],
             'selectedFormateurId' => $ctx['selectedFormateurId'],

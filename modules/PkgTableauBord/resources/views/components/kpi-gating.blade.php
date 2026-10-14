@@ -59,7 +59,7 @@
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
-                    <a href="{{ route('admin.PkgTableauBord.indicateurs.gating', request()->query()) }}" 
+                    <a href="{{ route('admin.PkgTableauBord.indicateurs.gating', array_merge(request()->query(), ['from' => 'formateur'])) }}" 
                        class="text-[11px] sm:text-xs font-bold text-slate-700 hover:text-indigo-600 leading-tight block line-clamp-2 transition" 
                        title="Validation Prototype au 1er essai (R_gating) — Cliquer pour le détail">
                         <span>Validation Prototype (R<sub>gating</sub>)</span>
@@ -103,7 +103,7 @@
 
             <div class="pt-2 mt-1.5 border-t border-slate-50 flex items-center justify-between text-[11px]">
                 <span class="text-[10px] text-slate-400 font-medium">Indicateur #02</span>
-                <a href="{{ route('admin.PkgTableauBord.indicateurs.gating', request()->query()) }}" 
+                <a href="{{ route('admin.PkgTableauBord.indicateurs.gating', array_merge(request()->query(), ['from' => 'formateur'])) }}" 
                    class="text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-1 transition"
                    title="Consulter l'analyse détaillée du gating">
                     <span>Analyse détaillée</span>

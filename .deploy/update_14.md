@@ -25,3 +25,21 @@ php artisan dashboard:simuler-integrite-ia
 php artisan dashboard:simuler-couverture-pedagogique
 php artisan dashboard:simuler-docimologie
 ```
+
+
+
+## 2. Exécution des Seeders
+
+### En local (Windows)
+```bash
+php artisan db:seed --class="Modules\PkgRealisationTache\Database\Seeders\LiveCodingSeeder"
+```
+
+### En production (Serveur Linux)
+```bash
+sudo php artisan db:seed --class="Modules\PkgRealisationTache\Database\Seeders\LiveCodingSeeder"
+```
+
+## Droit d'accès : 
+ajouter au foramteur doit ad'accès au Livecoding : Views et Delete,
+

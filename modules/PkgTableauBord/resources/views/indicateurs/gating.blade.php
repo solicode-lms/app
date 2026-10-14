@@ -6,7 +6,7 @@
 
 @section('actions')
 <div class="flex items-center gap-2">
-    <a href="{{ route('admin.PkgTableauBord.responsable', request()->query()) }}" 
+    <a href="{{ route($dashboardRoute ?? (auth()->user()?->hasAnyRole([\Modules\PkgAutorisation\Models\Role::ADMIN_ROLE, 'root', 'responsable']) ? 'admin.PkgTableauBord.responsable' : 'admin.PkgTableauBord.formateur'), request()->except('from')) }}" 
        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition shadow-2xs">
         <i class="fas fa-arrow-left text-slate-400"></i>
         <span>Retour Tableau de Bord</span>
@@ -299,43 +299,6 @@
              x-data="{
                 filter: 'all',
                 search: '',
-                activeApprenant: null,
-                modalOpen: false,
-                isDeleting: false,
-                openLiveCodingModal(appr) {
-                    this.activeApprenant = appr;
-                    this.modalOpen = true;
-                },
-                closeLiveCodingModal() {
-                    this.modalOpen = false;
-                    this.activeApprenant = null;
-                },
-                async deleteAttempt(liveCodingId) {
-                    if (!confirm('Êtes-vous sûr de vouloir supprimer cette séance de Live Coding ? Les indicateurs de gating et les statistiques seront automatiquement recalculés.')) {
-                        return;
-                    }
-                    this.isDeleting = true;
-                    try {
-                        const res = await fetch('{{ url('/admin/PkgRealisationTache/liveCodings') }}/' + liveCodingId, {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                'X-Requested-With': 'XMLHttpRequest',
-                                'Accept': 'application/json'
-                            }
-                        });
-                        if (res.ok) {
-                            window.location.reload();
-                        } else {
-                            const data = await res.json().catch(() => ({}));
-                            alert(data.message || 'Erreur lors de la suppression.');
-                            this.isDeleting = false;
-                        }
-                    } catch (e) {
-                        alert('Erreur réseau ou de connexion.');
-                        this.isDeleting = false;
-                    }
-                },
                 matches(appr) {
                     const matchesFilter = (this.filter === 'all') 
                         || (this.filter === 'valide_1er' && appr.statut_code === 'valide_1er')
@@ -461,20 +424,10 @@
                             </td>
 
                             <!-- Tentatives -->
-                            <td class="py-3 px-4 text-center">
-                                @if(!empty($appr['live_codings']) && count($appr['live_codings']) > 0)
-                                    <button type="button" 
-                                            @click="openLiveCodingModal({{ json_encode($appr) }})"
-                                            class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded font-mono font-bold text-xs transition cursor-pointer hover:shadow-xs {{ $appr['tentatives'] > 1 ? 'bg-amber-100 text-amber-900 border border-amber-300 hover:bg-amber-200' : 'bg-slate-100 text-slate-800 border border-slate-200 hover:bg-slate-200' }}"
-                                            title="Afficher l'historique ou supprimer une tentative erronée">
-                                        <span>{{ $appr['tentatives'] }}</span>
-                                        <i class="fas fa-history text-[10px] text-slate-500"></i>
-                                    </button>
-                                @else
-                                    <span class="px-2 py-0.5 rounded font-mono font-bold text-slate-400 bg-slate-50 border border-slate-100">
-                                        {{ $appr['tentatives'] }}
-                                    </span>
-                                @endif
+                            <td class="py-3 px-4 text-center font-mono font-bold text-slate-700">
+                                <span class="px-2 py-0.5 rounded {{ $appr['tentatives'] > 1 ? 'bg-amber-100 text-amber-800 border border-amber-200' : 'bg-slate-100 text-slate-700' }}">
+                                    {{ $appr['tentatives'] }}
+                                </span>
                             </td>
 
                             <!-- Statut 1er Essai -->
@@ -530,99 +483,6 @@
                     @endforelse
                 </tbody>
             </table>
-        </div>
-
-        <!-- Modal Historique & Gestion Live Codings -->
-        <div x-show="modalOpen" 
-             x-cloak
-             class="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4"
-             @keydown.escape.window="closeLiveCodingModal()">
-            <div class="bg-white rounded-xl border border-slate-200 shadow-2xl max-w-2xl w-full overflow-hidden transform transition-all"
-                 @click.outside="closeLiveCodingModal()">
-                
-                <!-- En-tête Modal -->
-                <div class="p-4 sm:p-5 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center text-base">
-                            <i class="fas fa-shield-halved"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-bold text-slate-900">
-                                Historique Live Coding (Niveau 2)
-                            </h3>
-                            <p class="text-xs text-slate-500" x-text="activeApprenant?.nom_complet + ' (' + activeApprenant?.groupe_code + ')'"></p>
-                        </div>
-                    </div>
-                    <button @click="closeLiveCodingModal()" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition cursor-pointer">
-                        <i class="fas fa-times text-base"></i>
-                    </button>
-                </div>
-
-                <!-- Corps Modal -->
-                <div class="p-4 sm:p-5 space-y-4">
-                    <div class="bg-indigo-50/60 border border-indigo-100 rounded-lg p-3 text-xs text-indigo-900 leading-relaxed">
-                        <div class="font-bold flex items-center gap-1.5 mb-0.5">
-                            <i class="fas fa-info-circle text-indigo-500"></i>
-                            <span>Gestion didactique des tentatives :</span>
-                        </div>
-                        Si une tentative a été saisie par erreur ou accidentellement, vous pouvez la supprimer ici. Le système réévaluera instantanément l'ensemble du cache de gating (R<sub>gating</sub>).
-                    </div>
-
-                    <div class="overflow-x-auto border border-slate-200 rounded-lg">
-                        <table class="w-full text-left text-xs">
-                            <thead class="bg-slate-50 border-b border-slate-200 text-[11px] uppercase tracking-wider text-slate-500 font-bold">
-                                <tr>
-                                    <th class="py-2.5 px-3">Tentative</th>
-                                    <th class="py-2.5 px-3">Date de Passage</th>
-                                    <th class="py-2.5 px-3">Résultat</th>
-                                    <th class="py-2.5 px-3">Commentaire</th>
-                                    <th class="py-2.5 px-3 text-right">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-100">
-                                <template x-for="lc in (activeApprenant?.live_codings || [])" :key="lc.id">
-                                    <tr class="hover:bg-slate-50/60">
-                                        <td class="py-2.5 px-3 font-mono font-bold text-slate-800">
-                                            <span class="px-2 py-0.5 rounded bg-slate-100 border border-slate-200" x-text="'Tentative #' + lc.tentative"></span>
-                                        </td>
-                                        <td class="py-2.5 px-3 font-mono text-slate-600" x-text="lc.date_passage"></td>
-                                        <td class="py-2.5 px-3">
-                                            <span x-show="lc.est_valide" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                                                <i class="fas fa-check text-[9px]"></i> Validé
-                                            </span>
-                                            <span x-show="!lc.est_valide" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
-                                                <i class="fas fa-rotate-right text-[9px]"></i> Remédiation
-                                            </span>
-                                        </td>
-                                        <td class="py-2.5 px-3 text-slate-600 italic max-w-[200px] truncate" :title="lc.commentaire" x-text="lc.commentaire || '--'"></td>
-                                        <td class="py-2.5 px-3 text-right">
-                                            <button @click="deleteAttempt(lc.id)" 
-                                                    :disabled="isDeleting"
-                                                    class="inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition cursor-pointer disabled:opacity-50"
-                                                    title="Supprimer cette tentative erronée">
-                                                <i class="fas fa-trash-alt text-[10px]"></i>
-                                                <span>Supprimer</span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </template>
-                                <tr x-show="!activeApprenant?.live_codings || activeApprenant?.live_codings.length === 0">
-                                    <td colspan="5" class="py-4 text-center text-slate-400 italic">
-                                        Aucune tentative enregistrée.
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Pied de Modal -->
-                <div class="p-3 sm:p-4 bg-slate-50 border-t border-slate-200 flex justify-end">
-                    <button type="button" @click="closeLiveCodingModal()" class="px-4 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 transition shadow-2xs cursor-pointer">
-                        Fermer
-                    </button>
-                </div>
-            </div>
         </div>
     </section>
 
