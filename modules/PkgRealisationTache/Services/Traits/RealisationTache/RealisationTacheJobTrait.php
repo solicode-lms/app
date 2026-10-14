@@ -109,10 +109,10 @@ trait RealisationTacheJobTrait
                 // Sprint 2 : Indicateur 02 (R_gating) - Enregistrement évaluation prototype (phaseEvaluation = N2)
                 $isPrototype = $realisationTache->isPrototype();
 
-                    if ($isPrototype && in_array($etatWorkflowCode, ['APPROVED', 'NOT_VALIDATED'])) {
-                        $estValide = ($etatWorkflowCode === 'APPROVED');
-                        $realisationProjetService->mettreAJourGatingPrototype($realisationTache->realisationProjet, $estValide);
-                    }
+                if ($isPrototype && in_array($etatWorkflowCode, ['APPROVED', 'NOT_VALIDATED', 'EN_REMEDIATION'])) {
+                    app(\Modules\PkgRealisationTache\Services\LiveCodingService::class)
+                        ->enregistrerTentativeLiveCoding($realisationTache, $etatWorkflowCode);
+                }
 
                     // Sprint 3 : Indicateur 03 (F_révision) - Incrémentation lors d'un renvoi en révision
                     if ($etatWorkflowCode === 'REVISION_NECESSAIRE') {

@@ -1122,7 +1122,8 @@
     },
     {
         "reference": "Projet_is_session_formation_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Projet_is_session_formation",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -1146,7 +1147,8 @@
     },
     {
         "reference": "Projet_is_session_formation_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Projet_is_session_formation",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     }

@@ -288,7 +288,8 @@ trait DashboardIndicateur02Trait
             'projet.formateur',
             'realisationProjets.apprenant.user',
             'realisationProjets.realisationTaches.tache.phaseEvaluation',
-            'realisationProjets.realisationTaches.etatRealisationTache.workflowTache'
+            'realisationProjets.realisationTaches.etatRealisationTache.workflowTache',
+            'realisationProjets.realisationTaches.liveCodings'
         ]);
 
         if (!empty($filters['projet_id'])) {
@@ -399,6 +400,16 @@ trait DashboardIndicateur02Trait
                     $isDebloque = false;
                 }
 
+                $liveCodingsList = $prototypeTache ? $prototypeTache->liveCodings->map(function ($lc) {
+                    return [
+                        'id' => $lc->id,
+                        'tentative' => $lc->tentative,
+                        'est_valide' => (bool) $lc->est_valide,
+                        'date_passage' => $lc->date_passage ? \Carbon\Carbon::parse($lc->date_passage)->format('d/m/Y H:i') : '--',
+                        'commentaire' => $lc->commentaire,
+                    ];
+                })->values()->all() : [];
+
                 $apprenants[] = [
                     'id' => $apprenant?->id,
                     'nom_complet' => ($apprenant?->prenom ?? '') . ' ' . ($apprenant?->nom ?? 'Stagiaire'),
@@ -417,6 +428,9 @@ trait DashboardIndicateur02Trait
                     'acces_projet' => $accesProjet,
                     'acces_badge' => $accesBadge,
                     'is_debloque' => $isDebloque,
+                    'realisation_projet_id' => $rp->id,
+                    'realisation_tache_id' => $prototypeTache?->id,
+                    'live_codings' => $liveCodingsList,
                 ];
             }
 

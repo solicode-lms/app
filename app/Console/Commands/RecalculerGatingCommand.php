@@ -3,9 +3,10 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Carbon\Carbon;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
+use Modules\PkgRealisationTache\Models\LiveCoding;
+use Modules\PkgRealisationTache\Services\LiveCodingService;
 
 class RecalculerGatingCommand extends Command
 {
@@ -14,14 +15,14 @@ class RecalculerGatingCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'dashboard:recalculer-gating {--force : Forcer le recalcul même si les données de cache existent déjà}';
+    protected $signature = 'dashboard:recalculer-gating {--force : Forcer le recalcul et la régénération des live codings historiques}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Peuple et met à jour les données de cache pour l\'indicateur de validation du prototype au 1er essai (R_gating)';
+    protected $description = 'Peuple la table live_codings et met à jour le cache de gating (Indicateur 02 — R_gating)';
 
     /**
      * Execute the console command.
@@ -31,6 +32,7 @@ class RecalculerGatingCommand extends Command
         $this->info("=== Démarrage du rattrapage des données de Gating (Indicateur 02 — R_gating) ===");
 
         $isForce = (bool) $this->option('force');
+        $liveCodingService = app(LiveCodingService::class);
 
         $projets = RealisationProjet::with([
             'realisationTaches.tache.phaseEvaluation',
@@ -47,22 +49,9 @@ class RecalculerGatingCommand extends Command
         $totalEvalues = 0;
         $totalValides1erEssai = 0;
         $totalEnRemediation = 0;
+        $totalLiveCodingsCrees = 0;
 
         foreach ($projets as $projet) {
-            // Si pas force et que les colonnes sont déjà valorisées, on passe
-            if (!$isForce && !is_null($projet->cache_est_valide_prototype_premier_essai)) {
-                if ($projet->cache_est_valide_prototype_premier_essai === true) {
-                    $totalValides1erEssai++;
-                    $totalEvalues++;
-                } elseif ($projet->cache_est_valide_prototype_premier_essai === false) {
-                    $totalEvalues++;
-                    if (is_null($projet->cache_date_validation_prototype)) {
-                        $totalEnRemediation++;
-                    }
-                }
-                continue;
-            }
-
             // Filtrer les tâches prototypes de Niveau 2 (phaseEvaluation = N2)
             $tachesPrototype = $projet->realisationTaches->filter(fn($rt) => $rt->isPrototype());
 
@@ -78,53 +67,87 @@ class RecalculerGatingCommand extends Command
                 continue;
             }
 
-            // Récupération de la tâche prototype principale (la plus avancée ou dernière évaluée)
             $prototypeTache = $tachesPrototype->first();
             $wfCode = optional($prototypeTache->etatRealisationTache?->workflowTache)->code;
 
-            // Détection si la tâche a été évaluée
-            if (in_array($wfCode, ['APPROVED', 'NOT_VALIDATED', 'REVISION_NECESSAIRE'])) {
-                $totalEvalues++;
+            // Détection si la tâche prototype a été évaluée
+            if (in_array($wfCode, ['APPROVED', 'NOT_VALIDATED', 'EN_REMEDIATION', 'REVISION_NECESSAIRE'])) {
+                // Reconstituer l'historique dans live_codings si vide ou si force
+                $existingCount = LiveCoding::where('realisation_tache_id', $prototypeTache->id)->count();
 
-                // Analyse de l'historique pour détecter les échecs / rejets préalables
-                $rejets = HistoriqueRealisationTache::where('realisation_tache_id', $prototypeTache->id)
-                    ->where(function ($q) {
-                        $q->where('changement', 'like', '%Non validée%')
-                          ->orWhere('changement', 'like', '%À réviser%')
-                          ->orWhere('changement', 'like', '%À faire%')
-                          ->orWhere('changement', 'like', '%NOT_VALIDATED%');
-                    })
-                    ->count();
-
-                $estApprouve = ($wfCode === 'APPROVED') || (($prototypeTache->note ?? 0) >= 10);
-
-                if ($estApprouve) {
-                    if ($rejets > 0) {
-                        // Validé après remédiation (2ème passage ou plus)
-                        $tentatives = $rejets + 1;
-                        $premierEssai = false;
-                        $dateValidation = $prototypeTache->updated_at ?? now();
-                    } else {
-                        // Validé dès le premier passage
-                        $tentatives = 1;
-                        $premierEssai = true;
-                        $dateValidation = $prototypeTache->updated_at ?? now();
-                        $totalValides1erEssai++;
+                if ($isForce || $existingCount === 0) {
+                    if ($isForce && $existingCount > 0) {
+                        LiveCoding::where('realisation_tache_id', $prototypeTache->id)->delete();
                     }
-                } else {
-                    // Actuellement en échec / remédiation
-                    $tentatives = max(1, $rejets + 1);
-                    $premierEssai = false;
-                    $dateValidation = null;
-                    $totalEnRemediation++;
+
+                    // Recherche des échecs / rejets préalables dans l'historique
+                    $historiqueRejets = HistoriqueRealisationTache::where('realisation_tache_id', $prototypeTache->id)
+                        ->where(function ($q) {
+                            $q->where('changement', 'like', '%Non validée%')
+                              ->orWhere('changement', 'like', '%À réviser%')
+                              ->orWhere('changement', 'like', '%À faire%')
+                              ->orWhere('changement', 'like', '%NOT_VALIDATED%')
+                              ->orWhere('changement', 'like', '%EN_REMEDIATION%')
+                              ->orWhere('changement', 'like', '%En remédiation%');
+                        })
+                        ->orderBy('created_at', 'asc')
+                        ->get();
+
+                    $k = 0;
+                    foreach ($historiqueRejets as $rejet) {
+                        $k++;
+                        LiveCoding::create([
+                            'reference' => 'LC-RT' . $prototypeTache->id . '-' . $k . '-hist',
+                            'realisation_tache_id' => $prototypeTache->id,
+                            'tentative' => $k,
+                            'est_valide' => false,
+                            'date_passage' => $rejet->created_at ?? $prototypeTache->created_at,
+                            'commentaire' => 'Tentative ' . $k . ' (Rattrapage historique)',
+                        ]);
+                        $totalLiveCodingsCrees++;
+                    }
+
+                    $estApprouve = ($wfCode === 'APPROVED') || (($prototypeTache->note ?? 0) >= 10);
+
+                    if ($estApprouve) {
+                        $k++;
+                        LiveCoding::create([
+                            'reference' => 'LC-RT' . $prototypeTache->id . '-' . $k . '-val',
+                            'realisation_tache_id' => $prototypeTache->id,
+                            'tentative' => $k,
+                            'est_valide' => true,
+                            'date_passage' => $prototypeTache->updated_at ?? now(),
+                            'commentaire' => $prototypeTache->remarque_evaluateur ?? 'Validation prototype',
+                        ]);
+                        $totalLiveCodingsCrees++;
+                    } elseif ($k === 0) {
+                        // En remédiation / rejet sans trace préalable dans l'historique
+                        LiveCoding::create([
+                            'reference' => 'LC-RT' . $prototypeTache->id . '-1-eval',
+                            'realisation_tache_id' => $prototypeTache->id,
+                            'tentative' => 1,
+                            'est_valide' => false,
+                            'date_passage' => $prototypeTache->updated_at ?? now(),
+                            'commentaire' => $prototypeTache->remarque_evaluateur ?? 'Évaluation initiale',
+                        ]);
+                        $totalLiveCodingsCrees++;
+                    }
+
+                    // Synchronisation du cache projet à partir de live_codings
+                    $liveCodingService->synchroniserCacheGatingDepuisLiveCodings($prototypeTache);
+                    $nbMisesAJour++;
                 }
 
-                $projet->update([
-                    'cache_nombre_tentatives_prototype' => $tentatives,
-                    'cache_est_valide_prototype_premier_essai' => $premierEssai,
-                    'cache_date_validation_prototype' => $dateValidation,
-                ]);
-                $nbMisesAJour++;
+                // Statistiques de sortie basées sur le projet
+                $projet->refresh();
+                $totalEvalues++;
+                if ($projet->cache_est_valide_prototype_premier_essai === true) {
+                    $totalValides1erEssai++;
+                } elseif ($projet->cache_est_valide_prototype_premier_essai === false) {
+                    if (is_null($projet->cache_date_validation_prototype)) {
+                        $totalEnRemediation++;
+                    }
+                }
             } else {
                 // Tâche prototype existante mais non encore évaluée
                 if ($projet->cache_nombre_tentatives_prototype > 0 || !is_null($projet->cache_est_valide_prototype_premier_essai)) {
@@ -141,11 +164,13 @@ class RecalculerGatingCommand extends Command
         $tauxGlobal = $totalEvalues > 0 ? round(($totalValides1erEssai / $totalEvalues) * 100, 1) : 0;
 
         $this->info("--------------------------------------------------");
-        $this->info("Projets mis à jour en BDD : {$nbMisesAJour}");
-        $this->info("Prototypes évalués        : {$totalEvalues}");
-        $this->info("Validés au 1er passage    : {$totalValides1erEssai}");
-        $this->info("Actuellement en remédiation : {$totalEnRemediation}");
-        $this->info("Taux global R_gating      : {$tauxGlobal}%");
+        $this->info("Projets examinés en BDD    : {$projets->count()}");
+        $this->info("Live Codings créés         : {$totalLiveCodingsCrees}");
+        $this->info("Projets mis à jour         : {$nbMisesAJour}");
+        $this->info("Prototypes évalués         : {$totalEvalues}");
+        $this->info("Validés au 1er passage     : {$totalValides1erEssai}");
+        $this->info("Actuellement en remédiation: {$totalEnRemediation}");
+        $this->info("Taux global R_gating       : {$tauxGlobal}%");
         $this->info("--------------------------------------------------");
         $this->info("✅ Rattrapage de l'Indicateur 02 terminé avec succès !");
 

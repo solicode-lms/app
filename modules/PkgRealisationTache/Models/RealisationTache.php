@@ -5,6 +5,7 @@ namespace Modules\PkgRealisationTache\Models;
 
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Facades\Auth;
 use Modules\PkgCreationProjet\Models\Livrable;
@@ -64,6 +65,11 @@ class RealisationTache extends BaseRealisationTache
                     ->where('apprenant_id', '!=', $this->realisationProjet->apprenant_id);
             })
             ->where('is_live_coding', true);
+    }
+
+    public function liveCodings(): HasMany
+    {
+        return $this->hasMany(LiveCoding::class, 'realisation_tache_id')->orderBy('date_passage', 'asc')->orderBy('id', 'asc');
     }
 
 
