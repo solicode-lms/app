@@ -280,10 +280,18 @@ trait RealisationTacheCrudTrait
         }
 
 
+        $currentUser = \Illuminate\Support\Facades\Auth::user();
+        $isFormateur = $currentUser ? (
+            $currentUser->hasRole(\Modules\PkgAutorisation\Models\Role::FORMATEUR_ROLE) ||
+            $currentUser->hasRole(\Modules\PkgAutorisation\Models\Role::ADMIN_ROLE) ||
+            $currentUser->hasRole(\Modules\PkgAutorisation\Models\Role::ADMIN_FORMATEUR_ROLE) ||
+            $currentUser->hasRole('root')
+        ) : true;
+
         // ❌ Bloquer l'état si la tâche ou ses micro-compétences associées ont des livrables manquants
         // on ne bloque que pour les livravle de la tache, on va pas utiliser les livrable des micro compétences
         if (
-            !\Illuminate\Support\Facades\Auth::user()->hasRole(\Modules\PkgAutorisation\Models\Role::FORMATEUR_ROLE) &&
+            !$isFormateur &&
             isset($data["etat_realisation_tache_id"]) &&
             ($etat = \Modules\PkgRealisationTache\Models\EtatRealisationTache::find($data["etat_realisation_tache_id"]))
         ) {
@@ -339,13 +347,13 @@ trait RealisationTacheCrudTrait
 
 
         // Empêcher un apprenant d'affecter un état réservé aux formateurs
-        if (!\Illuminate\Support\Facades\Auth::user()->hasRole(\Modules\PkgAutorisation\Models\Role::FORMATEUR_ROLE) && !empty($data["etat_realisation_tache_id"])) {
+        if (!$isFormateur && !empty($data["etat_realisation_tache_id"])) {
             $etat_realisation_tache_id = $data["etat_realisation_tache_id"];
             $nouvelEtat = \Modules\PkgRealisationTache\Models\EtatRealisationTache::find($etat_realisation_tache_id);
 
             // Vérifier si le nouvel état existe
             if ($nouvelEtat) {
-                if ($nouvelEtat->is_editable_only_by_formateur && !\Illuminate\Support\Facades\Auth::user()->hasRole(\Modules\PkgAutorisation\Models\Role::FORMATEUR_ROLE)) {
+                if ($nouvelEtat->is_editable_only_by_formateur && !$isFormateur) {
                     throw \Illuminate\Validation\ValidationException::withMessages([
                         'etat_realisation_tache_id' => "Seul un formateur peut affecter cet état de tâche."
                     ]);
@@ -362,7 +370,7 @@ trait RealisationTacheCrudTrait
                 if (
                     $realisationTache->etatRealisationTache->is_editable_only_by_formateur
                     && $realisationTache->etatRealisationTache->id != $etat_realisation_tache_id
-                    && !\Illuminate\Support\Facades\Auth::user()->hasRole(\Modules\PkgAutorisation\Models\Role::FORMATEUR_ROLE)
+                    && !$isFormateur
                 ) {
                     throw \Illuminate\Validation\ValidationException::withMessages([
                         'etat_realisation_tache_id' => "Cet état de projet doit être modifié par le formateur."
@@ -371,9 +379,9 @@ trait RealisationTacheCrudTrait
             }
         }
 
-        if (\Illuminate\Support\Facades\Auth::user()->hasRole(\Modules\PkgAutorisation\Models\Role::FORMATEUR_ROLE)) {
+        if ($currentUser && $currentUser->hasRole(\Modules\PkgAutorisation\Models\Role::FORMATEUR_ROLE)) {
             // Si des évaluateurs existent, s'assurer que l'utilisateur y figure
-            $user = \Illuminate\Support\Facades\Auth::user();
+            $user = $currentUser;
             $realisationTache = $this->find($id);
             // Récupère les évaluateurs assignés au projet
             $evaluateurs = $realisationTache
@@ -445,8 +453,8 @@ trait RealisationTacheCrudTrait
         }
 
         // 🔄 Résolution automatique de la remédiation dans la table remediations lors du passage à VALIDEE / APPROVED
-        if ($realisationTache->wasChanged('etat_realisation_tache_id') && \Illuminate\Support\Facades\Schema::hasTable('remediations')) {
-            $nouvelEtat = $realisationTache->etatRealisationTache;
+        if (\Illuminate\Support\Facades\Schema::hasTable('remediations')) {
+            $nouvelEtat = \Modules\PkgRealisationTache\Models\EtatRealisationTache::with('workflowTache')->find($realisationTache->etat_realisation_tache_id);
             $wfCode = optional($nouvelEtat?->workflowTache)->code;
             if (in_array($wfCode, ['VALIDEE', 'APPROVED'])) {
                 \Illuminate\Support\Facades\DB::table('remediations')
