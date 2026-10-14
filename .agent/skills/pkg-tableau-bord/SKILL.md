@@ -263,30 +263,35 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
    - **Taux d'Autonomie Initiale** : $\tau_{\text{autonomie}} = \frac{N_{\text{total}} - N_{\text{remédiés}}}{N_{\text{total}}} \times 100$ (pérenne et mémorisé même après validation).
    - **Taux de Résolution des Remédiations** : $\tau_{\text{résolution}} = \frac{N_{\text{résolus}}}{N_{\text{remédiés}}} \times 100$ (atteint 100% quand tous les élèves remédiés sont validés).
 
-### Scénario 7 : Audit de Concordance Docimologique & Intégrité IA ($r$)
-1. Les notes de prototype ($N2$) et de projet libre ($N3$) sont saisies sur 20.
-2. `DashboardIndicateur07Trait` calcule le coefficient de Pearson $r$ sur la promotion et évalue la zone ($\ge 0.70$ = Alignement Robuste).
-3. Pour chaque apprenant, l'écart $\Delta_{\text{IA}} = N3 - N2$ est calculé.
-4. Si $\Delta_{\text{IA}} > 5.0\text{ pts}$, une alerte rouge s'affiche dans le tableau des soutenances du formateur (*"Vérifier maîtrise du code en soutenance"*).
-5. La vue Responsable trace le nuage de points interactif SVG (Scatter Plot) avec polygone d'anomalie rouge et bouton de convocation de jury.
+### Scénario 7 : Taux de Réalisation Validée par Sprint ($\text{TRVS}$) & Impact du Live Coding
+1. **Périmètre & Concept** : Mesurer le taux d'achèvement effectif des projets de sprint arrivés à l'état **`Validé`** (`DONE`), et quantifier empiriquement l'impact didactique de l'instauration des sessions de Live Coding synchrones.
+2. **Formule Mathématique Fondamentale** :
+   $$\text{TRVS} = \frac{N_{\text{validées}}}{N_{\text{attendues}}} \times 100$$
+   - **Règle d'état stricte** : Seuls les projets avec `etats_realisation_projets.code = 'DONE'` sont comptabilisés comme validés ($N_{\text{validées}}$).
+   - Les projets en état `TO_APPROVE` (terminés en attente de soutenance/validation) et `IN_PROGRESS` comptent dans $N_{\text{attendues}}$ mais **ne sont pas** validés tant que la soutenance n'a pas validé le livrable.
+3. **Mesure d'Impact du Live Coding ($\Delta \text{TRVS}$)** :
+   $$\Delta \text{TRVS} = \text{TRVS}_{\text{après}} - \text{TRVS}_{\text{avant}}$$
+   - Confrontation entre les sprints de référence avant l'introduction du Live Coding et les sprints déployés avec sessions de Live Coding synchrone.
+   - Démontre un gain net mesurable (ex : $+17.5\,\text{pts}$, passage de $62.5\%$ à $80.0\%$).
+4. **Évolution Chronologique des Sprints** : Suivi séquentiel sprint par sprint ($S_1 \to S_2 \to S_3\dots$) pour attester de la montée en compétences et de l'accélération de l'achèvement validé.
+5. **Vues Dédiées & Ergonomie 100% Inline** :
+   - **Formateur** : Carte KPI TRVS (pourcentage et ratio $N_{\text{validées}} / N_{\text{attendues}}$) et tableau des réalisations de sprint avec statuts réels et notes.
+   - **Responsable** : Carte KPI macro, comparatif Avant vs Après Live Coding, et matrice chronologique des sprints.
+   - **Page Détaillée (`admin.PkgTableauBord.indicateurs.trvs`)** : 4 cartes KPI directes, tableau comparatif méthodologique, frise chronologique des sprints et roster complet des apprenants sous Alpine.js (100% inline, zéro modale).
 
-### Scénario 8 : Couverture Pédagogique du Référentiel National ($\text{ICP}$) & Confrontation Temporelle
-1. **Source de Vérité Réelle (`realisation_competences`)** : Le modèle `RealisationCompetence` porte nativement `progression_cache`, `progression_ideal_cache` et `taux_rythme_cache`. Les données en base sont complètes et correctes : **aucune commande de simulation ou de calibration artificielle n'est nécessaire ni autorisée**.
-2. **Confrontation Temporelle Dynamique (CRITIQUE)** : En début ou en cours d'année scolaire, il est tout à fait normal que la progression des apprenants soit inférieure à 85%. Une évaluation statique arbitraire (< 50% ou < 85%) génère des faux positifs massifs :
-   - Si $\text{progression\_ideal\_cache} = 0\%$, la compétence n'est pas encore démarrée dans le calendrier annuel $\implies$ Statut neutre "Non démarrée", zéro alerte.
-   - Le **Taux de Rythme** mesure le respect du calendrier didactique :
-     $$\text{Rythme} = \frac{\text{Progression Réelle}}{\text{Progression Idéale}} \times 100$$
-   - **Trajectoire Optimale** : $\text{Rythme} \ge 95\%$ ou $\Delta = \text{Prog} - \text{Idéal} \ge -5\,\text{pts}$.
-   - **Progression Régulière** : $80\% \le \text{Rythme} < 95\%$.
-   - **Vigilance Didactique** : $60\% \le \text{Rythme} < 80\%$.
-   - **Impasse Didactique Réelle** : $\text{Rythme} < 60\%$ et $\text{Idéal} \ge 25\%$ (ou $\Delta < -25\,\text{pts}$). Seules ces situations critiques justifient le déclenchement d'ateliers de consolidation.
-3. **Tableau de Bord & Vue Détaillée 100% Inline** :
-   - La Flashbox / Panel formateur et les KPI Cards affichent la double métrique : Progression Réelle vs Idéale et le Taux de Rythme.
-   - La page détaillée (`indicateurs/couverture.blade.php`) offre un affichage 100% inline (strictement sans modale au chargement) articulé en 3 onglets :
-     - **Compétences Nationales (Macro)** : Tableau complet avec double jauge comparative (barre réelle pleine + repère idéal), $\Delta$ et Taux de Rythme.
-     - **Micro-Compétences (Matrice)** : Détail par micro-compétence avec recherche dynamique Alpine.js.
-     - **Grille Individuelle des Apprenants** : Progression réelle, idéale et rythme individuel de chaque stagiaire.
-4. **Benchmark Responsable** : Comparatif macroscopique entre toutes les cohortes de l'établissement.
+### Scénario 8 : Taux de Couverture de Planification Évaluative des UA ($\text{TCP-UA}$) & Alignement des Formations
+1. **Périmètre & Concept** : Mesurer la proportion des Unités d'Apprentissage (UA) prévues au programme qui sont couvertes par une planification de formation (`SessionFormation`) comportant les évaluations nécessaires. Indicateur de pilotage préventif en amont pour éviter les lacunes de notes $N2$ au Contrôle Continu en fin d'année.
+2. **Formule Mathématique Fondamentale** :
+   $$\text{TCP-UA} = \frac{N_{\text{couvertes}}}{N_{\text{attendues}}} \times 100$$
+   - **$N_{\text{attendues}}$** : Total des Unités d'Apprentissage obligatoires du programme de formation (rattachées à la filière via `modules` $\to$ `competences` $\to$ `micro_competences` $\to$ `unite_apprentissages`).
+   - **$N_{\text{couvertes}}$** : Nombre d'UA distinctes couvertes par au moins une `SessionFormation` via la table `alignement_uas`.
+   - **Règle d'Unicité (CRITIQUE)** : Chaque UA est comptabilisée **une seule fois**, même si plusieurs sessions lui sont consacrées (`COUNT(DISTINCT unite_apprentissage_id)`).
+   - **$N_{\text{manquantes}}$** : $N_{\text{attendues}} - N_{\text{couvertes}}$ (Unités d'Apprentissage orphelines sans session planifiée).
+3. **Multi-Échelles & Ergonomie 100% Inline** :
+   - **Apprenant** : Carte KPI affichant la couverture de son programme ($45.3\%$) et le statut de la session active du sprint.
+   - **Formateur** : Carte KPI TCP-UA et Panneau d'Alignement alertant sur les UA non planifiées par module pédagogique pour orienter la création des prochaines sessions.
+   - **Responsable** : Carte KPI macro établissement ($55.3\%$), benchmark inter-filières (DWB $45.3\%$ vs DMB $78.3\%$) et colonne TCP-UA dans la matrice comparative.
+   - **Page Détaillée (`admin.PkgTableauBord.indicateurs.couverture`)** : 4 cartes KPI directes, 3 onglets interactifs (Matrice Complète des UA, Sessions de Formation & UA Mobilisées, Plan d'Action / Alertes par Module) et benchmark inter-filières (strictement aucune modale au chargement).
 
 ### Scénario 9 : Règle Docimologique 65/35 & Scellement des Bordereaux
 1. Les notes des prototypes ($N2$) et du projet libre ($N3$) sont combinées pour calculer :

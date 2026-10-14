@@ -249,14 +249,14 @@
     </section>
     @endif
 
-    <!-- Indicateur 07 — Concordance Évaluative : Prototype vs Projet (Pearson r) -->
-    @if(($isProjetSessionFormation ?? true) && !empty($kpiIntegriteIA['a_des_notes']))
+    <!-- Indicateur 07 — Validation du Projet de Sprint (TRVS) -->
+    @if(($isProjetSessionFormation ?? true) && !empty($kpiIntegriteIA['statut']))
     <div class="bg-white rounded-lg border border-slate-200 p-4 shadow-2xs flex items-center justify-between text-xs text-slate-700">
         <div class="flex items-center gap-2.5">
-            <i class="fas fa-scale-balanced text-indigo-600"></i>
-            <span><strong>Indicateur 07 — Concordance Évaluative :</strong> Prototype surveillé <strong class="text-slate-900">{{ $kpiIntegriteIA['note_n2'] }}/20</strong> &bull; Projet outillé <strong class="text-slate-900">{{ $kpiIntegriteIA['note_n3'] }}/20</strong> ({{ $kpiIntegriteIA['concordance'] }})</span>
+            <i class="fas {{ !empty($kpiIntegriteIA['est_valide']) ? 'fa-circle-check text-emerald-600' : 'fa-clock text-amber-500' }}"></i>
+            <span><strong>Indicateur 07 — Réalisation de Sprint :</strong> {{ $kpiIntegriteIA['message'] ?? 'État de la réalisation' }}</span>
         </div>
-        <span class="font-mono font-bold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded border border-indigo-200">{{ $kpiIntegriteIA['delta_formate'] }}</span>
+        <span class="font-mono font-bold px-2.5 py-0.5 rounded {{ $kpiIntegriteIA['badge_class'] ?? 'bg-indigo-50 text-indigo-700 border border-indigo-200' }}">{{ $kpiIntegriteIA['statut'] ?? 'En cours' }}</span>
     </div>
     @endif
 </section>

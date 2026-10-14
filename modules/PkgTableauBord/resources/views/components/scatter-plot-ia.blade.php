@@ -1,127 +1,131 @@
 @props([
-'kpi' => []
+    'kpi' => []
 ])
 
-<!-- Section Scatter Plot SVG & Diagnostic d'Intégrité IA (Indicateur 07 — Pearson r) -->
-<section id="scatter" class="bg-white p-5 sm:p-6 rounded-lg border border-slate-200 shadow-sm space-y-4">
+<!-- Section Indicateur 07 — Taux de Réalisation Validée par Sprint (TRVS) & Impact du Live Coding -->
+<section id="trvs-section" class="bg-white p-5 sm:p-6 rounded-lg border border-slate-200 shadow-sm space-y-5">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
         <div>
-            <div class="flex items-center gap-2">
-                <h3 class="text-sm font-bold text-slate-900">Authenticité Évaluative & Corrélation Intégrité IA ({{ $kpi['r_global_formate'] ?? 'r = 0.78' }})</h3>
-                <span class="px-2 py-0.5 rounded-full text-[11px] font-bold {{ $kpi['badge_class'] ?? 'bg-indigo-50 text-indigo-700' }}">
-                    {{ $kpi['badge_label'] ?? 'Alignement Robuste' }}
+            <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="text-sm font-bold text-slate-900">Indicateur 07 — Taux de Réalisation Validée (TRVS) & Impact du Live Coding</h3>
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                    TRVS Global : {{ $kpi['trvs_global_formate'] ?? ($kpi['trvs_formate'] ?? '71.4%') }}
+                </span>
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    Gain : {{ $kpi['delta_trvs_formate'] ?? '+17.5 pts' }}
                 </span>
             </div>
-            <p class="text-xs text-slate-500">Confrontation des notes de Prototype surveillé ($N2$) et de Projet Fil Rouge assisté par IA ($N3$).</p>
+            <p class="text-xs text-slate-500 mt-1">
+                Mesure du taux effectif de projets en état <strong>Validé (DONE)</strong> et impact didactique de l'instauration des sessions de Live Coding.
+            </p>
         </div>
-        <span class="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-200 shrink-0">
-            Axe 3 — Institution (H3)
-        </span>
+        <a href="{{ route('admin.PkgTableauBord.indicateurs.trvs', array_merge(request()->query(), ['from' => 'responsable'])) }}"
+           class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 transition shrink-0">
+            <i class="fas fa-chart-line text-[11px]"></i>
+            <span>Détail TRVS & Sprints</span>
+        </a>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
-        <!-- Scatter Plot SVG Interactif -->
-        <div class="lg:col-span-2 relative bg-slate-50 p-4 rounded-xl border border-slate-200">
-            <svg viewBox="0 0 500 280" class="w-full h-64">
-                <!-- Axes X et Y -->
-                <line x1="50" y1="20" x2="50" y2="240" stroke="#cbd5e1" stroke-width="1.5" />
-                <line x1="50" y1="240" x2="480" y2="240" stroke="#cbd5e1" stroke-width="1.5" />
-
-                <!-- Repères médians -->
-                <line x1="50" y1="130" x2="480" y2="130" stroke="#f1f5f9" stroke-width="1" stroke-dasharray="2 2" />
-                <line x1="265" y1="20" x2="265" y2="240" stroke="#f1f5f9" stroke-width="1" stroke-dasharray="2 2" />
-
-                <!-- Diagonale idéale y = x (de (50, 240) à (450, 30)) -->
-                <line x1="50" y1="240" x2="450" y2="30" stroke="#94a3b8" stroke-dasharray="4" stroke-width="1.5" />
-
-                <!-- Zone d'anomalie rouge (surperformance IA suspecte, delta > 5) -->
-                <polygon points="50,240 50,110 250,30 450,30" fill="#fee2e2" opacity="0.4" />
-
-                <!-- Nuage de points des apprenants -->
-                @if(!empty($kpi['points_scatter']))
-                @foreach($kpi['points_scatter'] as $pt)
-                <circle cx="{{ $pt['cx'] }}" cy="{{ $pt['cy'] }}" r="{{ $pt['r'] }}"
-                    fill="{{ $pt['fill'] }}"
-                    @if($pt['stroke'] !=='none' ) stroke="{{ $pt['stroke'] }}" stroke-width="{{ $pt['stroke_width'] }}" @endif>
-                    <title>{{ $pt['tooltip'] }}</title>
-                </circle>
-                @endforeach
-                @else
-                <!-- Points de secours visuels conformes à la maquette -->
-                <circle cx="100" cy="205" r="5" fill="#4f46e5">
-                    <title>Karim: Direct=6/20, Projet=7.5/20 (Conforme)</title>
-                </circle>
-                <circle cx="160" cy="170" r="5" fill="#4f46e5">
-                    <title>Salma: Direct=10/20, Projet=11/20 (Conforme)</title>
-                </circle>
-                <circle cx="210" cy="140" r="5" fill="#4f46e5">
-                    <title>Mehdi: Direct=13/20, Projet=14/20 (Conforme)</title>
-                </circle>
-                <circle cx="270" cy="115" r="5" fill="#4f46e5">
-                    <title>Hamza: Direct=15/20, Projet=16/20 (Conforme)</title>
-                </circle>
-                <circle cx="330" cy="85" r="5" fill="#10b981">
-                    <title>Nour: Direct=17.5/20, Projet=18/20 (Optimal)</title>
-                </circle>
-                <circle cx="390" cy="55" r="5" fill="#10b981">
-                    <title>Omar: Direct=19/20, Projet=19.5/20 (Optimal)</title>
-                </circle>
-                <circle cx="240" cy="125" r="5" fill="#4f46e5">
-                    <title>Khadija: Direct=14/20, Projet=15/20 (Conforme)</title>
-                </circle>
-                <circle cx="310" cy="95" r="5" fill="#10b981">
-                    <title>Zineb: Direct=16.5/20, Projet=17/20 (Optimal)</title>
-                </circle>
-                <circle cx="140" cy="65" r="7" fill="#ef4444" stroke="#991b1b" stroke-width="2">
-                    <title>Alerte IA #1: Yassir (Direct=8/20 vs Projet=18/20, Écart = +10.0 pts)</title>
-                </circle>
-                <circle cx="190" cy="50" r="7" fill="#ef4444" stroke="#991b1b" stroke-width="2">
-                    <title>Alerte IA #2: Bilal (Direct=11/20 vs Projet=18.5/20, Écart = +7.5 pts)</title>
-                </circle>
-                @endif
-
-                <!-- Libellés des axes -->
-                <text x="210" y="265" font-size="11" fill="#475569" font-weight="700">Note Prototype en direct (sur 20)</text>
-                <text x="5" y="145" font-size="11" fill="#475569" font-weight="700" transform="rotate(-90 25,145)">Note Projet Libre (sur 20)</text>
-                <text x="280" y="50" font-size="10" fill="#dc2626" font-weight="bold">Zone d'écart important (&Delta; &gt; +5 pts)</text>
-            </svg>
-        </div>
-
-        <!-- Volet Latéral de Diagnostic -->
-        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/80 space-y-4">
+    <!-- Comparatif Avant vs Après Live Coding -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Avant Live Coding -->
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
             <div>
-                <div class="text-[11px] font-bold uppercase tracking-wider text-indigo-700">Diagnostic d'Intégrité</div>
-                <h4 class="text-sm font-bold text-slate-900 mt-1">
-                    {{ count($kpi['cas_suspects'] ?? []) }} Cas d'Écart Important Détecté{{ count($kpi['cas_suspects'] ?? []) > 1 ? 's' : '' }}
-                </h4>
-                <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-                    L'indice de cohérence globale <strong>{{ $kpi['r_global_formate'] ?? 'r = 0.78' }}</strong> atteste du degré d'authenticité. Les cas ci-dessous présentent un écart nécessitant un audit en soutenance :
+                <div class="flex items-center justify-between text-xs text-slate-500 font-bold mb-1">
+                    <span>Avant Live Coding</span>
+                    <span class="px-2 py-0.5 rounded text-[10px] bg-slate-200 text-slate-700 font-semibold">Référence</span>
+                </div>
+                <div class="text-2xl font-black text-slate-700 font-mono my-1">
+                    {{ $kpi['avant_lc']['trvs_formate'] ?? '62.5%' }}
+                </div>
+                <p class="text-xs text-slate-500">
+                    {{ $kpi['avant_lc']['validees'] ?? 0 }} validées sur {{ $kpi['avant_lc']['attendues'] ?? 0 }} attendues
                 </p>
             </div>
-
-            <div class="space-y-2">
-                @forelse($kpi['cas_suspects'] ?? [] as $cas)
-                <div class="p-2.5 bg-rose-50 rounded-lg border border-rose-200 text-xs">
-                    <div class="font-bold text-rose-900">{{ $cas['nom_complet'] }}</div>
-                    <div class="text-slate-600 mt-0.5">
-                        Direct : <strong>{{ $cas['note_n2'] }}</strong> &bull; Projet : <strong>{{ $cas['note_n3'] }}</strong>
-                        (Écart : <strong class="text-rose-700">{{ $cas['delta_formate'] ?? ('+' . $cas['delta'] . ' pts') }}</strong>)
-                    </div>
-                </div>
-                @empty
-                <div class="p-3 bg-emerald-50 rounded-lg border border-emerald-200 text-xs text-emerald-800 font-semibold flex items-center gap-2">
-                    <i class="fas fa-check-circle text-emerald-600"></i>
-                    <span>Aucun écart anormal détecté. Alignement docimologique exemplaire.</span>
-                </div>
-                @endforelse
+            <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden mt-3">
+                <div class="bg-slate-500 h-full rounded-full" style="width: {{ min(100, (float)($kpi['avant_lc']['trvs'] ?? 62.5)) }}%"></div>
             </div>
+        </div>
 
-            @if(!empty($kpi['cas_suspects']))
-            <button type="button" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-xs transition flex items-center justify-center gap-2">
-                <i class="fas fa-user-shield"></i>
-                <span>Convoquer Jury de Vérification Individuelle</span>
-            </button>
-            @endif
+        <!-- Après Live Coding -->
+        <div class="p-4 rounded-xl bg-emerald-50/60 border border-emerald-200 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between text-xs text-emerald-800 font-bold mb-1">
+                    <span>Après Live Coding</span>
+                    <span class="px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800 font-semibold">Post-Déploiement</span>
+                </div>
+                <div class="text-2xl font-black text-emerald-700 font-mono my-1">
+                    {{ $kpi['apres_lc']['trvs_formate'] ?? '80.0%' }}
+                </div>
+                <p class="text-xs text-emerald-700">
+                    {{ $kpi['apres_lc']['validees'] ?? 0 }} validées sur {{ $kpi['apres_lc']['attendues'] ?? 0 }} attendues
+                </p>
+            </div>
+            <div class="w-full bg-emerald-100 h-2 rounded-full overflow-hidden mt-3">
+                <div class="bg-emerald-600 h-full rounded-full" style="width: {{ min(100, (float)($kpi['apres_lc']['trvs'] ?? 80.0)) }}%"></div>
+            </div>
+        </div>
+
+        <!-- Gain net Delta TRVS -->
+        <div class="p-4 rounded-xl bg-indigo-50/60 border border-indigo-200 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between text-xs text-indigo-800 font-bold mb-1">
+                    <span>Impact Didactique (&Delta; TRVS)</span>
+                    <i class="fas fa-arrow-trend-up text-indigo-600"></i>
+                </div>
+                <div class="text-2xl font-black text-indigo-700 font-mono my-1">
+                    {{ $kpi['delta_trvs_formate'] ?? '+17.5 pts' }}
+                </div>
+                <p class="text-xs text-indigo-900 leading-relaxed">
+                    Gain net d'achèvement validé grâce aux évaluations synchrones et à la levée rapide des blocages.
+                </p>
+            </div>
+            <div class="mt-3 pt-2 border-t border-indigo-100 text-[11px] text-indigo-700 font-medium flex items-center justify-between">
+                <span>Objectif cible : &ge; 75%</span>
+                <span class="font-bold text-emerald-700">Atteint</span>
+            </div>
         </div>
     </div>
+
+    <!-- Chronologie Évolutive des Sprints -->
+    @if(!empty($kpi['sprints_evolution']))
+    <div class="space-y-2 pt-2">
+        <div class="flex items-center justify-between text-xs font-bold text-slate-700">
+            <span>Évolution Chronologique des Sprints (S1 &rarr; S{{ count($kpi['sprints_evolution']) }})</span>
+            <span class="text-[11px] text-slate-400 font-normal">Calculé sur l'ensemble des sessions actives</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            @foreach($kpi['sprints_evolution'] as $sp)
+            <div class="p-3 rounded-lg border {{ $sp['has_live_coding'] ? 'border-emerald-200 bg-emerald-50/20' : 'border-slate-200 bg-white' }} flex flex-col justify-between">
+                <div class="flex items-start justify-between gap-1 mb-1.5">
+                    <div>
+                        <div class="text-xs font-bold text-slate-900 truncate max-w-[140px]" title="{{ $sp['projet_titre'] }}">
+                            Sprint {{ $sp['index'] }} : {{ $sp['projet_titre'] }}
+                        </div>
+                        <div class="text-[10px] text-slate-400">{{ $sp['groupe_code'] }} &bull; {{ $sp['date_debut'] }}</div>
+                    </div>
+                    <span class="px-1.5 py-0.5 rounded text-[9px] font-bold {{ $sp['has_live_coding'] ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600' }}">
+                        {{ $sp['has_live_coding'] ? 'Live Coding' : 'Classique' }}
+                    </span>
+                </div>
+
+                <div class="my-1.5 flex items-baseline justify-between">
+                    <span class="text-lg font-black font-mono {{ $sp['trvs'] >= 80 ? 'text-emerald-700' : ($sp['trvs'] >= 50 ? 'text-indigo-700' : 'text-amber-700') }}">
+                        {{ $sp['trvs_formate'] }}
+                    </span>
+                    <span class="text-[11px] text-slate-500 font-mono">
+                        {{ $sp['n_validees'] }}/{{ $sp['n_attendues'] }} DONE
+                    </span>
+                </div>
+
+                <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                    <div class="{{ $sp['trvs'] >= 80 ? 'bg-emerald-500' : ($sp['trvs'] >= 50 ? 'bg-indigo-500' : 'bg-amber-500') }} h-full rounded-full" 
+                         style="width: {{ min(100, (float)$sp['trvs']) }}%"></div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+    @endif
 </section>

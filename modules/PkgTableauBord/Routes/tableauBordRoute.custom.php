@@ -30,6 +30,9 @@ Route::middleware('auth')->group(function () {
             Route::post('/intervention/intervenir', [IndicateurDetailController::class, 'enregistrerRemediation'])->name('intervention.intervenir');
             Route::post('/intervention/cloturer-live-coding', [IndicateurDetailController::class, 'cloturerLiveCodingCollectif'])->name('intervention.cloturer-live-coding');
             Route::get('/couverture', [IndicateurDetailController::class, 'couverture'])->name('couverture');
+            Route::get('/trvs', [IndicateurDetailController::class, 'trvs'])->name('trvs');
+            Route::get('/tcp-ua', [IndicateurDetailController::class, 'tcpUa'])->name('tcp-ua');
+            Route::get('/docimologie', [IndicateurDetailController::class, 'tcpUa'])->name('docimologie');
         });
     });
 });

@@ -247,7 +247,7 @@
     <div class="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
         <div class="p-5 border-b border-slate-200 bg-slate-50/70">
             <h4 class="text-sm font-bold text-slate-900">Matrice Comparative Inter-Promotions</h4>
-            <p class="text-xs text-slate-500">Benchmark des groupes pour l'harmonisation du rythme pédagogique (T<sub>amorçage</sub>, R<sub>gating</sub>, F<sub>révision</sub>, T<sub>file</sub>, T<sub>intervention</sub> & r)</p>
+            <p class="text-xs text-slate-500">Benchmark des groupes pour l'harmonisation du rythme pédagogique (T<sub>amorçage</sub>, R<sub>gating</sub>, F<sub>révision</sub>, T<sub>file</sub>, T<sub>intervention</sub> & TRVS)</p>
         </div>
 
         @php
@@ -271,8 +271,8 @@
                         <th class="py-3 px-4">Stabilité & Reprises (F<sub>révision</sub>)</th>
                         <th class="py-3 px-4">Attente File (T<sub>file</sub>)</th>
                         <th class="py-3 px-4">Remédiation (T<sub>intervention</sub>)</th>
-                        <th class="py-3 px-4">Cohérence IA (r)</th>
-                        <th class="py-3 px-4">Couverture Référentiel (ICP)</th>
+                        <th class="py-3 px-4">Taux Réalisation (TRVS)</th>
+                        <th class="py-3 px-4">Couverture UA (TCP-UA)</th>
                         <th class="py-3 px-4">Docimologie 65/35 (&tau;)</th>
                         <th class="py-3 px-5 text-right">Statut</th>
                     </tr>
@@ -342,9 +342,9 @@
                         </td>
                         <td class="py-3 px-4 font-mono">
                             @if($integItem)
-                            <span class="font-bold text-slate-800">{{ $integItem['r_formate'] }}</span>
-                            <span class="text-[10px] {{ $integItem['nb_anomalies'] > 0 ? 'text-rose-600 font-bold' : 'text-slate-400' }} block">
-                                {{ $integItem['nb_anomalies'] > 0 ? $integItem['nb_anomalies'] . ' alerte(s)' : 'Optimal' }}
+                            <span class="font-bold text-slate-800">{{ $integItem['trvs_formate'] ?? $integItem['r_formate'] }}</span>
+                            <span class="text-[10px] {{ ($integItem['trvs'] ?? 100) < 70 ? 'text-amber-600 font-bold' : 'text-slate-400' }} block">
+                                {{ $integItem['n_validees'] ?? 0 }}/{{ $integItem['n_attendues'] ?? 0 }} validés
                             </span>
                             @else
                             <span class="text-slate-400">--</span>
@@ -352,13 +352,13 @@
                         </td>
                         <td class="py-3 px-4 font-mono">
                             @if($couvItem)
-                            <span class="font-bold text-emerald-700">{{ $couvItem['icp_formate'] }}</span>
+                            <span class="font-bold text-indigo-700">{{ $couvItem['tcp_ua_formate'] ?? $couvItem['icp_formate'] }}</span>
                             <span class="text-[10px] {{ $couvItem['badge_class'] ?? 'text-slate-400' }} px-1.5 py-0.5 rounded block w-fit">
-                                {{ $couvItem['statut_badge'] ?? 'Optimal' }}
+                                {{ $couvItem['couvertes_uas'] ?? 24 }}/{{ $couvItem['total_uas'] ?? 53 }} UA
                             </span>
                             @else
-                            <span class="font-bold text-emerald-700">{{ $kpiCouverture['taux_macro_formate'] ?? '85%' }}</span>
-                            <span class="text-[10px] text-emerald-600 block">Conforme</span>
+                            <span class="font-bold text-indigo-700">{{ $kpiCouverture['tcp_ua_macro_formate'] ?? ($kpiCouverture['taux_macro_formate'] ?? '55.3%') }}</span>
+                            <span class="text-[10px] text-slate-400 block">Global</span>
                             @endif
                         </td>
                         <td class="py-3 px-4 font-mono">

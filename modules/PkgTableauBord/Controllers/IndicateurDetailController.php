@@ -519,5 +519,81 @@ class IndicateurDetailController extends AdminController
             'detail' => $detail,
         ]);
     }
+
+    /**
+     * Page de détail pour l'Indicateur 07 : Taux de Réalisation Validée par Sprint (TRVS).
+     *
+     * @DynamicPermissionIgnore
+     */
+    public function trvs(Request $request)
+    {
+        $ctx = $this->resolveFilterContext($request);
+
+        $filters = [
+            'groupe_ids' => $ctx['targetGroupeIds'],
+            'projet_id' => $ctx['targetProjetId'],
+            'filiere_id' => $ctx['selectedFiliereId'],
+            'formateur_id' => $ctx['selectedFormateurId'],
+            'selected_groupe_id' => $ctx['selectedGroupeId'],
+            'filter_type' => $ctx['filterType'],
+        ];
+
+        $detail = $this->tableauBordService->getIndicateurTrvsDetail($filters);
+
+        return view('PkgTableauBord::indicateurs.trvs', [
+            'user' => $ctx['user'],
+            'dashboardRoute' => $ctx['dashboardRoute'],
+            'isVisionGlobale' => $ctx['isVisionGlobale'],
+            'formateurs' => $ctx['formateurs'],
+            'selectedFormateurId' => $ctx['selectedFormateurId'],
+            'filieres' => $ctx['filieres'],
+            'selectedFiliereId' => $ctx['selectedFiliereId'],
+            'groupes' => $ctx['groupes'],
+            'selectedGroupeId' => $ctx['selectedGroupeId'],
+            'projets' => $ctx['projets'],
+            'selectedProjetId' => $ctx['selectedProjetId'],
+            'projetActif' => $ctx['projetActif'],
+            'filterType' => $ctx['filterType'],
+            'detail' => $detail,
+        ]);
+    }
+
+    /**
+     * Page de détail pour l'Indicateur 09 : Taux de Couverture de Planification des UA (TCP-UA).
+     *
+     * @DynamicPermissionIgnore
+     */
+    public function tcpUa(Request $request)
+    {
+        $ctx = $this->resolveFilterContext($request);
+
+        $filters = [
+            'groupe_ids' => $ctx['targetGroupeIds'],
+            'projet_id' => $ctx['targetProjetId'],
+            'filiere_id' => $ctx['selectedFiliereId'],
+            'formateur_id' => $ctx['selectedFormateurId'],
+            'selected_groupe_id' => $ctx['selectedGroupeId'],
+            'filter_type' => $ctx['filterType'],
+        ];
+
+        $detail = $this->tableauBordService->getIndicateurDocimologieDetail($filters);
+
+        return view('PkgTableauBord::indicateurs.tcp-ua', [
+            'user' => $ctx['user'],
+            'dashboardRoute' => $ctx['dashboardRoute'],
+            'isVisionGlobale' => $ctx['isVisionGlobale'],
+            'formateurs' => $ctx['formateurs'],
+            'selectedFormateurId' => $ctx['selectedFormateurId'],
+            'filieres' => $ctx['filieres'],
+            'selectedFiliereId' => $ctx['selectedFiliereId'],
+            'groupes' => $ctx['groupes'],
+            'selectedGroupeId' => $ctx['selectedGroupeId'],
+            'projets' => $ctx['projets'],
+            'selectedProjetId' => $ctx['selectedProjetId'],
+            'projetActif' => $ctx['projetActif'],
+            'filterType' => $ctx['filterType'],
+            'detail' => $detail,
+        ]);
+    }
 }
 
