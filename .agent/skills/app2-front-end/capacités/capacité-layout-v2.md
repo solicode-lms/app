@@ -38,6 +38,7 @@ Toute page ou vue d'administration V2 doit strictement séparer le gabarit d'inf
 
 ## 3. Emplacement et Rôles des Fichiers V2
 - **Layout principal** : `resources/views/layouts/admin-v2.blade.php`
+- **Sidebar V2 (Partial)** : `resources/views/layouts/sidebar-v2.blade.php`
 - **Composants d'indicateurs** : `modules/PkgTableauBord/resources/views/components/`
 - **Vues spécifiques par rôle** :
   - `modules/PkgTableauBord/resources/views/apprenant/index.blade.php`

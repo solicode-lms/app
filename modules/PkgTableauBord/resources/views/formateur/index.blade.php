@@ -1,8 +1,8 @@
 @extends('layouts.admin-v2')
 
-@section('title', 'Tableau de Bord Formateur — Solicode LMS V2')
-@section('page_title', 'Pilotage Didactique')
-@section('page_subtitle', 'Régulation des promotions et suivi en temps réel de l\'amorçage')
+@section('title', 'Tableau de Bord Formateur')
+@section('page_title', 'Suivi pédagogique')
+@section('page_subtitle', 'Suivre les activités, la progression et les compétences des apprenants.')
 
 @section('actions')
     @include('PkgTableauBord::components.session-selector', ['sessions' => $sessions ?? collect(), 'sessionActive' => $sessionFormationActive ?? null])

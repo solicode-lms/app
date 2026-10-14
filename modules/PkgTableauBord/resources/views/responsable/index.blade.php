@@ -1,6 +1,6 @@
 @extends('layouts.admin-v2')
 
-@section('title', 'Tableau de Bord Responsable — Solicode LMS V2')
+@section('title', 'Tableau de Bord Responsable')
 @section('page_title', 'Tableau de Bord de Gouvernance Pédagogique')
 @section('page_subtitle', 'Indicateurs macroscopiques et benchmark comparatif des cohortes')
 

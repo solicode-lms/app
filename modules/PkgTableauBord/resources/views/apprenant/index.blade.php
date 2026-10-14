@@ -1,8 +1,8 @@
 @extends('layouts.admin-v2')
 
-@section('title', 'Tableau de Bord Apprenant — Solicode LMS V2')
+@section('title', 'Tableau de Bord Apprenant')
 @section('page_title', 'Mon Tableau de Bord')
-@section('page_subtitle', 'Suivi d\'avancement et régulation du démarrage de projet')
+@section('page_subtitle', 'Consulter une vue d’ensemble des activités, des indicateurs et de la progression.')
 
 @section('actions')
     @include('PkgTableauBord::components.session-selector', ['sessions' => $sessions ?? collect(), 'sessionActive' => $sessionFormationActive ?? null])
