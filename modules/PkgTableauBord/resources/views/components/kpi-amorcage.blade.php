@@ -5,7 +5,7 @@
 
 @if($type === 'apprenant')
     <!-- KPI 1 Apprenant : Démarrage du sprint -->
-    <div class="bg-white p-3.5 sm:p-4.5 rounded-xl border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
+    <div class="bg-white p-3.5 sm:p-4.5 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
@@ -41,7 +41,7 @@
     </div>
 @else
     <!-- KPI 1 Formateur : Temps moyen de mise au travail -->
-    <div class="bg-white p-3.5 sm:p-4.5 rounded-xl border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
+    <div class="bg-white p-3.5 sm:p-4.5 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
@@ -83,9 +83,9 @@
                     <span class="text-slate-500 font-normal text-[11px]">apprenants</span>
                 </span>
                 @if(!empty($kpi['nb_en_attente']) && $kpi['nb_en_attente'] > 0)
-                    <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200" title="{{ $kpi['nb_en_attente'] }} apprenant(s) n'ont pas encore commencé">
+                    <a href="#apprenants-non-amorces" class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100 hover:border-amber-300 transition" title="{{ $kpi['nb_en_attente'] }} apprenant(s) n'ont pas encore commencé — Cliquer pour voir la liste">
                         {{ $kpi['nb_en_attente'] }} en attente
-                    </span>
+                    </a>
                 @else
                     <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200" title="100% des apprenants ont démarré le projet">
                         Tous au travail

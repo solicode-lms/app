@@ -31,7 +31,7 @@ $peutSceller = $kpi['peut_sceller'] ?? false;
                     </span>
                     @endif
                 </div>
-                <p class="text-xs text-slate-500">Calcul officiel : $\text{Note EFM (sur 40)} = 2 \times (0{,}65 \times \text{CC} + 0{,}35 \times N3)$ &bull; Classe : {{ $kpi['groupe_nom'] ?? 'Promotion' }}</p>
+                <p class="text-xs text-slate-500">Calcul officiel : <strong class="text-slate-700">Note EFM (sur 40) = 2 &times; (0,65 &times; CC + 0,35 &times; N3)</strong> &bull; Classe : {{ $kpi['groupe_nom'] ?? 'Promotion' }}</p>
             </div>
         </div>
 

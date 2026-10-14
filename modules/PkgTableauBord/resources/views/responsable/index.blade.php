@@ -45,16 +45,10 @@
 <section class="space-y-4">
     <div>
         <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Indicateurs Stratégiques & Benchmark Inter-Promotions</h3>
-        <p class="text-xs text-slate-400">Suivi global du rythme d'amorce des projets ($T_{\text{amorçage}}$) et du taux de validation directe du prototype ($R_{\text{gating}}$).</p>
+        <p class="text-xs text-slate-400">Suivi global du rythme d'amorce des projets (T<sub>amorçage</sub>) et du taux de validation directe du prototype (R<sub>gating</sub>).</p>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-9 gap-4">
-        <!-- Carte Macroscopique Globale Docimologie 65/35 (Indicateur 09) -->
-        @include('PkgTableauBord::components.kpi-docimologie', ['type' => 'responsable', 'kpi' => $kpiDocimologie])
-
-        <!-- Carte Macroscopique Globale Couverture Pédagogique (Indicateur 08) -->
-        @include('PkgTableauBord::components.kpi-couverture-pedagogique', ['type' => 'responsable', 'kpi' => $kpiCouverture])
-
         <!-- Carte Macroscopique Globale Amorçage (Indicateur 01) -->
         <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
             <div class="flex items-center justify-between">
@@ -92,6 +86,12 @@
 
         <!-- Carte Macroscopique Globale Intégrité IA (Indicateur 07) -->
         @include('PkgTableauBord::components.kpi-integrite-ia', ['type' => 'responsable', 'kpi' => $kpiIntegriteIA])
+
+        <!-- Carte Macroscopique Globale Couverture Pédagogique (Indicateur 08) -->
+        @include('PkgTableauBord::components.kpi-couverture-pedagogique', ['type' => 'responsable', 'kpi' => $kpiCouverture])
+
+        <!-- Carte Macroscopique Globale Docimologie 65/35 (Indicateur 09) -->
+        @include('PkgTableauBord::components.kpi-docimologie', ['type' => 'responsable', 'kpi' => $kpiDocimologie])
     </div>
 
     <!-- Section Scatter Plot SVG & Diagnostic d'Intégrité IA (Indicateur 07 — Pearson r) -->
@@ -101,7 +101,7 @@
     <div class="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
         <div class="p-5 border-b border-slate-200 bg-slate-50/70">
             <h4 class="text-sm font-bold text-slate-900">Matrice Comparative Inter-Promotions</h4>
-            <p class="text-xs text-slate-500">Benchmark des groupes pour l'harmonisation du rythme pédagogique ($T_{\text{amorçage}}$, $R_{\text{gating}}$, $F_{\text{révision}}$, $T_{\text{file}}$, $T_{\text{intervention}}$ & $r$)</p>
+            <p class="text-xs text-slate-500">Benchmark des groupes pour l'harmonisation du rythme pédagogique (T<sub>amorçage</sub>, R<sub>gating</sub>, F<sub>révision</sub>, T<sub>file</sub>, T<sub>intervention</sub> & r)</p>
         </div>
 
         @php
@@ -119,13 +119,13 @@
                 <thead>
                     <tr class="border-b border-slate-200 text-slate-500 font-semibold bg-slate-50/50">
                         <th class="py-3 px-5">Groupe / Promotion</th>
-                        <th class="py-3 px-4">Délai Moyen ($T_{\text{amorçage}}$)</th>
+                        <th class="py-3 px-4">Délai Moyen (T<sub>amorçage</sub>)</th>
                         <th class="py-3 px-4">Taux d'Amorçage</th>
-                        <th class="py-3 px-4">Validation Prototype ($R_{\text{gating}}$)</th>
-                        <th class="py-3 px-4">Stabilité & Reprises ($F_{\text{révision}}$)</th>
-                        <th class="py-3 px-4">Attente File ($T_{\text{file}}$)</th>
-                        <th class="py-3 px-4">Remédiation ($T_{\text{intervention}}$)</th>
-                        <th class="py-3 px-4">Cohérence IA ($r$)</th>
+                        <th class="py-3 px-4">Validation Prototype (R<sub>gating</sub>)</th>
+                        <th class="py-3 px-4">Stabilité & Reprises (F<sub>révision</sub>)</th>
+                        <th class="py-3 px-4">Attente File (T<sub>file</sub>)</th>
+                        <th class="py-3 px-4">Remédiation (T<sub>intervention</sub>)</th>
+                        <th class="py-3 px-4">Cohérence IA (r)</th>
                         <th class="py-3 px-4">Couverture Référentiel (ICP)</th>
                         <th class="py-3 px-4">Docimologie 65/35 (&tau;)</th>
                         <th class="py-3 px-5 text-right">Statut</th>
@@ -239,11 +239,11 @@
         </div>
     </div>
 
-    <!-- Matrice Benchmark de la Charge Administrative des Formateurs ($C_logistique) -->
+    <!-- Matrice Benchmark de la Charge Administrative des Formateurs (C_logistique) -->
     <div class="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
         <div class="p-5 border-b border-slate-200 bg-slate-50/70 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
             <div>
-                <h4 class="text-sm font-bold text-slate-900">Charge Administrative par Formateur ($C_{\text{logistique}}$)</h4>
+                <h4 class="text-sm font-bold text-slate-900">Charge Administrative par Formateur (C<sub>logistique</sub>)</h4>
                 <p class="text-xs text-slate-500">Volume horaire hebdomadaire effectif consacré au micro-suivi (Semaine : {{ $kpiChargeLogistique['semaine'] ?? '--' }})</p>
             </div>
             <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold {{ $kpiChargeLogistique['badge_class'] ?? 'bg-emerald-50 text-emerald-700' }}">
@@ -256,7 +256,7 @@
                 <thead>
                     <tr class="border-b border-slate-200 text-slate-500 font-semibold bg-slate-50/50">
                         <th class="py-3 px-5">Formateur</th>
-                        <th class="py-3 px-4">Temps Total ($C_{\text{logistique}}$)</th>
+                        <th class="py-3 px-4">Temps Total (C<sub>logistique</sub>)</th>
                         <th class="py-3 px-4">Pilotage Kanban</th>
                         <th class="py-3 px-4">File FIFO</th>
                         <th class="py-3 px-4">Bordereaux Notes</th>

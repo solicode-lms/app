@@ -36,7 +36,7 @@
 <!-- KPI 2 Formateur : Taux de validation au 1er passage (R_gating) -->
 <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
     <div class="flex items-center justify-between">
-        <span class="text-xs font-bold text-slate-500">Validation Prototype au 1er essai ($R_{\text{gating}}$)</span>
+        <span class="text-xs font-bold text-slate-500">Validation Prototype au 1er essai (R<sub>gating</sub>)</span>
         <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold {{ $kpi['statut_badge'] ?? 'bg-slate-50 text-slate-700 border border-slate-200' }}">
             {{ $kpi['statut'] ?? 'En attente' }}
         </span>
@@ -60,7 +60,7 @@
 <!-- KPI 2 Responsable : Taux macroscopique global de validation directe -->
 <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
     <div class="flex items-center justify-between">
-        <span class="text-xs font-bold text-slate-500">Taux Macro Validation 1er Essai ($R_{\text{gating}}$)</span>
+        <span class="text-xs font-bold text-slate-500">Taux Macro Validation 1er Essai (R<sub>gating</sub>)</span>
         <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
             Indicateur 02
         </span>

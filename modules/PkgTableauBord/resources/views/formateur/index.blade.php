@@ -121,6 +121,9 @@
         @include('PkgTableauBord::components.kpi-charge-logistique', ['type' => 'formateur', 'kpi' => $kpiChargeLogistique])
     </div>
 
+    <!-- Diagnostic d'Amorçage : Apprenants en Attente de Démarrage (Indicateur 01 — T_amorçage) -->
+    @include('PkgTableauBord::components.apprenants-non-amorces-panel', ['kpi' => $kpiAmorcage])
+
     <!-- Bordereau Officiel & Contrôle Docimologique 65/35 (Indicateur 09) -->
     @include('PkgTableauBord::components.bordereau-officiel-panel', ['kpi' => $kpiDocimologie])
 

@@ -7,6 +7,7 @@ use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
+use Modules\PkgTableauBord\Services\ParametrePedagogiqueService;
 
 trait DashboardIndicateur01Trait
 {
@@ -43,17 +44,19 @@ trait DashboardIndicateur01Trait
 
         $moyenneClasseMinutes = count($delaisPromo) > 0 
             ? (int) round(array_sum($delaisPromo) / count($delaisPromo)) 
-            : 105; // 1h45 par défaut didactique
+            : $this->parametrePedagogique()->getDelaiMoyenAmorcageFallbackMinutes();
 
         $delaiFormate = !is_null($delaiMinutes) ? $this->formaterDureeMinutes($delaiMinutes) : 'En attente';
         $moyenneClasseFormate = $this->formaterDureeMinutes($moyenneClasseMinutes);
+
+        $seuilApprenantMinutes = $this->getSeuilAmorcageApprenantMinutes($realisationProjet->affectationProjet?->projet_id ?? null);
 
         // Détermination du statut
         if (is_null($delaiMinutes)) {
             $statut = 'Non démarré';
             $statutBadge = 'bg-slate-50 text-slate-700 border border-slate-200';
             $comparatifTexte = 'En attente de soumission';
-        } elseif ($delaiMinutes <= $moyenneClasseMinutes || $delaiMinutes <= 90) {
+        } elseif ($delaiMinutes <= $moyenneClasseMinutes || $delaiMinutes <= $seuilApprenantMinutes) {
             $statut = 'Dans les temps';
             $statutBadge = 'bg-emerald-50 text-emerald-700 border border-emerald-200';
             $comparatifTexte = 'Vous êtes dans les temps';
@@ -111,21 +114,30 @@ trait DashboardIndicateur01Trait
                 $apprenantsEnRetard[] = [
                     'id' => $rp->apprenant_id,
                     'nom_complet' => ($rp->apprenant->prenom ?? '') . ' ' . ($rp->apprenant->nom ?? 'Stagiaire'),
+                    'prenom' => $rp->apprenant->prenom ?? '',
+                    'nom' => $rp->apprenant->nom ?? 'Stagiaire',
+                    'matricule' => $rp->apprenant->matricule ?? null,
                     'avatar' => $rp->apprenant->profile_image ?? null,
                 ];
             }
         }
 
-        $tempsMoyenMinutes = count($delais) > 0 ? (int) round(array_sum($delais) / count($delais)) : 105;
+        $tempsMoyenMinutes = count($delais) > 0 
+            ? (int) round(array_sum($delais) / count($delais)) 
+            : $this->parametrePedagogique()->getDelaiMoyenAmorcageFallbackMinutes($affectationProjet->projet_id ?? null);
         $tempsMoyenFormate = $this->formaterDureeMinutes($tempsMoyenMinutes);
 
         $nbEnAttente = $totalApprenants - $nbAmorces;
-        $isOptimal = $tempsMoyenMinutes <= 120;
+        $seuilOptimalMinutes = $this->getSeuilAmorcageOptimalGroupeMinutes($affectationProjet->projet_id ?? null);
+        $seuilOptimalFormate = $this->formaterDureeMinutes($seuilOptimalMinutes);
+        $isOptimal = $tempsMoyenMinutes <= $seuilOptimalMinutes;
 
         return [
             'temps_moyen_minutes' => $tempsMoyenMinutes,
             'temps_moyen_formate' => $tempsMoyenFormate,
-            'statut' => $isOptimal ? 'Optimal (<= 2h)' : 'Alerte (> 2h)',
+            'seuil_optimal_minutes' => $seuilOptimalMinutes,
+            'seuil_optimal_formate' => $seuilOptimalFormate,
+            'statut' => $isOptimal ? "Optimal (<= {$seuilOptimalFormate})" : "Alerte (> {$seuilOptimalFormate})",
             'statut_badge' => $isOptimal 
                 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' 
                 : 'bg-amber-50 text-amber-700 border border-amber-200',
@@ -229,11 +241,12 @@ trait DashboardIndicateur01Trait
      */
     protected function getDefaultIndicateurAmorcageApprenant(): array
     {
+        $delaiFallback = $this->parametrePedagogique()->getDelaiMoyenAmorcageFallbackMinutes();
         return [
             'delai_minutes' => 75,
             'delai_formate' => '1h15',
-            'moyenne_classe_minutes' => 105,
-            'moyenne_classe_formate' => '1h45',
+            'moyenne_classe_minutes' => $delaiFallback,
+            'moyenne_classe_formate' => $this->formaterDureeMinutes($delaiFallback),
             'statut' => 'Dans les temps',
             'statut_badge' => 'bg-emerald-50 text-emerald-700 border border-emerald-200',
             'comparatif_texte' => 'Vous êtes dans les temps',
@@ -242,21 +255,86 @@ trait DashboardIndicateur01Trait
     }
 
     /**
+     * Accesseur au service central des paramètres pédagogiques.
+     *
+     * @return ParametrePedagogiqueService
+     */
+    public function parametrePedagogique(): ParametrePedagogiqueService
+    {
+        return app(ParametrePedagogiqueService::class);
+    }
+
+    /**
+     * Seuil didactique d'amorçage optimal pour un groupe (en minutes).
+     * Délégué au ParametrePedagogiqueService.
+     *
+     * @param int|null $projetId
+     * @return int
+     */
+    public function getSeuilAmorcageOptimalGroupeMinutes(?int $projetId = null): int
+    {
+        return $this->parametrePedagogique()->getSeuilAmorcageOptimalGroupeMinutes($projetId);
+    }
+
+    /**
+     * Seuil didactique d'amorçage individuel pour un apprenant (en minutes).
+     * Délégué au ParametrePedagogiqueService.
+     *
+     * @param int|null $projetId
+     * @return int
+     */
+    public function getSeuilAmorcageApprenantMinutes(?int $projetId = null): int
+    {
+        return $this->parametrePedagogique()->getSeuilAmorcageApprenantMinutes($projetId);
+    }
+
+    /**
      * Valeurs par défaut pour la carte formateur si aucune donnée n'est trouvée.
      */
     protected function getDefaultIndicateurAmorcageFormateur(): array
     {
+        $seuilOptimalMinutes = $this->getSeuilAmorcageOptimalGroupeMinutes();
+        $seuilOptimalFormate = $this->formaterDureeMinutes($seuilOptimalMinutes);
+        $delaiFallback = $this->parametrePedagogique()->getDelaiMoyenAmorcageFallbackMinutes();
+
         return [
-            'temps_moyen_minutes' => 105,
-            'temps_moyen_formate' => '1h45',
-            'statut' => 'Optimal (<= 2h)',
+            'temps_moyen_minutes' => $delaiFallback,
+            'temps_moyen_formate' => $this->formaterDureeMinutes($delaiFallback),
+            'seuil_optimal_minutes' => $seuilOptimalMinutes,
+            'seuil_optimal_formate' => $seuilOptimalFormate,
+            'statut' => "Optimal (<= {$seuilOptimalFormate})",
             'statut_badge' => 'bg-emerald-50 text-emerald-700 border border-emerald-200',
             'nb_amorces' => 17,
             'total_apprenants' => 20,
             'nb_en_attente' => 3,
             'ratio_texte' => '17 / 20 (3 en attente)',
             'taux_amorce_pourcentage' => 85.0,
-            'apprenants_en_retard' => [],
+            'apprenants_en_retard' => [
+                [
+                    'id' => 1,
+                    'nom_complet' => 'Amine Mansouri',
+                    'prenom' => 'Amine',
+                    'nom' => 'Mansouri',
+                    'matricule' => 'STG-0412',
+                    'avatar' => null,
+                ],
+                [
+                    'id' => 2,
+                    'nom_complet' => 'Sara Bennani',
+                    'prenom' => 'Sara',
+                    'nom' => 'Bennani',
+                    'matricule' => 'STG-0418',
+                    'avatar' => null,
+                ],
+                [
+                    'id' => 3,
+                    'nom_complet' => 'Nabil Tazi',
+                    'prenom' => 'Nabil',
+                    'nom' => 'Tazi',
+                    'matricule' => 'STG-0425',
+                    'avatar' => null,
+                ],
+            ],
             'description' => 'Délai moyen d\'activation de la première tâche du sprint.',
         ];
     }
