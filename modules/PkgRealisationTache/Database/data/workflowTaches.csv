@@ -10,3 +10,4 @@
 "8","LATE","En retard","La tâche n’a pas été rendue dans les délais impartis","1","LATE","dark"
 "10","APPROVED","Validée","La tâche a été approuvée après validation pédagogique","1","APPROVED","success"
 "11","EN_REMEDIATION","En remédiation","La tâche prototype nécessite une consolidation didactique avant une nouvelle session Live Coding.","1","EN_REMEDIATION","warning"
+"12","A_VALIDER_LIVE_CODING","À valider Live coding","La démonstration collective de Live Coding est terminée, en attente de validation finale par le formateur.","0","A_VALIDER_LIVE_CODING","warning"

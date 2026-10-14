@@ -129,15 +129,21 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
   - UI V2 : `kpi-file-attente.blade.php`, `file-attente.blade.php` (analyse détaillée, console FIFO réactive, boutons d'appel solo et session Discord 4x4)
 
 ### Action H : Traiter l'Alerte Critique et Calculer l'Indicateur 06 ($T_{\text{intervention}}$)
-> **Description** : Expliquer le mécanisme d'alerte post-Live Coding (+10 min configurable via `seuil_blocage_minutes`), le calcul du taux de remédiation ($88\%$), l'étayage didactique (individuelle, trinôme d'entraide, atelier de soutien) et la Flashbox Alerte Rouge.
+> **Description** : Expliquer la fin du Live Coding collectif marquée par l'état `A_VALIDER_LIVE_CODING` ou `APPROVED` sur la tâche du démonstrateur (`is_live_coding = true`), le chronomètre d'autonomie (+30 min configurable via `seuil_blocage_minutes`), la bascule automatique par le système des tâches retardataires vers l'état `EN_REMEDIATION`, l'affichage exclusif des apprenants en remédiation sur le tableau de bord (sans action modale ni typologie Trinôme/Atelier/Solo), et le déblocage par le formateur vers la validation de tâche.
 - **Ressources Utilisées** :
   - `cahiers-charges/PkgTableauBord/plan-sprint6.md`
+- **Règles Didactiques & Précédents (CRITIQUE)** :
+  - **Condition d'Existence Live Coding (`is_live_coding = true`)** : Pour qu'une tâche soit éligible à la remédiation, **il DOIT impérativement exister une réalisation de cette tâche ayant `is_live_coding = true`** (l'apprenant qui a fait la démonstration au tableau). Si aucune réalisation d'une tâche n'a `is_live_coding = true`, le système ne doit **JAMAIS** mettre cette tâche en remédiation.
+  - **Condition de Fin Démonstrateur** : La réalisation ayant `is_live_coding = true` doit avoir atteint l'état **« À valider Live coding »** (`A_VALIDER_LIVE_CODING`) ou **« Validée »** (`APPROVED` / `VALIDEE`).
+  - **Affichage Exclusif** : Sur le Tableau de bord et dans la vue Indicateur 06, on affiche **exclusivement les apprenants qui ont une tâche en état `EN_REMEDIATION`**. Les apprenants autonomes ou déjà validés ne figurent pas dans cette liste d'intervention.
+  - **Absence d'Action Modale & Pas de Typologie Fictive** : Le système ne génère pas de façon de remédiation (*"Trinôme"*, *"Atelier"*, *"Solo"*). Il n'y a pas de bouton d'action ni de popup modal pour consigner un type d'étayage.
+  - **Workflow Formateur** : Le formateur intervient en direct auprès des apprenants listés en remédiation. Une fois le blocage résolu, le formateur passe l'état de la tâche de `EN_REMEDIATION` à `VALIDEE` (ou `APPROVED`). L'apprenant quitte alors automatiquement la liste des remédiations.
 - **Sorties** :
-  - Colonnes `affectation_projets` : `date_fin_live_coding_collectif`, `seuil_blocage_minutes`
-  - Table : `remediations`
-  - Modèle : `Modules\PkgTableauBord\Models\Remediation`
-  - Service : `DashboardIndicateur06Trait`
-  - UI V2 : `kpi-intervention.blade.php`, `flashbox-alerte-blocages.blade.php`, bandeau bienveillant apprenant
+  - Workflow : `WorkflowTache` code `A_VALIDER_LIVE_CODING` (ID 12) et `EN_REMEDIATION` (ID 11)
+  - Colonnes `affectation_projets` : `date_fin_live_coding_collectif`, `seuil_blocage_minutes` (défaut 30 min)
+  - Service : `DashboardIndicateur06Trait` (détection dynamique $t_0$, `synchroniserApprenantsEnRemediation` par tâche avec `is_live_coding`, calculs $T_{\text{intervention}}$ sur les tâches `EN_REMEDIATION`)
+  - UI V2 : `kpi-intervention.blade.php`, `flashbox-alerte-blocages.blade.php`, `intervention.blade.php` (tableau exclusif des stagiaires en remédiation, sans bouton d'action, benchmark inter-sessions)
+  - Artisan : `dashboard:simuler-remediations` (analyse et synchronisation des données réelles de BDD)
 
 ### Action I : Mesurer la Concordance Docimologique & Intégrité face à l'IA ($r$)
 > **Description** : Expliquer le calcul du coefficient de corrélation linéaire de Pearson ($r \in [-1, +1]$) confrontant les notes du prototype surveillé ($N2$) et du projet libre assisté par IA ($N3$), la détection des alertes d'écart suspect ($\Delta_{\text{IA}} > +5\text{ pts}$), le tableau d'audit des soutenances et le Scatter Plot SVG interactif.
@@ -234,11 +240,27 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
 5. Au passage à `IN_LIVE_CODING`, `cache_date_debut_live_coding` est enregistré et `cache_delai_attente_minutes` est calculé (si délai = 0 min, la valeur 0 est conservée).
 
 ### Scénario 6 : Détection des Ruptures et Prise en Charge ($T_{\text{intervention}}$)
-1. Le formateur clôture le Live Coding collectif (`date_fin_live_coding_collectif = now()`).
-2. Dès que le temps écoulé dépasse le seuil paramétré de l'affectation (`seuil_blocage_minutes`, défaut 10 min), les apprenants n'ayant pas encore soumis leur livrable de tutoriel sont flagués en rupture.
-3. Le formateur voit apparaître la **Flashbox Alerte Rouge** avec les apprenants bloqués (`+14 min`, `+11 min`) et déclenche un étayage (Trinôme d'entraide ou Atelier de soutien).
-4. Dès l'intervention enregistrée dans `remediations`, le taux $T_{\text{intervention}}$ augmente ($\ge 85\%$ = Excellence).
-5. L'apprenant concerné voit un message bienveillant d'accompagnement l'invitant à solliciter son formateur et ses pairs.
+1. **Condition stricte d'éligibilité par tâche (`is_live_coding = true`)** : Une tâche n'est éligible à la remédiation que si au moins un apprenant a été désigné pour la démonstration collective au tableau (`RealisationTache.is_live_coding = 1`). Si aucune réalisation d'une tâche ne possède `is_live_coding = true`, le système ne doit **JAMAIS** mettre la tâche en remédiation.
+2. **Fin du Live Coding collectif au tableau** : L'apprenant démonstrateur (`is_live_coding = true`) passe sa tâche à l'état `A_VALIDER_LIVE_CODING` (ID 12) ou est validé par le formateur (`APPROVED` / `VALIDEE`). Cette transition fige l'horodatage de référence $t_0$. Si le démonstrateur n'a pas encore atteint l'un de ces états, le Live Coding est en cours et aucune remédiation n'est déclenchée.
+3. **Fenêtre critique d'autonomie (30 min)** : Les pairs disposent d'un créneau d'autonomie cible de 30 min (`seuil_blocage_minutes = 30` par défaut).
+4. **Bascule AUTOMATIQUE en état `EN_REMEDIATION` et Inscription BDD** :
+   - Dès que $now > t_0 + 30\,\text{min}$, toute tâche non terminée (`TODO`, `IN_PROGRESS`, `PAUSED`, `REVISION_NECESSAIRE`) des pairs (`is_live_coding = 0`) de cette même tâche est basculée automatiquement vers l'état `EN_REMEDIATION`.
+   - **Règle absolue** : Une tâche à l'état **"Non validée" (`NOT_VALIDATED`) ne bascule JAMAIS en remédiation**.
+   - Le système insère simultanément une fiche dans la table **`remediations`** avec `est_resolu = false` pour assurer la traçabilité.
+5. **Console Formateur & Tableau de Bord Exclusif** :
+   - La **Flashbox Formateur** alerte **exclusivement** sur les blocages actifs non résolus (`est_resolu = false` / tâche `EN_REMEDIATION`).
+   - La page détaillée affiche deux tables distinctes :
+     - **Alertes Actives** : apprenants actuellement bloqués en attente d'aide.
+     - **Mémoire Pédagogique (Résolues)** : apprenants passés par la remédiation et désormais validés avec succès par le formateur.
+   - Le système ne génère aucune typologie artificielle (*"Trinôme"*, *"Atelier"*, *"Solo"*) et n'affiche aucune modale intrusive au chargement.
+6. **Régulation Pédagogique Directe & Résolution (`est_resolu = true`)** :
+   - Le formateur travaille directement en classe avec les apprenants bloqués.
+   - Une fois l'objectif atteint, le formateur passe la tâche de `EN_REMEDIATION` vers `VALIDEE` (ou `APPROVED`).
+   - L'événement déclenche automatiquement la mise à jour de la fiche dans `remediations` (`est_resolu = true`, `updated_at = now()`).
+   - L'apprenant quitte la liste active et entre dans l'historique des remédiations résolues.
+7. **Calcul Dual des Taux** :
+   - **Taux d'Autonomie Initiale** : $\tau_{\text{autonomie}} = \frac{N_{\text{total}} - N_{\text{remédiés}}}{N_{\text{total}}} \times 100$ (pérenne et mémorisé même après validation).
+   - **Taux de Résolution des Remédiations** : $\tau_{\text{résolution}} = \frac{N_{\text{résolus}}}{N_{\text{remédiés}}} \times 100$ (atteint 100% quand tous les élèves remédiés sont validés).
 
 ### Scénario 7 : Audit de Concordance Docimologique & Intégrité IA ($r$)
 1. Les notes de prototype ($N2$) et de projet libre ($N3$) sont saisies sur 20.

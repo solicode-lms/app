@@ -3,35 +3,31 @@
 ])
 
 @if(!empty($kpi['afficher_flashbox']) && !empty($kpi['apprenants_en_attente']))
-<!-- Flashbox Alerte Critique : Apprenants en Rupture Didactique (+10 min) -->
+<!-- Flashbox Alerte Critique : Apprenants en Remédiation post-Live Coding -->
 <div class="bg-rose-50 border-2 border-rose-300/80 rounded-lg p-5 sm:p-6 shadow-sm space-y-4">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-rose-200/60 pb-3">
         <div class="flex items-start gap-3">
             <div class="w-10 h-10 rounded-xl bg-rose-100 border border-rose-200 flex items-center justify-center shrink-0">
-                <i class="fas fa-triangle-exclamation text-rose-600 text-lg"></i>
+                <i class="fas fa-hand-holding-hand text-rose-600 text-lg"></i>
             </div>
             <div>
                 <div class="flex items-center gap-2">
-                    <h4 class="text-sm font-bold text-rose-900">Apprenants sans livrable post-séance (+{{ $kpi['seuil_minutes'] ?? 10 }} min)</h4>
+                    <h4 class="text-sm font-bold text-rose-900">Apprenants en Remédiation post-Live Coding</h4>
                     <span class="px-2 py-0.5 rounded-full text-[11px] font-extrabold bg-rose-600 text-white font-mono animate-pulse">
-                        {{ count($kpi['apprenants_en_attente']) }} en rupture
+                        {{ count($kpi['apprenants_en_attente']) }} en remédiation
                     </span>
                 </div>
                 <p class="text-xs text-rose-700 mt-0.5">
-                    Délai critique d'autonomie post-Live Coding dépassé. Accompagnement didactique prioritaire requis.
+                    Délai d'autonomie post-Live Coding dépassé (> {{ $kpi['seuil_minutes'] ?? 30 }} min). Le formateur accompagne ces stagiaires puis valide leur tâche.
                 </p>
             </div>
         </div>
 
         <div class="flex items-center gap-2 shrink-0">
-            <button type="button"
+            <a href="{{ route('admin.PkgTableauBord.indicateurs.intervention', array_merge(request()->query(), ['from' => 'formateur'])) }}"
                 class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white shadow-2xs transition">
-                <i class="fas fa-users-rays"></i> Assigner Trinôme d'Entraide
-            </button>
-            <button type="button"
-                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-rose-300 hover:bg-rose-100 text-rose-800 shadow-2xs transition">
-                <i class="fas fa-chalkboard-user"></i> Ouvrir Atelier de Soutien
-            </button>
+                <i class="fas fa-list-check"></i> Voir la liste des remédiations
+            </a>
         </div>
     </div>
 

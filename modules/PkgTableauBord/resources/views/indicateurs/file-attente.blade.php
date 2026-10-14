@@ -114,7 +114,7 @@
                     <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200">
                         Saturation : &gt; {{ $detail['seuil_vigilance'] }} min ou &ge; {{ $detail['seuil_saturation_count'] }} en attente
                     </span>
-                    @if($projetActif)
+                    @if(!empty($projetActif))
                         <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 truncate max-w-[280px]">
                             Session : {{ $projetActif->titre }}
                         </span>

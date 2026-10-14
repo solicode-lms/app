@@ -385,4 +385,100 @@ class IndicateurDetailController extends AdminController
 
         return back()->with($result['success'] ? 'success' : 'error', $result['message']);
     }
+
+    /**
+     * Page de détail pour l'Indicateur 06 : Taux d'Intervention et de Remédiation Ciblée (T_intervention).
+     *
+     * @DynamicPermissionIgnore
+     */
+    public function intervention(Request $request)
+    {
+        $ctx = $this->resolveFilterContext($request);
+
+        $filters = [
+            'groupe_ids' => $ctx['targetGroupeIds'],
+            'projet_id' => $ctx['targetProjetId'],
+            'filiere_id' => $ctx['selectedFiliereId'],
+            'formateur_id' => $ctx['selectedFormateurId'],
+            'affectation_id' => $request->get('affectation_id'),
+            'filter_type' => $ctx['filterType'],
+        ];
+
+        $detail = $this->tableauBordService->getIndicateurInterventionDetail($filters);
+
+        return view('PkgTableauBord::indicateurs.intervention', [
+            'user' => $ctx['user'],
+            'dashboardRoute' => $ctx['dashboardRoute'],
+            'isVisionGlobale' => $ctx['isVisionGlobale'],
+            'formateurs' => $ctx['formateurs'],
+            'selectedFormateurId' => $ctx['selectedFormateurId'],
+            'filieres' => $ctx['filieres'],
+            'selectedFiliereId' => $ctx['selectedFiliereId'],
+            'groupes' => $ctx['groupes'],
+            'selectedGroupeId' => $ctx['selectedGroupeId'],
+            'projets' => $ctx['projets'],
+            'selectedProjetId' => $ctx['selectedProjetId'],
+            'projetActif' => $ctx['projetActif'],
+            'filterType' => $ctx['filterType'],
+            'detail' => $detail,
+        ]);
+    }
+
+    /**
+     * Action : Enregistrer une intervention d'étayage didactique (Indicateur 06).
+     *
+     * @DynamicPermissionIgnore
+     */
+    public function enregistrerRemediation(Request $request)
+    {
+        $request->validate([
+            'realisation_tache_id' => 'required|integer',
+            'type_remediation' => 'required|string',
+            'diagnostic' => 'nullable|string',
+        ]);
+
+        $user = Auth::user();
+        $formateur = Formateur::where('user_id', $user?->id)->first();
+        $formateurId = $formateur ? $formateur->id : (Formateur::first()?->id ?? 1);
+
+        $remediation = $this->tableauBordService->enregistrerRemediation(
+            (int) $request->input('realisation_tache_id'),
+            $formateurId,
+            (string) $request->input('type_remediation'),
+            $request->input('diagnostic')
+        );
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => $remediation !== null,
+                'message' => 'Intervention d\'étayage enregistrée avec succès.',
+                'remediation' => $remediation,
+            ]);
+        }
+
+        return back()->with('success', 'Intervention d\'étayage enregistrée avec succès.');
+    }
+
+    /**
+     * Action : Clôturer le Live Coding collectif au tableau (Indicateur 06).
+     *
+     * @DynamicPermissionIgnore
+     */
+    public function cloturerLiveCodingCollectif(Request $request)
+    {
+        $request->validate([
+            'affectation_projet_id' => 'required|integer',
+        ]);
+
+        $success = $this->tableauBordService->cloturerLiveCodingCollectif((int) $request->input('affectation_projet_id'));
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => $success,
+                'message' => 'Séance collective clôturée. Le chronomètre d\'autonomie (30 min) est démarré.',
+            ]);
+        }
+
+        return back()->with('success', 'Séance collective clôturée. Le chronomètre d\'autonomie (30 min) est démarré.');
+    }
 }

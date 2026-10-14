@@ -39,10 +39,7 @@ trait DashboardIndicateur05Trait
         }
 
         $tacheLive = RealisationTache::where('realisation_projet_id', $realisationProjet->id)
-            ->where(function ($q) {
-                $q->whereHas('tache.phaseEvaluation', fn($sub) => $sub->where('code', 'N2'))
-                  ->orWhereHas('tache', fn($sub) => $sub->where('is_live_coding', 1));
-            })
+            ->whereHas('tache.phaseEvaluation', fn($q) => $q->where('code', 'N2'))
             ->whereHas('etatRealisationTache.workflowTache', function ($q) {
                 $q->whereIn('code', ['READY_FOR_LIVE_CODING', 'IN_LIVE_CODING']);
             })
@@ -89,10 +86,7 @@ trait DashboardIndicateur05Trait
         $hasCacheCol = Schema::hasColumn('realisation_taches', 'cache_date_entree_file');
 
         $queryRangs = RealisationTache::whereHas('realisationProjet', fn($q) => $q->where('affectation_projet_id', $affectationProjetId))
-            ->where(function ($q) {
-                $q->whereHas('tache.phaseEvaluation', fn($sub) => $sub->where('code', 'N2'))
-                  ->orWhereHas('tache', fn($sub) => $sub->where('is_live_coding', 1));
-            })
+            ->whereHas('tache.phaseEvaluation', fn($q) => $q->where('code', 'N2'))
             ->whereHas('etatRealisationTache.workflowTache', fn($q) => $q->where('code', 'READY_FOR_LIVE_CODING'));
 
         if ($hasCacheCol && $tacheLive->cache_date_entree_file) {
@@ -154,10 +148,7 @@ trait DashboardIndicateur05Trait
         $hasCacheCol = Schema::hasColumn('realisation_taches', 'cache_date_entree_file');
 
         $query = RealisationTache::whereHas('realisationProjet', fn($q) => $q->where('affectation_projet_id', $affectationProjet->id))
-            ->where(function ($q) {
-                $q->whereHas('tache.phaseEvaluation', fn($sub) => $sub->where('code', 'N2'))
-                  ->orWhereHas('tache', fn($sub) => $sub->where('is_live_coding', 1));
-            })
+            ->whereHas('tache.phaseEvaluation', fn($q) => $q->where('code', 'N2'))
             ->whereHas('etatRealisationTache.workflowTache', function ($q) {
                 $q->whereIn('code', ['READY_FOR_LIVE_CODING', 'IN_LIVE_CODING']);
             })
@@ -236,10 +227,7 @@ trait DashboardIndicateur05Trait
 
         // Calcul du délai moyen de la séance (passages terminés + apprenants actuellement en file)
         $delaisTermines = RealisationTache::whereHas('realisationProjet', fn($q) => $q->where('affectation_projet_id', $affectationProjet->id))
-            ->where(function ($q) {
-                $q->whereHas('tache.phaseEvaluation', fn($sub) => $sub->where('code', 'N2'))
-                  ->orWhereHas('tache', fn($sub) => $sub->where('is_live_coding', 1));
-            })
+            ->whereHas('tache.phaseEvaluation', fn($q) => $q->where('code', 'N2'))
             ->whereNotNull('cache_delai_attente_minutes')
             ->pluck('cache_delai_attente_minutes');
 
@@ -379,9 +367,10 @@ trait DashboardIndicateur05Trait
         }
 
         if (!$selectedAff) {
-            // Priorité 1 : Chercher d'abord une affectation avec du IN_LIVE_CODING actif
+            // Priorité 1 : Chercher d'abord une affectation avec du IN_LIVE_CODING actif sur N2
             foreach ($affectations as $aff) {
                 $hasInLive = RealisationTache::whereHas('realisationProjet', fn($q) => $q->where('affectation_projet_id', $aff->id))
+                    ->whereHas('tache.phaseEvaluation', fn($q) => $q->where('code', 'N2'))
                     ->whereHas('etatRealisationTache.workflowTache', fn($q) => $q->where('code', 'IN_LIVE_CODING'))
                     ->exists();
                 if ($hasInLive) {
@@ -392,9 +381,10 @@ trait DashboardIndicateur05Trait
         }
 
         if (!$selectedAff) {
-            // Priorité 2 : Chercher une affectation avec du READY_FOR_LIVE_CODING
+            // Priorité 2 : Chercher une affectation avec du READY_FOR_LIVE_CODING sur N2
             foreach ($affectations as $aff) {
                 $hasActive = RealisationTache::whereHas('realisationProjet', fn($q) => $q->where('affectation_projet_id', $aff->id))
+                    ->whereHas('tache.phaseEvaluation', fn($q) => $q->where('code', 'N2'))
                     ->whereHas('etatRealisationTache.workflowTache', fn($q) => $q->where('code', 'READY_FOR_LIVE_CODING'))
                     ->exists();
                 if ($hasActive) {
@@ -411,10 +401,11 @@ trait DashboardIndicateur05Trait
         // 3. Calculer les données de l'affectation active
         $kpiActive = $this->getIndicateurFileAttenteFormateur($selectedAff);
 
-        // 4. Soutenances récentes terminées dans cette affectation
+        // 4. Soutenances récentes terminées dans cette affectation (tâches N2)
         $soutenancesRecentes = [];
         if ($selectedAff) {
             $historiqueTaches = RealisationTache::whereHas('realisationProjet', fn($q) => $q->where('affectation_projet_id', $selectedAff->id))
+                ->whereHas('tache.phaseEvaluation', fn($q) => $q->where('code', 'N2'))
                 ->where(function ($q) {
                     $q->whereNotNull('cache_delai_attente_minutes')
                       ->orWhereNotNull('cache_date_debut_live_coding');

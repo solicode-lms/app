@@ -9,9 +9,12 @@
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
-                    <span class="text-[11px] sm:text-xs font-bold text-slate-500 leading-tight block line-clamp-2" title="Prise en charge des blocages (T_intervention)">
-                        Prise en charge blocages
-                    </span>
+                    <a href="{{ route('admin.PkgTableauBord.indicateurs.intervention', array_merge(request()->query(), ['from' => 'formateur'])) }}" 
+                       class="text-[11px] sm:text-xs font-bold text-slate-700 hover:text-indigo-600 leading-tight block line-clamp-2 transition" 
+                       title="Taux d'Intervention et de Remédiation (T_intervention) — Cliquer pour la Console d'Étayage">
+                        <span>Prise en charge blocages (T<sub>intervention</sub>)</span>
+                        <i class="fas fa-arrow-up-right-from-square text-[9px] ms-0.5 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </a>
                 </div>
                 <span class="shrink-0 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-bold {{ $kpi['badge_class'] ?? 'bg-slate-100 text-slate-700' }}" title="{{ $kpi['badge_label'] ?? '' }}">
                     <span class="w-1.5 h-1.5 rounded-full bg-current opacity-75 shrink-0"></span>
@@ -26,8 +29,8 @@
                 <span class="text-[11px] text-slate-400 font-medium">couverture</span>
             </div>
 
-            <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed mb-2" title="{{ $kpi['description'] ?? 'Taux de remédiation des blocages post-Live Coding (+10 min).' }}">
-                {{ $kpi['description'] ?? 'Taux de remédiation des blocages post-Live Coding (+' . ($kpi['seuil_minutes'] ?? 10) . ' min).' }}
+            <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed mb-2" title="{{ $kpi['description'] ?? 'Taux de remédiation des blocages post-Live Coding (+30 min).' }}">
+                {{ $kpi['description'] ?? 'Taux de remédiation des blocages post-Live Coding (+' . ($kpi['seuil_minutes'] ?? 30) . ' min).' }}
             </p>
         </div>
 
@@ -42,7 +45,7 @@
         </div>
         <div class="pt-2 mt-1.5 border-t border-slate-50 flex items-center justify-between text-[11px]">
             <span class="text-[10px] text-slate-400 font-medium">Indicateur #06</span>
-            <span class="text-[10px] text-emerald-600 font-bold font-mono">T<sub>intervention</sub></span>
+            <a href="{{ route('admin.PkgTableauBord.indicateurs.intervention', array_merge(request()->query(), ['from' => 'formateur'])) }}" class="text-[10px] text-indigo-600 hover:underline font-bold font-mono">Console d'Étayage &rarr;</a>
         </div>
     </div>
 
@@ -52,9 +55,12 @@
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
-                    <span class="text-[11px] sm:text-xs font-bold text-slate-500 leading-tight block line-clamp-2" title="Taux Moyen Remédiation Macro (T_intervention)">
-                        Taux Moyen Remédiation
-                    </span>
+                    <a href="{{ route('admin.PkgTableauBord.indicateurs.intervention', array_merge(request()->query(), ['from' => 'responsable'])) }}" 
+                       class="text-[11px] sm:text-xs font-bold text-slate-700 hover:text-indigo-600 leading-tight block line-clamp-2 transition" 
+                       title="Taux Moyen Remédiation Macro (T_intervention) — Cliquer pour le détail">
+                        <span>Taux Moyen Remédiation</span>
+                        <i class="fas fa-arrow-up-right-from-square text-[9px] ms-0.5 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </a>
                 </div>
                 <span class="shrink-0 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                     Indicateur 06
@@ -81,6 +87,10 @@
             <span class="font-bold text-slate-800 font-mono text-xs shrink-0">
                 &ge; 85%
             </span>
+        </div>
+        <div class="pt-2 mt-1.5 border-t border-slate-50 flex items-center justify-between text-[11px]">
+            <span class="text-[10px] text-slate-400 font-medium">Benchmark global</span>
+            <a href="{{ route('admin.PkgTableauBord.indicateurs.intervention', array_merge(request()->query(), ['from' => 'responsable'])) }}" class="text-[10px] text-indigo-600 hover:underline font-bold font-mono">Vue détaillée &rarr;</a>
         </div>
     </div>
 @endif

@@ -26,6 +26,9 @@ Route::middleware('auth')->group(function () {
             Route::post('/file-attente/{id}/appeler', [IndicateurDetailController::class, 'appelerApprenant'])->name('file-attente.appeler');
             Route::post('/file-attente/session-mutualisee', [IndicateurDetailController::class, 'lancerSessionMutualisee'])->name('file-attente.session-mutualisee');
             Route::post('/file-attente/{id}/terminer', [IndicateurDetailController::class, 'terminerLiveCoding'])->name('file-attente.terminer');
+            Route::get('/intervention', [IndicateurDetailController::class, 'intervention'])->name('intervention');
+            Route::post('/intervention/intervenir', [IndicateurDetailController::class, 'enregistrerRemediation'])->name('intervention.intervenir');
+            Route::post('/intervention/cloturer-live-coding', [IndicateurDetailController::class, 'cloturerLiveCodingCollectif'])->name('intervention.cloturer-live-coding');
         });
     });
 });

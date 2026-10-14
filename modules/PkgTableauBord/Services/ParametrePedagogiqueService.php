@@ -53,7 +53,7 @@ class ParametrePedagogiqueService
         'file_seuil_alerte_minutes' => 30,
 
         // Indicateur 06 : Alerte post-Live Coding & Remédiation (T_intervention)
-        'remediation_seuil_blocage_minutes' => 10,
+        'remediation_seuil_blocage_minutes' => 30,
         'remediation_seuil_prise_en_charge_excellence' => 85.0,
 
         // Indicateur 07 : Intégrité face à l'IA & Pearson (r)
@@ -346,7 +346,7 @@ class ParametrePedagogiqueService
 
     public function getSeuilBlocagePostLiveCodingMinutes(?int $projetId = null): int
     {
-        return (int) $this->get('remediation_seuil_blocage_minutes', 10, $projetId);
+        return (int) $this->get('remediation_seuil_blocage_minutes', 30, $projetId);
     }
 
     // =========================================================================

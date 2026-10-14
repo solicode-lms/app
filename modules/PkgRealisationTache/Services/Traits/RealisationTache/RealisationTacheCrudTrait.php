@@ -443,6 +443,33 @@ trait RealisationTacheCrudTrait
             }
 
         }
+
+        // 🔄 Résolution automatique de la remédiation dans la table remediations lors du passage à VALIDEE / APPROVED
+        if ($realisationTache->wasChanged('etat_realisation_tache_id') && \Illuminate\Support\Facades\Schema::hasTable('remediations')) {
+            $nouvelEtat = $realisationTache->etatRealisationTache;
+            $wfCode = optional($nouvelEtat?->workflowTache)->code;
+            if (in_array($wfCode, ['VALIDEE', 'APPROVED'])) {
+                \Illuminate\Support\Facades\DB::table('remediations')
+                    ->where('realisation_tache_id', $realisationTache->id)
+                    ->where('est_resolu', 0)
+                    ->update([
+                        'est_resolu' => 1,
+                        'updated_at' => now(),
+                    ]);
+            }
+        }
+
+        // 🔄 Synchronisation automatique des remédiations post-Live Coding si l'état ou le Live Coding a changé
+        if ($realisationTache->wasChanged('etat_realisation_tache_id') || $realisationTache->wasChanged('is_live_coding')) {
+            $affectation = $realisationTache->realisationProjet?->affectationProjet;
+            if ($affectation && class_exists(\Modules\PkgTableauBord\Services\TableauBordService::class)) {
+                try {
+                    app(\Modules\PkgTableauBord\Services\TableauBordService::class)->synchroniserApprenantsEnRemediation($affectation);
+                } catch (\Throwable $e) {
+                    // Éviter de bloquer l'enregistrement
+                }
+            }
+        }
     }
 
 
