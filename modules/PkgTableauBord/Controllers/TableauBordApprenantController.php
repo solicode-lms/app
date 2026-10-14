@@ -124,7 +124,7 @@ class TableauBordApprenantController extends AdminController
         $realisationProjet = null;
 
         if ($apprenant) {
-            $filterType = $request->get('filter_type', 'sessions');
+            $filterType = $request->get('type_projet', $request->get('filter_type', 'sessions'));
             $projetsQuery = Projet::query()
                 ->whereHas('affectationProjets.realisationProjets', function ($q) use ($apprenant) {
                     $q->where('apprenant_id', $apprenant->id);

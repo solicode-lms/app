@@ -148,8 +148,14 @@ use Illuminate\Support\Facades\Auth;
             if (!preg_match('/^(filter|scope|dataSource|sort)(\.[a-zA-Z0-9_]+)+$/', $normalizedKey)) {
                 continue;
             }
+
+            // Si la clé n'a pas au moins 3 segments (ex: filter.Model.attr), on ne peut pas décomposer en hiérarchie
+            if (count($segments) < 3) {
+                $viewState->set($normalizedKey, $value);
+                continue;
+            }
     
-            // Initialiser avec les deux premiers segments (ex: filter, RealisationTache)
+            // Initialiser avec les trois premiers segments (ex: filter, RealisationTache, statut)
             $normalizedSegments = [$segments[0], $segments[1], $segments[2]];
     
             // Analyse à partir du 3e index (4e segment)

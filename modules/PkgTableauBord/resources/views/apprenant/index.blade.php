@@ -5,19 +5,34 @@
 @section('page_subtitle', 'Consulter une vue d’ensemble des activités, des indicateurs et de la progression.')
 
 @section('actions')
-<div class="flex items-center gap-2 flex-wrap sm:flex-nowrap">
-    @if(!empty($canSelectApprenant))
-    @include('PkgTableauBord::components.apprenant-selector', [
-    'groupes' => $groupes ?? collect(),
-    'selectedGroupeId' => $selectedGroupeId ?? null,
-    'apprenants' => $apprenants ?? collect(),
-    'selectedApprenantId' => $selectedApprenantId ?? null,
-    ])
-    @endif
-    @include('PkgTableauBord::components.session-selector', [
-    'sessions' => $sessions ?? collect(),
-    'sessionActive' => $sessionFormationActive ?? null
-    ])
+<button onclick="window.print()" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition shadow-2xs">
+    <i class="fas fa-print text-slate-400"></i>
+    <span>Imprimer</span>
+</button>
+@endsection
+
+@section('filters')
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div class="flex items-center gap-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+            <i class="fas fa-sliders text-indigo-600 text-xs"></i>
+            <span>Périmètre d'Apprentissage</span>
+        </span>
+    </div>
+    <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+        @if(!empty($canSelectApprenant))
+        @include('PkgTableauBord::components.apprenant-selector', [
+            'groupes' => $groupes ?? collect(),
+            'selectedGroupeId' => $selectedGroupeId ?? null,
+            'apprenants' => $apprenants ?? collect(),
+            'selectedApprenantId' => $selectedApprenantId ?? null,
+        ])
+        @endif
+        @include('PkgTableauBord::components.session-selector', [
+            'sessions' => $sessions ?? collect(),
+            'sessionActive' => $sessionFormationActive ?? null
+        ])
+    </div>
 </div>
 @endsection
 

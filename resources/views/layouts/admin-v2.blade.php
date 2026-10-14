@@ -40,8 +40,8 @@
         <!-- ========================================================================= -->
         <div class="flex-1 flex flex-col min-w-0">
 
-            <!-- Header Top Navbar V2 -->
-            <header class="bg-white border-b border-slate-200 h-16 sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 lg:px-8">
+            <!-- Header Top Navbar V2 (Défile naturellement avec la page) -->
+            <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center gap-3">
                     <button onclick="toggleSidebar()" class="p-2 -ml-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition" title="Afficher / Masquer le menu">
                         <i class="fas fa-bars text-base"></i>
@@ -65,6 +65,15 @@
                     </a>
                 </div>
             </header>
+
+            <!-- Sub-Header Dédié aux Filtres & Périmètre Pédagogique (Devient le Menu Sticky à top-0 après défilement) -->
+            @hasSection('filters')
+            <div class="bg-white/95 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-30 shadow-xs transition-all">
+                <div class="px-4 sm:px-6 lg:px-8 py-3">
+                    @yield('filters')
+                </div>
+            </div>
+            @endif
 
             <!-- Zone de Contenu Injectée -->
             <main class="flex-1 p-4 sm:p-6 lg:p-8 space-y-8">

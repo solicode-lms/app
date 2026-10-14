@@ -5,21 +5,36 @@
 @section('page_subtitle', 'Suivre les activités, la progression et les compétences des apprenants.')
 
 @section('actions')
-<div class="flex items-center gap-2 flex-wrap sm:flex-nowrap">
-    @if(!empty($canSelectFormateur) || !empty($canSelectGroupe))
-    @include('PkgTableauBord::components.formateur-selector', [
-    'canSelectFormateur' => $canSelectFormateur ?? false,
-    'formateurs' => $formateurs ?? collect(),
-    'selectedFormateurId' => $selectedFormateurId ?? null,
-    'canSelectGroupe' => $canSelectGroupe ?? false,
-    'groupes' => $groupes ?? collect(),
-    'selectedGroupeId' => $selectedGroupeId ?? null,
-    ])
-    @endif
-    @include('PkgTableauBord::components.session-selector', [
-    'sessions' => $sessions ?? collect(),
-    'sessionActive' => $sessionFormationActive ?? null
-    ])
+<button onclick="window.print()" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition shadow-2xs">
+    <i class="fas fa-print text-slate-400"></i>
+    <span>Imprimer</span>
+</button>
+@endsection
+
+@section('filters')
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div class="flex items-center gap-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+            <i class="fas fa-sliders text-indigo-600 text-xs"></i>
+            <span>Périmètre Pédagogique</span>
+        </span>
+    </div>
+    <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+        @if(!empty($canSelectFormateur) || !empty($canSelectGroupe))
+        @include('PkgTableauBord::components.formateur-selector', [
+            'canSelectFormateur' => $canSelectFormateur ?? false,
+            'formateurs' => $formateurs ?? collect(),
+            'selectedFormateurId' => $selectedFormateurId ?? null,
+            'canSelectGroupe' => $canSelectGroupe ?? false,
+            'groupes' => $groupes ?? collect(),
+            'selectedGroupeId' => $selectedGroupeId ?? null,
+        ])
+        @endif
+        @include('PkgTableauBord::components.session-selector', [
+            'sessions' => $sessions ?? collect(),
+            'sessionActive' => $sessionFormationActive ?? null
+        ])
+    </div>
 </div>
 @endsection
 

@@ -5,6 +5,13 @@
 @section('page_subtitle', 'Indicateurs macroscopiques et benchmark comparatif des groupes')
 
 @section('actions')
+<button onclick="window.print()" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition shadow-2xs">
+    <i class="fas fa-print text-slate-400"></i>
+    <span>Imprimer</span>
+</button>
+@endsection
+
+@section('filters')
 @include('PkgTableauBord::components.responsable-filter-bar', [
     'formateurs' => $formateurs ?? collect(),
     'selectedFormateurId' => $selectedFormateurId ?? null,

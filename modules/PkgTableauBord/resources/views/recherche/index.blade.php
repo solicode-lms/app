@@ -6,11 +6,24 @@
 
 @section('actions')
 <div class="flex items-center gap-2 print:hidden">
-    <button onclick="window.print()" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 transition shadow-2xs">
+    <button onclick="window.print()" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 transition shadow-2xs">
         <i class="fas fa-print text-slate-500"></i>
         <span>Imprimer le Rapport</span>
     </button>
-    @include('PkgTableauBord::components.session-selector', ['sessions' => $sessions ?? collect(), 'sessionActive' => $sessionFormationActive ?? null])
+</div>
+@endsection
+
+@section('filters')
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 print:hidden">
+    <div class="flex items-center gap-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+            <i class="fas fa-sliders text-indigo-600 text-xs"></i>
+            <span>Cohorte & Session de Recherche</span>
+        </span>
+    </div>
+    <div>
+        @include('PkgTableauBord::components.session-selector', ['sessions' => $sessions ?? collect(), 'sessionActive' => $sessionFormationActive ?? null])
+    </div>
 </div>
 @endsection
 

@@ -39,7 +39,7 @@ class TableauBordResponsableController extends AdminController
         $selectedProjetId = $request->filled('projet_id') 
             ? (int) $request->get('projet_id') 
             : ($request->filled('session_formation_id') ? (int) $request->get('session_formation_id') : null);
-        $filterType = $request->get('filter_type', 'sessions'); // 'sessions' (défaut) ou 'all'
+        $filterType = $request->get('type_projet', $request->get('filter_type', 'sessions')); // 'sessions' (défaut) ou 'all'
 
         // 2. Collections de référence pour les sélecteurs
         $formateurs = Formateur::orderBy('nom')->get();

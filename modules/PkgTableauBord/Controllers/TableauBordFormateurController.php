@@ -84,7 +84,7 @@ class TableauBordFormateurController extends AdminController
         $affectationProjet = null;
 
         if ($formateur) {
-            $filterType = $request->get('filter_type', 'sessions');
+            $filterType = $request->get('type_projet', $request->get('filter_type', 'sessions'));
             $projetsQuery = Projet::query()
                 ->where('formateur_id', $formateur->id)
                 ->with(['formateur', 'filiere'])
