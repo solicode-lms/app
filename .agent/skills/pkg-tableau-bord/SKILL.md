@@ -167,18 +167,16 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
   - UI V2 : `kpi-couverture-pedagogique.blade.php`, `impasses-pedagogiques-panel.blade.php`, `indicateurs/couverture.blade.php` (matrice complète du référentiel, diagnostic impasses, grille individuelle et benchmark)
   - Artisan : `dashboard:simuler-couverture-pedagogique` (mode audit réel par défaut, `--calibrate` optionnel)
 
-### Action K : Appliquer la Règle Docimologique 65/35 & Sceller les Bordereaux Officiels
-> **Description** : Expliquer l'algorithme officiel de calcul de la note CC (sur 20) et de la note EFM (sur 40) selon la pondération 65% Prototype + 35% Projet, le contrôle de complétude 100%, le scellement officiel par empreinte SHA-256 et la génération des bordereaux officiels.
+### Action K : Mesurer le Taux de Couverture de Planification des UA (TCP-UA) par SessionFormation
+> **Description** : Expliquer la modélisation mathématique du Taux de Couverture de Planification des Unités d'Apprentissage ($\text{TCP-UA}$), le calcul de complétude par session de formation, la détection des UA orphelines non planifiées, et le benchmark macroscopique multi-filières.
 - **Ressources Utilisées** :
-  - `cahiers-charges/PkgTableauBord/indicateurs/ind-09-conformite-conversion-65-35.md`
+  - `cahiers-charges/PkgTableauBord/indicateurs/ind-8-v2.md`
   - `cahiers-charges/PkgTableauBord/plan-sprint9.md`
 - **Sorties** :
-  - Colonnes BDD : `note_cc_officielle`, `note_efm_officielle`, `statut_docimologique` sur `realisation_modules`
-  - Table : `bordereaux_officiels`
-  - Modèle : `Modules\PkgTableauBord\Models\BordereauxOfficiel`
-  - Service : `DashboardIndicateur09Trait`
-  - UI V2 : `kpi-docimologie.blade.php`, `bordereau-officiel-panel.blade.php`
-  - Artisan : `dashboard:simuler-docimologie`
+  - Tables BDD : `unite_apprentissages`, `session_formations`, `alignement_uas`
+  - Service : `DashboardIndicateur09Trait` (`getIndicateurTcpUaDetail`, `getIndicateurTcpUaFormateur`, `getIndicateurTcpUaResponsable`, `getIndicateurTcpUaApprenant`)
+  - Route : `admin.PkgTableauBord.indicateurs.tcp-ua` (`IndicateurDetailController@tcpUa`)
+  - UI V2 : `kpi-docimologie.blade.php`, `bordereau-officiel-panel.blade.php`, `indicateurs/tcp-ua.blade.php` (matrice complète des UA, sessions déployées, alertes par module et benchmark filières)
 
 ---
 
@@ -279,7 +277,16 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
    - **Responsable** : Carte KPI macro, comparatif Avant vs Après Live Coding, et matrice chronologique des sprints.
    - **Page Détaillée (`admin.PkgTableauBord.indicateurs.trvs`)** : 4 cartes KPI directes, tableau comparatif méthodologique, frise chronologique des sprints et roster complet des apprenants sous Alpine.js (100% inline, zéro modale).
 
-### Scénario 8 : Taux de Couverture de Planification Évaluative des UA ($\text{TCP-UA}$) & Alignement des Formations
+### Scénario 8 : Couverture & Progression dans le Référentiel National (ICP Temporel)
+1. **Périmètre & Concept** : Mesurer la progression réelle de la promotion dans le référentiel de compétences national (`progression_cache`) en la confrontant dynamiquement à la progression idéale attendue (`progression_ideal_cache`).
+2. **Éradication des Faux Positifs Temporels** : En début ou cours d'année, un taux brut $< 85\%$ est normal et ne constitue pas une anomalie. Une compétence n'est qualifiée d'**impasse didactique** que si le calendrier a démarré (`progression_ideal_cache >= 25%`) et que le rythme d'acquisition décroche significativement ($\text{rythme} < 60\%$ ou $\text{delta} < -25\,\text{pts}$).
+3. **Formule Mathématique du Rythme Temporel** :
+   $$\text{Taux Rythme} = \frac{\overline{\text{progression\_cache}}}{\overline{\text{progression\_ideal\_cache}}} \times 100$$
+4. **Vues Dédiées & Ergonomie 100% Inline** :
+   - **Formateur** : Flashbox des impasses réelles (`impasses-pedagogiques-panel.blade.php`).
+   - **Page Détaillée (`admin.PkgTableauBord.indicateurs.couverture`)** : 4 cartes KPI directes, 3 onglets (Compétences Nationales, Micro-Compétences avec état DONE, Grille Individuelle par Apprenant) et benchmark inter-groupes.
+
+### Scénario 9 : Taux de Couverture de Planification Évaluative des UA ($\text{TCP-UA}$) & Alignement des Formations
 1. **Périmètre & Concept** : Mesurer la proportion des Unités d'Apprentissage (UA) prévues au programme qui sont couvertes par une planification de formation (`SessionFormation`) comportant les évaluations nécessaires. Indicateur de pilotage préventif en amont pour éviter les lacunes de notes $N2$ au Contrôle Continu en fin d'année.
 2. **Formule Mathématique Fondamentale** :
    $$\text{TCP-UA} = \frac{N_{\text{couvertes}}}{N_{\text{attendues}}} \times 100$$
@@ -291,14 +298,6 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
    - **Apprenant** : Carte KPI affichant la couverture de son programme ($45.3\%$) et le statut de la session active du sprint.
    - **Formateur** : Carte KPI TCP-UA et Panneau d'Alignement alertant sur les UA non planifiées par module pédagogique pour orienter la création des prochaines sessions.
    - **Responsable** : Carte KPI macro établissement ($55.3\%$), benchmark inter-filières (DWB $45.3\%$ vs DMB $78.3\%$) et colonne TCP-UA dans la matrice comparative.
-   - **Page Détaillée (`admin.PkgTableauBord.indicateurs.couverture`)** : 4 cartes KPI directes, 3 onglets interactifs (Matrice Complète des UA, Sessions de Formation & UA Mobilisées, Plan d'Action / Alertes par Module) et benchmark inter-filières (strictement aucune modale au chargement).
-
-### Scénario 9 : Règle Docimologique 65/35 & Scellement des Bordereaux
-1. Les notes des prototypes ($N2$) et du projet libre ($N3$) sont combinées pour calculer :
-   - $\text{Note CC} = \overline{N2} \in [0, 20]$ (Contrôle Continu).
-   - $\text{Note EFM} = 2 \times (0{,}65 \times \text{Note CC} + 0{,}35 \times N3) \in [0, 40]$ (Examen Fin de Module).
-2. L'apprenant consulte sa moyenne provisoire de CC et sa note sommative estimée dans un cadre de transparence totale.
-3. Le formateur vérifie la complétude de sa classe ($100\%$ requis avant scellement). Dès que tous les apprenants sont notés, il actionne le scellement officiel qui horodate et génère l'empreinte cryptographique SHA-256 dans `bordereaux_officiels`.
-4. Le responsable de formation s'assure que le taux de conformité atteint $100\%$ ($\tau_{\text{conformité}} = 100\%$, zéro divergence arithmétique) et télécharge les bordereaux institutionnels certifiés pour le jury et l'administration.
+   - **Page Détaillée (`admin.PkgTableauBord.indicateurs.tcp-ua`)** : 4 cartes KPI directes, 4 onglets interactifs (Matrice Complète des UA, Sessions de Formation & UA Mobilisées, Plan d'Action / Alertes par Module, Benchmark Macro Filières) (strictement aucune modale au chargement).
 
 

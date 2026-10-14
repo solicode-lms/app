@@ -155,7 +155,7 @@
         @include('PkgTableauBord::components.kpi-revision', ['type' => 'apprenant', 'kpi' => $kpiRevision])
         {{-- Indicateur 08 : Progression Référentiel National (ICP) --}}
         @include('PkgTableauBord::components.kpi-couverture-pedagogique', ['type' => 'apprenant', 'kpi' => $kpiCouverture])
-        {{-- Indicateur 09 : Contrôle Docimologique & Notes (65/35) --}}
+        {{-- Indicateur 09 : Couverture Planification UA (TCP-UA) --}}
         @include('PkgTableauBord::components.kpi-docimologie', ['type' => 'apprenant', 'kpi' => $kpiDocimologie])
     </div>
     @else

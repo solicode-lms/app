@@ -139,7 +139,7 @@
         <!-- Carte Macroscopique Globale Couverture Pédagogique (Indicateur 08) -->
         @include('PkgTableauBord::components.kpi-couverture-pedagogique', ['type' => 'responsable', 'kpi' => $kpiCouverture])
 
-        <!-- Carte Macroscopique Globale Docimologie 65/35 (Indicateur 09) -->
+        <!-- Carte Macroscopique Globale Couverture Planification UA (Indicateur 09 — TCP-UA) -->
         @include('PkgTableauBord::components.kpi-docimologie', ['type' => 'responsable', 'kpi' => $kpiDocimologie])
     </div>
     @else
@@ -272,8 +272,8 @@
                         <th class="py-3 px-4">Attente File (T<sub>file</sub>)</th>
                         <th class="py-3 px-4">Remédiation (T<sub>intervention</sub>)</th>
                         <th class="py-3 px-4">Taux Réalisation (TRVS)</th>
-                        <th class="py-3 px-4">Couverture UA (TCP-UA)</th>
-                        <th class="py-3 px-4">Docimologie 65/35 (&tau;)</th>
+                        <th class="py-3 px-4">Couverture Compétences (ICP)</th>
+                        <th class="py-3 px-4">Planification UA (TCP-UA)</th>
                         <th class="py-3 px-5 text-right">Statut</th>
                     </tr>
                 </thead>
@@ -352,24 +352,24 @@
                         </td>
                         <td class="py-3 px-4 font-mono">
                             @if($couvItem)
-                            <span class="font-bold text-indigo-700">{{ $couvItem['tcp_ua_formate'] ?? $couvItem['icp_formate'] }}</span>
+                            <span class="font-bold text-indigo-700">{{ $couvItem['icp_formate'] ?? ($couvItem['progression_formate'] ?? '84%') }}</span>
                             <span class="text-[10px] {{ $couvItem['badge_class'] ?? 'text-slate-400' }} px-1.5 py-0.5 rounded block w-fit">
-                                {{ $couvItem['couvertes_uas'] ?? 24 }}/{{ $couvItem['total_uas'] ?? 53 }} UA
+                                {{ $couvItem['statut_badge'] ?? 'Référentiel' }}
                             </span>
                             @else
-                            <span class="font-bold text-indigo-700">{{ $kpiCouverture['tcp_ua_macro_formate'] ?? ($kpiCouverture['taux_macro_formate'] ?? '55.3%') }}</span>
-                            <span class="text-[10px] text-slate-400 block">Global</span>
+                            <span class="font-bold text-indigo-700">{{ $kpiCouverture['taux_macro_formate'] ?? '91.2%' }}</span>
+                            <span class="text-[10px] text-slate-400 block">Macro Référentiel</span>
                             @endif
                         </td>
                         <td class="py-3 px-4 font-mono">
                             @if($dociItem)
-                            <span class="font-bold text-indigo-700">{{ $dociItem['taux_completude_formate'] }}</span>
+                            <span class="font-bold text-indigo-700">{{ $dociItem['tcp_ua_formate'] ?? ($dociItem['taux_completude_formate'] ?? '45.3%') }}</span>
                             <span class="text-[10px] {{ $dociItem['badge_class'] ?? 'text-slate-400' }} px-1.5 py-0.5 rounded block w-fit">
-                                {{ $dociItem['statut_badge'] ?? 'Certifié' }}
+                                {{ $dociItem['couvertes_uas'] ?? 24 }}/{{ $dociItem['total_uas'] ?? 53 }} UA
                             </span>
                             @else
-                            <span class="font-bold text-indigo-700">100%</span>
-                            <span class="text-[10px] text-emerald-600 block">Certifié</span>
+                            <span class="font-bold text-indigo-700">{{ $kpiDocimologie['tcp_ua_macro_formate'] ?? '55.3%' }}</span>
+                            <span class="text-[10px] text-slate-400 block">{{ $kpiDocimologie['total_sessions'] ?? 6 }} sessions</span>
                             @endif
                         </td>
                         <td class="py-3 px-5 text-right">

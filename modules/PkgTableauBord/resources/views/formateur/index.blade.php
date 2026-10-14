@@ -174,7 +174,7 @@
         {{-- Indicateur 08 : Couverture Pédagogique Nationale (ICP) --}}
         @include('PkgTableauBord::components.kpi-couverture-pedagogique', ['type' => 'formateur', 'kpi' => $kpiCouverture])
 
-        {{-- Indicateur 09 : Complétude Docimologique 65/35 (Bordereaux) --}}
+        {{-- Indicateur 09 : Taux de Couverture de Planification des UA (TCP-UA) --}}
         @include('PkgTableauBord::components.kpi-docimologie', ['type' => 'formateur', 'kpi' => $kpiDocimologie])
     </div>
     @else
@@ -306,7 +306,7 @@
     <!-- Indicateur 08 — Diagnostic Didactique : Impasses & Points de Fragilité (< 50%) (ICP) -->
     @include('PkgTableauBord::components.impasses-pedagogiques-panel', ['kpi' => $kpiCouverture])
 
-    <!-- Indicateur 09 — Bordereau Officiel & Contrôle Docimologique 65/35 -->
+    <!-- Indicateur 09 — Planification des Unités d'Apprentissage (Sessions & UA Manquantes) (TCP-UA) -->
     @include('PkgTableauBord::components.bordereau-officiel-panel', ['kpi' => $kpiDocimologie])
     @endif
 
