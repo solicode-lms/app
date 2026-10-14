@@ -17,14 +17,14 @@
             </div>
             <div>
                 <div class="flex items-center gap-2 flex-wrap">
-                    <h4 class="text-sm font-bold text-slate-900">Apprenants en attente de mise au travail (non amorcés)</h4>
+                    <h4 class="text-sm font-bold text-slate-900">Réalisations en attente d'amorçage</h4>
                     <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-extrabold bg-amber-100 text-amber-800 border border-amber-200 font-mono">
                         <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                        {{ $nbEnAttente }} en attente
+                        {{ $nbEnAttente }} réalisations en attente
                     </span>
                 </div>
                 <p class="text-xs text-slate-500 mt-0.5">
-                    Stagiaires n'ayant pas encore validé ou soumis leur première tâche post-lancement du sprint.
+                    Réalisations de projets pour lesquelles aucune première tâche n'a été soumise post-lancement de la session.
                 </p>
             </div>
         </div>
@@ -52,8 +52,12 @@
                     <div class="text-xs font-bold text-slate-900 truncate group-hover:text-amber-900 transition" title="{{ $apprenant['nom_complet'] }}">
                         {{ $apprenant['nom_complet'] }}
                     </div>
-                    <div class="text-[11px] text-slate-400 font-mono truncate">
-                        Matricule : {{ $apprenant['matricule'] ?? 'Non assigné' }}
+                    <div class="text-[11px] text-slate-400 font-mono truncate flex items-center gap-1.5">
+                        <span>Matricule : {{ $apprenant['matricule'] ?? 'Non assigné' }}</span>
+                        @if(!empty($apprenant['groupe_code']))
+                            <span class="text-slate-300">&bull;</span>
+                            <span class="text-indigo-600 font-semibold">{{ $apprenant['groupe_code'] }}</span>
+                        @endif
                     </div>
                 </div>
             </div>

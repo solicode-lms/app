@@ -409,7 +409,7 @@ trait RealisationTacheCrudTrait
     public function afterEditRules($realisationTache, $id)
     {
         if (is_null($realisationTache->dateDebut)) {
-            $realisationTache->dateDebut = now()->toDateString(); // format YYYY-MM-DD sans heure
+            $realisationTache->dateDebut = now(); // avec heure et minute
             $realisationTache->saveQuietly(); // il faut sauvegarder si tu veux que le changement soit persisté
         }
 

@@ -50,7 +50,7 @@
                     @if(!empty($isVisionGlobale))
                         <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1">
                             <i class="fas fa-globe text-[11px] text-emerald-600"></i>
-                            <span>Vision Globale (Toutes promotions)</span>
+                            <span>Vision Globale (10 sessions de formation N2)</span>
                         </span>
                     @elseif($selectedGroupeId && $groupes->firstWhere('id', $selectedGroupeId))
                         <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200">
@@ -67,7 +67,7 @@
                     Temps d'Amorçage & Mise au Travail (T<sub>amorçage</sub>)
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-500 max-w-4xl leading-relaxed">
-                    Mesure le délai exact entre le lancement officiel de la session et la première soumission d'une tâche par chaque apprenant. Un délai court (&le; 2h) témoigne d'un cadrage pédagogique assimilé, d'un environnement technique opérationnel et d'une entrée immédiate en posture de production.
+                    Mesure le délai exact entre le lancement officiel de la session et la première soumission d'une tâche pour chaque réalisation de projet. Un délai court (&le; 2h) témoigne d'un cadrage pédagogique assimilé, d'un environnement technique opérationnel et d'une entrée immédiate en posture de production.
                 </p>
             </div>
 
@@ -75,16 +75,16 @@
             <div class="shrink-0 flex items-center gap-4 bg-slate-50 p-3.5 rounded-lg border border-slate-200">
                 <div class="text-center">
                     <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Taux d'Amorçage</span>
-                    <span class="text-2xl sm:text-3xl font-black {{ $detail['taux_amorce'] >= 85 ? 'text-emerald-700' : ($detail['taux_amorce'] >= 65 ? 'text-indigo-700' : 'text-rose-700') }} font-mono">
-                        {{ $detail['taux_amorce'] }}%
+                    <span class="text-2xl sm:text-3xl font-black {{ $detail['taux_presence'] >= 85 ? 'text-emerald-700' : ($detail['taux_presence'] >= 65 ? 'text-indigo-700' : 'text-rose-700') }} font-mono">
+                        {{ $detail['taux_presence'] }}%
                     </span>
                     <span class="text-[10px] text-slate-500 block font-medium">
-                        {{ $detail['nb_amorces'] }}/{{ $detail['total_apprenants'] }} au travail
+                        {{ $detail['nb_amorces'] }}/{{ $detail['total_apprenants'] }} en séance
                     </span>
                 </div>
                 <div class="h-10 w-px bg-slate-200"></div>
                 <div class="text-center">
-                    <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Moyenne</span>
+                    <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Moyenne (Présents)</span>
                     <span class="text-2xl sm:text-3xl font-black text-slate-900 font-mono">
                         {{ $detail['delai_moyen_formate'] }}
                     </span>
@@ -96,15 +96,15 @@
         </div>
     </section>
 
-    <!-- 4 Cartes Métriques Clés -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- 5 Cartes Métriques Clés -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
 
-        {{-- 1. Temps Moyen & Médian --}}
+        {{-- 1. Temps Moyen & Médian (Présents) --}}
         <div class="bg-white p-4.5 rounded-lg border border-slate-200 shadow-2xs hover:shadow-sm transition">
             <div class="flex items-start justify-between gap-2 mb-2">
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Délai Moyen</span>
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold {{ $detail['delai_moyen_minutes'] !== null && $detail['delai_moyen_minutes'] <= $detail['seuil_optimal_minutes'] ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200' }}">
-                    {{ $detail['delai_moyen_minutes'] !== null && $detail['delai_moyen_minutes'] <= $detail['seuil_optimal_minutes'] ? 'Dans le SLA' : 'Au-delà du SLA' }}
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Délai Moyen (Présents)</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold {{ $detail['delai_moyen_minutes'] === null ? 'bg-slate-50 text-slate-700 border border-slate-200' : ($detail['delai_moyen_minutes'] <= $detail['seuil_optimal_minutes'] ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200') }}">
+                    {{ $detail['delai_moyen_minutes'] === null ? 'En attente' : ($detail['delai_moyen_minutes'] <= $detail['seuil_optimal_minutes'] ? 'Dans le SLA' : 'Au-delà du SLA') }}
                 </span>
             </div>
             <div class="my-2 flex items-baseline gap-2">
@@ -117,28 +117,46 @@
             </div>
         </div>
 
-        {{-- 2. Taux de Conversion & Amorçage --}}
+        {{-- 2. Taux d'Amorçage Présents en Séance --}}
         <div class="bg-white p-4.5 rounded-lg border border-slate-200 shadow-2xs hover:shadow-sm transition">
             <div class="flex items-start justify-between gap-2 mb-2">
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Taux d'Amorçage</span>
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Amorcés en Séance</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                     {{ $detail['nb_amorces'] }}/{{ $detail['total_apprenants'] }}
                 </span>
             </div>
             <div class="my-2 flex items-baseline gap-2">
-                <span class="text-3xl font-black text-slate-900 font-mono tracking-tight">{{ $detail['taux_amorce'] }}%</span>
-                <span class="text-xs text-slate-400 font-medium">démarrés</span>
+                <span class="text-3xl font-black text-slate-900 font-mono tracking-tight">{{ $detail['taux_presence'] }}%</span>
+                <span class="text-xs text-slate-400 font-medium">présents</span>
             </div>
             <div class="w-full bg-slate-100 rounded-full h-1.5 my-1.5 overflow-hidden">
-                <div class="h-1.5 rounded-full transition-all duration-500 {{ $detail['taux_amorce'] >= 85 ? 'bg-emerald-500' : ($detail['taux_amorce'] >= 65 ? 'bg-indigo-500' : 'bg-rose-500') }}" 
-                     style="width: {{ min(100, max(0, $detail['taux_amorce'])) }}%"></div>
+                <div class="h-1.5 rounded-full transition-all duration-500 {{ $detail['taux_presence'] >= 85 ? 'bg-emerald-500' : ($detail['taux_presence'] >= 65 ? 'bg-indigo-500' : 'bg-rose-500') }}" 
+                     style="width: {{ min(100, max(0, $detail['taux_presence'])) }}%"></div>
             </div>
             <div class="pt-1 mt-1 text-[11px] text-slate-400 truncate">
-                {{ $detail['total_apprenants'] }} apprenant(s) éligible(s) au total
+                Tâche démarrée avant fin de séance
             </div>
         </div>
 
-        {{-- 3. Record / Démarrage Éclair --}}
+        {{-- 3. Démarrages avec Absence (Exclus de la moyenne) --}}
+        <div class="bg-white p-4.5 rounded-lg border border-purple-200 bg-purple-50/20 shadow-2xs hover:shadow-sm transition">
+            <div class="flex items-start justify-between gap-2 mb-2">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Démarrages avec Absence</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-700 border border-purple-200">
+                    Exclus SLA
+                </span>
+            </div>
+            <div class="my-2 flex items-baseline gap-2">
+                <span class="text-3xl font-black text-purple-700 font-mono tracking-tight">{{ $detail['nb_demarrages_avec_absence'] }}</span>
+                <span class="text-xs text-slate-400 font-medium">réalisations</span>
+            </div>
+            <div class="pt-2.5 mt-2 border-t border-purple-100 flex items-center justify-between text-xs text-slate-500">
+                <span>Post-séance :</span>
+                <strong class="text-purple-900 font-medium text-[11px]">Non comptés en T<sub>amorçage</sub></strong>
+            </div>
+        </div>
+
+        {{-- 4. Record / Démarrage Éclair --}}
         <div class="bg-white p-4.5 rounded-lg border border-slate-200 shadow-2xs hover:shadow-sm transition">
             <div class="flex items-start justify-between gap-2 mb-2">
                 <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Démarrage Record</span>
@@ -158,13 +176,13 @@
             </div>
         </div>
 
-        {{-- 4. Apprenants Non Amorces (Alerte Risque) --}}
+        {{-- 5. Réalisations Non Amorcées (Alerte Risque) --}}
         <div class="bg-white p-4.5 rounded-lg border {{ $detail['nb_non_amorces'] > 0 ? 'border-rose-200 bg-rose-50/20' : 'border-slate-200' }} shadow-2xs hover:shadow-sm transition">
             <div class="flex items-start justify-between gap-2 mb-2">
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Non Amorces</span>
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Non Amorcées</span>
                 @if($detail['nb_non_amorces'] > 0)
                     <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-300 animate-pulse">
-                        Risque Décrochage
+                        En attente
                     </span>
                 @else
                     <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
@@ -176,7 +194,7 @@
                 <span class="text-3xl font-black {{ $detail['nb_non_amorces'] > 0 ? 'text-rose-700' : 'text-emerald-700' }} font-mono tracking-tight">
                     {{ $detail['nb_non_amorces'] }}
                 </span>
-                <span class="text-xs text-slate-400 font-medium">en attente</span>
+                <span class="text-xs text-slate-400 font-medium">réalisations</span>
             </div>
             <div class="pt-2.5 mt-2 border-t {{ $detail['nb_non_amorces'] > 0 ? 'border-rose-200' : 'border-slate-100' }} flex items-center justify-between text-xs text-slate-500">
                 <span>Délai max observé :</span>
@@ -192,6 +210,7 @@
         $pctEclair = round(($detail['tranches']['eclair'] / $totalTranches) * 100);
         $pctOptimal = round(($detail['tranches']['optimal'] / $totalTranches) * 100);
         $pctTardif = round(($detail['tranches']['tardif'] / $totalTranches) * 100);
+        $pctAbsence = round(($detail['tranches']['absence'] / $totalTranches) * 100);
         $pctCritique = round(($detail['tranches']['critique'] / $totalTranches) * 100);
     @endphp
     <section class="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-xs space-y-4">
@@ -202,7 +221,7 @@
                     <span>Courbe de Dispersion Temporelle du Démarrage</span>
                 </h2>
                 <p class="text-xs text-slate-500 mt-0.5">
-                    Distribution des {{ $detail['total_apprenants'] }} apprenants selon le délai de première soumission
+                    Distribution des {{ $detail['total_apprenants'] }} réalisations selon le créneau de mise au travail
                 </p>
             </div>
             <span class="text-xs font-semibold text-slate-500 bg-slate-50 px-2.5 py-1 rounded border border-slate-200">
@@ -214,21 +233,24 @@
         <div class="space-y-2">
             <div class="flex w-full h-3 rounded-full overflow-hidden bg-slate-100 shadow-inner">
                 @if($pctEclair > 0)
-                    <div class="bg-emerald-500 transition-all duration-500" style="width: {{ $pctEclair }}%" title="Démarrage Éclair (< 1h) : {{ $detail['tranches']['eclair'] }} apprenants ({{ $pctEclair }}%)"></div>
+                    <div class="bg-emerald-500 transition-all duration-500" style="width: {{ $pctEclair }}%" title="Démarrage Éclair (< 1h) : {{ $detail['tranches']['eclair'] }} réalisations ({{ $pctEclair }}%)"></div>
                 @endif
                 @if($pctOptimal > 0)
-                    <div class="bg-indigo-500 transition-all duration-500" style="width: {{ $pctOptimal }}%" title="Dans les temps (1h - 2h) : {{ $detail['tranches']['optimal'] }} apprenants ({{ $pctOptimal }}%)"></div>
+                    <div class="bg-indigo-500 transition-all duration-500" style="width: {{ $pctOptimal }}%" title="Dans les temps (1h - 2h) : {{ $detail['tranches']['optimal'] }} réalisations ({{ $pctOptimal }}%)"></div>
                 @endif
                 @if($pctTardif > 0)
-                    <div class="bg-amber-400 transition-all duration-500" style="width: {{ $pctTardif }}%" title="Démarrage Tardif (2h - 4h) : {{ $detail['tranches']['tardif'] }} apprenants ({{ $pctTardif }}%)"></div>
+                    <div class="bg-amber-400 transition-all duration-500" style="width: {{ $pctTardif }}%" title="Démarrage Tardif en séance (2h - séance) : {{ $detail['tranches']['tardif'] }} réalisations ({{ $pctTardif }}%)"></div>
+                @endif
+                @if($pctAbsence > 0)
+                    <div class="bg-purple-500 transition-all duration-500" style="width: {{ $pctAbsence }}%" title="Démarrage avec absence (post-séance) : {{ $detail['tranches']['absence'] }} réalisations ({{ $pctAbsence }}%)"></div>
                 @endif
                 @if($pctCritique > 0)
-                    <div class="bg-rose-500 transition-all duration-500" style="width: {{ $pctCritique }}%" title="Retard critique ou Non amorcé (> 4h) : {{ $detail['tranches']['critique'] }} apprenants ({{ $pctCritique }}%)"></div>
+                    <div class="bg-rose-500 transition-all duration-500" style="width: {{ $pctCritique }}%" title="Non amorcée / en attente : {{ $detail['tranches']['critique'] }} réalisations ({{ $pctCritique }}%)"></div>
                 @endif
             </div>
 
-            <!-- Légende des 4 Tranches avec effectifs -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 pt-2">
+            <!-- Légende des 5 Tranches avec effectifs -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 pt-2">
                 <div class="flex items-center gap-2.5 p-2 rounded-lg bg-emerald-50/50 border border-emerald-100">
                     <span class="w-3 h-3 rounded-full bg-emerald-500 shrink-0"></span>
                     <div class="min-w-0">
@@ -241,7 +263,7 @@
                 <div class="flex items-center gap-2.5 p-2 rounded-lg bg-indigo-50/50 border border-indigo-100">
                     <span class="w-3 h-3 rounded-full bg-indigo-500 shrink-0"></span>
                     <div class="min-w-0">
-                        <span class="text-[11px] font-bold text-slate-700 block truncate">Dans les temps (1h-2h)</span>
+                        <span class="text-[11px] font-bold text-slate-700 block truncate">Dans les temps</span>
                         <span class="text-xs font-mono font-black text-indigo-800">{{ $detail['tranches']['optimal'] }}</span>
                         <span class="text-[10px] text-slate-400">({{ $pctOptimal }}%)</span>
                     </div>
@@ -250,16 +272,25 @@
                 <div class="flex items-center gap-2.5 p-2 rounded-lg bg-amber-50/50 border border-amber-100">
                     <span class="w-3 h-3 rounded-full bg-amber-400 shrink-0"></span>
                     <div class="min-w-0">
-                        <span class="text-[11px] font-bold text-slate-700 block truncate">Tardif (2h-4h)</span>
+                        <span class="text-[11px] font-bold text-slate-700 block truncate">Tardif en séance</span>
                         <span class="text-xs font-mono font-black text-amber-800">{{ $detail['tranches']['tardif'] }}</span>
                         <span class="text-[10px] text-slate-400">({{ $pctTardif }}%)</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2.5 p-2 rounded-lg bg-purple-50/50 border border-purple-100">
+                    <span class="w-3 h-3 rounded-full bg-purple-500 shrink-0"></span>
+                    <div class="min-w-0">
+                        <span class="text-[11px] font-bold text-slate-700 block truncate">Avec absence</span>
+                        <span class="text-xs font-mono font-black text-purple-800">{{ $detail['tranches']['absence'] }}</span>
+                        <span class="text-[10px] text-slate-400">({{ $pctAbsence }}%)</span>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2.5 p-2 rounded-lg bg-rose-50/50 border border-rose-100">
                     <span class="w-3 h-3 rounded-full bg-rose-500 shrink-0"></span>
                     <div class="min-w-0">
-                        <span class="text-[11px] font-bold text-slate-700 block truncate">Critique / Attente (&gt; 4h)</span>
+                        <span class="text-[11px] font-bold text-slate-700 block truncate">Non amorcée</span>
                         <span class="text-xs font-mono font-black text-rose-800">{{ $detail['tranches']['critique'] }}</span>
                         <span class="text-[10px] text-slate-400">({{ $pctCritique }}%)</span>
                     </div>
@@ -277,7 +308,7 @@
                     const matchesFilter = (this.filter === 'all') 
                         || (this.filter === 'optimal' && (appr.statut_code === 'eclair' || appr.statut_code === 'optimal'))
                         || (this.filter === 'tardif' && appr.statut_code === 'tardif')
-                        || (this.filter === 'critique' && (appr.statut_code === 'critique' || appr.statut_code === 'non_amorce'))
+                        || (this.filter === 'absence' && appr.statut_code === 'demarrage_avec_absence')
                         || (this.filter === 'non_amorce' && appr.statut_code === 'non_amorce');
 
                     const q = this.search.toLowerCase().trim();
@@ -297,25 +328,31 @@
                         @click="filter = 'all'" 
                         :class="filter === 'all' ? 'bg-indigo-600 text-white shadow-2xs font-bold' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium'"
                         class="px-3 py-1.5 rounded-lg text-xs transition">
-                    Tous ({{ count($detail['apprenants']) }})
+                    Toutes ({{ count($detail['apprenants']) }} réalisations)
                 </button>
                 <button type="button" 
                         @click="filter = 'optimal'" 
                         :class="filter === 'optimal' ? 'bg-emerald-600 text-white shadow-2xs font-bold' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium'"
                         class="px-3 py-1.5 rounded-lg text-xs transition">
-                    Dans les temps (&le; 2h) ({{ $detail['tranches']['eclair'] + $detail['tranches']['optimal'] }})
+                    Dans les temps (&le; 2h) ({{ $detail['tranches']['eclair'] + $detail['tranches']['optimal'] }} réalisations)
                 </button>
                 <button type="button" 
                         @click="filter = 'tardif'" 
                         :class="filter === 'tardif' ? 'bg-amber-600 text-white shadow-2xs font-bold' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium'"
                         class="px-3 py-1.5 rounded-lg text-xs transition">
-                    Tardifs (2h-4h) ({{ $detail['tranches']['tardif'] }})
+                    Tardives en séance ({{ $detail['tranches']['tardif'] }} réalisations)
+                </button>
+                <button type="button" 
+                        @click="filter = 'absence'" 
+                        :class="filter === 'absence' ? 'bg-purple-600 text-white shadow-2xs font-bold' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium'"
+                        class="px-3 py-1.5 rounded-lg text-xs transition">
+                    Démarrage avec absence ({{ $detail['tranches']['absence'] }} réalisations)
                 </button>
                 <button type="button" 
                         @click="filter = 'non_amorce'" 
                         :class="filter === 'non_amorce' ? 'bg-rose-600 text-white shadow-2xs font-bold' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium'"
                         class="px-3 py-1.5 rounded-lg text-xs transition">
-                    Non amorcés ({{ $detail['nb_non_amorces'] }})
+                    Non amorcées ({{ $detail['nb_non_amorces'] }} réalisations)
                 </button>
             </div>
 
@@ -334,9 +371,10 @@
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-slate-50/80 border-b border-slate-200/80 text-[11px] uppercase tracking-wider text-slate-500 font-bold">
-                        <th class="py-3 px-4">Apprenant</th>
+                        <th class="py-3 px-4">Apprenant (Réalisation)</th>
                         <th class="py-3 px-4">Groupe</th>
-                        <th class="py-3 px-4">Lancement Projet</th>
+                        <th class="py-3 px-4">Lancement & Fin Séance</th>
+                        <th class="py-3 px-4">1<sup>re</sup> Tâche En Cours</th>
                         <th class="py-3 px-4">1<sup>re</sup> Soumission</th>
                         <th class="py-3 px-4">Délai d'Amorçage</th>
                         <th class="py-3 px-4">Statut & Évaluation</th>
@@ -366,9 +404,28 @@
                                 </span>
                             </td>
 
-                            <!-- Lancement Projet -->
+                            <!-- Lancement Projet & Fin Séance -->
                             <td class="py-3 px-4 text-slate-500 font-mono text-[11px]">
-                                {{ $appr['date_lancement'] ?? '--' }}
+                                <div>{{ $appr['date_lancement'] ?? '--' }}</div>
+                                @if(!empty($appr['date_fin_seance']))
+                                    <span class="text-[10px] text-slate-400 block" title="Heure de fin du créneau officiel de lancement">
+                                        Séance &le; {{ substr($appr['date_fin_seance'], 11, 5) }}
+                                    </span>
+                                @endif
+                            </td>
+
+                            <!-- 1re Tâche En Cours -->
+                            <td class="py-3 px-4 font-mono text-[11px]">
+                                @if(!empty($appr['date_en_cours']))
+                                    <span class="text-slate-800 font-semibold">{{ $appr['date_en_cours'] }}</span>
+                                    @if($appr['statut_code'] === 'demarrage_avec_absence')
+                                        <span class="text-[10px] text-purple-600 block font-medium" title="Démarrage {{ $appr['retard_post_seance_formate'] ?? '' }} après la séance">
+                                            Post-séance {{ !empty($appr['retard_post_seance_formate']) ? '(+' . $appr['retard_post_seance_formate'] . ')' : '' }}
+                                        </span>
+                                    @endif
+                                @else
+                                    <span class="text-slate-400 italic">Non activée</span>
+                                @endif
                             </td>
 
                             <!-- 1re Soumission -->
@@ -382,9 +439,12 @@
 
                             <!-- Délai d'Amorçage -->
                             <td class="py-3 px-4">
-                                <span class="font-mono font-black text-sm {{ $appr['delai_minutes'] !== null ? ($appr['delai_minutes'] <= 120 ? 'text-emerald-700' : ($appr['delai_minutes'] <= 240 ? 'text-amber-700' : 'text-rose-700')) : 'text-slate-400' }}">
+                                <span class="font-mono font-black text-sm {{ $appr['delai_minutes'] !== null ? ($appr['statut_code'] === 'demarrage_avec_absence' ? 'text-purple-700' : ($appr['delai_minutes'] <= 120 ? 'text-emerald-700' : ($appr['delai_minutes'] <= 240 ? 'text-amber-700' : 'text-rose-700'))) : 'text-slate-400' }}">
                                     {{ $appr['delai_formate'] }}
                                 </span>
+                                @if($appr['statut_code'] === 'demarrage_avec_absence')
+                                    <span class="text-[10px] text-purple-600 block font-medium">Hors moyenne</span>
+                                @endif
                             </td>
 
                             <!-- Statut Badge -->
@@ -402,8 +462,8 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="py-8 text-center text-slate-400">
-                                Aucun apprenant trouvé pour le périmètre sélectionné.
+                            <td colspan="8" class="py-8 text-center text-slate-400">
+                                Aucune réalisation trouvée pour le périmètre sélectionné.
                             </td>
                         </tr>
                     @endforelse
@@ -412,31 +472,36 @@
         </div>
     </section>
 
-    <!-- Benchmark Comparatif Inter-Groupes (si vision globale ou multi-groupes) -->
+    <!-- Benchmark Comparatif des Sessions de Formation (affectations N2) -->
     @if(count($detail['benchmark']) > 0)
         <section class="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-xs space-y-4">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
                 <div>
                     <h2 class="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-2">
-                        <i class="fas fa-layer-group text-indigo-600"></i>
-                        <span>Benchmark Comparatif Inter-Groupes</span>
+                        <i class="fas fa-chalkboard-user text-indigo-600"></i>
+                        <span>Benchmark Comparatif des Sessions de Formation</span>
                     </h2>
                     <p class="text-xs text-slate-500 mt-0.5">
-                        Performance comparée du démarrage des projets par promotion
+                        Performance comparée du démarrage des projets par session de formation (affectation N2)
                     </p>
                 </div>
+                <span class="text-xs font-semibold text-slate-500 bg-slate-50 px-2.5 py-1 rounded border border-slate-200 font-mono">
+                    {{ count($detail['benchmark']) }} sessions analysées
+                </span>
             </div>
 
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="bg-slate-50/80 border-b border-slate-200/80 text-[11px] uppercase tracking-wider text-slate-500 font-bold">
-                            <th class="py-2.5 px-3">Groupe / Promotion</th>
+                            <th class="py-2.5 px-3">Session de Formation</th>
+                            <th class="py-2.5 px-3">Groupe</th>
                             <th class="py-2.5 px-3">Filière</th>
-                            <th class="py-2.5 px-3 text-center">Effectif</th>
-                            <th class="py-2.5 px-3 text-center">Amorcés</th>
+                            <th class="py-2.5 px-3 text-center">Réalisations</th>
+                            <th class="py-2.5 px-3 text-center" title="Apprenants ayant mis en cours leur 1re tâche pendant la séance">En Séance</th>
+                            <th class="py-2.5 px-3 text-center" title="Apprenants ayant démarré après la séance (exclus de la moyenne)">Avec Absence</th>
                             <th class="py-2.5 px-3">Taux d'Amorçage</th>
-                            <th class="py-2.5 px-3 text-end">Délai Moyen</th>
+                            <th class="py-2.5 px-3 text-end" title="Délai moyen d'amorçage calculé sur les apprenants présents">Délai Moyen (Présents)</th>
                             <th class="py-2.5 px-3 text-center">Action</th>
                         </tr>
                     </thead>
@@ -444,7 +509,17 @@
                         @foreach($detail['benchmark'] as $bg)
                             <tr class="hover:bg-indigo-50/30 transition">
                                 <td class="py-3 px-3 font-bold text-slate-900">
-                                    {{ $bg['groupe_nom'] }}
+                                    <div class="truncate max-w-[220px]" title="{{ $bg['session_titre'] ?? 'Session' }}">
+                                        {{ $bg['session_titre'] ?? 'Session' }}
+                                    </div>
+                                    @if(!empty($bg['date_debut']))
+                                        <span class="text-[10px] text-slate-400 font-mono block">Début : {{ $bg['date_debut'] }}</span>
+                                    @endif
+                                </td>
+                                <td class="py-3 px-3 font-semibold text-slate-700">
+                                    <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-200 font-mono text-[11px]">
+                                        {{ $bg['groupe_code'] }}
+                                    </span>
                                 </td>
                                 <td class="py-3 px-3 text-slate-500 font-semibold">
                                     {{ $bg['filiere_code'] }}
@@ -452,8 +527,11 @@
                                 <td class="py-3 px-3 text-center font-mono text-slate-600">
                                     {{ $bg['total_apprenants'] }}
                                 </td>
-                                <td class="py-3 px-3 text-center font-mono font-bold text-slate-800">
+                                <td class="py-3 px-3 text-center font-mono font-bold text-emerald-700">
                                     {{ $bg['nb_amorces'] }}
+                                </td>
+                                <td class="py-3 px-3 text-center font-mono font-bold text-purple-700">
+                                    {{ $bg['nb_demarrage_avec_absence'] ?? 0 }}
                                 </td>
                                 <td class="py-3 px-3">
                                     <div class="flex items-center gap-2">

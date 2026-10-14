@@ -44,7 +44,7 @@ trait DashboardIndicateur01Trait
 
         $moyenneClasseMinutes = count($delaisPromo) > 0 
             ? (int) round(array_sum($delaisPromo) / count($delaisPromo)) 
-            : $this->parametrePedagogique()->getDelaiMoyenAmorcageFallbackMinutes();
+            : null;
 
         $delaiFormate = !is_null($delaiMinutes) ? $this->formaterDureeMinutes($delaiMinutes) : 'En attente';
         $moyenneClasseFormate = $this->formaterDureeMinutes($moyenneClasseMinutes);
@@ -55,7 +55,11 @@ trait DashboardIndicateur01Trait
         if (is_null($delaiMinutes)) {
             $statut = 'Non démarré';
             $statutBadge = 'bg-slate-50 text-slate-700 border border-slate-200';
-            $comparatifTexte = 'En attente de soumission';
+            $comparatifTexte = 'En attente de démarrage';
+        } elseif (is_null($moyenneClasseMinutes)) {
+            $statut = 'Dans les temps';
+            $statutBadge = 'bg-emerald-50 text-emerald-700 border border-emerald-200';
+            $comparatifTexte = 'Premier du groupe';
         } elseif ($delaiMinutes <= $moyenneClasseMinutes || $delaiMinutes <= $seuilApprenantMinutes) {
             $statut = 'Dans les temps';
             $statutBadge = 'bg-emerald-50 text-emerald-700 border border-emerald-200';
@@ -88,6 +92,7 @@ trait DashboardIndicateur01Trait
     {
         if (is_numeric($affectationProjet)) {
             $affectationProjet = AffectationProjet::with([
+                'realisationProjets.realisationTaches.etatRealisationTache.workflowTache',
                 'realisationProjets.apprenant.user',
                 'groupe'
             ])->find($affectationProjet);
@@ -101,15 +106,27 @@ trait DashboardIndicateur01Trait
         $realisations = $affectationProjet->realisationProjets;
         $totalApprenants = $realisations->count();
 
-        $delais = [];
+        $dateLancement = $affectationProjet->cache_date_lancement ?? $affectationProjet->date_debut;
+        $dateFinSeance = $this->parametrePedagogique()->determinerFinSeanceLancement($dateLancement, $affectationProjet->projet_id ?? null);
+
+        $delaisPresents = [];
         $apprenantsEnRetard = [];
-        $nbAmorces = 0;
+        $nbPresentsAmorces = 0;
+        $nbDemarrageAvecAbsence = 0;
 
         foreach ($realisations as $rp) {
             $minutes = $realisationProjetService->calculerTempsAmorcageMinutes($rp);
+            $dateEnCours = $this->determinerDatePremiereTacheEnCours($rp);
+
             if (!is_null($minutes)) {
-                $delais[] = $minutes;
-                $nbAmorces++;
+                if ($dateEnCours && $dateEnCours->lte($dateFinSeance)) {
+                    // Présent lors de la séance de lancement
+                    $delaisPresents[] = $minutes;
+                    $nbPresentsAmorces++;
+                } else {
+                    // Démarrage avec absence (exclu de la moyenne)
+                    $nbDemarrageAvecAbsence++;
+                }
             } else {
                 $apprenantsEnRetard[] = [
                     'id' => $rp->apprenant_id,
@@ -122,32 +139,41 @@ trait DashboardIndicateur01Trait
             }
         }
 
-        $tempsMoyenMinutes = count($delais) > 0 
-            ? (int) round(array_sum($delais) / count($delais)) 
-            : $this->parametrePedagogique()->getDelaiMoyenAmorcageFallbackMinutes($affectationProjet->projet_id ?? null);
+        $tempsMoyenMinutes = count($delaisPresents) > 0 
+            ? (int) round(array_sum($delaisPresents) / count($delaisPresents)) 
+            : null;
         $tempsMoyenFormate = $this->formaterDureeMinutes($tempsMoyenMinutes);
 
-        $nbEnAttente = $totalApprenants - $nbAmorces;
+        $nbEnAttente = $totalApprenants - ($nbPresentsAmorces + $nbDemarrageAvecAbsence);
         $seuilOptimalMinutes = $this->getSeuilAmorcageOptimalGroupeMinutes($affectationProjet->projet_id ?? null);
         $seuilOptimalFormate = $this->formaterDureeMinutes($seuilOptimalMinutes);
-        $isOptimal = $tempsMoyenMinutes <= $seuilOptimalMinutes;
+
+        if (is_null($tempsMoyenMinutes)) {
+            $statut = 'En attente';
+            $statutBadge = 'bg-slate-50 text-slate-700 border border-slate-200';
+        } else {
+            $isOptimal = $tempsMoyenMinutes <= $seuilOptimalMinutes;
+            $statut = $isOptimal ? "Optimal (<= {$seuilOptimalFormate})" : "Alerte (> {$seuilOptimalFormate})";
+            $statutBadge = $isOptimal 
+                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' 
+                : 'bg-amber-50 text-amber-700 border border-amber-200';
+        }
 
         return [
             'temps_moyen_minutes' => $tempsMoyenMinutes,
             'temps_moyen_formate' => $tempsMoyenFormate,
             'seuil_optimal_minutes' => $seuilOptimalMinutes,
             'seuil_optimal_formate' => $seuilOptimalFormate,
-            'statut' => $isOptimal ? "Optimal (<= {$seuilOptimalFormate})" : "Alerte (> {$seuilOptimalFormate})",
-            'statut_badge' => $isOptimal 
-                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' 
-                : 'bg-amber-50 text-amber-700 border border-amber-200',
-            'nb_amorces' => $nbAmorces,
+            'statut' => $statut,
+            'statut_badge' => $statutBadge,
+            'nb_amorces' => $nbPresentsAmorces,
+            'nb_demarrage_avec_absence' => $nbDemarrageAvecAbsence,
             'total_apprenants' => $totalApprenants,
             'nb_en_attente' => $nbEnAttente,
-            'ratio_texte' => "{$nbAmorces} / {$totalApprenants} ({$nbEnAttente} en attente)",
-            'taux_amorce_pourcentage' => $totalApprenants > 0 ? round(($nbAmorces / $totalApprenants) * 100, 1) : 0,
+            'ratio_texte' => "{$nbPresentsAmorces} / {$totalApprenants} ({$nbEnAttente} en attente)",
+            'taux_amorce_pourcentage' => $totalApprenants > 0 ? round((($nbPresentsAmorces + $nbDemarrageAvecAbsence) / $totalApprenants) * 100, 1) : 0,
             'apprenants_en_retard' => $apprenantsEnRetard,
-            'description' => 'Délai moyen d\'activation de la première tâche du sprint.',
+            'description' => 'Délai moyen d\'activation en séance par les apprenants présents.',
         ];
     }
 
@@ -162,7 +188,12 @@ trait DashboardIndicateur01Trait
     {
         $realisationProjetService = app(RealisationProjetService::class);
 
-        $query = AffectationProjet::with(['groupe', 'realisationProjets', 'projet'])
+        $query = AffectationProjet::with([
+                'groupe', 
+                'realisationProjets.realisationTaches.etatRealisationTache.workflowTache',
+                'realisationProjets.apprenant.user', 
+                'projet'
+            ])
             ->whereHas('projet', function ($q) {
                 $q->sessionsFormation();
             });
@@ -175,42 +206,109 @@ trait DashboardIndicateur01Trait
         $affectations = $query->latest('date_debut')->take(10)->get();
 
         $benchmark = [];
-        $tousLesDelais = [];
+        $tousLesDelaisPresents = [];
+        $totalApprenantsGlobal = 0;
+        $nbAmorcesGlobalPresents = 0;
+        $nbDemarrageAvecAbsenceGlobal = 0;
+        $apprenantsEnRetard = [];
 
         foreach ($affectations as $aff) {
             $delaisGroupe = [];
             $total = $aff->realisationProjets->count();
-            $amorces = 0;
+            $totalApprenantsGlobal += $total;
+            $amorcesPresents = 0;
+            $absenceSession = 0;
+
+            $dateLancement = $aff->cache_date_lancement ?? $aff->date_debut;
+            $dateFinSeance = $this->parametrePedagogique()->determinerFinSeanceLancement($dateLancement, $aff->projet_id ?? null);
 
             foreach ($aff->realisationProjets as $rp) {
                 $m = $realisationProjetService->calculerTempsAmorcageMinutes($rp);
+                $dateEnCours = $this->determinerDatePremiereTacheEnCours($rp);
+
                 if (!is_null($m)) {
-                    $delaisGroupe[] = $m;
-                    $tousLesDelais[] = $m;
-                    $amorces++;
+                    if ($dateEnCours && $dateEnCours->lte($dateFinSeance)) {
+                        $delaisGroupe[] = $m;
+                        $tousLesDelaisPresents[] = $m;
+                        $amorcesPresents++;
+                    } else {
+                        $absenceSession++;
+                        $nbDemarrageAvecAbsenceGlobal++;
+                    }
+                } else {
+                    $apprenant = $rp->apprenant;
+                    if ($apprenant) {
+                        $apprenantsEnRetard[] = [
+                            'id' => $apprenant->id,
+                            'nom_complet' => ($apprenant->prenom ?? '') . ' ' . ($apprenant->nom ?? 'Stagiaire'),
+                            'prenom' => $apprenant->prenom ?? '',
+                            'nom' => $apprenant->nom ?? 'Stagiaire',
+                            'matricule' => $apprenant->matricule ?? null,
+                            'avatar' => $apprenant->profile_image ?? null,
+                            'groupe_code' => $aff->groupe->code ?? 'Groupe',
+                            'projet_titre' => $aff->projet->titre ?? 'Projet',
+                        ];
+                    }
                 }
             }
+            $nbAmorcesGlobalPresents += $amorcesPresents;
 
             $moyenGroupe = count($delaisGroupe) > 0 ? (int) round(array_sum($delaisGroupe) / count($delaisGroupe)) : null;
 
             $benchmark[] = [
                 'affectation_id' => $aff->id,
+                'session_titre' => $aff->projet->titre ?? 'Session',
                 'groupe_code' => $aff->groupe->code ?? 'Groupe',
                 'groupe_nom' => $aff->groupe->nom ?? ($aff->groupe->code ?? 'Promotion'),
                 'temps_moyen_minutes' => $moyenGroupe,
                 'temps_moyen_formate' => $this->formaterDureeMinutes($moyenGroupe),
-                'nb_amorces' => $amorces,
+                'nb_amorces' => $amorcesPresents,
+                'nb_demarrage_avec_absence' => $absenceSession,
                 'total_apprenants' => $total,
-                'taux_amorce' => $total > 0 ? round(($amorces / $total) * 100, 1) : 0,
+                'taux_amorce' => $total > 0 ? round((($amorcesPresents + $absenceSession) / $total) * 100, 1) : 0,
             ];
         }
 
-        $globalMinutes = count($tousLesDelais) > 0 ? (int) round(array_sum($tousLesDelais) / count($tousLesDelais)) : 110;
+        $globalMinutes = count($tousLesDelaisPresents) > 0 
+            ? (int) round(array_sum($tousLesDelaisPresents) / count($tousLesDelaisPresents)) 
+            : null;
+        $seuilOptimalMinutes = $this->getSeuilAmorcageOptimalGroupeMinutes($projetId);
+        $seuilOptimalFormate = $this->formaterDureeMinutes($seuilOptimalMinutes);
+        $tauxGlobal = $totalApprenantsGlobal > 0 
+            ? round((($nbAmorcesGlobalPresents + $nbDemarrageAvecAbsenceGlobal) / $totalApprenantsGlobal) * 100, 1) 
+            : 0;
+
+        if (is_null($globalMinutes)) {
+            $statut = 'En attente';
+            $statutBadge = 'bg-slate-50 text-slate-700 border border-slate-200';
+        } else {
+            $isOptimal = $globalMinutes <= $seuilOptimalMinutes;
+            $statut = $isOptimal ? "Optimal (<= {$seuilOptimalFormate})" : "Alerte (> {$seuilOptimalFormate})";
+            $statutBadge = $isOptimal 
+                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' 
+                : 'bg-amber-50 text-amber-700 border border-amber-200';
+        }
 
         return [
             'delai_moyen_global_minutes' => $globalMinutes,
             'delai_moyen_global_formate' => $this->formaterDureeMinutes($globalMinutes),
+            'temps_moyen_formate' => $this->formaterDureeMinutes($globalMinutes),
+            'total_apprenants' => $totalApprenantsGlobal,
+            'nb_amorces' => $nbAmorcesGlobalPresents,
+            'nb_demarrage_avec_absence' => $nbDemarrageAvecAbsenceGlobal,
+            'nb_en_attente' => $totalApprenantsGlobal - ($nbAmorcesGlobalPresents + $nbDemarrageAvecAbsenceGlobal),
+            'taux_amorce_pourcentage' => $tauxGlobal,
+            'seuil_optimal_minutes' => $seuilOptimalMinutes,
+            'seuil_optimal_formate' => $seuilOptimalFormate,
+            'statut' => $statut,
+            'statut_badge' => $statutBadge,
             'benchmark' => $benchmark,
+            'apprenants_en_retard' => $apprenantsEnRetard,
+            'formule_calcul' => [
+                'formule' => 'T_amorçage = Date 1re soumission - Date lancement officiel (séance)',
+                'seuil' => $seuilOptimalFormate,
+                'interpretation' => 'Calculé uniquement sur les apprenants présents en séance de lancement (1ère tâche passée en cours avant la fin de séance).'
+            ],
         ];
     }
 
@@ -295,48 +393,99 @@ trait DashboardIndicateur01Trait
     {
         $seuilOptimalMinutes = $this->getSeuilAmorcageOptimalGroupeMinutes();
         $seuilOptimalFormate = $this->formaterDureeMinutes($seuilOptimalMinutes);
-        $delaiFallback = $this->parametrePedagogique()->getDelaiMoyenAmorcageFallbackMinutes();
 
         return [
-            'temps_moyen_minutes' => $delaiFallback,
-            'temps_moyen_formate' => $this->formaterDureeMinutes($delaiFallback),
+            'temps_moyen_minutes' => null,
+            'temps_moyen_formate' => '--',
             'seuil_optimal_minutes' => $seuilOptimalMinutes,
             'seuil_optimal_formate' => $seuilOptimalFormate,
-            'statut' => "Optimal (<= {$seuilOptimalFormate})",
-            'statut_badge' => 'bg-emerald-50 text-emerald-700 border border-emerald-200',
-            'nb_amorces' => 17,
-            'total_apprenants' => 20,
-            'nb_en_attente' => 3,
-            'ratio_texte' => '17 / 20 (3 en attente)',
-            'taux_amorce_pourcentage' => 85.0,
-            'apprenants_en_retard' => [
-                [
-                    'id' => 1,
-                    'nom_complet' => 'Amine Mansouri',
-                    'prenom' => 'Amine',
-                    'nom' => 'Mansouri',
-                    'matricule' => 'STG-0412',
-                    'avatar' => null,
-                ],
-                [
-                    'id' => 2,
-                    'nom_complet' => 'Sara Bennani',
-                    'prenom' => 'Sara',
-                    'nom' => 'Bennani',
-                    'matricule' => 'STG-0418',
-                    'avatar' => null,
-                ],
-                [
-                    'id' => 3,
-                    'nom_complet' => 'Nabil Tazi',
-                    'prenom' => 'Nabil',
-                    'nom' => 'Tazi',
-                    'matricule' => 'STG-0425',
-                    'avatar' => null,
-                ],
-            ],
-            'description' => 'Délai moyen d\'activation de la première tâche du sprint.',
+            'statut' => 'En attente',
+            'statut_badge' => 'bg-slate-50 text-slate-700 border border-slate-200',
+            'nb_amorces' => 0,
+            'nb_demarrage_avec_absence' => 0,
+            'total_apprenants' => 0,
+            'nb_en_attente' => 0,
+            'ratio_texte' => '0 / 0',
+            'taux_amorce_pourcentage' => 0,
+            'apprenants_en_retard' => [],
+            'description' => 'Délai moyen d\'activation en séance par les apprenants présents.',
         ];
+    }
+
+    /**
+     * Détermine la date/heure à laquelle un apprenant a mis sa première tâche en cours pour un projet.
+     *
+     * @param RealisationProjet $rp
+     * @return \Carbon\Carbon|null
+     */
+    /**
+     * Détermine la date/heure à laquelle un apprenant a mis sa première tâche en cours pour un projet.
+     * Privilégie l'horodatage réel (Historique, transitions d'état) et garantit la présence d'heures et minutes.
+     *
+     * @param RealisationProjet $rp
+     * @return \Carbon\Carbon|null
+     */
+    protected function determinerDatePremiereTacheEnCours(RealisationProjet $rp): ?\Carbon\Carbon
+    {
+        // 1. Recherche dans l'Historique des transitions de tâches (timestamp exact à la seconde)
+        $rtIds = $rp->realisationTaches->pluck('id')->toArray();
+        $dateHisto = null;
+        if (!empty($rtIds)) {
+            $premierHisto = \Modules\PkgRealisationTache\Models\HistoriqueRealisationTache::whereIn('realisation_tache_id', $rtIds)
+                ->where(function ($q) {
+                    $q->where('changement', 'like', '%En cours%')
+                      ->orWhere('changement', 'like', '%IN_PROGRESS%');
+                })
+                ->min('created_at');
+            if ($premierHisto) {
+                $dateHisto = \Carbon\Carbon::parse($premierHisto);
+            }
+        }
+
+        // 2. Recherche parmi les tâches commencées avec heure précise (différente de minuit 00:00:00)
+        $dateTachePrecise = null;
+        foreach ($rp->realisationTaches as $rt) {
+            $code = optional($rt->etatRealisationTache?->workflowTache)->code;
+            if ($code && $code !== 'TODO') {
+                if ($rt->dateDebut) {
+                    $c = \Carbon\Carbon::parse($rt->dateDebut);
+                    if ($c->format('H:i:s') !== '00:00:00') {
+                        if (is_null($dateTachePrecise) || $c->lt($dateTachePrecise)) {
+                            $dateTachePrecise = $c;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 3. Date de première soumission (borne supérieure absolue : un travail est forcément entamé au plus tard lors de son premier rendu)
+        $dateSoumission = $rp->cache_date_premiere_soumission 
+            ? \Carbon\Carbon::parse($rp->cache_date_premiere_soumission) 
+            : null;
+
+        // Choix de la date la plus précoce et précise
+        $candidates = array_filter([$dateHisto, $dateTachePrecise, $dateSoumission]);
+        if (!empty($candidates)) {
+            usort($candidates, fn($a, $b) => $a->timestamp <=> $b->timestamp);
+            return $candidates[0];
+        }
+
+        // 4. Fallback si aucune heure précise n'a pu être trouvée
+        $dateFallback = null;
+        foreach ($rp->realisationTaches as $rt) {
+            $code = optional($rt->etatRealisationTache?->workflowTache)->code;
+            if ($code && $code !== 'TODO') {
+                $dt = $rt->dateDebut ?? $rt->updated_at ?? $rt->created_at;
+                if ($dt) {
+                    $c = \Carbon\Carbon::parse($dt);
+                    if (is_null($dateFallback) || $c->lt($dateFallback)) {
+                        $dateFallback = $c;
+                    }
+                }
+            }
+        }
+
+        return $dateFallback;
     }
 
     /**
@@ -354,7 +503,8 @@ trait DashboardIndicateur01Trait
             'groupe.filiere',
             'projet.formateur',
             'realisationProjets.apprenant.user',
-            'realisationProjets.realisationTaches.tache'
+            'realisationProjets.realisationTaches.tache',
+            'realisationProjets.realisationTaches.etatRealisationTache.workflowTache'
         ]);
 
         if (!empty($filters['projet_id'])) {
@@ -375,72 +525,79 @@ trait DashboardIndicateur01Trait
             $query->whereHas('projet', fn($p) => $p->where('formateur_id', $filters['formateur_id']));
         }
 
+        $isVisionGlobale = empty($filters['groupe_id']) 
+            && empty($filters['groupe_ids']) 
+            && empty($filters['projet_id']) 
+            && empty($filters['formateur_id']) 
+            && empty($filters['filiere_id']);
+
+        if ($isVisionGlobale) {
+            $query->take(10);
+        }
+
         $affectations = $query->latest('date_debut')->get();
 
         $apprenants = [];
-        $delais = [];
+        $delaisPresents = [];
         $tranches = [
-            'eclair' => 0,    // < 60 min
-            'optimal' => 0,   // 60 - 120 min
-            'tardif' => 0,    // 120 - 240 min
-            'critique' => 0,  // > 240 min ou non amorcé
+            'eclair' => 0,   // < 60 min en séance
+            'optimal' => 0,  // 60 - 120 min en séance
+            'tardif' => 0,   // > 120 min en séance
+            'absence' => 0,  // Démarrage avec absence (> fin séance)
+            'critique' => 0, // Non amorcé
         ];
-        $benchmarkGroupes = [];
+        $benchmarkSessions = [];
 
         foreach ($affectations as $aff) {
-            $groupeKey = $aff->groupe_id;
-            $groupeCode = $aff->groupe->code ?? ('Groupe ' . $aff->groupe_id);
-            if (!isset($benchmarkGroupes[$groupeKey])) {
-                $benchmarkGroupes[$groupeKey] = [
-                    'groupe_id' => $groupeKey,
-                    'groupe_code' => $groupeCode,
-                    'groupe_nom' => $aff->groupe->nom ?? $groupeCode,
-                    'filiere_code' => $aff->groupe->filiere->code ?? '-',
-                    'total_apprenants' => 0,
-                    'nb_amorces' => 0,
-                    'delais' => [],
-                ];
-            }
-
+            $delaisSessionPresents = [];
+            $totalSession = 0;
+            $nbPresentsSession = 0;
+            $nbAbsenceSession = 0;
             $dateLancement = $aff->cache_date_lancement ?? $aff->date_debut;
+            $dateFinSeance = $this->parametrePedagogique()->determinerFinSeanceLancement($dateLancement, $aff->projet_id ?? null);
 
             foreach ($aff->realisationProjets as $rp) {
                 $apprenant = $rp->apprenant;
                 if (!$apprenant) continue;
 
-                $benchmarkGroupes[$groupeKey]['total_apprenants']++;
-
+                $totalSession++;
                 $minutes = $realisationProjetService->calculerTempsAmorcageMinutes($rp);
                 $dateSoumission = $rp->cache_date_premiere_soumission;
                 $premiereTache = $rp->realisationTaches->sortBy('created_at')->first()?->tache?->titre;
+                $dateEnCours = $this->determinerDatePremiereTacheEnCours($rp);
 
                 $isAmorce = !is_null($minutes);
 
                 if ($isAmorce) {
-                    $delais[] = $minutes;
-                    $benchmarkGroupes[$groupeKey]['delais'][] = $minutes;
-                    $benchmarkGroupes[$groupeKey]['nb_amorces']++;
+                    if ($dateEnCours && $dateEnCours->lte($dateFinSeance)) {
+                        // Présent en séance de lancement
+                        $delaisPresents[] = $minutes;
+                        $delaisSessionPresents[] = $minutes;
+                        $nbPresentsSession++;
 
-                    if ($minutes < 60) {
-                        $tranches['eclair']++;
-                        $statutCode = 'eclair';
-                        $statutLabel = 'Démarrage éclair';
-                        $statutBadge = 'bg-emerald-50 text-emerald-800 border-emerald-200';
-                    } elseif ($minutes <= $seuilOptimalMinutes) {
-                        $tranches['optimal']++;
-                        $statutCode = 'optimal';
-                        $statutLabel = 'Dans les temps';
-                        $statutBadge = 'bg-indigo-50 text-indigo-700 border-indigo-200';
-                    } elseif ($minutes <= 240) {
-                        $tranches['tardif']++;
-                        $statutCode = 'tardif';
-                        $statutLabel = 'Démarrage tardif';
-                        $statutBadge = 'bg-amber-50 text-amber-800 border-amber-200';
+                        if ($minutes < 60) {
+                            $tranches['eclair']++;
+                            $statutCode = 'eclair';
+                            $statutLabel = 'Démarrage éclair';
+                            $statutBadge = 'bg-emerald-50 text-emerald-800 border-emerald-200';
+                        } elseif ($minutes <= $seuilOptimalMinutes) {
+                            $tranches['optimal']++;
+                            $statutCode = 'optimal';
+                            $statutLabel = 'Dans les temps';
+                            $statutBadge = 'bg-indigo-50 text-indigo-700 border-indigo-200';
+                        } else {
+                            $tranches['tardif']++;
+                            $statutCode = 'tardif';
+                            $statutLabel = 'Démarrage tardif en séance';
+                            $statutBadge = 'bg-amber-50 text-amber-800 border-amber-200';
+                        }
                     } else {
-                        $tranches['critique']++;
-                        $statutCode = 'critique';
-                        $statutLabel = 'Retard critique';
-                        $statutBadge = 'bg-rose-50 text-rose-800 border-rose-200';
+                        // Démarrage avec absence (exclu de la moyenne)
+                        $tranches['absence']++;
+                        $nbAbsenceSession++;
+                        $statutCode = 'demarrage_avec_absence';
+                        $statutLabel = 'Démarrage avec absence';
+                        $statutBadge = 'bg-purple-50 text-purple-700 border-purple-200';
                     }
                 } else {
                     $tranches['critique']++;
@@ -448,6 +605,10 @@ trait DashboardIndicateur01Trait
                     $statutLabel = 'Non amorcé';
                     $statutBadge = 'bg-rose-50 text-rose-700 border-rose-200 animate-pulse';
                 }
+
+                $retardPostSeanceMinutes = ($dateEnCours && $dateFinSeance && $dateEnCours->gt($dateFinSeance))
+                    ? abs((int) $dateEnCours->diffInMinutes($dateFinSeance))
+                    : null;
 
                 $apprenants[] = [
                     'id' => $apprenant->id,
@@ -458,92 +619,100 @@ trait DashboardIndicateur01Trait
                     'matricule' => $apprenant->matricule ?? '-',
                     'email' => $apprenant->user->email ?? null,
                     'avatar' => $apprenant->profile_image ?? null,
-                    'groupe_code' => $groupeCode,
+                    'groupe_code' => $aff->groupe->code ?? ('Groupe ' . $aff->groupe_id),
                     'projet_titre' => $aff->projet->titre ?? 'Projet',
                     'date_lancement' => $dateLancement ? Carbon::parse($dateLancement)->format('d/m/Y H:i') : null,
+                    'date_fin_seance' => $dateFinSeance ? $dateFinSeance->format('d/m/Y H:i') : null,
+                    'date_en_cours' => $dateEnCours ? $dateEnCours->format('d/m/Y H:i') : null,
                     'date_premiere_soumission' => $dateSoumission ? Carbon::parse($dateSoumission)->format('d/m/Y H:i') : null,
                     'delai_minutes' => $minutes,
                     'delai_formate' => $this->formaterDureeMinutes($minutes),
+                    'retard_post_seance_minutes' => $retardPostSeanceMinutes,
+                    'retard_post_seance_formate' => $this->formaterDureeMinutes($retardPostSeanceMinutes),
                     'statut_code' => $statutCode,
                     'statut_label' => $statutLabel,
                     'statut_badge' => $statutBadge,
                     'premiere_tache' => $premiereTache ?? 'Tâche initiale',
                 ];
             }
+
+            $moyenSession = count($delaisSessionPresents) > 0 ? (int) round(array_sum($delaisSessionPresents) / count($delaisSessionPresents)) : null;
+
+            $benchmarkSessions[] = [
+                'affectation_id' => $aff->id,
+                'session_titre' => $aff->projet->titre ?? 'Session',
+                'groupe_id' => $aff->groupe_id,
+                'groupe_code' => $aff->groupe->code ?? ('Groupe ' . $aff->groupe_id),
+                'groupe_nom' => $aff->groupe->nom ?? ($aff->groupe->code ?? 'Promotion'),
+                'filiere_code' => $aff->groupe->filiere->code ?? '-',
+                'date_debut' => $aff->date_debut ? Carbon::parse($aff->date_debut)->format('d/m/Y') : null,
+                'total_apprenants' => $totalSession,
+                'nb_amorces' => $nbPresentsSession,
+                'nb_demarrage_avec_absence' => $nbAbsenceSession,
+                'taux_amorce' => $totalSession > 0 ? round((($nbPresentsSession + $nbAbsenceSession) / $totalSession) * 100, 1) : 0,
+                'delai_moyen_minutes' => $moyenSession,
+                'delai_moyen_formate' => $this->formaterDureeMinutes($moyenSession),
+            ];
         }
 
         $totalApprenants = count($apprenants);
-        $nbAmorces = count($delais);
-        $nbNonAmorces = $totalApprenants - $nbAmorces;
-        $tauxAmorce = $totalApprenants > 0 ? round(($nbAmorces / $totalApprenants) * 100, 1) : 0;
+        $nbPresentsAmorces = count($delaisPresents);
+        $nbDemarragesAvecAbsence = $tranches['absence'];
+        $nbNonAmorces = $tranches['critique'];
+        $tauxAmorce = $totalApprenants > 0 ? round((($nbPresentsAmorces + $nbDemarragesAvecAbsence) / $totalApprenants) * 100, 1) : 0;
+        $tauxPresence = $totalApprenants > 0 ? round(($nbPresentsAmorces / $totalApprenants) * 100, 1) : 0;
 
-        $delaiMoyenMinutes = $nbAmorces > 0 ? (int) round(array_sum($delais) / $nbAmorces) : null;
-        $delaiMinMinutes = $nbAmorces > 0 ? min($delais) : null;
-        $delaiMaxMinutes = $nbAmorces > 0 ? max($delais) : null;
+        $delaiMoyenMinutes = $nbPresentsAmorces > 0 ? (int) round(array_sum($delaisPresents) / $nbPresentsAmorces) : null;
+        $delaiMinMinutes = $nbPresentsAmorces > 0 ? min($delaisPresents) : null;
+        $delaiMaxMinutes = $nbPresentsAmorces > 0 ? max($delaisPresents) : null;
 
-        // Calcul de la médiane
+        // Calcul de la médiane sur les présents
         $delaiMedianMinutes = null;
-        if ($nbAmorces > 0) {
-            $delaisTries = $delais;
+        if ($nbPresentsAmorces > 0) {
+            $delaisTries = $delaisPresents;
             sort($delaisTries);
-            $middle = (int) floor($nbAmorces / 2);
-            $delaiMedianMinutes = ($nbAmorces % 2 === 0) 
+            $middle = (int) floor($nbPresentsAmorces / 2);
+            $delaiMedianMinutes = ($nbPresentsAmorces % 2 === 0) 
                 ? (int) round(($delaisTries[$middle - 1] + $delaisTries[$middle]) / 2) 
                 : $delaisTries[$middle];
         }
 
-        // Apprenant le plus rapide
+        // Apprenant le plus rapide parmi les présents
         $apprenantRapide = null;
         if ($delaiMinMinutes !== null) {
             foreach ($apprenants as $appr) {
-                if ($appr['delai_minutes'] === $delaiMinMinutes) {
+                if ($appr['delai_minutes'] === $delaiMinMinutes && $appr['statut_code'] !== 'demarrage_avec_absence') {
                     $apprenantRapide = $appr;
                     break;
                 }
             }
         }
 
-        // Finalisation benchmark groupes
-        $benchmark = [];
-        foreach ($benchmarkGroupes as $bg) {
-            $cDelais = count($bg['delais']);
-            $m = $cDelais > 0 ? (int) round(array_sum($bg['delais']) / $cDelais) : null;
-            $benchmark[] = [
-                'groupe_id' => $bg['groupe_id'],
-                'groupe_code' => $bg['groupe_code'],
-                'groupe_nom' => $bg['groupe_nom'],
-                'filiere_code' => $bg['filiere_code'],
-                'total_apprenants' => $bg['total_apprenants'],
-                'nb_amorces' => $bg['nb_amorces'],
-                'taux_amorce' => $bg['total_apprenants'] > 0 ? round(($bg['nb_amorces'] / $bg['total_apprenants']) * 100, 1) : 0,
-                'delai_moyen_minutes' => $m,
-                'delai_moyen_formate' => $this->formaterDureeMinutes($m),
-            ];
-        }
+        $benchmark = $benchmarkSessions;
 
         // Recommandations pédagogiques contextuelles
         $recommandations = [];
-        if ($tauxAmorce < 75) {
+        if ($tauxPresence < 65) {
             $recommandations[] = [
                 'type' => 'alerte',
-                'titre' => 'Déclenchement d\'un déblocage technique collectif',
-                'message' => 'Moins de 75% des apprenants ont amorcé leur projet. Il est recommandé d\'animer un point d\'étape de 15 minutes pour vérifier la configuration des environnements locaux et lever les ambiguïtés sur le premier livrable.',
+                'titre' => 'Forte proportion de démarrages hors séance / absences',
+                'message' => 'Moins de 65% des apprenants ont mis en cours leur première tâche pendant la séance de lancement officielle. Il est conseillé de vérifier les présences et de cadrer l\'obligation de prise en main immédiate du sujet dès le lancement.',
                 'icone' => 'fa-triangle-exclamation',
                 'classe' => 'bg-rose-50 border-rose-200 text-rose-900',
             ];
-        } elseif ($tauxAmorce < 90) {
+        } elseif ($tauxPresence < 85) {
             $recommandations[] = [
                 'type' => 'vigilance',
-                'titre' => 'Accompagnement individualisé des retardataires',
-                'message' => 'Quelques apprenants n\'ont pas encore soumis de premier rendu. Une relance individuelle ou un binômage d\'amorce permettrait de résorber la latence sans ralentir le reste du groupe.',
+                'titre' => 'Accompagnement individualisé des démarrages tardifs',
+                'message' => 'Des retards d\'amorçage ont été constatés en séance ou post-séance. Une relance individuelle ou un binômage d\'amorce permettrait de résorber la latence sans ralentir le reste du groupe.',
                 'icone' => 'fa-bell',
                 'classe' => 'bg-amber-50 border-amber-200 text-amber-900',
             ];
         } else {
             $recommandations[] = [
                 'type' => 'succes',
-                'titre' => 'Dynamique d\'amorce optimale',
-                'message' => 'Excellent démarrage collectif (> 90% amorcés). La phase de cadrage initiale est assimilée et le groupe est entré en autonomie de production.',
+                'titre' => 'Excellente assiduité & dynamique d\'amorce en séance',
+                'message' => 'Plus de 85% des apprenants ont amorcé leur travail pendant la séance de lancement officielle. La phase de cadrage initiale est assimilée et le groupe est entré en autonomie de production.',
                 'icone' => 'fa-circle-check',
                 'classe' => 'bg-emerald-50 border-emerald-200 text-emerald-900',
             ];
@@ -551,9 +720,11 @@ trait DashboardIndicateur01Trait
 
         return [
             'total_apprenants' => $totalApprenants,
-            'nb_amorces' => $nbAmorces,
+            'nb_amorces' => $nbPresentsAmorces,
+            'nb_demarrages_avec_absence' => $nbDemarragesAvecAbsence,
             'nb_non_amorces' => $nbNonAmorces,
             'taux_amorce' => $tauxAmorce,
+            'taux_presence' => $tauxPresence,
             'delai_moyen_minutes' => $delaiMoyenMinutes,
             'delai_moyen_formate' => $this->formaterDureeMinutes($delaiMoyenMinutes),
             'delai_median_formate' => $this->formaterDureeMinutes($delaiMedianMinutes),
@@ -566,6 +737,7 @@ trait DashboardIndicateur01Trait
             'apprenants' => $apprenants,
             'benchmark' => $benchmark,
             'recommandations' => $recommandations,
+            'creneaux_seances' => $this->parametrePedagogique()->getCreneauxSeancesFormation(),
         ];
     }
 }

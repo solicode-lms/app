@@ -119,42 +119,6 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="cache_date_lancement" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="cache_date_lancement" 
-              id="bulk_field_cache_date_lancement" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="cache_date_lancement">
-            {{ ucfirst(__('PkgRealisationProjets::affectationProjet.cache_date_lancement')) }}
-            
-          </label>
-                      <input
-                name="cache_date_lancement"
-                type="text"
-                class="form-control datetimepicker"
-                
-                
-                
-                id="cache_date_lancement"
-                placeholder="{{ __('PkgRealisationProjets::affectationProjet.cache_date_lancement') }}"
-                value="{{ $itemAffectationProjet ? $itemAffectationProjet->cache_date_lancement : old('cache_date_lancement') }}">
-
-          @error('cache_date_lancement')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="annee_formation_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
@@ -225,42 +189,6 @@
                 value="{{ $itemAffectationProjet ? $itemAffectationProjet->date_debut : old('date_debut') }}">
 
           @error('date_debut')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="date_fin_live_coding_collectif" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input 
-              type="checkbox" 
-              class="check-input" 
-              name="fields_modifiables[]" 
-              value="date_fin_live_coding_collectif" 
-              id="bulk_field_date_fin_live_coding_collectif" 
-              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="date_fin_live_coding_collectif">
-            {{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin_live_coding_collectif')) }}
-            
-          </label>
-                      <input
-                name="date_fin_live_coding_collectif"
-                type="text"
-                class="form-control datetimepicker"
-                
-                
-                
-                id="date_fin_live_coding_collectif"
-                placeholder="{{ __('PkgRealisationProjets::affectationProjet.date_fin_live_coding_collectif') }}"
-                value="{{ $itemAffectationProjet ? $itemAffectationProjet->date_fin_live_coding_collectif : old('date_fin_live_coding_collectif') }}">
-
-          @error('date_fin_live_coding_collectif')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

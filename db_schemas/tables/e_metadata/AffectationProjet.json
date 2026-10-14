@@ -892,7 +892,8 @@
     },
     {
         "reference": "AffectationProjet_cache_date_lancement_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "AffectationProjet_cache_date_lancement",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -928,7 +929,8 @@
     },
     {
         "reference": "AffectationProjet_date_fin_live_coding_collectif_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "AffectationProjet_date_fin_live_coding_collectif",
         "e_metadata_definition_reference": "displayInForm"
     },

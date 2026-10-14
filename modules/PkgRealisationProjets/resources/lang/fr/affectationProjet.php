@@ -18,4 +18,5 @@ return [
     'description' => 'Remarques',
     'is_formateur_evaluateur' => 'Le formateur évalue le projet.',
     'echelle_note_cible' => 'Échelle de notation',
+    'seuil_blocage_minutes' => 'Seuil de blocage (minutes)',
 ];

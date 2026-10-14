@@ -23,10 +23,16 @@ class ParametrePedagogiqueService
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        // Indicateur 01 : Démarrage du sprint (T_amorçage)
+        // Indicateur 01 : Démarrage du sprint (T_amorçage) & Séances de lancement
         'amorcage_seuil_optimal_groupe_minutes' => 180, // 3h
         'amorcage_seuil_apprenant_minutes' => 90,        // 1h30
         'amorcage_delai_moyen_fallback_minutes' => 105,  // 1h45
+        'amorcage_duree_seance_fallback_minutes' => 150, // 2h30
+        'creneaux_seances_formation' => [
+            ['nom' => 'Séance 1', 'debut' => '09:00', 'fin' => '11:30', 'duree_minutes' => 150],
+            ['nom' => 'Séance 2', 'debut' => '11:30', 'fin' => '14:00', 'duree_minutes' => 150],
+            ['nom' => 'Séance 3', 'debut' => '14:30', 'fin' => '17:00', 'duree_minutes' => 150],
+        ],
 
         // Indicateur 02 : Gating Prototype 1er essai (R_gating)
         'gating_seuil_excellence_pourcentage' => 80.0,
@@ -139,6 +145,52 @@ class ParametrePedagogiqueService
     public function getDelaiMoyenAmorcageFallbackMinutes(?int $projetId = null): int
     {
         return (int) $this->get('amorcage_delai_moyen_fallback_minutes', 105, $projetId);
+    }
+
+    /**
+     * Récupère la liste des créneaux de séances journalières.
+     *
+     * @param int|null $projetId
+     * @return array
+     */
+    public function getCreneauxSeancesFormation(?int $projetId = null): array
+    {
+        return (array) $this->get('creneaux_seances_formation', [
+            ['nom' => 'Séance 1', 'debut' => '09:00', 'fin' => '11:30', 'duree_minutes' => 150],
+            ['nom' => 'Séance 2', 'debut' => '11:30', 'fin' => '14:00', 'duree_minutes' => 150],
+            ['nom' => 'Séance 3', 'debut' => '14:30', 'fin' => '17:00', 'duree_minutes' => 150],
+        ], $projetId);
+    }
+
+    /**
+     * Détermine la date et heure de fin de la séance de lancement pour un horodatage donné.
+     * Si l'horodatage se situe dans un créneau de séance (ex: 09:30 dans 09:00-11:30), la fin
+     * correspond à la fin de ce créneau (ex: 11:30).
+     * Sinon, un fallback de 150 minutes (2h30) est appliqué.
+     *
+     * @param \Carbon\Carbon|string|null $dateLancement
+     * @param int|null $projetId
+     * @return \Carbon\Carbon
+     */
+    public function determinerFinSeanceLancement(mixed $dateLancement = null, ?int $projetId = null): \Carbon\Carbon
+    {
+        $carbonLancement = $dateLancement ? \Carbon\Carbon::parse($dateLancement) : now();
+        $heureLancement = $carbonLancement->format('H:i');
+        $creneaux = $this->getCreneauxSeancesFormation($projetId);
+
+        foreach ($creneaux as $creneau) {
+            $debut = $creneau['debut'] ?? '00:00';
+            $fin = $creneau['fin'] ?? '23:59';
+
+            if ($heureLancement >= $debut && $heureLancement < $fin) {
+                list($finH, $finM) = explode(':', $fin);
+                return $carbonLancement->copy()->setTime((int) $finH, (int) $finM, 0);
+            }
+        }
+
+        // Cas de secours : ajouter la durée standard (150 minutes = 2h30)
+        $dureeFallback = (int) $this->get('amorcage_duree_seance_fallback_minutes', 150, $projetId);
+        return $carbonLancement->copy()->addMinutes($dureeFallback);
     }
 
     // =========================================================================

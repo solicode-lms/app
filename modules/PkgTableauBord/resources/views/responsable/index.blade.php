@@ -116,24 +116,7 @@
     {{-- Grille Complète des 9 Indicateurs (Sessions de formation N2) --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-9 gap-4">
         <!-- Carte Macroscopique Globale Amorçage (Indicateur 01) -->
-        <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
-            <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-slate-500">Délai moyen global d'amorçage</span>
-                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
-                    Indicateur 01
-                </span>
-            </div>
-            <div class="mt-3 flex items-baseline gap-2">
-                <span class="text-3xl font-extrabold text-indigo-700 tracking-tight">
-                    {{ $kpiAmorcage['delai_moyen_global_formate'] ?? '--' }}
-                </span>
-            </div>
-            <p class="text-xs text-slate-500 mt-2">Délai moyen calculé sur toutes les promotions actives récentes.</p>
-            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
-                <span>Promotions analysées</span>
-                <span class="font-bold text-slate-800">{{ count($kpiAmorcage['benchmark'] ?? []) }} groupes</span>
-            </div>
-        </div>
+        @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'responsable', 'kpi' => $kpiAmorcage])
 
         <!-- Carte Macroscopique Globale Gating (Indicateur 02) -->
         @include('PkgTableauBord::components.kpi-gating', ['type' => 'responsable', 'kpi' => $kpiGating])
@@ -163,24 +146,7 @@
     {{-- Grille Adaptée (Projet standard hors session : Indicateurs continus 01, 03, 04, 06) --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <!-- Carte Macroscopique Globale Amorçage (Indicateur 01) -->
-        <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
-            <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-slate-500">Délai moyen d'amorçage</span>
-                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
-                    Indicateur 01
-                </span>
-            </div>
-            <div class="mt-3 flex items-baseline gap-2">
-                <span class="text-3xl font-extrabold text-indigo-700 tracking-tight">
-                    {{ $kpiAmorcage['delai_moyen_global_formate'] ?? '--' }}
-                </span>
-            </div>
-            <p class="text-xs text-slate-500 mt-2">Délai moyen d'activation de la première tâche du projet.</p>
-            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
-                <span>Groupes analysés</span>
-                <span class="font-bold text-slate-800">{{ count($kpiAmorcage['benchmark'] ?? []) }} groupes</span>
-            </div>
-        </div>
+        @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'responsable', 'kpi' => $kpiAmorcage])
 
         <!-- Carte Macroscopique Globale Révision (Indicateur 03) -->
         @include('PkgTableauBord::components.kpi-revision', ['type' => 'responsable', 'kpi' => $kpiRevision])
@@ -192,6 +158,85 @@
         @include('PkgTableauBord::components.kpi-intervention', ['type' => 'responsable', 'kpi' => $kpiIntervention])
     </div>
     @endif
+
+    <!-- Diagnostic d'Amorçage : Apprenants en Attente de Démarrage (Indicateur 01 — T_amorçage) -->
+    @include('PkgTableauBord::components.apprenants-non-amorces-panel', ['kpi' => $kpiAmorcage])
+
+    <!-- Panneau Explicatif : Détail du Calcul & Paramètres de l'Indicateur 01 (T_amorçage) -->
+    <section class="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-xs space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+            <div class="flex items-start gap-3">
+                <div class="w-10 h-10 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-700 flex items-center justify-center shrink-0 shadow-2xs">
+                    <i class="fas fa-stopwatch text-base"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <h4 class="text-sm font-bold text-slate-900">Détail du Calcul : Indicateur 01 — Temps d'Amorçage (T<sub>amorçage</sub>)</h4>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 font-mono">
+                            SLA cible : &le; {{ $kpiAmorcage['seuil_optimal_formate'] ?? '2h00' }}
+                        </span>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-0.5">
+                        Formule d'agrégation macroscopique et modalités de détection de la mise au travail sur le périmètre sélectionné.
+                    </p>
+                </div>
+            </div>
+
+            <a href="{{ route('admin.PkgTableauBord.indicateurs.amorcage', request()->query()) }}" 
+               class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-bold transition shadow-2xs shrink-0"
+               title="Consulter l'analyse complète, les courbes de dispersion et le roster apprenants">
+                <span>Analyse Détaillée Indicateur 01</span>
+                <i class="fas fa-arrow-right text-[10px]"></i>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Formule de calcul -->
+            <div class="p-3.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+                <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Formule Mathématique</span>
+                <div class="font-mono text-xs font-black text-indigo-900 bg-white p-2 rounded border border-slate-200">
+                    T<sub>amorçage</sub> = Date 1<sup>re</sup> soumission - Date lancement
+                </div>
+                <p class="text-[11px] text-slate-500 leading-relaxed">
+                    <strong>Condition de présence :</strong> 1<sup>re</sup> tâche mise en cours avant la fin de la séance de lancement (&le; {{ $kpiAmorcage['seuil_optimal_formate'] ?? '2h30' }}). Les retards liés à une absence sont isolés et exclus de la moyenne.
+                </p>
+            </div>
+
+            <!-- Périmètre & Filtres -->
+            <div class="p-3.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+                <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Périmètre de Gouvernance</span>
+                <div class="text-xs font-semibold text-slate-800">
+                    {{ !empty($isVisionGlobale) ? '10 sessions de formation actives (Sessions N2)' : 'Sessions de formation filtrées' }}
+                </div>
+                <p class="text-[11px] text-slate-500 leading-relaxed">
+                    Le calcul est effectué sur les affectations de projet de type session de formation mobilisant une épreuve Live Coding (N2).
+                </p>
+            </div>
+
+            <!-- Synthèse Chiffrée -->
+            <div class="p-3.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+                <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Synthèse du Périmètre</span>
+                <div class="flex items-baseline justify-between">
+                    <span class="text-xs text-slate-600">Délai moyen (présents) :</span>
+                    <strong class="font-mono text-sm text-indigo-700">{{ $kpiAmorcage['delai_moyen_global_formate'] ?? '--' }}</strong>
+                </div>
+                <div class="flex items-baseline justify-between text-[11px] text-slate-500">
+                    <span>Amorcés en séance :</span>
+                    <strong class="font-mono text-slate-800">{{ $kpiAmorcage['nb_amorces'] ?? 0 }}/{{ $kpiAmorcage['total_apprenants'] ?? 0 }} réalisations</strong>
+                </div>
+                @if(!empty($kpiAmorcage['nb_demarrage_avec_absence']))
+                <div class="flex items-baseline justify-between text-[11px] text-purple-700 font-medium">
+                    <span>Démarrages avec absence :</span>
+                    <strong class="font-mono">{{ $kpiAmorcage['nb_demarrage_avec_absence'] }} (hors moyenne)</strong>
+                </div>
+                @endif
+                <div class="flex items-baseline justify-between text-[11px] text-slate-500">
+                    <span>Sessions analysées :</span>
+                    <strong class="font-mono text-slate-800">{{ count($kpiAmorcage['benchmark'] ?? []) }} sessions de formation</strong>
+                </div>
+            </div>
+        </div>
+    </section>
 
     @if($isProjetSessionFormation ?? true)
     <!-- Section Scatter Plot SVG & Diagnostic d'Intégrité IA (Indicateur 07 — Pearson r) -->
@@ -219,7 +264,7 @@
             <table class="w-full text-left text-xs">
                 <thead>
                     <tr class="border-b border-slate-200 text-slate-500 font-semibold bg-slate-50/50">
-                        <th class="py-3 px-5">Groupe / Promotion</th>
+                        <th class="py-3 px-5">Session de Formation / Groupe</th>
                         <th class="py-3 px-4">Délai Moyen (T<sub>amorçage</sub>)</th>
                         <th class="py-3 px-4">Taux d'Amorçage</th>
                         <th class="py-3 px-4">Validation Prototype (R<sub>gating</sub>)</th>
@@ -245,12 +290,22 @@
                     $dociItem = $docimologieByGroupe->get($item['groupe_code']);
                     @endphp
                     <tr class="hover:bg-slate-50/80 transition">
-                        <td class="py-3 px-5 font-bold text-slate-900">{{ $item['groupe_code'] }} ({{ $item['groupe_nom'] }})</td>
+                        <td class="py-3 px-5 font-bold text-slate-900">
+                            <div class="truncate max-w-[200px]" title="{{ $item['session_titre'] ?? 'Session N2' }}">{{ $item['session_titre'] ?? 'Session N2' }}</div>
+                            <span class="text-[11px] text-slate-500 font-normal">{{ $item['groupe_code'] }} ({{ $item['groupe_nom'] }})</span>
+                        </td>
                         <td class="py-3 px-4 font-mono font-bold text-indigo-700">{{ $item['temps_moyen_formate'] }}</td>
                         <td class="py-3 px-4">
-                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold {{ $item['taux_amorce'] >= 75 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200' }}">
-                                {{ $item['taux_amorce'] }}% amorcés ({{ $item['nb_amorces'] }}/{{ $item['total_apprenants'] }})
-                            </span>
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold {{ $item['taux_amorce'] >= 75 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200' }}">
+                                    {{ $item['taux_amorce'] }}% amorcés ({{ $item['nb_amorces'] }}/{{ $item['total_apprenants'] }})
+                                </span>
+                                @if(!empty($item['nb_demarrage_avec_absence']) && $item['nb_demarrage_avec_absence'] > 0)
+                                    <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-purple-50 text-purple-700 border border-purple-200" title="{{ $item['nb_demarrage_avec_absence'] }} réalisation(s) avec absence">
+                                        {{ $item['nb_demarrage_avec_absence'] }} abs.
+                                    </span>
+                                @endif
+                            </div>
                         </td>
                         <td class="py-3 px-4">
                             @if(!is_null($tauxGating))
