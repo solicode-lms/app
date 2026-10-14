@@ -1,11 +1,24 @@
 @extends('layouts.admin-v2')
 
-@section('title', 'Tableau de Bord Apprenant')
-@section('page_title', 'Mon Tableau de Bord')
+@section('title', ($isSuperviseur ?? false) ? 'Tableau de Bord Apprenant' : 'Mon Tableau de Bord')
+@section('page_title', ($isSuperviseur ?? false) ? 'Tableau de Bord Apprenant' : 'Mon Tableau de Bord')
 @section('page_subtitle', 'Consulter une vue d’ensemble des activités, des indicateurs et de la progression.')
 
 @section('actions')
-    @include('PkgTableauBord::components.session-selector', ['sessions' => $sessions ?? collect(), 'sessionActive' => $sessionFormationActive ?? null])
+    <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+        @if(!empty($canSelectApprenant))
+            @include('PkgTableauBord::components.apprenant-selector', [
+                'groupes' => $groupes ?? collect(),
+                'selectedGroupeId' => $selectedGroupeId ?? null,
+                'apprenants' => $apprenants ?? collect(),
+                'selectedApprenantId' => $selectedApprenantId ?? null,
+            ])
+        @endif
+        @include('PkgTableauBord::components.session-selector', [
+            'sessions' => $sessions ?? collect(),
+            'sessionActive' => $sessionFormationActive ?? null
+        ])
+    </div>
 @endsection
 
 @section('content')
@@ -13,10 +26,18 @@
     <section class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-                <div class="flex items-center gap-2">
-                    <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
-                        Espace Apprenant
-                    </span>
+                <div class="flex items-center gap-2 flex-wrap">
+                    @if(!empty($isSuperviseur))
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200 flex items-center gap-1.5">
+                            <i class="fas fa-eye text-[11px] text-amber-600"></i>
+                            <span>Vue Superviseur</span>
+                        </span>
+                    @else
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                            Espace Apprenant
+                        </span>
+                    @endif
+
                     @if(isset($projetActif) || isset($sessionFormationActive))
                         @php $currentActive = $projetActif ?? $sessionFormationActive; @endphp
                         <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100/70 text-indigo-800 border border-indigo-300">
@@ -24,13 +45,27 @@
                         </span>
                     @endif
                 </div>
-                <h2 class="text-xl font-bold text-slate-900 mt-1">
-                    Bonjour, {{ $apprenant->prenom ?? (Auth::user()?->name ?? 'Apprenant') }} 👋
-                </h2>
-                <p class="text-xs text-slate-500 mt-0.5">
-                    Groupe : <strong class="text-slate-800">{{ $realisationProjet->affectationProjet->groupe->code ?? 'Promotion' }}</strong>
-                    &bull; Projet actif : <strong class="text-slate-800">{{ $realisationProjet->affectationProjet->projet->titre ?? 'Projet en cours' }}</strong>
-                </p>
+
+                @if(!empty($isSuperviseur))
+                    <h2 class="text-xl font-bold text-slate-900 mt-1">
+                        {{ $apprenant ? ($apprenant->nom . ' ' . $apprenant->prenom) : 'Aucun apprenant sélectionné' }}
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-0.5">
+                        Groupe : <strong class="text-slate-800">{{ $apprenant?->groupes?->pluck('nom')->implode(', ') ?: ($realisationProjet->affectationProjet->groupe->code ?? 'Non assigné') }}</strong>
+                        &bull; Matricule : <strong class="text-slate-800">{{ $apprenant?->matricule ?? '-' }}</strong>
+                        @if($realisationProjet)
+                            &bull; Projet actif : <strong class="text-slate-800">{{ $realisationProjet->affectationProjet->projet->titre ?? 'Projet en cours' }}</strong>
+                        @endif
+                    </p>
+                @else
+                    <h2 class="text-xl font-bold text-slate-900 mt-1">
+                        Bonjour, {{ $apprenant->prenom ?? (Auth::user()?->name ?? 'Apprenant') }} 👋
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-0.5">
+                        Groupe : <strong class="text-slate-800">{{ $realisationProjet->affectationProjet->groupe->code ?? 'Promotion' }}</strong>
+                        &bull; Projet actif : <strong class="text-slate-800">{{ $realisationProjet->affectationProjet->projet->titre ?? 'Projet en cours' }}</strong>
+                    </p>
+                @endif
             </div>
             
             <div class="flex items-center gap-2">
@@ -46,11 +81,19 @@
                 @endif
             </div>
         </div>
-        @if(!$realisationProjet)
+
+        @if(!$apprenant)
+            <div class="mt-4 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-center gap-3">
+                <i class="fas fa-exclamation-triangle text-base text-amber-600"></i>
+                <div>
+                    <strong>Aucun apprenant disponible.</strong> Aucun profil apprenant n'est rattaché à ce groupe ou à votre périmètre de formation.
+                </div>
+            </div>
+        @elseif(!$realisationProjet)
             <div class="mt-4 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-center gap-3">
                 <i class="fas fa-info-circle text-base text-amber-600"></i>
                 <div>
-                    <strong>Aucun projet assigné.</strong> Aucun projet ou réalisation active n'est actuellement rattaché à votre compte apprenant.
+                    <strong>Aucun projet assigné.</strong> Aucun projet ou réalisation active n'est actuellement rattaché à cet apprenant.
                 </div>
             </div>
         @endif
@@ -100,16 +143,16 @@
                     </div>
                     <div>
                         <div class="flex items-center gap-2">
-                            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold {{ $kpiFileAttente['badge_class'] }}">
-                                {{ $kpiFileAttente['badge_label'] }}
+                            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold {{ $kpiFileAttente['badge_label'] ?? '' }}">
+                                {{ $kpiFileAttente['badge_label'] ?? 'File active' }}
                             </span>
                         </div>
                         <h2 class="text-lg sm:text-xl font-extrabold text-slate-900 mt-1">
                             Votre rang de passage en direct : <span class="text-indigo-600">{{ $kpiFileAttente['rang_formate'] ?? 'Rang #1' }}</span>
                         </h2>
                         <p class="text-xs sm:text-sm text-slate-500 mt-1">
-                            {{ $kpiFileAttente['tache_titre'] }} &bull; Temps d'attente : <strong class="text-slate-800">{{ $kpiFileAttente['temps_attente_formate'] }}</strong>
-                            @if(!empty($kpiFileAttente['heure_passage_estimee']) && $kpiFileAttente['statut'] === 'en_attente')
+                            {{ $kpiFileAttente['tache_titre'] ?? 'Évaluation' }} &bull; Temps d'attente : <strong class="text-slate-800">{{ $kpiFileAttente['temps_attente_formate'] ?? '0 min' }}</strong>
+                            @if(!empty($kpiFileAttente['heure_passage_estimee']) && ($kpiFileAttente['statut'] ?? '') === 'en_attente')
                                 &bull; Passage formateur estimé à <strong class="text-slate-800">{{ $kpiFileAttente['heure_passage_estimee'] }}</strong> (dans ~{{ $kpiFileAttente['temps_estime_restant_minutes'] }} min).
                             @endif
                         </p>
@@ -119,7 +162,7 @@
                 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/80 flex items-center gap-4 shrink-0 w-full lg:w-auto">
                     <div>
                         <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Livrable à soutenir</div>
-                        <div class="text-xs font-bold text-slate-900">{{ $kpiFileAttente['tache_titre'] }}</div>
+                        <div class="text-xs font-bold text-slate-900">{{ $kpiFileAttente['tache_titre'] ?? 'Session de validation' }}</div>
                     </div>
                     <span class="px-3.5 py-2 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-lg border border-indigo-200">
                         Préparez votre IDE

@@ -1,11 +1,26 @@
 @extends('layouts.admin-v2')
 
-@section('title', 'Tableau de Bord Formateur')
-@section('page_title', 'Suivi pédagogique')
+@section('title', ($isSuperviseur ?? false) ? 'Tableau de Bord Formateur' : 'Suivi pédagogique')
+@section('page_title', ($isSuperviseur ?? false) ? 'Tableau de Bord Formateur' : 'Suivi pédagogique')
 @section('page_subtitle', 'Suivre les activités, la progression et les compétences des apprenants.')
 
 @section('actions')
-    @include('PkgTableauBord::components.session-selector', ['sessions' => $sessions ?? collect(), 'sessionActive' => $sessionFormationActive ?? null])
+    <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+        @if(!empty($canSelectFormateur) || !empty($canSelectGroupe))
+            @include('PkgTableauBord::components.formateur-selector', [
+                'canSelectFormateur' => $canSelectFormateur ?? false,
+                'formateurs' => $formateurs ?? collect(),
+                'selectedFormateurId' => $selectedFormateurId ?? null,
+                'canSelectGroupe' => $canSelectGroupe ?? false,
+                'groupes' => $groupes ?? collect(),
+                'selectedGroupeId' => $selectedGroupeId ?? null,
+            ])
+        @endif
+        @include('PkgTableauBord::components.session-selector', [
+            'sessions' => $sessions ?? collect(),
+            'sessionActive' => $sessionFormationActive ?? null
+        ])
+    </div>
 @endsection
 
 @section('content')
@@ -13,10 +28,18 @@
     <section class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-                <div class="flex items-center gap-2">
-                    <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
-                        Espace Formateur
-                    </span>
+                <div class="flex items-center gap-2 flex-wrap">
+                    @if(!empty($isSuperviseur))
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200 flex items-center gap-1.5">
+                            <i class="fas fa-eye text-[11px] text-amber-600"></i>
+                            <span>Vue Superviseur</span>
+                        </span>
+                    @else
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                            Espace Formateur
+                        </span>
+                    @endif
+
                     @if(isset($projetActif) || isset($sessionFormationActive))
                         @php $currentActive = $projetActif ?? $sessionFormationActive; @endphp
                         <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100/70 text-indigo-800 border border-indigo-300">
@@ -24,13 +47,28 @@
                         </span>
                     @endif
                 </div>
-                <h2 class="text-xl font-bold text-slate-900 mt-1">
-                    Groupe {{ $affectationProjet->groupe->code ?? 'Non assigné' }} &bull; {{ $affectationProjet->projet->titre ?? 'Aucun projet' }}
-                </h2>
-                <p class="text-xs text-slate-500 mt-0.5">
-                    Lancement officiel : <strong class="text-slate-800">{{ $affectationProjet->cache_date_lancement ?? $affectationProjet->date_debut ?? 'Non défini' }}</strong>
-                    &bull; Effectif : <strong class="text-slate-800">{{ $kpiAmorcage['total_apprenants'] ?? 0 }} apprenants</strong>
-                </p>
+
+                @if(!empty($isSuperviseur))
+                    <h2 class="text-xl font-bold text-slate-900 mt-1">
+                        {{ $formateur ? ($formateur->nom . ' ' . $formateur->prenom) : 'Aucun formateur sélectionné' }}
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-0.5">
+                        Matricule : <strong class="text-slate-800">{{ $formateur?->matricule ?? '-' }}</strong>
+                        &bull; Groupe actif : <strong class="text-slate-800">{{ $affectationProjet->groupe->code ?? 'Non assigné' }}</strong>
+                        @if($affectationProjet)
+                            &bull; Projet actif : <strong class="text-slate-800">{{ $affectationProjet->projet->titre ?? 'Aucun projet' }}</strong>
+                            &bull; Effectif : <strong class="text-slate-800">{{ $kpiAmorcage['total_apprenants'] ?? 0 }} apprenants</strong>
+                        @endif
+                    </p>
+                @else
+                    <h2 class="text-xl font-bold text-slate-900 mt-1">
+                        Groupe {{ $affectationProjet->groupe->code ?? 'Non assigné' }} &bull; {{ $affectationProjet->projet->titre ?? 'Aucun projet' }}
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-0.5">
+                        Lancement officiel : <strong class="text-slate-800">{{ $affectationProjet->cache_date_lancement ?? $affectationProjet->date_debut ?? 'Non défini' }}</strong>
+                        &bull; Effectif : <strong class="text-slate-800">{{ $kpiAmorcage['total_apprenants'] ?? 0 }} apprenants</strong>
+                    </p>
+                @endif
             </div>
 
             <div class="flex items-center gap-2">
@@ -46,11 +84,18 @@
                 @endif
             </div>
         </div>
-        @if(!$affectationProjet)
+        @if(!$formateur)
+            <div class="mt-4 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-center gap-3">
+                <i class="fas fa-exclamation-triangle text-base text-amber-600"></i>
+                <div>
+                    <strong>Aucun formateur trouvé.</strong> Aucun profil formateur n'a été sélectionné ou configuré.
+                </div>
+            </div>
+        @elseif(!$affectationProjet)
             <div class="mt-4 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-center gap-3">
                 <i class="fas fa-info-circle text-base text-amber-600"></i>
                 <div>
-                    <strong>Aucune affectation trouvée.</strong> Aucune affectation de projet n'est actuellement rattachée à votre compte formateur.
+                    <strong>Aucune affectation trouvée.</strong> Aucune affectation de projet n'est actuellement rattachée à ce formateur pour ce groupe.
                 </div>
             </div>
         @endif
@@ -64,12 +109,13 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-9 gap-4">
+              @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'formateur', 'kpi' => $kpiAmorcage])
             @include('PkgTableauBord::components.kpi-docimologie', ['type' => 'formateur', 'kpi' => $kpiDocimologie])
             @include('PkgTableauBord::components.kpi-couverture-pedagogique', ['type' => 'formateur', 'kpi' => $kpiCouverture])
             @include('PkgTableauBord::components.kpi-integrite-ia', ['type' => 'formateur', 'kpi' => $kpiIntegriteIA])
             @include('PkgTableauBord::components.kpi-intervention', ['type' => 'formateur', 'kpi' => $kpiIntervention])
             @include('PkgTableauBord::components.kpi-file-attente', ['type' => 'formateur', 'kpi' => $kpiFileAttente])
-            @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'formateur', 'kpi' => $kpiAmorcage])
+          
             @include('PkgTableauBord::components.kpi-gating', ['type' => 'formateur', 'kpi' => $kpiGating])
             @include('PkgTableauBord::components.kpi-revision', ['type' => 'formateur', 'kpi' => $kpiRevision])
             @include('PkgTableauBord::components.kpi-charge-logistique', ['type' => 'formateur', 'kpi' => $kpiChargeLogistique])

@@ -5,7 +5,7 @@
 
 @if($type === 'apprenant')
     <!-- KPI 1 Apprenant : Démarrage du sprint -->
-    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
+    <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
         <div class="flex items-center justify-between">
             <span class="text-xs font-bold text-slate-500">Mon délai de démarrage</span>
             <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold {{ $kpi['statut_badge'] ?? 'bg-emerald-50 text-emerald-700 border border-emerald-200' }}">

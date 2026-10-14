@@ -6,8 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Solicode LMS - V2')</title>
 
-    <!-- Tailwind CSS (CDN) -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS (CDN avec plugin Forms pour Preline UI) -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
 
     <!-- Google Fonts Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -99,6 +99,10 @@
             }
         }
     </script>
+
+    <!-- Floating UI & Preline UI CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@floating-ui/dom@latest/dist/floating-ui.dom.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js"></script>
 
     @yield('scripts')
 </body>

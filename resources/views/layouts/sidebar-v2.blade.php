@@ -113,10 +113,24 @@
                     <span class="w-1.5 h-1.5 rounded-full {{ Request::is('admin/PkgTableauBord/apprenant*') ? 'bg-indigo-600' : 'bg-transparent' }}"></span>
                 </a>
             @elseif(Auth::user()->hasAnyRole(['formateur', 'admin-formateur']))
+                <!-- Vue Formateur -->
                 <a href="{{ route('admin.PkgTableauBord.formateur') }}" 
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-xs bg-indigo-50 text-indigo-700 border border-indigo-100 shadow-2xs">
-                    <i class="fas fa-chart-line text-sm text-indigo-600"></i>
-                    <span>Mon Tableau de bord</span>
+                   class="flex items-center justify-between px-3 py-2.5 rounded-xl font-semibold text-xs transition {{ Request::is('admin/PkgTableauBord/formateur*') ? 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-2xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-chalkboard-user text-sm {{ Request::is('admin/PkgTableauBord/formateur*') ? 'text-indigo-600' : 'text-slate-400' }}"></i>
+                        <span>Mon Tableau de bord</span>
+                    </div>
+                    <span class="w-1.5 h-1.5 rounded-full {{ Request::is('admin/PkgTableauBord/formateur*') ? 'bg-indigo-600' : 'bg-transparent' }}"></span>
+                </a>
+
+                <!-- Vue Apprenant pour Formateur -->
+                <a href="{{ route('admin.PkgTableauBord.apprenant') }}" 
+                   class="flex items-center justify-between px-3 py-2.5 rounded-xl font-semibold text-xs transition {{ Request::is('admin/PkgTableauBord/apprenant*') ? 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-2xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-user-graduate text-sm {{ Request::is('admin/PkgTableauBord/apprenant*') ? 'text-indigo-600' : 'text-slate-400' }}"></i>
+                        <span>Vue Apprenant</span>
+                    </div>
+                    <span class="w-1.5 h-1.5 rounded-full {{ Request::is('admin/PkgTableauBord/apprenant*') ? 'bg-indigo-600' : 'bg-transparent' }}"></span>
                 </a>
             @elseif(Auth::user()->hasRole('apprenant'))
                 <a href="{{ route('admin.PkgTableauBord.apprenant') }}" 
