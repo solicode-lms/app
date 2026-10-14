@@ -168,4 +168,234 @@ trait DashboardIndicateur04Trait
             'benchmark' => $benchmark,
         ];
     }
+
+    /**
+     * Indicateur 04 — Analyse détaillée approfondie pour la vue dédiée.
+     *
+     * @param array $filters
+     * @return array
+     */
+    public function getIndicateurChargeLogistiqueDetail(array $filters = []): array
+    {
+        $paramService = app(\Modules\PkgTableauBord\Services\ParametrePedagogiqueService::class);
+        $seuilOptimal = $paramService->getSeuilChargeOptimalHeures();
+        $seuilAlerte = $paramService->getSeuilChargeAlerteHeures();
+        $cibleMax = $paramService->getPlafondChargeLogistiqueHeures();
+        $timeoutInactivite = $paramService->getTimeoutInactiviteMinutes();
+
+        // Semaines disponibles dans la base
+        $semainesDisponibles = DB::table('log_activite_formateurs')
+            ->distinct()
+            ->orderBy('semaine_annee', 'desc')
+            ->pluck('semaine_annee')
+            ->toArray();
+
+        $semaineCourante = now()->format('o-\WW');
+        if (empty($semainesDisponibles)) {
+            $semainesDisponibles = [$semaineCourante];
+        }
+
+        // Semaine sélectionnée
+        $semaine = $filters['semaine'] ?? null;
+        if (!$semaine || !in_array($semaine, $semainesDisponibles)) {
+            $semaine = in_array($semaineCourante, $semainesDisponibles) ? $semaineCourante : $semainesDisponibles[0];
+        }
+
+        // Requête formateurs
+        $formateursQuery = Formateur::with('user');
+        if (!empty($filters['formateur_id'])) {
+            $formateursQuery->where('id', $filters['formateur_id']);
+        }
+        $allFormateurs = $formateursQuery->orderBy('nom')->get();
+
+        // Logs de la semaine
+        $logs = DB::table('log_activite_formateurs')
+            ->where('semaine_annee', $semaine)
+            ->get();
+
+        $formatDuree = function (int $secondes): string {
+            $heures = floor($secondes / 3600);
+            $minutes = floor(($secondes % 3600) / 60);
+            if ($heures > 0) {
+                return sprintf('%dh%02d', $heures, $minutes);
+            }
+            return sprintf('%d min', $minutes);
+        };
+
+        $formatDureeDecimale = function (float $heures): string {
+            return sprintf('%.1fh', $heures);
+        };
+
+        $roster = [];
+        $totalHeuresEquipe = 0.0;
+        $totalSecPilotage = 0;
+        $totalSecFile = 0;
+        $totalSecBordereaux = 0;
+
+        foreach ($allFormateurs as $formateur) {
+            $formateurLogs = $logs->where('formateur_id', $formateur->id);
+
+            $secPilot = (int) $formateurLogs->where('type_activite', LogActiviteFormateur::TYPE_PILOTAGE_KANBAN)->sum('duree_secondes');
+            $secFile = (int) $formateurLogs->where('type_activite', LogActiviteFormateur::TYPE_GESTION_FILE_FIFO)->sum('duree_secondes');
+            $secBord = (int) $formateurLogs->where('type_activite', LogActiviteFormateur::TYPE_EXPORT_BORDEREAU)->sum('duree_secondes');
+            $secTot = $secPilot + $secFile + $secBord;
+
+            $totalSecPilotage += $secPilot;
+            $totalSecFile += $secFile;
+            $totalSecBordereaux += $secBord;
+
+            $totalHeures = round($secTot / 3600.0, 1);
+            $totalHeuresEquipe += $totalHeures;
+
+            $pilotHeures = round($secPilot / 3600.0, 1);
+            $fileHeures = round($secFile / 3600.0, 1);
+            $bordHeures = round($secBord / 3600.0, 1);
+
+            $pilotPct = $secTot > 0 ? round(($secPilot / $secTot) * 100) : 0;
+            $filePct = $secTot > 0 ? round(($secFile / $secTot) * 100) : 0;
+            $bordPct = $secTot > 0 ? round(($secBord / $secTot) * 100) : 0;
+
+            // Statut & Zone
+            if ($totalHeures <= $seuilOptimal) {
+                $zone = 'optimal';
+                $badgeLabel = 'Optimal';
+                $badgeClass = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+            } elseif ($totalHeures <= $seuilAlerte) {
+                $zone = 'vigilance';
+                $badgeLabel = 'Vigilance';
+                $badgeClass = 'bg-amber-50 text-amber-700 border-amber-200';
+            } else {
+                $zone = 'alerte';
+                $badgeLabel = 'Alerte';
+                $badgeClass = 'bg-rose-50 text-rose-700 border-rose-200';
+            }
+
+            // Disponibilité tutorat direct (base 35h)
+            $tauxDispo = round(max(0, (35.0 - $totalHeures) / 35.0) * 100, 1);
+
+            $nom = trim(($formateur->prenom ?? '') . ' ' . ($formateur->nom ?? ''));
+            $initiales = strtoupper(substr($formateur->prenom ?? '', 0, 1) . substr($formateur->nom ?? '', 0, 1));
+
+            $roster[] = [
+                'id' => $formateur->id,
+                'nom' => $nom ?: 'Formateur #' . $formateur->id,
+                'matricule' => $formateur->matricule ?? '-',
+                'initiales' => $initiales ?: 'F',
+                'total_secondes' => $secTot,
+                'total_heures' => $totalHeures,
+                'total_heures_formate' => $formatDuree($secTot),
+                'total_heures_dec' => $formatDureeDecimale($totalHeures),
+                'pilotage_secondes' => $secPilot,
+                'pilotage_heures' => $pilotHeures,
+                'pilotage_formate' => $formatDuree($secPilot),
+                'pilotage_pct' => $pilotPct,
+                'file_secondes' => $secFile,
+                'file_heures' => $fileHeures,
+                'file_formate' => $formatDuree($secFile),
+                'file_pct' => $filePct,
+                'bordereaux_secondes' => $secBord,
+                'bordereaux_heures' => $bordHeures,
+                'bordereaux_formate' => $formatDuree($secBord),
+                'bordereaux_pct' => $bordPct,
+                'taux_disponibilite' => $tauxDispo,
+                'pourcentage_cible' => min(100, round(($totalHeures / $cibleMax) * 100)),
+                'pourcentage_35h' => min(100, round(($totalHeures / 35.0) * 100, 1)),
+                'zone' => $zone,
+                'badge_label' => $badgeLabel,
+                'badge_class' => $badgeClass,
+            ];
+        }
+
+        // Tri : les plus chargés en tête
+        usort($roster, fn($a, $b) => $b['total_heures'] <=> $a['total_heures']);
+
+        $nbFormateurs = max(count($allFormateurs), 1);
+        $chargeMoyenne = round($totalHeuresEquipe / $nbFormateurs, 1);
+        $totalSecEquipe = $totalSecPilotage + $totalSecFile + $totalSecBordereaux;
+
+        $pctPilotageGlobal = $totalSecEquipe > 0 ? round(($totalSecPilotage / $totalSecEquipe) * 100) : 0;
+        $pctFileGlobal = $totalSecEquipe > 0 ? round(($totalSecFile / $totalSecEquipe) * 100) : 0;
+        $pctBordereauxGlobal = $totalSecEquipe > 0 ? round(($totalSecBordereaux / $totalSecEquipe) * 100) : 0;
+
+        $tauxDispoGlobal = round(max(0, (35.0 - $chargeMoyenne) / 35.0) * 100, 1);
+
+        if ($chargeMoyenne <= $seuilOptimal) {
+            $statut = 'Optimal';
+            $statutBadge = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+            $statutDescription = 'Charge administrative parfaitement maîtrisée (≤ ' . $seuilOptimal . 'h). Le temps est massivement consacré au tutorat.';
+        } elseif ($chargeMoyenne <= $seuilAlerte) {
+            $statut = 'Vigilance';
+            $statutBadge = 'bg-amber-50 text-amber-700 border-amber-200';
+            $statutDescription = 'Charge notable (' . $chargeMoyenne . 'h). Surveillance recommandée pour éviter l\'érosion du temps d\'encadrement.';
+        } else {
+            $statut = 'Alerte';
+            $statutBadge = 'bg-rose-50 text-rose-700 border-rose-200';
+            $statutDescription = 'Surcharge bureaucratique critique (> ' . $seuilAlerte . 'h). Automatisation ou allègement des processus urgents.';
+        }
+
+        // Historique multi-semaines
+        $historiqueSemaines = [];
+        foreach ($semainesDisponibles as $sem) {
+            $semLogs = DB::table('log_activite_formateurs')->where('semaine_annee', $sem)->get();
+            $sPilot = (int) $semLogs->where('type_activite', LogActiviteFormateur::TYPE_PILOTAGE_KANBAN)->sum('duree_secondes');
+            $sFile = (int) $semLogs->where('type_activite', LogActiviteFormateur::TYPE_GESTION_FILE_FIFO)->sum('duree_secondes');
+            $sBord = (int) $semLogs->where('type_activite', LogActiviteFormateur::TYPE_EXPORT_BORDEREAU)->sum('duree_secondes');
+            $sTot = $sPilot + $sFile + $sBord;
+            $sHeuresTot = round($sTot / 3600.0, 1);
+            $sFormateursCount = max($semLogs->pluck('formateur_id')->unique()->count(), 1);
+            $sMoyenne = round($sHeuresTot / $sFormateursCount, 1);
+            $historiqueSemaines[] = [
+                'semaine' => $sem,
+                'charge_moyenne' => $sMoyenne,
+                'charge_moyenne_formatee' => sprintf('%.1fh', $sMoyenne),
+                'total_heures' => $sHeuresTot,
+                'total_heures_formate' => sprintf('%.1fh', $sHeuresTot),
+                'pilotage_heures' => round($sPilot / 3600.0, 1),
+                'file_heures' => round($sFile / 3600.0, 1),
+                'bordereaux_heures' => round($sBord / 3600.0, 1),
+                'taux_dispo' => round(max(0, (35.0 - $sMoyenne) / 35.0) * 100, 1),
+            ];
+        }
+
+        // Comptage par zone
+        $nbOptimal = count(array_filter($roster, fn($r) => $r['zone'] === 'optimal'));
+        $nbVigilance = count(array_filter($roster, fn($r) => $r['zone'] === 'vigilance'));
+        $nbAlerte = count(array_filter($roster, fn($r) => $r['zone'] === 'alerte'));
+
+        return [
+            'semaine' => $semaine,
+            'semaines_disponibles' => $semainesDisponibles,
+            'seuil_optimal' => $seuilOptimal,
+            'seuil_alerte' => $seuilAlerte,
+            'cible_max' => $cibleMax,
+            'timeout_inactivite' => $timeoutInactivite,
+            'statut' => $statut,
+            'statut_badge' => $statutBadge,
+            'statut_description' => $statutDescription,
+            'nombre_formateurs' => count($allFormateurs),
+            'nb_optimal' => $nbOptimal,
+            'nb_vigilance' => $nbVigilance,
+            'nb_alerte' => $nbAlerte,
+            'charge_moyenne_heures' => $chargeMoyenne,
+            'charge_moyenne_formatee' => sprintf('%.1fh', $chargeMoyenne),
+            'charge_moyenne_duree' => $formatDuree((int) ($chargeMoyenne * 3600)),
+            'total_heures_equipe' => $totalHeuresEquipe,
+            'total_heures_equipe_formate' => sprintf('%.1fh', $totalHeuresEquipe),
+            'taux_disponibilite' => $tauxDispoGlobal,
+            'taux_disponibilite_formate' => sprintf('%.1f%%', $tauxDispoGlobal),
+            'details_globaux' => [
+                'pilotage_heures' => round($totalSecPilotage / 3600.0, 1),
+                'pilotage_formate' => $formatDuree($totalSecPilotage),
+                'pilotage_pct' => $pctPilotageGlobal,
+                'file_heures' => round($totalSecFile / 3600.0, 1),
+                'file_formate' => $formatDuree($totalSecFile),
+                'file_pct' => $pctFileGlobal,
+                'bordereaux_heures' => round($totalSecBordereaux / 3600.0, 1),
+                'bordereaux_formate' => $formatDuree($totalSecBordereaux),
+                'bordereaux_pct' => $pctBordereauxGlobal,
+            ],
+            'benchmark' => $roster,
+            'historique_semaines' => $historiqueSemaines,
+        ];
+    }
 }

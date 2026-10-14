@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/amorcage', [IndicateurDetailController::class, 'amorcage'])->name('amorcage');
             Route::get('/gating', [IndicateurDetailController::class, 'gating'])->name('gating');
             Route::get('/revisions', [IndicateurDetailController::class, 'revisions'])->name('revisions');
+            Route::get('/charge-logistique', [IndicateurDetailController::class, 'chargeLogistique'])->name('charge-logistique');
         });
     });
 });

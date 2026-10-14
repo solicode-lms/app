@@ -252,4 +252,43 @@ class IndicateurDetailController extends AdminController
             'detail' => $detail,
         ]);
     }
+
+    /**
+     * Page de détail pour l'Indicateur 04 : Charge Logistique Hebdomadaire du Formateur (C_logistique).
+     *
+     * @DynamicPermissionIgnore
+     */
+    public function chargeLogistique(Request $request)
+    {
+        $ctx = $this->resolveFilterContext($request);
+
+        $filters = [
+            'groupe_ids' => $ctx['targetGroupeIds'],
+            'projet_id' => $ctx['targetProjetId'],
+            'filiere_id' => $ctx['selectedFiliereId'],
+            'formateur_id' => $ctx['selectedFormateurId'],
+            'filter_type' => $ctx['filterType'],
+            'semaine' => $request->get('semaine'),
+        ];
+
+        $detail = $this->tableauBordService->getIndicateurChargeLogistiqueDetail($filters);
+
+        return view('PkgTableauBord::indicateurs.charge-logistique', [
+            'user' => $ctx['user'],
+            'dashboardRoute' => $ctx['dashboardRoute'],
+            'isVisionGlobale' => $ctx['isVisionGlobale'],
+            'formateurs' => $ctx['formateurs'],
+            'selectedFormateurId' => $ctx['selectedFormateurId'],
+            'filieres' => $ctx['filieres'],
+            'selectedFiliereId' => $ctx['selectedFiliereId'],
+            'groupes' => $ctx['groupes'],
+            'selectedGroupeId' => $ctx['selectedGroupeId'],
+            'projets' => $ctx['projets'],
+            'selectedProjetId' => $ctx['selectedProjetId'],
+            'projetActif' => $ctx['projetActif'],
+            'filterType' => $ctx['filterType'],
+            'selectedSemaine' => $detail['semaine'],
+            'detail' => $detail,
+        ]);
+    }
 }

@@ -222,6 +222,30 @@ class ParametrePedagogiqueService
     }
 
     // =========================================================================
+    // ACCESSEURS SPÉCIFIQUES - INDICATEUR 04 : C_LOGISTIQUE
+    // =========================================================================
+
+    public function getPlafondChargeLogistiqueHeures(?int $projetId = null): float
+    {
+        return (float) $this->get('charge_logistique_plafond_heures', 3.0, $projetId);
+    }
+
+    public function getSeuilChargeOptimalHeures(?int $projetId = null): float
+    {
+        return (float) $this->get('charge_logistique_seuil_optimal_heures', 2.5, $projetId);
+    }
+
+    public function getSeuilChargeAlerteHeures(?int $projetId = null): float
+    {
+        return (float) $this->get('charge_logistique_seuil_alerte_heures', 5.0, $projetId);
+    }
+
+    public function getTimeoutInactiviteMinutes(?int $projetId = null): int
+    {
+        return (int) $this->get('charge_logistique_timeout_inactivite_minutes', 5, $projetId);
+    }
+
+    // =========================================================================
     // ACCESSEURS SPÉCIFIQUES - INDICATEUR 06 : REMÉDIATION & LIVE CODING
     // =========================================================================
 

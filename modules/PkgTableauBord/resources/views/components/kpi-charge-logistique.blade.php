@@ -9,9 +9,12 @@
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
-                    <span class="text-[11px] sm:text-xs font-bold text-slate-500 leading-tight block line-clamp-2" title="Temps administratif hebdomadaire (C_logistique)">
-                        Temps administratif
-                    </span>
+                    <a href="{{ route('admin.PkgTableauBord.indicateurs.charge-logistique', array_merge(request()->query(), ['from' => 'formateur'])) }}" 
+                       class="text-[11px] sm:text-xs font-bold text-slate-700 hover:text-indigo-600 leading-tight block line-clamp-2 transition" 
+                       title="Temps administratif hebdomadaire (C_logistique) — Cliquer pour le détail">
+                        <span>Temps administratif (C<sub>logistique</sub>)</span>
+                        <i class="fas fa-arrow-up-right-from-square text-[9px] ms-0.5 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </a>
                 </div>
                 <span class="shrink-0 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-bold {{ $kpi['badge_class'] ?? 'bg-slate-100 text-slate-700' }}" title="{{ $kpi['badge_label'] ?? '' }}">
                     <span class="w-1.5 h-1.5 rounded-full bg-current opacity-75 shrink-0"></span>
@@ -52,18 +55,25 @@
             </div>
         </div>
 
-        <div class="pt-2 mt-auto border-t border-slate-100 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs">
-            <span class="text-slate-500 font-medium truncate flex items-center gap-1.5" title="Verrou d'inactivité automatique après 5 minutes">
-                <i class="fas fa-lock text-[10px] text-slate-400 shrink-0"></i>
-                <span>Verrou : <strong class="text-slate-800">5 min</strong></span>
-            </span>
-            <span class="text-emerald-700 font-semibold text-[11px] shrink-0">
-                &le; 2.5h cible
-            </span>
-        </div>
-        <div class="pt-2 mt-1.5 border-t border-slate-50 flex items-center justify-between text-[11px]">
-            <span class="text-[10px] text-slate-400 font-medium">Indicateur #04</span>
-            <span class="text-[10px] text-slate-500 font-bold font-mono">C<sub>logistique</sub></span>
+        <div>
+            <div class="pt-2 mt-auto border-t border-slate-100 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs">
+                <span class="text-slate-500 font-medium truncate flex items-center gap-1.5" title="Verrou d'inactivité automatique après 5 minutes">
+                    <i class="fas fa-lock text-[10px] text-slate-400 shrink-0"></i>
+                    <span>Verrou : <strong class="text-slate-800">5 min</strong></span>
+                </span>
+                <span class="text-emerald-700 font-semibold text-[11px] shrink-0">
+                    &le; 2.5h cible
+                </span>
+            </div>
+            <div class="pt-2 mt-1.5 border-t border-slate-50 flex items-center justify-between text-[11px]">
+                <span class="text-[10px] text-slate-400 font-medium">Indicateur #04</span>
+                <a href="{{ route('admin.PkgTableauBord.indicateurs.charge-logistique', array_merge(request()->query(), ['from' => 'formateur'])) }}" 
+                   class="text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-1 transition"
+                   title="Consulter l'analyse détaillée de la charge logistique">
+                    <span>Analyse détaillée</span>
+                    <i class="fas fa-arrow-right text-[9px] group-hover:translate-x-0.5 transition-transform"></i>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -73,9 +83,12 @@
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
-                    <span class="text-[11px] sm:text-xs font-bold text-slate-500 leading-tight block line-clamp-2" title="Temps administratif moyen par formateur">
-                        Temps administratif moyen
-                    </span>
+                    <a href="{{ route('admin.PkgTableauBord.indicateurs.charge-logistique', array_merge(request()->query(), ['from' => 'responsable'])) }}" 
+                       class="text-[11px] sm:text-xs font-bold text-slate-700 hover:text-indigo-600 leading-tight block line-clamp-2 transition" 
+                       title="Temps administratif moyen (C_logistique) — Cliquer pour le détail">
+                        <span>Temps administratif moyen (C<sub>logistique</sub>)</span>
+                        <i class="fas fa-arrow-up-right-from-square text-[9px] ms-0.5 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </a>
                 </div>
                 <span class="shrink-0 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
                     Indicateur 04
@@ -94,14 +107,25 @@
             </p>
         </div>
 
-        <div class="pt-2 mt-auto border-t border-slate-100 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs">
-            <span class="text-slate-500 font-medium truncate flex items-center gap-1.5" title="Plafond cible fixé pour l'équipe">
-                <i class="fas fa-bullseye text-[11px] text-slate-400 shrink-0"></i>
-                <span>Plafond : &le; {{ $kpi['plafond_cible'] ?? 3 }}h</span>
-            </span>
-            <span class="font-bold text-slate-800 font-mono text-xs shrink-0">
-                {{ $kpi['nombre_formateurs'] ?? 0 }} formateur{{ ($kpi['nombre_formateurs'] ?? 0) > 1 ? 's' : '' }}
-            </span>
+        <div>
+            <div class="pt-2 mt-auto border-t border-slate-100 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs">
+                <span class="text-slate-500 font-medium truncate flex items-center gap-1.5" title="Plafond cible fixé pour l'équipe">
+                    <i class="fas fa-bullseye text-[11px] text-slate-400 shrink-0"></i>
+                    <span>Plafond : &le; {{ $kpi['plafond_cible'] ?? 3 }}h</span>
+                </span>
+                <span class="font-bold text-slate-800 font-mono text-xs shrink-0">
+                    {{ $kpi['nombre_formateurs'] ?? 0 }} formateur{{ ($kpi['nombre_formateurs'] ?? 0) > 1 ? 's' : '' }}
+                </span>
+            </div>
+            <div class="pt-2 mt-1.5 border-t border-slate-50 flex items-center justify-between text-[11px]">
+                <span class="text-[10px] text-slate-400 font-medium">Indicateur #04</span>
+                <a href="{{ route('admin.PkgTableauBord.indicateurs.charge-logistique', array_merge(request()->query(), ['from' => 'responsable'])) }}" 
+                   class="text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-1 transition"
+                   title="Consulter l'analyse macro détaillée">
+                    <span>Analyse détaillée</span>
+                    <i class="fas fa-arrow-right text-[9px] group-hover:translate-x-0.5 transition-transform"></i>
+                </a>
+            </div>
         </div>
     </div>
 @endif
