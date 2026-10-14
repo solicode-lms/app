@@ -166,7 +166,16 @@ trait DashboardIndicateur04Trait
             ];
         }
 
-        // 1. Conception & Préparation
+        // Si plusieurs sessions sont concernées, calculer la MOYENNE par session (et non la somme cumulée)
+        if (count($projetIds) > 1) {
+            $kpisSessions = [];
+            foreach ($projetIds as $pId) {
+                $kpisSessions[] = $this->calculerChargeLogistiqueActivites([$pId], $formateur);
+            }
+            return $this->agregerMoyenneChargeLogistique($kpisSessions, $formateur, $projetIds);
+        }
+
+        // 1. Conception & Préparation (Session unique)
         $nbProjets = count($projetIds);
         $nbMobilisations = MobilisationUa::whereIn('projet_id', $projetIds)->count();
         $nbTachesCreees = Tache::whereIn('projet_id', $projetIds)->count();
@@ -389,6 +398,226 @@ trait DashboardIndicateur04Trait
     }
 
     /**
+     * Agrège plusieurs sessions pour calculer la MOYENNE par session (et non la somme cumulée).
+     *
+     * @param array $kpisSessions Liste des KPIs individuels par session
+     * @param Formateur|null $formateur Formateur concerné
+     * @param array $projetIds IDs des projets concernés
+     * @return array
+     */
+    protected function agregerMoyenneChargeLogistique(array $kpisSessions, ?Formateur $formateur, array $projetIds): array
+    {
+        $paramService = app(ParametrePedagogiqueService::class);
+        $nbSessions = max(count($kpisSessions), 1);
+
+        // Sommes brutes pour calcul des moyennes
+        $totalMinConception = array_sum(array_map(fn($k) => $k['details']['conception_min'] ?? ($k['details']['conception_heures'] * 60.0), $kpisSessions));
+        $totalMinSuivi = array_sum(array_map(fn($k) => $k['details']['suivi_min'] ?? ($k['details']['suivi_heures'] * 60.0), $kpisSessions));
+        $totalMinValidation = array_sum(array_map(fn($k) => $k['details']['validation_min'] ?? ($k['details']['validation_heures'] * 60.0), $kpisSessions));
+        $totalMinFeedback = array_sum(array_map(fn($k) => $k['details']['feedback_min'] ?? ($k['details']['feedback_heures'] * 60.0), $kpisSessions));
+        $totalMinCumule = $totalMinConception + $totalMinSuivi + $totalMinValidation + $totalMinFeedback;
+
+        // Moyennes par session
+        $moyMinConception = $totalMinConception / $nbSessions;
+        $moyMinSuivi = $totalMinSuivi / $nbSessions;
+        $moyMinValidation = $totalMinValidation / $nbSessions;
+        $moyMinFeedback = $totalMinFeedback / $nbSessions;
+        $moyMinTotal = $totalMinCumule / $nbSessions;
+
+        $totalHeures = round($moyMinTotal / 60.0, 1);
+        $conceptionHeures = round($moyMinConception / 60.0, 1);
+        $suiviHeures = round($moyMinSuivi / 60.0, 1);
+        $validationHeures = round($moyMinValidation / 60.0, 1);
+        $feedbackHeures = round($moyMinFeedback / 60.0, 1);
+
+        // Durée moyenne d'une session (en semaines) et plafonds associés
+        $nbSemaines = (int) max(1, round(array_sum(array_map(fn($k) => $k['nb_semaines'] ?? 2, $kpisSessions)) / $nbSessions));
+        $volumeHebdoFormateur = $paramService->getVolumeHebdoFormateurHeures(); // 26.0h
+        $capaciteTotaleHeures = $nbSemaines * $volumeHebdoFormateur;
+
+        $cibleMaxHeures = round($nbSemaines * $paramService->getPlafondChargeLogistiqueHeures(), 1);
+        $seuilOptimal = round($nbSemaines * $paramService->getSeuilChargeOptimalHeures(), 1);
+        $seuilAlerte = round($nbSemaines * $paramService->getSeuilChargeAlerteHeures(), 1);
+
+        $pctConception = $moyMinTotal > 0 ? round(($moyMinConception / $moyMinTotal) * 100) : 0;
+        $pctSuivi = $moyMinTotal > 0 ? round(($moyMinSuivi / $moyMinTotal) * 100) : 0;
+        $pctValidation = $moyMinTotal > 0 ? round(($moyMinValidation / $moyMinTotal) * 100) : 0;
+        $pctFeedbacks = $moyMinTotal > 0 ? round(($moyMinFeedback / $moyMinTotal) * 100) : 0;
+
+        if ($totalHeures <= $seuilOptimal) {
+            $zone = 'optimal';
+            $badgeLabel = 'Logistique optimisée';
+            $badgeClass = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+        } elseif ($totalHeures <= $seuilAlerte) {
+            $zone = 'vigilance';
+            $badgeLabel = 'Charge notable';
+            $badgeClass = 'bg-amber-50 text-amber-700 border-amber-200';
+        } else {
+            $zone = 'alerte';
+            $badgeLabel = 'Surcharge bureaucratique';
+            $badgeClass = 'bg-rose-50 text-rose-700 border-rose-200';
+        }
+
+        $tempsTutoratSession = max(0, $capaciteTotaleHeures - $totalHeures);
+        $tempsCoachingHebdo = round($tempsTutoratSession / max(1, $nbSemaines), 1);
+        $tauxDispo = $capaciteTotaleHeures > 0 ? round(($tempsTutoratSession / $capaciteTotaleHeures) * 100, 1) : 100.0;
+        $pourcentageCible = min(round(($totalHeures / max(0.1, $cibleMaxHeures)) * 100), 100);
+
+        // Moyennes de quantités par session
+        $moyMobilisations = round(array_sum(array_map(fn($k) => $k['quantites']['nb_mobilisations'] ?? 0, $kpisSessions)) / $nbSessions, 1);
+        $moyTachesCreees = round(array_sum(array_map(fn($k) => $k['quantites']['nb_taches_creees'] ?? 0, $kpisSessions)) / $nbSessions, 1);
+        $moyAffectations = round(array_sum(array_map(fn($k) => $k['quantites']['nb_affectations'] ?? 0, $kpisSessions)) / $nbSessions, 1);
+        $moySuivi = round(array_sum(array_map(fn($k) => $k['quantites']['nb_suivi'] ?? 0, $kpisSessions)) / $nbSessions, 1);
+        $moyValidations = round(array_sum(array_map(fn($k) => $k['quantites']['nb_validations'] ?? 0, $kpisSessions)) / $nbSessions, 1);
+        $moyTachesAvecFeedback = round(array_sum(array_map(fn($k) => $k['quantites']['nb_taches_avec_feedback'] ?? 0, $kpisSessions)) / $nbSessions, 1);
+        $moyFeedbacksDistincts = round(array_sum(array_map(fn($k) => $k['quantites']['nb_feedbacks_distincts'] ?? 0, $kpisSessions)) / $nbSessions, 1);
+        $totalCaracteres = array_sum(array_map(fn($k) => $k['quantites']['nb_caracteres_feedbacks'] ?? 0, $kpisSessions));
+
+        // Décomposition détaillée pour modale (exprimée en moyenne par session)
+        $decompteItems = [
+            [
+                'poste' => 'Conception',
+                'action' => 'Création de Session / Projet',
+                'quantite' => '1 session (moy. sur ' . $nbSessions . ' sessions)',
+                'bareme' => $paramService->getTempsCreationProjetMinutes() . ' min / session',
+                'total_min' => round($paramService->getTempsCreationProjetMinutes()),
+                'total_heures' => round($paramService->getTempsCreationProjetMinutes() / 60.0, 1),
+                'total_duree_formate' => $this->formatDureeMin($paramService->getTempsCreationProjetMinutes()),
+            ],
+            [
+                'poste' => 'Conception',
+                'action' => 'Mobilisation d\'UA (Compétences)',
+                'quantite' => $moyMobilisations . ' UA / session',
+                'bareme' => $paramService->getTempsMobilisationUaMinutes() . ' min / UA',
+                'total_min' => round($moyMobilisations * $paramService->getTempsMobilisationUaMinutes()),
+                'total_heures' => round(($moyMobilisations * $paramService->getTempsMobilisationUaMinutes()) / 60.0, 1),
+                'total_duree_formate' => $this->formatDureeMin($moyMobilisations * $paramService->getTempsMobilisationUaMinutes()),
+            ],
+            [
+                'poste' => 'Conception',
+                'action' => 'Conception des Tâches du Projet',
+                'quantite' => $moyTachesCreees . ' tâches / session',
+                'bareme' => $paramService->getTempsCreationTacheMinutes() . ' min / tâche',
+                'total_min' => round($moyTachesCreees * $paramService->getTempsCreationTacheMinutes()),
+                'total_heures' => round(($moyTachesCreees * $paramService->getTempsCreationTacheMinutes()) / 60.0, 1),
+                'total_duree_formate' => $this->formatDureeMin($moyTachesCreees * $paramService->getTempsCreationTacheMinutes()),
+            ],
+            [
+                'poste' => 'Conception',
+                'action' => 'Affectation de la Session au Groupe',
+                'quantite' => $moyAffectations . ' affectation / session',
+                'bareme' => $paramService->getTempsAffectationGroupeMinutes() . ' min / affectation',
+                'total_min' => round($moyAffectations * $paramService->getTempsAffectationGroupeMinutes()),
+                'total_heures' => round(($moyAffectations * $paramService->getTempsAffectationGroupeMinutes()) / 60.0, 1),
+                'total_duree_formate' => $this->formatDureeMin($moyAffectations * $paramService->getTempsAffectationGroupeMinutes()),
+            ],
+            [
+                'poste' => 'Suivi',
+                'action' => 'Suivi Administratif par Tâche (gestion hors pédagogie)',
+                'quantite' => $moySuivi . ' tâches / session',
+                'bareme' => $paramService->getTempsSuiviTacheMinutes() . ' min / tâche',
+                'total_min' => round($moyMinSuivi),
+                'total_heures' => round($moyMinSuivi / 60.0, 1),
+                'total_duree_formate' => $this->formatDureeMin($moyMinSuivi),
+            ],
+            [
+                'poste' => 'Validation',
+                'action' => 'Validation Administrative des Tâches (gestion hors pédagogie)',
+                'quantite' => $moyValidations . ' tâches validées / session',
+                'bareme' => $paramService->getTempsValidationTacheMinutes() . ' min / tâche',
+                'total_min' => round($moyMinValidation),
+                'total_heures' => round($moyMinValidation / 60.0, 1),
+                'total_duree_formate' => $this->formatDureeMin($moyMinValidation),
+            ],
+            [
+                'poste' => 'Feedbacks',
+                'action' => 'Feedbacks & Remarques par Tâche (gestion hors pédagogie)',
+                'quantite' => $moyTachesAvecFeedback . ' tâches avec feedback / session',
+                'bareme' => $paramService->getTempsFeedbackTacheMinutes() . ' min / tâche avec feedback',
+                'total_min' => round($moyMinFeedback),
+                'total_heures' => round($moyMinFeedback / 60.0, 1),
+                'total_duree_formate' => $this->formatDureeMin($moyMinFeedback),
+            ],
+            [
+                'poste' => 'Exclu',
+                'action' => 'Consultation Tableau de Bord & Kanban',
+                'quantite' => '-',
+                'bareme' => '0 min (Observation pédagogique)',
+                'total_min' => 0,
+                'total_heures' => 0.0,
+                'total_duree_formate' => '0 min',
+            ],
+            [
+                'poste' => 'Exclu',
+                'action' => 'Génération des Bordereaux & Notes',
+                'quantite' => '-',
+                'bareme' => '0 min (Automatisé par SoliLMS)',
+                'total_min' => 0,
+                'total_heures' => 0.0,
+                'total_duree_formate' => '0 min',
+            ],
+        ];
+
+        return [
+            'formateur_id' => $formateur?->id,
+            'formateur_nom' => $formateur ? trim(($formateur->prenom ?? '') . ' ' . ($formateur->nom ?? '')) : 'N/A',
+            'matricule' => $formateur?->matricule ?? '-',
+            'initiales' => $formateur ? strtoupper(substr($formateur->prenom ?? '', 0, 1) . substr($formateur->nom ?? '', 0, 1)) : 'F',
+            'is_moyenne_sessions' => true,
+            'nb_sessions' => $nbSessions,
+            'total_heures' => $totalHeures,
+            'total_heures_formate' => $this->formatDureeMin($moyMinTotal),
+            'total_heures_dec' => sprintf('%.1fh', $totalHeures),
+            'total_cumule_minutes' => $totalMinCumule,
+            'total_cumule_heures' => round($totalMinCumule / 60.0, 1),
+            'total_cumule_formate' => $this->formatDureeMin($totalMinCumule),
+            'nb_semaines' => $nbSemaines,
+            'volume_hebdo' => $volumeHebdoFormateur,
+            'capacite_totale_heures' => $capaciteTotaleHeures,
+            'temps_tutorat_session' => $tempsTutoratSession,
+            'temps_coaching_hebdo' => $tempsCoachingHebdo,
+            'cible_max_heures' => $cibleMaxHeures,
+            'seuil_optimal' => $seuilOptimal,
+            'seuil_alerte' => $seuilAlerte,
+            'pourcentage_cible' => $pourcentageCible,
+            'taux_disponibilite' => $tauxDispo,
+            'zone' => $zone,
+            'badge_label' => $badgeLabel,
+            'badge_class' => $badgeClass,
+            'details' => [
+                'conception_min' => $moyMinConception,
+                'conception_heures' => $conceptionHeures,
+                'conception_formate' => $this->formatDureeMin($moyMinConception),
+                'conception_pct' => $pctConception,
+                'suivi_min' => $moyMinSuivi,
+                'suivi_heures' => $suiviHeures,
+                'suivi_formate' => $this->formatDureeMin($moyMinSuivi),
+                'suivi_pct' => $pctSuivi,
+                'validation_min' => $moyMinValidation,
+                'validation_heures' => $validationHeures,
+                'validation_formate' => $this->formatDureeMin($moyMinValidation),
+                'validation_pct' => $pctValidation,
+                'feedback_min' => $moyMinFeedback,
+                'feedback_heures' => $feedbackHeures,
+                'feedback_formate' => $this->formatDureeMin($moyMinFeedback),
+                'feedback_pct' => $pctFeedbacks,
+            ],
+            'quantites' => [
+                'nb_projets' => $nbSessions,
+                'nb_mobilisations' => $moyMobilisations,
+                'nb_taches_creees' => $moyTachesCreees,
+                'nb_affectations' => $moyAffectations,
+                'nb_suivi' => $moySuivi,
+                'nb_validations' => $moyValidations,
+                'nb_taches_avec_feedback' => $moyTachesAvecFeedback,
+                'nb_feedbacks_distincts' => $moyFeedbacksDistincts,
+                'nb_caracteres_feedbacks' => $totalCaracteres,
+            ],
+            'decompte_items' => $decompteItems,
+        ];
+    }
+
+    /**
      * Indicateur 04 — Calcul individuel de la charge logistique du formateur ($C_logistique).
      * Si une session ou un projet spécifique est fourni, calcule la charge de cette session.
      *
@@ -592,6 +821,11 @@ trait DashboardIndicateur04Trait
 
         $formatDureeMin = fn(float $minutes): string => $this->formatDureeMin($minutes);
 
+        $moyMinConception = $nbFormateurs > 0 ? $totalMinConception / $nbFormateurs : 0;
+        $moyMinSuivi = $nbFormateurs > 0 ? $totalMinSuivi / $nbFormateurs : 0;
+        $moyMinValidation = $nbFormateurs > 0 ? $totalMinValidation / $nbFormateurs : 0;
+        $moyMinFeedbacks = $nbFormateurs > 0 ? $totalMinFeedbacks / $nbFormateurs : 0;
+
         return [
             'semaine' => now()->format('o-\WW'),
             'selected_projet_id' => $selectedProjetId,
@@ -616,19 +850,19 @@ trait DashboardIndicateur04Trait
             'taux_disponibilite' => $tauxDispoGlobal,
             'taux_disponibilite_formate' => sprintf('%.1f%%', $tauxDispoGlobal),
             'details_globaux' => [
-                'conception_heures' => round($totalMinConception / 60.0, 1),
-                'conception_formate' => $formatDureeMin($totalMinConception),
+                'conception_heures' => round($moyMinConception / 60.0, 1),
+                'conception_formate' => $formatDureeMin($moyMinConception),
                 'conception_pct' => $pctConceptionGlobal,
-                'suivi_heures' => round($totalMinSuivi / 60.0, 1),
-                'suivi_formate' => $formatDureeMin($totalMinSuivi),
+                'suivi_heures' => round($moyMinSuivi / 60.0, 1),
+                'suivi_formate' => $formatDureeMin($moyMinSuivi),
                 'suivi_pct' => $pctSuiviGlobal,
-                'validation_heures' => round($totalMinValidation / 60.0, 1),
-                'validation_formate' => $formatDureeMin($totalMinValidation),
+                'validation_heures' => round($moyMinValidation / 60.0, 1),
+                'validation_formate' => $formatDureeMin($moyMinValidation),
                 'validation_pct' => $pctValidationGlobal,
-                'feedback_heures' => round($totalMinFeedbacks / 60.0, 1),
-                'feedback_formate' => $formatDureeMin($totalMinFeedbacks),
+                'feedback_heures' => round($moyMinFeedbacks / 60.0, 1),
+                'feedback_formate' => $formatDureeMin($moyMinFeedbacks),
                 'feedback_pct' => $pctFeedbacksGlobal,
-                'val_feedback_formate' => $formatDureeMin($totalMinValidation + $totalMinFeedbacks),
+                'val_feedback_formate' => $formatDureeMin($moyMinValidation + $moyMinFeedbacks),
             ],
             'benchmark' => $roster,
         ];

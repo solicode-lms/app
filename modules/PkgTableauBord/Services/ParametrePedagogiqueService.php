@@ -298,6 +298,49 @@ class ParametrePedagogiqueService
     }
 
     // =========================================================================
+    // ACCESSEURS SPÉCIFIQUES - INDICATEUR 05 : T_FILE (FILE D'ATTENTE LIVE CODING)
+    // =========================================================================
+
+    public function getFileSeuilFluideMinutes(?int $projetId = null): int
+    {
+        return (int) $this->get('file_seuil_fluide_minutes', 30, $projetId);
+    }
+
+    public function getFileSeuilVigilanceMinutes(?int $projetId = null): int
+    {
+        return (int) $this->get('file_seuil_vigilance_minutes', 60, $projetId);
+    }
+
+    public function getFileSeuilSaturationCount(?int $projetId = null): int
+    {
+        return (int) $this->get('file_seuil_saturation_count', 5, $projetId);
+    }
+
+    public function getFileDureePassageSoloMinutes(?int $projetId = null): int
+    {
+        return (int) $this->get('file_duree_passage_solo_minutes', 40, $projetId);
+    }
+
+    public function getFileDureePassageGroupeMinutes(?int $projetId = null): int
+    {
+        return (int) $this->get('file_duree_passage_groupe_minutes', 45, $projetId);
+    }
+
+    /**
+     * Formate une durée en minutes : 'X min' si < 60 min, 'XhYY' si >= 60 min.
+     */
+    public static function formatDureeMinutes(float $minutes): string
+    {
+        $totalMinutes = (int) round($minutes);
+        if ($totalMinutes < 60) {
+            return "{$totalMinutes} min";
+        }
+        $heures = intdiv($totalMinutes, 60);
+        $resteMinutes = $totalMinutes % 60;
+        return sprintf('%dh%02d', $heures, $resteMinutes);
+    }
+
+    // =========================================================================
     // ACCESSEURS SPÉCIFIQUES - INDICATEUR 06 : REMÉDIATION & LIVE CODING
     // =========================================================================
 

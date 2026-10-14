@@ -108,13 +108,25 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
   - UI V2 : `kpi-charge-logistique.blade.php`, `charge-logistique.blade.php` (analyse détaillée, modale de décompte arithmétique).
 
 ### Action G : Réguler la File FIFO et Calculer l'Indicateur 05 ($T_{\text{file}}$)
-> **Description** : Expliquer le cycle de vie dans la file FIFO, le calcul du rang pour l'apprenant, la console d'arbitrage 1-à-1 vs mutualisation 4x4, et le benchmark des délais d'attente.
+> **Description** : Expliquer le cycle de vie dans la file FIFO, le calcul du rang pour l'apprenant, la console d'arbitrage 1-à-1 vs mutualisation 4x4 via Discord, et le benchmark des délais d'attente.
 - **Ressources Utilisées** :
   - `cahiers-charges/PkgTableauBord/indicateurs/ind-05-delai-file-attente.md`
+  - `modules/PkgTableauBord/Services/ParametrePedagogiqueService.php`
+- **Règles Didactiques & Précédents (CRITIQUE)** :
+  - **Durée de Live Coding par apprenant** : Chaque apprenant passe **entre 40 min et 60 min** en épreuve de Live Coding synchrone sur son prototype ($N2$ - Adapter).
+  - **Régulation du goulet d'étranglement (Session Discord 4x4)** :
+    - En situation de saturation ($\ge 5$ apprenants en attente ou $T_{\text{file}} > 60\text{ min}$), le formateur active une **session mutualisée 4x4 via Discord**.
+    - Les 4 apprenants partagent leur écran en direct simultanément pendant **40 à 60 min** (durée collective équivalente à un créneau standard).
+    - Le formateur observe un **écran mosaïque à 4 flux vidéo en direct** : il peut alterner entre une focalisation sur un seul flux précis et une supervision globale des 4 apprenants simultanément.
+    - Le débit d'absorption est ainsi quadruplé pour éliminer les temps morts sans dégrader l'exigence d'évaluation.
+  - **Paramètres de cadence** :
+    - Solo : `file_duree_passage_solo_minutes = 40` ($\approx 40-60\text{ min}$).
+    - Session collective : `file_duree_passage_groupe_minutes = 45` ($\approx 40-60\text{ min}$ par vague de 4 apprenants).
+    - Cible fluidité : $\le 30\text{ min}$ ; Vigilance : $30-60\text{ min}$ ; Saturation : $> 60\text{ min}$ ou $\ge 5$ en attente.
 - **Sorties** :
   - Colonnes `realisation_taches` : `cache_date_entree_file`, `cache_date_debut_live_coding`, `cache_delai_attente_minutes`, `cache_session_live_coding_id`
-  - Service : `DashboardIndicateur05Trait`
-  - UI V2 : `kpi-file-attente.blade.php`, `file-attente-console.blade.php`, bandeau dynamique apprenant
+  - Service : `DashboardIndicateur05Trait` (calculs individuels, console opérationnelle FIFO, projections, et actions AJAX)
+  - UI V2 : `kpi-file-attente.blade.php`, `file-attente.blade.php` (analyse détaillée, console FIFO réactive, boutons d'appel solo et session Discord 4x4)
 
 ### Action H : Traiter l'Alerte Critique et Calculer l'Indicateur 06 ($T_{\text{intervention}}$)
 > **Description** : Expliquer le mécanisme d'alerte post-Live Coding (+10 min configurable via `seuil_blocage_minutes`), le calcul du taux de remédiation ($88\%$), l'étayage didactique (individuelle, trinôme d'entraide, atelier de soutien) et la Flashbox Alerte Rouge.

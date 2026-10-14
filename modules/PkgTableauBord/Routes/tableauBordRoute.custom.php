@@ -22,6 +22,10 @@ Route::middleware('auth')->group(function () {
             Route::get('/gating', [IndicateurDetailController::class, 'gating'])->name('gating');
             Route::get('/revisions', [IndicateurDetailController::class, 'revisions'])->name('revisions');
             Route::get('/charge-logistique', [IndicateurDetailController::class, 'chargeLogistique'])->name('charge-logistique');
+            Route::get('/file-attente', [IndicateurDetailController::class, 'fileAttente'])->name('file-attente');
+            Route::post('/file-attente/{id}/appeler', [IndicateurDetailController::class, 'appelerApprenant'])->name('file-attente.appeler');
+            Route::post('/file-attente/session-mutualisee', [IndicateurDetailController::class, 'lancerSessionMutualisee'])->name('file-attente.session-mutualisee');
+            Route::post('/file-attente/{id}/terminer', [IndicateurDetailController::class, 'terminerLiveCoding'])->name('file-attente.terminer');
         });
     });
 });

@@ -111,7 +111,7 @@
         {{-- 1. Charge Totale --}}
         <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-2xs hover:shadow-sm transition">
             <div class="flex items-start justify-between gap-2 mb-2">
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Charge Totale</span>
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">{{ $projetActif ? 'Charge Session' : 'Charge Moyenne' }}</span>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold {{ $detail['statut_badge'] }}">
                     {{ $detail['statut'] }}
                 </span>
@@ -120,14 +120,14 @@
                 <span class="text-2xl sm:text-3xl font-black text-slate-900 font-mono">
                     {{ $detail['charge_moyenne_formatee'] }}
                 </span>
-                <span class="text-xs text-slate-400 font-medium">estimée</span>
+                <span class="text-xs text-slate-400 font-medium">{{ $projetActif ? 'estimée' : '/ session' }}</span>
             </div>
             <p class="text-xs text-slate-500 leading-snug">
                 Plafond cible fixé à &le; {{ $detail['cible_max'] }}h ({{ $detail['nb_semaines'] ?? 2 }} sem. &times; 3h).
             </p>
             <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-                <span>{{ $projetActif ? 'Charge session :' : (!empty($isVisionGlobale) ? 'Volume équipe :' : 'Total formateur :') }}</span>
-                <strong class="font-mono text-slate-800">{{ $detail['total_heures_equipe_formate'] }}</strong>
+                <span>{{ $projetActif ? 'Charge session :' : 'Moyenne / session :' }}</span>
+                <strong class="font-mono text-slate-800">{{ $detail['charge_moyenne_formatee'] }}</strong>
             </div>
         </div>
 
@@ -233,7 +233,7 @@
                 </p>
             </div>
             <span class="text-xs font-mono font-bold text-slate-600 bg-slate-100 px-2.5 py-1 rounded">
-                Total équipe : {{ $detail['total_heures_equipe_formate'] }}
+                {{ $projetActif ? 'Charge session :' : 'Moyenne par session :' }} {{ $detail['charge_moyenne_formatee'] }}
             </span>
         </div>
 
@@ -356,7 +356,7 @@
                 <thead>
                     <tr class="bg-slate-50/80 border-b border-slate-200 text-slate-500 font-semibold uppercase tracking-wider text-[11px]">
                         <th class="py-3 px-4">Formateur</th>
-                        <th class="py-3 px-3 text-center">Charge Totale (C<sub>logistique</sub>)</th>
+                        <th class="py-3 px-3 text-center">Charge {{ $projetActif ? 'Session' : 'Moyenne / Session' }} (C<sub>logistique</sub>)</th>
                         <th class="py-3 px-3 text-center">Conception</th>
                         <th class="py-3 px-3 text-center">Suivi Tâches</th>
                         <th class="py-3 px-3 text-center">Validations</th>
@@ -392,6 +392,9 @@
                                 <span class="font-black text-slate-900 font-mono text-sm">
                                     {{ $f['total_heures_formate'] }}
                                 </span>
+                                @if(!empty($f['is_moyenne_sessions']))
+                                    <span class="text-[9px] text-slate-400 font-mono block">moy. / session ({{ $f['nb_sessions'] }} sess.)</span>
+                                @endif
                                 <!-- Mini-jauge relative au plafond de session -->
                                 <div class="w-16 h-1 bg-slate-100 rounded-full overflow-hidden mt-1">
                                     <div class="{{ $f['zone'] === 'alerte' ? 'bg-rose-500' : ($f['zone'] === 'vigilance' ? 'bg-amber-500' : 'bg-indigo-600') }} h-full"

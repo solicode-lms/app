@@ -290,4 +290,99 @@ class IndicateurDetailController extends AdminController
             'detail' => $detail,
         ]);
     }
+
+    /**
+     * Page de détail pour l'Indicateur 05 : Délai Moyen de File d'Attente Live Coding (T_file).
+     *
+     * @DynamicPermissionIgnore
+     */
+    public function fileAttente(Request $request)
+    {
+        $ctx = $this->resolveFilterContext($request);
+
+        $filters = [
+            'groupe_ids' => $ctx['targetGroupeIds'],
+            'projet_id' => $ctx['targetProjetId'],
+            'filiere_id' => $ctx['selectedFiliereId'],
+            'formateur_id' => $ctx['selectedFormateurId'],
+            'filter_type' => $ctx['filterType'],
+        ];
+
+        $detail = $this->tableauBordService->getIndicateurFileAttenteDetail($filters);
+
+        return view('PkgTableauBord::indicateurs.file-attente', [
+            'user' => $ctx['user'],
+            'dashboardRoute' => $ctx['dashboardRoute'],
+            'isVisionGlobale' => $ctx['isVisionGlobale'],
+            'formateurs' => $ctx['formateurs'],
+            'selectedFormateurId' => $ctx['selectedFormateurId'],
+            'filieres' => $ctx['filieres'],
+            'selectedFiliereId' => $ctx['selectedFiliereId'],
+            'groupes' => $ctx['groupes'],
+            'selectedGroupeId' => $ctx['selectedGroupeId'],
+            'projets' => $ctx['projets'],
+            'selectedProjetId' => $ctx['selectedProjetId'],
+            'projetActif' => $ctx['projetActif'],
+            'filterType' => $ctx['filterType'],
+            'detail' => $detail,
+        ]);
+    }
+
+    /**
+     * Action : Appeler un apprenant en Live Coding Solo.
+     *
+     * @DynamicPermissionIgnore
+     */
+    public function appelerApprenant(Request $request, int $id)
+    {
+        $result = $this->tableauBordService->demarrerLiveCodingSolo($id);
+
+        if ($request->wantsJson()) {
+            return response()->json($result);
+        }
+
+        return back()->with('success', $result['message']);
+    }
+
+    /**
+     * Action : Lancer une session mutualisée 4x4.
+     *
+     * @DynamicPermissionIgnore
+     */
+    public function lancerSessionMutualisee(Request $request)
+    {
+        $ids = $request->input('tache_ids', []);
+        if (is_string($ids)) {
+            $ids = explode(',', $ids);
+        }
+        $ids = array_filter(array_map('intval', (array) $ids));
+
+        $result = $this->tableauBordService->demarrerLiveCodingGroupe($ids);
+
+        if ($request->wantsJson()) {
+            return response()->json($result);
+        }
+
+        return back()->with($result['success'] ? 'success' : 'error', $result['message']);
+    }
+
+    /**
+     * Action : Terminer une soutenance Live Coding (Validation ou Révision).
+     *
+     * @DynamicPermissionIgnore
+     */
+    public function terminerLiveCoding(Request $request, int $id)
+    {
+        $decision = $request->input('decision', 'APPROVED');
+        $note = $request->filled('note') ? (float) $request->input('note') : null;
+        $remarques = $request->input('remarques');
+
+        $result = $this->tableauBordService->terminerLiveCoding($id, $decision, $note, $remarques);
+
+        if ($request->wantsJson()) {
+            return response()->json($result);
+        }
+
+        return back()->with($result['success'] ? 'success' : 'error', $result['message']);
+    }
 }
