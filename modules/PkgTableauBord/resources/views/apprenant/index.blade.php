@@ -138,88 +138,6 @@
 </div>
 @endif
 
-<!-- Message Bienveillant d'Accompagnement Didactique (Indicateur 06 — T_intervention) -->
-@if(!empty($kpiIntervention['besoin_aide']))
-<section class="bg-amber-50 border-2 border-amber-300 rounded-lg p-5 sm:p-6 shadow-sm">
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div class="flex items-start gap-3.5">
-            <div class="w-10 h-10 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center shrink-0">
-                <i class="fas fa-handshake-angle text-amber-600 text-lg"></i>
-            </div>
-            <div>
-                <div class="flex items-center gap-2">
-                    <h4 class="text-sm font-bold text-amber-900">Besoin d'un coup de pouce sur votre code ?</h4>
-                    <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-200 text-amber-800 font-mono">
-                        +{{ $kpiIntervention['minutes_depassement'] ?? 10 }} min post-séance
-                    </span>
-                </div>
-                <p class="text-xs text-amber-800 mt-1">
-                    {{ $kpiIntervention['message'] }}
-                </p>
-            </div>
-        </div>
-        <div class="flex items-center gap-2 shrink-0">
-            <span class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-amber-900 border border-amber-300 shadow-2xs">
-                {{ $kpiIntervention['tache_titre'] ?? 'Tutoriel' }}
-            </span>
-        </div>
-    </div>
-</section>
-@elseif(!empty($kpiIntervention['message']))
-<section class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 shadow-sm flex items-center gap-3 text-xs text-indigo-900">
-    <i class="fas fa-circle-check text-indigo-600 text-base"></i>
-    <span>{{ $kpiIntervention['message'] }}</span>
-</section>
-@endif
-
-<!-- Statut Opérationnel Immédiat & File d'Attente (Indicateur 05 — T_file) -->
-@if(($isProjetSessionFormation ?? true) && !empty($kpiFileAttente['est_en_file']))
-<section class="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-sm relative overflow-hidden">
-    <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-        <div class="flex items-start gap-4">
-            <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 border border-sky-200 flex items-center justify-center shrink-0">
-                <svg class="w-6 h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-            </div>
-            <div>
-                <div class="flex items-center gap-2">
-                    <span class="px-2.5 py-0.5 rounded-full text-xs font-bold {{ $kpiFileAttente['badge_label'] ?? '' }}">
-                        {{ $kpiFileAttente['badge_label'] ?? 'File active' }}
-                    </span>
-                </div>
-                <h2 class="text-lg sm:text-xl font-extrabold text-slate-900 mt-1">
-                    Votre rang de passage en direct : <span class="text-indigo-600">{{ $kpiFileAttente['rang_formate'] ?? 'Rang #1' }}</span>
-                </h2>
-                <p class="text-xs sm:text-sm text-slate-500 mt-1">
-                    {{ $kpiFileAttente['tache_titre'] ?? 'Évaluation' }} &bull; Temps d'attente : <strong class="text-slate-800">{{ $kpiFileAttente['temps_attente_formate'] ?? '0 min' }}</strong>
-                    @if(!empty($kpiFileAttente['heure_passage_estimee']) && ($kpiFileAttente['statut'] ?? '') === 'en_attente')
-                    &bull; Passage formateur estimé à <strong class="text-slate-800">{{ $kpiFileAttente['heure_passage_estimee'] }}</strong> (dans ~{{ $kpiFileAttente['temps_estime_restant_minutes'] }} min).
-                    @endif
-                </p>
-            </div>
-        </div>
-
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/80 flex items-center gap-4 shrink-0 w-full lg:w-auto">
-            <div>
-                <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Livrable à soutenir</div>
-                <div class="text-xs font-bold text-slate-900">{{ $kpiFileAttente['tache_titre'] ?? 'Session de validation' }}</div>
-            </div>
-            <span class="px-3.5 py-2 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-lg border border-indigo-200">
-                Préparez votre IDE
-            </span>
-        </div>
-    </div>
-
-    <div class="mt-4 pt-4 border-t border-slate-100 flex items-center gap-2 text-xs text-slate-600">
-        <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-        </svg>
-        <span><strong>Conseil méthodologique :</strong> Gardez votre code source ouvert sur la branche du prototype pour fluidifier le démarrage de l'évaluation Live Coding.</span>
-    </div>
-</section>
-@endif
-
 <!-- Indicateurs Pédagogiques Fonctionnels -->
 <section class="space-y-4">
     <div>
@@ -229,24 +147,114 @@
 
     @if($isProjetSessionFormation ?? true)
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+        {{-- Indicateur 01 : Démarrage du sprint (T_amorçage) --}}
         @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'apprenant', 'kpi' => $kpiAmorcage])
+        {{-- Indicateur 02 : Validation Prototype (R_gating) --}}
         @include('PkgTableauBord::components.kpi-gating', ['type' => 'apprenant', 'kpi' => $kpiGating])
+        {{-- Indicateur 03 : Qualité du 1er rendu (F_révision) --}}
         @include('PkgTableauBord::components.kpi-revision', ['type' => 'apprenant', 'kpi' => $kpiRevision])
+        {{-- Indicateur 08 : Progression Référentiel National (ICP) --}}
         @include('PkgTableauBord::components.kpi-couverture-pedagogique', ['type' => 'apprenant', 'kpi' => $kpiCouverture])
+        {{-- Indicateur 09 : Contrôle Docimologique & Notes (65/35) --}}
         @include('PkgTableauBord::components.kpi-docimologie', ['type' => 'apprenant', 'kpi' => $kpiDocimologie])
     </div>
     @else
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {{-- Indicateur 01 : Démarrage du sprint --}}
         @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'apprenant', 'kpi' => $kpiAmorcage])
+        {{-- Indicateur 03 : Qualité du 1er rendu --}}
         @include('PkgTableauBord::components.kpi-revision', ['type' => 'apprenant', 'kpi' => $kpiRevision])
     </div>
     @endif
 
+    <!-- Indicateur 05 — Statut Opérationnel Immédiat & File d'Attente (T_file) -->
+    @if(($isProjetSessionFormation ?? true) && !empty($kpiFileAttente['est_en_file']))
+    <section class="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-sm relative overflow-hidden">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 border border-sky-200 flex items-center justify-center shrink-0">
+                    <svg class="w-6 h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold {{ $kpiFileAttente['badge_label'] ?? '' }}">
+                            {{ $kpiFileAttente['badge_label'] ?? 'File active' }} (Indicateur 05)
+                        </span>
+                    </div>
+                    <h2 class="text-lg sm:text-xl font-extrabold text-slate-900 mt-1">
+                        Votre rang de passage en direct : <span class="text-indigo-600">{{ $kpiFileAttente['rang_formate'] ?? 'Rang #1' }}</span>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-1">
+                        {{ $kpiFileAttente['tache_titre'] ?? 'Évaluation' }} &bull; Temps d'attente : <strong class="text-slate-800">{{ $kpiFileAttente['temps_attente_formate'] ?? '0 min' }}</strong>
+                        @if(!empty($kpiFileAttente['heure_passage_estimee']) && ($kpiFileAttente['statut'] ?? '') === 'en_attente')
+                        &bull; Passage formateur estimé à <strong class="text-slate-800">{{ $kpiFileAttente['heure_passage_estimee'] }}</strong> (dans ~{{ $kpiFileAttente['temps_estime_restant_minutes'] }} min).
+                        @endif
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/80 flex items-center gap-4 shrink-0 w-full lg:w-auto">
+                <div>
+                    <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Livrable à soutenir</div>
+                    <div class="text-xs font-bold text-slate-900">{{ $kpiFileAttente['tache_titre'] ?? 'Session de validation' }}</div>
+                </div>
+                <span class="px-3.5 py-2 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-lg border border-indigo-200">
+                    Préparez votre IDE
+                </span>
+            </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-slate-100 flex items-center gap-2 text-xs text-slate-600">
+            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span><strong>Conseil méthodologique :</strong> Gardez votre code source ouvert sur la branche du prototype pour fluidifier le démarrage de l'évaluation Live Coding.</span>
+        </div>
+    </section>
+    @endif
+
+    <!-- Indicateur 06 — Message Bienveillant d'Accompagnement Didactique (T_intervention) -->
+    @if(!empty($kpiIntervention['besoin_aide']))
+    <section class="bg-amber-50 border-2 border-amber-300 rounded-lg p-5 sm:p-6 shadow-sm">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="flex items-start gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center shrink-0">
+                    <i class="fas fa-handshake-angle text-amber-600 text-lg"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h4 class="text-sm font-bold text-amber-900">Besoin d'un coup de pouce sur votre code ? (Indicateur 06)</h4>
+                        <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-200 text-amber-800 font-mono">
+                            +{{ $kpiIntervention['minutes_depassement'] ?? 10 }} min post-séance
+                        </span>
+                    </div>
+                    <p class="text-xs text-amber-800 mt-1">
+                        {{ $kpiIntervention['message'] }}
+                    </p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+                <span class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-amber-900 border border-amber-300 shadow-2xs">
+                    {{ $kpiIntervention['tache_titre'] ?? 'Tutoriel' }}
+                </span>
+            </div>
+        </div>
+    </section>
+    @elseif(!empty($kpiIntervention['message']))
+    <section class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 shadow-sm flex items-center gap-3 text-xs text-indigo-900">
+        <i class="fas fa-circle-check text-indigo-600 text-base"></i>
+        <span><strong>Indicateur 06 :</strong> {{ $kpiIntervention['message'] }}</span>
+    </section>
+    @endif
+
+    <!-- Indicateur 07 — Concordance Évaluative : Prototype vs Projet (Pearson r) -->
     @if(($isProjetSessionFormation ?? true) && !empty($kpiIntegriteIA['a_des_notes']))
     <div class="bg-white rounded-lg border border-slate-200 p-4 shadow-2xs flex items-center justify-between text-xs text-slate-700">
         <div class="flex items-center gap-2.5">
             <i class="fas fa-scale-balanced text-indigo-600"></i>
-            <span><strong>Concordance Évaluative :</strong> Prototype surveillé <strong class="text-slate-900">{{ $kpiIntegriteIA['note_n2'] }}/20</strong> &bull; Projet outillé <strong class="text-slate-900">{{ $kpiIntegriteIA['note_n3'] }}/20</strong> ({{ $kpiIntegriteIA['concordance'] }})</span>
+            <span><strong>Indicateur 07 — Concordance Évaluative :</strong> Prototype surveillé <strong class="text-slate-900">{{ $kpiIntegriteIA['note_n2'] }}/20</strong> &bull; Projet outillé <strong class="text-slate-900">{{ $kpiIntegriteIA['note_n3'] }}/20</strong> ({{ $kpiIntegriteIA['concordance'] }})</span>
         </div>
         <span class="font-mono font-bold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded border border-indigo-200">{{ $kpiIntegriteIA['delta_formate'] }}</span>
     </div>

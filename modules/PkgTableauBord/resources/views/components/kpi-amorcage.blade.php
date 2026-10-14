@@ -5,7 +5,7 @@
 
 @if($type === 'apprenant')
     <!-- KPI 1 Apprenant : Démarrage du sprint -->
-    <div class="bg-white p-3.5 sm:p-4.5 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
+    <div class="bg-white p-4 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
@@ -38,10 +38,14 @@
                 {{ $kpi['comparatif_texte'] ?? '--' }}
             </span>
         </div>
+        <div class="pt-1.5 mt-1 border-t border-slate-50 flex items-center justify-between text-[11px]">
+            <span class="text-[10px] text-slate-400 font-medium">Indicateur #01</span>
+            <span class="text-[10px] text-indigo-600 font-bold font-mono">T<sub>amorçage</sub></span>
+        </div>
     </div>
 @elseif($type === 'responsable')
     <!-- KPI 1 Responsable : Délai moyen macroscopique d'amorçage -->
-    <div class="bg-white p-3.5 sm:p-4.5 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
+    <div class="bg-white p-4 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
@@ -116,7 +120,7 @@
     </div>
 @else
     <!-- KPI 1 Formateur : Temps moyen de mise au travail -->
-    <div class="bg-white p-3.5 sm:p-4.5 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
+    <div class="bg-white p-4 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">

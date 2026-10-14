@@ -5,7 +5,7 @@
 
 @if($type === 'apprenant')
     <!-- Carte KPI Apprenant : Progression dans le Référentiel National (ICP) -->
-    <div class="bg-white p-3.5 sm:p-4.5 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-emerald-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
+    <div class="bg-white p-4 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-emerald-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
@@ -45,11 +45,15 @@
                 {{ $kpi['non_validees'] ?? 3 }} comp.
             </span>
         </div>
+        <div class="pt-1.5 mt-1 border-t border-slate-50 flex items-center justify-between text-[11px]">
+            <span class="text-[10px] text-slate-400 font-medium">Indicateur #08</span>
+            <span class="text-[10px] text-emerald-600 font-bold font-mono">ICP</span>
+        </div>
     </div>
 
 @elseif($type === 'formateur')
     <!-- Carte KPI Formateur : Couverture Pédagogique (ICP Cohorte) -->
-    <div class="bg-white p-3.5 sm:p-4.5 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-emerald-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
+    <div class="bg-white p-4 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-emerald-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
@@ -89,11 +93,15 @@
                 {{ $kpi['nb_impasses'] ?? 0 }} comp.
             </span>
         </div>
+        <div class="pt-2 mt-1.5 border-t border-slate-50 flex items-center justify-between text-[11px]">
+            <span class="text-[10px] text-slate-400 font-medium">Indicateur #08</span>
+            <span class="text-[10px] text-emerald-600 font-bold font-mono">ICP</span>
+        </div>
     </div>
 
 @elseif($type === 'responsable')
     <!-- Carte KPI Responsable : Taux de Couverture Macro du Référentiel National (ICP) -->
-    <div class="bg-white p-3.5 sm:p-4.5 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-emerald-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
+    <div class="bg-white p-4 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-emerald-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">

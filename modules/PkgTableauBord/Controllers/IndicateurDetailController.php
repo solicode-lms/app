@@ -168,4 +168,40 @@ class IndicateurDetailController extends AdminController
             'detail' => $detail,
         ]);
     }
+
+    /**
+     * Page de détail pour l'Indicateur 02 : Validation du Prototype & Gating (R_gating).
+     *
+     * @DynamicPermissionIgnore
+     */
+    public function gating(Request $request)
+    {
+        $ctx = $this->resolveFilterContext($request);
+
+        $filters = [
+            'groupe_ids' => $ctx['targetGroupeIds'],
+            'projet_id' => $ctx['targetProjetId'],
+            'filiere_id' => $ctx['selectedFiliereId'],
+            'formateur_id' => $ctx['selectedFormateurId'],
+            'filter_type' => $ctx['filterType'],
+        ];
+
+        $detail = $this->tableauBordService->getIndicateurGatingDetail($filters);
+
+        return view('PkgTableauBord::indicateurs.gating', [
+            'user' => $ctx['user'],
+            'isVisionGlobale' => $ctx['isVisionGlobale'],
+            'formateurs' => $ctx['formateurs'],
+            'selectedFormateurId' => $ctx['selectedFormateurId'],
+            'filieres' => $ctx['filieres'],
+            'selectedFiliereId' => $ctx['selectedFiliereId'],
+            'groupes' => $ctx['groupes'],
+            'selectedGroupeId' => $ctx['selectedGroupeId'],
+            'projets' => $ctx['projets'],
+            'selectedProjetId' => $ctx['selectedProjetId'],
+            'projetActif' => $ctx['projetActif'],
+            'filterType' => $ctx['filterType'],
+            'detail' => $detail,
+        ]);
+    }
 }

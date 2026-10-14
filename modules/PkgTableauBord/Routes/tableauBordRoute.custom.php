@@ -19,6 +19,7 @@ Route::middleware('auth')->group(function () {
         // Détails par indicateur
         Route::prefix('indicateurs')->name('indicateurs.')->group(function () {
             Route::get('/amorcage', [IndicateurDetailController::class, 'amorcage'])->name('amorcage');
+            Route::get('/gating', [IndicateurDetailController::class, 'gating'])->name('gating');
         });
     });
 });

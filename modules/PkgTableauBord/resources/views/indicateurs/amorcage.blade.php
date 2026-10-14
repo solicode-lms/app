@@ -100,7 +100,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
 
         {{-- 1. Temps Moyen & Médian (Présents) --}}
-        <div class="bg-white p-4.5 rounded-lg border border-slate-200 shadow-2xs hover:shadow-sm transition">
+        <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-2xs hover:shadow-sm transition">
             <div class="flex items-start justify-between gap-2 mb-2">
                 <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Délai Moyen (Présents)</span>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold {{ $detail['delai_moyen_minutes'] === null ? 'bg-slate-50 text-slate-700 border border-slate-200' : ($detail['delai_moyen_minutes'] <= $detail['seuil_optimal_minutes'] ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200') }}">
@@ -118,7 +118,7 @@
         </div>
 
         {{-- 2. Taux d'Amorçage Présents en Séance --}}
-        <div class="bg-white p-4.5 rounded-lg border border-slate-200 shadow-2xs hover:shadow-sm transition">
+        <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-2xs hover:shadow-sm transition">
             <div class="flex items-start justify-between gap-2 mb-2">
                 <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Amorcés en Séance</span>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
@@ -139,7 +139,7 @@
         </div>
 
         {{-- 3. Démarrages avec Absence (Exclus de la moyenne) --}}
-        <div class="bg-white p-4.5 rounded-lg border border-purple-200 bg-purple-50/20 shadow-2xs hover:shadow-sm transition">
+        <div class="bg-white p-4 rounded-lg border border-purple-200 bg-purple-50/20 shadow-2xs hover:shadow-sm transition">
             <div class="flex items-start justify-between gap-2 mb-2">
                 <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Démarrages avec Absence</span>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-700 border border-purple-200">
@@ -157,7 +157,7 @@
         </div>
 
         {{-- 4. Record / Démarrage Éclair --}}
-        <div class="bg-white p-4.5 rounded-lg border border-slate-200 shadow-2xs hover:shadow-sm transition">
+        <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-2xs hover:shadow-sm transition">
             <div class="flex items-start justify-between gap-2 mb-2">
                 <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Démarrage Record</span>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
@@ -177,7 +177,7 @@
         </div>
 
         {{-- 5. Réalisations Non Amorcées (Alerte Risque) --}}
-        <div class="bg-white p-4.5 rounded-lg border {{ $detail['nb_non_amorces'] > 0 ? 'border-rose-200 bg-rose-50/20' : 'border-slate-200' }} shadow-2xs hover:shadow-sm transition">
+        <div class="bg-white p-4 rounded-lg border {{ $detail['nb_non_amorces'] > 0 ? 'border-rose-200 bg-rose-50/20' : 'border-slate-200' }} shadow-2xs hover:shadow-sm transition">
             <div class="flex items-start justify-between gap-2 mb-2">
                 <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Non Amorcées</span>
                 @if($detail['nb_non_amorces'] > 0)

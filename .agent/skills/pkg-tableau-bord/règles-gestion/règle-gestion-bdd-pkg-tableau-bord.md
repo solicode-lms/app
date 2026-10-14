@@ -24,6 +24,11 @@ Pour les **Sprints 1 & 2** :
 - **Table `realisation_projets`** :
   - `cache_date_premiere_soumission` : DateTime NULL (Première tâche soumise vers `TO_APPROVE` / `READY_FOR_LIVE_CODING`, indexé).
   - `cache_date_lancement` : DateTime NULL (Dénormalisation de la date de lancement de l'affectation, indexé).
+- **Table `historique_realisation_taches` (Source temps réel)** :
+  - Utilisée par `DashboardIndicateur01Trait::determinerDatePremiereTacheEnCours()` pour extraire l'horodatage exact (à la seconde près) du premier passage d'une tâche à l'état `En cours` ou `IN_PROGRESS`.
+  - Permet de déterminer avec certitude si l'activation s'est déroulée pendant la séance de lancement ($\le D_{\text{fin\_séance}}$) ou après (démarrage avec absence).
+- **Service didactique `ParametrePedagogiqueService`** :
+  - Centralise les créneaux officiels de formation (Séance 1 : 09h00-11h30, Séance 2 : 11h30-14h00, Séance 3 : 14h30-17h00) et les seuils didactiques sans surcharge de tables BDD.
 
 ### Sprint 2 : Indicateur 02 — Validation du Prototype ($R_{\text{gating}}$)
 - **Table `realisation_projets`** :

@@ -109,8 +109,8 @@ trait RealisationTacheJobTrait
                 // Sprint 2 : Indicateur 02 (R_gating) - Enregistrement évaluation prototype (phaseEvaluation = N2)
                 $isPrototype = $realisationTache->isPrototype();
 
-                    if ($isPrototype && in_array($etatWorkflowCode, ['APPROVED', 'NOT_VALIDATED', 'REVISION_NECESSAIRE'])) {
-                        $estValide = ($etatWorkflowCode === 'APPROVED') || (($realisationTache->note ?? 0) >= 10);
+                    if ($isPrototype && in_array($etatWorkflowCode, ['APPROVED', 'NOT_VALIDATED'])) {
+                        $estValide = ($etatWorkflowCode === 'APPROVED');
                         $realisationProjetService->mettreAJourGatingPrototype($realisationTache->realisationProjet, $estValide);
                     }
 

@@ -49,10 +49,14 @@ Les fonctionnalités des sprints ultérieurs (3 à 9) seront intégrées de mani
 - **Fonctionnalités Sprint 1 ($T_{\text{amorçage}}$)** :
   - **En-tête de groupe** : Code du groupe, titre du projet actif et date officielle de lancement.
   - **Carte KPI *"Temps moyen de mise au travail"*** (`PkgTableauBord::components.kpi-amorcage`) :
-    - Valeur moyenne du groupe formatée (ex: `1h45`).
-    - Badge de rythme : `Optimal (<= 2h)` ou `Alerte (> 2h)`.
-    - Ratio du groupe : Nombre d'apprenants amorcés sur l'effectif total (ex: `17 / 20`).
-  - **Liste d'alerte des apprenants en retard** : Affichage des stagiaires n'ayant pas encore amorcé de tâche.
+    - Valeur moyenne du groupe calculée sur les présents formatée (ex: `1h45` ou `'--'`).
+    - Titre cliquable et bouton *"Analyse détaillée"* renvoyant vers `/admin/PkgTableauBord/indicateurs/amorcage?projet_id=...`.
+    - Badge de rythme : `En attente` (si 0 amorcés), `Optimal (<= 3h)` ou `Alerte (> 3h)`.
+    - Ratios discriminés :
+      - Apprenants amorcés en séance (ex: `12/22 présents`).
+      - Démarrages avec absence (badge violet `X avec absence`, exclus de la moyenne).
+      - Apprenants en attente (badge ambre cliquable `#apprenants-non-amorces`).
+  - **Liste d'alerte des apprenants en attente** : Panneau rétractable des stagiaires n'ayant pas encore amorcé de tâche.
 - **Fonctionnalités Sprint 2 ($R_{\text{gating}}$)** :
   - **Carte KPI *"Validation au 1er passage"*** (`PkgTableauBord::components.kpi-gating`) :
     - Taux de réussite au premier essai : $R_{\text{gating}}\%$ (ex: `75%`).
@@ -69,12 +73,48 @@ Les fonctionnalités des sprints ultérieurs (3 à 9) seront intégrées de mani
 - **Contrôleur** : `TableauBordResponsableController@index`
 - **Titre de la vue** : `@section('page_title', 'Tableau de Bord de Gouvernance Pédagogique')`
 - **Objectif** : Suivi macroscopique, harmonisation des exigences et contrôle de l'équité certificative.
+- **Barre de filtres multidimensionnels** : Formateur, Filière, Groupe, Session de Formation (affectations N2).
 - **Fonctionnalités Sprint 1 ($T_{\text{amorçage}}$)** :
-  - **Carte KPI Macroscopique** : Délai moyen global de démarrage sur toutes les promotions actives récentes.
+  - **Carte KPI Macroscopique** :
+    - Titre cliquable avec icône externe et lien *"Analyse détaillée"* vers `indicateurs.amorcage`.
+    - Délai moyen global calculé exclusivement sur les apprenants présents en séance (hors retards par absence).
+    - Nombre de sessions de formation analysées, taux global d'amorçage, réalisations avec absence exclues et réalisations en attente.
 - **Fonctionnalités Sprint 2 ($R_{\text{gating}}$)** :
   - **Carte KPI Macroscopique** : Taux moyen global de réussite au gating direct.
-  - **Matrice Comparative / Benchmark Inter-Promotions** :
-    - Colonne $T_{\text{amorçage}}$ : Délai moyen de démarrage.
+  - **Matrice Comparative / Benchmark Inter-Sessions** :
+    - Colonne $T_{\text{amorçage}}$ : Délai moyen de démarrage (présents).
     - Colonne $R_{\text{gating}}$ : Taux de validation au 1er essai (%) par promotion.
-    - Effectifs amorcés et évalués.
+    - Effectifs amorcés, démarrages avec absence et effectifs évalués.
     - Statuts de conformité pédagogique (`Conforme` vs `Vigilance`).
+
+---
+
+## 4. Pages d'Analyse Détaillée par Indicateur (Architecture Dédiée)
+
+Chaque indicateur dispose d'une page d'analyse granulaire permettant aux formateurs et responsables d'explorer la dispersion des données, de diagnostiquer les anomalies et d'auditer individuellement chaque réalisation.
+
+### Indicateur 01 : Page Détail Amorçage & Mise au Travail
+- **Route** : `admin.PkgTableauBord.indicateurs.amorcage` (`/admin/PkgTableauBord/indicateurs/amorcage`)
+- **Contrôleur** : `Modules\PkgTableauBord\Controllers\IndicateursController@amorcage`
+- **Vue** : `PkgTableauBord::indicateurs.amorcage`
+- **Composants d'Analyse** :
+  1. **En-tête Didactique** : Tags de contextualisation (Projet, Groupe, Vision Globale 10 sessions N2), Objectif SLA officiel ($\le 3\text{h}$) et boutons d'action (Retour Dashboard, Impression).
+  2. **Jauge Synthétique Globale** : Taux d'amorçage en séance, effectif amorcé, délai moyen (présents) et médiane globale.
+  3. **5 Cartes Métriques Clés** :
+     - *Délai Moyen (Présents)* : Délai formaté, badge dynamique (`En attente` si null, `Dans le SLA` si $\le 3\text{h}$, `Au-delà du SLA`), médiane globale.
+     - *Amorcés en Séance* : Pourcentage et barre de progression dynamique.
+     - *Démarrages avec Absence* : Nombre de réalisations démarrées post-séance (badge `Exclus SLA`).
+     - *Démarrage Record* : Délai le plus rapide et nom de l'apprenant le plus réactif.
+     - *Réalisations Non Amorcées* : Effectif en attente et statut de criticité.
+  4. **Histogramme de Dispersion Temporelle (5 Tranches)** :
+     - *Éclair* (< 1h)
+     - *Dans les temps* (1h - 2h)
+     - *Tardif en séance* (2h - 3h)
+     - *Avec absence* (Post-séance)
+     - *Non amorcée* (Critique / Bloqué)
+  5. **Tableau Roster Interactif des Apprenants (Alpine.js)** :
+     - Recherche instantanée par nom, matricule ou groupe.
+     - Filtres instantanés par tranche didactique.
+     - Colonnes complètes : Apprenant, Groupe, Dates de lancement et de fin de séance, 1re tâche passée en cours (horodatage précis à la seconde/minute avec badge de retard post-séance le cas échéant), 1re soumission, délai individuel calculé, statut et libellé de la 1re tâche.
+  6. **Benchmark Comparatif des Sessions de Formation (N2)** :
+     - Tableau comparatif multi-sessions (affectations N2) avec effectifs en séance, démarrages avec absence, taux d'amorçage, délai moyen et action de filtrage direct par groupe.

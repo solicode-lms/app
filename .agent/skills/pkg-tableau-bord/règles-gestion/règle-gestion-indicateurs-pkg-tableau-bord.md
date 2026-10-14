@@ -11,16 +11,58 @@ Les indicateurs des sprints ultérieurs (3 à 9) seront intégrés de façon it�
 | Paramètre | Valeur |
 | :--- | :--- |
 | **N° & Symbole** | **01** — $T_{\text{amorçage}}$ |
-| **Nom de l'Indicateur** | Temps d'amorçage moyen |
-| **Axe Pédagogique** | H1 — Régulation de l'Apprenant & Rythme de Démarrage |
-| **Unité** | Minutes / Heures (ex: `1h15`) |
-| **Seuil Vert (Optimal)** | $\le 1{,}5\,\text{h}$ ($90\text{ min}$) |
-| **Seuil Rouge (Alerte)** | $> 3{,}0\,\text{h}$ ($180\text{ min}$) |
+| **Nom de l'Indicateur** | Temps moyen de mise au travail (Apprenants présents) |
+| **Axe Pédagogique** | H1 — Régulation de l'Apprenant, Rythme de Démarrage & Détection Précoce |
+| **Unité** | Minutes / Heures (ex: `1h15`, `45 min`, ou `'--'` si en attente) |
+| **Seuil Didactique Groupe (SLA)** | Optimal $\le 3{,}0\,\text{h}$ ($180\text{ min}$), Alerte $> 3{,}0\,\text{h}$ |
+| **Seuil Individuel Apprenant** | Optimal $\le 1{,}5\,\text{h}$ ($90\text{ min}$) |
+| **Créneaux Officiels de Séance** | S1 : 09:00 - 11:30 (150 min) \| S2 : 11:30 - 14:00 (150 min) \| S3 : 14:30 - 17:00 (150 min) |
 
-### 2. Formule Mathématique
-- **Individuel** : $T_{\text{amorçage}}(i) = \text{cache\_date\_premiere\_soumission}(i) - \text{cache\_date\_lancement}$
-- **Collectif** : $T_{\text{amorçage}} = \frac{1}{N} \sum_{i=1}^{N} T_{\text{amorçage}}(i)$
-- **Déclencheur** : Première tâche soumise (`TO_APPROVE` / `READY_FOR_LIVE_CODING`) $\rightarrow$ fige la date dans `realisation_projets.cache_date_premiere_soumission`.
+### 2. Modélisation Didactique & Gestion des Absences
+
+#### A. Règle de Présence en Séance de Lancement
+- Le formateur lance officiellement le projet à une date $D_{\text{lancement}}$ (`cache_date_lancement` ou `date_debut`).
+- Le système calcule l'heure de fin de la séance correspondante : $D_{\text{fin\_séance}} = \text{determinerFinSeanceLancement}(D_{\text{lancement}})$.
+- **Critère de présence** : Pour être considéré comme présent à la séance de lancement, l'apprenant doit activer sa première tâche (statut `En cours` / `IN_PROGRESS`) **avant ou à** $D_{\text{fin\_séance}}$.
+- L'horodatage précis de cette mise en cours est extrait par priorité :
+  1. Dans `historique_realisation_taches` (changement `En cours` ou `IN_PROGRESS` horodaté à la seconde).
+  2. Dans la date de début (`dateDebut`) de la tâche si elle contient une heure précise différente de minuit.
+
+#### B. Catégorisation des Réalisations
+Pour chaque réalisation de projet, trois états didactiques sont possibles :
+1. **Présent Amorcé** : Première tâche passée en cours $\le D_{\text{fin\_séance}}$ ET première soumission effectuée.
+   - Son délai individuel $T_{\text{amorçage}}(i) = \text{date\_premiere\_soumission}(i) - D_{\text{lancement}}$ est calculé en minutes.
+   - Ce délai est **intégré** dans la moyenne collective de la séance.
+2. **Démarrage avec Absence** (`demarrage_avec_absence`) : Première tâche passée en cours $> D_{\text{fin\_séance}}$.
+   - L'apprenant a démarré le projet en retard suite à une absence lors du créneau initial.
+   - Son délai individuel est affiché avec la mention *"Hors moyenne (Post-séance)"*, mais il est **strictement exclu de la moyenne collective** du groupe pour ne pas fausser l'évaluation pédagogique de la séance.
+3. **Non Amorcé / En Attente** (`non_amorce`) : Aucune tâche soumise (ou aucune tâche passée en cours).
+
+### 3. Formules Mathématiques
+
+#### A. Délai Individuel (Micro — Apprenant $i$) :
+$$T_{\text{amorçage}}(i) = \text{cache\_date\_premiere\_soumission}(i) - D_{\text{lancement}}$$
+
+#### B. Moyenne Collective sur Présents (Méso — Session de Formation / Groupe) :
+Soit $P$ l'ensemble des apprenants présents ayant amorcé le projet en séance :
+$$P = \{ i \in \text{Apprenants} \mid \text{date\_en\_cours}(i) \le D_{\text{fin\_séance}} \land T_{\text{amorçage}}(i) \neq \text{null} \}$$
+
+$$\overline{T}_{\text{amorçage}} = \begin{cases} 
+\frac{1}{|P|} \sum_{i \in P} T_{\text{amorçage}}(i) & \text{si } |P| > 0 \\
+\text{null} & \text{si } |P| = 0 \text{ (Projet au démarrage / en attente)}
+\end{cases}$$
+
+- **Formatage & Statut pour $|P| = 0$ (Principe de Clarté)** :
+  - Délai affiché : `'--'`
+  - Statut : `'En attente'`
+  - Badge : Neutre (`bg-slate-50 text-slate-700 border border-slate-200`)
+  - **Interdiction formelle de substituer une valeur par défaut arbitraire (ex: 1h45) !**
+
+#### C. Médiane Globale :
+Calculée sur la distribution ordonnée des délais pour donner une lecture robuste insensible aux valeurs extrêmes.
+
+#### D. Moyenne Macroscopique (Macro — Responsable de Formation) :
+Calculée sur l'ensemble des apprenants présents de l'échantillon des sessions de formation N2 récentes, avec mise en évidence du nombre global de démarrages avec absence exclus.
 
 ---
 

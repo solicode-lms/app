@@ -25,6 +25,12 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
    - Toute vue de tableau de bord V2 doit obligatoirement étendre `@extends('layouts.admin-v2')`.
    - Interdiction formelle de recopier la structure globale de maquette (doctype, head, aside sidebar, header, footer, scripts) dans les vues Blade de contenu.
    - Les vues de production contiennent exclusivement les indicateurs fonctionnels calculés des sprints actifs (Indicateurs 01, 02 et 03), à l'exclusion de toute carte ou bloc factice issu de maquettes des sprints futurs.
+6. **Zéro Fallback Magique / Principe de Clarté (CRITIQUE)** :
+   - Interdiction formelle d'injecter des valeurs de secours arbitraires (ex : fallback masqué de `1h45` / `105 min`) lorsqu'une métrique ne dispose pas de données réelles.
+   - Lorsqu'aucun apprenant n'a amorcé le projet (`nb_amorces === 0`), le délai moyen vaut sémantiquement `null`, affiché `'--'`. Le statut associé est obligatoirement `'En attente'` avec badge neutre (`bg-slate-50 text-slate-700 border border-slate-200`), et non un statut arbitraire comme `'Optimal (<= 3h)'` ou `'Au-delà du SLA'`.
+7. **Architecture des Pages de Détail par Indicateur (CRITIQUE)** :
+   - Chaque indicateur dispose d'une page d'analyse détaillée dédiée sous `admin.PkgTableauBord.indicateurs.*` (contrôleur `IndicateursController`). Les cartes KPI du tableau de bord (titre cliquable + bouton *"Analyse détaillée"*) mènent directement vers cette page.
+   - Les pages de détail comportent : en-tête contextuel, jauge synthétique, 5 cartes clés, histogramme de distribution temporelle, tableau interactif filtrable (Alpine.js) et benchmark comparatif des sessions de formation (affectations N2).
 
 ---
 
@@ -38,10 +44,15 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
 - **Sorties** : Description des colonnes, index, règles de persistance, tables d'accueil (`affectation_projets`, `realisation_projets`) et commandes artisan de rattrapage.
 
 ### Action B : Calculer ou Déboguer l'Indicateur 01 ($T_{\text{amorçage}}$)
-> **Description** : Expliquer, implémenter ou corriger l'algorithme du temps d'amorçage individuel et collectif.
+> **Description** : Expliquer, implémenter ou corriger l'algorithme du temps d'amorçage individuel et collectif, avec détection des séances de lancement et exclusion des absences.
 - **Ressources Utilisées** :
   - `règles-gestion/règle-gestion-indicateurs-pkg-tableau-bord.md`
-- **Sorties** : Formule mathématique, seuils d'alerte didactiques, code PHP de calcul et formatage (ex: `1h15`).
+- **Sorties** :
+  - Créneaux didactiques officiels (`ParametrePedagogiqueService`) : Séance 1 (09:00-11:30), Séance 2 (11:30-14:00), Séance 3 (14:30-17:00).
+  - Détection présence : 1ère tâche passée à `En cours` (`IN_PROGRESS`) avant fin de séance (`determinerFinSeanceLancement`).
+  - Démarrages avec absence (`demarrage_avec_absence`) : 1ère tâche passée en cours post-séance $\rightarrow$ exclus de la moyenne collective.
+  - Détection précise : `determinerDatePremiereTacheEnCours` via `HistoriqueRealisationTache` à la seconde.
+  - Formule mathématique moyenne sur présents, médiane globale, seuils didactiques (SLA $\le$ 3h) et formatage (ex: `1h15` ou `'--'`).
 
 ### Action C : Calculer ou Déboguer l'Indicateur 02 ($R_{\text{gating}}$)
 > **Description** : Expliquer, implémenter ou corriger l'algorithme du taux de validation du prototype dès le premier essai.
@@ -49,14 +60,16 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
   - `règles-gestion/règle-gestion-indicateurs-pkg-tableau-bord.md`
 - **Sorties** : Formule micro/méso/macro, détection de premier essai, seuils d'excellence/alerte et gestion des remédiations.
 
-### Action D : Concevoir et Intégrer les Composants Dashboard V2
-> **Description** : Guider la création des composants Blade réactifs avec Tailwind CSS pour les 3 acteurs et leur intégration navigation.
+### Action D : Concevoir et Intégrer les Composants Dashboard & Pages de Détail V2
+> **Description** : Guider la création des composants Blade réactifs avec Tailwind CSS pour les 3 acteurs, l'intégration navigation et les pages d'analyse détaillée par indicateur.
 - **Ressources Utilisées** :
   - `règles-gestion/règle-gestion-fonctionnalites-pkg-tableau-bord.md`
 - **Sorties** :
   - Layout : `layouts.admin-v2`
-  - Vues : `PkgTableauBord::apprenant.index`, `PkgTableauBord::formateur.index`, `PkgTableauBord::responsable.index`
-  - Composants : `PkgTableauBord::components.kpi-amorcage`, `PkgTableauBord::components.kpi-gating`, `PkgTableauBord::components.session-selector`
+  - Vues Dashboard : `PkgTableauBord::apprenant.index`, `PkgTableauBord::formateur.index`, `PkgTableauBord::responsable.index`
+  - Vues Détail : `PkgTableauBord::indicateurs.amorcage` (contrôleur `IndicateursController@amorcage`)
+  - Composants : `PkgTableauBord::components.kpi-amorcage` (liens cliquables vers le détail), `PkgTableauBord::components.kpi-gating`, `PkgTableauBord::components.session-selector`, `PkgTableauBord::components.responsable-filter-bar`
+  - Filtres interactifs : Roster apprenants réactif sous Alpine.js (`x-data`, filtres par tranches, recherche textuelle instantanée)
   - Navigation : Intégration dans `resources/views/layouts/menu-sidebar.blade.php` conditionnée par rôles.
 
 ### Action E : Calculer ou Déboguer l'Indicateur 03 ($F_{\text{révision}}$)
@@ -146,10 +159,20 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
 
 ## 🔄 Scénarios d'Exécution
 
-### Scénario 1 : Calcul de l'amorçage ($T_{\text{amorçage}}$)
-1. Lire `règle-gestion-indicateurs-pkg-tableau-bord.md`.
-2. Calculer l'écart `cache_date_premiere_soumission - cache_date_lancement` en minutes.
-3. Comparer à la moyenne de promotion pour badge vert ("Dans les temps") ou rouge ("En retard").
+### Scénario 1 : Calcul de l'amorçage ($T_{\text{amorçage}}$) & Détection des Absences
+1. Identifier la date de lancement officiel du projet (`cache_date_lancement` ou `date_debut` de l'affectation).
+2. Déterminer la fin de séance de lancement via `ParametrePedagogiqueService::determinerFinSeanceLancement($dateLancement)`.
+3. Pour chaque réalisation de projet, extraire l'horodatage exact de mise en cours de la 1ère tâche (`determinerDatePremiereTacheEnCours`).
+4. Si la 1ère tâche est passée à `En cours` avant la fin de séance :
+   - L'apprenant est considéré comme **présent en séance**.
+   - Son délai individuel $T_{\text{amorçage}}(i)$ est calculé et intégré dans le tableau des présents `$delaisPresents[]`.
+5. Si la 1ère tâche est passée à `En cours` après la fin de séance :
+   - L'apprenant est catégorisé en **"Démarrage avec absence"** (`demarrage_avec_absence`).
+   - Son délai est affiché avec la mention *"Hors moyenne (Post-séance)"* mais **strictement exclu de la moyenne collective** du groupe/session.
+6. Calculer la moyenne collective sur les présents :
+   - Si $\text{count}(\text{présents}) > 0$ : $\overline{T}_{\text{amorçage}} = \text{round}(\sum / \text{count})$, statut comparé au seuil SLA (Optimal $\le 3\text{h}$ vs Alerte $> 3\text{h}$).
+   - Si $\text{count}(\text{présents}) == 0$ : $\overline{T}_{\text{amorçage}} = \text{null}$, formaté en `'--'`, statut `'En attente'` (badge neutre `bg-slate-50`).
+7. Calculer la médiane globale pour évaluer la dispersion sans distorsion statistique par des valeurs extrêmes.
 
 ### Scénario 2 : Évaluation du Prototype ($R_{\text{gating}}$)
 1. Lors de l'évaluation de la tâche N2 / Live Coding par le formateur :

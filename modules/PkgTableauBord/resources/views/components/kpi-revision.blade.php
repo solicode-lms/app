@@ -5,7 +5,7 @@
 
 @if($type === 'apprenant')
     <!-- KPI 3 Apprenant : Qualité du premier rendu (F_révision) -->
-    <div class="bg-white p-3.5 sm:p-4.5 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
+    <div class="bg-white p-4 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
@@ -38,11 +38,15 @@
                 {{ $kpi['taches_sans_reprise'] ?? 0 }}/{{ $kpi['total_taches'] ?? 0 }} direct
             </span>
         </div>
+        <div class="pt-1.5 mt-1 border-t border-slate-50 flex items-center justify-between text-[11px]">
+            <span class="text-[10px] text-slate-400 font-medium">Indicateur #03</span>
+            <span class="text-[10px] text-slate-500 font-bold font-mono">F<sub>révision</sub></span>
+        </div>
     </div>
 
 @elseif($type === 'formateur')
     <!-- KPI 3 Formateur : Fréquence Moyenne des Boucles de Révision (F_révision) -->
-    <div class="bg-white p-3.5 sm:p-4.5 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
+    <div class="bg-white p-4 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
@@ -75,11 +79,15 @@
                 {{ $kpi['total_rejets'] ?? 0 }} rejet{{ ($kpi['total_rejets'] ?? 0) > 1 ? 's' : '' }}
             </span>
         </div>
+        <div class="pt-2 mt-1.5 border-t border-slate-50 flex items-center justify-between text-[11px]">
+            <span class="text-[10px] text-slate-400 font-medium">Indicateur #03</span>
+            <span class="text-[10px] text-slate-500 font-bold font-mono">F<sub>révision</sub></span>
+        </div>
     </div>
 
 @elseif($type === 'responsable')
     <!-- KPI 3 Responsable : Fréquence macroscopique moyenne -->
-    <div class="bg-white p-3.5 sm:p-4.5 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
+    <div class="bg-white p-4 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">

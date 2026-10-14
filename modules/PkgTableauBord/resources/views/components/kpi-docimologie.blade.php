@@ -5,7 +5,7 @@
 
 @if($type === 'apprenant')
     <!-- Carte KPI Apprenant : Note CC & EFM Estimée (Règle Docimologique 65/35) -->
-    <div class="bg-white p-3.5 sm:p-4.5 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
+    <div class="bg-white p-4 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
@@ -40,11 +40,15 @@
                 65% N2 + 35% N3
             </span>
         </div>
+        <div class="pt-1.5 mt-1 border-t border-slate-50 flex items-center justify-between text-[11px]">
+            <span class="text-[10px] text-slate-400 font-medium">Indicateur #09</span>
+            <span class="text-[10px] text-indigo-600 font-bold font-mono">65 / 35</span>
+        </div>
     </div>
 
 @elseif($type === 'formateur')
     <!-- Carte KPI Formateur : Complétude Docimologique & Scellement -->
-    <div class="bg-white p-3.5 sm:p-4.5 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
+    <div class="bg-white p-4 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
@@ -79,11 +83,15 @@
                 {{ $kpi['moyenne_cc_cohorte'] ?? 16.2 }}/20 &bull; {{ $kpi['moyenne_efm_cohorte'] ?? 32.8 }}/40
             </span>
         </div>
+        <div class="pt-2 mt-1.5 border-t border-slate-50 flex items-center justify-between text-[11px]">
+            <span class="text-[10px] text-slate-400 font-medium">Indicateur #09</span>
+            <span class="text-[10px] text-indigo-600 font-bold font-mono">Bordereaux</span>
+        </div>
     </div>
 
 @elseif($type === 'responsable')
     <!-- Carte KPI Responsable : Conformité Institutionnelle des Bordereaux -->
-    <div class="bg-white p-3.5 sm:p-4.5 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
+    <div class="bg-white p-4 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">

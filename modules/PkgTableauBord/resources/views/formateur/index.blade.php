@@ -150,51 +150,55 @@
 
     @if($isProjetSessionFormation ?? true)
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-9 gap-4">
+        {{-- Indicateur 01 : Démarrage du sprint (T_amorçage) --}}
         @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'formateur', 'kpi' => $kpiAmorcage])
-        @include('PkgTableauBord::components.kpi-docimologie', ['type' => 'formateur', 'kpi' => $kpiDocimologie])
-        @include('PkgTableauBord::components.kpi-couverture-pedagogique', ['type' => 'formateur', 'kpi' => $kpiCouverture])
-        @include('PkgTableauBord::components.kpi-integrite-ia', ['type' => 'formateur', 'kpi' => $kpiIntegriteIA])
-        @include('PkgTableauBord::components.kpi-intervention', ['type' => 'formateur', 'kpi' => $kpiIntervention])
+
+        {{-- Indicateur 02 : Gating Prototype 1er essai (R_gating) --}}
+        @include('PkgTableauBord::components.kpi-gating', ['type' => 'formateur', 'kpi' => $kpiGating])
+
+        {{-- Indicateur 03 : Fréquence des Révisions (F_révision) --}}
+        @include('PkgTableauBord::components.kpi-revision', ['type' => 'formateur', 'kpi' => $kpiRevision])
+
+        {{-- Indicateur 04 : Charge Logistique Formateur (C_logistique) --}}
+        @include('PkgTableauBord::components.kpi-charge-logistique', ['type' => 'formateur', 'kpi' => $kpiChargeLogistique])
+
+        {{-- Indicateur 05 : Latence File d'Attente FIFO (T_file) --}}
         @include('PkgTableauBord::components.kpi-file-attente', ['type' => 'formateur', 'kpi' => $kpiFileAttente])
 
-        @include('PkgTableauBord::components.kpi-gating', ['type' => 'formateur', 'kpi' => $kpiGating])
-        @include('PkgTableauBord::components.kpi-revision', ['type' => 'formateur', 'kpi' => $kpiRevision])
-        @include('PkgTableauBord::components.kpi-charge-logistique', ['type' => 'formateur', 'kpi' => $kpiChargeLogistique])
+        {{-- Indicateur 06 : Prise en charge des blocages (T_intervention) --}}
+        @include('PkgTableauBord::components.kpi-intervention', ['type' => 'formateur', 'kpi' => $kpiIntervention])
+
+        {{-- Indicateur 07 : Cohérence & Intégrité Usage IA (Pearson r) --}}
+        @include('PkgTableauBord::components.kpi-integrite-ia', ['type' => 'formateur', 'kpi' => $kpiIntegriteIA])
+
+        {{-- Indicateur 08 : Couverture Pédagogique Nationale (ICP) --}}
+        @include('PkgTableauBord::components.kpi-couverture-pedagogique', ['type' => 'formateur', 'kpi' => $kpiCouverture])
+
+        {{-- Indicateur 09 : Complétude Docimologique 65/35 (Bordereaux) --}}
+        @include('PkgTableauBord::components.kpi-docimologie', ['type' => 'formateur', 'kpi' => $kpiDocimologie])
     </div>
     @else
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {{-- Indicateur 01 : Démarrage du sprint --}}
         @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'formateur', 'kpi' => $kpiAmorcage])
+        {{-- Indicateur 03 : Fréquence des Révisions --}}
         @include('PkgTableauBord::components.kpi-revision', ['type' => 'formateur', 'kpi' => $kpiRevision])
+        {{-- Indicateur 04 : Charge Logistique Formateur --}}
         @include('PkgTableauBord::components.kpi-charge-logistique', ['type' => 'formateur', 'kpi' => $kpiChargeLogistique])
+        {{-- Indicateur 06 : Prise en charge des blocages --}}
         @include('PkgTableauBord::components.kpi-intervention', ['type' => 'formateur', 'kpi' => $kpiIntervention])
     </div>
     @endif
 
-    <!-- Diagnostic d'Amorçage : Apprenants en Attente de Démarrage (Indicateur 01 — T_amorçage) -->
+    <!-- Indicateur 01 — Diagnostic d'Amorçage : Apprenants en Attente de Démarrage (T_amorçage) -->
     @include('PkgTableauBord::components.apprenants-non-amorces-panel', ['kpi' => $kpiAmorcage])
 
-    @if($isProjetSessionFormation ?? true)
-    <!-- Bordereau Officiel & Contrôle Docimologique 65/35 (Indicateur 09) -->
-    @include('PkgTableauBord::components.bordereau-officiel-panel', ['kpi' => $kpiDocimologie])
-
-    <!-- Diagnostic Didactique : Impasses & Points de Fragilité (< 50%) (Indicateur 08 — ICP) -->
-    @include('PkgTableauBord::components.impasses-pedagogiques-panel', ['kpi' => $kpiCouverture])
-    @endif
-
-    <!-- Flashbox Alerte Critique : Apprenants en Rupture Didactique (+10 min) (Indicateur 06 — T_intervention) -->
-    @include('PkgTableauBord::components.flashbox-alerte-blocages', ['kpi' => $kpiIntervention])
-
-    @if($isProjetSessionFormation ?? true)
-    <!-- Console Opérationnelle Interactive : File d'Attente FIFO (Indicateur 05 — T_file) -->
-    @include('PkgTableauBord::components.file-attente-console', ['kpi' => $kpiFileAttente])
-    @endif
-
-    <!-- Top 3 Tâches Nécessitant un Réalignement Didactique -->
+    <!-- Indicateur 03 — Top 3 Tâches Nécessitant un Réalignement Didactique (F_révision) -->
     @if(!empty($kpiRevision['top_taches']))
     <div class="bg-white p-5 sm:p-6 rounded-lg border border-slate-200 shadow-sm space-y-4">
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
-                <h4 class="text-sm font-bold text-slate-900">Tâches Nécessitant un Réalignement Didactique</h4>
+                <h4 class="text-sm font-bold text-slate-900">Tâches Nécessitant un Réalignement Didactique (Indicateur 03)</h4>
                 <p class="text-xs text-slate-500">Tâches concentrant le plus grand nombre de rejets formateurs ({{ $kpiRevision['frequence_formatee'] }})</p>
             </div>
             <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200">Top 3 Révélateur</span>
@@ -214,7 +218,15 @@
     </div>
     @endif
 
-    <!-- Tableau d'Audit Docimologique : Soutenances & Concordance IA (Indicateur 07 — Pearson r) -->
+    @if($isProjetSessionFormation ?? true)
+    <!-- Indicateur 05 — Console Opérationnelle Interactive : File d'Attente FIFO (T_file) -->
+    @include('PkgTableauBord::components.file-attente-console', ['kpi' => $kpiFileAttente])
+    @endif
+
+    <!-- Indicateur 06 — Flashbox Alerte Critique : Apprenants en Rupture Didactique (+10 min) (T_intervention) -->
+    @include('PkgTableauBord::components.flashbox-alerte-blocages', ['kpi' => $kpiIntervention])
+
+    <!-- Indicateur 07 — Tableau d'Audit Docimologique : Soutenances & Concordance IA (Pearson r) -->
     @if(($isProjetSessionFormation ?? true) && !empty($kpiIntegriteIA['apprenants']))
     <div class="bg-white p-5 sm:p-6 rounded-lg border border-slate-200 shadow-sm space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
@@ -263,6 +275,14 @@
             </table>
         </div>
     </div>
+    @endif
+
+    @if($isProjetSessionFormation ?? true)
+    <!-- Indicateur 08 — Diagnostic Didactique : Impasses & Points de Fragilité (< 50%) (ICP) -->
+    @include('PkgTableauBord::components.impasses-pedagogiques-panel', ['kpi' => $kpiCouverture])
+
+    <!-- Indicateur 09 — Bordereau Officiel & Contrôle Docimologique 65/35 -->
+    @include('PkgTableauBord::components.bordereau-officiel-panel', ['kpi' => $kpiDocimologie])
     @endif
 
     <!-- Deux colonnes d'alertes : Retard amorçage & Remédiation requise -->
