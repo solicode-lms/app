@@ -1666,7 +1666,8 @@
     },
     {
         "reference": "RealisationTache_cache_nombre_revisions_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationTache_cache_nombre_revisions",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -1703,7 +1704,8 @@
     },
     {
         "reference": "RealisationTache_cache_date_entree_file_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationTache_cache_date_entree_file",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -1740,7 +1742,8 @@
     },
     {
         "reference": "RealisationTache_cache_date_debut_live_coding_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationTache_cache_date_debut_live_coding",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -1777,7 +1780,8 @@
     },
     {
         "reference": "RealisationTache_cache_delai_attente_minutes_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationTache_cache_delai_attente_minutes",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -1814,7 +1818,8 @@
     },
     {
         "reference": "RealisationTache_cache_session_live_coding_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationTache_cache_session_live_coding_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },

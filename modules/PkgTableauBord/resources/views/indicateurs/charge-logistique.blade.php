@@ -1,8 +1,8 @@
 @extends('layouts.admin-v2')
 
-@section('title', 'Détail Indicateur 04 — Charge Logistique Hebdomadaire du Formateur')
-@section('page_title', 'Indicateur 04 : Charge Logistique Hebdomadaire du Formateur (C_logistique)')
-@section('page_subtitle', 'Télémétrie d\'activité, temps passé sur le Kanban, la file d\'attente FIFO, les bordereaux et disponibilité pour le tutorat direct')
+@section('title', 'Détail Indicateur 04 — Charge Logistique Réelle du Formateur')
+@section('page_title', 'Indicateur 04 : Charge Logistique Réelle du Formateur (C_logistique)')
+@section('page_subtitle', 'Modèle déterministe par acte : conception de session, mobilisations d\'UA, tâches, affectations, suivi, validations et rédaction de feedbacks')
 
 @section('actions')
 <div class="flex items-center gap-2">
@@ -42,11 +42,6 @@
     },
     closeModal() {
         this.activeModalFormateur = null;
-    },
-    changeSemaine(semaine) {
-        const url = new URL(window.location.href);
-        url.searchParams.set('semaine', semaine);
-        window.location.href = url.toString();
     }
 }">
 
@@ -56,11 +51,11 @@
             <div class="space-y-1.5">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 flex items-center gap-1.5">
-                        <i class="fas fa-clock text-indigo-500"></i>
+                        <i class="fas fa-calculator text-indigo-500"></i>
                         <span>Indicateur Clé #04</span>
                     </span>
                     <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">
-                        Plafond Cible : &le; {{ $detail['cible_max'] }}h / sem
+                        Plafond Cible : &le; {{ $detail['cible_max'] }}h
                     </span>
                     <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                         Optimal : &le; {{ $detail['seuil_optimal'] }}h
@@ -73,42 +68,32 @@
                             <i class="fas fa-globe text-[11px] text-emerald-600"></i>
                             <span>Vision Globale ({{ $detail['nombre_formateurs'] }} formateurs)</span>
                         </span>
+                    @elseif($projetActif)
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 truncate max-w-[280px]">
+                            Session : {{ $projetActif->titre }}
+                        </span>
                     @endif
                 </div>
                 <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                    Charge Logistique Hebdomadaire du Formateur (C<sub>logistique</sub>)
+                    Charge Logistique Réelle du Formateur (C<sub>logistique</sub>)
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-500 max-w-4xl leading-relaxed">
-                    Mesure le temps actif consacré aux micro-tâches de gestion : pilotage Kanban, arbitrage de la file FIFO d'évaluation et exports de bordereaux. L'objectif pédagogique est de minimiser la bureaucratie pour sanctuariser un maximum de temps dédié au tutorat direct (&ge; 90% d'une semaine de 35h).
+                    Évaluation déterministe basée sur les actes réels de gestion : modélisation de session, mobilisations d'UA (1 min), conception des tâches (3 min), affectation (3 min), suivi opérationnel (1 min), validations (1 min) et rédaction de feedbacks personnalisés (1 à 5 min max par tâche). La consultation du Tableau de bord (pédagogie pure) et la génération des notes (automatisée) sont décomptées à 0 min.
                 </p>
             </div>
 
-            <!-- Sélecteur de Semaine & Synthèse Équipe -->
-            <div class="shrink-0 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-slate-50 p-3.5 rounded-lg border border-slate-200">
-                <div class="flex flex-col gap-1">
-                    <label for="select-semaine" class="text-[10px] uppercase font-bold text-slate-500 tracking-wider flex items-center gap-1">
-                        <i class="fas fa-calendar-week text-slate-400"></i>
-                        <span>Semaine Analysée</span>
-                    </label>
-                    <select id="select-semaine" 
-                            class="bg-white border border-slate-300 text-slate-800 text-xs font-bold rounded-md px-2.5 py-1.5 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-                            @change="changeSemaine($event.target.value)">
-                        @foreach($detail['semaines_disponibles'] as $sem)
-                            <option value="{{ $sem }}" {{ $sem === $detail['semaine'] ? 'selected' : '' }}>
-                                Semaine {{ $sem }} {{ $sem === now()->format('o-\WW') ? '(En cours)' : '' }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="hidden sm:block h-10 w-px bg-slate-200"></div>
+            <!-- Synthèse Globale -->
+            <div class="shrink-0 flex items-center gap-4 bg-slate-50 p-3.5 rounded-lg border border-slate-200">
                 <div class="text-center px-1">
-                    <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Moyenne Équipe</span>
+                    <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">
+                        {{ $projetActif ? 'Charge Session' : 'Moyenne Formateur' }}
+                    </span>
                     <span class="text-2xl sm:text-3xl font-black {{ $detail['charge_moyenne_heures'] <= $detail['seuil_optimal'] ? 'text-emerald-700' : ($detail['charge_moyenne_heures'] <= $detail['seuil_alerte'] ? 'text-amber-600' : 'text-rose-700') }} font-mono">
                         {{ $detail['charge_moyenne_formatee'] }}
                     </span>
-                    <span class="text-[10px] text-slate-500 block font-medium">/ sem / formateur</span>
+                    <span class="text-[10px] text-slate-500 block font-medium">heures estimées</span>
                 </div>
-                <div class="hidden sm:block h-10 w-px bg-slate-200"></div>
+                <div class="h-10 w-px bg-slate-200"></div>
                 <div class="text-center px-1">
                     <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Disponibilité Tutorat</span>
                     <span class="text-2xl sm:text-3xl font-black text-emerald-700 font-mono">
@@ -123,10 +108,10 @@
     <!-- 5 Cartes Métriques Clés -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
 
-        {{-- 1. Charge Moyenne Équipe --}}
+        {{-- 1. Charge Totale --}}
         <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-2xs hover:shadow-sm transition">
             <div class="flex items-start justify-between gap-2 mb-2">
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Charge Moyenne</span>
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Charge Totale</span>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold {{ $detail['statut_badge'] }}">
                     {{ $detail['statut'] }}
                 </span>
@@ -135,13 +120,13 @@
                 <span class="text-2xl sm:text-3xl font-black text-slate-900 font-mono">
                     {{ $detail['charge_moyenne_formatee'] }}
                 </span>
-                <span class="text-xs text-slate-400 font-medium">/ sem</span>
+                <span class="text-xs text-slate-400 font-medium">estimée</span>
             </div>
             <p class="text-xs text-slate-500 leading-snug">
-                Plafond cible didactique fixé à &le; {{ $detail['cible_max'] }}h.
+                Plafond cible fixé à &le; {{ $detail['cible_max'] }}h.
             </p>
             <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-                <span>Temps total équipe :</span>
+                <span>Volume équipe :</span>
                 <strong class="font-mono text-slate-800">{{ $detail['total_heures_equipe_formate'] }}</strong>
             </div>
         </div>
@@ -150,7 +135,7 @@
         <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-2xs hover:shadow-sm transition">
             <div class="flex items-start justify-between gap-2 mb-2">
                 <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Disponibilité Tutorat</span>
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono">
                     &ge; 90% cible
                 </span>
             </div>
@@ -160,94 +145,91 @@
                 </span>
             </div>
             <p class="text-xs text-slate-500 leading-snug">
-                Part du temps hebdomadaire préservée pour l'accompagnement des apprenants.
+                Temps sanctuarisé pour l'encadrement direct et le coaching des apprenants.
             </p>
             <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-                <span>Temps résiduel :</span>
-                <strong class="font-mono text-slate-800">~{{ round(35.0 - $detail['charge_moyenne_heures'], 1) }}h / sem</strong>
+                <span>Temps coaching :</span>
+                <strong class="font-mono text-slate-800">~{{ round(max(0, 35.0 - $detail['charge_moyenne_heures']), 1) }}h / sem</strong>
             </div>
         </div>
 
-        {{-- 3. Pilotage Kanban --}}
+        {{-- 3. Conception & Préparation --}}
         <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-2xs hover:shadow-sm transition">
             <div class="flex items-start justify-between gap-2 mb-2">
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Pilotage Kanban</span>
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Conception Session</span>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 font-mono">
-                    {{ $detail['details_globaux']['pilotage_pct'] }}% mix
+                    {{ $detail['details_globaux']['conception_pct'] }}% mix
                 </span>
             </div>
             <div class="flex items-baseline gap-2 mb-1">
                 <span class="text-2xl sm:text-3xl font-black text-indigo-700 font-mono">
-                    {{ $detail['details_globaux']['pilotage_heures'] }}h
+                    {{ $detail['details_globaux']['conception_heures'] }}h
                 </span>
-                <span class="text-xs text-slate-400 font-medium font-mono">({{ $detail['details_globaux']['pilotage_formate'] }})</span>
             </div>
             <p class="text-xs text-slate-500 leading-snug">
-                Supervision des colonnes de tâches et synchronisation globale du projet.
+                Projets (15m), UA (1m), Tâches (3m), Affectation (3m).
             </p>
             <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-                <span>Catégorie :</span>
-                <span class="font-mono text-slate-700">PILOTAGE_KANBAN</span>
+                <span>Poste :</span>
+                <span class="font-mono text-slate-700">T_conception</span>
             </div>
         </div>
 
-        {{-- 4. File FIFO d'Évaluation --}}
+        {{-- 4. Suivi Opérationnel --}}
         <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-2xs hover:shadow-sm transition">
             <div class="flex items-start justify-between gap-2 mb-2">
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">File FIFO Évaluation</span>
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Suivi Opérationnel</span>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-sky-50 text-sky-700 border border-sky-200 font-mono">
-                    {{ $detail['details_globaux']['file_pct'] }}% mix
+                    {{ $detail['details_globaux']['suivi_pct'] }}% mix
                 </span>
             </div>
             <div class="flex items-baseline gap-2 mb-1">
                 <span class="text-2xl sm:text-3xl font-black text-sky-700 font-mono">
-                    {{ $detail['details_globaux']['file_heures'] }}h
+                    {{ $detail['details_globaux']['suivi_heures'] }}h
                 </span>
-                <span class="text-xs text-slate-400 font-medium font-mono">({{ $detail['details_globaux']['file_formate'] }})</span>
             </div>
             <p class="text-xs text-slate-500 leading-snug">
-                Dépilage prioritaire des revues de code et passage des Live Codings.
+                Suivi individuel des tâches assignées (1 min / tâche suivie).
             </p>
             <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-                <span>Catégorie :</span>
-                <span class="font-mono text-slate-700">GESTION_FILE_FIFO</span>
+                <span>Poste :</span>
+                <span class="font-mono text-slate-700">T_suivi</span>
             </div>
         </div>
 
-        {{-- 5. Bordereaux & Notes --}}
+        {{-- 5. Validations & Feedbacks --}}
         <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-2xs hover:shadow-sm transition">
             <div class="flex items-start justify-between gap-2 mb-2">
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Bordereaux & Notes</span>
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Validations & Feedbacks</span>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200 font-mono">
-                    {{ $detail['details_globaux']['bordereaux_pct'] }}% mix
+                    {{ $detail['details_globaux']['validation_pct'] + $detail['details_globaux']['feedback_pct'] }}% mix
                 </span>
             </div>
             <div class="flex items-baseline gap-2 mb-1">
                 <span class="text-2xl sm:text-3xl font-black text-amber-700 font-mono">
-                    {{ $detail['details_globaux']['bordereaux_heures'] }}h
+                    {{ round($detail['details_globaux']['validation_heures'] + $detail['details_globaux']['feedback_heures'], 1) }}h
                 </span>
-                <span class="text-xs text-slate-400 font-medium font-mono">({{ $detail['details_globaux']['bordereaux_formate'] }})</span>
             </div>
             <p class="text-xs text-slate-500 leading-snug">
-                Génération des rapports, consolidation des notes et exports docimologiques.
+                Validations livrables (1m) et feedbacks écrits (1 à 5m max/tâche).
             </p>
             <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-                <span>Catégorie :</span>
-                <span class="font-mono text-slate-700">EXPORT_BORDEREAU</span>
+                <span>Postes :</span>
+                <span class="font-mono text-slate-700">T_val + T_feedback</span>
             </div>
         </div>
     </div>
 
-    <!-- Ventilation Visuelle du Mix d'Activité Télémesuré -->
+    <!-- Ventilation Visuelle du Mix d'Activité Déterministe -->
     <section class="bg-white rounded-lg border border-slate-200 p-5 shadow-xs space-y-3">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
                 <h2 class="text-sm font-bold text-slate-900 flex items-center gap-2">
                     <i class="fas fa-chart-pie text-indigo-500"></i>
-                    <span>Ventilation du Mix de Micro-Gestion Administrative (Semaine {{ $detail['semaine'] }})</span>
+                    <span>Ventilation Proportionnelle de l'Effort Logistique Réel</span>
                 </h2>
                 <p class="text-xs text-slate-500">
-                    Répartition en pourcentage du temps actif mesuré par la télémétrie navigateur (exclusion automatique de l'inactivité après {{ $detail['timeout_inactivite'] }} min).
+                    Répartition de la charge logistique calculée sur les actes didactiques réels enregistrés en base de données.
                 </p>
             </div>
             <span class="text-xs font-mono font-bold text-slate-600 bg-slate-100 px-2.5 py-1 rounded">
@@ -258,61 +240,74 @@
         <!-- Jauge d'activité segmentée -->
         <div class="w-full h-4 bg-slate-100 rounded-full overflow-hidden flex shadow-inner">
             <div class="bg-indigo-600 transition-all duration-500" 
-                 style="width: {{ $detail['details_globaux']['pilotage_pct'] }}%" 
-                 title="Pilotage Kanban : {{ $detail['details_globaux']['pilotage_pct'] }}% ({{ $detail['details_globaux']['pilotage_heures'] }}h)"></div>
+                 style="width: {{ $detail['details_globaux']['conception_pct'] }}%" 
+                 title="Conception : {{ $detail['details_globaux']['conception_pct'] }}% ({{ $detail['details_globaux']['conception_heures'] }}h)"></div>
             <div class="bg-sky-500 transition-all duration-500" 
-                 style="width: {{ $detail['details_globaux']['file_pct'] }}%" 
-                 title="File FIFO : {{ $detail['details_globaux']['file_pct'] }}% ({{ $detail['details_globaux']['file_heures'] }}h)"></div>
+                 style="width: {{ $detail['details_globaux']['suivi_pct'] }}%" 
+                 title="Suivi Opérationnel : {{ $detail['details_globaux']['suivi_pct'] }}% ({{ $detail['details_globaux']['suivi_heures'] }}h)"></div>
+            <div class="bg-emerald-500 transition-all duration-500" 
+                 style="width: {{ $detail['details_globaux']['validation_pct'] }}%" 
+                 title="Validations : {{ $detail['details_globaux']['validation_pct'] }}% ({{ $detail['details_globaux']['validation_heures'] }}h)"></div>
             <div class="bg-amber-500 transition-all duration-500" 
-                 style="width: {{ $detail['details_globaux']['bordereaux_pct'] }}%" 
-                 title="Bordereaux : {{ $detail['details_globaux']['bordereaux_pct'] }}% ({{ $detail['details_globaux']['bordereaux_heures'] }}h)"></div>
+                 style="width: {{ $detail['details_globaux']['feedback_pct'] }}%" 
+                 title="Feedbacks : {{ $detail['details_globaux']['feedback_pct'] }}% ({{ $detail['details_globaux']['feedback_heures'] }}h)"></div>
         </div>
 
-        <!-- Légende didactique -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs">
+        <!-- Légende didactique avec barèmes paramétrés -->
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 pt-2 text-xs">
             <div class="flex items-start gap-2 p-2 rounded-lg bg-indigo-50/50 border border-indigo-100">
                 <span class="w-3 h-3 rounded-full bg-indigo-600 shrink-0 mt-0.5"></span>
                 <div>
                     <div class="flex items-center gap-1.5 font-bold text-slate-800">
-                        <span>Pilotage Kanban</span>
-                        <span class="text-indigo-700 font-mono">({{ $detail['details_globaux']['pilotage_pct'] }}%)</span>
+                        <span>Conception Didactique</span>
+                        <span class="text-indigo-700 font-mono">({{ $detail['details_globaux']['conception_pct'] }}%)</span>
                     </div>
-                    <span class="text-[11px] text-slate-500 block">Temps actif passé sur le tableau de suivi des tâches du projet.</span>
+                    <span class="text-[11px] text-slate-500 block">Projets (15m), UA (1m), Tâches (3m), Affectation (3m).</span>
                 </div>
             </div>
             <div class="flex items-start gap-2 p-2 rounded-lg bg-sky-50/50 border border-sky-100">
                 <span class="w-3 h-3 rounded-full bg-sky-500 shrink-0 mt-0.5"></span>
                 <div>
                     <div class="flex items-center gap-1.5 font-bold text-slate-800">
-                        <span>File d'Attente FIFO</span>
-                        <span class="text-sky-700 font-mono">({{ $detail['details_globaux']['file_pct'] }}%)</span>
+                        <span>Suivi Opérationnel</span>
+                        <span class="text-sky-700 font-mono">({{ $detail['details_globaux']['suivi_pct'] }}%)</span>
                     </div>
-                    <span class="text-[11px] text-slate-500 block">Organisation et dépilage des demandes de validation d'étapes.</span>
+                    <span class="text-[11px] text-slate-500 block">1 min forfaitaire par tâche assignée et suivie.</span>
+                </div>
+            </div>
+            <div class="flex items-start gap-2 p-2 rounded-lg bg-emerald-50/50 border border-emerald-100">
+                <span class="w-3 h-3 rounded-full bg-emerald-500 shrink-0 mt-0.5"></span>
+                <div>
+                    <div class="flex items-center gap-1.5 font-bold text-slate-800">
+                        <span>Validations Pédagogiques</span>
+                        <span class="text-emerald-700 font-mono">({{ $detail['details_globaux']['validation_pct'] }}%)</span>
+                    </div>
+                    <span class="text-[11px] text-slate-500 block">1 min par livrable approuvé dans le workflow.</span>
                 </div>
             </div>
             <div class="flex items-start gap-2 p-2 rounded-lg bg-amber-50/50 border border-amber-100">
                 <span class="w-3 h-3 rounded-full bg-amber-500 shrink-0 mt-0.5"></span>
                 <div>
                     <div class="flex items-center gap-1.5 font-bold text-slate-800">
-                        <span>Bordereaux & Exports</span>
-                        <span class="text-amber-700 font-mono">({{ $detail['details_globaux']['bordereaux_pct'] }}%)</span>
+                        <span>Feedbacks Écrits</span>
+                        <span class="text-amber-700 font-mono">({{ $detail['details_globaux']['feedback_pct'] }}%)</span>
                     </div>
-                    <span class="text-[11px] text-slate-500 block">Exportation des relevés et formalisation des notes docimologiques.</span>
+                    <span class="text-[11px] text-slate-500 block">1 à 5 min par feedback distinct (max 5 min/tâche).</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Tableau Comparatif (Benchmark Équipe Formateurs) -->
+    <!-- Tableau Comparatif (Benchmark Formateurs) -->
     <section class="bg-white rounded-lg border border-slate-200 shadow-xs overflow-hidden">
         <div class="p-4 sm:p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
                 <h2 class="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-2">
                     <i class="fas fa-users-gear text-indigo-500"></i>
-                    <span>Benchmark Individuel des Formateurs (Semaine {{ $detail['semaine'] }})</span>
+                    <span>Benchmark Individuel des Actes Logistiques par Formateur</span>
                 </h2>
                 <p class="text-xs text-slate-500">
-                    Détection des surcharges administratives individuelles et préservation de la disponibilité tutorat.
+                    Décomposition quantitative des actes réels et calcul déterministe de la charge administrative.
                 </p>
             </div>
 
@@ -361,20 +356,21 @@
                 <thead>
                     <tr class="bg-slate-50/80 border-b border-slate-200 text-slate-500 font-semibold uppercase tracking-wider text-[11px]">
                         <th class="py-3 px-4">Formateur</th>
-                        <th class="py-3 px-3 text-center">Temps Logistique (C<sub>logistique</sub>)</th>
-                        <th class="py-3 px-3 text-center">Pilotage Kanban</th>
-                        <th class="py-3 px-3 text-center">File FIFO</th>
-                        <th class="py-3 px-3 text-center">Bordereaux</th>
+                        <th class="py-3 px-3 text-center">Charge Totale (C<sub>logistique</sub>)</th>
+                        <th class="py-3 px-3 text-center">Conception</th>
+                        <th class="py-3 px-3 text-center">Suivi Tâches</th>
+                        <th class="py-3 px-3 text-center">Validations</th>
+                        <th class="py-3 px-3 text-center">Feedbacks</th>
                         <th class="py-3 px-3 text-center">Disponibilité Tutorat</th>
                         <th class="py-3 px-3 text-center">Statut Didactique</th>
-                        <th class="py-3 px-4 text-right">Action</th>
+                        <th class="py-3 px-4 text-right">Décompte</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100 text-slate-700">
                     @forelse($detail['benchmark'] as $f)
                     <tr class="hover:bg-slate-50/80 transition"
                         x-show="(statusFilter === 'tous' || statusFilter === '{{ $f['zone'] }}') && 
-                                ('{{ addslashes(strtolower($f['nom'])) }}'.includes(searchQuery.toLowerCase()) || 
+                                ('{{ addslashes(strtolower($f['formateur_nom'])) }}'.includes(searchQuery.toLowerCase()) || 
                                  '{{ addslashes(strtolower($f['matricule'])) }}'.includes(searchQuery.toLowerCase()))">
                         
                         {{-- Formateur --}}
@@ -384,7 +380,7 @@
                                     {{ $f['initiales'] }}
                                 </div>
                                 <div class="min-w-0">
-                                    <div class="font-bold text-slate-900 truncate">{{ $f['nom'] }}</div>
+                                    <div class="font-bold text-slate-900 truncate">{{ $f['formateur_nom'] }}</div>
                                     <div class="text-[10px] text-slate-400 font-mono">Matricule : {{ $f['matricule'] }}</div>
                                 </div>
                             </div>
@@ -405,22 +401,30 @@
                             </div>
                         </td>
 
-                        {{-- Pilotage Kanban --}}
+                        {{-- Conception --}}
                         <td class="py-3 px-3 text-center">
-                            <div class="font-mono font-bold text-indigo-700">{{ $f['pilotage_heures'] }}h</div>
-                            <span class="text-[10px] text-slate-400 font-mono">{{ $f['pilotage_pct'] }}%</span>
+                            <div class="font-mono font-bold text-indigo-700">{{ $f['details']['conception_heures'] }}h</div>
+                            <span class="text-[10px] text-slate-400 font-mono">
+                                {{ $f['quantites']['nb_projets'] }}P / {{ $f['quantites']['nb_mobilisations'] }}UA / {{ $f['quantites']['nb_taches_creees'] }}T
+                            </span>
                         </td>
 
-                        {{-- File FIFO --}}
+                        {{-- Suivi Opérationnel --}}
                         <td class="py-3 px-3 text-center">
-                            <div class="font-mono font-bold text-sky-700">{{ $f['file_heures'] }}h</div>
-                            <span class="text-[10px] text-slate-400 font-mono">{{ $f['file_pct'] }}%</span>
+                            <div class="font-mono font-bold text-sky-700">{{ $f['details']['suivi_heures'] }}h</div>
+                            <span class="text-[10px] text-slate-400 font-mono">{{ $f['quantites']['nb_suivi'] }} tâches</span>
                         </td>
 
-                        {{-- Bordereaux --}}
+                        {{-- Validations --}}
                         <td class="py-3 px-3 text-center">
-                            <div class="font-mono font-bold text-amber-700">{{ $f['bordereaux_heures'] }}h</div>
-                            <span class="text-[10px] text-slate-400 font-mono">{{ $f['bordereaux_pct'] }}%</span>
+                            <div class="font-mono font-bold text-emerald-700">{{ $f['details']['validation_heures'] }}h</div>
+                            <span class="text-[10px] text-slate-400 font-mono">{{ $f['quantites']['nb_validations'] }} validées</span>
+                        </td>
+
+                        {{-- Feedbacks --}}
+                        <td class="py-3 px-3 text-center">
+                            <div class="font-mono font-bold text-amber-700">{{ $f['details']['feedback_heures'] }}h</div>
+                            <span class="text-[10px] text-slate-400 font-mono">{{ $f['quantites']['nb_feedbacks_distincts'] }} feedbacks</span>
                         </td>
 
                         {{-- Disponibilité Tutorat Direct --}}
@@ -443,15 +447,15 @@
                             <button type="button" 
                                     @click="openModal({{ json_encode($f) }})" 
                                     class="inline-flex items-center gap-1 px-2.5 py-1 rounded border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50/50 text-slate-600 hover:text-indigo-700 transition font-medium text-xs">
-                                <i class="fas fa-eye text-[10px]"></i>
-                                <span>Détails</span>
+                                <i class="fas fa-list-check text-[10px]"></i>
+                                <span>Décompte</span>
                             </button>
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="8" class="text-center py-8 text-slate-400">
-                            Aucune activité télémétrée enregistrée pour la semaine sélectionnée.
+                        <td colspan="9" class="text-center py-8 text-slate-400">
+                            Aucune activité enregistrée pour le contexte sélectionné.
                         </td>
                     </tr>
                     @endforelse
@@ -460,71 +464,41 @@
         </div>
     </section>
 
-    <!-- Historique Multi-Semaines (Tendance & Évolution) -->
-    @if(count($detail['historique_semaines']) > 1)
-    <section class="bg-white rounded-lg border border-slate-200 p-5 shadow-xs space-y-4">
-        <div>
-            <h2 class="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-2">
-                <i class="fas fa-chart-line text-indigo-500"></i>
-                <span>Évolution Temporelle de la Charge Logistique (Semaines Antérieures)</span>
-            </h2>
-            <p class="text-xs text-slate-500">
-                Suivi plurimensuel pour vérifier l'efficacité des simplifications de processus et de l'automatisation LMS.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-            @foreach($detail['historique_semaines'] as $h)
-            <div class="p-3.5 rounded-lg border {{ $h['semaine'] === $detail['semaine'] ? 'bg-indigo-50/40 border-indigo-200 ring-1 ring-indigo-300' : 'bg-slate-50 border-slate-200' }} space-y-2">
-                <div class="flex items-center justify-between text-xs">
-                    <span class="font-bold text-slate-800">{{ $h['semaine'] }}</span>
-                    @if($h['semaine'] === $detail['semaine'])
-                        <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-indigo-600 text-white">Sélectionnée</span>
-                    @endif
-                </div>
-                <div class="flex items-baseline justify-between">
-                    <span class="text-xl font-black text-slate-900 font-mono">{{ $h['charge_moyenne_formatee'] }}</span>
-                    <span class="text-[11px] font-mono text-emerald-700 font-bold">{{ $h['taux_dispo'] }}% dispo</span>
-                </div>
-                <div class="text-[10px] text-slate-500 grid grid-cols-3 gap-1 pt-1 border-t border-slate-200/60 font-mono">
-                    <div>K: {{ $h['pilotage_heures'] }}h</div>
-                    <div>F: {{ $h['file_heures'] }}h</div>
-                    <div>B: {{ $h['bordereaux_heures'] }}h</div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </section>
-    @endif
-
     <!-- Guide Méthodologique & Explication Didactique -->
     <div class="bg-slate-50 rounded-lg border border-slate-200 p-4 sm:p-5 text-xs text-slate-600 space-y-2">
         <h3 class="font-bold text-slate-900 flex items-center gap-1.5 text-xs">
             <i class="fas fa-circle-info text-indigo-500"></i>
-            <span>Méthodologie de Mesure de la Charge Logistique (C<sub>logistique</sub>)</span>
+            <span>Méthodologie Déterministe de Calcul de la Charge Logistique (C<sub>logistique</sub>)</span>
         </h3>
         <p class="leading-relaxed">
-            La charge logistique hebdomadaire mesure le temps actif passé par les formateurs sur les interfaces administratives de la plateforme :
+            Contrairement à la télémétrie passive qui enregistrait indistinctement le temps d'écran, ce modèle comptabilise **les actes réels de gestion** selon des temps unitaires calibrés :
         </p>
-        <ul class="list-disc list-inside space-y-1 text-slate-600 ps-1">
-            <li><strong>Télémétrie active continue :</strong> Un battement de cœur (heartbeat ping) est transmis toutes les 60 secondes tant que le formateur interagit avec l'application.</li>
-            <li><strong>Verrou d'inactivité didactique :</strong> Après <strong>{{ $detail['timeout_inactivite'] }} minutes sans interaction</strong> (clics, défilement, frappes), le chronométrage s'arrête automatiquement pour exclure le temps de veille passif.</li>
-            <li><strong>Sanctuarisation du tutorat :</strong> Le temps restant (cible &ge; 90% d'une semaine de 35h) est préservé pour les interactions directes, revues orales et ateliers de remédiation en présentiel.</li>
-        </ul>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+            <ul class="list-disc list-inside space-y-1 text-slate-600 ps-1">
+                <li><strong>Conception de session :</strong> 15 min par projet + 1 min par mobilisation d'UA + 3 min par tâche rédigée + 3 min par affectation à un groupe.</li>
+                <li><strong>Suivi opérationnel :</strong> 1 min forfaitaire par tâche assignée pour le contrôle de progression dans le kanban.</li>
+                <li><strong>Validation pédagogique :</strong> 1 min par livrable approuvé (passage à l'état VALIDEE).</li>
+            </ul>
+            <ul class="list-disc list-inside space-y-1 text-slate-600 ps-1">
+                <li><strong>Feedbacks personnalisés :</strong> 1 à 5 min par feedback distinct, avec un plafond strict de 5 min par tâche pour éviter les doublons lors des envois en masse.</li>
+                <li><strong>Consultation du Dashboard (0 min) :</strong> Reconnue comme un acte d'observation pédagogique et d'évaluation formative, exclue de la bureaucratie.</li>
+                <li><strong>Génération des notes (0 min) :</strong> Processus automatisé instantanément par le moteur docimologique de SoliLMS.</li>
+            </ul>
+        </div>
     </div>
 
-    <!-- Modale Détail Individuel Formateur -->
+    <!-- Modale Décompte Détaillé Formateur -->
     <template x-if="activeModalFormateur">
         <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs"
              @click.self="closeModal()"
              @keydown.escape.window="closeModal()">
-            <div class="bg-white rounded-xl shadow-xl border border-slate-200 max-w-lg w-full p-5 space-y-4">
+            <div class="bg-white rounded-xl shadow-xl border border-slate-200 max-w-2xl w-full p-5 space-y-4 max-h-[90vh] overflow-y-auto">
                 <div class="flex items-start justify-between border-b border-slate-100 pb-3">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-full bg-indigo-50 text-indigo-700 font-bold flex items-center justify-center text-sm"
                              x-text="activeModalFormateur?.initiales"></div>
                         <div>
-                            <h4 class="font-bold text-slate-900" x-text="activeModalFormateur?.nom"></h4>
+                            <h4 class="font-bold text-slate-900" x-text="activeModalFormateur?.formateur_nom"></h4>
                             <span class="text-xs text-slate-400 font-mono" x-text="'Matricule : ' + activeModalFormateur?.matricule"></span>
                         </div>
                     </div>
@@ -533,10 +507,11 @@
                     </button>
                 </div>
 
-                <div class="space-y-3 text-xs">
-                    <div class="grid grid-cols-2 gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200 font-mono">
+                <div class="space-y-4 text-xs">
+                    <!-- Synthèse Formateur -->
+                    <div class="grid grid-cols-3 gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200 font-mono text-center">
                         <div>
-                            <span class="text-slate-400 block text-[10px] uppercase font-sans">Temps Total Détecté</span>
+                            <span class="text-slate-400 block text-[10px] uppercase font-sans">Charge Logistique</span>
                             <strong class="text-slate-900 text-base" x-text="activeModalFormateur?.total_heures_dec"></strong>
                             <span class="text-slate-500 block text-[10px]" x-text="'(' + activeModalFormateur?.total_heures_formate + ')'"></span>
                         </div>
@@ -545,56 +520,56 @@
                             <strong class="text-emerald-700 text-base" x-text="activeModalFormateur?.taux_disponibilite + '%'"></strong>
                             <span class="text-slate-500 block text-[10px]">base 35h</span>
                         </div>
+                        <div>
+                            <span class="text-slate-400 block text-[10px] uppercase font-sans">Diagnostic</span>
+                            <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold mt-1"
+                                  :class="activeModalFormateur?.badge_class"
+                                  x-text="activeModalFormateur?.badge_label"></span>
+                        </div>
                     </div>
 
-                    <div class="space-y-2 pt-1">
-                        <span class="font-bold text-slate-700 block">Détail par catégorie télémétrique :</span>
-                        
-                        <div class="p-2 rounded border border-slate-100 flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <span class="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
-                                <span class="text-slate-700 font-medium">Pilotage Kanban</span>
-                            </div>
-                            <div class="text-right font-mono">
-                                <strong class="text-indigo-700" x-text="activeModalFormateur?.pilotage_heures + 'h'"></strong>
-                                <span class="text-slate-400 text-[10px]" x-text="' (' + activeModalFormateur?.pilotage_pct + '%)'"></span>
-                            </div>
-                        </div>
-
-                        <div class="p-2 rounded border border-slate-100 flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span>
-                                <span class="text-slate-700 font-medium">File FIFO Évaluation</span>
-                            </div>
-                            <div class="text-right font-mono">
-                                <strong class="text-sky-700" x-text="activeModalFormateur?.file_heures + 'h'"></strong>
-                                <span class="text-slate-400 text-[10px]" x-text="' (' + activeModalFormateur?.file_pct + '%)'"></span>
-                            </div>
-                        </div>
-
-                        <div class="p-2 rounded border border-slate-100 flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-                                <span class="text-slate-700 font-medium">Bordereaux & Exports</span>
-                            </div>
-                            <div class="text-right font-mono">
-                                <strong class="text-amber-700" x-text="activeModalFormateur?.bordereaux_heures + 'h'"></strong>
-                                <span class="text-slate-400 text-[10px]" x-text="' (' + activeModalFormateur?.bordereaux_pct + '%)'"></span>
-                            </div>
+                    <!-- Décomposition Arithmétique Tableau -->
+                    <div class="space-y-2">
+                        <h5 class="font-bold text-slate-800 text-xs">Décomposition Arithmétique par Acte de Gestion :</h5>
+                        <div class="overflow-x-auto border border-slate-200 rounded-lg">
+                            <table class="w-full text-left text-xs border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200 text-slate-500 font-semibold text-[10px] uppercase tracking-wider">
+                                        <th class="p-2">Poste</th>
+                                        <th class="p-2">Activité / Acte</th>
+                                        <th class="p-2 text-center">Quantité</th>
+                                        <th class="p-2 text-center">Barème Unitaire</th>
+                                        <th class="p-2 text-right">Temps Estimé</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 text-slate-700 font-mono text-[11px]">
+                                    <template x-for="(item, idx) in activeModalFormateur?.decompte_items" :key="idx">
+                                        <tr class="hover:bg-slate-50/60">
+                                            <td class="p-2 font-bold font-sans" 
+                                                :class="item.poste === 'Conception' ? 'text-indigo-600' : (item.poste === 'Suivi' ? 'text-sky-600' : (item.poste === 'Validation' ? 'text-emerald-600' : (item.poste === 'Feedbacks' ? 'text-amber-600' : 'text-slate-400')))" 
+                                                x-text="item.poste"></td>
+                                            <td class="p-2 font-sans text-slate-800" x-text="item.action"></td>
+                                            <td class="p-2 text-center" x-text="item.quantite"></td>
+                                            <td class="p-2 text-center text-slate-500 text-[10px]" x-text="item.bareme"></td>
+                                            <td class="p-2 text-right font-bold text-slate-900" x-text="item.total_heures + 'h'"></td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 
                     <div class="p-3 rounded-lg border text-xs"
                          :class="activeModalFormateur?.zone === 'alerte' ? 'bg-rose-50 border-rose-200 text-rose-800' : (activeModalFormateur?.zone === 'vigilance' ? 'bg-amber-50 border-amber-200 text-amber-800' : 'bg-emerald-50 border-emerald-200 text-emerald-800')">
-                        <strong class="block mb-1" x-text="'Diagnostic Didactique : ' + activeModalFormateur?.badge_label"></strong>
+                        <strong class="block mb-1" x-text="'Recommandation Didactique : ' + activeModalFormateur?.badge_label"></strong>
                         <template x-if="activeModalFormateur?.zone === 'optimal'">
-                            <span>Temps logistique exemplaire (&le; 2.5h). Le formateur consacre l'essentiel de sa semaine à l'accompagnement direct et aux rétroactions en direct.</span>
+                            <span>Charge logistique exemplaire. Le formateur consacre l'essentiel de sa semaine à l'accompagnement direct et aux rétroactions formatives.</span>
                         </template>
                         <template x-if="activeModalFormateur?.zone === 'vigilance'">
-                            <span>Temps administratif notable. Il est conseillé de grouper les validations de tâches et d'utiliser les raccourcis de navigation pour limiter la charge mentale.</span>
+                            <span>Charge administrative notable. Veiller à ce que les tâches de conception et de saisie de remarques n'érodent pas le temps de coaching en présentiel.</span>
                         </template>
                         <template x-if="activeModalFormateur?.zone === 'alerte'">
-                            <span>Surcharge bureaucratique critique (&gt; 5h). Identifier si le formateur rencontre des difficultés avec les exports ou passe un temps excessif sur la file d'attente.</span>
+                            <span>Surcharge bureaucratique critique. Il est recommandé de mutualiser les projets ou de simplifier les tâches d'évaluation pour libérer du temps apprenant.</span>
                         </template>
                     </div>
                 </div>

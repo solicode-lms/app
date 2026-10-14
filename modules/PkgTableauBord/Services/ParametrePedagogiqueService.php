@@ -222,8 +222,48 @@ class ParametrePedagogiqueService
     }
 
     // =========================================================================
-    // ACCESSEURS SPÉCIFIQUES - INDICATEUR 04 : C_LOGISTIQUE
+    // ACCESSEURS SPÉCIFIQUES - INDICATEUR 04 : C_LOGISTIQUE (Temps Prédéterminés par Acte)
     // =========================================================================
+
+    public function getTempsCreationProjetMinutes(?int $projetId = null): int
+    {
+        return (int) $this->get('charge_logistique_creation_projet_minutes', 15, $projetId);
+    }
+
+    public function getTempsMobilisationUaMinutes(?int $projetId = null): int
+    {
+        return (int) $this->get('charge_logistique_mobilisation_ua_minutes', 1, $projetId);
+    }
+
+    public function getTempsCreationTacheMinutes(?int $projetId = null): int
+    {
+        return (int) $this->get('charge_logistique_creation_tache_minutes', 3, $projetId);
+    }
+
+    public function getTempsAffectationGroupeMinutes(?int $projetId = null): int
+    {
+        return (int) $this->get('charge_logistique_affectation_groupe_minutes', 3, $projetId);
+    }
+
+    public function getTempsSuiviTacheMinutes(?int $projetId = null): int
+    {
+        return (int) $this->get('charge_logistique_suivi_tache_minutes', 1, $projetId);
+    }
+
+    public function getTempsValidationTacheMinutes(?int $projetId = null): int
+    {
+        return (int) $this->get('charge_logistique_validation_tache_minutes', 1, $projetId);
+    }
+
+    public function getTempsFeedbackMinMinutes(?int $projetId = null): float
+    {
+        return (float) $this->get('charge_logistique_feedback_min_minutes', 1.0, $projetId);
+    }
+
+    public function getTempsFeedbackMaxMinutes(?int $projetId = null): float
+    {
+        return (float) $this->get('charge_logistique_feedback_max_minutes', 5.0, $projetId);
+    }
 
     public function getPlafondChargeLogistiqueHeures(?int $projetId = null): float
     {
@@ -238,11 +278,6 @@ class ParametrePedagogiqueService
     public function getSeuilChargeAlerteHeures(?int $projetId = null): float
     {
         return (float) $this->get('charge_logistique_seuil_alerte_heures', 5.0, $projetId);
-    }
-
-    public function getTimeoutInactiviteMinutes(?int $projetId = null): int
-    {
-        return (int) $this->get('charge_logistique_timeout_inactivite_minutes', 5, $projetId);
     }
 
     // =========================================================================

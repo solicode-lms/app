@@ -4,15 +4,15 @@
 ])
 
 @if($type === 'formateur')
-    <!-- Carte KPI Formateur : Charge Administrative Hebdomadaire (C_logistique) -->
+    <!-- Carte KPI Formateur : Charge Logistique & Administrative (C_logistique) -->
     <div class="bg-white p-4 rounded-lg border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition duration-200 flex flex-col justify-between h-full relative group min-w-0">
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
                     <a href="{{ route('admin.PkgTableauBord.indicateurs.charge-logistique', array_merge(request()->query(), ['from' => 'formateur'])) }}" 
                        class="text-[11px] sm:text-xs font-bold text-slate-700 hover:text-indigo-600 leading-tight block line-clamp-2 transition" 
-                       title="Temps administratif hebdomadaire (C_logistique) — Cliquer pour le détail">
-                        <span>Temps administratif (C<sub>logistique</sub>)</span>
+                       title="Charge logistique basée sur les actes réels (C_logistique) — Cliquer pour le détail">
+                        <span>Charge administrative (C<sub>logistique</sub>)</span>
                         <i class="fas fa-arrow-up-right-from-square text-[9px] ms-0.5 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                     </a>
                 </div>
@@ -27,7 +27,7 @@
                     <span class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-mono">
                         {{ $kpi['total_heures_formate'] ?? '0h00' }}
                     </span>
-                    <span class="text-[11px] text-slate-400 font-medium">/ {{ $kpi['cible_max_heures'] ?? 3 }}h</span>
+                    <span class="text-[11px] text-slate-400 font-medium">/ {{ $kpi['cible_max_heures'] ?? 3 }}h cible</span>
                 </div>
                 <span class="text-xs font-bold text-slate-500 font-mono">{{ $kpi['pourcentage_cible'] ?? 0 }}%</span>
             </div>
@@ -38,30 +38,34 @@
                      style="width: {{ min(100, $kpi['pourcentage_cible'] ?? 0) }}%"></div>
             </div>
 
-            <!-- Ventilation Didactique des Micro-Tâches -->
-            <div class="pt-2 border-t border-slate-100 grid grid-cols-3 gap-1 text-[11px] text-center">
-                <div class="bg-slate-50 p-1.5 rounded-md border border-slate-100">
-                    <span class="text-slate-400 block text-[9px] uppercase tracking-wider font-semibold">Kanban</span>
-                    <strong class="text-slate-800 font-mono text-[11px]">{{ $kpi['details']['pilotage_formate'] ?? '0 min' }}</strong>
+            <!-- Ventilation Didactique des Actes Réels -->
+            <div class="pt-2 border-t border-slate-100 grid grid-cols-4 gap-1 text-[11px] text-center">
+                <div class="bg-slate-50 p-1 rounded-md border border-slate-100">
+                    <span class="text-slate-400 block text-[8px] uppercase tracking-wider font-semibold">Conception</span>
+                    <strong class="text-slate-800 font-mono text-[10px]">{{ $kpi['details']['conception_heures'] ?? 0 }}h</strong>
                 </div>
-                <div class="bg-slate-50 p-1.5 rounded-md border border-slate-100">
-                    <span class="text-slate-400 block text-[9px] uppercase tracking-wider font-semibold">File FIFO</span>
-                    <strong class="text-slate-800 font-mono text-[11px]">{{ $kpi['details']['file_formate'] ?? '0 min' }}</strong>
+                <div class="bg-slate-50 p-1 rounded-md border border-slate-100">
+                    <span class="text-slate-400 block text-[8px] uppercase tracking-wider font-semibold">Suivi</span>
+                    <strong class="text-slate-800 font-mono text-[10px]">{{ $kpi['details']['suivi_heures'] ?? 0 }}h</strong>
                 </div>
-                <div class="bg-slate-50 p-1.5 rounded-md border border-slate-100">
-                    <span class="text-slate-400 block text-[9px] uppercase tracking-wider font-semibold">Notes</span>
-                    <strong class="text-slate-800 font-mono text-[11px]">{{ $kpi['details']['bordereaux_formate'] ?? '0 min' }}</strong>
+                <div class="bg-slate-50 p-1 rounded-md border border-slate-100">
+                    <span class="text-slate-400 block text-[8px] uppercase tracking-wider font-semibold">Validation</span>
+                    <strong class="text-slate-800 font-mono text-[10px]">{{ $kpi['details']['validation_heures'] ?? 0 }}h</strong>
+                </div>
+                <div class="bg-slate-50 p-1 rounded-md border border-slate-100">
+                    <span class="text-slate-400 block text-[8px] uppercase tracking-wider font-semibold">Feedbacks</span>
+                    <strong class="text-slate-800 font-mono text-[10px]">{{ $kpi['details']['feedback_heures'] ?? 0 }}h</strong>
                 </div>
             </div>
         </div>
 
         <div>
             <div class="pt-2 mt-auto border-t border-slate-100 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs">
-                <span class="text-slate-500 font-medium truncate flex items-center gap-1.5" title="Verrou d'inactivité automatique après 5 minutes">
-                    <i class="fas fa-lock text-[10px] text-slate-400 shrink-0"></i>
-                    <span>Verrou : <strong class="text-slate-800">5 min</strong></span>
+                <span class="text-slate-500 font-medium truncate flex items-center gap-1.5" title="Disponibilité estimée pour le tutorat direct">
+                    <i class="fas fa-hand-holding-heart text-[10px] text-emerald-600 shrink-0"></i>
+                    <span>Tutorat : <strong class="text-slate-800 font-mono">{{ $kpi['taux_disponibilite'] ?? 100 }}%</strong></span>
                 </span>
-                <span class="text-emerald-700 font-semibold text-[11px] shrink-0">
+                <span class="text-emerald-700 font-semibold text-[11px] shrink-0 font-mono">
                     &le; 2.5h cible
                 </span>
             </div>
@@ -69,7 +73,7 @@
                 <span class="text-[10px] text-slate-400 font-medium">Indicateur #04</span>
                 <a href="{{ route('admin.PkgTableauBord.indicateurs.charge-logistique', array_merge(request()->query(), ['from' => 'formateur'])) }}" 
                    class="text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-1 transition"
-                   title="Consulter l'analyse détaillée de la charge logistique">
+                   title="Consulter l'analyse détaillée des actes administratifs">
                     <span>Analyse détaillée</span>
                     <i class="fas fa-arrow-right text-[9px] group-hover:translate-x-0.5 transition-transform"></i>
                 </a>
@@ -85,7 +89,7 @@
                 <div class="min-w-0 flex-1">
                     <a href="{{ route('admin.PkgTableauBord.indicateurs.charge-logistique', array_merge(request()->query(), ['from' => 'responsable'])) }}" 
                        class="text-[11px] sm:text-xs font-bold text-slate-700 hover:text-indigo-600 leading-tight block line-clamp-2 transition" 
-                       title="Temps administratif moyen (C_logistique) — Cliquer pour le détail">
+                       title="Charge logistique moyenne par formateur (C_logistique) — Cliquer pour le détail">
                         <span>Temps administratif moyen (C<sub>logistique</sub>)</span>
                         <i class="fas fa-arrow-up-right-from-square text-[9px] ms-0.5 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                     </a>
@@ -99,11 +103,11 @@
                 <span class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-mono">
                     {{ $kpi['charge_moyenne_heures'] ?? 0 }} h
                 </span>
-                <span class="text-[11px] text-slate-400 font-medium">/ sem / formateur</span>
+                <span class="text-[11px] text-slate-400 font-medium">moyenne / formateur</span>
             </div>
 
-            <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed mb-2" title="Moyenne hebdomadaire de micro-gestion administrative par formateur.">
-                Moyenne hebdomadaire de micro-gestion administrative par formateur.
+            <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed mb-2" title="Charge logistique calculée sur les actes réels (conception, suivi, validations, feedbacks).">
+                Charge logistique calculée sur les actes réels (conception, suivi, validations, feedbacks).
             </p>
         </div>
 

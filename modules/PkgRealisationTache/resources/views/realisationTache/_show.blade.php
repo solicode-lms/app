@@ -163,61 +163,6 @@
 
             </div>
             <div class="row no-gutters mb-4">
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.cache_nombre_revisions')) }}</small>
-                  <span>
-                    @if(! is_null($itemRealisationTache->cache_nombre_revisions))
-                      {{ $itemRealisationTache->cache_nombre_revisions }}
-                    @else
-                      —
-                    @endif
-                  </span>                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.cache_date_entree_file')) }}</small>
-                  <span>
-                    @if ($itemRealisationTache->cache_date_entree_file)
-                    {{ \Carbon\Carbon::parse($itemRealisationTache->cache_date_entree_file)->isoFormat('LLL') }}
-                    @else
-                    —
-                    @endif
-                  </span>                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.cache_date_debut_live_coding')) }}</small>
-                  <span>
-                    @if ($itemRealisationTache->cache_date_debut_live_coding)
-                    {{ \Carbon\Carbon::parse($itemRealisationTache->cache_date_debut_live_coding)->isoFormat('LLL') }}
-                    @else
-                    —
-                    @endif
-                  </span>                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.cache_delai_attente_minutes')) }}</small>
-                  <span>
-                    @if(! is_null($itemRealisationTache->cache_delai_attente_minutes))
-                      {{ $itemRealisationTache->cache_delai_attente_minutes }}
-                    @else
-                      —
-                    @endif
-                  </span>                </div>
-            </div>
-            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.cache_session_live_coding_id')) }}</small>
-    {{-- Affichage texte par défaut --}}
-    @if(!is_null($itemRealisationTache->cache_session_live_coding_id) && $itemRealisationTache->cache_session_live_coding_id !== '')
-        {{ $itemRealisationTache->cache_session_live_coding_id }}
-    @else
-        <span class="text-muted">—</span>
-    @endif
-                </div>
-            </div>
             @if(
                   (auth()->user()?->can('show-evaluationRealisationTache') && $itemRealisationTache->evaluationRealisationTaches->isNotEmpty())  
                   || auth()->user()?->can('create-evaluationRealisationTache')

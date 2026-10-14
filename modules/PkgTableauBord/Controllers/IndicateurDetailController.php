@@ -287,7 +287,6 @@ class IndicateurDetailController extends AdminController
             'selectedProjetId' => $ctx['selectedProjetId'],
             'projetActif' => $ctx['projetActif'],
             'filterType' => $ctx['filterType'],
-            'selectedSemaine' => $detail['semaine'],
             'detail' => $detail,
         ]);
     }
