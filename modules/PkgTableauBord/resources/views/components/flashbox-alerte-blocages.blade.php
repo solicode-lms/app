@@ -41,14 +41,14 @@
             <div class="flex items-center gap-3 min-w-0">
                 <div class="w-9 h-9 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-700 text-xs shrink-0 overflow-hidden">
                     @if(!empty($bloque['avatar']))
-                    <img src="{{ $bloque['avatar'] }}" alt="{{ $bloque['nom_complet'] }}" class="w-full h-full object-cover">
+                    <img src="{{ $bloque['avatar'] }}" alt="{{ $bloque['nom_complet'] ?? $bloque['nom'] ?? 'Apprenant' }}" class="w-full h-full object-cover">
                     @else
                     {{ strtoupper(substr($bloque['prenom'] ?? 'A', 0, 1) . substr($bloque['nom'] ?? 'P', 0, 1)) }}
                     @endif
                 </div>
                 <div class="min-w-0">
-                    <div class="text-xs font-bold text-slate-900 truncate" title="{{ $bloque['nom_complet'] }}">
-                        {{ $bloque['nom_complet'] }}
+                    <div class="text-xs font-bold text-slate-900 truncate" title="{{ $bloque['nom_complet'] ?? $bloque['nom'] ?? 'Apprenant' }}">
+                        {{ $bloque['nom_complet'] ?? $bloque['nom'] ?? 'Apprenant' }}
                     </div>
                     <div class="text-[11px] text-slate-500 truncate" title="{{ $bloque['tache_titre'] }}">
                         {{ $bloque['tache_titre'] }}

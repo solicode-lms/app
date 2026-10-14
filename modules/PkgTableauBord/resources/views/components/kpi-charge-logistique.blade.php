@@ -42,19 +42,19 @@
             <div class="pt-2 border-t border-slate-100 grid grid-cols-4 gap-1 text-[11px] text-center">
                 <div class="bg-slate-50 p-1 rounded-md border border-slate-100">
                     <span class="text-slate-400 block text-[8px] uppercase tracking-wider font-semibold">Conception</span>
-                    <strong class="text-slate-800 font-mono text-[10px]">{{ $kpi['details']['conception_heures'] ?? 0 }}h</strong>
+                    <strong class="text-slate-800 font-mono text-[10px]">{{ $kpi['details']['conception_formate'] ?? (($kpi['details']['conception_heures'] ?? 0) . 'h') }}</strong>
                 </div>
                 <div class="bg-slate-50 p-1 rounded-md border border-slate-100">
                     <span class="text-slate-400 block text-[8px] uppercase tracking-wider font-semibold">Suivi</span>
-                    <strong class="text-slate-800 font-mono text-[10px]">{{ $kpi['details']['suivi_heures'] ?? 0 }}h</strong>
+                    <strong class="text-slate-800 font-mono text-[10px]">{{ $kpi['details']['suivi_formate'] ?? (($kpi['details']['suivi_heures'] ?? 0) . 'h') }}</strong>
                 </div>
                 <div class="bg-slate-50 p-1 rounded-md border border-slate-100">
                     <span class="text-slate-400 block text-[8px] uppercase tracking-wider font-semibold">Validation</span>
-                    <strong class="text-slate-800 font-mono text-[10px]">{{ $kpi['details']['validation_heures'] ?? 0 }}h</strong>
+                    <strong class="text-slate-800 font-mono text-[10px]">{{ $kpi['details']['validation_formate'] ?? (($kpi['details']['validation_heures'] ?? 0) . 'h') }}</strong>
                 </div>
                 <div class="bg-slate-50 p-1 rounded-md border border-slate-100">
                     <span class="text-slate-400 block text-[8px] uppercase tracking-wider font-semibold">Feedbacks</span>
-                    <strong class="text-slate-800 font-mono text-[10px]">{{ $kpi['details']['feedback_heures'] ?? 0 }}h</strong>
+                    <strong class="text-slate-800 font-mono text-[10px]">{{ $kpi['details']['feedback_formate'] ?? (($kpi['details']['feedback_heures'] ?? 0) . 'h') }}</strong>
                 </div>
             </div>
         </div>
@@ -65,8 +65,8 @@
                     <i class="fas fa-hand-holding-heart text-[10px] text-emerald-600 shrink-0"></i>
                     <span>Tutorat : <strong class="text-slate-800 font-mono">{{ $kpi['taux_disponibilite'] ?? 100 }}%</strong></span>
                 </span>
-                <span class="text-emerald-700 font-semibold text-[11px] shrink-0 font-mono">
-                    &le; 2.5h cible
+                <span class="text-emerald-700 font-semibold text-[11px] shrink-0 font-mono" title="Cible de disponibilité pour le coaching direct (&ge; 90%)">
+                    &ge; 90% cible
                 </span>
             </div>
             <div class="pt-2 mt-1.5 border-t border-slate-50 flex items-center justify-between text-[11px]">
@@ -101,7 +101,7 @@
 
             <div class="my-2 flex items-baseline gap-1.5">
                 <span class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-mono">
-                    {{ $kpi['charge_moyenne_heures'] ?? 0 }} h
+                    {{ $kpi['charge_moyenne_formatee'] ?? (($kpi['charge_moyenne_heures'] ?? 0) . 'h') }}
                 </span>
                 <span class="text-[11px] text-slate-400 font-medium">moyenne / formateur</span>
             </div>

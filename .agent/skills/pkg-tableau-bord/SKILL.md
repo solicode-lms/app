@@ -78,15 +78,34 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
   - `docs/calcul-indicateur-boucles-revision.md`
 - **Sorties** : Fréquence unitaire, micro (Apprenant), méso (Formateur avec Top 3 tâches) et macro (Responsable avec benchmark).
 
-### Action F : Télémétrer ou Calculer l'Indicateur 04 ($C_{\text{logistique}}$)
-> **Description** : Expliquer le dispositif de télémétrie client (heartbeat avec verrou d'inactivité à 5 min), l'ingestion API et le calcul de la charge hebdomadaire ($T_{\text{pilotage}}$, $T_{\text{file}}$, $T_{\text{bordereaux}}$).
+### Action F : Calculer la Charge Logistique Réelle du Formateur ($C_{\text{logistique}}$)
+> **Description** : Modèle déterministe par actes réels de gestion (Standard Action-Cost Model) avec distinction stricte entre gestion administrative et temps pédagogique.
 - **Ressources Utilisées** :
-  - `cahiers-charges/PkgTableauBord/indicateurs/ind-04-charge-logistique.md`
+  - `modules/PkgTableauBord/Services/ParametrePedagogiqueService.php`
+  - `modules/PkgTableauBord/Services/Traits/DashboardIndicateur04Trait.php`
+- **Règles Didactiques & Précédents (CRITIQUE)** :
+  - **Temps de gestion pure vs Temps pédagogique** : Le suivi individuel des réalisations des apprenants (`RealisationTache`) relève de l'observation et de l'accompagnement pédagogique, donc **exclu du calcul de la charge logistique** (0 min).
+  - **Suivi opérationnel** : Évalué au niveau de la tâche du projet (`Tache`), étalonné à **2 min / tâche** (gestion administrative de suivi de session, hors pédagogie).
+  - **Capacité horaire formateur** : Référentiel de **26 heures par semaine** (et non 35h).
+  - **Durée de session & Plafonds** :
+    - Calculé par **Session** : le nombre de semaines est calculé depuis `date_debut` et `date_fin` de l'affectation (`AffectationProjet`). En l'absence de dates, la valeur par défaut est de **2 semaines**.
+    - Les plafonds didactiques sont proportionnels à la durée de la session : $\text{Plafond cible} = N_{\text{semaines}} \times 3\text{h}$ (ex : $2 \times 3\text{h} = 6\text{h}$ pour une session de 2 semaines).
+    - Capacité totale formateur sur la session : $N_{\text{semaines}} \times 26\text{h}$ (ex : $2 \times 26\text{h} = 52\text{h}$).
+    - Disponibilité tutorat direct : $\frac{\text{Capacité} - \text{Charge logistique}}{\text{Capacité}} \times 100\%$.
+  - **Barème unitaire par acte (Décompté par Tâche, gestion administrative hors pédagogie)** :
+    - Création Session / Projet : 15 min
+    - Mobilisation d'UA : 1 min / UA
+    - Conception de tâche : 3 min / tâche
+    - Affectation au groupe : 3 min / affectation
+    - Suivi administratif : 2 min / tâche créée (gestion hors accompagnement direct)
+    - Validation administrative : 1 min / tâche validée dans la session (au niveau de l'entité `Tache`, non par `RealisationTache`)
+    - Feedbacks administratifs : 1 min / tâche ayant reçu au moins un feedback (au niveau de l'entité `Tache`, non par `RealisationTache`)
+    - Consultation Dashboard/Kanban : 0 min (observation pédagogique sanctuarisée).
+    - Bordereaux / Notes : 0 min (automatisé par SoliLMS).
+  - **Affichage horaire** : Format lisible et naturel : si $< 60\text{ min}$, affiche `X min` (ex : `6 min`, `26 min`, `0 min` au lieu de `0h06`) ; si $\ge 60\text{ min}$, affiche `XhYY` (ex : `1h01`, `1h51`).
 - **Sorties** :
-  - Table : `log_activite_formateurs`
-  - Télémétrie : `ActiviteFormateurController@ping`, composant JS `telemetrie-activite.blade.php`
-  - Service : `DashboardIndicateur04Trait` (individuel et macro responsable)
-  - UI V2 : `kpi-charge-logistique.blade.php`
+  - Service : `DashboardIndicateur04Trait` (calcul session, formateur et macro responsable).
+  - UI V2 : `kpi-charge-logistique.blade.php`, `charge-logistique.blade.php` (analyse détaillée, modale de décompte arithmétique).
 
 ### Action G : Réguler la File FIFO et Calculer l'Indicateur 05 ($T_{\text{file}}$)
 > **Description** : Expliquer le cycle de vie dans la file FIFO, le calcul du rang pour l'apprenant, la console d'arbitrage 1-à-1 vs mutualisation 4x4, et le benchmark des délais d'attente.

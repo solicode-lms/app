@@ -55,7 +55,7 @@
                         <span>Indicateur Clé #04</span>
                     </span>
                     <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">
-                        Plafond Cible : &le; {{ $detail['cible_max'] }}h
+                        Plafond Cible : &le; {{ $detail['cible_max'] }}h ({{ $detail['nb_semaines'] ?? 2 }} sem.)
                     </span>
                     <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                         Optimal : &le; {{ $detail['seuil_optimal'] }}h
@@ -78,7 +78,7 @@
                     Charge Logistique Réelle du Formateur (C<sub>logistique</sub>)
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-500 max-w-4xl leading-relaxed">
-                    Évaluation déterministe basée sur les actes réels de gestion : modélisation de session, mobilisations d'UA (1 min), conception des tâches (3 min), affectation (3 min), suivi opérationnel (1 min), validations (1 min) et rédaction de feedbacks personnalisés (1 à 5 min max par tâche). La consultation du Tableau de bord (pédagogie pure) et la génération des notes (automatisée) sont décomptées à 0 min.
+                    Évaluation déterministe basée sur les actes réels de gestion : modélisation de session, mobilisations d'UA (1 min), conception des tâches (3 min), affectation (3 min), suivi administratif des tâches (2 min / tâche, gestion hors pédagogie), validations (1 min / tâche validée) et rédaction de feedbacks (1 min / tâche avec feedback). La consultation du Tableau de bord (pédagogie pure) et la génération des notes (automatisée) sont décomptées à 0 min.
                 </p>
             </div>
 
@@ -99,7 +99,7 @@
                     <span class="text-2xl sm:text-3xl font-black text-emerald-700 font-mono">
                         {{ $detail['taux_disponibilite_formate'] }}
                     </span>
-                    <span class="text-[10px] text-slate-500 block font-medium">base 35h</span>
+                    <span class="text-[10px] text-slate-500 block font-medium">base {{ $detail['volume_hebdo'] ?? 26 }}h/sem</span>
                 </div>
             </div>
         </div>
@@ -123,10 +123,10 @@
                 <span class="text-xs text-slate-400 font-medium">estimée</span>
             </div>
             <p class="text-xs text-slate-500 leading-snug">
-                Plafond cible fixé à &le; {{ $detail['cible_max'] }}h.
+                Plafond cible fixé à &le; {{ $detail['cible_max'] }}h ({{ $detail['nb_semaines'] ?? 2 }} sem. &times; 3h).
             </p>
             <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-                <span>Volume équipe :</span>
+                <span>{{ $projetActif ? 'Charge session :' : (!empty($isVisionGlobale) ? 'Volume équipe :' : 'Total formateur :') }}</span>
                 <strong class="font-mono text-slate-800">{{ $detail['total_heures_equipe_formate'] }}</strong>
             </div>
         </div>
@@ -149,7 +149,7 @@
             </p>
             <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
                 <span>Temps coaching :</span>
-                <strong class="font-mono text-slate-800">~{{ round(max(0, 35.0 - $detail['charge_moyenne_heures']), 1) }}h / sem</strong>
+                <strong class="font-mono text-slate-800">~{{ $detail['temps_coaching_hebdo'] ?? 22 }}h / sem</strong>
             </div>
         </div>
 
@@ -163,7 +163,7 @@
             </div>
             <div class="flex items-baseline gap-2 mb-1">
                 <span class="text-2xl sm:text-3xl font-black text-indigo-700 font-mono">
-                    {{ $detail['details_globaux']['conception_heures'] }}h
+                    {{ $detail['details_globaux']['conception_formate'] ?? ($detail['details_globaux']['conception_heures'] . 'h') }}
                 </span>
             </div>
             <p class="text-xs text-slate-500 leading-snug">
@@ -185,11 +185,11 @@
             </div>
             <div class="flex items-baseline gap-2 mb-1">
                 <span class="text-2xl sm:text-3xl font-black text-sky-700 font-mono">
-                    {{ $detail['details_globaux']['suivi_heures'] }}h
+                    {{ $detail['details_globaux']['suivi_formate'] ?? ($detail['details_globaux']['suivi_heures'] . 'h') }}
                 </span>
             </div>
             <p class="text-xs text-slate-500 leading-snug">
-                Suivi individuel des tâches assignées (1 min / tâche suivie).
+                Suivi administratif des tâches du projet (2 min / tâche, gestion hors pédagogie).
             </p>
             <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
                 <span>Poste :</span>
@@ -207,11 +207,11 @@
             </div>
             <div class="flex items-baseline gap-2 mb-1">
                 <span class="text-2xl sm:text-3xl font-black text-amber-700 font-mono">
-                    {{ round($detail['details_globaux']['validation_heures'] + $detail['details_globaux']['feedback_heures'], 1) }}h
+                    {{ $detail['details_globaux']['val_feedback_formate'] ?? ($detail['details_globaux']['validation_formate'] . ' + ' . $detail['details_globaux']['feedback_formate']) }}
                 </span>
             </div>
             <p class="text-xs text-slate-500 leading-snug">
-                Validations livrables (1m) et feedbacks écrits (1 à 5m max/tâche).
+                Validations livrables (1m/tâche) et feedbacks écrits (1m/tâche avec feedback).
             </p>
             <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
                 <span>Postes :</span>
@@ -292,7 +292,7 @@
                         <span>Feedbacks Écrits</span>
                         <span class="text-amber-700 font-mono">({{ $detail['details_globaux']['feedback_pct'] }}%)</span>
                     </div>
-                    <span class="text-[11px] text-slate-500 block">1 à 5 min par feedback distinct (max 5 min/tâche).</span>
+                    <span class="text-[11px] text-slate-500 block">1 min par tâche ayant reçu un feedback (gestion hors pédagogie).</span>
                 </div>
             </div>
         </div>
@@ -390,10 +390,9 @@
                         <td class="py-3 px-3 text-center">
                             <div class="inline-flex flex-col items-center">
                                 <span class="font-black text-slate-900 font-mono text-sm">
-                                    {{ $f['total_heures_dec'] }}
+                                    {{ $f['total_heures_formate'] }}
                                 </span>
-                                <span class="text-[10px] text-slate-400 font-mono">({{ $f['total_heures_formate'] }})</span>
-                                <!-- Mini-jauge relative au plafond 3h -->
+                                <!-- Mini-jauge relative au plafond de session -->
                                 <div class="w-16 h-1 bg-slate-100 rounded-full overflow-hidden mt-1">
                                     <div class="{{ $f['zone'] === 'alerte' ? 'bg-rose-500' : ($f['zone'] === 'vigilance' ? 'bg-amber-500' : 'bg-indigo-600') }} h-full"
                                          style="width: {{ $f['pourcentage_cible'] }}%"></div>
@@ -403,7 +402,7 @@
 
                         {{-- Conception --}}
                         <td class="py-3 px-3 text-center">
-                            <div class="font-mono font-bold text-indigo-700">{{ $f['details']['conception_heures'] }}h</div>
+                            <div class="font-mono font-bold text-indigo-700">{{ $f['details']['conception_formate'] ?? ($f['details']['conception_heures'] . 'h') }}</div>
                             <span class="text-[10px] text-slate-400 font-mono">
                                 {{ $f['quantites']['nb_projets'] }}P / {{ $f['quantites']['nb_mobilisations'] }}UA / {{ $f['quantites']['nb_taches_creees'] }}T
                             </span>
@@ -411,19 +410,19 @@
 
                         {{-- Suivi Opérationnel --}}
                         <td class="py-3 px-3 text-center">
-                            <div class="font-mono font-bold text-sky-700">{{ $f['details']['suivi_heures'] }}h</div>
+                            <div class="font-mono font-bold text-sky-700">{{ $f['details']['suivi_formate'] ?? ($f['details']['suivi_heures'] . 'h') }}</div>
                             <span class="text-[10px] text-slate-400 font-mono">{{ $f['quantites']['nb_suivi'] }} tâches</span>
                         </td>
 
                         {{-- Validations --}}
                         <td class="py-3 px-3 text-center">
-                            <div class="font-mono font-bold text-emerald-700">{{ $f['details']['validation_heures'] }}h</div>
+                            <div class="font-mono font-bold text-emerald-700">{{ $f['details']['validation_formate'] ?? ($f['details']['validation_heures'] . 'h') }}</div>
                             <span class="text-[10px] text-slate-400 font-mono">{{ $f['quantites']['nb_validations'] }} validées</span>
                         </td>
 
                         {{-- Feedbacks --}}
                         <td class="py-3 px-3 text-center">
-                            <div class="font-mono font-bold text-amber-700">{{ $f['details']['feedback_heures'] }}h</div>
+                            <div class="font-mono font-bold text-amber-700">{{ $f['details']['feedback_formate'] ?? ($f['details']['feedback_heures'] . 'h') }}</div>
                             <span class="text-[10px] text-slate-400 font-mono">{{ $f['quantites']['nb_feedbacks_distincts'] }} feedbacks</span>
                         </td>
 
@@ -476,11 +475,11 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
             <ul class="list-disc list-inside space-y-1 text-slate-600 ps-1">
                 <li><strong>Conception de session :</strong> 15 min par projet + 1 min par mobilisation d'UA + 3 min par tâche rédigée + 3 min par affectation à un groupe.</li>
-                <li><strong>Suivi opérationnel :</strong> 1 min forfaitaire par tâche assignée pour le contrôle de progression dans le kanban.</li>
-                <li><strong>Validation pédagogique :</strong> 1 min par livrable approuvé (passage à l'état VALIDEE).</li>
+                <li><strong>Suivi opérationnel :</strong> 2 min par tâche créée pour la gestion administrative (contrôle kanban hors coaching direct).</li>
+                <li><strong>Validation administrative :</strong> 1 min par tâche validée dans la session (gestion hors temps d'échange).</li>
             </ul>
             <ul class="list-disc list-inside space-y-1 text-slate-600 ps-1">
-                <li><strong>Feedbacks personnalisés :</strong> 1 à 5 min par feedback distinct, avec un plafond strict de 5 min par tâche pour éviter les doublons lors des envois en masse.</li>
+                <li><strong>Feedbacks administratifs :</strong> 1 min par tâche ayant reçu au moins un feedback (gestion de traçabilité hors pédagogie).</li>
                 <li><strong>Consultation du Dashboard (0 min) :</strong> Reconnue comme un acte d'observation pédagogique et d'évaluation formative, exclue de la bureaucratie.</li>
                 <li><strong>Génération des notes (0 min) :</strong> Processus automatisé instantanément par le moteur docimologique de SoliLMS.</li>
             </ul>
@@ -512,13 +511,13 @@
                     <div class="grid grid-cols-3 gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200 font-mono text-center">
                         <div>
                             <span class="text-slate-400 block text-[10px] uppercase font-sans">Charge Logistique</span>
-                            <strong class="text-slate-900 text-base" x-text="activeModalFormateur?.total_heures_dec"></strong>
-                            <span class="text-slate-500 block text-[10px]" x-text="'(' + activeModalFormateur?.total_heures_formate + ')'"></span>
+                            <strong class="text-slate-900 text-base" x-text="activeModalFormateur?.total_heures_formate"></strong>
+                            <span class="text-slate-400 block text-[10px]" x-text="'(' + activeModalFormateur?.total_heures_dec + ')'"></span>
                         </div>
                         <div>
                             <span class="text-slate-400 block text-[10px] uppercase font-sans">Disponibilité Tutorat</span>
                             <strong class="text-emerald-700 text-base" x-text="activeModalFormateur?.taux_disponibilite + '%'"></strong>
-                            <span class="text-slate-500 block text-[10px]">base 35h</span>
+                            <span class="text-slate-500 block text-[10px]" x-text="'base ' + (activeModalFormateur?.volume_hebdo || 26) + 'h/sem'"></span>
                         </div>
                         <div>
                             <span class="text-slate-400 block text-[10px] uppercase font-sans">Diagnostic</span>
@@ -539,7 +538,7 @@
                                         <th class="p-2">Activité / Acte</th>
                                         <th class="p-2 text-center">Quantité</th>
                                         <th class="p-2 text-center">Barème Unitaire</th>
-                                        <th class="p-2 text-right">Temps Estimé</th>
+                                        <th class="p-2 text-right">Durée (H:Min)</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-100 text-slate-700 font-mono text-[11px]">
@@ -551,7 +550,7 @@
                                             <td class="p-2 font-sans text-slate-800" x-text="item.action"></td>
                                             <td class="p-2 text-center" x-text="item.quantite"></td>
                                             <td class="p-2 text-center text-slate-500 text-[10px]" x-text="item.bareme"></td>
-                                            <td class="p-2 text-right font-bold text-slate-900" x-text="item.total_heures + 'h'"></td>
+                                            <td class="p-2 text-right font-bold text-slate-900" x-text="item.total_duree_formate || (item.total_heures + 'h')"></td>
                                         </tr>
                                     </template>
                                 </tbody>

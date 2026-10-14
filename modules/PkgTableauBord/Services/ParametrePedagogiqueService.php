@@ -43,6 +43,8 @@ class ParametrePedagogiqueService
         'revision_seuil_alerte' => 1.0,
 
         // Indicateur 04 : Charge logistique formateur (C_logistique)
+        'charge_formateur_volume_hebdo_heures' => 26.0,
+        'session_duree_defaut_semaines' => 2,
         'charge_plafond_hebdo_heures' => 3.0,
         'charge_timeout_inactivite_minutes' => 5,
 
@@ -247,12 +249,17 @@ class ParametrePedagogiqueService
 
     public function getTempsSuiviTacheMinutes(?int $projetId = null): int
     {
-        return (int) $this->get('charge_logistique_suivi_tache_minutes', 1, $projetId);
+        return (int) $this->get('charge_logistique_suivi_tache_minutes', 2, $projetId);
     }
 
     public function getTempsValidationTacheMinutes(?int $projetId = null): int
     {
         return (int) $this->get('charge_logistique_validation_tache_minutes', 1, $projetId);
+    }
+
+    public function getTempsFeedbackTacheMinutes(?int $projetId = null): int
+    {
+        return (int) $this->get('charge_logistique_feedback_tache_minutes', 1, $projetId);
     }
 
     public function getTempsFeedbackMinMinutes(?int $projetId = null): float
@@ -278,6 +285,16 @@ class ParametrePedagogiqueService
     public function getSeuilChargeAlerteHeures(?int $projetId = null): float
     {
         return (float) $this->get('charge_logistique_seuil_alerte_heures', 5.0, $projetId);
+    }
+
+    public function getVolumeHebdoFormateurHeures(?int $projetId = null): float
+    {
+        return (float) $this->get('charge_formateur_volume_hebdo_heures', 26.0, $projetId);
+    }
+
+    public function getDureeDefautSessionSemaines(?int $projetId = null): int
+    {
+        return (int) $this->get('session_duree_defaut_semaines', 2, $projetId);
     }
 
     // =========================================================================

@@ -149,6 +149,7 @@ trait DashboardIndicateur06Trait
                         $apprenantsBloques[] = [
                             'apprenant_id' => $apprenant?->id,
                             'nom' => $nomComplet,
+                            'nom_complet' => $nomComplet,
                             'avatar' => 'https://ui-avatars.com/api/?name=' . urlencode($nomComplet ?: 'A') . '&background=fee2e2&color=991b1b',
                             'depassement_formate' => '+' . $diffMinutes . ' min',
                             'tache_id' => $tacheBloquee->id,

@@ -15,8 +15,73 @@ use Modules\PkgTableauBord\Services\ParametrePedagogiqueService;
 trait DashboardIndicateur04Trait
 {
     /**
+     * Formate une durée en minutes :
+     * - Si 0 : '0 min'
+     * - Si < 60 min : 'X min' (ex: 6 min au lieu de 0h06)
+     * - Si >= 60 min : 'XhYY' (ex: 1h01, 1h51)
+     *
+     * @param float $minutes
+     * @return string
+     */
+    protected function formatDureeMin(float $minutes): string
+    {
+        $minutesRound = (int) round($minutes);
+        if ($minutesRound <= 0) {
+            return '0 min';
+        }
+
+        $h = (int) floor($minutesRound / 60);
+        $m = (int) ($minutesRound % 60);
+
+        if ($h === 0) {
+            return $m . ' min';
+        }
+
+        return sprintf('%dh%02d', $h, $m);
+    }
+
+    /**
+     * Détermine la durée d'une session ou d'un ensemble de projets en semaines.
+     * Si déterminé par date_debut et date_fin d'affectation, prend ce qui est indiqué dans l'affectation.
+     * Sinon, repli par défaut sur 2 semaines.
+     *
+     * @param array $projetIds
+     * @return int
+     */
+    protected function determinerDureeSessionSemaines(array $projetIds): int
+    {
+        $paramService = app(ParametrePedagogiqueService::class);
+        $dureeDefaut = $paramService->getDureeDefautSessionSemaines(); // 2 semaines
+
+        if (empty($projetIds)) {
+            return $dureeDefaut;
+        }
+
+        $affectations = AffectationProjet::whereIn('projet_id', $projetIds)->get();
+        $durees = [];
+
+        foreach ($affectations as $aff) {
+            if (!empty($aff->date_debut) && !empty($aff->date_fin)) {
+                $debut = \Carbon\Carbon::parse($aff->date_debut);
+                $fin = \Carbon\Carbon::parse($aff->date_fin);
+                $diffJours = max(1, $debut->diffInDays($fin));
+                // Exemple : 11 jours calendaires (2 semaines ouvrées) -> round(11 / 7) = 2 semaines
+                $semaines = max(1, (int) round($diffJours / 7.0));
+                $durees[] = $semaines;
+            }
+        }
+
+        if (!empty($durees)) {
+            return (int) max($durees);
+        }
+
+        return $dureeDefaut;
+    }
+
+    /**
      * Moteur de calcul déterministe par acte de la charge logistique ($C_logistique).
      * Repose sur les temps prédéterminés paramétrables (Standard Action-Cost Model).
+     * Calculé par Session (capacité formateur : 26h / semaine).
      *
      * @param array $projetIds IDs des projets/sessions à inclure
      * @param Formateur|null $formateur Formateur concerné
@@ -29,14 +94,23 @@ trait DashboardIndicateur04Trait
         $tMobUa = $paramService->getTempsMobilisationUaMinutes(); // 1 min
         $tCreationTache = $paramService->getTempsCreationTacheMinutes(); // 3 min
         $tAffectation = $paramService->getTempsAffectationGroupeMinutes(); // 3 min
-        $tSuiviTache = $paramService->getTempsSuiviTacheMinutes(); // 1 min
+        $tSuiviTache = $paramService->getTempsSuiviTacheMinutes(); // 2 min
         $tValidationTache = $paramService->getTempsValidationTacheMinutes(); // 1 min
-        $tFbMin = $paramService->getTempsFeedbackMinMinutes(); // 1.0 min
-        $tFbMax = $paramService->getTempsFeedbackMaxMinutes(); // 5.0 min
+        $tFeedbackTache = $paramService->getTempsFeedbackTacheMinutes(); // 1 min
 
-        $cibleMaxHeures = $paramService->getPlafondChargeLogistiqueHeures(); // 3.0 h
-        $seuilOptimal = $paramService->getSeuilChargeOptimalHeures(); // 2.5 h
-        $seuilAlerte = $paramService->getSeuilChargeAlerteHeures(); // 5.0 h
+        // Durée de la session (en semaines) et volume horaire hebdomadaire du formateur (26h/semaine)
+        $nbSemaines = $this->determinerDureeSessionSemaines($projetIds);
+        $volumeHebdoFormateur = $paramService->getVolumeHebdoFormateurHeures(); // 26.0 h
+        $capaciteTotaleHeures = $nbSemaines * $volumeHebdoFormateur; // ex: 2 * 26h = 52.0h
+
+        // Plafonds rapportés à la durée de la session
+        $cibleHebdo = $paramService->getPlafondChargeLogistiqueHeures(); // 3.0 h / sem
+        $seuilOptimalHebdo = $paramService->getSeuilChargeOptimalHeures(); // 2.5 h / sem
+        $seuilAlerteHebdo = $paramService->getSeuilChargeAlerteHeures(); // 5.0 h / sem
+
+        $cibleMaxHeures = round($nbSemaines * $cibleHebdo, 1); // ex: 2 * 3.0h = 6.0h
+        $seuilOptimal = round($nbSemaines * $seuilOptimalHebdo, 1); // ex: 2 * 2.5h = 5.0h
+        $seuilAlerte = round($nbSemaines * $seuilAlerteHebdo, 1); // ex: 2 * 5.0h = 10.0h
 
         if (empty($projetIds)) {
             return [
@@ -45,24 +119,35 @@ trait DashboardIndicateur04Trait
                 'matricule' => $formateur?->matricule ?? '-',
                 'initiales' => $formateur ? strtoupper(substr($formateur->prenom ?? '', 0, 1) . substr($formateur->nom ?? '', 0, 1)) : 'F',
                 'total_heures' => 0.0,
-                'total_heures_formate' => '0h00',
+                'total_heures_formate' => '0 min',
                 'total_heures_dec' => '0.0h',
+                'nb_semaines' => $nbSemaines,
+                'volume_hebdo' => $volumeHebdoFormateur,
+                'capacite_totale_heures' => $capaciteTotaleHeures,
+                'temps_tutorat_session' => $capaciteTotaleHeures,
+                'temps_coaching_hebdo' => $volumeHebdoFormateur,
                 'cible_max_heures' => $cibleMaxHeures,
+                'seuil_optimal' => $seuilOptimal,
+                'seuil_alerte' => $seuilAlerte,
                 'pourcentage_cible' => 0,
                 'zone' => 'optimal',
                 'badge_label' => 'Logistique optimisée',
                 'badge_class' => 'bg-emerald-50 text-emerald-700 border-emerald-200',
                 'taux_disponibilite' => 100.0,
                 'details' => [
+                    'conception_min' => 0.0,
                     'conception_heures' => 0.0,
                     'conception_formate' => '0 min',
                     'conception_pct' => 0,
+                    'suivi_min' => 0.0,
                     'suivi_heures' => 0.0,
                     'suivi_formate' => '0 min',
                     'suivi_pct' => 0,
+                    'validation_min' => 0.0,
                     'validation_heures' => 0.0,
                     'validation_formate' => '0 min',
                     'validation_pct' => 0,
+                    'feedback_min' => 0.0,
                     'feedback_heures' => 0.0,
                     'feedback_formate' => '0 min',
                     'feedback_pct' => 0,
@@ -99,44 +184,34 @@ trait DashboardIndicateur04Trait
             ->with('etatRealisationTache.workflowTache')
             ->get();
 
-        $nbSuivi = $realisations->count();
-        $nbValidations = $realisations->filter(fn($r) => $r->etatRealisationTache?->workflowTache?->code === 'APPROVED')->count();
-
+        // Le suivi individuel des réalisations relève du temps pédagogique.
+        // Seule la gestion administrative du suivi par tâche est décomptée (2 min / tâche, hors pédagogie).
+        $nbSuivi = $nbTachesCreees;
         $minSuivi = $nbSuivi * $tSuiviTache;
+
+        // Validations : décompte par tâche validée (1 min / tâche validée, gestion hors pédagogie).
+        $nbValidations = $realisations->filter(fn($r) => $r->etatRealisationTache?->workflowTache?->code === 'APPROVED')
+            ->pluck('tache_id')
+            ->unique()
+            ->count();
         $minValidation = $nbValidations * $tValidationTache;
 
-        // 3. Feedbacks & Remarques (1 à 5 min par feedback distinct, plafonné à 5 min par tâche)
+        // 3. Feedbacks & Remarques (1 min par tâche ayant reçu au moins un feedback, gestion hors pédagogie)
         $realIds = $realisations->pluck('id');
-        $revisions = RevisionTache::whereIn('realisation_tache_id', $realIds)->get();
+        $revisions = RevisionTache::whereIn('realisation_tache_id', $realIds)
+            ->whereNotNull('message_formateur')
+            ->where('message_formateur', '!=', '')
+            ->get();
 
-        $totalFbMinutes = 0.0;
-        $totalFbDistincts = 0;
-        $totalCaracteres = 0;
+        $tachesAvecFeedbackIds = RealisationTache::whereIn('id', $revisions->pluck('realisation_tache_id')->unique())
+            ->pluck('tache_id')
+            ->unique();
 
-        foreach ($revisions->groupBy('realisation_tache_id') as $tacheRevisions) {
-            $msgs = $tacheRevisions->pluck('message_formateur')
-                ->map(fn($m) => trim((string)$m))
-                ->filter()
-                ->unique();
+        $nbTachesAvecFeedback = $tachesAvecFeedbackIds->count();
+        $totalFbDistincts = $revisions->count();
+        $totalCaracteres = $revisions->sum(fn($r) => mb_strlen((string) $r->message_formateur));
 
-            if ($msgs->isEmpty()) {
-                continue;
-            }
-
-            $totalFbDistincts += $msgs->count();
-            $tTache = 0.0;
-
-            foreach ($msgs as $msg) {
-                $len = mb_strlen($msg);
-                $totalCaracteres += $len;
-                // Formule étalonnée : 1 min de base + 1 min / 150 caractères tapés (entre 1 et 5 min)
-                $tMsg = min($tFbMax, max($tFbMin, 1.0 + ($len / 150.0)));
-                $tTache += $tMsg;
-            }
-
-            // Plafonnement didactique : au maximum 5 min par tâche
-            $totalFbMinutes += min($tFbMax, $tTache);
-        }
+        $totalFbMinutes = $nbTachesAvecFeedback * $tFeedbackTache; // 1 min / tâche ayant reçu au moins un feedback
 
         // Totaux
         $minTotal = $minConception + $minSuivi + $minValidation + $totalFbMinutes;
@@ -146,14 +221,7 @@ trait DashboardIndicateur04Trait
         $validationHeures = round($minValidation / 60.0, 1);
         $feedbackHeures = round($totalFbMinutes / 60.0, 1);
 
-        $formatDureeMin = function (float $minutes): string {
-            $h = floor($minutes / 60);
-            $m = round($minutes % 60);
-            if ($h > 0) {
-                return sprintf('%dh%02d', $h, $m);
-            }
-            return sprintf('%d min', $m);
-        };
+        $formatDureeMin = fn(float $minutes): string => $this->formatDureeMin($minutes);
 
         $pctConception = $minTotal > 0 ? round(($minConception / $minTotal) * 100) : 0;
         $pctSuivi = $minTotal > 0 ? round(($minSuivi / $minTotal) * 100) : 0;
@@ -175,8 +243,11 @@ trait DashboardIndicateur04Trait
             $badgeClass = 'bg-rose-50 text-rose-700 border-rose-200';
         }
 
-        $tauxDispo = round(max(0, (35.0 - min(35.0, $totalHeures)) / 35.0) * 100, 1);
-        $pourcentageCible = min(round(($totalHeures / $cibleMaxHeures) * 100), 100);
+        // Disponibilité tutorat direct (rapportée à la capacité totale de la session : nbSemaines * 26h)
+        $tempsTutoratSession = max(0, $capaciteTotaleHeures - $totalHeures);
+        $tempsCoachingHebdo = round($tempsTutoratSession / max(1, $nbSemaines), 1);
+        $tauxDispo = $capaciteTotaleHeures > 0 ? round(($tempsTutoratSession / $capaciteTotaleHeures) * 100, 1) : 100.0;
+        $pourcentageCible = min(round(($totalHeures / max(0.1, $cibleMaxHeures)) * 100), 100);
 
         // Décomposition détaillée pour modale
         $decompteItems = [
@@ -187,6 +258,7 @@ trait DashboardIndicateur04Trait
                 'bareme' => $tCreationProjet . ' min / projet',
                 'total_min' => $minProj,
                 'total_heures' => round($minProj / 60.0, 1),
+                'total_duree_formate' => $formatDureeMin($minProj),
             ],
             [
                 'poste' => 'Conception',
@@ -195,6 +267,7 @@ trait DashboardIndicateur04Trait
                 'bareme' => $tMobUa . ' min / UA',
                 'total_min' => $minMob,
                 'total_heures' => round($minMob / 60.0, 1),
+                'total_duree_formate' => $formatDureeMin($minMob),
             ],
             [
                 'poste' => 'Conception',
@@ -203,6 +276,7 @@ trait DashboardIndicateur04Trait
                 'bareme' => $tCreationTache . ' min / tâche',
                 'total_min' => $minTaches,
                 'total_heures' => round($minTaches / 60.0, 1),
+                'total_duree_formate' => $formatDureeMin($minTaches),
             ],
             [
                 'poste' => 'Conception',
@@ -211,30 +285,34 @@ trait DashboardIndicateur04Trait
                 'bareme' => $tAffectation . ' min / affectation',
                 'total_min' => $minAff,
                 'total_heures' => round($minAff / 60.0, 1),
+                'total_duree_formate' => $formatDureeMin($minAff),
             ],
             [
                 'poste' => 'Suivi',
-                'action' => 'Suivi Opérationnel des Tâches Assignées',
-                'quantite' => $nbSuivi,
-                'bareme' => $tSuiviTache . ' min / tâche suivie',
+                'action' => 'Suivi Administratif par Tâche (gestion hors pédagogie)',
+                'quantite' => $nbSuivi . ' tâche' . ($nbSuivi > 1 ? 's' : ''),
+                'bareme' => $tSuiviTache . ' min / tâche',
                 'total_min' => $minSuivi,
                 'total_heures' => round($minSuivi / 60.0, 1),
+                'total_duree_formate' => $formatDureeMin($minSuivi),
             ],
             [
                 'poste' => 'Validation',
-                'action' => 'Validation Pédagogique des Livrables',
-                'quantite' => $nbValidations,
-                'bareme' => $tValidationTache . ' min / validation',
+                'action' => 'Validation Administrative des Tâches (gestion hors pédagogie)',
+                'quantite' => $nbValidations . ' tâche' . ($nbValidations > 1 ? 's' : '') . ' validée' . ($nbValidations > 1 ? 's' : ''),
+                'bareme' => $tValidationTache . ' min / tâche',
                 'total_min' => $minValidation,
                 'total_heures' => round($minValidation / 60.0, 1),
+                'total_duree_formate' => $formatDureeMin($minValidation),
             ],
             [
                 'poste' => 'Feedbacks',
-                'action' => 'Rédaction de Feedbacks & Remarques',
-                'quantite' => $totalFbDistincts . ' msgs (' . $totalCaracteres . ' car.)',
-                'bareme' => '1 à 5 min / tâche (max 5 min)',
+                'action' => 'Feedbacks & Remarques par Tâche (gestion hors pédagogie)',
+                'quantite' => $nbTachesAvecFeedback . ' tâche' . ($nbTachesAvecFeedback > 1 ? 's' : '') . ' (' . $totalFbDistincts . ' msgs)',
+                'bareme' => $tFeedbackTache . ' min / tâche avec feedback',
                 'total_min' => round($totalFbMinutes),
                 'total_heures' => $feedbackHeures,
+                'total_duree_formate' => $formatDureeMin($totalFbMinutes),
             ],
             [
                 'poste' => 'Exclu',
@@ -243,6 +321,7 @@ trait DashboardIndicateur04Trait
                 'bareme' => '0 min (Observation pédagogique)',
                 'total_min' => 0,
                 'total_heures' => 0.0,
+                'total_duree_formate' => '0 min',
             ],
             [
                 'poste' => 'Exclu',
@@ -251,6 +330,7 @@ trait DashboardIndicateur04Trait
                 'bareme' => '0 min (Automatisé par SoliLMS)',
                 'total_min' => 0,
                 'total_heures' => 0.0,
+                'total_duree_formate' => '0 min',
             ],
         ];
 
@@ -262,22 +342,33 @@ trait DashboardIndicateur04Trait
             'total_heures' => $totalHeures,
             'total_heures_formate' => $formatDureeMin($minTotal),
             'total_heures_dec' => sprintf('%.1fh', $totalHeures),
+            'nb_semaines' => $nbSemaines,
+            'volume_hebdo' => $volumeHebdoFormateur,
+            'capacite_totale_heures' => $capaciteTotaleHeures,
+            'temps_tutorat_session' => $tempsTutoratSession,
+            'temps_coaching_hebdo' => $tempsCoachingHebdo,
             'cible_max_heures' => $cibleMaxHeures,
+            'seuil_optimal' => $seuilOptimal,
+            'seuil_alerte' => $seuilAlerte,
             'pourcentage_cible' => $pourcentageCible,
             'taux_disponibilite' => $tauxDispo,
             'zone' => $zone,
             'badge_label' => $badgeLabel,
             'badge_class' => $badgeClass,
             'details' => [
+                'conception_min' => $minConception,
                 'conception_heures' => $conceptionHeures,
                 'conception_formate' => $formatDureeMin($minConception),
                 'conception_pct' => $pctConception,
+                'suivi_min' => $minSuivi,
                 'suivi_heures' => $suiviHeures,
                 'suivi_formate' => $formatDureeMin($minSuivi),
                 'suivi_pct' => $pctSuivi,
+                'validation_min' => $minValidation,
                 'validation_heures' => $validationHeures,
                 'validation_formate' => $formatDureeMin($minValidation),
                 'validation_pct' => $pctValidation,
+                'feedback_min' => $totalFbMinutes,
                 'feedback_heures' => $feedbackHeures,
                 'feedback_formate' => $formatDureeMin($totalFbMinutes),
                 'feedback_pct' => $pctFeedbacks,
@@ -289,6 +380,7 @@ trait DashboardIndicateur04Trait
                 'nb_affectations' => $nbAffectations,
                 'nb_suivi' => $nbSuivi,
                 'nb_validations' => $nbValidations,
+                'nb_taches_avec_feedback' => $nbTachesAvecFeedback,
                 'nb_feedbacks_distincts' => $totalFbDistincts,
                 'nb_caracteres_feedbacks' => $totalCaracteres,
             ],
@@ -298,21 +390,44 @@ trait DashboardIndicateur04Trait
 
     /**
      * Indicateur 04 — Calcul individuel de la charge logistique du formateur ($C_logistique).
+     * Si une session ou un projet spécifique est fourni, calcule la charge de cette session.
+     *
+     * @param Formateur|null $formateur
+     * @param mixed $projetOrAffectation (int|Projet|AffectationProjet|null)
+     * @return array
      */
-    public function getIndicateurChargeLogistiqueFormateur(?Formateur $formateur, ?string $semaine = null): array
+    public function getIndicateurChargeLogistiqueFormateur(?Formateur $formateur, mixed $projetOrAffectation = null): array
     {
         if (!$formateur) {
             return $this->calculerChargeLogistiqueActivites([], null);
         }
 
-        $pIds = Projet::where('formateur_id', $formateur->id)->pluck('id')->toArray();
+        $projetId = null;
+        if ($projetOrAffectation instanceof \Modules\PkgRealisationProjets\Models\AffectationProjet) {
+            $projetId = $projetOrAffectation->projet_id;
+        } elseif ($projetOrAffectation instanceof \Modules\PkgCreationProjet\Models\Projet) {
+            $projetId = $projetOrAffectation->id;
+        } elseif (is_numeric($projetOrAffectation)) {
+            $projetId = (int) $projetOrAffectation;
+        }
+
+        if ($projetId) {
+            $pIds = [$projetId];
+        } else {
+            $pIds = Projet::where('formateur_id', $formateur->id)->pluck('id')->toArray();
+        }
+
         return $this->calculerChargeLogistiqueActivites($pIds, $formateur);
     }
 
     /**
      * Indicateur 04 — Calcul macroscopique responsable (Gouvernance & Benchmark Formateurs).
+     *
+     * @param int|null $formateurId
+     * @param int|null $projetId
+     * @return array
      */
-    public function getIndicateurChargeLogistiqueResponsable(?string $semaine = null, ?int $formateurId = null): array
+    public function getIndicateurChargeLogistiqueResponsable(?int $formateurId = null, ?int $projetId = null): array
     {
         $formateursQuery = Formateur::with('user');
         if (!empty($formateurId)) {
@@ -324,7 +439,17 @@ trait DashboardIndicateur04Trait
         $totalHeuresEquipe = 0.0;
 
         foreach ($formateurs as $formateur) {
-            $pIds = Projet::where('formateur_id', $formateur->id)->pluck('id')->toArray();
+            if (!empty($projetId)) {
+                $concerne = Projet::where('id', $projetId)
+                    ->where(function ($q) use ($formateur) {
+                        $q->where('formateur_id', $formateur->id)
+                          ->orWhereHas('affectationProjets.groupe.formateurs', fn($sub) => $sub->where('formateurs.id', $formateur->id));
+                    })->exists();
+                $pIds = $concerne ? [$projetId] : [];
+            } else {
+                $pIds = Projet::where('formateur_id', $formateur->id)->pluck('id')->toArray();
+            }
+
             $kpiIndividuel = $this->calculerChargeLogistiqueActivites($pIds, $formateur);
             $totalHeuresEquipe += $kpiIndividuel['total_heures'];
             $benchmark[] = $kpiIndividuel;
@@ -337,8 +462,11 @@ trait DashboardIndicateur04Trait
         $chargeMoyenneHeures = round($totalHeuresEquipe / $nbFormateurs, 1);
 
         $paramService = app(ParametrePedagogiqueService::class);
-        $seuilOptimal = $paramService->getSeuilChargeOptimalHeures();
-        $seuilAlerte = $paramService->getSeuilChargeAlerteHeures();
+        $selectedProjetId = !empty($projetId) ? (int) $projetId : null;
+        $nbSemaines = $this->determinerDureeSessionSemaines($selectedProjetId ? [$selectedProjetId] : []);
+        $seuilOptimal = round($nbSemaines * $paramService->getSeuilChargeOptimalHeures(), 1);
+        $seuilAlerte = round($nbSemaines * $paramService->getSeuilChargeAlerteHeures(), 1);
+        $plafondCible = round($nbSemaines * $paramService->getPlafondChargeLogistiqueHeures(), 1);
 
         if ($chargeMoyenneHeures <= $seuilOptimal) {
             $zoneMoyenne = 'optimal';
@@ -354,14 +482,18 @@ trait DashboardIndicateur04Trait
             $badgeMoyenneClass = 'bg-rose-50 text-rose-700 border-rose-200';
         }
 
+        $chargeMoyenneMin = $nbFormateurs > 0 ? ($totalHeuresEquipe * 60.0) / $nbFormateurs : 0;
+        $chargeMoyenneFormatee = $this->formatDureeMin($chargeMoyenneMin);
+
         return [
             'nombre_formateurs' => count($benchmark),
             'charge_moyenne_heures' => $chargeMoyenneHeures,
-            'charge_moyenne_formatee' => $chargeMoyenneHeures . ' h',
+            'charge_moyenne_formatee' => $chargeMoyenneFormatee,
             'zone' => $zoneMoyenne,
             'badge_label' => $badgeMoyenneLabel,
             'badge_class' => $badgeMoyenneClass,
-            'plafond_cible' => $paramService->getPlafondChargeLogistiqueHeures(),
+            'plafond_cible' => $plafondCible,
+            'nb_semaines' => $nbSemaines,
             'benchmark' => $benchmark,
         ];
     }
@@ -375,12 +507,15 @@ trait DashboardIndicateur04Trait
     public function getIndicateurChargeLogistiqueDetail(array $filters = []): array
     {
         $paramService = app(ParametrePedagogiqueService::class);
-        $seuilOptimal = $paramService->getSeuilChargeOptimalHeures();
-        $seuilAlerte = $paramService->getSeuilChargeAlerteHeures();
-        $cibleMax = $paramService->getPlafondChargeLogistiqueHeures();
-
-        // Si un projet / session est sélectionné
         $selectedProjetId = !empty($filters['projet_id']) ? (int) $filters['projet_id'] : null;
+
+        $nbSemaines = $this->determinerDureeSessionSemaines($selectedProjetId ? [$selectedProjetId] : []);
+        $volumeHebdo = $paramService->getVolumeHebdoFormateurHeures(); // 26.0h
+        $capaciteTotaleHeures = $nbSemaines * $volumeHebdo; // ex: 2 * 26h = 52.0h
+
+        $seuilOptimal = round($nbSemaines * $paramService->getSeuilChargeOptimalHeures(), 1);
+        $seuilAlerte = round($nbSemaines * $paramService->getSeuilChargeAlerteHeures(), 1);
+        $cibleMax = round($nbSemaines * $paramService->getPlafondChargeLogistiqueHeures(), 1);
 
         $formateursQuery = Formateur::with('user');
         if (!empty($filters['formateur_id'])) {
@@ -399,19 +534,24 @@ trait DashboardIndicateur04Trait
         $totalMinFeedbacks = 0.0;
 
         foreach ($allFormateurs as $formateur) {
-            $pQuery = Projet::where('formateur_id', $formateur->id);
             if ($selectedProjetId) {
-                $pQuery->where('id', $selectedProjetId);
+                $concerne = Projet::where('id', $selectedProjetId)
+                    ->where(function ($q) use ($formateur) {
+                        $q->where('formateur_id', $formateur->id)
+                          ->orWhereHas('affectationProjets.groupe.formateurs', fn($sub) => $sub->where('formateurs.id', $formateur->id));
+                    })->exists();
+                $pIds = $concerne ? [$selectedProjetId] : [];
+            } else {
+                $pIds = Projet::where('formateur_id', $formateur->id)->pluck('id')->toArray();
             }
-            $pIds = $pQuery->pluck('id')->toArray();
 
             $kpi = $this->calculerChargeLogistiqueActivites($pIds, $formateur);
             $totalHeuresEquipe += $kpi['total_heures'];
 
-            $totalMinConception += ($kpi['details']['conception_heures'] * 60.0);
-            $totalMinSuivi += ($kpi['details']['suivi_heures'] * 60.0);
-            $totalMinValidation += ($kpi['details']['validation_heures'] * 60.0);
-            $totalMinFeedbacks += ($kpi['details']['feedback_heures'] * 60.0);
+            $totalMinConception += ($kpi['details']['conception_min'] ?? ($kpi['details']['conception_heures'] * 60.0));
+            $totalMinSuivi += ($kpi['details']['suivi_min'] ?? ($kpi['details']['suivi_heures'] * 60.0));
+            $totalMinValidation += ($kpi['details']['validation_min'] ?? ($kpi['details']['validation_heures'] * 60.0));
+            $totalMinFeedbacks += ($kpi['details']['feedback_min'] ?? ($kpi['details']['feedback_heures'] * 60.0));
 
             $roster[] = $kpi;
         }
@@ -428,7 +568,9 @@ trait DashboardIndicateur04Trait
         $pctValidationGlobal = $totalMinEquipe > 0 ? round(($totalMinValidation / $totalMinEquipe) * 100) : 0;
         $pctFeedbacksGlobal = $totalMinEquipe > 0 ? round(($totalMinFeedbacks / $totalMinEquipe) * 100) : 0;
 
-        $tauxDispoGlobal = round(max(0, (35.0 - min(35.0, $chargeMoyenne)) / 35.0) * 100, 1);
+        $tempsTutoratGlobal = max(0, $capaciteTotaleHeures - $chargeMoyenne);
+        $tempsCoachingHebdo = round($tempsTutoratGlobal / max(1, $nbSemaines), 1);
+        $tauxDispoGlobal = $capaciteTotaleHeures > 0 ? round(($tempsTutoratGlobal / $capaciteTotaleHeures) * 100, 1) : 100.0;
 
         if ($chargeMoyenne <= $seuilOptimal) {
             $statut = 'Optimal';
@@ -448,9 +590,15 @@ trait DashboardIndicateur04Trait
         $nbVigilance = count(array_filter($roster, fn($r) => $r['zone'] === 'vigilance'));
         $nbAlerte = count(array_filter($roster, fn($r) => $r['zone'] === 'alerte'));
 
+        $formatDureeMin = fn(float $minutes): string => $this->formatDureeMin($minutes);
+
         return [
             'semaine' => now()->format('o-\WW'),
             'selected_projet_id' => $selectedProjetId,
+            'nb_semaines' => $nbSemaines,
+            'volume_hebdo' => $volumeHebdo,
+            'capacite_totale_heures' => $capaciteTotaleHeures,
+            'temps_coaching_hebdo' => $tempsCoachingHebdo,
             'seuil_optimal' => $seuilOptimal,
             'seuil_alerte' => $seuilAlerte,
             'cible_max' => $cibleMax,
@@ -462,20 +610,25 @@ trait DashboardIndicateur04Trait
             'nb_vigilance' => $nbVigilance,
             'nb_alerte' => $nbAlerte,
             'charge_moyenne_heures' => $chargeMoyenne,
-            'charge_moyenne_formatee' => sprintf('%.1fh', $chargeMoyenne),
+            'charge_moyenne_formatee' => $formatDureeMin($nbFormateurs > 0 ? $totalMinEquipe / $nbFormateurs : 0),
             'total_heures_equipe' => $totalHeuresEquipe,
-            'total_heures_equipe_formate' => sprintf('%.1fh', $totalHeuresEquipe),
+            'total_heures_equipe_formate' => $formatDureeMin($totalMinEquipe),
             'taux_disponibilite' => $tauxDispoGlobal,
             'taux_disponibilite_formate' => sprintf('%.1f%%', $tauxDispoGlobal),
             'details_globaux' => [
                 'conception_heures' => round($totalMinConception / 60.0, 1),
+                'conception_formate' => $formatDureeMin($totalMinConception),
                 'conception_pct' => $pctConceptionGlobal,
                 'suivi_heures' => round($totalMinSuivi / 60.0, 1),
+                'suivi_formate' => $formatDureeMin($totalMinSuivi),
                 'suivi_pct' => $pctSuiviGlobal,
                 'validation_heures' => round($totalMinValidation / 60.0, 1),
+                'validation_formate' => $formatDureeMin($totalMinValidation),
                 'validation_pct' => $pctValidationGlobal,
                 'feedback_heures' => round($totalMinFeedbacks / 60.0, 1),
+                'feedback_formate' => $formatDureeMin($totalMinFeedbacks),
                 'feedback_pct' => $pctFeedbacksGlobal,
+                'val_feedback_formate' => $formatDureeMin($totalMinValidation + $totalMinFeedbacks),
             ],
             'benchmark' => $roster,
         ];

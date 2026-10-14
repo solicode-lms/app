@@ -147,7 +147,7 @@ class TableauBordFormateurController extends AdminController
         // Calcul des indicateurs KPIs
         $kpiAmorcage = $this->tableauBordService->getIndicateurAmorcageFormateur($affectationProjet);
         $kpiRevision = $this->tableauBordService->getIndicateurRevisionFormateur($affectationProjet);
-        $kpiChargeLogistique = $formateur ? $this->tableauBordService->getIndicateurChargeLogistiqueFormateur($formateur) : [];
+        $kpiChargeLogistique = $formateur ? $this->tableauBordService->getIndicateurChargeLogistiqueFormateur($formateur, $affectationProjet ?? $projetActif) : [];
         $kpiIntervention = $formateur ? $this->tableauBordService->getIndicateurInterventionFormateur($affectationProjet, $formateur) : [];
 
         if ($isProjetSessionFormation) {

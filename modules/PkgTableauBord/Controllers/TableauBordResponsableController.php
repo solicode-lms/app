@@ -111,7 +111,7 @@ class TableauBordResponsableController extends AdminController
         // 5. Calcul des indicateurs
         $kpiAmorcage = $this->tableauBordService->getIndicateurAmorcageResponsable($targetGroupeIds, $targetProjetId);
         $kpiRevision = $this->tableauBordService->getIndicateurRevisionResponsable($targetGroupeIds, $targetProjetId);
-        $kpiChargeLogistique = $this->tableauBordService->getIndicateurChargeLogistiqueResponsable(null, $selectedFormateurId);
+        $kpiChargeLogistique = $this->tableauBordService->getIndicateurChargeLogistiqueResponsable($selectedFormateurId, $targetProjetId);
         $kpiIntervention = $this->tableauBordService->getIndicateurInterventionResponsable($targetGroupeIds, $targetProjetId);
 
         // Indicateurs conditionnés par la présence d'une Session de Formation (Live Coding N2 & UA)
