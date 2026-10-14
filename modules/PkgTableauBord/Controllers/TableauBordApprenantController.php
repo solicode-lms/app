@@ -124,17 +124,29 @@ class TableauBordApprenantController extends AdminController
         $realisationProjet = null;
 
         if ($apprenant) {
-            $projets = Projet::sessionsFormation()
+            $filterType = $request->get('filter_type', 'sessions');
+            $projetsQuery = Projet::query()
                 ->whereHas('affectationProjets.realisationProjets', function ($q) use ($apprenant) {
                     $q->where('apprenant_id', $apprenant->id);
                 })
                 ->with(['formateur', 'filiere'])
-                ->orderBy('titre')
-                ->get();
+                ->withExists(['taches as has_live_coding' => function ($sub) {
+                    $sub->whereHas('phaseEvaluation', fn($pe) => $pe->where('code', 'N2'));
+                }]);
+
+            if ($filterType === 'sessions') {
+                $projetsQuery->sessionsFormation();
+            }
+
+            $projets = $projetsQuery->orderBy('titre')->get();
 
             $requestedProjetId = $request->get('projet_id') ?? $request->get('session_formation_id');
             if (!empty($requestedProjetId) && $projets->contains('id', (int)$requestedProjetId)) {
                 $projetActif = $projets->firstWhere('id', (int)$requestedProjetId);
+            } elseif (!empty($requestedProjetId)) {
+                $projetActif = Projet::whereHas('affectationProjets.realisationProjets', fn($q) => $q->where('apprenant_id', $apprenant->id))
+                    ->with(['formateur', 'filiere'])
+                    ->find($requestedProjetId);
             } else {
                 $projetActif = $projets->first();
             }
@@ -165,19 +177,32 @@ class TableauBordApprenantController extends AdminController
             }
         }
 
+        // Nature didactique du projet actif
+        $isProjetSessionFormation = $projetActif ? $projetActif->isSessionFormation() : true;
+
         // Calcul des indicateurs (KPIs)
         $kpiAmorcage = $this->tableauBordService->getIndicateurAmorcageApprenant($realisationProjet);
-        $kpiGating = $this->tableauBordService->getIndicateurGatingApprenant($realisationProjet);
         $kpiRevision = $this->tableauBordService->getIndicateurRevisionApprenant($realisationProjet);
-        $kpiFileAttente = $this->tableauBordService->getIndicateurFileAttenteApprenant($realisationProjet, $apprenant?->user ?? $user);
         $kpiIntervention = $this->tableauBordService->getIndicateurInterventionApprenant($realisationProjet, $apprenant?->user ?? $user);
-        $kpiIntegriteIA = $this->tableauBordService->getIndicateurIntegriteApprenant($realisationProjet);
-        $kpiCouverture = $this->tableauBordService->getIndicateurCouvertureApprenant($realisationProjet, $apprenant);
-        $kpiDocimologie = $this->tableauBordService->getIndicateurDocimologieApprenant($realisationProjet, $apprenant);
+
+        if ($isProjetSessionFormation) {
+            $kpiGating = $this->tableauBordService->getIndicateurGatingApprenant($realisationProjet);
+            $kpiFileAttente = $this->tableauBordService->getIndicateurFileAttenteApprenant($realisationProjet, $apprenant?->user ?? $user);
+            $kpiIntegriteIA = $this->tableauBordService->getIndicateurIntegriteApprenant($realisationProjet);
+            $kpiCouverture = $this->tableauBordService->getIndicateurCouvertureApprenant($realisationProjet, $apprenant);
+            $kpiDocimologie = $this->tableauBordService->getIndicateurDocimologieApprenant($realisationProjet, $apprenant);
+        } else {
+            $kpiGating = ['is_applicable' => false, 'message' => "Non applicable (Projet sans épreuve Live Coding N2)"];
+            $kpiFileAttente = ['is_applicable' => false, 'message' => "Non applicable (Pas d'épreuve Live Coding)"];
+            $kpiIntegriteIA = ['is_applicable' => false, 'message' => "Non applicable (Pas d'épreuve Live Coding N2)"];
+            $kpiCouverture = ['is_applicable' => false, 'message' => "Non applicable (Pas d'Unités d'Apprentissage mobilisées)"];
+            $kpiDocimologie = ['is_applicable' => false, 'message' => "Non applicable (Pas de conversion EFM officielle)"];
+        }
 
         return view('PkgTableauBord::apprenant.index', [
             'user' => $user,
             'apprenant' => $apprenant,
+            'isProjetSessionFormation' => $isProjetSessionFormation,
             'isSuperviseur' => $isSuperviseur,
             'canSelectApprenant' => $canSelectApprenant,
             'groupes' => $groupes,

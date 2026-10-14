@@ -43,6 +43,17 @@
                 <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100/70 text-indigo-800 border border-indigo-300">
                     Projet : {{ $currentActive->titre }}
                 </span>
+                @if(!empty($isProjetSessionFormation))
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1">
+                    <i class="fas fa-certificate text-[10px] text-emerald-600"></i>
+                    <span>Session N2</span>
+                </span>
+                @else
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-300 flex items-center gap-1">
+                    <i class="fas fa-folder text-[10px] text-slate-500"></i>
+                    <span>Projet Standard</span>
+                </span>
+                @endif
                 @endif
             </div>
 
@@ -99,6 +110,19 @@
     @endif
 </section>
 
+@if(isset($isProjetSessionFormation) && !$isProjetSessionFormation)
+<div class="p-4 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-3 shadow-xs">
+    <i class="fas fa-info-circle text-amber-600 text-base mt-0.5 shrink-0"></i>
+    <div class="space-y-1">
+        <p class="font-bold">Projet Standard (Hors Session de formation N2)</p>
+        <p class="text-amber-800 leading-relaxed">
+            Ce projet ne comporte pas d'épreuve de Live Coding ($N2$).
+            Les indicateurs certifiants (Gating, File d'attente, Intégrité IA, Couverture UA et Docimologie) ne sont pas applicables à ce projet.
+        </p>
+    </div>
+</div>
+@endif
+
 <!-- Message Bienveillant d'Accompagnement Didactique (Indicateur 06 — T_intervention) -->
 @if(!empty($kpiIntervention['besoin_aide']))
 <section class="bg-amber-50 border-2 border-amber-300 rounded-lg p-5 sm:p-6 shadow-sm">
@@ -134,7 +158,7 @@
 @endif
 
 <!-- Statut Opérationnel Immédiat & File d'Attente (Indicateur 05 — T_file) -->
-@if(!empty($kpiFileAttente['est_en_file']))
+@if(($isProjetSessionFormation ?? true) && !empty($kpiFileAttente['est_en_file']))
 <section class="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-sm relative overflow-hidden">
     <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
         <div class="flex items-start gap-4">
@@ -188,6 +212,7 @@
         <p class="text-xs text-slate-400">Suivi en direct de votre rythme d'amorçage et de la validation de vos jalons techniques.</p>
     </div>
 
+    @if($isProjetSessionFormation ?? true)
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
         @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'apprenant', 'kpi' => $kpiAmorcage])
         @include('PkgTableauBord::components.kpi-gating', ['type' => 'apprenant', 'kpi' => $kpiGating])
@@ -195,8 +220,14 @@
         @include('PkgTableauBord::components.kpi-couverture-pedagogique', ['type' => 'apprenant', 'kpi' => $kpiCouverture])
         @include('PkgTableauBord::components.kpi-docimologie', ['type' => 'apprenant', 'kpi' => $kpiDocimologie])
     </div>
+    @else
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'apprenant', 'kpi' => $kpiAmorcage])
+        @include('PkgTableauBord::components.kpi-revision', ['type' => 'apprenant', 'kpi' => $kpiRevision])
+    </div>
+    @endif
 
-    @if(!empty($kpiIntegriteIA['a_des_notes']))
+    @if(($isProjetSessionFormation ?? true) && !empty($kpiIntegriteIA['a_des_notes']))
     <div class="bg-white rounded-lg border border-slate-200 p-4 shadow-2xs flex items-center justify-between text-xs text-slate-700">
         <div class="flex items-center gap-2.5">
             <i class="fas fa-scale-balanced text-indigo-600"></i>

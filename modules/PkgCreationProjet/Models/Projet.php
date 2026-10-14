@@ -20,17 +20,28 @@ class Projet extends BaseProjet
     ];
 
     /**
-     * Scope pour filtrer les projets qui sont des sessions de formation.
+     * Scope pour filtrer les projets qui sont des sessions de formation (ayant au moins une tâche de Live Coding N2).
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeSessionsFormation($query)
     {
-        if (\Illuminate\Support\Facades\Schema::hasColumn('projets', 'is_session_formation')) {
-            return $query->where('is_session_formation', true);
-        }
-        return $query;
+        return $query->whereHas('taches.phaseEvaluation', function ($q) {
+            $q->where('code', 'N2');
+        });
+    }
+
+    /**
+     * Détermine si le projet est une session de formation didactique (comporte une tâche de Live Coding N2).
+     *
+     * @return bool
+     */
+    public function isSessionFormation(): bool
+    {
+        return $this->taches()->whereHas('phaseEvaluation', function ($q) {
+            $q->where('code', 'N2');
+        })->exists();
     }
 
 

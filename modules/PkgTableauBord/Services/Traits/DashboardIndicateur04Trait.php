@@ -103,10 +103,14 @@ trait DashboardIndicateur04Trait
     /**
      * Indicateur 04 — Calcul macroscopique responsable (Gouvernance & Benchmark Formateurs).
      */
-    public function getIndicateurChargeLogistiqueResponsable(?string $semaine = null): array
+    public function getIndicateurChargeLogistiqueResponsable(?string $semaine = null, ?int $formateurId = null): array
     {
         $semaine = $semaine ?? now()->format('o-\WW');
-        $formateurs = Formateur::with('user')->get();
+        $formateursQuery = Formateur::with('user');
+        if (!empty($formateurId)) {
+            $formateursQuery->where('id', $formateurId);
+        }
+        $formateurs = $formateursQuery->get();
 
         $benchmark = [];
         $totalHeuresEquipe = 0.0;

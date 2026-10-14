@@ -5,49 +5,108 @@
 @section('page_subtitle', 'Indicateurs macroscopiques et benchmark comparatif des groupes')
 
 @section('actions')
-@include('PkgTableauBord::components.session-selector', ['sessions' => $sessions ?? collect(), 'sessionActive' => $sessionFormationActive ?? null])
+@include('PkgTableauBord::components.responsable-filter-bar', [
+    'formateurs' => $formateurs ?? collect(),
+    'selectedFormateurId' => $selectedFormateurId ?? null,
+    'filieres' => $filieres ?? collect(),
+    'selectedFiliereId' => $selectedFiliereId ?? null,
+    'groupes' => $groupes ?? collect(),
+    'selectedGroupeId' => $selectedGroupeId ?? null,
+    'projets' => $projets ?? collect(),
+    'selectedProjetId' => $selectedProjetId ?? null,
+    'filterType' => $filterType ?? 'sessions'
+])
 @endsection
 
 @section('content')
 <!-- En-tête contextuel Responsable -->
-<section class="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-sm">
+<section class="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-sm space-y-3">
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 flex-wrap">
                 <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
                     Direction Pédagogique
                 </span>
-                @if(isset($projetActif) || isset($sessionFormationActive))
-                @php $currentActive = $projetActif ?? $sessionFormationActive; @endphp
-                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100/70 text-indigo-800 border border-indigo-300">
-                    Projet : {{ $currentActive->titre }}
-                </span>
+
+                @if(!empty($isVisionGlobale))
+                    <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1.5">
+                        <i class="fas fa-globe text-[11px] text-emerald-600"></i>
+                        Vision Globale (Toutes promotions — Sessions N2)
+                    </span>
+                @else
+                    @if(!empty($selectedFiliereId) && $filieres->firstWhere('id', $selectedFiliereId))
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800 border border-indigo-200">
+                            Filière : {{ $filieres->firstWhere('id', $selectedFiliereId)->code ?? $filieres->firstWhere('id', $selectedFiliereId)->nom }}
+                        </span>
+                    @endif
+                    @if(!empty($selectedFormateurId) && $formateurs->firstWhere('id', $selectedFormateurId))
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800 border border-indigo-200">
+                            Formateur : {{ $formateurs->firstWhere('id', $selectedFormateurId)->nom }}
+                        </span>
+                    @endif
+                    @if(!empty($selectedGroupeId) && $groupes->firstWhere('id', $selectedGroupeId))
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800 border border-indigo-200">
+                            Groupe : {{ $groupes->firstWhere('id', $selectedGroupeId)->code ?? $groupes->firstWhere('id', $selectedGroupeId)->nom }}
+                        </span>
+                    @endif
+                    @if($projetActif)
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold {{ $isProjetSessionFormation ? 'bg-indigo-100/80 text-indigo-900 border-indigo-300' : 'bg-amber-100 text-amber-900 border-amber-300' }} border">
+                            Projet : {{ $projetActif->titre }} {{ $isProjetSessionFormation ? '(Session N2)' : '(Standard)' }}
+                        </span>
+                    @endif
                 @endif
             </div>
-            <h2 class="text-xl font-bold text-slate-900 mt-1">
+            <h2 class="text-xl font-bold text-slate-900 mt-1.5">
                 Gouvernance & Cohérence des Formations
             </h2>
             <p class="text-xs text-slate-500 mt-0.5">
-                Suivi macroscopique du rythme d'amorce des projets par filière et détection des écarts de progression.
+                Suivi macroscopique du rythme d'amorce des projets par filière et harmonisation des promotions.
             </p>
         </div>
 
-        <div class="flex items-center gap-2">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
-                <i class="fas fa-graduation-cap"></i>
-                Toutes promotions actives
-            </span>
+        <div class="flex items-center gap-2 shrink-0">
+            @if(!empty($isVisionGlobale))
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    <i class="fas fa-graduation-cap"></i>
+                    Toutes promotions actives
+                </span>
+            @else
+                <a href="{{ url()->current() }}" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 transition shadow-2xs">
+                    <i class="fas fa-rotate-left"></i>
+                    Revenir à la Vision Globale
+                </a>
+            @endif
         </div>
     </div>
+
+    @if($projetActif && !($isProjetSessionFormation ?? true))
+    <!-- Bannière Explicative : Projet Hors Session de Formation -->
+    <div class="p-3.5 bg-amber-50/90 border border-amber-200 rounded-lg text-amber-900 flex items-start gap-3 shadow-2xs mt-2">
+        <div class="w-7 h-7 rounded-lg bg-amber-100 border border-amber-300 text-amber-700 flex items-center justify-center shrink-0 text-xs">
+            <i class="fas fa-info-circle"></i>
+        </div>
+        <div class="text-xs leading-relaxed">
+            <strong class="font-bold text-amber-950">Projet Standard Hors Session de Formation</strong> &bull; 
+            Ce projet ne comporte pas d'épreuve de Live Coding (Phase N2) et ne mobilise pas d'Unités d'Apprentissage certificatives. 
+            Ses résultats d'activité continue (amorçage, retouches, logistique, intervention) sont affichés ci-dessous, mais il est <strong>exclu des agrégations macroscopiques globales</strong>. Les indicateurs liés au Live Coding sont désactivés.
+        </div>
+    </div>
+    @endif
 </section>
 
 <!-- Indicateurs de Gouvernance & Benchmark Macro -->
 <section class="space-y-4">
     <div>
-        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Indicateurs Stratégiques & Benchmark Inter-Promotions</h3>
-        <p class="text-xs text-slate-400">Suivi global du rythme d'amorce des projets (T<sub>amorçage</sub>) et du taux de validation directe du prototype (R<sub>gating</sub>).</p>
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">
+            {{ ($isProjetSessionFormation ?? true) ? 'Indicateurs Stratégiques & Benchmark Inter-Promotions (Sessions N2)' : 'Indicateurs d\'Activité Continue (Projet Standard)' }}
+        </h3>
+        <p class="text-xs text-slate-400">
+            {{ ($isProjetSessionFormation ?? true) ? 'Suivi global du rythme d\'amorce des projets (Tamorçage) et du taux de validation directe du prototype (Rgating).' : 'Suivi du démarrage du sprint et de la charge logistique sur ce projet standard.' }}
+        </p>
     </div>
 
+    @if($isProjetSessionFormation ?? true)
+    {{-- Grille Complète des 9 Indicateurs (Sessions de formation N2) --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-9 gap-4">
         <!-- Carte Macroscopique Globale Amorçage (Indicateur 01) -->
         <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
@@ -93,9 +152,44 @@
         <!-- Carte Macroscopique Globale Docimologie 65/35 (Indicateur 09) -->
         @include('PkgTableauBord::components.kpi-docimologie', ['type' => 'responsable', 'kpi' => $kpiDocimologie])
     </div>
+    @else
+    {{-- Grille Adaptée (Projet standard hors session : Indicateurs continus 01, 03, 04, 06) --}}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Carte Macroscopique Globale Amorçage (Indicateur 01) -->
+        <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm relative group hover:border-indigo-300 transition">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-500">Délai moyen d'amorçage</span>
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                    Indicateur 01
+                </span>
+            </div>
+            <div class="mt-3 flex items-baseline gap-2">
+                <span class="text-3xl font-extrabold text-indigo-700 tracking-tight">
+                    {{ $kpiAmorcage['delai_moyen_global_formate'] ?? '--' }}
+                </span>
+            </div>
+            <p class="text-xs text-slate-500 mt-2">Délai moyen d'activation de la première tâche du projet.</p>
+            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                <span>Groupes analysés</span>
+                <span class="font-bold text-slate-800">{{ count($kpiAmorcage['benchmark'] ?? []) }} groupes</span>
+            </div>
+        </div>
 
+        <!-- Carte Macroscopique Globale Révision (Indicateur 03) -->
+        @include('PkgTableauBord::components.kpi-revision', ['type' => 'responsable', 'kpi' => $kpiRevision])
+
+        <!-- Carte Macroscopique Globale Charge Administrative (Indicateur 04) -->
+        @include('PkgTableauBord::components.kpi-charge-logistique', ['type' => 'responsable', 'kpi' => $kpiChargeLogistique])
+
+        <!-- Carte Macroscopique Globale Remédiation (Indicateur 06) -->
+        @include('PkgTableauBord::components.kpi-intervention', ['type' => 'responsable', 'kpi' => $kpiIntervention])
+    </div>
+    @endif
+
+    @if($isProjetSessionFormation ?? true)
     <!-- Section Scatter Plot SVG & Diagnostic d'Intégrité IA (Indicateur 07 — Pearson r) -->
     @include('PkgTableauBord::components.scatter-plot-ia', ['kpi' => $kpiIntegriteIA])
+    @endif
 
     <!-- Matrice Comparative / Benchmark Réel des Promotions -->
     <div class="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">

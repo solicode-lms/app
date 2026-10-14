@@ -45,6 +45,17 @@
                 <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100/70 text-indigo-800 border border-indigo-300">
                     Projet : {{ $currentActive->titre }}
                 </span>
+                @if(!empty($isProjetSessionFormation))
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1">
+                    <i class="fas fa-certificate text-[10px] text-emerald-600"></i>
+                    <span>Session N2</span>
+                </span>
+                @else
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-300 flex items-center gap-1">
+                    <i class="fas fa-folder text-[10px] text-slate-500"></i>
+                    <span>Projet Standard</span>
+                </span>
+                @endif
                 @endif
             </div>
 
@@ -101,6 +112,20 @@
     @endif
 </section>
 
+@if(isset($isProjetSessionFormation) && !$isProjetSessionFormation)
+<div class="p-4 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-3 shadow-xs">
+    <i class="fas fa-info-circle text-amber-600 text-base mt-0.5 shrink-0"></i>
+    <div class="space-y-1">
+        <p class="font-bold">Projet Standard (Hors Session de formation N2)</p>
+        <p class="text-amber-800 leading-relaxed">
+            Ce projet ne comporte pas d'épreuve de Live Coding ($N2$) ni de mobilisation d'Unités d'Apprentissage (UA).
+            Les indicateurs certifiants (Gating, File d'attente, Intégrité IA, Couverture UA et Docimologie) sont désactivés.
+            Seuls les indicateurs de suivi continu (Amorçage, Révision, Charge et Intervention) sont affichés.
+        </p>
+    </div>
+</div>
+@endif
+
 <!-- Indicateurs Fonctionnels de Pilotage Didactique -->
 <section class="space-y-4">
     <div>
@@ -108,6 +133,7 @@
         <p class="text-xs text-slate-400">Régulation du rythme de démarrage et validation des fondamentaux techniques au Live Coding.</p>
     </div>
 
+    @if($isProjetSessionFormation ?? true)
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-9 gap-4">
         @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'formateur', 'kpi' => $kpiAmorcage])
         @include('PkgTableauBord::components.kpi-docimologie', ['type' => 'formateur', 'kpi' => $kpiDocimologie])
@@ -120,21 +146,33 @@
         @include('PkgTableauBord::components.kpi-revision', ['type' => 'formateur', 'kpi' => $kpiRevision])
         @include('PkgTableauBord::components.kpi-charge-logistique', ['type' => 'formateur', 'kpi' => $kpiChargeLogistique])
     </div>
+    @else
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'formateur', 'kpi' => $kpiAmorcage])
+        @include('PkgTableauBord::components.kpi-revision', ['type' => 'formateur', 'kpi' => $kpiRevision])
+        @include('PkgTableauBord::components.kpi-charge-logistique', ['type' => 'formateur', 'kpi' => $kpiChargeLogistique])
+        @include('PkgTableauBord::components.kpi-intervention', ['type' => 'formateur', 'kpi' => $kpiIntervention])
+    </div>
+    @endif
 
     <!-- Diagnostic d'Amorçage : Apprenants en Attente de Démarrage (Indicateur 01 — T_amorçage) -->
     @include('PkgTableauBord::components.apprenants-non-amorces-panel', ['kpi' => $kpiAmorcage])
 
+    @if($isProjetSessionFormation ?? true)
     <!-- Bordereau Officiel & Contrôle Docimologique 65/35 (Indicateur 09) -->
     @include('PkgTableauBord::components.bordereau-officiel-panel', ['kpi' => $kpiDocimologie])
 
     <!-- Diagnostic Didactique : Impasses & Points de Fragilité (< 50%) (Indicateur 08 — ICP) -->
     @include('PkgTableauBord::components.impasses-pedagogiques-panel', ['kpi' => $kpiCouverture])
+    @endif
 
     <!-- Flashbox Alerte Critique : Apprenants en Rupture Didactique (+10 min) (Indicateur 06 — T_intervention) -->
     @include('PkgTableauBord::components.flashbox-alerte-blocages', ['kpi' => $kpiIntervention])
 
+    @if($isProjetSessionFormation ?? true)
     <!-- Console Opérationnelle Interactive : File d'Attente FIFO (Indicateur 05 — T_file) -->
     @include('PkgTableauBord::components.file-attente-console', ['kpi' => $kpiFileAttente])
+    @endif
 
     <!-- Top 3 Tâches Nécessitant un Réalignement Didactique -->
     @if(!empty($kpiRevision['top_taches']))
@@ -162,7 +200,7 @@
     @endif
 
     <!-- Tableau d'Audit Docimologique : Soutenances & Concordance IA (Indicateur 07 — Pearson r) -->
-    @if(!empty($kpiIntegriteIA['apprenants']))
+    @if(($isProjetSessionFormation ?? true) && !empty($kpiIntegriteIA['apprenants']))
     <div class="bg-white p-5 sm:p-6 rounded-lg border border-slate-200 shadow-sm space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
             <div>
@@ -237,7 +275,7 @@
         @endif
 
         <!-- Liste des apprenants orientés en remédiation prototype si présents -->
-        @if(!empty($kpiGating['apprenants_en_remediation']))
+        @if(($isProjetSessionFormation ?? true) && !empty($kpiGating['apprenants_en_remediation']))
         <div class="bg-rose-50 border border-rose-200 rounded-lg p-5 shadow-2xs">
             <div class="flex items-center gap-3">
                 <i class="fas fa-user-clock text-rose-600 text-lg"></i>

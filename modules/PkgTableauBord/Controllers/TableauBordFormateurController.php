@@ -84,9 +84,17 @@ class TableauBordFormateurController extends AdminController
         $affectationProjet = null;
 
         if ($formateur) {
-            $projetsQuery = Projet::sessionsFormation()
+            $filterType = $request->get('filter_type', 'sessions');
+            $projetsQuery = Projet::query()
                 ->where('formateur_id', $formateur->id)
-                ->with(['formateur', 'filiere']);
+                ->with(['formateur', 'filiere'])
+                ->withExists(['taches as has_live_coding' => function ($sub) {
+                    $sub->whereHas('phaseEvaluation', fn($pe) => $pe->where('code', 'N2'));
+                }]);
+
+            if ($filterType === 'sessions') {
+                $projetsQuery->sessionsFormation();
+            }
 
             if ($selectedGroupeId) {
                 $projetsQuery->whereHas('affectationProjets', function ($q) use ($selectedGroupeId) {
@@ -99,6 +107,8 @@ class TableauBordFormateurController extends AdminController
             $requestedProjetId = $request->get('projet_id') ?? $request->get('session_formation_id');
             if (!empty($requestedProjetId) && $projets->contains('id', (int)$requestedProjetId)) {
                 $projetActif = $projets->firstWhere('id', (int)$requestedProjetId);
+            } elseif (!empty($requestedProjetId)) {
+                $projetActif = Projet::where('formateur_id', $formateur->id)->with(['formateur', 'filiere'])->find($requestedProjetId);
             } else {
                 $projetActif = $projets->first();
             }
@@ -131,16 +141,28 @@ class TableauBordFormateurController extends AdminController
             }
         }
 
+        // Nature didactique du projet actif
+        $isProjetSessionFormation = $projetActif ? $projetActif->isSessionFormation() : true;
+
         // Calcul des indicateurs KPIs
         $kpiAmorcage = $this->tableauBordService->getIndicateurAmorcageFormateur($affectationProjet);
-        $kpiGating = $this->tableauBordService->getIndicateurGatingFormateur($affectationProjet);
         $kpiRevision = $this->tableauBordService->getIndicateurRevisionFormateur($affectationProjet);
         $kpiChargeLogistique = $formateur ? $this->tableauBordService->getIndicateurChargeLogistiqueFormateur($formateur) : [];
-        $kpiFileAttente = $this->tableauBordService->getIndicateurFileAttenteFormateur($affectationProjet);
         $kpiIntervention = $formateur ? $this->tableauBordService->getIndicateurInterventionFormateur($affectationProjet, $formateur) : [];
-        $kpiIntegriteIA = $this->tableauBordService->getIndicateurIntegriteFormateur($affectationProjet);
-        $kpiCouverture = $this->tableauBordService->getIndicateurCouvertureFormateur($affectationProjet, $affectationProjet?->groupe);
-        $kpiDocimologie = $this->tableauBordService->getIndicateurDocimologieFormateur($affectationProjet, $affectationProjet?->groupe);
+
+        if ($isProjetSessionFormation) {
+            $kpiGating = $this->tableauBordService->getIndicateurGatingFormateur($affectationProjet);
+            $kpiFileAttente = $this->tableauBordService->getIndicateurFileAttenteFormateur($affectationProjet);
+            $kpiIntegriteIA = $this->tableauBordService->getIndicateurIntegriteFormateur($affectationProjet);
+            $kpiCouverture = $this->tableauBordService->getIndicateurCouvertureFormateur($affectationProjet, $affectationProjet?->groupe);
+            $kpiDocimologie = $this->tableauBordService->getIndicateurDocimologieFormateur($affectationProjet, $affectationProjet?->groupe);
+        } else {
+            $kpiGating = ['is_applicable' => false, 'message' => "Non applicable (Projet sans épreuve Live Coding N2)"];
+            $kpiFileAttente = ['is_applicable' => false, 'message' => "Non applicable (Pas d'épreuve Live Coding)"];
+            $kpiIntegriteIA = ['is_applicable' => false, 'message' => "Non applicable (Pas d'épreuve Live Coding N2)"];
+            $kpiCouverture = ['is_applicable' => false, 'message' => "Non applicable (Pas d'Unités d'Apprentissage mobilisées)"];
+            $kpiDocimologie = ['is_applicable' => false, 'message' => "Non applicable (Pas de conversion EFM officielle)"];
+        }
 
         return view('PkgTableauBord::formateur.index', [
             'user' => $user,
@@ -166,6 +188,7 @@ class TableauBordFormateurController extends AdminController
             'projetActif' => $projetActif,
             'sessions' => $projets,
             'sessionFormationActive' => $projetActif,
+            'isProjetSessionFormation' => $isProjetSessionFormation,
         ]);
     }
 }

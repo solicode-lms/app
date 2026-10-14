@@ -197,7 +197,7 @@ trait DashboardIndicateur08Trait
         if (!empty($groupeIds)) {
             $groupesQuery->whereIn('id', $groupeIds);
         } else {
-            $groupesQuery->has('apprenants')->take(4);
+            $groupesQuery->has('apprenants');
         }
         $groupes = $groupesQuery->get();
 
