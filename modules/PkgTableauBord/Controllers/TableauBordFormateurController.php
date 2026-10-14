@@ -5,6 +5,7 @@ namespace Modules\PkgTableauBord\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgTableauBord\Services\TableauBordService;
@@ -25,45 +26,47 @@ class TableauBordFormateurController extends AdminController
     public function index(Request $request)
     {
         $user = Auth::user();
-        $formateur = Formateur::where('user_id', $user->id)->first();
+        if (!$user || !$user->hasRole(Role::FORMATEUR_ROLE)) {
+            abort(403, "Accès refusé. Cette interface est strictement réservée aux formateurs.");
+        }
 
-        // Résolution du Projet actif (session de formation du formateur)
+        $formateur = Formateur::where('user_id', $user->id)->first();
+        if (!$formateur) {
+            abort(403, "Accès refusé. Aucun profil Formateur n'est associé à votre compte utilisateur.");
+        }
+
+        // Résolution du Projet actif (session de formation du formateur connecté)
         $requestedProjetId = $request->get('projet_id') ?? $request->get('session_formation_id');
         $projets = $this->tableauBordService->getSessionsProjetDisponibles($user);
         $projetActif = $this->tableauBordService->resolveActiveProjet($requestedProjetId, $user);
 
-        // Récupérer l'affectation active (soit par filtre ID, soit par projet actif, soit la plus récente)
+        // Récupérer l'affectation active (strictement cloisonnée au formateur connecté)
         $affectationProjetId = $request->get('affectation_projet_id');
         $affectationProjet = null;
 
         if ($affectationProjetId) {
-            $affectationProjet = AffectationProjet::with(['projet.formateur', 'groupe'])->find($affectationProjetId);
+            $affectationProjet = AffectationProjet::whereHas('projet', function ($q) use ($formateur) {
+                $q->where('formateur_id', $formateur->id);
+            })->with(['projet.formateur', 'groupe'])->find($affectationProjetId);
         }
 
-        if (!$affectationProjet) {
-            $query = AffectationProjet::with(['projet.formateur', 'groupe']);
-            if ($projetActif) {
-                $query->where('projet_id', $projetActif->id);
-            }
-            if ($formateur) {
-                $query->whereHas('projet', function ($q) use ($formateur) {
-                    $q->where('formateur_id', $formateur->id);
-                });
-            }
-            $affectationProjet = $query->latest('date_debut')->first();
-        }
-
-        // Fallback contextuel sur le projet sélectionné
         if (!$affectationProjet && $projetActif) {
-            $affectationProjet = AffectationProjet::with(['projet.formateur', 'groupe'])
-                ->where('projet_id', $projetActif->id)
+            $affectationProjet = AffectationProjet::where('projet_id', $projetActif->id)
+                ->whereHas('projet', function ($q) use ($formateur) {
+                    $q->where('formateur_id', $formateur->id);
+                })
+                ->with(['projet.formateur', 'groupe'])
                 ->latest('date_debut')
                 ->first();
         }
 
-        // Fallback global de prévisualisation
         if (!$affectationProjet) {
-            $affectationProjet = AffectationProjet::with(['projet.formateur', 'groupe'])->latest('date_debut')->first();
+            $affectationProjet = AffectationProjet::whereHas('projet', function ($q) use ($formateur) {
+                $q->where('formateur_id', $formateur->id);
+            })
+            ->with(['projet.formateur', 'groupe'])
+            ->latest('date_debut')
+            ->first();
         }
 
         $kpiAmorcage = $this->tableauBordService->getIndicateurAmorcageFormateur($affectationProjet);

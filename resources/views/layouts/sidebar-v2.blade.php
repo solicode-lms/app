@@ -42,40 +42,40 @@
         @auth
             @if(Auth::user()->hasAnyRole(['root']))
                 <!-- Vue Responsable -->
-                <a href="{{ route('tableau-bord.responsable') }}" 
-                   class="flex items-center justify-between px-3 py-2.5 rounded-xl font-semibold text-xs transition {{ Request::is('tableau-bord/responsable*') ? 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-2xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                <a href="{{ route('admin.PkgTableauBord.responsable') }}" 
+                   class="flex items-center justify-between px-3 py-2.5 rounded-xl font-semibold text-xs transition {{ Request::is('admin/PkgTableauBord/responsable*') ? 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-2xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                     <div class="flex items-center gap-3">
-                        <i class="fas fa-chart-pie text-sm {{ Request::is('tableau-bord/responsable*') ? 'text-indigo-600' : 'text-slate-400' }}"></i>
+                        <i class="fas fa-chart-pie text-sm {{ Request::is('admin/PkgTableauBord/responsable*') ? 'text-indigo-600' : 'text-slate-400' }}"></i>
                         <span>Responsable</span>
                     </div>
-                    <span class="w-1.5 h-1.5 rounded-full {{ Request::is('tableau-bord/responsable*') ? 'bg-indigo-600' : 'bg-transparent' }}"></span>
+                    <span class="w-1.5 h-1.5 rounded-full {{ Request::is('admin/PkgTableauBord/responsable*') ? 'bg-indigo-600' : 'bg-transparent' }}"></span>
                 </a>
 
                 <!-- Vue Formateur -->
-                <a href="{{ route('tableau-bord.formateur') }}" 
-                   class="flex items-center justify-between px-3 py-2.5 rounded-xl font-semibold text-xs transition {{ Request::is('tableau-bord/formateur*') ? 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-2xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                <a href="{{ route('admin.PkgTableauBord.formateur') }}" 
+                   class="flex items-center justify-between px-3 py-2.5 rounded-xl font-semibold text-xs transition {{ Request::is('admin/PkgTableauBord/formateur*') ? 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-2xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                     <div class="flex items-center gap-3">
-                        <i class="fas fa-chalkboard-user text-sm {{ Request::is('tableau-bord/formateur*') ? 'text-indigo-600' : 'text-slate-400' }}"></i>
+                        <i class="fas fa-chalkboard-user text-sm {{ Request::is('admin/PkgTableauBord/formateur*') ? 'text-indigo-600' : 'text-slate-400' }}"></i>
                         <span>Formateur</span>
                     </div>
-                    <span class="w-1.5 h-1.5 rounded-full {{ Request::is('tableau-bord/formateur*') ? 'bg-indigo-600' : 'bg-transparent' }}"></span>
+                    <span class="w-1.5 h-1.5 rounded-full {{ Request::is('admin/PkgTableauBord/formateur*') ? 'bg-indigo-600' : 'bg-transparent' }}"></span>
                 </a>
 
                 <!-- Vue Apprenant -->
-                <a href="{{ route('tableau-bord.apprenant') }}" 
-                   class="flex items-center justify-between px-3 py-2.5 rounded-xl font-semibold text-xs transition {{ Request::is('tableau-bord/apprenant*') ? 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-2xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                <a href="{{ route('admin.PkgTableauBord.apprenant') }}" 
+                   class="flex items-center justify-between px-3 py-2.5 rounded-xl font-semibold text-xs transition {{ Request::is('admin/PkgTableauBord/apprenant*') ? 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-2xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                     <div class="flex items-center gap-3">
-                        <i class="fas fa-user-graduate text-sm {{ Request::is('tableau-bord/apprenant*') ? 'text-indigo-600' : 'text-slate-400' }}"></i>
+                        <i class="fas fa-user-graduate text-sm {{ Request::is('admin/PkgTableauBord/apprenant*') ? 'text-indigo-600' : 'text-slate-400' }}"></i>
                         <span>Apprenant</span>
                     </div>
-                    <span class="w-1.5 h-1.5 rounded-full {{ Request::is('tableau-bord/apprenant*') ? 'bg-indigo-600' : 'bg-transparent' }}"></span>
+                    <span class="w-1.5 h-1.5 rounded-full {{ Request::is('admin/PkgTableauBord/apprenant*') ? 'bg-indigo-600' : 'bg-transparent' }}"></span>
                 </a>
 
                 <!-- Rapport Recherche / Mémoire -->
-                <a href="{{ route('tableau-bord.recherche') }}" 
-                   class="flex items-center justify-between px-3 py-2.5 rounded-xl font-semibold text-xs transition {{ Request::is('tableau-bord/recherche*') ? 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-2xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                <a href="{{ route('admin.PkgTableauBord.recherche') }}" 
+                   class="flex items-center justify-between px-3 py-2.5 rounded-xl font-semibold text-xs transition {{ Request::is('admin/PkgTableauBord/recherche*') ? 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-2xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                     <div class="flex items-center gap-3">
-                        <i class="fas fa-microscope text-sm {{ Request::is('tableau-bord/recherche*') ? 'text-indigo-600' : 'text-slate-400' }}"></i>
+                        <i class="fas fa-microscope text-sm {{ Request::is('admin/PkgTableauBord/recherche*') ? 'text-indigo-600' : 'text-slate-400' }}"></i>
                         <span>Rapport Mémoire</span>
                     </div>
                     <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-100 text-amber-700 border border-amber-200">R&D</span>
@@ -84,48 +84,48 @@
 
              @elseif(Auth::user()->hasAnyRole(['admin']))
                 <!-- Vue Responsable -->
-                <a href="{{ route('tableau-bord.responsable') }}" 
-                   class="flex items-center justify-between px-3 py-2.5 rounded-xl font-semibold text-xs transition {{ Request::is('tableau-bord/responsable*') ? 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-2xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                <a href="{{ route('admin.PkgTableauBord.responsable') }}" 
+                   class="flex items-center justify-between px-3 py-2.5 rounded-xl font-semibold text-xs transition {{ Request::is('admin/PkgTableauBord/responsable*') ? 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-2xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                     <div class="flex items-center gap-3">
-                        <i class="fas fa-chart-pie text-sm {{ Request::is('tableau-bord/responsable*') ? 'text-indigo-600' : 'text-slate-400' }}"></i>
+                        <i class="fas fa-chart-pie text-sm {{ Request::is('admin/PkgTableauBord/responsable*') ? 'text-indigo-600' : 'text-slate-400' }}"></i>
                         <span>Responsable</span>
                     </div>
-                    <span class="w-1.5 h-1.5 rounded-full {{ Request::is('tableau-bord/responsable*') ? 'bg-indigo-600' : 'bg-transparent' }}"></span>
+                    <span class="w-1.5 h-1.5 rounded-full {{ Request::is('admin/PkgTableauBord/responsable*') ? 'bg-indigo-600' : 'bg-transparent' }}"></span>
                 </a>
 
                 <!-- Vue Formateur -->
-                <a href="{{ route('tableau-bord.formateur') }}" 
-                   class="flex items-center justify-between px-3 py-2.5 rounded-xl font-semibold text-xs transition {{ Request::is('tableau-bord/formateur*') ? 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-2xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                <a href="{{ route('admin.PkgTableauBord.formateur') }}" 
+                   class="flex items-center justify-between px-3 py-2.5 rounded-xl font-semibold text-xs transition {{ Request::is('admin/PkgTableauBord/formateur*') ? 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-2xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                     <div class="flex items-center gap-3">
-                        <i class="fas fa-chalkboard-user text-sm {{ Request::is('tableau-bord/formateur*') ? 'text-indigo-600' : 'text-slate-400' }}"></i>
+                        <i class="fas fa-chalkboard-user text-sm {{ Request::is('admin/PkgTableauBord/formateur*') ? 'text-indigo-600' : 'text-slate-400' }}"></i>
                         <span>Formateur</span>
                     </div>
-                    <span class="w-1.5 h-1.5 rounded-full {{ Request::is('tableau-bord/formateur*') ? 'bg-indigo-600' : 'bg-transparent' }}"></span>
+                    <span class="w-1.5 h-1.5 rounded-full {{ Request::is('admin/PkgTableauBord/formateur*') ? 'bg-indigo-600' : 'bg-transparent' }}"></span>
                 </a>
 
                 <!-- Vue Apprenant -->
-                <a href="{{ route('tableau-bord.apprenant') }}" 
-                   class="flex items-center justify-between px-3 py-2.5 rounded-xl font-semibold text-xs transition {{ Request::is('tableau-bord/apprenant*') ? 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-2xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                <a href="{{ route('admin.PkgTableauBord.apprenant') }}" 
+                   class="flex items-center justify-between px-3 py-2.5 rounded-xl font-semibold text-xs transition {{ Request::is('admin/PkgTableauBord/apprenant*') ? 'bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-2xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                     <div class="flex items-center gap-3">
-                        <i class="fas fa-user-graduate text-sm {{ Request::is('tableau-bord/apprenant*') ? 'text-indigo-600' : 'text-slate-400' }}"></i>
+                        <i class="fas fa-user-graduate text-sm {{ Request::is('admin/PkgTableauBord/apprenant*') ? 'text-indigo-600' : 'text-slate-400' }}"></i>
                         <span>Apprenant</span>
                     </div>
-                    <span class="w-1.5 h-1.5 rounded-full {{ Request::is('tableau-bord/apprenant*') ? 'bg-indigo-600' : 'bg-transparent' }}"></span>
+                    <span class="w-1.5 h-1.5 rounded-full {{ Request::is('admin/PkgTableauBord/apprenant*') ? 'bg-indigo-600' : 'bg-transparent' }}"></span>
                 </a>
             @elseif(Auth::user()->hasAnyRole(['formateur', 'admin-formateur']))
-                <a href="{{ route('tableau-bord.formateur') }}" 
+                <a href="{{ route('admin.PkgTableauBord.formateur') }}" 
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-xs bg-indigo-50 text-indigo-700 border border-indigo-100 shadow-2xs">
                     <i class="fas fa-chart-line text-sm text-indigo-600"></i>
                     <span>Mon Tableau de bord</span>
                 </a>
             @elseif(Auth::user()->hasRole('apprenant'))
-                <a href="{{ route('tableau-bord.apprenant') }}" 
+                <a href="{{ route('admin.PkgTableauBord.apprenant') }}" 
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-xs bg-indigo-50 text-indigo-700 border border-indigo-100 shadow-2xs">
                     <i class="fas fa-chart-line text-sm text-indigo-600"></i>
                     <span>Mon Tableau de bord</span>
                 </a>
             @else
-                <a href="{{ route('tableau-bord.responsable') }}" 
+                <a href="{{ route('admin.PkgTableauBord.responsable') }}" 
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-xs bg-indigo-50 text-indigo-700 border border-indigo-100 shadow-2xs">
                     <i class="fas fa-chart-line text-sm text-indigo-600"></i>
                     <span>Tableau de bord</span>

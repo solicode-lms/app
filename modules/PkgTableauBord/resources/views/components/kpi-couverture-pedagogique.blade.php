@@ -44,7 +44,7 @@
             <div class="flex items-center justify-between">
                 <span class="text-xs font-bold text-slate-500">Couverture Pédagogique (ICP)</span>
                 <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold {{ $kpi['badge_class'] ?? 'bg-slate-100 text-slate-700' }}">
-                    {{ $kpi['statut'] ?? 'Acquisition cohorte' }}
+                    {{ $kpi['statut'] ?? 'Acquisition groupe' }}
                 </span>
             </div>
 

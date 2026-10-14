@@ -56,7 +56,7 @@
         </div>
 
         <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
-            <span>Moyenne cohorte CC / EFM</span>
+            <span>Moyenne groupe CC / EFM</span>
             <span class="font-bold text-slate-800 font-mono">{{ $kpi['moyenne_cc_cohorte'] ?? 16.2 }}/20 &bull; {{ $kpi['moyenne_efm_cohorte'] ?? 32.8 }}/40</span>
         </div>
     </div>

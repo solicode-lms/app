@@ -12,7 +12,7 @@
     var seuilInactiviteMs = {{ (int) $seuilInactiviteMinutes }} * 60 * 1000;
     var derniereInteraction = Date.now();
     var csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '{{ csrf_token() }}';
-    var pingUrl = '{{ route("tableau-bord.telemetrie.activite") }}';
+    var pingUrl = '{{ route("admin.PkgTableauBord.telemetrie.activite") }}';
 
     function enregistrerActivite() {
         derniereInteraction = Date.now();

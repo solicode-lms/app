@@ -19,7 +19,7 @@ Les fonctionnalités des sprints ultérieurs (3 à 9) seront intégrées de mani
 ## 1. Tableau de Bord Apprenant (Sprints 1 & 2)
 
 - **Acteur** : Apprenant.
-- **Route** : `tableau-bord.apprenant` (`/tableau-bord/apprenant`)
+- **Route** : `admin.PkgTableauBord.apprenant` (`/admin/PkgTableauBord/apprenant`)
 - **Contrôleur** : `TableauBordApprenantController@index`
 - **Titre de la vue** : `@section('page_title', 'Mon Tableau de Bord')`
 - **Objectif** : Auto-régulation, maîtrise des prérequis et réduction de l'anxiété.
@@ -42,16 +42,16 @@ Les fonctionnalités des sprints ultérieurs (3 à 9) seront intégrées de mani
 ## 2. Tableau de Bord Formateur (Sprints 1 & 2)
 
 - **Acteur** : Formateur.
-- **Route** : `tableau-bord.formateur` (`/tableau-bord/formateur`)
+- **Route** : `admin.PkgTableauBord.formateur` (`/admin/PkgTableauBord/formateur`)
 - **Contrôleur** : `TableauBordFormateurController@index`
 - **Titre de la vue** : `@section('page_title', 'Pilotage Didactique')`
 - **Objectif** : Régulation des passages, suivi du rythme et déclenchement ciblé des ateliers de remédiation.
 - **Fonctionnalités Sprint 1 ($T_{\text{amorçage}}$)** :
-  - **En-tête de cohorte** : Code du groupe, titre du projet actif et date officielle de lancement.
+  - **En-tête de groupe** : Code du groupe, titre du projet actif et date officielle de lancement.
   - **Carte KPI *"Temps moyen de mise au travail"*** (`PkgTableauBord::components.kpi-amorcage`) :
-    - Valeur moyenne de la cohorte formatée (ex: `1h45`).
+    - Valeur moyenne du groupe formatée (ex: `1h45`).
     - Badge de rythme : `Optimal (<= 2h)` ou `Alerte (> 2h)`.
-    - Ratio de cohorte : Nombre d'apprenants amorcés sur l'effectif total (ex: `17 / 20`).
+    - Ratio du groupe : Nombre d'apprenants amorcés sur l'effectif total (ex: `17 / 20`).
   - **Liste d'alerte des apprenants en retard** : Affichage des stagiaires n'ayant pas encore amorcé de tâche.
 - **Fonctionnalités Sprint 2 ($R_{\text{gating}}$)** :
   - **Carte KPI *"Validation au 1er passage"*** (`PkgTableauBord::components.kpi-gating`) :
@@ -65,7 +65,7 @@ Les fonctionnalités des sprints ultérieurs (3 à 9) seront intégrées de mani
 ## 3. Tableau de Bord Responsable de Formation (Sprints 1 & 2)
 
 - **Acteur** : Responsable de formation / Directeur pédagogique.
-- **Route** : `tableau-bord.responsable` (`/tableau-bord/responsable`)
+- **Route** : `admin.PkgTableauBord.responsable` (`/admin/PkgTableauBord/responsable`)
 - **Contrôleur** : `TableauBordResponsableController@index`
 - **Titre de la vue** : `@section('page_title', 'Tableau de Bord de Gouvernance Pédagogique')`
 - **Objectif** : Suivi macroscopique, harmonisation des exigences et contrôle de l'équité certificative.

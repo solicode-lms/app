@@ -26,34 +26,28 @@ trait DashboardSessionTrait
             if ($user->hasRole('apprenant')) {
                 $apprenant = Apprenant::where('user_id', $user->id)->first();
                 if ($apprenant) {
-                    $projets = Projet::sessionsFormation()
+                    return Projet::sessionsFormation()
                         ->whereHas('affectationProjets.realisationProjets', function ($q) use ($apprenant) {
                             $q->where('apprenant_id', $apprenant->id);
                         })
                         ->with(['formateur', 'filiere'])
                         ->orderBy('titre')
                         ->get();
-
-                    if ($projets->isNotEmpty()) {
-                        return $projets;
-                    }
                 }
+                return new Collection();
             }
 
-            // Pour un formateur : projets dont il est le formateur référent
+            // Pour un formateur : projets dont il est le formateur référent (strictement cloisonné)
             if ($user->hasRole('formateur')) {
                 $formateur = Formateur::where('user_id', $user->id)->first();
                 if ($formateur) {
-                    $projets = Projet::sessionsFormation()
+                    return Projet::sessionsFormation()
                         ->where('formateur_id', $formateur->id)
                         ->with(['formateur', 'filiere'])
                         ->orderBy('titre')
                         ->get();
-
-                    if ($projets->isNotEmpty()) {
-                        return $projets;
-                    }
                 }
+                return new Collection();
             }
         }
 
@@ -74,7 +68,107 @@ trait DashboardSessionTrait
      */
     public function resolveActiveProjet(?int $requestedProjetId = null, ?User $user = null): ?Projet
     {
-        // 1. Si expressément demandé par la requête
+        // Traitement dédié et hermétique pour le formateur
+        if ($user && $user->hasRole('formateur')) {
+            $formateur = Formateur::where('user_id', $user->id)->first();
+            if (!$formateur) {
+                return null;
+            }
+
+            // 1. Si expressément demandé par la requête, vérifier qu'il appartient bien à ce formateur
+            if (!empty($requestedProjetId)) {
+                $projet = Projet::sessionsFormation()
+                    ->where('formateur_id', $formateur->id)
+                    ->with(['formateur', 'filiere'])
+                    ->find($requestedProjetId);
+                if ($projet) {
+                    session(['active_projet_id' => $projet->id]);
+                    return $projet;
+                }
+            }
+
+            // 2. Si un projet est mémorisé en session PHP, vérifier qu'il appartient bien à ce formateur
+            $storedId = session('active_projet_id');
+            if (!empty($storedId)) {
+                $projet = Projet::sessionsFormation()
+                    ->where('formateur_id', $formateur->id)
+                    ->with(['formateur', 'filiere'])
+                    ->find($storedId);
+                if ($projet) {
+                    return $projet;
+                }
+            }
+
+            // 3. Projet session le plus récent de ce formateur
+            $projet = Projet::sessionsFormation()
+                ->where('formateur_id', $formateur->id)
+                ->with(['formateur', 'filiere'])
+                ->latest('id')
+                ->first();
+
+            if ($projet) {
+                session(['active_projet_id' => $projet->id]);
+            }
+
+            return $projet;
+        }
+
+        // Traitement dédié et hermétique pour l'apprenant
+        if ($user && $user->hasRole('apprenant')) {
+            $apprenant = Apprenant::where('user_id', $user->id)->first();
+            if (!$apprenant) {
+                return null;
+            }
+
+            // 1. Si expressément demandé par la requête, vérifier que l'apprenant y est bien inscrit
+            if (!empty($requestedProjetId)) {
+                $projet = Projet::sessionsFormation()
+                    ->whereHas('affectationProjets.realisationProjets', function ($q) use ($apprenant) {
+                        $q->where('apprenant_id', $apprenant->id);
+                    })
+                    ->with(['formateur', 'filiere'])
+                    ->find($requestedProjetId);
+                if ($projet) {
+                    session(['active_projet_id' => $projet->id]);
+                    return $projet;
+                }
+            }
+
+            // 2. Si un projet est mémorisé en session PHP, vérifier que l'apprenant y est bien inscrit
+            $storedId = session('active_projet_id');
+            if (!empty($storedId)) {
+                $projet = Projet::sessionsFormation()
+                    ->whereHas('affectationProjets.realisationProjets', function ($q) use ($apprenant) {
+                        $q->where('apprenant_id', $apprenant->id);
+                    })
+                    ->with(['formateur', 'filiere'])
+                    ->find($storedId);
+                if ($projet) {
+                    return $projet;
+                }
+            }
+
+            // 3. Projet le plus récent de l'apprenant
+            $dernierRp = RealisationProjet::where('apprenant_id', $apprenant->id)
+                ->whereHas('affectationProjet.projet', function ($q) {
+                    $q->sessionsFormation();
+                })
+                ->latest('date_debut')
+                ->first();
+
+            $projet = null;
+            if ($dernierRp && $dernierRp->affectationProjet?->projet_id) {
+                $projet = Projet::sessionsFormation()->with(['formateur', 'filiere'])->find($dernierRp->affectationProjet->projet_id);
+            }
+
+            if ($projet) {
+                session(['active_projet_id' => $projet->id]);
+            }
+
+            return $projet;
+        }
+
+        // 1. Si expressément demandé par la requête (Responsable / Admin)
         if (!empty($requestedProjetId)) {
             $projet = Projet::sessionsFormation()->with(['formateur', 'filiere'])->find($requestedProjetId);
             if ($projet) {
@@ -92,47 +186,12 @@ trait DashboardSessionTrait
             }
         }
 
-        // 3. Détermination par profil
-        $projet = null;
-
-        if ($user) {
-            // Apprenant : son projet actif le plus récent
-            if ($user->hasRole('apprenant')) {
-                $dernierRp = RealisationProjet::whereHas('apprenant', function ($q) use ($user) {
-                    $q->where('user_id', $user->id);
-                })
-                ->whereHas('affectationProjet.projet', function ($q) {
-                    $q->sessionsFormation();
-                })
-                ->latest('date_debut')
-                ->first();
-
-                if ($dernierRp && $dernierRp->affectationProjet?->projet_id) {
-                    $projet = Projet::sessionsFormation()->with(['formateur', 'filiere'])->find($dernierRp->affectationProjet->projet_id);
-                }
-            }
-
-            // Formateur : son projet session le plus récent
-            if (!$projet && $user->hasRole('formateur')) {
-                $formateur = Formateur::where('user_id', $user->id)->first();
-                if ($formateur) {
-                    $projet = Projet::sessionsFormation()
-                        ->where('formateur_id', $formateur->id)
-                        ->with(['formateur', 'filiere'])
-                        ->latest('id')
-                        ->first();
-                }
-            }
-        }
-
-        // 4. Fallback général : le projet session ayant des affectations le plus récent
-        if (!$projet) {
-            $projet = Projet::sessionsFormation()
-                ->whereHas('affectationProjets')
-                ->with(['formateur', 'filiere'])
-                ->latest('id')
-                ->first();
-        }
+        // 3. Projet session ayant des affectations le plus récent (Responsable / Admin)
+        $projet = Projet::sessionsFormation()
+            ->whereHas('affectationProjets')
+            ->with(['formateur', 'filiere'])
+            ->latest('id')
+            ->first();
 
         if (!$projet) {
             $projet = Projet::sessionsFormation()->with(['formateur', 'filiere'])->first();

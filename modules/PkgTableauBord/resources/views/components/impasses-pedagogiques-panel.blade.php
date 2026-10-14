@@ -19,7 +19,7 @@
             </div>
             <div>
                 <h3 class="text-sm font-bold text-slate-900">Diagnostic des Impasses Didactiques (Indicateur 08)</h3>
-                <p class="text-xs text-slate-500">Micro-compétences nationales validées par moins de 50% de la cohorte</p>
+                <p class="text-xs text-slate-500">Micro-compétences nationales validées par moins de 50% du groupe</p>
             </div>
         </div>
 
@@ -30,7 +30,7 @@
                 </span>
             @else
                 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    Cohorte homogène
+                    Groupe homogène
                 </span>
             @endif
         </div>

@@ -106,7 +106,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="p-6 text-center text-slate-400 italic">Aucun apprenant trouvé pour cette cohorte.</td>
+                        <td colspan="6" class="p-6 text-center text-slate-400 italic">Aucun apprenant trouvé pour ce groupe.</td>
                     </tr>
                 @endforelse
             </tbody>

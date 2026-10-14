@@ -5,6 +5,7 @@ namespace Modules\PkgTableauBord\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgTableauBord\Services\TableauBordService;
 
@@ -24,6 +25,9 @@ class TableauBordResponsableController extends AdminController
     public function index(Request $request)
     {
         $user = Auth::user();
+        if (!$user || !$user->hasAnyRole([Role::ADMIN_ROLE, 'root', 'responsable'])) {
+            abort(403, "Accès refusé. Cette interface de gouvernance est réservée aux responsables et administrateurs.");
+        }
         $groupeIds = $request->get('groupe_ids', []);
         if (!is_array($groupeIds) && !empty($groupeIds)) {
             $groupeIds = explode(',', $groupeIds);

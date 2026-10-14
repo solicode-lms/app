@@ -70,7 +70,7 @@
                 {{ $kpi['taux_gating_global_formate'] ?? '--' }}
             </span>
         </div>
-        <p class="text-xs text-slate-500 mt-2">Moyenne de validation directe au Live Coding Niveau 2 sur l'ensemble des cohortes.</p>
+        <p class="text-xs text-slate-500 mt-2">Moyenne de validation directe au Live Coding Niveau 2 sur l'ensemble des groupes.</p>
         <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
             <span>Total évalués : <strong class="text-slate-800">{{ $kpi['total_evalues_global'] ?? 0 }}</strong></span>
             <span class="font-bold text-slate-800">{{ $kpi['valides_premier_essai_global'] ?? 0 }} validés au 1er essai</span>

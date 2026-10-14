@@ -25,7 +25,7 @@
                     @endif
                 </div>
                 <h2 class="text-xl font-bold text-slate-900 mt-1">
-                    Promotion {{ $affectationProjet->groupe->code ?? 'Groupe' }} &bull; {{ $affectationProjet->projet->titre ?? 'Projet actif' }}
+                    Groupe {{ $affectationProjet->groupe->code ?? 'Non assigné' }} &bull; {{ $affectationProjet->projet->titre ?? 'Aucun projet' }}
                 </h2>
                 <p class="text-xs text-slate-500 mt-0.5">
                     Lancement officiel : <strong class="text-slate-800">{{ $affectationProjet->cache_date_lancement ?? $affectationProjet->date_debut ?? 'Non défini' }}</strong>
@@ -34,12 +34,26 @@
             </div>
 
             <div class="flex items-center gap-2">
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    Cohorte active
-                </span>
+                @if($affectationProjet)
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        Groupe actif
+                    </span>
+                @else
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200">
+                        Aucun groupe actif
+                    </span>
+                @endif
             </div>
         </div>
+        @if(!$affectationProjet)
+            <div class="mt-4 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-center gap-3">
+                <i class="fas fa-info-circle text-base text-amber-600"></i>
+                <div>
+                    <strong>Aucune affectation trouvée.</strong> Aucune affectation de projet n'est actuellement rattachée à votre compte formateur.
+                </div>
+            </div>
+        @endif
     </section>
 
     <!-- Indicateurs Fonctionnels de Pilotage Didactique -->

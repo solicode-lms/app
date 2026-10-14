@@ -1,16 +1,16 @@
 ---
 name: app2-front-end
-description: Expert de l'architecture V2 avec Tailwind CSS et Alpine.js (Composants).
+description: Expert de l'architecture V2 avec Tailwind CSS, Preline UI et Alpine.js (Composants).
 ---
 
-# Skill : Expert UI V2 (Tailwind & Alpine)
+# Skill : Expert UI V2 (Tailwind, Preline UI & Alpine)
 
 ## 🎯 Périmètre Global
-**Mission** : Gérer la conception et le développement de la couche front-end de la version V2 de l'application, en utilisant Tailwind CSS pour le style et Alpine.js avec une architecture orientée composants pour la logique front.
+**Mission** : Gérer la conception et le développement de la couche front-end de la version V2 de l'application, en utilisant Tailwind CSS pour le style, Preline UI pour les composants riches et accessibles, et Alpine.js avec une architecture orientée composants pour la logique front.
 
 ### 🚫 Interdictions Globales (Règles d'Or)
 1. **Pas de JQuery/Bootstrap** : Interdiction formelle d'utiliser Bootstrap ou JQuery dans le contexte V2.
-2. **Architecture SoliLMS** : Le backend reste inchangé (SoliLMS), seules les vues Blade sont remplacées par des composants Alpine/Tailwind.
+2. **Architecture SoliLMS** : Le backend reste inchangé (SoliLMS), seules les vues Blade sont remplacées par des composants Tailwind / Preline / Alpine.
 3. **Séparation Layout / Contenu (CRITIQUE)** :
    - Les vues métiers étendent obligatoirement `@extends('layouts.admin-v2')`.
    - Interdiction formelle de dupliquer la sidebar, le header et le shell HTML dans les vues de contenu.
@@ -36,16 +36,26 @@ description: Expert de l'architecture V2 avec Tailwind CSS et Alpine.js (Composa
 - **Entrées** : `Nom de la vue`, `Données fonctionnelles`
 - **Sorties** : Vue Blade épurée étendant `layouts.admin-v2`.
 
+### Action C : Intégrer un Composant Preline UI
+> **Description** : Intégrer ou adapter un composant interactif Tailwind basé sur Preline UI (Select, Dropdown, Modal, Tabs).
+- **Capacités Utilisées** :
+  - `capacités/capacité-preline-ui.md`
+- **Entrées** : `Type de composant Preline`, `Éléments de formulaire ou déclencheurs`
+- **Sorties** : Composant Blade enrichi avec attributs `data-hs-*` et gestion événementielle (`onchange`, form submit).
+
 ---
 
 ## 🛠️ Capacités (Savoir-Faire Technique)
 *Documentation des fichiers situés dans le dossier `capacités/`*
 
-### 1. `capacité-alpine-composants.md`
+### 1. `capacité-preline-ui.md`
+- **Rôle** : Intégration et personnalisation des composants UI Preline (Advanced Select, Dropdown, Modales, Tabs) avec Tailwind CSS et le plugin forms.
+
+### 2. `capacité-alpine-composants.md`
 - **Rôle** : Définir l'architecture, la structure et les bonnes pratiques pour créer des composants isolés avec Alpine.js.
 
-### 2. `capacité-layout-v2.md`
+### 3. `capacité-layout-v2.md`
 - **Rôle** : Règles d'héritage du layout `layouts.admin-v2`, suppression du boilerplate HTML et exclusion des maquettes statiques non fonctionnelles.
 
-### 3. `../capacites-globales/capacité-crud-jobs.md` (Capacité Globale)
+### 4. `../capacites-globales/capacité-crud-jobs.md` (Capacité Globale)
 - **Rôle** : Standardisation de l'intégration UI des traitements longs. À lire impérativement lors du développement de formulaires ou d'actions asynchrones lourdes nécessitant un Polling (via Alpine/JS) pour afficher la progression (`traitement_token`).

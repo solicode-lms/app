@@ -406,7 +406,7 @@
                 <div class="mt-2 text-2xl font-black text-emerald-700">
                     {{ $kpiCouverture['icp_global'] ?? 94.0 }} %
                 </div>
-                <p class="text-[11px] text-slate-500 mt-1">Pourcentage des micro-compétences officielles validées par la cohorte.</p>
+                <p class="text-[11px] text-slate-500 mt-1">Pourcentage des micro-compétences officielles validées par les groupes.</p>
             </div>
 
             <!-- Indicateur 09 -->

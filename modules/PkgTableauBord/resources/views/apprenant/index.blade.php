@@ -34,12 +34,26 @@
             </div>
             
             <div class="flex items-center gap-2">
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    Actif
-                </span>
+                @if($realisationProjet)
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        Actif
+                    </span>
+                @else
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200">
+                        Aucun projet assigné
+                    </span>
+                @endif
             </div>
         </div>
+        @if(!$realisationProjet)
+            <div class="mt-4 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-center gap-3">
+                <i class="fas fa-info-circle text-base text-amber-600"></i>
+                <div>
+                    <strong>Aucun projet assigné.</strong> Aucun projet ou réalisation active n'est actuellement rattaché à votre compte apprenant.
+                </div>
+            </div>
+        @endif
     </section>
 
     <!-- Message Bienveillant d'Accompagnement Didactique (Indicateur 06 — T_intervention) -->

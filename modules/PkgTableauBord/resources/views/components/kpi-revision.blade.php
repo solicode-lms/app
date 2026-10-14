@@ -33,7 +33,7 @@
         </div>
         <div class="mt-3 flex items-baseline gap-2">
             <span class="text-3xl font-extrabold text-slate-900 tracking-tight">{{ $kpi['frequence_formatee'] ?? '0.0 reprise / tâche' }}</span>
-            <span class="text-xs text-slate-400">moyenne cohorte</span>
+            <span class="text-xs text-slate-400">moyenne groupe</span>
         </div>
         <p class="text-xs text-slate-500 mt-2">{{ $kpi['description'] ?? 'Suivi de la stabilité du code et détection des consignes pédagogiques ambiguës.' }}</p>
         <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">

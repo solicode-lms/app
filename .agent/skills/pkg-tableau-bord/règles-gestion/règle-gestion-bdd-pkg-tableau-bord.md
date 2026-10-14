@@ -20,7 +20,7 @@ Pour les **Sprints 1 & 2** :
 
 ### Sprint 1 : Indicateur 01 — Démarrage du Travail ($T_{\text{amorçage}}$)
 - **Table `affectation_projets`** :
-  - `cache_date_lancement` : DateTime NULL (Lancement officiel du sprint par le formateur pour la cohorte, indexé).
+  - `cache_date_lancement` : DateTime NULL (Lancement officiel du sprint par le formateur pour le groupe, indexé).
 - **Table `realisation_projets`** :
   - `cache_date_premiere_soumission` : DateTime NULL (Première tâche soumise vers `TO_APPROVE` / `READY_FOR_LIVE_CODING`, indexé).
   - `cache_date_lancement` : DateTime NULL (Dénormalisation de la date de lancement de l'affectation, indexé).

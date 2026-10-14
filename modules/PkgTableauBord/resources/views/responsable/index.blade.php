@@ -2,7 +2,7 @@
 
 @section('title', 'Tableau de Bord Responsable')
 @section('page_title', 'Tableau de Bord de Gouvernance Pédagogique')
-@section('page_subtitle', 'Indicateurs macroscopiques et benchmark comparatif des cohortes')
+@section('page_subtitle', 'Indicateurs macroscopiques et benchmark comparatif des groupes')
 
 @section('actions')
     @include('PkgTableauBord::components.session-selector', ['sessions' => $sessions ?? collect(), 'sessionActive' => $sessionFormationActive ?? null])
@@ -101,7 +101,7 @@
         <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
             <div class="p-5 border-b border-slate-200 bg-slate-50/70">
                 <h4 class="text-sm font-bold text-slate-900">Matrice Comparative Inter-Promotions</h4>
-                <p class="text-xs text-slate-500">Benchmark des cohortes pour l'harmonisation du rythme pédagogique ($T_{\text{amorçage}}$, $R_{\text{gating}}$, $F_{\text{révision}}$, $T_{\text{file}}$, $T_{\text{intervention}}$ & $r$)</p>
+                <p class="text-xs text-slate-500">Benchmark des groupes pour l'harmonisation du rythme pédagogique ($T_{\text{amorçage}}$, $R_{\text{gating}}$, $F_{\text{révision}}$, $T_{\text{file}}$, $T_{\text{intervention}}$ & $r$)</p>
             </div>
 
             @php

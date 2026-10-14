@@ -5,6 +5,7 @@ namespace Modules\PkgTableauBord\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgTableauBord\Services\TableauBordService;
@@ -25,38 +26,30 @@ class TableauBordApprenantController extends AdminController
     public function index(Request $request)
     {
         $user = Auth::user();
-        $apprenant = Apprenant::where('user_id', $user->id)->first();
+        if (!$user || !$user->hasRole(Role::APPRENANT_ROLE)) {
+            abort(403, "Accès refusé. Cette interface est strictement réservée aux apprenants.");
+        }
 
-        // Résolution du Projet actif (session de projet du formateur)
+        $apprenant = Apprenant::where('user_id', $user->id)->first();
+        if (!$apprenant) {
+            abort(403, "Accès refusé. Aucun profil Apprenant n'est associé à votre compte utilisateur.");
+        }
+
+        // Résolution du Projet actif (session de projet de l'apprenant connecté)
         $requestedProjetId = $request->get('projet_id') ?? $request->get('session_formation_id');
         $projets = $this->tableauBordService->getSessionsProjetDisponibles($user);
         $projetActif = $this->tableauBordService->resolveActiveProjet($requestedProjetId, $user);
 
-        // Récupérer le projet de l'apprenant pour le projet actif
+        // Récupérer le projet de l'apprenant pour le projet actif (strictement cloisonné à l'apprenant connecté)
         $realisationProjet = null;
-        if ($apprenant) {
-            $query = RealisationProjet::with([
-                'affectationProjet.projet.formateur',
-                'affectationProjet.groupe',
-                'apprenant'
-            ])->where('apprenant_id', $apprenant->id);
 
-            if ($projetActif) {
-                $query->whereHas('affectationProjet', function ($q) use ($projetActif) {
-                    $q->where('projet_id', $projetActif->id);
-                });
-            }
-
-            $realisationProjet = $query->latest('date_debut')->first();
-        }
-
-        // Fallback contextuel sur le projet sélectionné
-        if (!$realisationProjet && $projetActif) {
+        if ($projetActif) {
             $realisationProjet = RealisationProjet::with([
                 'affectationProjet.projet.formateur',
                 'affectationProjet.groupe',
                 'apprenant'
             ])
+            ->where('apprenant_id', $apprenant->id)
             ->whereHas('affectationProjet', function ($q) use ($projetActif) {
                 $q->where('projet_id', $projetActif->id);
             })
@@ -64,13 +57,15 @@ class TableauBordApprenantController extends AdminController
             ->first();
         }
 
-        // Fallback global de prévisualisation
         if (!$realisationProjet) {
             $realisationProjet = RealisationProjet::with([
                 'affectationProjet.projet.formateur',
                 'affectationProjet.groupe',
                 'apprenant'
-            ])->latest('date_debut')->first();
+            ])
+            ->where('apprenant_id', $apprenant->id)
+            ->latest('date_debut')
+            ->first();
         }
 
         $kpiAmorcage = $this->tableauBordService->getIndicateurAmorcageApprenant($realisationProjet);

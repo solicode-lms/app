@@ -41,19 +41,19 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{ route('tableau-bord.responsable') }}" class="nav-link {{ Request::is('tableau-bord/responsable*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.PkgTableauBord.responsable') }}" class="nav-link {{ Request::is('admin/PkgTableauBord/responsable*') ? 'active' : '' }}">
                         <i class="nav-icon far fa-circle text-primary"></i>
                         <p>Responsable</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('tableau-bord.formateur') }}" class="nav-link {{ Request::is('tableau-bord/formateur*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.PkgTableauBord.formateur') }}" class="nav-link {{ Request::is('admin/PkgTableauBord/formateur*') ? 'active' : '' }}">
                         <i class="nav-icon far fa-circle text-info"></i>
                         <p>Formateur</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('tableau-bord.apprenant') }}" class="nav-link {{ Request::is('tableau-bord/apprenant*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.PkgTableauBord.apprenant') }}" class="nav-link {{ Request::is('admin/PkgTableauBord/apprenant*') ? 'active' : '' }}">
                         <i class="nav-icon far fa-circle text-success"></i>
                         <p>Apprenant</p>
                     </a>
@@ -62,21 +62,21 @@
         </li>
     @elseif(Auth::user()->hasAnyRole(['formateur', 'admin-formateur']))
         <li class="nav-item">
-            <a href="{{ route('tableau-bord.formateur') }}" class="nav-link {{ Request::is('tableau-bord/formateur*') ? 'active' : '' }}">
+            <a href="{{ route('admin.PkgTableauBord.formateur') }}" class="nav-link {{ Request::is('admin/PkgTableauBord/formateur*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-chart-line"></i>
                 <p>Tableau de bord (V2)</p>
             </a>
         </li>
     @elseif(Auth::user()->hasRole('apprenant'))
         <li class="nav-item">
-            <a href="{{ route('tableau-bord.apprenant') }}" class="nav-link {{ Request::is('tableau-bord/apprenant*') ? 'active' : '' }}">
+            <a href="{{ route('admin.PkgTableauBord.apprenant') }}" class="nav-link {{ Request::is('admin/PkgTableauBord/apprenant*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-chart-line"></i>
                 <p>Tableau de bord (V2)</p>
             </a>
         </li>
     @else
         <li class="nav-item">
-            <a href="{{ route('tableau-bord.responsable') }}" class="nav-link {{ Request::is('tableau-bord*') ? 'active' : '' }}">
+            <a href="{{ route('admin.PkgTableauBord.responsable') }}" class="nav-link {{ Request::is('admin/PkgTableauBord*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-chart-line"></i>
                 <p>Tableau de bord (V2)</p>
             </a>
