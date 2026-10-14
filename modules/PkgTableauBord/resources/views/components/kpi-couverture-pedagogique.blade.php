@@ -57,9 +57,12 @@
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
-                    <span class="text-[11px] sm:text-xs font-bold text-slate-500 leading-tight block line-clamp-2" title="Couverture Pédagogique (Indicateur de Couverture Pédagogique - ICP)">
-                        Couverture Référentiel (ICP)
-                    </span>
+                    <a href="{{ route('admin.PkgTableauBord.indicateurs.couverture', array_merge(request()->query(), ['from' => 'formateur'])) }}" 
+                       class="text-[11px] sm:text-xs font-bold text-slate-700 hover:text-indigo-600 leading-tight block line-clamp-2 transition" 
+                       title="Couverture Pédagogique (Indicateur de Couverture Pédagogique - ICP) — Cliquer pour la Matrice">
+                        <span>Couverture Référentiel (ICP)</span>
+                        <i class="fas fa-arrow-up-right-from-square text-[9px] ms-0.5 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </a>
                 </div>
                 <span class="shrink-0 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-bold {{ $kpi['badge_class'] ?? 'bg-slate-100 text-slate-700' }}" title="{{ $kpi['statut'] ?? '' }}">
                     <span class="w-1.5 h-1.5 rounded-full bg-current opacity-75 shrink-0"></span>
@@ -71,12 +74,21 @@
                 <span class="text-2xl sm:text-3xl font-black text-emerald-600 tracking-tight font-mono">
                     {{ $kpi['taux_icp_formate'] ?? '84%' }}
                 </span>
-                <span class="text-[11px] text-slate-400 font-medium">programme national</span>
+                <span class="text-[11px] text-slate-400 font-medium">
+                    @if(isset($kpi['progression_ideale_moyenne']) && $kpi['progression_ideale_moyenne'] > 0)
+                        / {{ $kpi['progression_ideale_moyenne'] }}% idéal
+                    @else
+                        programme national
+                    @endif
+                </span>
             </div>
 
-            <!-- Barre de progression cohorte -->
-            <div class="w-full bg-slate-100 rounded-full h-1.5 mb-2 overflow-hidden" title="ICP cohorte : {{ $kpi['taux_icp'] ?? 84 }}%">
+            <!-- Barre de progression cohorte avec repère idéal -->
+            <div class="relative w-full bg-slate-100 rounded-full h-1.5 mb-2 overflow-hidden" title="ICP cohorte : {{ $kpi['taux_icp'] ?? 84 }}%">
                 <div class="bg-emerald-500 h-1.5 rounded-full transition-all duration-500" style="width: {{ min(100, $kpi['taux_icp'] ?? 84) }}%"></div>
+                @if(isset($kpi['progression_ideale_moyenne']) && $kpi['progression_ideale_moyenne'] > 0)
+                <div class="absolute top-0 bottom-0 w-0.5 bg-slate-900 z-10" style="left: {{ min(100, $kpi['progression_ideale_moyenne']) }}%" title="Repère Idéal : {{ $kpi['progression_ideale_moyenne'] }}%"></div>
+                @endif
             </div>
 
             <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed mb-2" title="{{ $kpi['description'] ?? 'Progression collective sur l\'ensemble du référentiel national.' }}">
@@ -85,9 +97,9 @@
         </div>
 
         <div class="pt-2 mt-auto border-t border-slate-100 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs">
-            <span class="text-slate-500 font-medium truncate flex items-center gap-1.5" title="Nombre de compétences sous le seuil critique de 50%">
+            <span class="text-slate-500 font-medium truncate flex items-center gap-1.5" title="Nombre de compétences accusant un retard critique par rapport au calendrier idéal">
                 <i class="fas fa-triangle-exclamation text-[11px] text-amber-500 shrink-0"></i>
-                <span>Impasses (&lt; 50%) :</span>
+                <span>Impasses réelles :</span>
             </span>
             <span class="font-bold {{ ($kpi['nb_impasses'] ?? 0) > 0 ? 'text-amber-600' : 'text-emerald-700' }} font-mono text-xs shrink-0">
                 {{ $kpi['nb_impasses'] ?? 0 }} comp.
@@ -95,7 +107,7 @@
         </div>
         <div class="pt-2 mt-1.5 border-t border-slate-50 flex items-center justify-between text-[11px]">
             <span class="text-[10px] text-slate-400 font-medium">Indicateur #08</span>
-            <span class="text-[10px] text-emerald-600 font-bold font-mono">ICP</span>
+            <a href="{{ route('admin.PkgTableauBord.indicateurs.couverture', array_merge(request()->query(), ['from' => 'formateur'])) }}" class="text-[10px] text-emerald-600 hover:underline font-bold font-mono">Matrice Référentiel &rarr;</a>
         </div>
     </div>
 
@@ -105,9 +117,12 @@
         <div>
             <div class="flex items-start justify-between gap-1.5 min-w-0 mb-1.5">
                 <div class="min-w-0 flex-1">
-                    <span class="text-[11px] sm:text-xs font-bold text-slate-500 leading-tight block line-clamp-2" title="Couverture Référentiel National Macro (ICP)">
-                        Couverture Référentiel (ICP)
-                    </span>
+                    <a href="{{ route('admin.PkgTableauBord.indicateurs.couverture', array_merge(request()->query(), ['from' => 'responsable'])) }}" 
+                       class="text-[11px] sm:text-xs font-bold text-slate-700 hover:text-indigo-600 leading-tight block line-clamp-2 transition" 
+                       title="Couverture Référentiel National Macro (ICP) — Cliquer pour le détail">
+                        <span>Couverture Référentiel (ICP)</span>
+                        <i class="fas fa-arrow-up-right-from-square text-[9px] ms-0.5 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </a>
                 </div>
                 <span class="shrink-0 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                     Indicateur 08
@@ -139,6 +154,10 @@
             <span class="font-bold text-slate-800 font-mono text-xs shrink-0">
                 &ge; 85% ({{ ($kpi['ecart_cible'] ?? 0) >= 0 ? '+' : '' }}{{ $kpi['ecart_cible'] ?? 6.2 }} pts)
             </span>
+        </div>
+        <div class="pt-2 mt-1.5 border-t border-slate-50 flex items-center justify-between text-[11px]">
+            <span class="text-[10px] text-slate-400 font-medium">Benchmark national</span>
+            <a href="{{ route('admin.PkgTableauBord.indicateurs.couverture', array_merge(request()->query(), ['from' => 'responsable'])) }}" class="text-[10px] text-emerald-600 hover:underline font-bold font-mono">Vue détaillée &rarr;</a>
         </div>
     </div>
 @endif

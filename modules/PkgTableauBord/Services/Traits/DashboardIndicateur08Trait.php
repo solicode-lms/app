@@ -93,7 +93,7 @@ trait DashboardIndicateur08Trait
             $groupe = Groupe::has('apprenants')->first();
         }
 
-        if (!$groupe || !Schema::hasTable('realisation_micro_competences')) {
+        if (!$groupe || !Schema::hasTable('realisation_competences')) {
             return $this->getIndicateurCouvertureFormateurFallback('Classe');
         }
 
@@ -104,80 +104,480 @@ trait DashboardIndicateur08Trait
             return $this->getIndicateurCouvertureFormateurFallback($groupe->code ?? 'Classe');
         }
 
-        $etatDoneId = DB::table('etat_realisation_micro_competences')->where('code', 'DONE')->value('id') ?? 5;
+        // Statistiques au niveau des Compétences Nationales (RealisationCompetence)
+        $compStats = DB::table('realisation_competences as rc')
+            ->join('competences as c', 'c.id', '=', 'rc.competence_id')
+            ->leftJoin('modules as m', 'm.id', '=', 'c.module_id')
+            ->whereIn('rc.apprenant_id', $apprenantsIds)
+            ->select([
+                'c.id as comp_id',
+                'c.code as comp_code',
+                'c.nom as comp_nom',
+                'm.code as module_code',
+                'm.nom as module_nom',
+                DB::raw('count(*) as count_inscrits'),
+                DB::raw('round(avg(rc.progression_cache), 1) as avg_progression'),
+                DB::raw('round(avg(rc.progression_ideal_cache), 1) as avg_progression_ideal'),
+            ])
+            ->groupBy('c.id', 'c.code', 'c.nom', 'm.code', 'm.nom')
+            ->orderBy('c.code')
+            ->get();
 
-        $totalMcPrescrites = DB::table('realisation_micro_competences')
-            ->whereIn('apprenant_id', $apprenantsIds)
-            ->distinct('micro_competence_id')
-            ->count('micro_competence_id');
-
-        if ($totalMcPrescrites === 0) {
+        if ($compStats->isEmpty()) {
             return $this->getIndicateurCouvertureFormateurFallback($groupe->code ?? 'Classe');
         }
 
-        $totalValidations = DB::table('realisation_micro_competences')
-            ->whereIn('apprenant_id', $apprenantsIds)
-            ->where('etat_realisation_micro_competence_id', $etatDoneId)
-            ->count();
-
-        $totalRequis = $effectif * $totalMcPrescrites;
-        $icp = round(($totalValidations / max(1, $totalRequis)) * 100, 1);
-
-        // Détection des impasses didactiques (< 50% de validation dans la cohorte)
-        $statsParMc = DB::table('realisation_micro_competences as rmc')
-            ->join('micro_competences as mc', 'mc.id', '=', 'rmc.micro_competence_id')
-            ->whereIn('rmc.apprenant_id', $apprenantsIds)
-            ->select([
-                'mc.id',
-                'mc.titre',
-                'mc.code',
-                DB::raw("sum(case when rmc.etat_realisation_micro_competence_id = {$etatDoneId} then 1 else 0 end) as total_valide"),
-                DB::raw("count(*) as total_inscrits")
-            ])
-            ->groupBy('mc.id', 'mc.titre', 'mc.code')
-            ->get();
-
         $impasses = [];
-        foreach ($statsParMc as $smc) {
-            $inscrits = max(1, (int)$smc->total_inscrits);
-            $valides = (int)$smc->total_valide;
-            $taux = round(($valides / $inscrits) * 100, 1);
-            if ($taux < 50.0) {
+        $totalProg = 0;
+        $totalIdeal = 0;
+        $activeCount = 0;
+
+        foreach ($compStats as $cs) {
+            $prog = (float) $cs->avg_progression;
+            $ideal = (float) $cs->avg_progression_ideal;
+            $delta = round($prog - $ideal, 1);
+            $tauxRythme = $ideal > 0 ? round(($prog / $ideal) * 100, 1) : 100.0;
+
+            if ($ideal > 0) {
+                $totalProg += $prog;
+                $totalIdeal += $ideal;
+                $activeCount++;
+            }
+
+            // Détection temporelle : impasse réelle si calendrier démarré (ideal >= 25%) et retard critique (rythme < 60% ou delta < -25)
+            $isImpasse = ($ideal >= 25.0 && ($tauxRythme < 60.0 || $delta < -25.0));
+            $isTension = ($ideal >= 20.0 && ($tauxRythme < 80.0 || $delta < -15.0));
+
+            if ($isImpasse || $isTension) {
                 $impasses[] = [
-                    'id' => $smc->id,
-                    'code' => $smc->code,
-                    'titre' => $smc->titre,
-                    'valides' => $valides,
-                    'inscrits' => $inscrits,
-                    'taux' => $taux,
-                    'taux_formate' => "{$taux}%",
-                    'severite' => $taux < 30 ? 'critique' : 'alerte',
+                    'id' => $cs->comp_id,
+                    'code' => $cs->comp_code,
+                    'titre' => $cs->comp_nom,
+                    'module_code' => $cs->module_code,
+                    'module_nom' => $cs->module_nom,
+                    'progression' => $prog,
+                    'progression_formate' => "{$prog}%",
+                    'progression_ideal' => $ideal,
+                    'progression_ideal_formate' => "{$ideal}%",
+                    'taux_rythme' => $tauxRythme,
+                    'taux_rythme_formate' => "{$tauxRythme}%",
+                    'delta' => $delta,
+                    'delta_formate' => ($delta >= 0 ? "+{$delta}" : "{$delta}") . ' pts',
+                    'severite' => $isImpasse ? 'critique' : 'alerte',
+                    'statut_label' => $isImpasse ? 'Impasse critique' : 'Vigilance didactique',
+                    'valides' => round(($prog / 100) * $effectif),
+                    'inscrits' => $effectif,
+                    'taux' => $prog,
+                    'taux_formate' => "{$prog}%",
                 ];
             }
         }
 
-        usort($impasses, fn($a, $b) => $a['taux'] <=> $b['taux']);
+        usort($impasses, fn($a, $b) => $a['taux_rythme'] <=> $b['taux_rythme']);
 
-        $badgeClass = $icp >= 80 
+        $progMoyenne = $activeCount > 0 ? round($totalProg / $activeCount, 1) : round($compStats->avg('avg_progression'), 1);
+        $idealMoyenne = $activeCount > 0 ? round($totalIdeal / $activeCount, 1) : round($compStats->avg('avg_progression_ideal'), 1);
+        $tauxRythmeCohorte = $idealMoyenne > 0 ? round(($progMoyenne / $idealMoyenne) * 100, 1) : 100.0;
+
+        $badgeClass = $tauxRythmeCohorte >= 80 
             ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' 
-            : ($icp >= 50 ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20');
-        
-        $statut = count($impasses) > 0 
-            ? count($impasses) . ' impasse(s) didactique(s)' 
-            : 'Acquisition homogène';
+            : ($tauxRythmeCohorte >= 60 ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20');
+
+        $nbImpassesCritiques = count(array_filter($impasses, fn($i) => $i['severite'] === 'critique'));
+        $statut = $nbImpassesCritiques > 0 
+            ? "{$nbImpassesCritiques} impasse(s) didactique(s)" 
+            : ($tauxRythmeCohorte >= 80 ? 'Trajectoire optimale' : 'Progression régulière');
 
         return [
-            'taux_icp' => $icp,
-            'taux_icp_formate' => "{$icp}%",
-            'total_prescrites' => $totalMcPrescrites,
-            'total_validations' => $totalValidations,
+            'taux_icp' => $progMoyenne,
+            'taux_icp_formate' => "{$progMoyenne}%",
+            'progression_reelle_moyenne' => $progMoyenne,
+            'progression_ideale_moyenne' => $idealMoyenne,
+            'taux_rythme' => $tauxRythmeCohorte,
+            'taux_rythme_formate' => "{$tauxRythmeCohorte}%",
+            'total_prescrites' => $compStats->count(),
             'effectif' => $effectif,
             'groupe_nom' => $groupe->code ?? 'Classe',
             'impasses' => $impasses,
-            'nb_impasses' => count($impasses),
+            'nb_impasses' => $nbImpassesCritiques,
             'statut' => $statut,
             'badge_class' => $badgeClass,
-            'message' => "Couverture globale cohorte {$icp}% sur {$totalMcPrescrites} micro-compétences (" . count($impasses) . " impasses détectées)",
+            'description' => "Progression cohorte {$progMoyenne}% (Idéale : {$idealMoyenne}% • Rythme {$tauxRythmeCohorte}%)",
+            'message' => "Rythme cohorte {$tauxRythmeCohorte}% ({$nbImpassesCritiques} impasse(s) critique(s))",
+        ];
+    }
+
+    /**
+     * Indicateur 08 — Analyse Détaillée de la Couverture Pédagogique (ICP), Diagnostic des Impasses et Grille des Compétences.
+     *
+     * @param array $filters
+     * @return array
+     */
+    public function getIndicateurCouvertureDetail(array $filters = []): array
+    {
+        if (!Schema::hasTable('realisation_competences')) {
+            return $this->getIndicateurCouvertureDetailFallback();
+        }
+
+        // 1. Résolution du Groupe cible
+        $selectedGroupeId = $filters['selected_groupe_id'] ?? null;
+        if (!$selectedGroupeId && !empty($filters['groupe_ids']) && count($filters['groupe_ids']) === 1 && $filters['groupe_ids'][0] > 0) {
+            $selectedGroupeId = $filters['groupe_ids'][0];
+        }
+
+        $groupe = null;
+        if ($selectedGroupeId) {
+            $groupe = Groupe::with('filiere')->find($selectedGroupeId);
+        }
+
+        if (!$groupe && !empty($filters['groupe_ids'])) {
+            $validIds = array_filter($filters['groupe_ids'], fn($id) => $id > 0);
+            if (!empty($validIds)) {
+                $groupe = Groupe::with('filiere')->whereIn('id', $validIds)->first();
+            }
+        }
+
+        if (!$groupe) {
+            $groupe = Groupe::with('filiere')->where('code', 'DWB101')->first() 
+                ?? Groupe::with('filiere')->has('apprenants')->first();
+        }
+
+        if (!$groupe) {
+            return $this->getIndicateurCouvertureDetailFallback();
+        }
+
+        // 2. Résolution des Apprenants
+        $apprenants = $groupe->apprenants()->with('user')->orderBy('nom')->get();
+        $apprenantsIds = $apprenants->pluck('id');
+        $effectif = $apprenantsIds->count();
+
+        if ($effectif === 0) {
+            return $this->getIndicateurCouvertureDetailFallback($groupe->code ?? 'Groupe');
+        }
+
+        // 3. Compétences Macro (RealisationCompetence)
+        $compDetails = DB::table('realisation_competences as rc')
+            ->join('competences as c', 'c.id', '=', 'rc.competence_id')
+            ->leftJoin('modules as m', 'm.id', '=', 'c.module_id')
+            ->whereIn('rc.apprenant_id', $apprenantsIds)
+            ->select([
+                'c.id as comp_id',
+                'c.code as comp_code',
+                'c.nom as comp_nom',
+                'c.description as comp_description',
+                'm.code as module_code',
+                'm.nom as module_nom',
+                DB::raw('count(*) as count_inscrits'),
+                DB::raw('round(avg(rc.progression_cache), 1) as avg_progression'),
+                DB::raw('round(avg(rc.progression_ideal_cache), 1) as avg_progression_ideal'),
+            ])
+            ->groupBy('c.id', 'c.code', 'c.nom', 'c.description', 'm.code', 'm.nom')
+            ->orderBy('c.code')
+            ->get();
+
+        if ($compDetails->isEmpty()) {
+            return $this->getIndicateurCouvertureDetailFallback($groupe->code ?? 'Groupe');
+        }
+
+        $matriceCompetences = [];
+        $impasses = [];
+        $totalProgCohorte = 0;
+        $totalIdealCohorte = 0;
+        $activeCompetencesCount = 0;
+
+        foreach ($compDetails as $cd) {
+            $prog = (float) $cd->avg_progression;
+            $ideal = (float) $cd->avg_progression_ideal;
+            $delta = round($prog - $ideal, 1);
+            $tauxRythme = $ideal > 0 ? round(($prog / $ideal) * 100, 1) : 100.0;
+
+            if ($ideal > 0) {
+                $totalProgCohorte += $prog;
+                $totalIdealCohorte += $ideal;
+                $activeCompetencesCount++;
+            }
+
+            // Qualification temporelle dynamique
+            if ($ideal == 0.0) {
+                $severite = 'neutre';
+                $statutLabel = 'Non démarrée (En attente)';
+                $badgeClass = 'bg-slate-100 text-slate-600 border-slate-200';
+                $isImpasse = false;
+            } elseif ($tauxRythme >= 95.0 || $delta >= -5.0) {
+                $severite = 'optimale';
+                $statutLabel = 'Trajectoire optimale (≥ 95%)';
+                $badgeClass = 'bg-emerald-100 text-emerald-800 border-emerald-200';
+                $isImpasse = false;
+            } elseif ($tauxRythme >= 80.0) {
+                $severite = 'regulier';
+                $statutLabel = 'Progression régulière (80-95%)';
+                $badgeClass = 'bg-indigo-50 text-indigo-700 border-indigo-200';
+                $isImpasse = false;
+            } elseif ($tauxRythme >= 60.0) {
+                $severite = 'tension';
+                $statutLabel = 'Vigilance didactique (60-80%)';
+                $badgeClass = 'bg-amber-100 text-amber-800 border-amber-200';
+                $isImpasse = false;
+            } else {
+                $severite = 'critique';
+                $statutLabel = 'Impasse didactique critique (< 60%)';
+                $badgeClass = 'bg-rose-100 text-rose-800 border-rose-200';
+                $isImpasse = ($ideal >= 25.0);
+            }
+
+            $compItem = [
+                'id' => $cd->comp_id,
+                'code' => $cd->comp_code,
+                'titre' => $cd->comp_nom,
+                'description' => $cd->comp_description,
+                'module_code' => $cd->module_code,
+                'module_nom' => $cd->module_nom,
+                'progression' => $prog,
+                'progression_formate' => "{$prog}%",
+                'progression_ideal' => $ideal,
+                'progression_ideal_formate' => "{$ideal}%",
+                'taux_rythme' => $tauxRythme,
+                'taux_rythme_formate' => "{$tauxRythme}%",
+                'delta' => $delta,
+                'delta_formate' => ($delta >= 0 ? "+{$delta}" : "{$delta}") . ' pts',
+                'is_impasse' => $isImpasse,
+                'severite' => $severite,
+                'statut_label' => $statutLabel,
+                'badge_class' => $badgeClass,
+                'nb_valides' => round(($prog / 100) * $effectif),
+                'effectif' => $effectif,
+                'taux' => $prog,
+                'taux_formate' => "{$prog}%",
+                'competence_code' => $cd->comp_code,
+                'competence_nom' => $cd->comp_nom,
+            ];
+
+            $matriceCompetences[] = $compItem;
+
+            if ($isImpasse || ($severite === 'tension' && $ideal >= 25.0 && $delta < -15.0)) {
+                $impasses[] = $compItem;
+            }
+        }
+
+        usort($impasses, fn($a, $b) => $a['taux_rythme'] <=> $b['taux_rythme']);
+
+        // 4. Statistiques Micro-Compétences (pour matrice de détail fin)
+        $etatDoneId = DB::table('etat_realisation_micro_competences')->where('code', 'DONE')->value('id') ?? 5;
+        $existingMcIds = DB::table('realisation_micro_competences')
+            ->whereIn('apprenant_id', $apprenantsIds)
+            ->distinct('micro_competence_id')
+            ->pluck('micro_competence_id');
+
+        $matriceMicroCompetences = [];
+        if ($existingMcIds->isNotEmpty()) {
+            $mcDetails = DB::table('micro_competences as mc')
+                ->join('competences as c', 'c.id', '=', 'mc.competence_id')
+                ->leftJoin('modules as m', 'm.id', '=', 'c.module_id')
+                ->whereIn('mc.id', $existingMcIds)
+                ->select([
+                    'mc.id',
+                    'mc.code as mc_code',
+                    'mc.titre as mc_titre',
+                    'mc.description as mc_description',
+                    'mc.ordre as mc_ordre',
+                    'c.code as competence_code',
+                    'c.nom as competence_nom',
+                    'm.code as module_code',
+                    'm.nom as module_nom',
+                ])
+                ->orderBy('c.code')
+                ->orderBy('mc.ordre')
+                ->orderBy('mc.code')
+                ->get();
+
+            $validationsParMc = DB::table('realisation_micro_competences')
+                ->whereIn('apprenant_id', $apprenantsIds)
+                ->whereIn('micro_competence_id', $existingMcIds)
+                ->where('etat_realisation_micro_competence_id', $etatDoneId)
+                ->select('micro_competence_id', DB::raw('count(*) as total_valide'))
+                ->groupBy('micro_competence_id')
+                ->pluck('total_valide', 'micro_competence_id');
+
+            foreach ($mcDetails as $mc) {
+                $nbVal = (int) ($validationsParMc[$mc->id] ?? 0);
+                $tx = round(($nbVal / max(1, $effectif)) * 100, 1);
+                $matriceMicroCompetences[] = [
+                    'id' => $mc->id,
+                    'code' => $mc->mc_code ?? 'MC-' . $mc->id,
+                    'titre' => $mc->mc_titre,
+                    'description' => $mc->mc_description,
+                    'competence_code' => $mc->competence_code,
+                    'competence_nom' => $mc->competence_nom,
+                    'module_code' => $mc->module_code,
+                    'module_nom' => $mc->module_nom,
+                    'nb_valides' => $nbVal,
+                    'effectif' => $effectif,
+                    'taux' => $tx,
+                    'taux_formate' => "{$tx}%",
+                ];
+            }
+        }
+
+        // 5. Grille Individuelle par Apprenant (sur RealisationCompetence)
+        $rcApprenants = DB::table('realisation_competences')
+            ->whereIn('apprenant_id', $apprenantsIds)
+            ->select([
+                'apprenant_id',
+                DB::raw('round(avg(progression_cache), 1) as avg_prog'),
+                DB::raw('round(avg(progression_ideal_cache), 1) as avg_ideal'),
+            ])
+            ->groupBy('apprenant_id')
+            ->get()
+            ->keyBy('apprenant_id');
+
+        $grilleApprenants = [];
+        $nbApprenantsDansLesTemps = 0; // Rythme >= 80%
+
+        foreach ($apprenants as $appr) {
+            $rcAppr = $rcApprenants[$appr->id] ?? null;
+            $progAppr = (float) ($rcAppr->avg_prog ?? 0);
+            $idealAppr = (float) ($rcAppr->avg_ideal ?? 0);
+            $deltaAppr = round($progAppr - $idealAppr, 1);
+            $rythmeAppr = $idealAppr > 0 ? round(($progAppr / $idealAppr) * 100, 1) : 100.0;
+
+            if ($rythmeAppr >= 80.0) {
+                $nbApprenantsDansLesTemps++;
+            }
+
+            $badgeClassAppr = $rythmeAppr >= 95.0
+                ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                : ($rythmeAppr >= 80.0 ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : ($rythmeAppr >= 60.0 ? 'bg-amber-50 text-amber-700 border-amber-200' : 'bg-rose-50 text-rose-700 border-rose-200'));
+
+            $statutAppr = $rythmeAppr >= 95.0
+                ? 'Trajectoire optimale'
+                : ($rythmeAppr >= 80.0 ? 'Progression régulière' : ($rythmeAppr >= 60.0 ? 'Vigilance didactique' : 'Décrochage sévère'));
+
+            $grilleApprenants[] = [
+                'id' => $appr->id,
+                'nom_complet' => $appr->nom . ' ' . $appr->prenom,
+                'matricule' => $appr->matricule ?? 'APPR-' . $appr->id,
+                'avatar' => $appr->profile_picture ?? asset('images/avatar-default.png'),
+                'progression' => $progAppr,
+                'progression_formate' => "{$progAppr}%",
+                'progression_ideal' => $idealAppr,
+                'progression_ideal_formate' => "{$idealAppr}%",
+                'taux_rythme' => $rythmeAppr,
+                'taux_rythme_formate' => "{$rythmeAppr}%",
+                'delta' => $deltaAppr,
+                'delta_formate' => ($deltaAppr >= 0 ? "+{$deltaAppr}" : "{$deltaAppr}") . ' pts',
+                'statut' => $statutAppr,
+                'badge_class' => $badgeClassAppr,
+                'validees' => round($progAppr),
+                'total' => 100,
+                'taux' => $progAppr,
+                'taux_formate' => "{$progAppr}%",
+            ];
+        }
+
+        usort($grilleApprenants, fn($a, $b) => $b['taux_rythme'] <=> $a['taux_rythme']);
+
+        $tauxHomogeneite = round(($nbApprenantsDansLesTemps / max(1, $effectif)) * 100, 1);
+
+        // 6. Calcul des KPIs Globaux de la Cohorte
+        $progCohorteMoyenne = $activeCompetencesCount > 0 ? round($totalProgCohorte / $activeCompetencesCount, 1) : 0.0;
+        $idealCohorteMoyenne = $activeCompetencesCount > 0 ? round($totalIdealCohorte / $activeCompetencesCount, 1) : 0.0;
+        $tauxRythmeCohorte = $idealCohorteMoyenne > 0 ? round(($progCohorteMoyenne / $idealCohorteMoyenne) * 100, 1) : 100.0;
+        $deltaCohorte = round($progCohorteMoyenne - $idealCohorteMoyenne, 1);
+        $nbImpassesCritiques = count(array_filter($impasses, fn($i) => $i['severite'] === 'critique'));
+
+        // 7. Benchmark Macro Inter-Groupes
+        $benchmarkGroupes = $this->getIndicateurCouvertureResponsable()['groupes_benchmark'] ?? [];
+
+        // 8. Projet / Module actif contextuel
+        $projetActif = null;
+        if (!empty($filters['projet_id'])) {
+            $projetActif = \Modules\PkgCreationProjet\Models\Projet::find($filters['projet_id']);
+        }
+
+        $badgeClassGlobal = $tauxRythmeCohorte >= 95.0
+            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+            : ($tauxRythmeCohorte >= 80.0 ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : ($tauxRythmeCohorte >= 60.0 ? 'bg-amber-50 text-amber-700 border-amber-200' : 'bg-rose-50 text-rose-700 border-rose-200'));
+
+        $statutGlobal = $tauxRythmeCohorte >= 95.0
+            ? 'Trajectoire Optimale'
+            : ($tauxRythmeCohorte >= 80.0 ? 'Progression Régulière' : 'Vigilance Didactique');
+
+        return [
+            'kpis' => [
+                'taux_icp' => $progCohorteMoyenne,
+                'taux_icp_formate' => "{$progCohorteMoyenne}%",
+                'progression_reelle_moyenne' => $progCohorteMoyenne,
+                'progression_ideale_moyenne' => $idealCohorteMoyenne,
+                'taux_rythme' => $tauxRythmeCohorte,
+                'taux_rythme_formate' => "{$tauxRythmeCohorte}%",
+                'delta' => $deltaCohorte,
+                'delta_formate' => ($deltaCohorte >= 0 ? "+{$deltaCohorte}" : "{$deltaCohorte}") . ' pts',
+                'seuil_cible' => 85.0,
+                'ecart_cible' => $deltaCohorte,
+                'total_prescrites' => $compDetails->count(),
+                'total_validations' => round(($progCohorteMoyenne / 100) * ($effectif * $compDetails->count())),
+                'total_requis' => $effectif * $compDetails->count(),
+                'effectif' => $effectif,
+                'nb_impasses' => $nbImpassesCritiques,
+                'nb_alertes' => count($impasses),
+                'taux_homogeneite' => $tauxHomogeneite,
+                'nb_homogenes' => $nbApprenantsDansLesTemps,
+                'statut' => $statutGlobal,
+                'badge_class' => $badgeClassGlobal,
+                'badge_label' => $statutGlobal,
+                'groupe_code' => $groupe->code ?? 'Classe',
+                'filiere_nom' => $groupe->filiere->nom ?? 'Développement Digital',
+            ],
+            'session_active' => [
+                'groupe_id' => $groupe->id,
+                'groupe_code' => $groupe->code,
+                'filiere_nom' => $groupe->filiere->nom ?? '-',
+                'projet_titre' => $projetActif?->titre ?? 'Référentiel National Module',
+            ],
+            'competences' => $matriceCompetences,
+            'micro_competences' => $matriceMicroCompetences,
+            'impasses' => $impasses,
+            'apprenants' => $grilleApprenants,
+            'benchmark_groupes' => $benchmarkGroupes,
+        ];
+    }
+
+    /**
+     * Fallback pour la vue détaillée de couverture pédagogique.
+     */
+    protected function getIndicateurCouvertureDetailFallback(string $groupeNom = 'Classe'): array
+    {
+        $base = $this->getIndicateurCouvertureFormateurFallback($groupeNom);
+        return [
+            'kpis' => [
+                'taux_icp' => $base['taux_icp'],
+                'taux_icp_formate' => $base['taux_icp_formate'],
+                'seuil_cible' => 85.0,
+                'ecart_cible' => -1.0,
+                'total_prescrites' => $base['total_prescrites'],
+                'total_validations' => $base['total_validations'],
+                'total_requis' => $base['effectif'] * $base['total_prescrites'],
+                'effectif' => $base['effectif'],
+                'nb_impasses' => $base['nb_impasses'],
+                'taux_homogeneite' => 80.0,
+                'nb_homogenes' => 16,
+                'statut' => 'Progression Active',
+                'badge_class' => 'bg-indigo-50 text-indigo-700 border-indigo-200',
+                'badge_label' => 'Progression Active',
+                'groupe_code' => $groupeNom,
+                'filiere_nom' => 'Développement Digital',
+            ],
+            'session_active' => [
+                'groupe_id' => 1,
+                'groupe_code' => $groupeNom,
+                'filiere_nom' => 'Développement Digital',
+                'projet_titre' => 'Référentiel National Module',
+            ],
+            'competences' => [],
+            'micro_competences' => [],
+            'impasses' => $base['impasses'],
+            'apprenants' => [],
+            'benchmark_groupes' => $this->getIndicateurCouvertureResponsableFallback()['groupes_benchmark'] ?? [],
         ];
     }
 

@@ -162,9 +162,10 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
   - `cahiers-charges/PkgTableauBord/plan-sprint8.md`
 - **Sorties** :
   - Index BDD : `idx_rmc_appr_etat`, `idx_rmc_mc_etat`
-  - Service : `DashboardIndicateur08Trait`
-  - UI V2 : `kpi-couverture-pedagogique.blade.php`, `impasses-pedagogiques-panel.blade.php`
-  - Artisan : `dashboard:simuler-couverture-pedagogique`
+  - Service : `DashboardIndicateur08Trait` (`getIndicateurCouvertureDetail`, `getIndicateurCouvertureFormateur`, `getIndicateurCouvertureResponsable`)
+  - Route : `admin.PkgTableauBord.indicateurs.couverture` (`IndicateurDetailController@couverture`)
+  - UI V2 : `kpi-couverture-pedagogique.blade.php`, `impasses-pedagogiques-panel.blade.php`, `indicateurs/couverture.blade.php` (matrice complète du référentiel, diagnostic impasses, grille individuelle et benchmark)
+  - Artisan : `dashboard:simuler-couverture-pedagogique` (mode audit réel par défaut, `--calibrate` optionnel)
 
 ### Action K : Appliquer la Règle Docimologique 65/35 & Sceller les Bordereaux Officiels
 > **Description** : Expliquer l'algorithme officiel de calcul de la note CC (sur 20) et de la note EFM (sur 40) selon la pondération 65% Prototype + 35% Projet, le contrôle de complétude 100%, le scellement officiel par empreinte SHA-256 et la génération des bordereaux officiels.
@@ -269,11 +270,23 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
 4. Si $\Delta_{\text{IA}} > 5.0\text{ pts}$, une alerte rouge s'affiche dans le tableau des soutenances du formateur (*"Vérifier maîtrise du code en soutenance"*).
 5. La vue Responsable trace le nuage de points interactif SVG (Scatter Plot) avec polygone d'anomalie rouge et bouton de convocation de jury.
 
-### Scénario 8 : Couverture Pédagogique du Référentiel National ($\text{ICP}$)
-1. Le calcul agrège l'ensemble des validations des micro-compétences nationales sur la table optimisée `realisation_micro_competences`.
-2. L'apprenant suit sa progression personnelle : $C_{\text{validées}} / C_{\text{prescrites}}$ et sa jauge d'assimilation (ex: $85\%$).
-3. Le formateur analyse l'$\text{ICP}$ collectif du groupe ($\text{ICP} = \frac{\sum C_{\text{validées}}}{N \times C_{\text{référentiel}}} \times 100$) et consulte le **Diagnostic des Impasses Didactiques** identifiant toute compétence à $< 50\%$ de validation pour planifier des ateliers de remédiation ciblés.
-4. Le responsable supervise le benchmark macroscopique inter-promotions comparant la conformité face au seuil national ($\ge 85\%$) dans la matrice comparative.
+### Scénario 8 : Couverture Pédagogique du Référentiel National ($\text{ICP}$) & Confrontation Temporelle
+1. **Source de Vérité Réelle (`realisation_competences`)** : Le modèle `RealisationCompetence` porte nativement `progression_cache`, `progression_ideal_cache` et `taux_rythme_cache`. Les données en base sont complètes et correctes : **aucune commande de simulation ou de calibration artificielle n'est nécessaire ni autorisée**.
+2. **Confrontation Temporelle Dynamique (CRITIQUE)** : En début ou en cours d'année scolaire, il est tout à fait normal que la progression des apprenants soit inférieure à 85%. Une évaluation statique arbitraire (< 50% ou < 85%) génère des faux positifs massifs :
+   - Si $\text{progression\_ideal\_cache} = 0\%$, la compétence n'est pas encore démarrée dans le calendrier annuel $\implies$ Statut neutre "Non démarrée", zéro alerte.
+   - Le **Taux de Rythme** mesure le respect du calendrier didactique :
+     $$\text{Rythme} = \frac{\text{Progression Réelle}}{\text{Progression Idéale}} \times 100$$
+   - **Trajectoire Optimale** : $\text{Rythme} \ge 95\%$ ou $\Delta = \text{Prog} - \text{Idéal} \ge -5\,\text{pts}$.
+   - **Progression Régulière** : $80\% \le \text{Rythme} < 95\%$.
+   - **Vigilance Didactique** : $60\% \le \text{Rythme} < 80\%$.
+   - **Impasse Didactique Réelle** : $\text{Rythme} < 60\%$ et $\text{Idéal} \ge 25\%$ (ou $\Delta < -25\,\text{pts}$). Seules ces situations critiques justifient le déclenchement d'ateliers de consolidation.
+3. **Tableau de Bord & Vue Détaillée 100% Inline** :
+   - La Flashbox / Panel formateur et les KPI Cards affichent la double métrique : Progression Réelle vs Idéale et le Taux de Rythme.
+   - La page détaillée (`indicateurs/couverture.blade.php`) offre un affichage 100% inline (strictement sans modale au chargement) articulé en 3 onglets :
+     - **Compétences Nationales (Macro)** : Tableau complet avec double jauge comparative (barre réelle pleine + repère idéal), $\Delta$ et Taux de Rythme.
+     - **Micro-Compétences (Matrice)** : Détail par micro-compétence avec recherche dynamique Alpine.js.
+     - **Grille Individuelle des Apprenants** : Progression réelle, idéale et rythme individuel de chaque stagiaire.
+4. **Benchmark Responsable** : Comparatif macroscopique entre toutes les cohortes de l'établissement.
 
 ### Scénario 9 : Règle Docimologique 65/35 & Scellement des Bordereaux
 1. Les notes des prototypes ($N2$) et du projet libre ($N3$) sont combinées pour calculer :

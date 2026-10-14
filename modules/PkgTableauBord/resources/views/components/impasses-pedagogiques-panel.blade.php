@@ -19,20 +19,25 @@ $nbImpasses = count($impasses);
             </div>
             <div>
                 <h3 class="text-sm font-bold text-slate-900">Diagnostic des Impasses Didactiques (Indicateur 08)</h3>
-                <p class="text-xs text-slate-500">Micro-compétences nationales validées par moins de 50% du groupe</p>
+                <p class="text-xs text-slate-500">Compétences nationales accusant un retard critique par rapport au calendrier idéal</p>
             </div>
         </div>
 
-        <div>
+        <div class="flex items-center gap-2">
             @if($nbImpasses > 0)
             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200">
                 {{ $nbImpasses }} compétence{{ $nbImpasses > 1 ? 's' : '' }} en tension
             </span>
             @else
             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                Groupe homogène
+                Trajectoire conforme
             </span>
             @endif
+            <a href="{{ route('admin.PkgTableauBord.indicateurs.couverture', array_merge(request()->query(), ['from' => 'formateur'])) }}"
+               class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition shadow-2xs">
+                <span>Matrice Complète</span>
+                <i class="fas fa-arrow-right text-[10px] text-slate-400"></i>
+            </a>
         </div>
     </div>
 
@@ -44,29 +49,41 @@ $nbImpasses = count($impasses);
                 <div class="flex-1">
                     <div class="flex items-center gap-2">
                         <span class="font-mono text-xs font-bold px-2 py-0.5 rounded {{ ($imp['severite'] ?? '') === 'critique' ? 'bg-rose-100 text-rose-800' : 'bg-amber-100 text-amber-800' }}">
-                            {{ $imp['code'] ?? 'MC' }}
+                            {{ $imp['code'] ?? 'C' }}
                         </span>
                         <h4 class="text-sm font-bold text-slate-800">{{ $imp['titre'] }}</h4>
+                        @if(!empty($imp['module_code']))
+                        <span class="text-[10px] font-semibold text-slate-400">({{ $imp['module_code'] }})</span>
+                        @endif
                     </div>
 
-                    <div class="mt-2 flex items-center gap-4 text-xs text-slate-600">
+                    <div class="mt-2 flex items-center gap-4 text-xs text-slate-600 flex-wrap">
+                        <span>Progression : <strong class="text-slate-900 font-mono">{{ $imp['progression_formate'] ?? $imp['taux_formate'] }}</strong></span>
+                        @if(isset($imp['progression_ideal']))
+                        <span>Idéale à date : <strong class="text-slate-700 font-mono">{{ $imp['progression_ideal_formate'] ?? ($imp['progression_ideal'] . '%') }}</strong></span>
+                        <span>Rythme : <strong class="{{ ($imp['severite'] ?? '') === 'critique' ? 'text-rose-600' : 'text-amber-600' }} font-mono font-bold">{{ $imp['taux_rythme_formate'] ?? ($imp['taux_rythme'] . '%') }}</strong></span>
+                        @if(isset($imp['delta_formate']))
+                        <span class="font-mono text-xs font-bold text-rose-600">{{ $imp['delta_formate'] }}</span>
+                        @endif
+                        @else
                         <span>Validé par : <strong class="text-slate-900">{{ $imp['valides'] }} / {{ $imp['inscrits'] }} apprenants</strong></span>
-                        <span>Taux d'assimilation : <strong class="{{ ($imp['severite'] ?? '') === 'critique' ? 'text-rose-600' : 'text-amber-600' }} font-mono font-bold">{{ $imp['taux_formate'] }}</strong></span>
+                        @endif
                     </div>
 
-                    <!-- Mini jauge -->
-                    <div class="mt-2 w-full max-w-md bg-slate-200/70 rounded-full h-1.5 overflow-hidden">
-                        <div class="{{ ($imp['severite'] ?? '') === 'critique' ? 'bg-rose-500' : 'bg-amber-500' }} h-1.5 rounded-full" style="width: {{ $imp['taux'] }}%"></div>
+                    <!-- Mini jauge comparative avec repère idéal -->
+                    <div class="mt-2 w-full max-w-md bg-slate-200/70 rounded-full h-2 relative overflow-hidden">
+                        <div class="{{ ($imp['severite'] ?? '') === 'critique' ? 'bg-rose-500' : 'bg-amber-500' }} h-2 rounded-full" style="width: {{ $imp['progression'] ?? $imp['taux'] }}%"></div>
+                        @if(isset($imp['progression_ideal']) && $imp['progression_ideal'] > 0)
+                        <div class="absolute top-0 bottom-0 w-0.5 bg-slate-900 z-10" style="left: {{ min(100, $imp['progression_ideal']) }}%" title="Repère Idéal : {{ $imp['progression_ideal'] }}%"></div>
+                        @endif
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2 self-end md:self-center">
-                    <button type="button" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition shadow-sm">
-                        🎯 Planifier Atelier Dédié
-                    </button>
-                    <button type="button" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-300 hover:bg-slate-50 text-slate-700 transition">
-                        Mutualiser Trinômes
-                    </button>
+                    <a href="{{ route('admin.PkgTableauBord.indicateurs.couverture', array_merge(request()->query(), ['from' => 'formateur'])) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 transition">
+                        <i class="fas fa-list-check"></i>
+                        <span>Inspecter dans la matrice</span>
+                    </a>
                 </div>
             </div>
             @endforeach
@@ -75,7 +92,7 @@ $nbImpasses = count($impasses);
     @else
     <div class="p-8 text-center">
         <p class="text-sm font-semibold text-emerald-800">Excellente dynamique d'acquisition !</p>
-        <p class="text-xs text-slate-500 mt-1">Toutes les micro-compétences évaluées dépassent le seuil critique de 50% de validation dans la classe.</p>
+        <p class="text-xs text-slate-500 mt-1">Toutes les compétences actives progressent en conformité avec le calendrier pédagogique idéal.</p>
     </div>
     @endif
 </div>

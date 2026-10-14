@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/intervention', [IndicateurDetailController::class, 'intervention'])->name('intervention');
             Route::post('/intervention/intervenir', [IndicateurDetailController::class, 'enregistrerRemediation'])->name('intervention.intervenir');
             Route::post('/intervention/cloturer-live-coding', [IndicateurDetailController::class, 'cloturerLiveCodingCollectif'])->name('intervention.cloturer-live-coding');
+            Route::get('/couverture', [IndicateurDetailController::class, 'couverture'])->name('couverture');
         });
     });
 });

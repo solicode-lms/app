@@ -481,4 +481,43 @@ class IndicateurDetailController extends AdminController
 
         return back()->with('success', 'Séance collective clôturée. Le chronomètre d\'autonomie (30 min) est démarré.');
     }
+
+    /**
+     * Page de détail pour l'Indicateur 08 : Couverture Pédagogique du Référentiel National (ICP).
+     *
+     * @DynamicPermissionIgnore
+     */
+    public function couverture(Request $request)
+    {
+        $ctx = $this->resolveFilterContext($request);
+
+        $filters = [
+            'groupe_ids' => $ctx['targetGroupeIds'],
+            'projet_id' => $ctx['targetProjetId'],
+            'filiere_id' => $ctx['selectedFiliereId'],
+            'formateur_id' => $ctx['selectedFormateurId'],
+            'selected_groupe_id' => $ctx['selectedGroupeId'],
+            'filter_type' => $ctx['filterType'],
+        ];
+
+        $detail = $this->tableauBordService->getIndicateurCouvertureDetail($filters);
+
+        return view('PkgTableauBord::indicateurs.couverture', [
+            'user' => $ctx['user'],
+            'dashboardRoute' => $ctx['dashboardRoute'],
+            'isVisionGlobale' => $ctx['isVisionGlobale'],
+            'formateurs' => $ctx['formateurs'],
+            'selectedFormateurId' => $ctx['selectedFormateurId'],
+            'filieres' => $ctx['filieres'],
+            'selectedFiliereId' => $ctx['selectedFiliereId'],
+            'groupes' => $ctx['groupes'],
+            'selectedGroupeId' => $ctx['selectedGroupeId'],
+            'projets' => $ctx['projets'],
+            'selectedProjetId' => $ctx['selectedProjetId'],
+            'projetActif' => $ctx['projetActif'],
+            'filterType' => $ctx['filterType'],
+            'detail' => $detail,
+        ]);
+    }
 }
+
