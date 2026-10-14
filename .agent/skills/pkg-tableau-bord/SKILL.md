@@ -227,10 +227,11 @@ description: Expert du module PkgTableauBord — Architecture de données, calcu
 4. La vue Responsable agrège la moyenne d'équipe et dresse le benchmark individuel par formateur.
 
 ### Scénario 5 : Régulation de la File Live Coding ($T_{\text{file}}$)
-1. Dès que l'apprenant soumet son prototype N2, la tâche passe à `READY_FOR_LIVE_CODING` et fige `cache_date_entree_file = now()`.
-2. L'apprenant voit en temps réel son rang d'attente FIFO (ex: Rang #2, ~18 min estimées).
-3. Le formateur consulte sa console ordonnée ASC et appelle le suivant, ou active une session mutualisée 4x4 si la file s'accumule (> 4 apprenants ou attente > 60 min).
-4. Au passage à `IN_LIVE_CODING`, `cache_date_debut_live_coding` est enregistré et `cache_delai_attente_minutes` est calculé.
+1. **Périmètre strict** : S'applique **exclusivement aux tâches de Prototype / Live Coding de Niveau 2 (N2)** (`isPrototype()` ou `phaseEvaluation.code === 'N2'`). Les tâches d'autres phases (N1, N3) sont exclues de la file et des calculs d'attente.
+2. Dès que l'apprenant soumet son prototype N2, la tâche passe à `READY_FOR_LIVE_CODING` et fige `cache_date_entree_file = now()`.
+3. L'apprenant voit en temps réel son rang d'attente FIFO (ex: Rang #2, ~40-60 min estimées).
+4. Le formateur consulte sa console ordonnée ASC et appelle le suivant, ou active une session mutualisée 4x4 Discord si la file s'accumule (≥ 5 apprenants ou attente > 60 min).
+5. Au passage à `IN_LIVE_CODING`, `cache_date_debut_live_coding` est enregistré et `cache_delai_attente_minutes` est calculé (si délai = 0 min, la valeur 0 est conservée).
 
 ### Scénario 6 : Détection des Ruptures et Prise en Charge ($T_{\text{intervention}}$)
 1. Le formateur clôture le Live Coding collectif (`date_fin_live_coding_collectif = now()`).

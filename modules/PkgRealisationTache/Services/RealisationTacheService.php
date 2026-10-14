@@ -2,6 +2,7 @@
 
 namespace Modules\PkgRealisationTache\Services;
 
+use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\PkgRealisationTache\Services\Base\BaseRealisationTacheService;
 use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheCrudTrait;
 use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheActionsTrait;

@@ -398,7 +398,19 @@ trait RealisationTacheCrudTrait
         $historiqueRealisationTacheService->enregistrerChangement($realisationTache, $data);
         $this->mettreAJourEtatRevisionSiRemarqueModifiee($realisationTache, $data);
 
-
+        // Sprint 5 : Indicateur 05 (T_file) - Horodatage automatique entrée file & démarrage Live Coding (Tâches N2 Prototype uniquement)
+        $isPrototypeN2 = $realisationTache->isPrototype() || optional($realisationTache->tache?->phaseEvaluation)->code === 'N2';
+        if ($isPrototypeN2 && isset($data['etat_realisation_tache_id']) && $data['etat_realisation_tache_id'] != $realisationTache->etat_realisation_tache_id) {
+            $nouvelEtat = \Modules\PkgRealisationTache\Models\EtatRealisationTache::find($data['etat_realisation_tache_id']);
+            $nouveauWfCode = optional($nouvelEtat?->workflowTache)->code;
+            if ($nouveauWfCode === 'READY_FOR_LIVE_CODING') {
+                $data['cache_date_entree_file'] = now();
+            } elseif ($nouveauWfCode === 'IN_LIVE_CODING') {
+                $data['cache_date_debut_live_coding'] = now();
+                $dateEntree = $realisationTache->cache_date_entree_file ?? $realisationTache->updated_at ?? now();
+                $data['cache_delai_attente_minutes'] = max(0, (int) \Carbon\Carbon::parse($dateEntree)->diffInMinutes(now()));
+            }
+        }
     }
 
 

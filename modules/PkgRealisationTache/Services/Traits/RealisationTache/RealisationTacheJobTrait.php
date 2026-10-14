@@ -120,11 +120,13 @@ trait RealisationTacheJobTrait
                             ->enregistrerDemandeRevision($realisationTache);
                     }
 
-                    // Sprint 5 : Indicateur 05 (T_file) - Horodatage entrée file FIFO & prise en charge Live Coding
-                    if ($etatWorkflowCode === 'READY_FOR_LIVE_CODING') {
-                        $this->enregistrerEntreeFileLiveCoding($realisationTache);
-                    } elseif ($etatWorkflowCode === 'IN_LIVE_CODING') {
-                        $this->enregistrerPriseEnChargeLiveCoding($realisationTache);
+                    // Sprint 5 : Indicateur 05 (T_file) - Horodatage entrée file FIFO & prise en charge Live Coding (Prototype N2 uniquement)
+                    if ($isPrototype) {
+                        if ($etatWorkflowCode === 'READY_FOR_LIVE_CODING') {
+                            $this->enregistrerEntreeFileLiveCoding($realisationTache);
+                        } elseif ($etatWorkflowCode === 'IN_LIVE_CODING') {
+                            $this->enregistrerPriseEnChargeLiveCoding($realisationTache);
+                        }
                     }
                 }
 

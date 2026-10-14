@@ -39,10 +39,14 @@ trait DashboardIndicateur05Trait
         }
 
         $tacheLive = RealisationTache::where('realisation_projet_id', $realisationProjet->id)
+            ->where(function ($q) {
+                $q->whereHas('tache.phaseEvaluation', fn($sub) => $sub->where('code', 'N2'))
+                  ->orWhereHas('tache', fn($sub) => $sub->where('is_live_coding', 1));
+            })
             ->whereHas('etatRealisationTache.workflowTache', function ($q) {
                 $q->whereIn('code', ['READY_FOR_LIVE_CODING', 'IN_LIVE_CODING']);
             })
-            ->with(['tache', 'etatRealisationTache.workflowTache'])
+            ->with(['tache.phaseEvaluation', 'etatRealisationTache.workflowTache'])
             ->first();
 
         if (!$tacheLive) {
@@ -61,7 +65,7 @@ trait DashboardIndicateur05Trait
         }
 
         $codeWorkflow = optional($tacheLive->etatRealisationTache?->workflowTache)->code;
-        $dateEntree = $tacheLive->cache_date_entree_file ?? $tacheLive->created_at ?? now();
+        $dateEntree = $tacheLive->cache_date_entree_file ?? $tacheLive->updated_at ?? now();
         $tempsEcouleMinutes = max(0, (int) Carbon::parse($dateEntree)->diffInMinutes(now()));
 
         if ($codeWorkflow === 'IN_LIVE_CODING') {
@@ -85,6 +89,10 @@ trait DashboardIndicateur05Trait
         $hasCacheCol = Schema::hasColumn('realisation_taches', 'cache_date_entree_file');
 
         $queryRangs = RealisationTache::whereHas('realisationProjet', fn($q) => $q->where('affectation_projet_id', $affectationProjetId))
+            ->where(function ($q) {
+                $q->whereHas('tache.phaseEvaluation', fn($sub) => $sub->where('code', 'N2'))
+                  ->orWhereHas('tache', fn($sub) => $sub->where('is_live_coding', 1));
+            })
             ->whereHas('etatRealisationTache.workflowTache', fn($q) => $q->where('code', 'READY_FOR_LIVE_CODING'));
 
         if ($hasCacheCol && $tacheLive->cache_date_entree_file) {
@@ -146,15 +154,19 @@ trait DashboardIndicateur05Trait
         $hasCacheCol = Schema::hasColumn('realisation_taches', 'cache_date_entree_file');
 
         $query = RealisationTache::whereHas('realisationProjet', fn($q) => $q->where('affectation_projet_id', $affectationProjet->id))
+            ->where(function ($q) {
+                $q->whereHas('tache.phaseEvaluation', fn($sub) => $sub->where('code', 'N2'))
+                  ->orWhereHas('tache', fn($sub) => $sub->where('is_live_coding', 1));
+            })
             ->whereHas('etatRealisationTache.workflowTache', function ($q) {
                 $q->whereIn('code', ['READY_FOR_LIVE_CODING', 'IN_LIVE_CODING']);
             })
-            ->with(['realisationProjet.apprenant.user', 'tache', 'etatRealisationTache.workflowTache']);
+            ->with(['realisationProjet.apprenant.user', 'tache.phaseEvaluation', 'etatRealisationTache.workflowTache']);
 
         if ($hasCacheCol) {
-            $query->orderByRaw("CASE WHEN cache_date_entree_file IS NOT NULL THEN cache_date_entree_file ELSE created_at END ASC");
+            $query->orderByRaw("CASE WHEN cache_date_entree_file IS NOT NULL THEN cache_date_entree_file ELSE updated_at END ASC");
         } else {
-            $query->orderBy('created_at', 'asc');
+            $query->orderBy('updated_at', 'asc');
         }
         $query->orderBy('id', 'asc');
 
@@ -193,7 +205,7 @@ trait DashboardIndicateur05Trait
         foreach ($enAttenteCollection as $index => $t) {
             $apprenant = $t->realisationProjet?->apprenant;
             $nomComplet = trim(($apprenant->prenom ?? '') . ' ' . ($apprenant->nom ?? ''));
-            $dateEntree = $t->cache_date_entree_file ?? $t->created_at ?? now();
+            $dateEntree = $t->cache_date_entree_file ?? $t->updated_at ?? now();
             $minutesAttente = max(0, (int) Carbon::parse($dateEntree)->diffInMinutes(now()));
             $totalAttenteCumul += $minutesAttente;
 
@@ -222,18 +234,19 @@ trait DashboardIndicateur05Trait
             ];
         }
 
-        // Calcul du délai moyen historique ou séance
+        // Calcul du délai moyen de la séance (passages terminés + apprenants actuellement en file)
         $delaisTermines = RealisationTache::whereHas('realisationProjet', fn($q) => $q->where('affectation_projet_id', $affectationProjet->id))
+            ->where(function ($q) {
+                $q->whereHas('tache.phaseEvaluation', fn($sub) => $sub->where('code', 'N2'))
+                  ->orWhereHas('tache', fn($sub) => $sub->where('is_live_coding', 1));
+            })
             ->whereNotNull('cache_delai_attente_minutes')
             ->pluck('cache_delai_attente_minutes');
 
-        if ($delaisTermines->isNotEmpty()) {
-            $delaiMoyen = round($delaisTermines->avg());
-        } elseif ($enAttenteCollection->isNotEmpty()) {
-            $delaiMoyen = round($totalAttenteCumul / max(count($fileActive), 1));
-        } else {
-            $delaiMoyen = 0;
-        }
+        $delaisFileActive = collect($fileActive)->pluck('minutes_attente');
+        $tousDelais = $delaisTermines->concat($delaisFileActive);
+
+        $delaiMoyen = $tousDelais->isNotEmpty() ? round($tousDelais->avg()) : 0;
 
         $totalEnAttente = count($fileActive);
 
@@ -544,7 +557,7 @@ trait DashboardIndicateur05Trait
         }
 
         $now = now();
-        $dateEntree = $realisationTache->cache_date_entree_file ?? $realisationTache->created_at ?? $now;
+        $dateEntree = $realisationTache->cache_date_entree_file ?? $realisationTache->updated_at ?? $now;
         $delaiAttente = max(0, (int) Carbon::parse($dateEntree)->diffInMinutes($now));
 
         DB::table('realisation_taches')
@@ -586,7 +599,7 @@ trait DashboardIndicateur05Trait
                 continue;
             }
 
-            $dateEntree = $rt->cache_date_entree_file ?? $rt->created_at ?? $now;
+            $dateEntree = $rt->cache_date_entree_file ?? $rt->updated_at ?? $now;
             $delaiAttente = max(0, (int) Carbon::parse($dateEntree)->diffInMinutes($now));
 
             DB::table('realisation_taches')
