@@ -44,6 +44,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemRealisationTache->liveCodings?->count() > 0 || auth()->user()?->can('create-liveCoding'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="realisationTache-hasmany-tabs-liveCoding-tab" data-toggle="pill" href="#realisationTache-hasmany-tabs-liveCoding" role="tab" aria-controls="realisationTache-hasmany-tabs-liveCoding" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgRealisationTache::liveCoding.plural'))}}
+                            </a>
+                        </li>
+                        @endif
                          @if($itemRealisationTache->remediations?->count() > 0 || auth()->user()?->can('create-remediation'))
                         <li class="nav-item">
                             <a class="nav-link" id="realisationTache-hasmany-tabs-remediation-tab" data-toggle="pill" href="#realisationTache-hasmany-tabs-remediation" role="tab" aria-controls="realisationTache-hasmany-tabs-remediation" aria-selected="false">
@@ -65,6 +73,11 @@
                             @if($itemRealisationTache->historiqueRealisationTaches?->count() > 0 || auth()->user()?->can('create-historiqueRealisationTache'))
                             <div class="tab-pane fade" id="realisationTache-hasmany-tabs-historiqueRealisationTache" role="tabpanel" aria-labelledby="realisationTache-hasmany-tabs-historiqueRealisationTache-tab">
                                 @include('PkgRealisationTache::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+                            </div>
+                            @endif
+                            @if($itemRealisationTache->liveCodings?->count() > 0 || auth()->user()?->can('create-liveCoding'))
+                            <div class="tab-pane fade" id="realisationTache-hasmany-tabs-liveCoding" role="tabpanel" aria-labelledby="realisationTache-hasmany-tabs-liveCoding-tab">
+                                @include('PkgRealisationTache::liveCoding._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
                             </div>
                             @endif
                             @if($itemRealisationTache->remediations?->count() > 0 || auth()->user()?->can('create-remediation'))

@@ -1,0 +1,56 @@
+<?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
+
+
+namespace Modules\PkgRealisationTache\App\Requests\Base;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgRealisationTache\Models\LiveCoding;
+
+class BaseLiveCodingRequest extends FormRequest
+{
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
+    public function rules(): array
+    {
+        return [
+            'realisation_tache_id' => 'required',
+            'tentative' => 'required|integer',
+            'est_valide' => 'required|boolean',
+            'date_passage' => 'required',
+            'commentaire' => 'nullable|string'
+        ];
+    }
+
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::LiveCoding.realisation_tache_id')]),
+            'tentative.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::LiveCoding.tentative')]),
+            'est_valide.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::LiveCoding.est_valide')]),
+            'date_passage.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::LiveCoding.date_passage')]),
+            'commentaire.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::LiveCoding.commentaire')])
+        ];
+    }
+
+}

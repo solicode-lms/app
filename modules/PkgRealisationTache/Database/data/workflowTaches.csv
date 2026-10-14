@@ -9,3 +9,4 @@
 "9","NOT_VALIDATED","Non validée","La tâche a été revue mais n'est pas conforme aux attentes pédagogiques","1","NOT_VALIDATED","orange"
 "8","LATE","En retard","La tâche n’a pas été rendue dans les délais impartis","1","LATE","dark"
 "10","APPROVED","Validée","La tâche a été approuvée après validation pédagogique","1","APPROVED","success"
+"11","EN_REMEDIATION","En remédiation","La tâche prototype nécessite une consolidation didactique avant une nouvelle session Live Coding.","1","EN_REMEDIATION","warning"

@@ -1,0 +1,1 @@
+@extends('PkgRealisationTache::liveCoding.show')

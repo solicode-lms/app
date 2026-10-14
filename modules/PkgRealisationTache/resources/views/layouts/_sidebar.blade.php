@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-etatRealisationTache', 'index-realisationTache', 'index-workflowTache'])
+@accessiblePermissions(['index-etatRealisationTache', 'index-realisationTache', 'index-workflowTache', 'index-liveCoding'])
 @if($accessiblePermissions->isNotEmpty())
     @if($accessiblePermissions->count() === 1)
         {{-- Cas d’un seul élément accessible --}}
@@ -29,6 +29,15 @@
                    class="nav-link {{ Request::is('admin/PkgRealisationTache/workflowTaches') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-check-square"></i>
                     <p>{{__('PkgRealisationTache::workflowTache.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-liveCoding')
+            <li class="nav-item" id="menu-liveCodings">
+                <a href="{{ route('liveCodings.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgRealisationTache/liveCodings') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>{{__('PkgRealisationTache::liveCoding.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -64,6 +73,14 @@
                 <a href="{{ route('workflowTaches.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationTache/workflowTaches') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-check-square"></i>
                     <p>{{__('PkgRealisationTache::workflowTache.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-liveCoding') 
+            <li class="nav-item" id="menu-liveCodings">
+                <a href="{{ route('liveCodings.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationTache/liveCodings') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>{{__('PkgRealisationTache::liveCoding.plural')}}</p>
                 </a>
             </li>
             @endcan

@@ -249,6 +249,21 @@
             @endif
 
             @if(
+                  (auth()->user()?->can('show-liveCoding') && $itemRealisationTache->liveCodings->isNotEmpty())  
+                  || auth()->user()?->can('create-liveCoding')
+                  || (auth()->user()?->can('edit-liveCoding')  && $itemRealisationTache->liveCodings->isNotEmpty() )
+                  )
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::liveCoding.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgRealisationTache::liveCoding._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.show_' . $itemRealisationTache->id])
+                  </div>
+                  </div>
+            </div>
+            @endif
+
+            @if(
                   (auth()->user()?->can('show-remediation') && $itemRealisationTache->remediations->isNotEmpty())  
                   || auth()->user()?->can('create-remediation')
                   || (auth()->user()?->can('edit-remediation')  && $itemRealisationTache->remediations->isNotEmpty() )

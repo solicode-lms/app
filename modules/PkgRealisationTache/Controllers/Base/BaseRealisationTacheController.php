@@ -14,6 +14,7 @@ use Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService;
 use Modules\PkgApprentissage\Services\RealisationChapitreService;
 use Modules\PkgApprentissage\Services\RealisationUaProjetService;
 use Modules\PkgApprentissage\Services\RealisationUaPrototypeService;
+use Modules\PkgRealisationTache\Services\LiveCodingService;
 use Modules\PkgTableauBord\Services\RemediationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -262,6 +263,13 @@ class BaseRealisationTacheController extends AdminController
         $realisationUaPrototypes_view_data = $realisationUaPrototypeService->prepareDataForIndexView();
         extract($realisationUaPrototypes_view_data);
 
+        $this->viewState->set('scope.liveCoding.realisation_tache_id', $id);
+
+
+        $liveCodingService =  new LiveCodingService();
+        $liveCodings_view_data = $liveCodingService->prepareDataForIndexView();
+        extract($liveCodings_view_data);
+
         $this->viewState->set('scope.remediation.realisation_tache_id', $id);
 
 
@@ -269,7 +277,7 @@ class BaseRealisationTacheController extends AdminController
         $remediations_view_data = $remediationService->prepareDataForIndexView();
         extract($remediations_view_data);
 
-        return array_merge(compact('itemRealisationTache'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value, $remediation_compact_value);
+        return array_merge(compact('itemRealisationTache'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value, $liveCoding_compact_value, $remediation_compact_value);
 
     }
     /**
@@ -345,6 +353,13 @@ class BaseRealisationTacheController extends AdminController
         $realisationUaPrototypes_view_data = $realisationUaPrototypeService->prepareDataForIndexView();
         extract($realisationUaPrototypes_view_data);
 
+        $this->viewState->set('scope.liveCoding.realisation_tache_id', $id);
+        
+
+        $liveCodingService =  new LiveCodingService();
+        $liveCodings_view_data = $liveCodingService->prepareDataForIndexView();
+        extract($liveCodings_view_data);
+
         $this->viewState->set('scope.remediation.realisation_tache_id', $id);
         
 
@@ -354,7 +369,7 @@ class BaseRealisationTacheController extends AdminController
 
         $bulkEdit = false;
 
-        $viewData = array_merge(compact('bulkEdit' , 'itemRealisationTache','taches', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'labelProjets'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value, $remediation_compact_value);
+        $viewData = array_merge(compact('bulkEdit' , 'itemRealisationTache','taches', 'etatRealisationTaches', 'realisationProjets', 'tacheAffectations', 'labelProjets'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value, $liveCoding_compact_value, $remediation_compact_value);
 
         return $viewData;
 

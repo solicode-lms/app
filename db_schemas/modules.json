@@ -137,7 +137,8 @@
         "commentaire_realisation_taches",
         "livrable_tache",
         "workflow_taches",
-        "tache_affectations"
+        "tache_affectations",
+        "live_codings"
     ]
 },
 
