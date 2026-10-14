@@ -5,20 +5,20 @@
 @section('page_subtitle', 'Synthèse docimologique, expérimentale et empirique pour le mémoire de recherche-action')
 
 @section('actions')
-    <div class="flex items-center gap-2 print:hidden">
-        <button onclick="window.print()" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 transition shadow-2xs">
-            <i class="fas fa-print text-slate-500"></i>
-            <span>Imprimer le Rapport</span>
-        </button>
-        @include('PkgTableauBord::components.session-selector', ['sessions' => $sessions ?? collect(), 'sessionActive' => $sessionFormationActive ?? null])
-    </div>
+<div class="flex items-center gap-2 print:hidden">
+    <button onclick="window.print()" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 transition shadow-2xs">
+        <i class="fas fa-print text-slate-500"></i>
+        <span>Imprimer le Rapport</span>
+    </button>
+    @include('PkgTableauBord::components.session-selector', ['sessions' => $sessions ?? collect(), 'sessionActive' => $sessionFormationActive ?? null])
+</div>
 @endsection
 
 @section('content')
 <div class="space-y-8 print:space-y-4">
 
     <!-- En-tête Académique du Rapport de Mémoire -->
-    <section class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 rounded-2xl p-6 sm:p-8 text-white shadow-md relative overflow-hidden print:bg-white print:text-black print:border print:border-slate-300 print:p-4">
+    <section class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 rounded-lg p-6 sm:p-8 text-white shadow-md relative overflow-hidden print:bg-white print:text-black print:border print:border-slate-300 print:p-4">
         <div class="relative z-10 max-w-4xl">
             <div class="flex flex-wrap items-center gap-2 mb-3">
                 <span class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 print:border-slate-800 print:text-slate-800">
@@ -28,10 +28,10 @@
                     Cohorte Expérimentale 2025–2026 (N = 100)
                 </span>
                 @if(isset($projetActif) || isset($sessionFormationActive))
-                    @php $currentActive = $projetActif ?? $sessionFormationActive; @endphp
-                    <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/10 text-slate-200 border border-white/20">
-                        Session active : {{ $currentActive->titre }}
-                    </span>
+                @php $currentActive = $projetActif ?? $sessionFormationActive; @endphp
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/10 text-slate-200 border border-white/20">
+                    Session active : {{ $currentActive->titre }}
+                </span>
                 @endif
             </div>
 
@@ -105,7 +105,7 @@
     <!-- ========================================== -->
     <!-- SECTION 1 : HYPOTHÈSE 1 — AXE APPRENANT -->
     <!-- ========================================== -->
-    <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5 print:border-slate-300">
+    <section class="bg-white rounded-lg border border-slate-200 p-6 shadow-sm space-y-5 print:border-slate-300">
         <div class="border-b border-slate-100 pb-4">
             <div class="flex items-center gap-2">
                 <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
@@ -212,7 +212,7 @@
     <!-- ========================================== -->
     <!-- SECTION 2 : HYPOTHÈSE 2 — AXE FORMATEUR -->
     <!-- ========================================== -->
-    <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5 print:border-slate-300">
+    <section class="bg-white rounded-lg border border-slate-200 p-6 shadow-sm space-y-5 print:border-slate-300">
         <div class="border-b border-slate-100 pb-4">
             <div class="flex items-center gap-2">
                 <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
@@ -319,7 +319,7 @@
     <!-- ========================================== -->
     <!-- SECTION 3 : HYPOTHÈSE 3 — AXE INSTITUTIONNEL -->
     <!-- ========================================== -->
-    <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5 print:border-slate-300">
+    <section class="bg-white rounded-lg border border-slate-200 p-6 shadow-sm space-y-5 print:border-slate-300">
         <div class="border-b border-slate-100 pb-4">
             <div class="flex items-center gap-2">
                 <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
@@ -431,7 +431,7 @@
     <!-- ========================================== -->
     <!-- SECTION 4 : MATRICE MÉTHODOLOGIQUE COMPLÈTE (ANNEXE M) -->
     <!-- ========================================== -->
-    <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4 print:border-slate-300">
+    <section class="bg-white rounded-lg border border-slate-200 p-6 shadow-sm space-y-4 print:border-slate-300">
         <div>
             <div class="flex items-center gap-2">
                 <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-300">
@@ -566,22 +566,28 @@
 
 <!-- Styles optimisés pour capture et impression de rapport -->
 <style>
-@media print {
-    body {
-        background-color: white !important;
-        font-size: 11px !important;
+    @media print {
+        body {
+            background-color: white !important;
+            font-size: 11px !important;
+        }
+
+        aside,
+        header,
+        nav,
+        .print\:hidden {
+            display: none !important;
+        }
+
+        main {
+            padding: 0 !important;
+            margin: 0 !important;
+            max-width: 100% !important;
+        }
+
+        table {
+            font-size: 10px !important;
+        }
     }
-    aside, header, nav, .print\:hidden {
-        display: none !important;
-    }
-    main {
-        padding: 0 !important;
-        margin: 0 !important;
-        max-width: 100% !important;
-    }
-    table {
-        font-size: 10px !important;
-    }
-}
 </style>
 @endsection
