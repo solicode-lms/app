@@ -22,6 +22,7 @@ Un Skill valide doit respecter la structure suivante :
   - `🔄 Algorithme d'Exécution` (Étapes claires et séquentielles).
   - `⚠️ Règles d'Or` (Contraintes strictes).
 - **Langue** : Français strict.
+- **Chemins Relatifs Obligatoires (CRITIQUE)** : Ne JAMAIS inclure de chemins absolus (ex : `file:///c:/...`). Utiliser exclusivement des chemins relatifs par rapport au workspace ou au dossier du skill pour garantir la portabilité entre machines.
 
 ### Création d'Artefacts
 - **RÈGLE CRITIQUE** : Tout artefact généré par l'agent, et en particulier le plan d'implémentation (`implementation_plan.md`), **DOIT ÊTRE RÉDIGÉ EN FRANÇAIS**.

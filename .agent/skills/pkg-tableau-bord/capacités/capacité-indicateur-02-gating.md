@@ -29,7 +29,7 @@ Lors de l'évaluation de la tâche Prototype par le formateur :
 1. `RealisationTacheJobTrait::updatedObserverJob` intercepte l'évaluation.
 2. Incrémentation de `realisationProjet->cache_nombre_tentatives_prototype`.
 3. **Si `tentative == 1`** :
-   - Fige la variable `realisationProjet->cache_est_valide_prototype_premier_essai` (`true` si `APPROVED` / note $\ge 10$, `false` sinon).
+   - Fige la variable `realisationProjet->cache_est_valide_prototype_premier_essai` (`true` si `APPROVED`, `false` sinon).
 4. **Si `tentative > 1` (Remédiation)** :
    - L'apprenant effectue sa deuxième tentative après étayage, mais la valeur du premier essai reste **strictement conservée à `false`**.
    - Garantit l'idempotence docimologique de l'indicateur.

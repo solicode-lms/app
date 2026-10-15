@@ -39,3 +39,7 @@ Le projet utilise un générateur de code (Gapp).
 
 ## 6. Apprentissage et Raffinement (CRITIQUE)
 - **Correction et Précédents** : Lorsque le développeur formule une correction technique (comportement, architecture, erreur d'analyse) ou signale un précédent (ex: "Dans ce cas, on n'a pas besoin de faire X..."), l'agent **DOIT OBLIGATOIREMENT** exécuter le workflow `raffinement-agent` (ou l'invoquer via `/raffinement-agent`). Le but est d'analyser la remarque, d'extraire la règle, et de mettre à jour la documentation `.agent/` (Skills/Rules) pour s'assurer que l'erreur ne se reproduise plus à l'avenir.
+
+## 7. Chemins Relatifs dans l'Agent (.agent/) (CRITIQUE)
+- **Interdiction Formelle des Chemins Absolus** : Les fichiers situés dans `.agent/` (Skills, Rules, Workflows, Capacités) **NE DOIVENT JAMAIS contenir de chemins absolus** (ex : `file:///c:/...` ou `/c:/...`). L'emplacement du projet change d'une machine ou d'un environnement à l'autre.
+- **Obligation des Chemins Relatifs** : Toujours utiliser des chemins relatifs au workspace ou des liens Markdown relatifs par rapport au dossier courant (ex : `modules/PkgTableauBord/...`, `capacités/capacité-...md`, `../capacités/...`).

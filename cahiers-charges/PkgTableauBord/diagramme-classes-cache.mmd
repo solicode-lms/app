@@ -1,0 +1,120 @@
+classDiagram
+    direction TB
+
+    class AffectationProjet {
+        +int id
+        +int projet_id
+        +int groupe_id
+        +datetime date_debut
+        +datetime date_fin
+        +datetime cache_date_lancement
+        +datetime date_fin_live_coding_collectif
+        +int seuil_blocage_minutes
+    }
+
+    class RealisationProjet {
+        +int id
+        +int affectation_projet_id
+        +int apprenant_id
+        +int etats_realisation_projet_id
+        +datetime cache_date_lancement
+        +datetime cache_date_premiere_soumission
+        +int cache_nombre_tentatives_prototype
+        +boolean cache_est_valide_prototype_premier_essai
+        +datetime cache_date_validation_prototype
+        +decimal progression_validation_cache
+        +decimal progression_execution_cache
+        +decimal note_cache
+        +decimal bareme_cache
+    }
+
+    class RealisationTache {
+        +int id
+        +int realisation_projet_id
+        +int tache_id
+        +int etat_realisation_tache_id
+        +boolean is_live_coding
+        +int cache_nombre_revisions
+        +datetime cache_date_entree_file
+        +datetime cache_date_debut_live_coding
+        +int cache_delai_attente_minutes
+        +bigint cache_session_live_coding_id
+    }
+
+    class Remediation {
+        +int id
+        +int realisation_tache_id
+        +int formateur_id
+        +datetime date_debut_blocage
+        +datetime date_intervention
+        +int duree_intervention_minutes
+        +string etat_remediation
+    }
+
+    class RealisationModule {
+        +int id
+        +int apprenant_id
+        +int module_id
+        +decimal progression_cache
+        +decimal progression_ideal_cache
+        +decimal taux_rythme_cache
+        +decimal pourcentage_non_valide_cache
+        +decimal note_cache
+        +decimal bareme_cache
+    }
+
+    class RealisationCompetence {
+        +int id
+        +int apprenant_id
+        +int competence_id
+        +int realisation_module_id
+        +decimal progression_cache
+        +decimal progression_ideal_cache
+        +decimal taux_rythme_cache
+        +decimal pourcentage_non_valide_cache
+        +decimal note_cache
+        +decimal bareme_cache
+        +decimal bareme_non_evalue_cache
+    }
+
+    class RealisationMicroCompetence {
+        +int id
+        +int realisation_competence_id
+        +int micro_competence_id
+        +decimal progression_cache
+        +decimal progression_ideal_cache
+        +decimal taux_rythme_cache
+        +decimal note_cache
+        +decimal bareme_cache
+    }
+
+    class SessionFormation {
+        +int id
+        +int annee_formation_id
+        +string reference
+        +datetime date_debut
+        +datetime date_fin
+    }
+
+    class AlignementUa {
+        +int id
+        +int session_formation_id
+        +int unite_apprentissage_id
+        +boolean est_mobilisee
+        +int ordre_sequence
+    }
+
+    class LogActiviteFormateur {
+        +int id
+        +int user_id
+        +string action
+        +int duree_secondes
+        +datetime created_at
+    }
+
+    AffectationProjet "1" --> "*" RealisationProjet : instancie
+    RealisationProjet "1" --> "*" RealisationTache : compose
+    RealisationTache "1" --> "*" Remediation : declenche
+    RealisationModule "1" --> "*" RealisationCompetence : agrege
+    RealisationCompetence "1" --> "*" RealisationMicroCompetence : decompose
+    SessionFormation "1" --> "*" AlignementUa : planifie

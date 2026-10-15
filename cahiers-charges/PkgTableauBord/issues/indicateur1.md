@@ -1,2 +1,9 @@
 
+
+## Indicateur 1 
+
 - [capacit%C3%A9-indicateur-01-amorcage.md#L26-28](textBlock;file:///c%3A/AppServer/solicode-lms/.agent/skills/pkg-tableau-bord/capacit%C3%A9s/capacit%C3%A9-indicateur-01-amorcage.md#L26-28) determinerDatePremiereTacheEnCours ne dois pas cherche l'information de la table historique, il peut consuilter directement "cache_date_lancement", dans [BaseRealisationProjet.php#L0-142](textBlock;file:///c%3A/AppServer/solicode-lms/modules/PkgRealisationProjets/Models/Base/BaseRealisationProjet.php#L0-142) , si il est null, dans ce cas il peut consulter l'histrorique
+
+## Indicateur 2 :
+- on va pas prendrte le critètre de note > 10 pour prottype être valide.
+  - on se base seulmeent sur  cache_est_valide_prototype_premier_essai= true

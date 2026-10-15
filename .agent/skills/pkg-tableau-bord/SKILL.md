@@ -56,7 +56,7 @@ $filtres = $this->viewState->getFilterVariables('responsable');  // 3. Lire les 
 ### 7. Architecture des Pages de Détail par Indicateur
 - Chaque indicateur dispose d'une page d'analyse granulaire sous la route :
   `admin.PkgTableauBord.indicateurs.{nom}` (ex : `amorcage`, `gating`, `revisions`, `charge-logistique`, `file-attente`, `intervention`, `trvs`, `couverture`, `tcp-ua`).
-- Le contrôleur unique [IndicateurDetailController.php](file:///c:/AppServer/solicode-lms/modules/PkgTableauBord/Controllers/IndicateurDetailController.php) résout le contexte de filtrage multidimensionnel (`resolveFilterContext`), appelle la méthode de détail du service, et transmet la structure `$detail` à la vue Blade.
+- Le contrôleur unique [IndicateurDetailController.php](modules/PkgTableauBord/Controllers/IndicateurDetailController.php) résout le contexte de filtrage multidimensionnel (`resolveFilterContext`), appelle la méthode de détail du service, et transmet la structure `$detail` à la vue Blade.
 - Chaque carte KPI du dashboard intègre un lien direct et cliquable vers sa page d'analyse détaillée.
 
 ---
@@ -86,40 +86,40 @@ $filtres = $this->viewState->getFilterVariables('responsable');  // 3. Lire les 
 
 ### Action A : Maîtriser le Modèle de Données & les Profils d'Acteurs
 > **Description** : Consulter la structure des tables (`affectation_projets`, `realisation_projets`, `realisation_taches`, `remediations`, `alignement_uas`), les règles de nommage `cache_`, et la répartition des fonctionnalités entre Apprenant, Formateur et Responsable.
-- **Ressource Référente** : [règle-gestion-pkg-tableau-bord.md](file:///c:/AppServer/solicode-lms/.agent/skills/pkg-tableau-bord/r%C3%A8gles-gestion/r%C3%A8gle-gestion-pkg-tableau-bord.md).
+- **Ressource Référente** : [règle-gestion-pkg-tableau-bord.md](règles-gestion/règle-gestion-pkg-tableau-bord.md).
 
 ### Action B : Calculer ou Déboguer l'Indicateur 01 ($T_{\text{amorçage}}$)
 > **Description** : Gérer le délai moyen de mise au travail, la détection des séances de lancement ($S1, S2, S3$), l'exclusion des démarrages avec absence, et le traitement des valeurs `'--'`.
-- **Capacité Référente** : [capacité-indicateur-01-amorcage.md](file:///c:/AppServer/solicode-lms/.agent/skills/pkg-tableau-bord/capacit%C3%A9s/capacité-indicateur-01-amorcage.md).
+- **Capacité Référente** : [capacité-indicateur-01-amorcage.md](capacités/capacité-indicateur-01-amorcage.md).
 
 ### Action C : Calculer ou Déboguer l'Indicateur 02 ($R_{\text{gating}}$)
 > **Description** : Gérer le taux de validation du prototype Niveau 2 ($N2$) dès le 1er essai, l'idempotence docimologique du statut, et le déblocage du Fil Rouge ($N3$).
-- **Capacité Référente** : [capacité-indicateur-02-gating.md](file:///c:/AppServer/solicode-lms/.agent/skills/pkg-tableau-bord/capacit%C3%A9s/capacité-indicateur-02-gating.md).
+- **Capacité Référente** : [capacité-indicateur-02-gating.md](capacités/capacité-indicateur-02-gating.md).
 
 ### Action D : Calculer ou Déboguer l'Indicateur 03 ($F_{\text{révision}}$)
 > **Description** : Gérer les rejets de code (`REVISION_NECESSAIRE`), le taux de premier jet conforme, et l'extraction automatique du Top 3 des tâches à réaligner.
-- **Capacité Référente** : [capacité-indicateur-03-revision.md](file:///c:/AppServer/solicode-lms/.agent/skills/pkg-tableau-bord/capacit%C3%A9s/capacité-indicateur-03-revision.md).
+- **Capacité Référente** : [capacité-indicateur-03-revision.md](capacités/capacité-indicateur-03-revision.md).
 
 ### Action E : Calculer la Charge Logistique Réelle du Formateur ($C_{\text{logistique}}$)
 > **Description** : Appliquer le Standard Action-Cost Model par acte administratif de session (décompté au niveau `Tache`), sanctuariser l'observation pédagogique à 0 min, et étalonner sur 26h/semaine.
-- **Capacité Référente** : [capacité-indicateur-04-charge-logistique.md](file:///c:/AppServer/solicode-lms/.agent/skills/pkg-tableau-bord/capacit%C3%A9s/capacité-indicateur-04-charge-logistique.md).
+- **Capacité Référente** : [capacité-indicateur-04-charge-logistique.md](capacités/capacité-indicateur-04-charge-logistique.md).
 
 ### Action F : Réguler la File FIFO et Calculer l'Indicateur 05 ($T_{\text{file}}$)
 > **Description** : Gérer la file d'attente FIFO des prototypes N2, la console d'appel temps réel, les soutenances solo (40-60 min), et la régulation par session mutualisée 4x4 Discord.
-- **Capacité Référente** : [capacité-indicateur-05-file-attente.md](file:///c:/AppServer/solicode-lms/.agent/skills/pkg-tableau-bord/capacit%C3%A9s/capacité-indicateur-05-file-attente.md).
+- **Capacité Référente** : [capacité-indicateur-05-file-attente.md](capacités/capacité-indicateur-05-file-attente.md).
 
 ### Action G : Traiter l'Alerte et Calculer l'Indicateur 06 ($T_{\text{intervention}}$)
 > **Description** : Vérifier la présence impérative d'un démonstrateur (`is_live_coding = 1`), déclencher la remédiation automatique après $t_0 + 30\text{ min}$, inscrire dans `remediations`, afficher exclusivement les apprenants bloqués sans modale, et résoudre vers `VALIDEE`.
-- **Capacité Référente** : [capacité-indicateur-06-remediation.md](file:///c:/AppServer/solicode-lms/.agent/skills/pkg-tableau-bord/capacit%C3%A9s/capacité-indicateur-06-remediation.md).
+- **Capacité Référente** : [capacité-indicateur-06-remediation.md](capacités/capacité-indicateur-06-remediation.md).
 
 ### Action H : Mesurer la Réalisation Validée et l'Impact Live Coding ($\text{TRVS}$)
 > **Description** : Appliquer la règle d'achèvement strict (`DONE`), confronter les sessions avant vs après Live Coding synchrone pour calculer le gain $\Delta \text{TRVS}$, et suivre l'évolution séquentielle.
-- **Capacité Référente** : [capacité-indicateur-07-trvs.md](file:///c:/AppServer/solicode-lms/.agent/skills/pkg-tableau-bord/capacit%C3%A9s/capacité-indicateur-07-trvs.md).
+- **Capacité Référente** : [capacité-indicateur-07-trvs.md](capacités/capacité-indicateur-07-trvs.md).
 
 ### Action I : Évaluer la Progression dans le Référentiel National ($\text{ICP}$)
 > **Description** : Confronter dynamiquement `progression_cache` avec le calendrier idéal `progression_ideal_cache`, éradiquer les faux positifs temporels, et qualifier les impasses didactiques réelles.
-- **Capacité Référente** : [capacité-indicateur-08-couverture-competences.md](file:///c:/AppServer/solicode-lms/.agent/skills/pkg-tableau-bord/capacit%C3%A9s/capacité-indicateur-08-couverture-competences.md).
+- **Capacité Référente** : [capacité-indicateur-08-couverture-competences.md](capacités/capacité-indicateur-08-couverture-competences.md).
 
 ### Action J : Mesurer le Taux de Couverture de Planification des UA ($\text{TCP-UA}$)
 > **Description** : Calculer le ratio d'anticipation préventive des Unités d'Apprentissage couvertes par une `SessionFormation`, appliquer la règle d'unicité stricte, et alerter sur les UA non planifiées par module.
-- **Capacité Référente** : [capacité-indicateur-09-planification-ua.md](file:///c:/AppServer/solicode-lms/.agent/skills/pkg-tableau-bord/capacit%C3%A9s/capacité-indicateur-09-planification-ua.md).
+- **Capacité Référente** : [capacité-indicateur-09-planification-ua.md](capacités/capacité-indicateur-09-planification-ua.md).
