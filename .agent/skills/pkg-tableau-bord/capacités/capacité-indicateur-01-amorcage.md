@@ -26,7 +26,7 @@
 3. **Critère de présence** : Pour être considéré comme **présent à la séance de lancement**, l'apprenant doit activer sa première tâche (passage à l'état `En cours` / `IN_PROGRESS`) **avant ou à** $D_{\text{fin\_séance}}$.
 4. L'horodatage précis de cette mise en cours est extrait par priorité :
    - Dans `historique_realisation_taches` (changement d'état vers `IN_PROGRESS` horodaté à la seconde via `determinerDatePremiereTacheEnCours`).
-   - Dans `dateDebut` de la tâche si elle contient une heure précise différente de minuit.
+   - Dans `cache_date_lancement` de la tâche si elle contient une heure précise différente de minuit.
 
 ### B. Catégorisation Didactique des Réalisations
 - **Présent Amorcé** : Première tâche passée en cours $\le D_{\text{fin\_séance}}$ ET première soumission effectuée.
