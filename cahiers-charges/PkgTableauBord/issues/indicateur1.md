@@ -7,3 +7,5 @@
 ## Indicateur 2 :
 - on va pas prendrte le critètre de note > 10 pour prottype être valide.
   - on se base seulmeent sur  cache_est_valide_prototype_premier_essai= true
+
+## Indicateur 3 : 
