@@ -18,12 +18,19 @@ sudo php artisan migrate
 php artisan dashboard:recalculer-amorcage
 php artisan dashboard:recalculer-gating
 php artisan dashboard:recalculer-revisions
-php artisan dashboard:simuler-activite-formateurs
-php artisan dashboard:simuler-file-attente
-php artisan dashboard:simuler-remediations
-php artisan dashboard:simuler-integrite-ia
-php artisan dashboard:simuler-couverture-pedagogique
-php artisan dashboard:simuler-docimologie
+
+# on doit pas ajouter de simulation des activité de formateur
+# php artisan dashboard:simuler-activite-formateurs
+
+
+php artisan dashboard:simuler-file-attente --all
+php artisan dashboard:simuler-remediations --all
+
+
+# on a pas besoin
+# # php artisan dashboard:simuler-integrite-ia
+# php artisan dashboard:simuler-couverture-pedagogique
+# php artisan dashboard:simuler-docimologie
 ```
 
 

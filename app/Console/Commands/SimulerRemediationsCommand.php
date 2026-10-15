@@ -21,6 +21,7 @@ class SimulerRemediationsCommand extends Command
      * @var string
      */
     protected $signature = 'dashboard:simuler-remediations 
+                            {--all : Traiter toutes les affectations au lieu de la dernière}
                             {--affectation_id= : ID spécifique de l\'affectation de projet à traiter}
                             {--inserer-remediations : Insérer des remédiations réelles pour les tâches passées en remédiation sans fiche}
                             {--reset : Réinitialiser les remédiations et dates}';
@@ -41,12 +42,15 @@ class SimulerRemediationsCommand extends Command
 
         $tableauBordService = app(TableauBordService::class);
 
-        // 1. Sélection de l'affectation
+        // 1. Sélection des affectations
         $affId = $this->option('affectation_id');
         $queryAff = AffectationProjet::with(['projet.formateur', 'groupe', 'realisationProjets.apprenant']);
 
-        if ($affId) {
+        if ($this->option('all')) {
+            $affectations = $queryAff->get();
+        } elseif ($affId) {
             $affectation = $queryAff->find($affId);
+            $affectations = $affectation ? collect([$affectation]) : collect();
         } else {
             $affectation = (clone $queryAff)
                 ->whereHas('realisationProjets.realisationTaches', fn($q) => $q->where('is_live_coding', 1))
@@ -54,14 +58,13 @@ class SimulerRemediationsCommand extends Command
                 ->first()
                 ?? (clone $queryAff)->whereNotNull('date_fin_live_coding_collectif')->latest('date_fin_live_coding_collectif')->first()
                 ?? $queryAff->latest('date_debut')->first();
+            $affectations = $affectation ? collect([$affectation]) : collect();
         }
 
-        if (!$affectation) {
+        if ($affectations->isEmpty()) {
             $this->error("Aucune affectation de projet trouvée dans la base de données.");
             return 1;
         }
-
-        $this->info("Affectation sélectionnée : ID [{$affectation->id}] - Groupe [{$affectation->groupe->code}] - Projet [{$affectation->projet->titre}]");
 
         // Option Reset
         if ($this->option('reset')) {
@@ -70,87 +73,95 @@ class SimulerRemediationsCommand extends Command
                 $this->info("Remédiations supprimées ({$deleted} lignes).");
             }
             if (Schema::hasColumn('affectation_projets', 'date_fin_live_coding_collectif')) {
-                DB::table('affectation_projets')->where('id', $affectation->id)->update([
+                $ids = $affectations->pluck('id');
+                DB::table('affectation_projets')->whereIn('id', $ids)->update([
                     'date_fin_live_coding_collectif' => null,
                 ]);
-                $this->info("Date de fin de Live Coding collectif réinitialisée.");
+                $this->info("Date de fin de Live Coding collectif réinitialisée pour " . $ids->count() . " affectation(s).");
             }
             return 0;
         }
 
-        // 2. Détermination de la date réelle de fin Live Coding (t_0)
-        $dateFin = $tableauBordService->determinerDateFinLiveCodingCollectif($affectation);
-        $seuilMinutes = (int) ($affectation->seuil_blocage_minutes ?? 30);
+        foreach ($affectations as $affectation) {
+            $nomGroupe = $affectation->groupe->code ?? ($affectation->groupe->nom ?? 'N/A');
+            $titreProjet = $affectation->projet->titre ?? 'N/A';
+            $this->newLine();
+            $this->info("--- Affectation ID [{$affectation->id}] - Groupe [{$nomGroupe}] - Projet [{$titreProjet}] ---");
 
-        if ($dateFin) {
-            $this->info("Date fin Live Coding réelle trouvée dans l'historique : {$dateFin->format('Y-m-d H:i:s')} (seuil d'autonomie : {$seuilMinutes} min).");
-        } else {
-            $this->warn("Aucun événement réel 'À valider Live coding' ou 'Validée' trouvé dans l'historique pour cette affectation.");
-        }
+            // 2. Détermination de la date réelle de fin Live Coding (t_0)
+            $dateFin = $tableauBordService->determinerDateFinLiveCodingCollectif($affectation);
+            $seuilMinutes = (int) ($affectation->seuil_blocage_minutes ?? 30);
 
-        // 3. Synchronisation automatique des tâches retardataires vers l'état 'En remédiation'
-        $basculees = $tableauBordService->synchroniserApprenantsEnRemediation($affectation, $seuilMinutes);
-        if (!empty($basculees)) {
-            $this->info("Bascule automatique en état 'En remédiation' de " . count($basculees) . " apprenant(s) ayant dépassé les {$seuilMinutes} min :");
-            foreach ($basculees as $b) {
-                $this->line(" - Apprenant: {$b['nom']} | Tâche: {$b['tache_titre']} (ID: {$b['tache_id']})");
+            if ($dateFin) {
+                $this->info("Date fin Live Coding réelle trouvée dans l'historique : {$dateFin->format('Y-m-d H:i:s')} (seuil d'autonomie : {$seuilMinutes} min).");
+            } else {
+                $this->warn("Aucun événement réel 'À valider Live coding' ou 'Validée' trouvé dans l'historique pour cette affectation.");
             }
-        } else {
-            $this->info("Aucun apprenant à basculer (soit séance en cours, soit tâches déjà en remédiation ou validées).");
-        }
 
-        // 4. Analyse des tâches en remédiation et de la table remediations
-        $formateur = $affectation->projet->formateur ?? Formateur::first();
-        $formateurId = $formateur ? $formateur->id : 1;
+            // 3. Synchronisation automatique des tâches retardataires vers l'état 'En remédiation'
+            $basculees = $tableauBordService->synchroniserApprenantsEnRemediation($affectation, $seuilMinutes);
+            if (!empty($basculees)) {
+                $this->info("Bascule automatique en état 'En remédiation' de " . count($basculees) . " apprenant(s) ayant dépassé les {$seuilMinutes} min :");
+                foreach ($basculees as $b) {
+                    $this->line(" - Apprenant: {$b['nom']} | Tâche: {$b['tache_titre']} (ID: {$b['tache_id']})");
+                }
+            } else {
+                $this->info("Aucun apprenant à basculer (soit séance en cours, soit tâches déjà en remédiation ou validées).");
+            }
 
-        $rtsEnRemediation = RealisationTache::whereHas('realisationProjet', fn($q) => $q->where('affectation_projet_id', $affectation->id))
-            ->whereHas('etatRealisationTache.workflowTache', fn($q) => $q->where('code', 'EN_REMEDIATION'))
-            ->with(['tache', 'realisationProjet.apprenant'])
-            ->get();
+            // 4. Analyse des tâches en remédiation et de la table remediations
+            $formateur = $affectation->projet->formateur ?? Formateur::first();
+            $formateurId = $formateur ? $formateur->id : 1;
 
-        $this->info("Total tâches actuellement en état 'En remédiation' : " . $rtsEnRemediation->count());
+            $rtsEnRemediation = RealisationTache::whereHas('realisationProjet', fn($q) => $q->where('affectation_projet_id', $affectation->id))
+                ->whereHas('etatRealisationTache.workflowTache', fn($q) => $q->where('code', 'EN_REMEDIATION'))
+                ->with(['tache', 'realisationProjet.apprenant'])
+                ->get();
 
-        $nbRemediationsExistantes = DB::table('remediations')
-            ->whereIn('realisation_tache_id', $rtsEnRemediation->pluck('id'))
-            ->count();
+            $this->info("Total tâches actuellement en état 'En remédiation' : " . $rtsEnRemediation->count());
 
-        $this->info("Fiches d'étayage existantes dans la table 'remediations' : {$nbRemediationsExistantes}");
+            $nbRemediationsExistantes = DB::table('remediations')
+                ->whereIn('realisation_tache_id', $rtsEnRemediation->pluck('id'))
+                ->count();
 
-        // Option d'insertion des fiches de remédiation réelles manquantes
-        if ($this->option('inserer-remediations') || $nbRemediationsExistantes === 0) {
-            $nbCreees = 0;
-            foreach ($rtsEnRemediation as $idx => $rt) {
-                $exists = DB::table('remediations')->where('realisation_tache_id', $rt->id)->exists();
-                if (!$exists) {
-                    $type = ($idx % 2 === 0) ? Remediation::TYPE_TRINOME_SOUTIEN : Remediation::TYPE_INDIVIDUELLE;
-                    $tableauBordService->enregistrerRemediation(
-                        $rt->id,
-                        $formateurId,
-                        $type,
-                        "Accompagnement et déblocage didactique post-Live Coding collectif."
-                    );
-                    $nbCreees++;
+            $this->info("Fiches d'étayage existantes dans la table 'remediations' : {$nbRemediationsExistantes}");
+
+            // Option d'insertion des fiches de remédiation réelles manquantes
+            if ($this->option('inserer-remediations') || $nbRemediationsExistantes === 0) {
+                $nbCreees = 0;
+                foreach ($rtsEnRemediation as $idx => $rt) {
+                    $exists = DB::table('remediations')->where('realisation_tache_id', $rt->id)->exists();
+                    if (!$exists) {
+                        $type = ($idx % 2 === 0) ? Remediation::TYPE_TRINOME_SOUTIEN : Remediation::TYPE_INDIVIDUELLE;
+                        $tableauBordService->enregistrerRemediation(
+                            $rt->id,
+                            $formateurId,
+                            $type,
+                            "Accompagnement et déblocage didactique post-Live Coding collectif."
+                        );
+                        $nbCreees++;
+                    }
+                }
+                if ($nbCreees > 0) {
+                    $this->info("{$nbCreees} fiche(s) d'étayage enregistrée(s) dans la table 'remediations'.");
                 }
             }
-            if ($nbCreees > 0) {
-                $this->info("{$nbCreees} fiche(s) d'étayage enregistrée(s) dans la table 'remediations'.");
-            }
-        }
 
-        // 5. Calcul des Indicateurs d'Autonomie et de Résolution
-        $kpi = $tableauBordService->getIndicateurInterventionFormateur($affectation);
-        $this->table(
-            ['Métrique', 'Valeur'],
-            [
-                ['Taux d\'Autonomie Initiale', $kpi['taux_autonomie_formate'] ?? $kpi['taux_intervention_formate']],
-                ['Taux de Résolution des Remédiations', $kpi['taux_resolution_formate'] ?? '100%'],
-                ['Apprenants 100% autonomes (sans remédiation)', $kpi['total_autonomes'] . ' / ' . $kpi['total_apprenants']],
-                ['Total ayant nécessité remédiation (tracés dans remediations)', $kpi['total_remedies']],
-                ['Remédiations résolues & validées (est_resolu = 1)', $kpi['total_resolus'] ?? 0],
-                ['Blocages actifs en attente d\'aide (est_resolu = 0)', $kpi['total_bloques']],
-                ['Zone Didactique', $kpi['badge_label']],
-            ]
-        );
+            // 5. Calcul des Indicateurs d'Autonomie et de Résolution
+            $kpi = $tableauBordService->getIndicateurInterventionFormateur($affectation);
+            $this->table(
+                ['Métrique', 'Valeur'],
+                [
+                    ['Taux d\'Autonomie Initiale', $kpi['taux_autonomie_formate'] ?? $kpi['taux_intervention_formate']],
+                    ['Taux de Résolution des Remédiations', $kpi['taux_resolution_formate'] ?? '100%'],
+                    ['Apprenants 100% autonomes (sans remédiation)', $kpi['total_autonomes'] . ' / ' . $kpi['total_apprenants']],
+                    ['Total ayant nécessité remédiation (tracés dans remediations)', $kpi['total_remedies']],
+                    ['Remédiations résolues & validées (est_resolu = 1)', $kpi['total_resolus'] ?? 0],
+                    ['Blocages actifs en attente d\'aide (est_resolu = 0)', $kpi['total_bloques']],
+                    ['Zone Didactique', $kpi['badge_label']],
+                ]
+            );
+        }
 
         return 0;
     }
