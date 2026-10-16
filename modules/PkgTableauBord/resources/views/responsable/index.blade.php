@@ -103,6 +103,7 @@
 
 <!-- Indicateurs de Gouvernance & Benchmark Macro -->
 <section class="space-y-4">
+    @if(!empty($dashboardCards) || !empty($dashboardPanels) || !empty($enabledIndicateurs))
     <div>
         <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">
             {{ ($isProjetSessionFormation ?? true) ? 'Indicateurs Stratégiques & Benchmark Inter-Promotions (Sessions N2)' : 'Indicateurs d\'Activité Continue (Projet Standard)' }}
@@ -111,6 +112,17 @@
             {{ ($isProjetSessionFormation ?? true) ? 'Suivi global du rythme d\'amorce des projets (Tamorçage) et du taux de validation directe du prototype (Rgating).' : 'Suivi du démarrage du sprint et de la charge logistique sur ce projet standard.' }}
         </p>
     </div>
+    @else
+    <div class="bg-white rounded-lg border border-slate-200 p-8 text-center shadow-xs">
+        <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
+            <i class="fas fa-sliders-h text-lg"></i>
+        </div>
+        <h4 class="text-sm font-bold text-slate-800">Aucun indicateur actif</h4>
+        <p class="text-xs text-slate-500 max-w-md mx-auto mt-1">
+            Tous les indicateurs didactiques sont actuellement désactivés dans la configuration de gouvernance (<code class="font-mono text-indigo-600 bg-indigo-50 px-1 py-0.5 rounded">config/dashboard.php</code>).
+        </p>
+    </div>
+    @endif
 
     {{-- Grille dynamique des Cartes KPI --}}
     @if(!empty($dashboardCards))

@@ -227,7 +227,7 @@ return [
         'formateur' => [
             'indicateurs' => [
                 'amorcage' => [
-                    'enabled'     => false,
+                    'enabled'     => true,
                     'ordre'       => 1,
                     'show_card'   => true,
                     'show_panel'  => true,  // Diagnostic des retards d'amorçage
@@ -324,7 +324,7 @@ return [
                     'enabled'     => false,
                     'ordre'       => 4,
                     'show_card'   => true,
-                    'show_panel'  => false,
+                    'show_panel'  => true,  // Benchmark de la charge logistique
                     'show_detail' => true,
                 ],
                 'file_attente' => [
