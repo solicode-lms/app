@@ -180,6 +180,7 @@ class TableauBordFormateurController extends AdminController
         $resolved = $this->tableauBordService->resolveDashboardComponents($user, $kpis, $isProjetSessionFormation, 'formateur');
         $dashboardCards = $resolved['cards'];
         $dashboardPanels = $resolved['panels'];
+        $enabledIndicateurs = $resolved['enabled'] ?? [];
 
         return view('PkgTableauBord::formateur.index', [
             'user' => $user,
@@ -203,6 +204,7 @@ class TableauBordFormateurController extends AdminController
             'kpiDocimologie' => $kpiDocimologie,
             'dashboardCards' => $dashboardCards,
             'dashboardPanels' => $dashboardPanels,
+            'enabledIndicateurs' => $enabledIndicateurs,
             'projets' => $projets,
             'projetActif' => $projetActif,
             'sessions' => $projets,

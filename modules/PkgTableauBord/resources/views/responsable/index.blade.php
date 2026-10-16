@@ -129,6 +129,7 @@
     @endif
 
 
+    @if(!empty($enabledIndicateurs['amorcage']))
     <!-- Panneau Explicatif : Détail du Calcul & Paramètres de l'Indicateur 01 (T_amorçage) -->
     <section class="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-xs space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
@@ -204,17 +205,19 @@
             </div>
         </div>
     </section>
+    @endif
 
-    @if($isProjetSessionFormation ?? true)
+    @if(($isProjetSessionFormation ?? true) && !empty($enabledIndicateurs['trvs']))
     <!-- Section Scatter Plot SVG & Diagnostic d'Intégrité IA (Indicateur 07 — Pearson r) -->
     @include('PkgTableauBord::components.scatter-plot-ia', ['kpi' => $kpiIntegriteIA])
     @endif
 
+    @if(!empty($enabledIndicateurs))
     <!-- Matrice Comparative / Benchmark Réel des Promotions -->
     <div class="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
         <div class="p-5 border-b border-slate-200 bg-slate-50/70">
             <h4 class="text-sm font-bold text-slate-900">Matrice Comparative Inter-Promotions</h4>
-            <p class="text-xs text-slate-500">Benchmark des groupes pour l'harmonisation du rythme pédagogique (T<sub>amorçage</sub>, R<sub>gating</sub>, F<sub>révision</sub>, T<sub>file</sub>, T<sub>intervention</sub> & TRVS)</p>
+            <p class="text-xs text-slate-500">Benchmark des groupes pour l'harmonisation du rythme pédagogique</p>
         </div>
 
         @php
@@ -232,15 +235,31 @@
                 <thead>
                     <tr class="border-b border-slate-200 text-slate-500 font-semibold bg-slate-50/50">
                         <th class="py-3 px-5">Session de Formation / Groupe</th>
+                        @if(!empty($enabledIndicateurs['amorcage']))
                         <th class="py-3 px-4">Délai Moyen (T<sub>amorçage</sub>)</th>
                         <th class="py-3 px-4">Taux d'Amorçage</th>
+                        @endif
+                        @if(!empty($enabledIndicateurs['gating']))
                         <th class="py-3 px-4">Validation Prototype (R<sub>gating</sub>)</th>
+                        @endif
+                        @if(!empty($enabledIndicateurs['revision']))
                         <th class="py-3 px-4">Stabilité & Reprises (F<sub>révision</sub>)</th>
+                        @endif
+                        @if(!empty($enabledIndicateurs['file_attente']))
                         <th class="py-3 px-4">Attente File (T<sub>file</sub>)</th>
+                        @endif
+                        @if(!empty($enabledIndicateurs['intervention']))
                         <th class="py-3 px-4">Remédiation (T<sub>intervention</sub>)</th>
+                        @endif
+                        @if(!empty($enabledIndicateurs['trvs']))
                         <th class="py-3 px-4">Taux Réalisation (TRVS)</th>
+                        @endif
+                        @if(!empty($enabledIndicateurs['couverture']))
                         <th class="py-3 px-4">Couverture Compétences (ICP)</th>
+                        @endif
+                        @if(!empty($enabledIndicateurs['planification_ua']))
                         <th class="py-3 px-4">Planification UA (TCP-UA)</th>
+                        @endif
                         <th class="py-3 px-5 text-right">Statut</th>
                     </tr>
                 </thead>
@@ -261,6 +280,7 @@
                             <div class="truncate max-w-[200px]" title="{{ $item['session_titre'] ?? 'Session N2' }}">{{ $item['session_titre'] ?? 'Session N2' }}</div>
                             <span class="text-[11px] text-slate-500 font-normal">{{ $item['groupe_code'] }} ({{ $item['groupe_nom'] }})</span>
                         </td>
+                        @if(!empty($enabledIndicateurs['amorcage']))
                         <td class="py-3 px-4 font-mono font-bold text-indigo-700">{{ $item['temps_moyen_formate'] }}</td>
                         <td class="py-3 px-4">
                             <div class="flex items-center gap-1.5 flex-wrap">
@@ -274,6 +294,8 @@
                                 @endif
                             </div>
                         </td>
+                        @endif
+                        @if(!empty($enabledIndicateurs['gating']))
                         <td class="py-3 px-4">
                             @if(!is_null($tauxGating))
                             <span class="px-2 py-0.5 rounded-full text-[10px] font-bold {{ $tauxGating >= 75 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-rose-50 text-rose-700 border border-rose-200' }}">
@@ -283,6 +305,8 @@
                             <span class="text-slate-400 italic">Non évalué</span>
                             @endif
                         </td>
+                        @endif
+                        @if(!empty($enabledIndicateurs['revision']))
                         <td class="py-3 px-4 font-mono">
                             @if($revItem)
                             <span class="font-bold text-slate-800">{{ $revItem['frequence_formatee'] }}</span>
@@ -291,6 +315,8 @@
                             <span class="text-slate-400">--</span>
                             @endif
                         </td>
+                        @endif
+                        @if(!empty($enabledIndicateurs['file_attente']))
                         <td class="py-3 px-4 font-mono">
                             @if($fileItem)
                             <span class="font-bold text-slate-800">{{ $fileItem['delai_moyen_formate'] }}</span>
@@ -299,6 +325,8 @@
                             <span class="text-slate-400">--</span>
                             @endif
                         </td>
+                        @endif
+                        @if(!empty($enabledIndicateurs['intervention']))
                         <td class="py-3 px-4 font-mono">
                             @if($intervItem)
                             <span class="font-bold text-slate-800">{{ $intervItem['taux_intervention_formate'] }}</span>
@@ -307,6 +335,8 @@
                             <span class="text-slate-400">--</span>
                             @endif
                         </td>
+                        @endif
+                        @if(!empty($enabledIndicateurs['trvs']))
                         <td class="py-3 px-4 font-mono">
                             @if($integItem)
                             <span class="font-bold text-slate-800">{{ $integItem['trvs_formate'] ?? $integItem['r_formate'] }}</span>
@@ -317,6 +347,8 @@
                             <span class="text-slate-400">--</span>
                             @endif
                         </td>
+                        @endif
+                        @if(!empty($enabledIndicateurs['couverture']))
                         <td class="py-3 px-4 font-mono">
                             @if($couvItem)
                             <span class="font-bold text-indigo-700">{{ $couvItem['icp_formate'] ?? ($couvItem['progression_formate'] ?? '84%') }}</span>
@@ -328,6 +360,8 @@
                             <span class="text-[10px] text-slate-400 block">Macro Référentiel</span>
                             @endif
                         </td>
+                        @endif
+                        @if(!empty($enabledIndicateurs['planification_ua']))
                         <td class="py-3 px-4 font-mono">
                             @if($dociItem)
                             <span class="font-bold text-indigo-700">{{ $dociItem['tcp_ua_formate'] ?? ($dociItem['taux_completude_formate'] ?? '45.3%') }}</span>
@@ -339,81 +373,29 @@
                             <span class="text-[10px] text-slate-400 block">{{ $kpiDocimologie['total_sessions'] ?? 6 }} sessions</span>
                             @endif
                         </td>
+                        @endif
                         <td class="py-3 px-5 text-right">
                             @php
                             $estConforme = $item['taux_amorce'] >= 75
                             && (is_null($tauxGating) || $tauxGating >= 75)
                             && (!$revItem || $revItem['frequence_revision'] <= 1.2);
-                                @endphp
-                                @if($estConforme)
-                                <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Conforme</span>
-                                @else
-                                <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300">À réguler</span>
-                                @endif
+                            @endphp
+                            @if($estConforme)
+                            <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Conforme</span>
+                            @else
+                            <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300">À réguler</span>
+                            @endif
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="8" class="py-6 text-center text-slate-400">Aucune donnée de promotion disponible.</td>
+                        <td colspan="11" class="py-6 text-center text-slate-400">Aucune donnée de promotion disponible.</td>
                     </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
     </div>
-
-    <!-- Matrice Benchmark de la Charge Administrative des Formateurs (C_logistique) -->
-    <div class="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-        <div class="p-5 border-b border-slate-200 bg-slate-50/70 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-            <div>
-                <h4 class="text-sm font-bold text-slate-900">Charge Administrative par Formateur (C<sub>logistique</sub>)</h4>
-                <p class="text-xs text-slate-500">Volume horaire hebdomadaire effectif consacré au micro-suivi (Semaine : {{ $kpiChargeLogistique['semaine'] ?? '--' }})</p>
-            </div>
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold {{ $kpiChargeLogistique['badge_class'] ?? 'bg-emerald-50 text-emerald-700' }}">
-                Moyenne : {{ $kpiChargeLogistique['charge_moyenne_formatee'] ?? '0 h/sem' }}
-            </span>
-        </div>
-
-        <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
-                <thead>
-                    <tr class="border-b border-slate-200 text-slate-500 font-semibold bg-slate-50/50">
-                        <th class="py-3 px-5">Formateur</th>
-                        <th class="py-3 px-4">Temps Total (C<sub>logistique</sub>)</th>
-                        <th class="py-3 px-4">Pilotage Kanban</th>
-                        <th class="py-3 px-4">File FIFO</th>
-                        <th class="py-3 px-4">Bordereaux Notes</th>
-                        <th class="py-3 px-5 text-right">Diagnostic</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-100">
-                    @forelse($kpiChargeLogistique['benchmark'] ?? [] as $fItem)
-                    <tr class="hover:bg-slate-50/80 transition">
-                        <td class="py-3 px-5 font-bold text-slate-900">
-                            {{ $fItem['formateur_nom'] }}
-                            <span class="text-[10px] text-slate-400 block font-normal">{{ $fItem['matricule'] }}</span>
-                        </td>
-                        <td class="py-3 px-4 font-mono font-bold text-slate-900">
-                            {{ $fItem['total_heures_formate'] }}
-                            <span class="text-[10px] text-slate-400 font-normal">({{ $fItem['total_heures'] }}h)</span>
-                        </td>
-                        <td class="py-3 px-4 font-mono text-slate-600">{{ $fItem['details']['pilotage_formate'] ?? '0 min' }}</td>
-                        <td class="py-3 px-4 font-mono text-slate-600">{{ $fItem['details']['file_formate'] ?? '0 min' }}</td>
-                        <td class="py-3 px-4 font-mono text-slate-600">{{ $fItem['details']['bordereaux_formate'] ?? '0 min' }}</td>
-                        <td class="py-3 px-5 text-right">
-                            <span class="px-2.5 py-1 rounded-full text-xs font-bold {{ $fItem['badge_class'] }}">
-                                {{ $fItem['badge_label'] }}
-                            </span>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="6" class="py-6 text-center text-slate-400">Aucune donnée d'activité enregistrée pour cette semaine.</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-    </div>
+    @endif
 </section>
 @endsection

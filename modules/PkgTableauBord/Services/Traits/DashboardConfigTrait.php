@@ -105,6 +105,8 @@ trait DashboardConfigTrait
             'planification_ua'  => ['kpiDocimologie', 'planification_ua', 'docimologie'],
         ];
 
+        $enabledMap = [];
+
         foreach ($catalogue as $indKey => $meta) {
             $indConfig = $currentRoleConfig['indicateurs'][$indKey] ?? [];
 
@@ -118,6 +120,8 @@ trait DashboardConfigTrait
             if (!empty($meta['requires_session']) && !$isSessionFormation) {
                 continue;
             }
+
+            $enabledMap[$indKey] = true;
 
             // Extraction des données KPI associées
             $kpiData = [];
@@ -180,9 +184,10 @@ trait DashboardConfigTrait
         usort($dashboardPanels, fn($a, $b) => ($a['ordre'] ?? 999) <=> ($b['ordre'] ?? 999));
 
         return [
-            'cards'  => $dashboardCards,
-            'panels' => $dashboardPanels,
-            'role'   => $role,
+            'cards'   => $dashboardCards,
+            'panels'  => $dashboardPanels,
+            'enabled' => $enabledMap,
+            'role'    => $role,
         ];
     }
 }

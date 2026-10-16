@@ -145,6 +145,7 @@ class TableauBordResponsableController extends AdminController
         $resolved = $this->tableauBordService->resolveDashboardComponents($user, $kpis, $isProjetSessionFormation, 'admin');
         $dashboardCards = $resolved['cards'];
         $dashboardPanels = $resolved['panels'];
+        $enabledIndicateurs = $resolved['enabled'] ?? [];
 
         return view('PkgTableauBord::responsable.index', [
             'user' => $user,
@@ -171,6 +172,7 @@ class TableauBordResponsableController extends AdminController
             'kpiDocimologie' => $kpiDocimologie,
             'dashboardCards' => $dashboardCards,
             'dashboardPanels' => $dashboardPanels,
+            'enabledIndicateurs' => $enabledIndicateurs,
         ]);
     }
 }
