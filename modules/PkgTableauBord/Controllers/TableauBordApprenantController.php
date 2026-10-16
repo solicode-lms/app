@@ -198,6 +198,21 @@ class TableauBordApprenantController extends AdminController
             $kpiCouverture = ['is_applicable' => false, 'message' => "Non applicable (Pas d'Unités d'Apprentissage mobilisées)"];
             $kpiDocimologie = ['is_applicable' => false, 'message' => "Non applicable (Pas de conversion EFM officielle)"];
         }
+        $kpis = [
+            'kpiAmorcage' => $kpiAmorcage,
+            'kpiGating' => $kpiGating,
+            'kpiRevision' => $kpiRevision,
+            'kpiFileAttente' => $kpiFileAttente,
+            'kpiIntervention' => $kpiIntervention,
+            'kpiIntegriteIA' => $kpiIntegriteIA,
+            'kpiCouverture' => $kpiCouverture,
+            'kpiDocimologie' => $kpiDocimologie,
+        ];
+
+        // Résolution dynamique des Cards et Panels configurés pour l'apprenant
+        $resolved = $this->tableauBordService->resolveDashboardComponents($user, $kpis, $isProjetSessionFormation, 'apprenant');
+        $dashboardCards = $resolved['cards'];
+        $dashboardPanels = $resolved['panels'];
 
         return view('PkgTableauBord::apprenant.index', [
             'user' => $user,
@@ -218,6 +233,8 @@ class TableauBordApprenantController extends AdminController
             'kpiIntegriteIA' => $kpiIntegriteIA,
             'kpiCouverture' => $kpiCouverture,
             'kpiDocimologie' => $kpiDocimologie,
+            'dashboardCards' => $dashboardCards,
+            'dashboardPanels' => $dashboardPanels,
             'projets' => $projets,
             'projetActif' => $projetActif,
             'sessions' => $projets,
@@ -225,3 +242,4 @@ class TableauBordApprenantController extends AdminController
         ]);
     }
 }
+

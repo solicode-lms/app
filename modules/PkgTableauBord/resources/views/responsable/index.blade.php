@@ -112,55 +112,22 @@
         </p>
     </div>
 
-    @if($isProjetSessionFormation ?? true)
-    {{-- Grille Complète des 9 Indicateurs (Sessions de formation N2) --}}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-9 gap-4">
-        <!-- Carte Macroscopique Globale Amorçage (Indicateur 01) -->
-        @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'responsable', 'kpi' => $kpiAmorcage])
-
-        <!-- Carte Macroscopique Globale Gating (Indicateur 02) -->
-        @include('PkgTableauBord::components.kpi-gating', ['type' => 'responsable', 'kpi' => $kpiGating])
-
-        <!-- Carte Macroscopique Globale Révision (Indicateur 03) -->
-        @include('PkgTableauBord::components.kpi-revision', ['type' => 'responsable', 'kpi' => $kpiRevision])
-
-        <!-- Carte Macroscopique Globale Charge Administrative (Indicateur 04) -->
-        @include('PkgTableauBord::components.kpi-charge-logistique', ['type' => 'responsable', 'kpi' => $kpiChargeLogistique])
-
-        <!-- Carte Macroscopique Globale Latence File FIFO (Indicateur 05) -->
-        @include('PkgTableauBord::components.kpi-file-attente', ['type' => 'responsable', 'kpi' => $kpiFileAttente])
-
-        <!-- Carte Macroscopique Globale Remédiation (Indicateur 06) -->
-        @include('PkgTableauBord::components.kpi-intervention', ['type' => 'responsable', 'kpi' => $kpiIntervention])
-
-        <!-- Carte Macroscopique Globale Intégrité IA (Indicateur 07) -->
-        @include('PkgTableauBord::components.kpi-integrite-ia', ['type' => 'responsable', 'kpi' => $kpiIntegriteIA])
-
-        <!-- Carte Macroscopique Globale Couverture Pédagogique (Indicateur 08) -->
-        @include('PkgTableauBord::components.kpi-couverture-pedagogique', ['type' => 'responsable', 'kpi' => $kpiCouverture])
-
-        <!-- Carte Macroscopique Globale Couverture Planification UA (Indicateur 09 — TCP-UA) -->
-        @include('PkgTableauBord::components.kpi-docimologie', ['type' => 'responsable', 'kpi' => $kpiDocimologie])
-    </div>
-    @else
-    {{-- Grille Adaptée (Projet standard hors session : Indicateurs continus 01, 03, 04, 06) --}}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Carte Macroscopique Globale Amorçage (Indicateur 01) -->
-        @include('PkgTableauBord::components.kpi-amorcage', ['type' => 'responsable', 'kpi' => $kpiAmorcage])
-
-        <!-- Carte Macroscopique Globale Révision (Indicateur 03) -->
-        @include('PkgTableauBord::components.kpi-revision', ['type' => 'responsable', 'kpi' => $kpiRevision])
-
-        <!-- Carte Macroscopique Globale Charge Administrative (Indicateur 04) -->
-        @include('PkgTableauBord::components.kpi-charge-logistique', ['type' => 'responsable', 'kpi' => $kpiChargeLogistique])
-
-        <!-- Carte Macroscopique Globale Remédiation (Indicateur 06) -->
-        @include('PkgTableauBord::components.kpi-intervention', ['type' => 'responsable', 'kpi' => $kpiIntervention])
+    {{-- Grille dynamique des Cartes KPI --}}
+    @if(!empty($dashboardCards))
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-{{ min(max(count($dashboardCards), 1), 9) }} gap-4">
+        @foreach($dashboardCards as $card)
+            @include($card['component'], ['type' => 'responsable', 'kpi' => $card['data']])
+        @endforeach
     </div>
     @endif
 
-    <!-- Diagnostic d'Amorçage : Apprenants en Attente de Démarrage (Indicateur 01 — T_amorçage) -->
-    @include('PkgTableauBord::components.apprenants-non-amorces-panel', ['kpi' => $kpiAmorcage])
+    {{-- Volets Opérationnels & Panels Dynamiques --}}
+    @if(!empty($dashboardPanels))
+        @foreach($dashboardPanels as $panel)
+            @include($panel['component'], ['type' => 'responsable', 'kpi' => $panel['data']])
+        @endforeach
+    @endif
+
 
     <!-- Panneau Explicatif : Détail du Calcul & Paramètres de l'Indicateur 01 (T_amorçage) -->
     <section class="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-xs space-y-4">

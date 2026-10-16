@@ -164,6 +164,23 @@ class TableauBordFormateurController extends AdminController
             $kpiDocimologie = ['is_applicable' => false, 'message' => "Non applicable (Pas de conversion EFM officielle)"];
         }
 
+        $kpis = [
+            'kpiAmorcage' => $kpiAmorcage,
+            'kpiGating' => $kpiGating,
+            'kpiRevision' => $kpiRevision,
+            'kpiChargeLogistique' => $kpiChargeLogistique,
+            'kpiFileAttente' => $kpiFileAttente,
+            'kpiIntervention' => $kpiIntervention,
+            'kpiIntegriteIA' => $kpiIntegriteIA,
+            'kpiCouverture' => $kpiCouverture,
+            'kpiDocimologie' => $kpiDocimologie,
+        ];
+
+        // Résolution dynamique des Cards et Panels configurés
+        $resolved = $this->tableauBordService->resolveDashboardComponents($user, $kpis, $isProjetSessionFormation, 'formateur');
+        $dashboardCards = $resolved['cards'];
+        $dashboardPanels = $resolved['panels'];
+
         return view('PkgTableauBord::formateur.index', [
             'user' => $user,
             'formateur' => $formateur,
@@ -184,6 +201,8 @@ class TableauBordFormateurController extends AdminController
             'kpiIntegriteIA' => $kpiIntegriteIA,
             'kpiCouverture' => $kpiCouverture,
             'kpiDocimologie' => $kpiDocimologie,
+            'dashboardCards' => $dashboardCards,
+            'dashboardPanels' => $dashboardPanels,
             'projets' => $projets,
             'projetActif' => $projetActif,
             'sessions' => $projets,
@@ -192,3 +211,4 @@ class TableauBordFormateurController extends AdminController
         ]);
     }
 }
+

@@ -28,11 +28,15 @@ class IndicateurDetailController extends AdminController
      * @param Request $request
      * @return array
      */
-    protected function resolveFilterContext(Request $request): array
+    protected function resolveFilterContext(Request $request, ?string $indicateurKey = null): array
     {
         $user = Auth::user();
         if (!$user) {
             abort(403, "Accès refusé. Veuillez vous connecter.");
+        }
+
+        if ($indicateurKey && !$this->tableauBordService->isIndicateurDetailAccessible($indicateurKey, $user)) {
+            abort(403, "Accès refusé. L'analyse détaillée de cet indicateur n'est pas activée pour votre profil.");
         }
 
         $isFormateur = $user->hasRole(Role::FORMATEUR_ROLE);
@@ -149,7 +153,7 @@ class IndicateurDetailController extends AdminController
      */
     public function amorcage(Request $request)
     {
-        $ctx = $this->resolveFilterContext($request);
+        $ctx = $this->resolveFilterContext($request, 'amorcage');
 
         $filters = [
             'groupe_ids' => $ctx['targetGroupeIds'],
@@ -186,7 +190,7 @@ class IndicateurDetailController extends AdminController
      */
     public function gating(Request $request)
     {
-        $ctx = $this->resolveFilterContext($request);
+        $ctx = $this->resolveFilterContext($request, 'gating');
 
         $filters = [
             'groupe_ids' => $ctx['targetGroupeIds'],
@@ -223,7 +227,7 @@ class IndicateurDetailController extends AdminController
      */
     public function revisions(Request $request)
     {
-        $ctx = $this->resolveFilterContext($request);
+        $ctx = $this->resolveFilterContext($request, 'revision');
 
         $filters = [
             'groupe_ids' => $ctx['targetGroupeIds'],
@@ -260,7 +264,7 @@ class IndicateurDetailController extends AdminController
      */
     public function chargeLogistique(Request $request)
     {
-        $ctx = $this->resolveFilterContext($request);
+        $ctx = $this->resolveFilterContext($request, 'charge_logistique');
 
         $filters = [
             'groupe_ids' => $ctx['targetGroupeIds'],
@@ -298,7 +302,7 @@ class IndicateurDetailController extends AdminController
      */
     public function fileAttente(Request $request)
     {
-        $ctx = $this->resolveFilterContext($request);
+        $ctx = $this->resolveFilterContext($request, 'file_attente');
 
         $filters = [
             'groupe_ids' => $ctx['targetGroupeIds'],
@@ -393,7 +397,7 @@ class IndicateurDetailController extends AdminController
      */
     public function intervention(Request $request)
     {
-        $ctx = $this->resolveFilterContext($request);
+        $ctx = $this->resolveFilterContext($request, 'intervention');
 
         $filters = [
             'groupe_ids' => $ctx['targetGroupeIds'],
@@ -489,7 +493,7 @@ class IndicateurDetailController extends AdminController
      */
     public function couverture(Request $request)
     {
-        $ctx = $this->resolveFilterContext($request);
+        $ctx = $this->resolveFilterContext($request, 'couverture');
 
         $filters = [
             'groupe_ids' => $ctx['targetGroupeIds'],
@@ -527,7 +531,7 @@ class IndicateurDetailController extends AdminController
      */
     public function trvs(Request $request)
     {
-        $ctx = $this->resolveFilterContext($request);
+        $ctx = $this->resolveFilterContext($request, 'trvs');
 
         $filters = [
             'groupe_ids' => $ctx['targetGroupeIds'],
@@ -565,7 +569,7 @@ class IndicateurDetailController extends AdminController
      */
     public function tcpUa(Request $request)
     {
-        $ctx = $this->resolveFilterContext($request);
+        $ctx = $this->resolveFilterContext($request, 'planification_ua');
 
         $filters = [
             'groupe_ids' => $ctx['targetGroupeIds'],

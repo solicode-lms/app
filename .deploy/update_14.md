@@ -15,9 +15,9 @@ sudo php artisan migrate
 
 
 ```bash
-php artisan dashboard:recalculer-amorcage
-php artisan dashboard:recalculer-gating
-php artisan dashboard:recalculer-revisions
+sudo php artisan dashboard:recalculer-amorcage
+sudo php artisan dashboard:recalculer-gating
+sudo php artisan dashboard:recalculer-revisions
 
 # on doit pas ajouter de simulation des activité de formateur
 # php artisan dashboard:simuler-activite-formateurs

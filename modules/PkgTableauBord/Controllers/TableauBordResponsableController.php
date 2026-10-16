@@ -129,6 +129,22 @@ class TableauBordResponsableController extends AdminController
             $kpiCouverture = ['is_applicable' => false, 'message' => "Non applicable (Pas d'Unités d'Apprentissage mobilisées)"];
             $kpiDocimologie = ['is_applicable' => false, 'message' => "Non applicable (Pas de conversion EFM officielle)"];
         }
+        $kpis = [
+            'kpiAmorcage' => $kpiAmorcage,
+            'kpiGating' => $kpiGating,
+            'kpiRevision' => $kpiRevision,
+            'kpiChargeLogistique' => $kpiChargeLogistique,
+            'kpiFileAttente' => $kpiFileAttente,
+            'kpiIntervention' => $kpiIntervention,
+            'kpiIntegriteIA' => $kpiIntegriteIA,
+            'kpiCouverture' => $kpiCouverture,
+            'kpiDocimologie' => $kpiDocimologie,
+        ];
+
+        // Résolution dynamique des Cards et Panels pour admin/root
+        $resolved = $this->tableauBordService->resolveDashboardComponents($user, $kpis, $isProjetSessionFormation, 'admin');
+        $dashboardCards = $resolved['cards'];
+        $dashboardPanels = $resolved['panels'];
 
         return view('PkgTableauBord::responsable.index', [
             'user' => $user,
@@ -153,6 +169,9 @@ class TableauBordResponsableController extends AdminController
             'kpiIntegriteIA' => $kpiIntegriteIA,
             'kpiCouverture' => $kpiCouverture,
             'kpiDocimologie' => $kpiDocimologie,
+            'dashboardCards' => $dashboardCards,
+            'dashboardPanels' => $dashboardPanels,
         ]);
     }
 }
+
