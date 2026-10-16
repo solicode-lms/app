@@ -1,8 +1,10 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 return [
-    'name' => 'PkgTableauBord',
-    'icon' => 'fa-table'
+    'name' => 'Tableau de bord',
+    'icon' => 'fa-table',
+    'title' => 'Suivi pédagogique',
+    'subtitle' => 'Suivre les activités, la progression et les compétences des apprenants.',
+    'page_title' => 'Suivi pédagogique',
+    'page_subtitle' => 'Suivre les activités, la progression et les compétences des apprenants.',
 ];
