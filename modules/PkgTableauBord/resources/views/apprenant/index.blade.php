@@ -1,8 +1,8 @@
 @extends('layouts.admin-v2')
 
-@section('title', ($isSuperviseur ?? false) ? 'Tableau de Bord Apprenant' : 'Mon Tableau de Bord')
-@section('page_title', ($isSuperviseur ?? false) ? 'Tableau de Bord Apprenant' : 'Mon Tableau de Bord')
-@section('page_subtitle', 'Consulter une vue d’ensemble des activités, des indicateurs et de la progression.')
+@section('title', __('PkgTableauBord::tableauBord.apprenant.title'))
+@section('page_title', __('PkgTableauBord::tableauBord.apprenant.page_title'))
+@section('page_subtitle', __('PkgTableauBord::tableauBord.apprenant.page_subtitle'))
 
 @section('actions')
 <button onclick="window.print()" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition shadow-2xs">

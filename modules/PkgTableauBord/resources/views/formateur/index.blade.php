@@ -1,8 +1,8 @@
 @extends('layouts.admin-v2')
 
-@section('title', __('PkgTableauBord::tableauBord.title'))
-@section('page_title', __('PkgTableauBord::tableauBord.page_title'))
-@section('page_subtitle', __('PkgTableauBord::tableauBord.page_subtitle'))
+@section('title', __('PkgTableauBord::tableauBord.formateur.title'))
+@section('page_title', __('PkgTableauBord::tableauBord.formateur.page_title'))
+@section('page_subtitle', __('PkgTableauBord::tableauBord.formateur.page_subtitle'))
 
 @section('actions')
 <button onclick="window.print()" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition shadow-2xs">
