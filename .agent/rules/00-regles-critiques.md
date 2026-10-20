@@ -34,8 +34,8 @@ Le projet utilise un générateur de code (Gapp).
 - **Permissions** : Vérifier les droits (Spatie) avant toute action sensible.
 
 ## 5. Exécution et Validation des Modifications (Antigravity)
-- **Plan de Validation Obligatoire** : Lors de propositions de modifications structurelles, de refactoring, ou d'actions nécessitant l'accord explicite du développeur, l'agent DOIT toujours fournir un plan d'action sous forme d'**Artifact Antigravity**.
-- **Méthode** : Créer l'Artifact avec l'option `RequestFeedback: true` pour générer un bouton **Proceed** dans l'espace d'édition (UI Antigravity). Ne JAMAIS appliquer de modifications massives ou incertaines sans passer par ce plan validable.
+- **Ordre Direct du Développeur (Exécution Immédiate Sans Plan)** : Lorsque le développeur formule une demande de modification explicite (instructions précises sur ce qu'il faut modifier, corriger ou ajouter, y compris lors d'un raffinement de l'agent), l'agent **DOIT APPLIQUER DIRECTEMENT LA MODIFICATION SANS PROPOSER DE PLAN PRÉALABLE**.
+- **Propositions d'Initiative ou Invocation Sans Ordre (Plan Obligatoire)** : Lors de refactoring non sollicité, d'initiatives architecturales complexes, ou lorsque le workflow `/raffinement-agent` est invoqué seul (sans consignes précises de modification), l'agent **DOIT FOURNIR UN PLAN D'ACTION SOUS FORME D'ARTIFACT ANTIGRAVITY** avec `RequestFeedback: true` pour générer un bouton **Proceed** et attendre la validation explicite du développeur avant toute modification.
 
 ## 6. Apprentissage et Raffinement (CRITIQUE)
 - **Correction et Précédents** : Lorsque le développeur formule une correction technique (comportement, architecture, erreur d'analyse) ou signale un précédent (ex: "Dans ce cas, on n'a pas besoin de faire X..."), l'agent **DOIT OBLIGATOIREMENT** exécuter le workflow `raffinement-agent` (ou l'invoquer via `/raffinement-agent`). Le but est d'analyser la remarque, d'extraire la règle, et de mettre à jour la documentation `.agent/` (Skills/Rules) pour s'assurer que l'erreur ne se reproduise plus à l'avenir.

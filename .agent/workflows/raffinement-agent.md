@@ -24,42 +24,28 @@ description: Workflow unifié pour la maintenance, l'évolution et l'améliorati
 
 ### Étape 2 : Routage Conditionnel
 
-#### Cas 1 : Action Détectée avec Confiance
+#### Cas 1 : Demande de modification explicite (RÈGLE STRICTE : Exécution Directe Sans Plan)
+**Si le message de l'utilisateur contient un ordre clair, une consigne ou précise quoi modifier/ajouter/corriger** (ex: "modifie le skill X...", "ajoute la règle Y...", "quand je demande...") :
+- **Ne PAS proposer de plan préalable**.
+- **Ne PAS bloquer en demandant confirmation**.
+- Passer directement à l'**Étape 3 (Exécution Directe)** pour appliquer immédiatement les modifications demandées.
 
-**Si une action a été clairement identifiée à l'Étape 1**, afficher directement la confirmation :
-
-**Format de Confirmation** :
-```
-📋 Demande Identifiée
-
-Vous souhaitez [Description de l'action détectée].
-
-Action détectée : Action [X] - [Nom de l'action]
-→ [Description courte]
-
-Voulez-vous procéder avec cette action ? (Tapez 'oui' pour continuer)
-```
-
-**STOP** : Attendre la confirmation du développeur.
-
-#### Cas 2 : Commande Sans Message (Action Par Défaut)
-
-**Si la commande `/raffinement-agent` est invoquée seule** ou demande une analyse globale, basculer **automatiquement sur l'Action D** (Apprentissage Autonome).
-
-*(Note : Si le développeur demande spécifiquement d'afficher les options manuelles, afficher le menu avec A, B, C et D).*
+#### Cas 2 : Commande invoquée seule ou sans ordre précis (RÈGLE STRICTE : Avec Plan)
+**Si la commande `/raffinement-agent` est invoquée seule** (sans argument) ou si le développeur demande une analyse globale / rétrospective sans consignes de modification précises :
+- Basculer sur l'**Action D (Apprentissage Autonome & Rétrospectif)**.
+- **Générer un artefact "Plan de Raffinement"** structuré avec l'option `RequestFeedback: true`.
+- **STOP** : Attendre la validation explicite du développeur (via le bouton `Proceed`) avant toute modification.
 
 ---
 
 ### Étape 3 : Exécution de l'Action Choisie
 
-**⚠️ Règle de Sécurité (Validation Bloquante)**
-Avant de créer ou modifier un fichier (Action d'écriture), l'agent **DOIT IMPÉRATIVEMENT** :
-1. **Générer** le contenu proposé (Fichier complet ou Diff).
-2. **Afficher** ce contenu dans un bloc de code.
-3. **Demander** : "Validez-vous ce contenu ?"
-4. **STOP** : Attendre la validation explicite du développeur.
+#### En cas d'Ordre Explicite (Cas 1) :
+L'agent applique immédiatement les modifications demandées sur les fichiers ciblés (`SKILL.md`, rules, workflows) via `replace_file_content` ou `write_to_file`. Il s'assure de respecter l'interdiction stricte des chemins absolus dans `.agent/`.
 
-Une fois validé, exécuter l'action correspondante du skill `expert-agent`.
+#### En cas d'Appel Sans Ordre (Cas 2 - Action D validée) :
+Une fois le plan validé par le développeur, appliquer les évolutions validées.
+
 
 #### Si Action A sélectionnée (Gérer Skill)
 - **Skill Cible** : `expert-agent`
