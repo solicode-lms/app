@@ -3,6 +3,7 @@
 namespace Modules\PkgCreationTache\Services\Traits\Tache;
 
 use Illuminate\Database\Eloquent\Builder;
+use Modules\PkgCreationProjet\Models\EquipeProjet;
 
 /**
  * Trait TacheGetterTrait
@@ -54,6 +55,40 @@ trait TacheGetterTrait
         })->get();
     }
 
+    /**
+     * Récupère les données filtrées pour les listes dépendantes AJAX (targetDynamicDropdown).
+     * Lors du filtrage par equipe_projet_id, inclut les tâches assignées à l'équipe
+     * ainsi que les tâches communes du projet (equipe_projet_id IS NULL).
+     *
+     * @param string $filter
+     * @param mixed $value
+     * @return mixed
+     */
+    public function getData(string $filter, $value)
+    {
+        if ($filter === 'equipe_projet_id' && !empty($value)) {
+            return $this->model::withScope(function () use ($value) {
+                $query = $this->allQuery();
+                $equipe = EquipeProjet::find($value);
+                if ($equipe) {
+                    $query->where('projet_id', $equipe->projet_id)
+                          ->where(function ($q) use ($value) {
+                              $q->where('equipe_projet_id', $value)
+                                ->orWhereNull('equipe_projet_id');
+                          });
+                } else {
+                    $query->where(function ($q) use ($value) {
+                        $q->where('equipe_projet_id', $value)
+                          ->orWhereNull('equipe_projet_id');
+                    });
+                }
+                return $query->get();
+            });
+        }
+
+        return parent::getData($filter, $value);
+    }
+
     public function allQuery(array $params = [], $query = null): Builder
     {
         $query = parent::allQuery($params, $query);
@@ -61,3 +96,4 @@ trait TacheGetterTrait
         return $query;
     }
 }
+

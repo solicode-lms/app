@@ -18,6 +18,7 @@ use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgCreationTache\Services\TacheService;
 use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgRealisationTache\Models\RealisationTache;
+use Modules\PkgCreationProjet\Models\EquipeProjet;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -271,7 +272,8 @@ trait RealisationTacheGetterTrait
         $equipeProjetId = $this->viewState->get('filter.realisationTache.tache.equipe_projet_id');
         if (!empty($equipeProjetId)) {
             $taches = collect($taches)->filter(function($tache) use ($equipeProjetId) {
-                return (string) $tache->equipe_projet_id === (string) $equipeProjetId;
+                return (string) $tache->equipe_projet_id === (string) $equipeProjetId
+                    || is_null($tache->equipe_projet_id);
             });
         }
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(
@@ -370,5 +372,47 @@ trait RealisationTacheGetterTrait
             'tache_id' => $tacheId,
             'realisation_projet_id' => $realisationProjetId
         ])->exists();
+    }
+
+    /**
+     * Applique les filtres sur la requête RealisationTache.
+     * Surcharge le comportement standard pour le filtre par équipe afin d'inclure
+     * à la fois les tâches spécifiques à l'équipe et les tâches communes du projet
+     * réalisées par les membres de cette équipe.
+     *
+     * @param Builder $builder
+     * @param mixed $model
+     * @param array $filterVariables
+     * @return void
+     */
+    public function filter(Builder $builder, $model, array $filterVariables): void
+    {
+        $equipeProjetId = $filterVariables['tache.equipe_projet_id'] ?? $filterVariables['equipe_projet_id'] ?? null;
+        if (!empty($equipeProjetId)) {
+            unset($filterVariables['tache.equipe_projet_id'], $filterVariables['equipe_projet_id']);
+
+            $equipe = EquipeProjet::with('apprenants')->find($equipeProjetId);
+            $apprenantIds = $equipe ? $equipe->apprenants->pluck('id')->toArray() : [];
+
+            $builder->where(function (Builder $query) use ($equipeProjetId, $apprenantIds) {
+                // 1. Tâches spécifiquement assignées à l'équipe sélectionnée
+                $query->whereHas('tache', function ($q) use ($equipeProjetId) {
+                    $q->where('equipe_projet_id', $equipeProjetId);
+                });
+
+                // 2. Tâches communes (sans équipe assignée) réalisées par les membres de l'équipe
+                if (!empty($apprenantIds)) {
+                    $query->orWhere(function ($q) use ($apprenantIds) {
+                        $q->whereHas('realisationProjet', function ($rp) use ($apprenantIds) {
+                            $rp->whereIn('apprenant_id', $apprenantIds);
+                        })->whereHas('tache', function ($t) {
+                            $t->whereNull('equipe_projet_id');
+                        });
+                    });
+                }
+            });
+        }
+
+        parent::filter($builder, $model, $filterVariables);
     }
 }
