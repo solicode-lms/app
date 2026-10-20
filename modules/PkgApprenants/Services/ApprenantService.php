@@ -199,5 +199,26 @@ public function getApprenantsDeGroupe($apprenantId)
             $query->where('evaluateurs.id', $evaluateur_id);
         })->get();
     }
-   
+
+    /**
+     * Récupération des données pour les dropdowns dynamiques (DynamicDropdown).
+     *
+     * @param string $filter
+     * @param mixed $value
+     * @return mixed
+     */
+    public function getData(string $filter, $value)
+    {
+        if ($filter === 'equipe_projet_id' && !empty($value)) {
+            return $this->model::withScope(function () use ($value) {
+                return $this->allQuery()
+                    ->whereHas('equipeProjets', function ($q) use ($value) {
+                        $q->where('equipe_projets.id', $value);
+                    })
+                    ->get();
+            });
+        }
+
+        return parent::getData($filter, $value);
+    }
 }

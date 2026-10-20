@@ -176,12 +176,12 @@ trait RealisationTacheGetterTrait
             __("PkgCreationProjet::equipeProjet.singular"),
             'tache.equipe_projet_id',
             \Modules\PkgCreationProjet\Models\EquipeProjet::class,
-            "titre",
+            "nom",
             "id",
             $equipeProjets,
-            "[name='tache_id']",
-            route('taches.getData'),
-            "equipe_projet_id"
+            "[name='tache_id'],[name='RealisationProjet.Apprenant_id']",
+            route('taches.getData') . "," . route('apprenants.getData'),
+            "equipe_projet_id,equipe_projet_id"
         );
         $filterEquipe['hidden'] = $equipeProjets->isEmpty(); // Proposé pour Gapp : cacher si vide
         $this->fieldsFilterable[] = $filterEquipe;
@@ -245,6 +245,9 @@ trait RealisationTacheGetterTrait
         );
 
 
+        $equipeProjetId = $this->viewState->get('filter.realisationTache.tache.equipe_projet_id')
+            ?? $this->viewState->get('filter.realisationTache.equipe_projet_id');
+
         // Apprenant
         // TODO : Gapp add MetaData relationFilter
         $apprenants = match (true) {
@@ -252,6 +255,14 @@ trait RealisationTacheGetterTrait
             Auth::user()->hasRole(Role::APPRENANT_ROLE) => (new ApprenantService())->getApprenantsDeGroupe($this->sessionState->get("apprenant_id")),
             default => Apprenant::all(),
         };
+
+        if (!empty($equipeProjetId)) {
+            $equipe = EquipeProjet::with('apprenants')->find($equipeProjetId);
+            if ($equipe) {
+                $apprenants = $equipe->apprenants;
+            }
+        }
+
         $this->fieldsFilterable[] = $this->generateRelationFilter(
             __("PkgApprenants::apprenant.plural"),
             'RealisationProjet.Apprenant_id',
@@ -269,11 +280,9 @@ trait RealisationTacheGetterTrait
             default => Tache::all(),
         };
 
-        $equipeProjetId = $this->viewState->get('filter.realisationTache.tache.equipe_projet_id');
         if (!empty($equipeProjetId)) {
             $taches = collect($taches)->filter(function($tache) use ($equipeProjetId) {
-                return (string) $tache->equipe_projet_id === (string) $equipeProjetId
-                    || is_null($tache->equipe_projet_id);
+                return (string) $tache->equipe_projet_id === (string) $equipeProjetId;
             });
         }
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(
@@ -395,19 +404,15 @@ trait RealisationTacheGetterTrait
             $apprenantIds = $equipe ? $equipe->apprenants->pluck('id')->toArray() : [];
 
             $builder->where(function (Builder $query) use ($equipeProjetId, $apprenantIds) {
-                // 1. Tâches spécifiquement assignées à l'équipe sélectionnée
+                // Tâches spécifiquement assignées à l'équipe sélectionnée
                 $query->whereHas('tache', function ($q) use ($equipeProjetId) {
                     $q->where('equipe_projet_id', $equipeProjetId);
                 });
 
-                // 2. Tâches communes (sans équipe assignée) réalisées par les membres de l'équipe
+                // Apprenants appartenant à l'équipe sélectionnée
                 if (!empty($apprenantIds)) {
-                    $query->orWhere(function ($q) use ($apprenantIds) {
-                        $q->whereHas('realisationProjet', function ($rp) use ($apprenantIds) {
-                            $rp->whereIn('apprenant_id', $apprenantIds);
-                        })->whereHas('tache', function ($t) {
-                            $t->whereNull('equipe_projet_id');
-                        });
+                    $query->whereHas('realisationProjet', function ($rp) use ($apprenantIds) {
+                        $rp->whereIn('apprenant_id', $apprenantIds);
                     });
                 }
             });
