@@ -71,9 +71,17 @@ trait TacheGetterTrait
                 $query = $this->allQuery();
                 $equipe = EquipeProjet::find($value);
                 if ($equipe) {
-                    $query->where('projet_id', $equipe->projet_id);
+                    $query->where('projet_id', $equipe->projet_id)
+                          ->where(function ($q) use ($value) {
+                              $q->where('equipe_projet_id', $value)
+                                ->orWhereNull('equipe_projet_id');
+                          });
+                } else {
+                    $query->where(function ($q) use ($value) {
+                        $q->where('equipe_projet_id', $value)
+                          ->orWhereNull('equipe_projet_id');
+                    });
                 }
-                $query->where('equipe_projet_id', $value);
                 return $query->get();
             });
         }

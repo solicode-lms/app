@@ -282,7 +282,8 @@ trait RealisationTacheGetterTrait
 
         if (!empty($equipeProjetId)) {
             $taches = collect($taches)->filter(function($tache) use ($equipeProjetId) {
-                return (string) $tache->equipe_projet_id === (string) $equipeProjetId;
+                return (string) $tache->equipe_projet_id === (string) $equipeProjetId
+                    || is_null($tache->equipe_projet_id);
             });
         }
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(
@@ -403,19 +404,23 @@ trait RealisationTacheGetterTrait
             $equipe = EquipeProjet::with('apprenants')->find($equipeProjetId);
             $apprenantIds = $equipe ? $equipe->apprenants->pluck('id')->toArray() : [];
 
-            $builder->where(function (Builder $query) use ($equipeProjetId, $apprenantIds) {
-                // Tâches spécifiquement assignées à l'équipe sélectionnée
-                $query->whereHas('tache', function ($q) use ($equipeProjetId) {
-                    $q->where('equipe_projet_id', $equipeProjetId);
-                });
-
-                // Apprenants appartenant à l'équipe sélectionnée
-                if (!empty($apprenantIds)) {
+            if (!empty($apprenantIds)) {
+                $builder->where(function (Builder $query) use ($equipeProjetId, $apprenantIds) {
+                    // Uniquement les réalisations des apprenants membres de l'équipe
                     $query->whereHas('realisationProjet', function ($rp) use ($apprenantIds) {
                         $rp->whereIn('apprenant_id', $apprenantIds);
+                    })
+                    // Tâches spécifiques de l'équipe ET tâches communes (sans équipe assignée)
+                    ->whereHas('tache', function ($q) use ($equipeProjetId) {
+                        $q->where(function ($sq) use ($equipeProjetId) {
+                            $sq->where('equipe_projet_id', $equipeProjetId)
+                               ->orWhereNull('equipe_projet_id');
+                        });
                     });
-                }
-            });
+                });
+            } else {
+                $builder->whereRaw('1 = 0');
+            }
         }
 
         parent::filter($builder, $model, $filterVariables);
