@@ -1,20 +1,105 @@
 #!/usr/bin/env node
 /**
- * manage-skills.js — Gestionnaire d'installation sélective des compétences IA
+ * manage-skills.cjs — Gestionnaire d'installation sélective des compétences IA
  *
- * Permet d'installer uniquement les compétences requises pour un projet
- * sans injecter l'intégralité du Hub Global via un lien global unique.
+ * Permet d'amorcer un nouveau projet vierge et d'installer uniquement
+ * les compétences requises sans injecter l'intégralité du Hub Global.
  *
  * Usage :
- *   node .agents/scripts/manage-skills.js list
- *   node .agents/scripts/manage-skills.js install [--link|--copy]
- *   node .agents/scripts/manage-skills.js add <skill-name> [--link|--copy]
- *   node .agents/scripts/manage-skills.js remove <skill-name>
+ *   node D:/solicode-lms/skills-workspace/scripts/manage-skills.cjs bootstrap [hub-path]
+ *   node .agents/scripts/manage-skills.cjs list
+ *   node .agents/scripts/manage-skills.cjs install [--link|--copy]
+ *   node .agents/scripts/manage-skills.cjs add <skill-name> [--link|--copy]
+ *   node .agents/scripts/manage-skills.cjs remove <skill-name>
  */
 
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
+
+const args = process.argv.slice(2);
+const command = args[0] || 'list';
+
+// 0. Commande d'amorce d'un projet vierge (Bootstrap)
+if (command === 'bootstrap' || command === 'init') {
+    const targetCwd = process.cwd();
+    const explicitHub = args[1];
+    const hubRoot = explicitHub ? path.resolve(explicitHub) : path.resolve(__dirname, '..');
+    const hubSkills = path.join(hubRoot, '.agents', 'skills');
+    const hubReferences = path.join(hubRoot, 'references');
+
+    console.log(`\n🚀 [BOOTSTRAP NOUVEAU PROJET] Initialisation dans : ${targetCwd}`);
+    console.log(`📦 [SOURCE HUB GLOBAL]      : ${hubRoot}\n`);
+
+    const targetAgents = path.join(targetCwd, '.agents');
+    const targetSkills = path.join(targetAgents, 'skills');
+    const targetLocal = path.join(targetAgents, 'local');
+    const targetScripts = path.join(targetAgents, 'scripts');
+    const targetConfigFile = path.join(targetAgents, 'skills.json');
+
+    if (!fs.existsSync(targetSkills)) fs.mkdirSync(targetSkills, { recursive: true });
+    if (!fs.existsSync(targetLocal)) fs.mkdirSync(targetLocal, { recursive: true });
+    if (!fs.existsSync(targetScripts)) fs.mkdirSync(targetScripts, { recursive: true });
+
+    // 1. Lier les références universelles
+    const targetRefLink = path.join(targetAgents, 'references');
+    if (!fs.existsSync(targetRefLink)) {
+        try {
+            if (process.platform === 'win32') {
+                execSync(`cmd /c mklink /J "${targetRefLink}" "${hubReferences}"`, { stdio: 'pipe' });
+            } else {
+                fs.symlinkSync(hubReferences, targetRefLink, 'dir');
+            }
+            console.log('🔗 Jonction NTFS créée : .agents/references -> Hub');
+        } catch (e) {
+            console.warn('⚠️ Avertissement jonction references :', e.message);
+        }
+    } else {
+        console.log('ℹ️ .agents/references existe déjà.');
+    }
+
+    // 2. Lier le skill project-setup comme compétence d amorce
+    const targetSetupSkill = path.join(targetSkills, 'project-setup');
+    const hubSetupSkill = path.join(hubSkills, 'project-setup');
+    if (!fs.existsSync(targetSetupSkill)) {
+        try {
+            if (process.platform === 'win32') {
+                execSync(`cmd /c mklink /J "${targetSetupSkill}" "${hubSetupSkill}"`, { stdio: 'pipe' });
+            } else {
+                fs.symlinkSync(hubSetupSkill, targetSetupSkill, 'dir');
+            }
+            console.log('🔗 Jonction NTFS créée : .agents/skills/project-setup -> Hub');
+        } catch (e) {
+            console.warn('⚠️ Avertissement jonction project-setup :', e.message);
+        }
+    } else {
+        console.log('ℹ️ .agents/skills/project-setup existe déjà.');
+    }
+
+    // 3. Copier manage-skills.cjs
+    const localScript = path.join(targetScripts, 'manage-skills.cjs');
+    if (!fs.existsSync(localScript)) {
+        fs.copyFileSync(__filename, localScript);
+        console.log('📄 Script copié : .agents/scripts/manage-skills.cjs');
+    }
+
+    // 4. Initialiser skills.json
+    if (!fs.existsSync(targetConfigFile)) {
+        const initialConfig = {
+            hubPath: hubRoot,
+            linkMode: 'junction',
+            skills: ['project-setup']
+        };
+        fs.writeFileSync(targetConfigFile, JSON.stringify(initialConfig, null, 2) + '\n', 'utf8');
+        console.log('📝 Manifeste créé : .agents/skills.json (avec project-setup)');
+    }
+
+    console.log(`\n🎉 Socle amorcé avec succès !\n`);
+    console.log('👉 Étape suivante :');
+    console.log('Demandez à votre Agent IA : « Initialise l agent pour ce projet avec project-setup »');
+    console.log('L agent qualifiera le projet (Dev logiciel, Tutoriels/Formation, Ateliers APC) et déploiera les skills nécessaires.\n');
+    process.exit(0);
+}
 
 const rootDir = path.resolve(__dirname, '..', '..');
 const agentsDir = path.join(rootDir, '.agents');
@@ -25,6 +110,8 @@ const configFile = path.join(agentsDir, 'skills.json');
 function loadConfig() {
     if (!fs.existsSync(configFile)) {
         console.error(`❌ Fichier de configuration introuvable : ${configFile}`);
+        console.error('👉 Pour amorcer un nouveau projet, exécutez d abord :');
+        console.error('   node <chemin-vers-hub>/scripts/manage-skills.cjs bootstrap\n');
         process.exit(1);
     }
     try {
@@ -43,7 +130,6 @@ function saveConfig(config) {
 function getHubSkills(hubPath) {
     const hubSkillsDir = path.join(hubPath, '.agents', 'skills');
     if (!fs.existsSync(hubSkillsDir)) {
-        // Fallback si le hub a 'skills' à la racine
         const altDir = path.join(hubPath, 'skills');
         if (fs.existsSync(altDir)) {
             return { dir: altDir, list: fs.readdirSync(altDir).filter(f => fs.statSync(path.join(altDir, f)).isDirectory()) };
@@ -60,17 +146,13 @@ function getHubSkills(hubPath) {
     return { dir: hubSkillsDir, list };
 }
 
-// 3. Commandes
-const args = process.argv.slice(2);
-const command = args[0] || 'list';
-
 const config = loadConfig();
 const hub = getHubSkills(config.hubPath);
 
 switch (command) {
     case 'list': {
-        console.log(`\n📦 [SKILLS DU PROJET] Répertoire : ${skillsDir}`);
-        console.log(`🌐 [HUB GLOBAL]       Répertoire : ${hub.dir}\n`);
+        console.log(`\n📋 [SKILLS DU PROJET] Répertoire : ${skillsDir}`);
+        console.log(`📦 [HUB GLOBAL]       Répertoire : ${hub.dir}\n`);
 
         const installed = fs.existsSync(skillsDir)
             ? fs.readdirSync(skillsDir).filter(f => fs.statSync(path.join(skillsDir, f)).isDirectory())
@@ -91,7 +173,7 @@ switch (command) {
 
         if (hub.list.length > 0) {
             const excluded = hub.list.filter(s => !config.skills.includes(s));
-            console.log('\n🚫 Compétences du Hub exclues de ce projet :');
+            console.log('\n💡 Compétences du Hub exclues de ce projet :');
             excluded.forEach(skill => console.log(`  - ${skill}`));
         }
         console.log('');
@@ -120,7 +202,6 @@ switch (command) {
                 console.log(`🗑️  Suppression du skill exclu : ${skill}`);
                 const target = path.join(skillsDir, skill);
                 try {
-                    // Si c'est une jonction/lien symbolique
                     fs.rmSync(target, { recursive: true, force: true });
                 } catch (e) {
                     console.warn(`   Avertissement : impossible de supprimer ${skill} :`, e.message);
@@ -141,7 +222,6 @@ switch (command) {
 
                 if (mode === 'link') {
                     try {
-                        // Utiliser mklink /J sous Windows ou symlink
                         if (process.platform === 'win32') {
                             execSync(`cmd /c mklink /J "${dest}" "${src}"`, { stdio: 'pipe' });
                         } else {
@@ -153,21 +233,21 @@ switch (command) {
                     }
                 } else {
                     fs.cpSync(src, dest, { recursive: true });
-                    console.log(`📁 Copie physique créée pour : ${skill}`);
+                    console.log(`📋 Copie physique créée pour : ${skill}`);
                 }
             } else {
-                console.log(`✓  Déjà installé : ${skill}`);
+                console.log(`✅  Déjà installé : ${skill}`);
             }
         });
 
-        console.log('\n🎉 Synchronisation terminée avec succès.');
+        console.log('\n✨ Synchronisation terminée avec succès.');
         break;
     }
 
     case 'add': {
         const skillName = args[1];
         if (!skillName) {
-            console.error('❌ Usage : node manage-skills.js add <nom-du-skill>');
+            console.error('❌ Usage : node manage-skills.cjs add <nom-du-skill>');
             process.exit(1);
         }
 
@@ -177,7 +257,6 @@ switch (command) {
             console.log(`✅ ${skillName} ajouté à skills.json.`);
         }
 
-        // Lancer l'installation
         execSync(`node "${__filename}" install`, { stdio: 'inherit' });
         break;
     }
@@ -185,7 +264,7 @@ switch (command) {
     case 'remove': {
         const skillNames = args.slice(1);
         if (skillNames.length === 0) {
-            console.error('❌ Usage : node manage-skills.js remove <nom-du-skill> [autres-skills...]');
+            console.error('❌ Usage : node manage-skills.cjs remove <nom-du-skill> [autres-skills...]');
             process.exit(1);
         }
 
@@ -205,6 +284,6 @@ switch (command) {
 
     default:
         console.log(`Commande inconnue : ${command}`);
-        console.log('Commandes disponibles : list, install, add, remove');
+        console.log('Commandes disponibles : bootstrap, list, install, add, remove');
         process.exit(1);
 }
