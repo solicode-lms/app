@@ -36,7 +36,9 @@ if (command === 'bootstrap' || command === 'init') {
     const targetCwd = process.cwd();
     const explicitHub = args[1];
     const hubRoot = explicitHub ? path.resolve(explicitHub) : path.resolve(__dirname, '..');
-    const hubSkills = path.join(hubRoot, '.agents', 'skills');
+    const hubSkills = fs.existsSync(path.join(hubRoot, 'skills'))
+        ? path.join(hubRoot, 'skills')
+        : path.join(hubRoot, '.agents', 'skills');
 
     console.log(`\n🚀 [BOOTSTRAP NOUVEAU PROJET] Initialisation dans : ${targetCwd}`);
     console.log(`📦 [SOURCE HUB GLOBAL]      : ${hubRoot}\n`);
