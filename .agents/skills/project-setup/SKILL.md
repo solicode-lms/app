@@ -1,11 +1,11 @@
 ---
 name: project-setup
 description: Initialise l'agent sur n'importe quel type de projet (Dev logiciel, Redaction de tutoriels/autoformations, Ateliers APC), analyse les cahiers des charges, audite et recycle les dossiers legacy (old_agent) et deploie les competences requises par liens symboliques.
-version: 2.0.0
+version: 2.1.0
 inspiration:
   source: "anthropic/claude-plugins-official"
   plugin: "claude-code-setup"
-  pattern: "universal onboarding, legacy recycling & capability tailoring"
+  pattern: "universal onboarding, legacy recycling, capability tailoring & rules proposal"
 ---
 
 # 1. Mission
@@ -14,6 +14,7 @@ Ce skill est l'**orchestrateur universel d'onboarding, d'audit architectural et 
 2. D'analyser le cahier des charges pour identifier les livrables cibles et qualifier le profil adéquat (avec dialogue interactif si le projet est vierge ou sans documentation claire).
 3. D'auditer, trier et recycler les anciens dossiers d'agents historiques (`old_agent`, `.agent/`) pour en extraire la mémoire technique et archiver le superflu.
 4. De configurer l'installation sélective granulaire des compétences du Hub Global via des jonctions NTFS unitaires pilotées par `.agents/skills.json`.
+5. D'auditer les besoins spécifiques et le legacy pour **proposer la liste des Skills à créer** (locaux ou candidats au Hub) et des **Rules comportementales à créer** (`.agents/rules/`).
 
 ---
 
@@ -23,12 +24,13 @@ Ce skill est l'**orchestrateur universel d'onboarding, d'audit architectural et 
   - Cadrage d'un projet d'autoformation ou de cours (*« Configure l'agent pour un projet de tutoriels d'autoformation web »*).
   - Modernisation d'un agent existant (*« Audite et migre notre ancien dossier old_agent »*).
   - Analyse d'un cahier des charges fonctionnel ou pédagogique (*« Analyse le cahier des charges et dis-moi quelles compétences installer »*).
+  - Qualification et proposition de nouveaux skills ou de règles locales pour le projet.
   - Vérification de santé et réalignement de l'environnement IA (`manage-skills.cjs list`).
 - **Quand NE PAS l'activer :**
-  - Développement direct de fonctionnalités de code ➔ Utiliser [feature-dev](../feature-dev/SKILL.md).
-  - Conception ou modification physique d'un skill du Hub ➔ Utiliser [plugin-dev](../plugin-dev/SKILL.md).
-  - Diagnostic d'anomalies sur logs applicatifs ➔ Utiliser [bug-fixer](../bug-fixer/SKILL.md).
-  - Rédaction effective d'un tutoriel ➔ Utiliser [tutorial-writer](../tutorial-writer/SKILL.md).
+  - Rédaction ou simplification de tutoriels ➔ Utiliser [tutorial-writer](../tutorial-writer/SKILL.md).
+  - Conception, modification ou gouvernance des compétences et règles ➔ Utiliser [plugin-dev](../plugin-dev/SKILL.md).
+  - Développement de composants, styles CSS ou layouts Jekyll ➔ Utiliser [dev-jekyll](../dev-jekyll/SKILL.md).
+  - Synchronisation du socle technique partagé (Core Theme) ➔ Utiliser [sync-theme](../sync-theme/SKILL.md).
 
 ---
 
@@ -39,7 +41,7 @@ Ce skill est l'**orchestrateur universel d'onboarding, d'audit architectural et 
   - [onboarding-workflow.md](resources/onboarding-workflow.md) : Procédure pas-à-pas de bootstrapping et d'initialisation.
 - **Ressources du projet :**
   - Cahiers des charges (`cahiers-charges/`, `README.md`, spécifications fonctionnelles).
-  - Manifeste `.agents/skills.json` et dossier de conventions `.agents/references/conventions/`.
+  - Manifeste `.agents/skills.json`, règles `.agents/rules/` et dossier de conventions `.agents/references/conventions/`.
   - Catalogue global du Hub : `D:/solicode-lms/skills-workspace/catalog.yaml`.
 
 ---
@@ -48,6 +50,7 @@ Ce skill est l'**orchestrateur universel d'onboarding, d'audit architectural et 
 - **Non-Destructif sur le Code :** `project-setup` ne modifie jamais le code applicatif du projet ni la structure des bases de données.
 - **Bootstrapping Propre :** Pour un projet vierge sans dossier `.agents/`, utiliser la commande d'amorce `node <hubPath>/skills/project-setup/scripts/manage-skills.cjs bootstrap`.
 - **Installation Sélective Granulaire (Skill-by-Skill) :** Le dossier `.agents/skills/` est physique. Tout élément dans `.agents/` est local par défaut. Seules les compétences partagées sont montées via des jonctions NTFS unitaires pointant vers le Hub.
+- **Proposition Structurée Obligatoire :** Tout onboarding ou audit legacy doit obligatoirement expliciter la liste des **Skills à créer** et des **Rules à formaliser**.
 - **Archivage Défensif Obligatoire :** Tout ancien dossier `old_agent` audité doit être déplacé dans `archive/old_agent` pour éviter toute collision cognitive d'agent.
 
 ---
@@ -59,12 +62,18 @@ Ce skill est l'**orchestrateur universel d'onboarding, d'audit architectural et 
    - Examiner les fichiers d'entrée et consulter [project-typology-and-profiles.md](resources/project-typology-and-profiles.md) pour identifier le profil (Profil 1: Dev Logiciel, Profil 2: Tutoriels/Autoformation, Profil 3: Ingénierie APC, Profil 4: Hybride).
    - En cas d'ambiguïté ou de projet sans doc : engager le dialogue interactif avec l'utilisateur.
 3. **Étape 3 : Audit & Recyclage Legacy (Si `old_agent` présent) :**
-   - Appliquer le [legacy-migration-playbook.md](resources/legacy-migration-playbook.md), transférer les règles et documentations dans `.agents/references/conventions/` (ou sous-dossiers thématiques de `references/`) et déplacer l'ancien dossier dans `archive/old_agent/`.
+   - Appliquer le [legacy-migration-playbook.md](resources/legacy-migration-playbook.md) pour trier le contenu en 4 destinations :
+     - *Actions outillées locales* ➔ Proposer la création de **Skills locaux**.
+     - *Invariants comportementaux* ➔ Proposer la création de **Rules** dans `.agents/rules/`.
+     - *Connaissances documentaires* ➔ Transférer vers `.agents/references/conventions/` (ou sous-dossiers thématiques).
+     - *Outils obsolètes* ➔ Déplacer l'ancien dossier dans `archive/old_agent/` puis assainir.
 4. **Étape 4 : Déploiement Granulaire des Compétences :**
-   - Rédiger `.agents/skills.json` avec la liste exacte des compétences nécessaires au profil.
+   - Rédiger `.agents/skills.json` avec la liste exacte des compétences globales du Hub et locales requises.
    - Synchroniser via `node .agents/skills/project-setup/scripts/manage-skills.cjs install`.
-5. **Étape 5 : Formalisation des Conventions & Bilan :**
-   - Rédiger les conventions propres au projet dans `.agents/references/conventions/project-conventions.md` et émettre le rapport d'onboarding structuré.
+5. **Étape 5 : Formalisation des Règles, Conventions & Bilan :**
+   - Créer les règles retenues dans `.agents/rules/`.
+   - Rédiger les conventions propres au projet dans `.agents/references/conventions/project-conventions.md`.
+   - Émettre le rapport d'onboarding structuré.
 
 ---
 
@@ -78,9 +87,11 @@ Ce skill est l'**orchestrateur universel d'onboarding, d'audit architectural et 
 # 7. Format de Sortie & Livrables
 L'agent fournit systématiquement un rapport d'onboarding structuré comprenant :
 - **Typologie & Profil Retenu :** (ex: *Profil 2 — Rédaction de Tutoriels d'Autoformation*).
-- **Compétences Installées :** Tableau des jonctions NTFS unitaires actives.
+- **Compétences Globales Installées :** Tableau des jonctions NTFS unitaires actives vers le Hub.
+- **Skills Proposés / Créés :** Liste des compétences locales créées dans `.agents/skills/` pour outiller le projet.
+- **Rules Proposées / Créées :** Liste des règles comportementales formalisées dans `.agents/rules/`.
 - **Compétences Exclues :** Liste des skills non pertinents filtrés.
-- **Recyclage Legacy :** Synthèse du tri effectué et statut de l'archivage `archive/old_agent/`.
+- **Recyclage Legacy :** Synthèse du tri effectué et statut de l'assainissement d'`archive/old_agent/`.
 - **Conventions du Projet :** Emplacement et contenu des fiches sous `.agents/references/conventions/`.
 - **Prochaine Action Recommandée :** Prompt d'action prêt à l'emploi.
 
@@ -89,9 +100,10 @@ L'agent fournit systématiquement un rapport d'onboarding structuré comprenant 
 # 8. Contrôle Qualité (Checklist Binaire)
 - [ ] Le projet est-il correctement qualifié selon l'un des 4 profils typologiques ?
 - [ ] En l'absence de cahier des charges, une qualification interactive a-t-elle été engagée ?
-- [ ] Le dossier physique `.agents/skills/` ne contient-il QUE les jonctions des compétences retenues ?
+- [ ] Le dossier physique `.agents/skills/` ne contient-il QUE les jonctions et compétences retenues ?
 - [ ] Les compétences hors profil (ex: scaffolding sur projet de tutoriels) sont-elles bien exclues ?
-- [ ] L'éventuel dossier `old_agent` a-t-il été recyclé et archivé dans `archive/old_agent/` ?
+- [ ] Une proposition claire des Skills et Rules à créer a-t-elle été formalisée ?
+- [ ] L'éventuel dossier `old_agent` a-t-il été recyclé et assaini ?
 - [ ] Le script `node .agents/skills/project-setup/scripts/manage-skills.cjs list` confirme-t-il l'état attendu ?
 
 ---

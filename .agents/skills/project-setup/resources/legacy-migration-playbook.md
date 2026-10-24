@@ -41,21 +41,28 @@ Appliquer rigoureusement la règle d'or de l'ingénierie des compétences :
 
 | Type de Fichier Legacy | Analyse & Diagnostic | Destination de Recyclage |
 | :--- | :--- | :--- |
+| **Directive comportementale permanente** (ex: encodage, style d'écriture, affichage obligatoire des compétences) | **Règle d'exécution invariable.** Ne constitue pas une étape de workflow mais une contrainte transversale. | Formaliser sous forme de **Rule** concise dans `.agents/rules/` (ou `AGENTS.md`). |
+| **Action outillée spécifique non couverte par le Hub** (ex: `sync-theme`, `dev-jekyll`) | **Intention d'action outillée locale.** Procédure outillée propre à l'architecture du projet. | Proposer et créer un **Skill local** normé (10 rubriques) sous `.agents/skills/`. |
 | **Description d'une couche architecturale** (ex: `app-controller`, `app-service`, `eloquent-model`) | **Connaissance passive.** Ne constitue pas une intention d'action. L'agent doit le consulter comme documentation de référence. | Transférer vers une fiche sous `.agents/references/architecture/`. |
-| **Règles d'interface & composants** (ex: `blade-custom`, `tableui-guidelines`, `modals`) | **Connaissance passive.** Règles d'affichage et conventions de syntaxe. | Transférer vers `.agents/references/frontend/`. |
+| **Règles d'interface & composants** (ex: `blade-custom`, `tableui-guidelines`, `modals`) | **Connaissance passive.** Règles d'affichage et conventions de syntaxe. | Transférer vers `.agents/references/frontend/` ou `.agents/references/conventions/`. |
 | **Spécificités d'environnement & rôles** (ex: `roles-spatie`, `database-credentials`, `urls`) | **Connaissance passive propre au projet.** Données privées propres à cette instance du projet. | Transférer vers `.agents/references/conventions/project-conventions.md`. |
-| **Action d'implémentation** (ex: `creer-crud`, `ajouter-colonne`, `generer-trait`) | **Intention d'action réelle.** Déjà couverte par le skill universel [feature-dev](../../feature-dev/SKILL.md). | Conserver la logique métier spécifique comme exemple et supprimer le micro-skill legacy au profit de `feature-dev`. |
+| **Action d'implémentation standard** (ex: `creer-crud`, `ajouter-colonne`, `generer-trait`) | **Intention d'action réelle.** Déjà couverte par le skill universel [feature-dev](../../feature-dev/SKILL.md). | Conserver la logique métier spécifique comme exemple et supprimer le micro-skill legacy au profit de `feature-dev`. |
 | **Action de correction de bug** (ex: `corriger-erreur-500`, `verifier-log`) | **Intention d'action réelle.** Déjà couverte par [bug-fixer](../../bug-fixer/SKILL.md). | Recycler les motifs de logs connus dans `tests/feedbacks/` et adopter `bug-fixer`. |
 | **Action d'analyse avant dev** (ex: `analyser-demande`, `planifier-sprint`) | **Intention d'action réelle.** Déjà couverte par [planner-dev](../../planner-dev/SKILL.md). | Adopter le skill canonique `planner-dev`. |
+| **Rédaction et simplification de tutoriels** (ex: `redacteur-tutos`, `simplificateur-tutos`) | **Intention d'action rédactionnelle unifiée.** | Adopter et enrichir le skill universel `tutorial-writer`. |
 
 ---
 
 ### Étape 3 : Injection dans le Socle Normé
-1. **Création des fiches propres au projet :**
+1. **Création des Règles permanentes propres au projet :**
+   - Rédiger les directives transversales épurées dans `.agents/rules/`.
+2. **Création des Compétences Locales nécessaires :**
+   - Implémenter les skills locaux spécifiques dans `.agents/skills/[skill-name]/SKILL.md`.
+3. **Création des Fiches de Référence documentaires :**
    - `.agents/references/conventions/project-conventions.md` (Règles métiers, rôles, particularités du dépôt).
-   - `.agents/references/conventions/technical-notes.md` (Spécificités techniques non généralisables).
-2. **Adoption des compétences universelles du Hub :**
-   - Configurer `.agents/skills.json` avec les compétences universelles correspondant aux besoins identifiés.
+   - `.agents/references/conventions/` (Guides techniques et conventions thématiques).
+4. **Adoption & Synchronisation des compétences :**
+   - Configurer `.agents/skills.json` avec la liste des compétences globales et locales.
    - Exécuter `manage-skills.cjs install` pour poser les jonctions unitaires.
 
 ---
