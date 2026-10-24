@@ -29,7 +29,7 @@ Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : 
   - `.agents/standards/critical-rules.md` (Règles critiques invariables).
   - `AGENTS.md` et `.agents/rules/*.md` (Directives d'exécution et de style).
 - **Priorité 3 :** `.agents/templates/generic-skill.md` (Gabarit en 10 rubriques) et `.agents/templates/workflow-blueprint.md` (Modèle de flux).
-- **Priorité 4 :** `.agents/hub/catalog.yaml` et `.agents/hub/CHANGELOG.md`.
+- **Priorité 4 :** Registre `catalog.yaml` et `CHANGELOG.md` du Hub Global.
 
 # 4. Contraintes & Règles Inviolables
 - **Bloc `inspiration` Obligatoire :** Tout skill créé ou modifié DOIT impérativement comporter la métadonnée `inspiration:` dans son frontmatter YAML avec sa source, son plugin de référence et son pattern.

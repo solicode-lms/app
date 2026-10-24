@@ -1,0 +1,45 @@
+﻿{
+  "dataset_version": "1.0.0",
+  "queries": [
+    {
+      "query": "Comment fonctionne le module PkgCreationTache ?",
+      "expected_skill": "architecture-planner",
+      "should_trigger": true
+    },
+    {
+      "query": "Analyse l'impact de l'ajout d'une colonne statut sur la table cours",
+      "expected_skill": "architecture-planner",
+      "should_trigger": true
+    },
+    {
+      "query": "Ajoute un filtre par Groupe dans le CRUD Filiere",
+      "expected_skill": "feature-dev",
+      "should_trigger": true
+    },
+    {
+      "query": "Ajoute le calcul de la note moyenne dans le formulaire avec data-calcule",
+      "expected_skill": "feature-dev",
+      "should_trigger": true
+    },
+    {
+      "query": "Rédige un tutoriel pas-à-pas pour créer un filtre TableUI",
+      "expected_skill": "tutorial-writer",
+      "should_trigger": true
+    },
+    {
+      "query": "Explique aux apprenants comment lever une BlException",
+      "expected_skill": "tutorial-writer",
+      "should_trigger": true
+    },
+    {
+      "query": "Crée un sujet d'examen ou un atelier pratique noté pour les apprenants",
+      "expected_skill": "feature-dev",
+      "should_trigger": false
+    },
+    {
+      "query": "Quelle est la commande pour vider le cache de config Laravel ?",
+      "expected_skill": "architecture-planner",
+      "should_trigger": false
+    }
+  ]
+}

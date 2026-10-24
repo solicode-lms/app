@@ -32,7 +32,7 @@ Ce skill intervient lors de tout dysfonctionnement, régression ou incident surv
 - **Diagnostic sur Preuve :** Ne jamais deviner la cause d'une panne sans avoir préalablement lu la trace réelle dans `storage/logs/laravel.log` ou le code source exact.
 - **Préservation des Fichiers `Base/` :** Interdiction d'éditer une classe dans `Base/` pour corriger un bug. Si un bug est localisé dans une méthode `Base`, surcharger la méthode dans la classe enfant PHP correspondante.
 - **Préservation des Vues Blade Protégées :** Si une vue contient le verrou `{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}`, appliquer le correctif dans le sous-dossier `custom/` de la vue.
-- **Fiche d'Incident YAML :** Toute anomalie structurelle corrigée doit être consignée sous forme de fiche dans `.agents/hub/tests/feedbacks/INC-[NUM].yaml`.
+- **Fiche d'Incident YAML :** Toute anomalie structurelle corrigée doit être consignée sous forme de fiche dans `.agents/tests/feedbacks/INC-[NUM].yaml`.
 
 # 5. Procédure Pas-à-Pas (Workflow de Diagnostic & Résolution)
 1. **Étape 1 : Localisation & Lecture des Logs :**
@@ -56,7 +56,7 @@ Ce skill intervient lors de tout dysfonctionnement, régression ou incident surv
 # 7. Format de Sortie & Livrables
 - Analyse synthétique : Cause racine identifiée (fichier, ligne, mécanisme en cause).
 - Diff de code clair et chirurgical appliqué aux fichiers enfants.
-- Fiche de retour d'expérience dans `.agents/hub/tests/feedbacks/INC-xxx.yaml`.
+- Fiche de retour d'expérience dans `.agents/tests/feedbacks/INC-xxx.yaml`.
 
 # 8. Contrôle Qualité (Checklist Binaire)
 - [ ] La trace d'erreur dans laravel.log a-t-elle été formellement identifiée avant toute modification ?

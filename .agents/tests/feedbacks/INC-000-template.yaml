@@ -1,0 +1,9 @@
+﻿id: INC-000-TEMPLATE
+date: 2026-10-24
+skill: implementer-fonctionnalite
+type: lacune # lacune | contradiction | ambiguite | regression_potentielle
+contexte: "Description du contexte de la tâche"
+comportement_observe: "Ce que l'IA a fait de non conforme"
+correction_apportee: "Modification apportée au SKILL.md ou à la référence"
+version_correctif: 1.0.1
+statut: resolu # ouvert | resolu | en_cours

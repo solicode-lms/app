@@ -67,6 +67,11 @@
             "folderPath": "solicode-lms\\old_agent",
             "isFolderOnly": true,
             "color": "foldercolorizer.color_d787af"
+        },
+        {
+            "folderPath": "solicode-lms\\cahiers-charges\\",
+            "color": "foldercolorizer.color_ff8700",
+            "isFolderOnly": true
         }
     ],
     "hide-files.files": []

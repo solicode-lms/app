@@ -23,17 +23,17 @@ Ce skill est le point d'entrée pour initialiser et configurer l'environnement d
 
 # 3. Entrées & Ressources à Charger
 - **Priorité 1 :** `.agents/local/project-conventions.md` (si existant).
-- **Priorité 2 :** `.agents/hub/catalog.yaml` (catalogue officiel des skills).
+- **Priorité 2 :** `.agents/standards/critical-rules.md` et `.agents/references/`.
 - **Priorité 3 :** Fichiers de cahiers des charges dans `cahiers-charges/` ou documentation projet.
 
 # 4. Contraintes & Règles Inviolables
 - **Non-Destructif :** Ne jamais écraser une configuration locale `.agents/local/` existante sans confirmation explicite.
-- **Principe d'Intégration Locale par Jonctions NTFS :** Le projet doit contenir toutes les ressources via des jonctions NTFS dans `.agents/` (`.agents/skills`, `.agents/references`, `.agents/standards`, `.agents/templates`, `.agents/scripts`, `.agents/hub`). Les skills travaillent et s'expriment toujours avec des chemins relatifs au projet.
+- **Principe d'Intégration Locale par Jonctions Dossier par Dossier :** Chaque dossier partagé nécessaire à l'agent (`skills`, `references`, `standards`, `templates`, `scripts`, `tests`) doit avoir sa propre jonction NTFS sous `.agents/`. **Interdiction formelle de lier la racine complète du Hub**, afin d'éliminer toute redondance ou duplication de fichiers dans le projet.
 
 # 5. Procédure Pas-à-Pas (Workflow de Setup & Audit)
 1. **Étape 1 : Diagnostic de l'Environnement Projet :**
-   - Vérifier la présence du dossier `.agents/` et tester si les jonctions NTFS existent (`.agents/skills`, `.agents/references`, `.agents/standards`, `.agents/templates`, `.agents/scripts`, `.agents/hub`).
-   - Si les liens sont absents, poser les jonctions NTFS via `cmd /c mklink /J`.
+   - Vérifier la présence du dossier `.agents/` et tester si les jonctions NTFS existent individuellement (`.agents/skills`, `.agents/references`, `.agents/standards`, `.agents/templates`, `.agents/scripts`, `.agents/tests`).
+   - Si des liens sont absents, poser les jonctions NTFS dossier par dossier via `cmd /c mklink /J`.
 2. **Étape 2 : Analyse de la Stack & des Cahiers des Charges :**
    - Identifier la stack technique (Laravel, Alpine.js, Vue, MySQL, Gapp).
    - Examiner les documents présents dans `cahiers-charges/` pour identifier les besoins fonctionnels et pédagogiques.
