@@ -1,5 +1,5 @@
 ﻿---
-name: implementer-fonctionnalite
+name: feature-dev
 description: Developpe, modifie ou etend une fonctionnalite traversante dans Solicode LMS (Service, Trait, Controller, Blade custom, TableUI, FilterUI) en respectant les locks Gapp.
 version: 1.0.0
 inspiration:
@@ -18,9 +18,9 @@ Ce skill pilote la réalisation de fonctionnalités complètes ou de modificatio
   - Implémentation d'une règle métier ou d'un hook de cycle de vie CRUD (`beforeCreateRules`, `beforeUpdateRules`) avec levée de `BlException`.
   - Personnalisation d'une vue Blade via le sous-dossier `custom/`.
 - **Quand NE PAS l'activer :**
-  - Simple analyse ou cartographie sans demande de modification -> Déclencher `analyser-et-planifier`.
+  - Simple analyse ou cartographie sans demande de modification -> Déclencher `architecture-planner`.
   - Création complète d'une nouvelle table en BDD -> Déclencher `concevoir-architecture`.
-  - Rédaction d'un tutoriel ou guide de cours -> Déclencher `rediger-tutoriel`.
+  - Rédaction d'un tutoriel ou guide de cours -> Déclencher `tutorial-writer`.
 
 # 3. Entrées & Ressources à Charger
 Avant d'écrire ou modifier la moindre ligne de code, charger :

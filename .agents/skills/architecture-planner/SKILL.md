@@ -1,5 +1,5 @@
 ﻿---
-name: analyser-et-planifier
+name: architecture-planner
 description: Explore un projet ou un module, analyse limpact architectural dune demande et produit un plan daction etape par etape sans modifier le code applicatif.
 version: 1.0.0
 inspiration:
@@ -18,8 +18,8 @@ Ce skill a pour objectif d'analyser le code existant, d'évaluer la faisabilité
   - Demande de planification complexe avant implémentation ("Propose un plan pour ajouter la gestion des sessions").
   - Cartographie d'un composant ou d'une dépendance transversale (TableUI, ViewState, Service).
 - **Quand NE PAS l'activer :**
-  - Demande directe de modification ou d'implémentation de code -> Déclencher `implementer-fonctionnalite`.
-  - Demande de tutoriel pour apprenants -> Déclencher `rediger-tutoriel`.
+  - Demande directe de modification ou d'implémentation de code -> Déclencher `feature-dev`.
+  - Demande de tutoriel pour apprenants -> Déclencher `tutorial-writer`.
   - Simple question théorique sur Laravel ou PHP -> Répondre directement sans skill.
 
 # 3. Entrées & Ressources à Charger
@@ -51,7 +51,7 @@ Lors de l'analyse, charger les informations selon cette hiérarchie stricte :
 Le livrable doit être un rapport d'analyse structuré comprenant :
 - **Synthèse de l'état actuel :** Modules et classes concernés.
 - **Matrice d'impact :** Liste des fichiers touchés (en distinguant les classes enfants des fichiers Base Gapp).
-- **Plan d'implémentation recommandé :** Étapes ordonnées prêtes pour le skill `implementer-fonctionnalite`.
+- **Plan d'implémentation recommandé :** Étapes ordonnées prêtes pour le skill `feature-dev`.
 - **Risques identifiés & Garde-fous :** Points d'attention particuliers.
 
 # 8. Contrôle Qualité (Checklist Binaire)

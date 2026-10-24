@@ -1,5 +1,5 @@
 ﻿---
-name: rediger-tutoriel
+name: tutorial-writer
 description: Redige des tutoriels techniques pas-a-pas progressifs, verifiables et ancres dans le code reel de Solicode LMS pour les apprenants developpeurs.
 version: 1.0.0
 inspiration:
@@ -17,9 +17,9 @@ Ce skill a pour mission de concevoir des guides d'apprentissage techniques pas-�
   - Documentation pédagogique d'un composant complexe (Services, Traits, FormUI).
   - Guide méthodologique pour débuter sur un module de SoliLMS.
 - **Quand NE PAS l'activer :**
-  - Conception d'un sujet de TP ou brief d'évaluation autonome -> Déclencher `creer-atelier-pratique`.
-  - Implémentation directe de code applicatif -> Déclencher `implementer-fonctionnalite`.
-  - Fiche de contexte brute pour l'IA -> Déclencher `documenter-package`.
+  - Conception d'un sujet de TP ou brief d'évaluation autonome -> Déclencher `workshop-builder`.
+  - Implémentation directe de code applicatif -> Déclencher `feature-dev`.
+  - Fiche de contexte brute pour l'IA -> Déclencher `context-generator`.
 
 # 3. Entrées & Ressources à Charger
 1. **Priorité 1 (Contexte Pédagogique) :** `.agents/references/standards/pedagogy-referential.md` (Compétences cibles Solicode, niveaux d'autonomie).

@@ -1,5 +1,5 @@
 ---
-name: skill-architect
+name: plugin-dev
 description: Gouverne, conçoit, crée et raffine les skills, les règles (.agents/rules/, AGENTS.md) et les standards normatifs selon les patterns officiels d'Anthropic, et maintient la conformité SemVer.
 version: 1.1.0
 inspiration:
@@ -9,27 +9,27 @@ inspiration:
 ---
 
 # 1. Mission
-Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : la conception, la création et le raffinement continu des **Skills** du Hub Global (`skills-workspace`), des **Règles d'or et directives permanentes** (`.agents/rules/`, `AGENTS.md`) et des **Standards normatifs** (`standards/critical-rules.md`). Il applique systématiquement les motifs de référence d'Anthropic (`feature-dev`, `claude-code-setup`, `pr-review-toolkit`), veille à la non-contradiction des règles, documente les nouveaux flux de travail et consigne les rétro-actions sous forme de fiches d'incidents YAML.
+Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : la conception, la création et le raffinement continu des **Skills** partagés (`.agents/skills/`), des **Règles d'or et directives permanentes** (`.agents/rules/`, `AGENTS.md`) et des **Standards normatifs** (`.agents/standards/critical-rules.md`). Il applique systématiquement les motifs de référence d'Anthropic (`feature-dev`, `claude-code-setup`, `pr-review-toolkit`), veille à la non-contradiction des règles, documente les nouveaux flux de travail et consigne les rétro-actions sous forme de fiches d'incidents YAML.
 
 # 2. Déclenchement & Limites
 - **Quand l'activer :**
   - Demande de création d'un nouveau skill ("Crée un skill pour gérer les tests automatisés", "Ajoute un skill concevoir-architecture").
-  - Raffinement ou correction d'un skill existant suite à un retour d'expérience ("Modifie le skill implementer-fonctionnalite pour interdire X").
+  - Raffinement ou correction d'un skill existant suite à un retour d'expérience ("Modifie le skill feature-dev pour interdire X").
   - Création, mise à jour ou audit d'une **Règle** comportementale ("Ajoute une règle pour afficher les skills utilisés", "Modifie la règle critique sur les migrations dans critical-rules.md", "Mets à jour AGENTS.md").
   - Documentation d'un nouveau flux de travail dans `references/workflows/`.
   - Audit de conformité des compétences, cohérence des directives et contrôle SemVer.
 - **Quand NE PAS l'activer :**
-  - Développement applicatif métier (PHP, Blade, JS) ➔ Utiliser `implementer-fonctionnalite`.
-  - Initialisation d'agent pour un projet ➔ Utiliser `agent-setup`.
-  - Documentation d'un package applicatif ➔ Utiliser `documenter-package`.
+  - Développement applicatif métier (PHP, Blade, JS) ➔ Utiliser `feature-dev`.
+  - Initialisation d'agent pour un projet ➔ Utiliser `project-setup`.
+  - Documentation d'un package applicatif ➔ Utiliser `context-generator`.
 
 # 3. Entrées & Ressources à Charger
 - **Priorité 1 :** `.agents/references/anthropic/anthropic-skill-patterns.md` (Motifs officiels Anthropic).
 - **Priorité 2 :** Fichiers normatifs et de règles :
-  - `D:\solicode-lms\skills-workspace\standards\critical-rules.md` (Règles critiques invariables).
-  - `c:\AppServer\solicode-lms\AGENTS.md` et `.agents/rules/*.md` (Directives d'exécution et de style).
-- **Priorité 3 :** `D:\solicode-lms\skills-workspace\templates/generic-skill.md` (Gabarit en 10 rubriques) et `templates/workflow-blueprint.md` (Modèle de flux).
-- **Priorité 4 :** `D:\solicode-lms\skills-workspace\catalog.yaml` et `CHANGELOG.md`.
+  - `.agents/standards/critical-rules.md` (Règles critiques invariables).
+  - `AGENTS.md` et `.agents/rules/*.md` (Directives d'exécution et de style).
+- **Priorité 3 :** `.agents/templates/generic-skill.md` (Gabarit en 10 rubriques) et `.agents/templates/workflow-blueprint.md` (Modèle de flux).
+- **Priorité 4 :** `.agents/hub/catalog.yaml` et `.agents/hub/CHANGELOG.md`.
 
 # 4. Contraintes & Règles Inviolables
 - **Bloc `inspiration` Obligatoire :** Tout skill créé ou modifié DOIT impérativement comporter la métadonnée `inspiration:` dans son frontmatter YAML avec sa source, son plugin de référence et son pattern.
@@ -98,8 +98,8 @@ Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : 
 | Règle locale en conflit avec le standard Hub | Manque d'audit préalable | Auditer standards/critical-rules.md avant de formaliser la règle |
 
 # 10. Exemples Concrets (Few-Shot)
-**Exemple d'invocation A (Skill) :** *"Crée le skill diagnostiquer-et-corriger inspiré de pr-review-toolkit."*
+**Exemple d'invocation A (Skill) :** *"Crée le skill bug-fixer inspiré de pr-review-toolkit."*
 **Comportement :** L'agent charge `anthropic-skill-patterns.md`, extrait le pattern de revue consolidée, rédige les 10 rubriques avec `inspiration: { plugin: "pr-review-toolkit" }`, exécute `validate-skills.js`, et enregistre la compétence dans `catalog.yaml`.
 
 **Exemple d'invocation B (Règle) :** *"Ajoute une règle imposant l'affichage des skills utilisés à chaque fin de message."*
-**Comportement :** L'agent applique le Parcours C de `skill-architect`, rédige `.agents/rules/affichage-skills.md` et `AGENTS.md`, met à jour `critical-rules.md` du Hub, et applique immédiatement le format requis.
+**Comportement :** L'agent applique le Parcours C de `plugin-dev`, rédige `.agents/rules/affichage-skills.md` et `AGENTS.md`, met à jour `critical-rules.md` du Hub, et applique immédiatement le format requis.

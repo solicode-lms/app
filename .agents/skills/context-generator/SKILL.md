@@ -1,5 +1,5 @@
-﻿---
-name: documenter-package
+---
+name: context-generator
 description: Explore un package modulaire dans modules/Pkg, cartographie ses entites, services, filtres et regles Gapp, et produit son fichier AI_CONTEXT.md.
 version: 1.0.0
 inspiration:
@@ -17,12 +17,12 @@ Ce skill explore en profondeur un package modulaire applicatif dans `modules/Pkg
   - Arrivée d'un nouveau package métier nécessitant sa fiche de contexte IA.
   - Mise à jour après ajout de nouvelles tables ou relations dans un module.
 - **Quand NE PAS l'activer :**
-  - Conception ou modification de skills IA ➔ Utiliser `skill-architect`.
-  - Développement applicatif de fonctionnalités ➔ Utiliser `implementer-fonctionnalite`.
-  - Simple analyse temporaire sans production de documentation pérenne ➔ Utiliser `analyser-et-planifier`.
+  - Conception ou modification de skills IA ➔ Utiliser `plugin-dev`.
+  - Développement applicatif de fonctionnalités ➔ Utiliser `feature-dev`.
+  - Simple analyse temporaire sans production de documentation pérenne ➔ Utiliser `architecture-planner`.
 
 # 3. Entrées & Ressources à Charger
-- **Priorité 1 :** `D:\solicode-lms\skills-workspace\templates/module-ai-context.md` (Modèle officiel de fiche).
+- **Priorité 1 :** `.agents/templates/module-ai-context.md` (Modèle officiel de fiche).
 - **Priorité 2 :** Code source réel du package dans `modules/Pkg[Nom]/` :
   - `Models/` (Modèles enfants et sous-dossier `Base/`).
   - `Services/` (Services enfants, sous-dossier `Base/` et sous-dossier `Traits/`).
