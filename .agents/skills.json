@@ -1,12 +1,16 @@
 {
-  "hubPath": "D:\\solicode-lms\\skills-workspace",
-  "skills": [
-    "bug-fixer",
-    "context-generator",
-    "domain-scaffolder",
-    "feature-dev",
-    "planner-dev",
-    "plugin-dev",
-    "project-setup"
-  ]
+    "skills":  {
+                   "global":  [
+                                  "plugin-dev",
+                                  "project-setup"
+                              ],
+                   "local":  [
+                                 "bug-fixer",
+                                 "context-generator",
+                                 "domain-scaffolder",
+                                 "feature-dev",
+                                 "planner-dev"
+                             ]
+               },
+    "hubPath":  "D:/solicode-lms/skills-workspace"
 }
