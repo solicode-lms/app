@@ -13,7 +13,7 @@ Ce skill est l'**orchestrateur universel d'onboarding, d'audit architectural et 
 1. D'amorcer et configurer l'environnement IA sur **n'importe quel type de projet** (application de développement logiciel 3-tiers, projet éditorial de rédaction de cours et d'autoformations web, ou référentiel d'ingénierie pédagogique APC).
 2. D'analyser le cahier des charges pour identifier les livrables cibles et qualifier le profil adéquat (avec dialogue interactif si le projet est vierge ou sans documentation claire).
 3. D'auditer, trier et recycler les anciens dossiers d'agents historiques (`old_agent`, `.agent/`) pour en extraire la mémoire technique et archiver le superflu.
-4. De configurer l'installation sélective granulaire des compétences du Hub Global via des jonctions NTFS unitaires pilotées par `.agents/skills.json`.
+4. De déployer et synchroniser les compétences requises du Hub Global via des copies physiques déterministes (Solution B - Compatible Antigravity IDE) pilotées par `.agents/skills.json`.
 5. D'auditer les besoins spécifiques et le legacy pour **proposer la liste des Skills à créer** (locaux ou candidats au Hub) et des **Rules comportementales à créer** (`.agents/rules/`).
 
 ---
@@ -49,7 +49,7 @@ Ce skill est l'**orchestrateur universel d'onboarding, d'audit architectural et 
 # 4. Contraintes & Règles Inviolables
 - **Non-Destructif sur le Code :** `project-setup` ne modifie jamais le code applicatif du projet ni la structure des bases de données.
 - **Bootstrapping Propre :** Pour un projet vierge sans dossier `.agents/`, utiliser la commande d'amorce `node <hubPath>/skills/project-setup/scripts/manage-skills.cjs bootstrap`.
-- **Installation Sélective Granulaire (Skill-by-Skill) :** Le dossier `.agents/skills/` est physique. Tout élément dans `.agents/` est local par défaut. Seules les compétences partagées sont montées via des jonctions NTFS unitaires pointant vers le Hub.
+- **Installation Sélective Granulaire & Compatibilité IDE :** Le dossier `.agents/skills/` est physique. Tout élément dans `.agents/` est local par défaut. Pour assurer la compatibilité avec Antigravity IDE (qui n'explore pas les liens symboliques ni les jonctions NTFS), les compétences partagées du Hub sont synchronisées sous forme de copies physiques via `node .agents/skills/project-setup/scripts/manage-skills.cjs sync`.
 - **Proposition Structurée Obligatoire :** Tout onboarding ou audit legacy doit obligatoirement expliciter la liste des **Skills à créer** et des **Rules à formaliser**.
 - **Archivage Défensif Obligatoire :** Tout ancien dossier `old_agent` audité doit être déplacé dans `archive/old_agent` pour éviter toute collision cognitive d'agent.
 
@@ -67,9 +67,9 @@ Ce skill est l'**orchestrateur universel d'onboarding, d'audit architectural et 
      - *Invariants comportementaux* ➔ Proposer la création de **Rules** dans `.agents/rules/`.
      - *Connaissances documentaires* ➔ Transférer vers `.agents/references/conventions/` (ou sous-dossiers thématiques).
      - *Outils obsolètes* ➔ Déplacer l'ancien dossier dans `archive/old_agent/` puis assainir.
-4. **Étape 4 : Déploiement Granulaire des Compétences :**
+4. **Étape 4 : Déploiement Granulaire & Synchronisation des Compétences :**
    - Rédiger `.agents/skills.json` avec la liste exacte des compétences globales du Hub et locales requises.
-   - Synchroniser via `node .agents/skills/project-setup/scripts/manage-skills.cjs install`.
+   - Synchroniser physiquement via `node .agents/skills/project-setup/scripts/manage-skills.cjs sync` (assure la visibilité sous Antigravity).
 5. **Étape 5 : Formalisation des Règles, Conventions & Bilan :**
    - Créer les règles retenues dans `.agents/rules/`.
    - Rédiger les conventions propres au projet dans `.agents/references/conventions/project-conventions.md`.
@@ -87,7 +87,7 @@ Ce skill est l'**orchestrateur universel d'onboarding, d'audit architectural et 
 # 7. Format de Sortie & Livrables
 L'agent fournit systématiquement un rapport d'onboarding structuré comprenant :
 - **Typologie & Profil Retenu :** (ex: *Profil 2 — Rédaction de Tutoriels d'Autoformation*).
-- **Compétences Globales Installées :** Tableau des jonctions NTFS unitaires actives vers le Hub.
+- **Compétences Globales Déployées :** Tableau des compétences synchronisées en copie physique (Solution B) depuis le Hub.
 - **Skills Proposés / Créés :** Liste des compétences locales créées dans `.agents/skills/` pour outiller le projet.
 - **Rules Proposées / Créées :** Liste des règles comportementales formalisées dans `.agents/rules/`.
 - **Compétences Exclues :** Liste des skills non pertinents filtrés.
@@ -100,7 +100,7 @@ L'agent fournit systématiquement un rapport d'onboarding structuré comprenant 
 # 8. Contrôle Qualité (Checklist Binaire)
 - [ ] Le projet est-il correctement qualifié selon l'un des 4 profils typologiques ?
 - [ ] En l'absence de cahier des charges, une qualification interactive a-t-elle été engagée ?
-- [ ] Le dossier physique `.agents/skills/` ne contient-il QUE les jonctions et compétences retenues ?
+- [ ] Le dossier physique `.agents/skills/` ne contient-il QUE des dossiers physiques réels (Solution B - compatibles Antigravity) ?
 - [ ] Les compétences hors profil (ex: scaffolding sur projet de tutoriels) sont-elles bien exclues ?
 - [ ] Une proposition claire des Skills et Rules à créer a-t-elle été formalisée ?
 - [ ] L'éventuel dossier `old_agent` a-t-il été recyclé et assaini ?
@@ -111,8 +111,9 @@ L'agent fournit systématiquement un rapport d'onboarding structuré comprenant 
 # 9. Gestion des Erreurs Fréquentes
 | Erreur Typique | Cause | Solution Immédiate |
 | :--- | :--- | :--- |
+| Compétences globales invisibles dans Antigravity | Présence de jonctions NTFS (`mklink /J`) non explorées par l'IDE | Remplacer les jonctions par une synchronisation physique : `node .agents/skills/project-setup/scripts/manage-skills.cjs sync` |
 | Échec de création de la jonction NTFS | Syntaxe incorrecte ou tentative de symlink standard | Utiliser `cmd /c mklink /J <dest> <src>` (ne requiert pas de droits administrateur) |
-| Pollution de compétences non pertinentes | Jonction globale posée sur tout le dossier `skills/` | Supprimer la jonction globale et installer unitairement via `manage-skills.cjs install` |
+| Pollution de compétences non pertinentes | Jonction globale posée sur tout le dossier `skills/` | Supprimer la jonction globale et synchroniser sélectivement via `manage-skills.cjs sync` |
 | Conflit d'attention de l'agent | Présence simultanée d'`old_agent` et du nouveau `.agents/` | Déplacer immédiatement l'ancien dossier dans `archive/old_agent/` |
 
 ---

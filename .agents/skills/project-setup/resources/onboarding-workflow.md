@@ -20,7 +20,7 @@ node D:\solicode-lms\skills-workspace\skills\project-setup\scripts\manage-skills
 
 **Actions automatiques réalisées par la commande :**
 1. Création de l'arborescence `.agents/skills/`.
-2. Création de la jonction NTFS unitaire `.agents/skills/project-setup` pointant vers `D:\solicode-lms\skills-workspace\skills\project-setup`.
+2. Déploiement physique du skill d'amorce `.agents/skills/project-setup` (Solution B - Compatible Antigravity).
 3. Création du manifeste initial `.agents/skills.json` configuré avec `["project-setup"]`.
 
 ---
@@ -32,8 +32,8 @@ Si Node.js n'est pas invoqué directement :
 # 1. Créer le dossier d'accueil
 New-Item -ItemType Directory -Force -Path ".agents\skills"
 
-# 2. Poser la jonction NTFS du skill d'amorce
-cmd /c mklink /J ".agents\skills\project-setup" "D:\solicode-lms\skills-workspace\skills\project-setup"
+# 2. Copier physiquement le skill d'amorce (Solution B - Compatible Antigravity)
+Copy-Item -Path "D:\solicode-lms\skills-workspace\skills\project-setup" -Destination ".agents\skills\project-setup" -Recurse -Force
 ```
 
 ---
@@ -70,7 +70,7 @@ sequenceDiagram
     end
     Agent->>Local: Génération du manifeste .agents/skills.json
     Agent->>Local: Exécution de node .agents/skills/project-setup/scripts/manage-skills.cjs install
-    Local->>Hub: Création des jonctions NTFS unitaires pour les skills choisis
+    Local->>Hub: Déploiement physique des compétences sélectionnées (Solution B)
     Agent->>Local: Génération de .agents/references/conventions/project-conventions.md
     Agent->>Dev: Présentation du Rapport d'Onboarding & Checklist
 ```
@@ -93,14 +93,31 @@ Si un dossier `old_agent` ou `.agent/` non normé préexiste :
 - Transférer les règles et fiches techniques vers `.agents/references/conventions/` ou sous-dossiers thématiques de `references/`.
 - Déplacer l'ancien dossier dans `archive/old_agent/`.
 
-### Étape 4 : Déploiement Granulaire des Compétences
+### Étape 4 : Déploiement Granulaire & Synchronisation des Compétences
 - Rédiger le fichier `.agents/skills.json` avec la liste exacte des skills retenus pour le profil.
-- Exécuter la commande de synchronisation :
+- Exécuter la commande de synchronisation physique :
   ```bash
-  node .agents/skills/project-setup/scripts/manage-skills.cjs install
+  node .agents/skills/project-setup/scripts/manage-skills.cjs sync
   ```
-- Vérifier que chaque skill sélectionné est bien lié sous forme de jonction unitaire sans pollution des compétences hors profil.
+- *Remarque Antigravity :* Antigravity ne suivant pas les jonctions NTFS, la synchronisation physique (`sync`) garantit que chaque compétence globale du Hub est déployée sous forme de dossier physique autonome tout en conservant ses dépendances `.agents/references/` à jour.
 
 ### Étape 5 : Formalisation du Cadre Local & Bilan
 - Rédiger `.agents/references/conventions/project-conventions.md` récapitulant les directives propres au projet.
 - Présenter le rapport d'onboarding récapitulant les compétences actives, exclues, et la marche à suivre.
+
+---
+
+## 4. Maintenance Continue : Synchronisation des Compétences
+
+Au fil de la vie du projet, lorsque de nouvelles améliorations sont publiées dans le Hub global (`skills-workspace`) :
+
+```powershell
+# Récupérer l'ensemble des compétences globales (Hub -> Projet)
+node .agents/skills/project-setup/scripts/manage-skills.cjs pull
+
+# Pousser l'ensemble des compétences globales vers le Hub (Projet -> Hub)
+node .agents/skills/project-setup/scripts/manage-skills.cjs push
+
+# Pousser ou mettre à jour une compétence spécifique
+node .agents/skills/project-setup/scripts/manage-skills.cjs push <nom-du-skill>
+```

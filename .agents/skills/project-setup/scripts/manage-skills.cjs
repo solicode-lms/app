@@ -6,15 +6,18 @@
  *
  * Architecture :
  * - Local par défaut (Dossier physique dans .agents/skills/)
- * - Global par lien symbolique (Jonction NTFS vers skills-workspace)
+ * - Global par synchronisation physique (Solution B - Compatible Antigravity IDE)
  * - Promotion dépendancielle en cascade (promote)
  * - Incubation / détachement local (localize)
- * - Amorce de projet vierge (bootstrap)
+ * - Amorce de projet vierge (bootstrap avec copie physique)
+ * - Synchronisation continue (sync)
  *
  * Usage :
  *   node .agents/skills/project-setup/scripts/manage-skills.cjs list
+ *   node .agents/skills/project-setup/scripts/manage-skills.cjs pull [skill-name]     (Hub -> Projet local)
+ *   node .agents/skills/project-setup/scripts/manage-skills.cjs push [skill-name]     (Projet local -> Hub)
  *   node .agents/skills/project-setup/scripts/manage-skills.cjs install
- *   node .agents/skills/project-setup/scripts/manage-skills.cjs promote <skill-name>
+ *   node .agents/skills/project-setup/scripts/manage-skills.cjs promote [skill-name]  (Alias de push)
  *   node .agents/skills/project-setup/scripts/manage-skills.cjs localize <skill-name>
  *   node .agents/skills/project-setup/scripts/manage-skills.cjs bootstrap [hub-path]
  */
@@ -70,19 +73,24 @@ if (command === 'bootstrap' || command === 'init') {
         if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     });
 
-    // Lier le skill project-setup comme compétence d'amorce globale
+    // Déployer le skill project-setup comme compétence d'amorce physique (Solution B - Compatible Antigravity)
     const targetSetupSkill = path.join(targetSkills, 'project-setup');
     const hubSetupSkill = path.join(hubSkills, 'project-setup');
-    if (!fs.existsSync(targetSetupSkill) && fs.existsSync(hubSetupSkill)) {
+    if (fs.existsSync(hubSetupSkill)) {
         try {
-            if (process.platform === 'win32') {
-                execSync(`cmd /c mklink /J "${targetSetupSkill}" "${hubSetupSkill}"`, { stdio: 'pipe' });
-            } else {
-                fs.symlinkSync(hubSetupSkill, targetSetupSkill, 'dir');
+            // Nettoyage si c'était une ancienne jonction
+            if (fs.existsSync(targetSetupSkill)) {
+                try {
+                    if (fs.lstatSync(targetSetupSkill).isSymbolicLink()) {
+                        if (process.platform === 'win32') execSync(`cmd /c rmdir "${targetSetupSkill}"`, { stdio: 'pipe' });
+                        else fs.unlinkSync(targetSetupSkill);
+                    }
+                } catch {}
             }
-            console.log('🔗 Jonction NTFS créée : .agents/skills/project-setup -> Hub (Global)');
+            fs.cpSync(hubSetupSkill, targetSetupSkill, { recursive: true, force: true });
+            console.log('📋 Copie physique créée : .agents/skills/project-setup (Solution B - Antigravity ready)');
         } catch (e) {
-            console.warn('⚠️ Avertissement jonction project-setup :', e.message);
+            console.warn('⚠️ Avertissement déploiement project-setup :', e.message);
         }
     }
 
@@ -197,10 +205,12 @@ switch (command) {
             console.log(`  - ${skill.padEnd(25)} [${statusLabel}]`);
         });
 
-        console.log('\n--- 🔗 Compétences Globales (Liens symboliques vers le Hub) :');
+        console.log('\n--- 🌐 Compétences Globales (Gérées via le Hub) :');
         (config.skills.global || []).forEach(skill => {
             const status = getSkillStatus(skill);
-            const statusLabel = status.exists ? (status.isGlobal ? '✅ Actif (Junction 🔗)' : '⚠️ Configuré global mais dossier physique') : '❌ Non lié';
+            const statusLabel = status.exists
+                ? (status.isGlobal ? '🔗 Actif (Jonction NTFS)' : '✅ Actif (Physique - Compatible Antigravity)')
+                : '❌ Non installé / Exécuter sync';
             console.log(`  - ${skill.padEnd(25)} [${statusLabel}]`);
         });
 
@@ -220,80 +230,70 @@ switch (command) {
         break;
     }
 
+    case 'push':
     case 'promote': {
-        const skillName = args[1];
-        if (!skillName) {
-            console.error('❌ Usage : node manage-skills.cjs promote <nom-du-skill>');
-            process.exit(1);
+        const targetSkill = args[1];
+        const skillsToPush = targetSkill
+            ? [targetSkill]
+            : (config.skills.global || []);
+
+        if (skillsToPush.length === 0) {
+            console.log(`ℹ️ Aucune compétence globale à pousser vers le Hub.`);
+            break;
         }
 
-        const localSkillPath = path.join(skillsDir, skillName);
-        if (!fs.existsSync(localSkillPath)) {
-            console.error(`❌ Le skill local n'existe pas dans : ${localSkillPath}`);
-            process.exit(1);
-        }
+        console.log(`\n🚀 [PUSH / PROMOTION VERS LE HUB GLOBAL] (Projet local ➔ Hub)`);
+        console.log(`📂 Projet source : ${skillsDir}`);
+        console.log(`📦 Hub cible     : ${hubSkillsDir}\n`);
 
-        const status = getSkillStatus(skillName);
-        if (status.isGlobal) {
-            console.log(`ℹ️ Le skill [${skillName}] est DÉJÀ global (lien symbolique vers le Hub).`);
-            process.exit(0);
-        }
-
-        console.log(`\n🚀 [PROMOTION DÉPENDANCIELLE EN CASCADE] : ${skillName}`);
-        console.log(`   Transfert du Local vers le Global (Hub)...\n`);
-
-        // Étape 1 : Analyser et promouvoir les ressources partagées requises
-        const dependencies = extractDependenciesFromSkill(localSkillPath);
-        if (dependencies.length > 0) {
-            console.log(`🔍 Dépendances de références détectées (${dependencies.length}) :`);
-            dependencies.forEach(dep => {
-                const localRef = path.join(referencesDir, dep);
-                const hubRef = path.join(hubReferencesDir, dep);
-
-                if (fs.existsSync(localRef)) {
-                    const hubRefDir = path.dirname(hubRef);
-                    if (!fs.existsSync(hubRefDir)) fs.mkdirSync(hubRefDir, { recursive: true });
-
-                    if (!fs.existsSync(hubRef)) {
-                        fs.copyFileSync(localRef, hubRef);
-                        console.log(`  🔗 [CASCADE] Référence partagée promue vers le Hub : references/${dep}`);
-                    } else {
-                        console.log(`  ℹ️ Référence partagée déjà présente dans le Hub : references/${dep}`);
-                    }
-                }
-            });
-        }
-
-        // Étape 2 : Copier le skill vers le Hub
-        const hubSkillPath = path.join(hubSkillsDir, skillName);
-        if (!fs.existsSync(hubSkillsDir)) fs.mkdirSync(hubSkillsDir, { recursive: true });
-        
-        console.log(`📦 Déploiement physique dans le Hub : ${hubSkillPath}`);
-        fs.cpSync(localSkillPath, hubSkillPath, { recursive: true });
-
-        // Étape 3 : Supprimer le dossier local et le remplacer par une jonction NTFS
-        fs.rmSync(localSkillPath, { recursive: true, force: true });
-        try {
-            if (process.platform === 'win32') {
-                execSync(`cmd /c mklink /J "${localSkillPath}" "${hubSkillPath}"`, { stdio: 'pipe' });
-            } else {
-                fs.symlinkSync(hubSkillPath, localSkillPath, 'dir');
+        skillsToPush.forEach(skillName => {
+            const localSkillPath = path.join(skillsDir, skillName);
+            if (!fs.existsSync(localSkillPath)) {
+                console.warn(`⚠️ Compétence locale introuvable : ${localSkillPath}`);
+                return;
             }
-            console.log(`🔗 Jonction NTFS créée : .agents/skills/${skillName} -> Hub`);
-        } catch (e) {
-            console.error(`❌ Échec de création de la jonction :`, e.message);
-            process.exit(1);
-        }
 
-        // Étape 4 : Mettre à jour skills.json
-        config.skills.local = (config.skills.local || []).filter(s => s !== skillName);
-        if (!config.skills.global) config.skills.global = [];
-        if (!config.skills.global.includes(skillName)) {
-            config.skills.global.push(skillName);
-        }
+            console.log(`📤 Poussée de [${skillName}] vers le Hub...`);
+
+            // Étape 1 : Analyser et promouvoir les ressources partagées requises
+            const dependencies = extractDependenciesFromSkill(localSkillPath);
+            if (dependencies.length > 0) {
+                dependencies.forEach(dep => {
+                    const localRef = path.join(referencesDir, dep);
+                    const hubRef = path.join(hubReferencesDir, dep);
+
+                    if (fs.existsSync(localRef)) {
+                        const hubRefDir = path.dirname(hubRef);
+                        if (!fs.existsSync(hubRefDir)) fs.mkdirSync(hubRefDir, { recursive: true });
+
+                        fs.copyFileSync(localRef, hubRef);
+                        console.log(`  └─ 🔗 Référence partagée mise à jour dans le Hub : references/${dep}`);
+                    }
+                });
+            }
+
+            // Étape 2 : Copier le skill vers le Hub
+            const hubSkillPath = path.join(hubSkillsDir, skillName);
+            if (!fs.existsSync(hubSkillsDir)) fs.mkdirSync(hubSkillsDir, { recursive: true });
+            
+            fs.cpSync(localSkillPath, hubSkillPath, { recursive: true, force: true });
+            console.log(`  └─ 📦 Déploiement physique dans le Hub : ${hubSkillPath}`);
+
+            // Étape 3 : Conserver le dossier local comme copie physique (Solution B - Compatible Antigravity)
+            console.log(`  └─ 📋 Copie physique maintenue dans le projet local : .agents/skills/${skillName}`);
+
+            // Étape 4 : Mettre à jour skills.json si c'était un skill local
+            if ((config.skills.local || []).includes(skillName)) {
+                config.skills.local = config.skills.local.filter(s => s !== skillName);
+                if (!config.skills.global) config.skills.global = [];
+                if (!config.skills.global.includes(skillName)) {
+                    config.skills.global.push(skillName);
+                }
+            }
+        });
+
         saveConfig(config);
-
-        console.log(`\n🎉 Félicitations ! Le skill [${skillName}] et ses dépendances sont désormais GLOBAUX.`);
+        console.log(`\n🎉 Poussée vers le Hub terminée avec succès !`);
         break;
     }
 
@@ -341,7 +341,9 @@ switch (command) {
     }
 
     case 'install': {
-        console.log(`\n🔄 Synchronisation des compétences déclarées...\n`);
+        console.log(`\n📦 [INSTALLATION DES COMPÉTENCES (SOLUTION B - PHYSIQUE)]`);
+        console.log(`📦 Hub source   : ${hubSkillsDir}`);
+        console.log(`📂 Projet local : ${skillsDir}\n`);
 
         if (!fs.existsSync(skillsDir)) fs.mkdirSync(skillsDir, { recursive: true });
 
@@ -349,23 +351,48 @@ switch (command) {
             const dest = path.join(skillsDir, skill);
             const src = path.join(hubSkillsDir, skill);
 
-            if (!fs.existsSync(dest)) {
-                if (fs.existsSync(src)) {
+            if (!fs.existsSync(src)) {
+                console.warn(`⚠️ Compétence globale introuvable dans le Hub : ${skill}`);
+                return;
+            }
+
+            let isJunction = false;
+            if (fs.existsSync(dest)) {
+                try {
+                    isJunction = fs.lstatSync(dest).isSymbolicLink();
+                } catch {}
+            }
+
+            // Solution B : Si absent ou si c'est une jonction NTFS (incompatible Antigravity), déployer en copie physique
+            if (!fs.existsSync(dest) || isJunction) {
+                if (isJunction) {
                     try {
-                        if (process.platform === 'win32') {
-                            execSync(`cmd /c mklink /J "${dest}" "${src}"`, { stdio: 'pipe' });
-                        } else {
-                            fs.symlinkSync(src, dest, 'dir');
-                        }
-                        console.log(`🔗 Jonction créée (Global) : ${skill}`);
-                    } catch (e) {
-                        console.error(`❌ Échec liaison pour ${skill} :`, e.message);
-                    }
-                } else {
-                    console.warn(`⚠️ Compétence globale introuvable dans le Hub : ${skill}`);
+                        if (process.platform === 'win32') execSync(`cmd /c rmdir "${dest}"`, { stdio: 'pipe' });
+                        else fs.unlinkSync(dest);
+                        console.log(`🧹 Ancienne jonction convertie en dossier physique : ${skill}`);
+                    } catch (e) {}
                 }
+                fs.cpSync(src, dest, { recursive: true, force: true });
+                console.log(`✅ Déployé (Copie physique Solution B) : ${skill}`);
             } else {
-                console.log(`✅ Déjà monté (Global) : ${skill}`);
+                console.log(`✅ Déjà présent (Dossier physique) : ${skill}`);
+            }
+
+            // Installer également les références associées
+            const dependencies = extractDependenciesFromSkill(src);
+            if (dependencies.length > 0) {
+                dependencies.forEach(dep => {
+                    const hubRef = path.join(hubReferencesDir, dep);
+                    const localRef = path.join(referencesDir, dep);
+                    if (fs.existsSync(hubRef)) {
+                        const localRefDir = path.dirname(localRef);
+                        if (!fs.existsSync(localRefDir)) fs.mkdirSync(localRefDir, { recursive: true });
+                        if (!fs.existsSync(localRef)) {
+                            fs.copyFileSync(hubRef, localRef);
+                            console.log(`   └─ 🔗 Référence installée : references/${dep}`);
+                        }
+                    }
+                });
             }
         });
 
@@ -378,12 +405,76 @@ switch (command) {
             }
         });
 
-        console.log('\n✨ Synchronisation terminée avec succès.');
+        console.log('\n✨ Installation terminée avec succès (Toutes les compétences sont prêtes pour Antigravity).');
+        break;
+    }
+
+    case 'sync':
+    case 'update':
+    case 'pull': {
+        const targetSkill = args[1];
+        console.log(`\n🔄 [SYNCHRONISATION DES COMPÉTENCES DEPUIS LE HUB]`);
+        console.log(`📦 Hub source   : ${hubSkillsDir}`);
+        console.log(`📂 Projet local : ${skillsDir}\n`);
+
+        const skillsToSync = targetSkill
+            ? [targetSkill]
+            : (config.skills.global || []);
+
+        if (skillsToSync.length === 0) {
+            console.log(`ℹ️ Aucune compétence globale à synchroniser.`);
+            break;
+        }
+
+        skillsToSync.forEach(skill => {
+            const src = path.join(hubSkillsDir, skill);
+            const dest = path.join(skillsDir, skill);
+
+            if (!fs.existsSync(src)) {
+                console.warn(`⚠️ Compétence [${skill}] introuvable dans le Hub : ${src}`);
+                return;
+            }
+
+            // Si c'est une jonction/symlink existant, le supprimer proprement pour poser un dossier physique
+            if (fs.existsSync(dest)) {
+                try {
+                    const stat = fs.lstatSync(dest);
+                    if (stat.isSymbolicLink()) {
+                        if (process.platform === 'win32') {
+                            execSync(`cmd /c rmdir "${dest}"`, { stdio: 'pipe' });
+                        } else {
+                            fs.unlinkSync(dest);
+                        }
+                    }
+                } catch (e) {}
+            }
+
+            // Copie physique intégrale (compatible Antigravity IDE)
+            fs.cpSync(src, dest, { recursive: true, force: true });
+            console.log(`✅ Synchronisé (Copie physique) : ${skill}`);
+
+            // Synchroniser également les dépendances de références du Hub
+            const dependencies = extractDependenciesFromSkill(src);
+            if (dependencies.length > 0) {
+                dependencies.forEach(dep => {
+                    const hubRef = path.join(hubReferencesDir, dep);
+                    const localRef = path.join(referencesDir, dep);
+                    if (fs.existsSync(hubRef)) {
+                        const localRefDir = path.dirname(localRef);
+                        if (!fs.existsSync(localRefDir)) fs.mkdirSync(localRefDir, { recursive: true });
+                        fs.copyFileSync(hubRef, localRef);
+                        console.log(`   └─ 🔗 Référence mise à jour : references/${dep}`);
+                    }
+                });
+            }
+        });
+
+        console.log(`\n✨ Synchronisation terminée avec succès ! Compétences reconnues par Antigravity.\n`);
         break;
     }
 
     default:
         console.log(`Commande inconnue : ${command}`);
-        console.log('Commandes disponibles : list, promote, localize, install, bootstrap');
+        console.log('Commandes disponibles : list, pull (sync), push (promote), localize, install, bootstrap');
         process.exit(1);
 }
