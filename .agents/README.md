@@ -22,23 +22,24 @@ Pour le guide pas-à-pas complet, consultez :
 | **5** | **Développement Service** | *« Implémente le hook afterCreateRules pour notifier les formateurs »* | [`feature-dev`](skills/feature-dev/SKILL.md) |
 | **6** | **Personnalisation UI** | *« Crée une vue custom pour afficher un badge de statut dans TableUI »* | [`feature-dev`](skills/feature-dev/SKILL.md) |
 | **7** | **Correction de bug log** | *« Analyse la dernière erreur dans laravel.log et applique le fix »* | [`bug-fixer`](skills/bug-fixer/SKILL.md) |
-| **8** | **Création de TP (APC)** | *« Conçois un TP guidé pour l'assignation de tâches avec grille critériée »* | [`workshop-builder`](skills/workshop-builder/SKILL.md) |
-| **9** | **Tutoriel technique** | *« Rédige un tutoriel pas-à-pas pour créer un filtre TableUI »* | [`tutorial-writer`](skills/tutorial-writer/SKILL.md) |
-| **10** | **Évolution d'une règle** | *« Ajoute une règle interdisant les requêtes directes allQuery »* | [`plugin-dev`](skills/plugin-dev/SKILL.md) |
+| **8** | **Évolution d'une règle** | *« Ajoute une règle interdisant les requêtes directes allQuery »* | [`plugin-dev`](skills/plugin-dev/SKILL.md) |
+
+*(Note : les compétences pédagogiques `tutorial-writer` et `workshop-builder` du Hub sont exclues de ce projet via `.agents/skills.json`).*
 
 ---
 
 ## 📁 Architecture des Dossiers `.agents/`
 
-Toutes les ressources de l'agent sont intégrées localement sous `.agents/` avec zéro duplication :
+Toutes les ressources de l'agent sont intégrées sous `.agents/` avec installation sélective :
 
 ```
 .agents/
-├── skills/       ➔ 9 compétences actives (feature-dev, bug-fixer, etc.)
-├── references/   ➔ 13 fiches de référence (3-tiers, Gapp, TableUI, Widgets, Usage)
+├── skills.json   ➔ Manifeste déclaratif des compétences actives
+├── skills/       ➔ 7 compétences installées (feature-dev, bug-fixer, planner-dev...)
+├── references/   ➔ Fiches de référence (3-tiers, Gapp, TableUI, Widgets, Usage)
 ├── standards/    ➔ critical-rules.md (règles absolues), principes généraux
 ├── templates/    ➔ Gabarits normés de compétences et contextes
-├── scripts/      ➔ validate-skills.js, check-references.js
+├── scripts/      ➔ manage-skills.cjs, validate-skills.cjs, check-references.cjs
 ├── tests/        ➔ Évaluations et fiches d'incidents (feedbacks/INC-xxx.yaml)
 ├── local/        ➔ Conventions métier locales Solicode LMS
 └── rules/        ➔ Directives comportementales (affichage-skills.md)

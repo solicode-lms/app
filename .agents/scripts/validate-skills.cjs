@@ -1,4 +1,4 @@
-﻿/**
+/**
  * validate-skills.js — Script Node.js de validation statique déterministe
  * Vérifie :
  * 1. La présence et validité de catalog.yaml
@@ -9,20 +9,27 @@
 const fs = require('fs');
 const path = require('path');
 
-const rootDir = path.resolve(__dirname, '..');
-const catalogPath = path.join(rootDir, 'catalog.yaml');
-const skillsDir = path.join(rootDir, '.agents', 'skills');
+const agentsDir = path.resolve(__dirname, '..');
+const projectDir = path.resolve(agentsDir, '..');
+const skillsDir = path.join(agentsDir, 'skills');
 
-console.log('🔍 [VALIDATION SKILLS] Analyse du Hub Global :', rootDir);
+// Recherche du catalogue (Hub ou racine)
+const possibleCatalogPaths = [
+    path.join(projectDir, 'catalog.yaml'),
+    path.join(agentsDir, 'catalog.yaml'),
+    'D:\\solicode-lms\\skills-workspace\\catalog.yaml'
+];
+const catalogPath = possibleCatalogPaths.find(p => fs.existsSync(p));
+
+console.log('🔍 [VALIDATION SKILLS] Analyse du répertoire :', skillsDir);
 
 let errorsCount = 0;
 
 // 1. Vérification de catalog.yaml
-if (!fs.existsSync(catalogPath)) {
-    console.error('❌ ERREUR : catalog.yaml introuvable à la racine du Hub !');
-    errorsCount++;
+if (!catalogPath) {
+    console.warn('⚠️ AVERTISSEMENT : catalog.yaml introuvable (mode projet autonome).');
 } else {
-    console.log('✅ catalog.yaml détecté.');
+    console.log(`✅ catalog.yaml détecté (${catalogPath}).`);
 }
 
 // 2. Vérification des Skills

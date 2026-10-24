@@ -28,17 +28,19 @@ Ce skill est le point d'entrée pour initialiser et configurer l'environnement d
 
 # 4. Contraintes & Règles Inviolables
 - **Non-Destructif :** Ne jamais écraser une configuration locale `.agents/local/` existante sans confirmation explicite.
-- **Principe d'Intégration Locale par Jonctions Dossier par Dossier :** Chaque dossier partagé nécessaire à l'agent (`skills`, `references`, `standards`, `templates`, `scripts`, `tests`) doit avoir sa propre jonction NTFS sous `.agents/`. **Interdiction formelle de lier la racine complète du Hub**, afin d'éliminer toute redondance ou duplication de fichiers dans le projet.
+- **Principe d'Installation Sélective des Compétences (Skill-by-Skill) :** Le répertoire `.agents/skills/` doit impérativement être un **dossier physique local**. **Interdiction formelle de lier l'ensemble du dossier skills en une seule jonction globale**, afin de ne pas forcer l'inclusion de compétences non pertinentes (ex: compétences pédagogiques sur un projet applicatif). Chaque compétence retenue est déclarée dans `.agents/skills.json` et installée unitairement via `manage-skills.cjs` (jonction NTFS individuelle ou copie). Les dossiers de références transversales (`references`, `standards`, `templates`, `scripts`, `tests`) conservent leurs jonctions directes vers le Hub.
 
 # 5. Procédure Pas-à-Pas (Workflow de Setup & Audit)
-1. **Étape 1 : Diagnostic de l'Environnement Projet :**
-   - Vérifier la présence du dossier `.agents/` et tester si les jonctions NTFS existent individuellement (`.agents/skills`, `.agents/references`, `.agents/standards`, `.agents/templates`, `.agents/scripts`, `.agents/tests`).
-   - Si des liens sont absents, poser les jonctions NTFS dossier par dossier via `cmd /c mklink /J`.
+1. **Étape 1 : Diagnostic de l'Environnement & Installation Sélective :**
+   - Vérifier la présence du dossier physique `.agents/skills/` et du manifeste déclaratif `.agents/skills.json`.
+   - S'il est absent, créer `.agents/skills.json` selon le profil du projet (ex: profil développement vs profil pédagogique).
+   - Synchroniser les compétences unitaires via `node .agents/scripts/manage-skills.cjs install`.
+   - Poser les jonctions NTFS pour les dossiers de ressources partagées (`references`, `standards`, `templates`, `scripts`, `tests`).
 2. **Étape 2 : Analyse de la Stack & des Cahiers des Charges :**
    - Identifier la stack technique (Laravel, Alpine.js, Vue, MySQL, Gapp).
    - Examiner les documents présents dans `cahiers-charges/` pour identifier les besoins fonctionnels et pédagogiques.
-3. **Étape 3 : Recommandation des Skills du Hub :**
-   - Mapper les besoins avec les compétences existantes du catalogue `catalog.yaml` (`architecture-planner`, `feature-dev`, `tutorial-writer`, etc.).
+3. **Étape 3 : Recommandation & Filtrage des Skills :**
+   - Mapper les besoins avec les compétences existantes du catalogue `catalog.yaml` (`planner-dev`, `feature-dev`, etc.). Exclure les compétences hors de portée du projet.
 4. **Étape 4 : Détection des Manques & Feuille de Route :**
    - Identifier si un nouveau flux de travail doit être documenté ou si un nouveau skill doit être conçu par `plugin-dev`.
    - Proposer la création de fiches `AI_CONTEXT.md` pour les modules concernés via `context-generator`.
