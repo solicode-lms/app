@@ -1,4 +1,4 @@
-﻿/**
+/**
  * check-references.js — Détecteur de liens cassés dans les références Markdown
  */
 
@@ -27,7 +27,13 @@ function scanDir(dir) {
             for (const match of matches) {
                 const targetLink = match[2];
                 if (!targetLink.startsWith('http') && !targetLink.startsWith('#')) {
-                    const resolvedTarget = path.resolve(path.dirname(fullPath), targetLink);
+                    let resolvedTarget;
+                    if (targetLink.startsWith('file:')) {
+                        const rawPath = targetLink.replace(/^file:\/\/\/?/, '');
+                        resolvedTarget = path.resolve(decodeURIComponent(rawPath));
+                    } else {
+                        resolvedTarget = path.resolve(path.dirname(fullPath), targetLink);
+                    }
                     if (!fs.existsSync(resolvedTarget)) {
                         console.warn(`⚠️ Lien mort dans ${path.relative(rootDir, fullPath)} vers ${targetLink}`);
                     }
