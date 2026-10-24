@@ -164,7 +164,9 @@ function extractDependenciesFromSkill(skillDir) {
 
 const config = loadConfig();
 const hubRoot = config.hubPath;
-const hubSkillsDir = path.join(hubRoot, '.agents', 'skills');
+const hubSkillsDir = fs.existsSync(path.join(hubRoot, 'skills'))
+    ? path.join(hubRoot, 'skills')
+    : path.join(hubRoot, '.agents', 'skills');
 const hubReferencesDir = path.join(hubRoot, 'references');
 
 switch (command) {
