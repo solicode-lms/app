@@ -17,7 +17,7 @@ Pour le guide pas-à-pas complet, consultez :
 | :--- | :--- | :--- | :--- |
 | **1** | **Audit & Setup initial** | *« Initialise l'agent pour ce projet »* | [`project-setup`](skills/project-setup/SKILL.md) |
 | **2** | **Contexte d'un package** | *« Génère le contexte IA pour modules/PkgFormation »* | [`context-generator`](skills/context-generator/SKILL.md) |
-| **3** | **Étude d'impact préalable** | *« Analyse l'impact de l'ajout d'une table d'émargement /plan »* | [`architecture-planner`](skills/architecture-planner/SKILL.md) |
+| **3** | **Étude d'impact préalable** | *« Analyse l'impact de l'ajout d'une table d'émargement /plan »* | [`planner-dev`](skills/planner-dev/SKILL.md) |
 | **4** | **Nouvelle entité BDD** | *« Crée l'entité SessionFormation dans PkgFormation »* | [`domain-scaffolder`](skills/domain-scaffolder/SKILL.md) |
 | **5** | **Développement Service** | *« Implémente le hook afterCreateRules pour notifier les formateurs »* | [`feature-dev`](skills/feature-dev/SKILL.md) |
 | **6** | **Personnalisation UI** | *« Crée une vue custom pour afficher un badge de statut dans TableUI »* | [`feature-dev`](skills/feature-dev/SKILL.md) |

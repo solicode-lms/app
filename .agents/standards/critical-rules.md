@@ -1,4 +1,4 @@
-﻿---
+---
 trigger: always_on
 priority: 1
 ---
@@ -19,6 +19,7 @@ Ces règles sont **INVIOLABLES**. Elles garantissent la stabilité, la sécurit�
   - Ne **JAMAIS** modifier un fichier situé dans un dossier `Base/` ou dont le nom commence par `Base` (ex: `BaseFiliere.php`, `BaseFiliereService.php`). Ces fichiers sont 100 % générés et écrasés par Gapp.
   - **Classes Enfants PHP (`[Model].php`, `[Model]Service.php`) :** L'agent y injecte le code métier. Si un fichier enfant PHP contient la mention `// Ce fichier est maintenu par ESSARRAJ Fouad`, l'agent **doit la supprimer** pour y insérer son code métier.
   - **Fichiers Vues (Blade) :** Si un fichier Blade (`.blade.php`) contient la mention `{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}`, l'agent a l'**INTERDICTION** de le modifier directement. Il doit utiliser le sous-dossier `custom/` (ex: `custom/_table.blade.php`), ou documenter une issue dans `cahiers-charges/PkgGapp/` pour enrichir le générateur Gapp.
+- **Dossier `db_schemas/` (LIGNE ROUGE) :** Ne **JAMAIS** lire ni modifier de fichiers dans le dossier `db_schemas/`. Ce dossier est exclusivement réservé au moteur interne de Gapp.
 - **Attributs `$fillable` :** Ne jamais surcharger `$fillable` manuellement dans les classes enfants Eloquent : la liste est gérée par Gapp dans les classes `Base/`.
 - **Méthodes CRUD dans les Contrôleurs :** Ne jamais surcharger entièrement `create()`, `edit()` ou `show()`. Utiliser le pattern Template Method : surcharger `dataForCreateView()`, `dataForEditView()`, `dataForShowView()`.
 

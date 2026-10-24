@@ -1,5 +1,5 @@
-﻿---
-name: architecture-planner
+---
+name: planner-dev
 description: Explore un projet ou un module, analyse limpact architectural dune demande et produit un plan daction etape par etape sans modifier le code applicatif.
 version: 1.0.0
 inspiration:

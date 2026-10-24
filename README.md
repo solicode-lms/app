@@ -24,7 +24,7 @@ php artisan serve
 
 Le projet intègre un écosystème d'Agent IA normalisé selon les spécifications d'Anthropic et doté de **9 compétences spécialisées** :
 
-- **Conception & Dév :** [`feature-dev`](.agents/skills/feature-dev/SKILL.md), [`domain-scaffolder`](.agents/skills/domain-scaffolder/SKILL.md), [`architecture-planner`](.agents/skills/architecture-planner/SKILL.md), [`bug-fixer`](.agents/skills/bug-fixer/SKILL.md).
+- **Conception & Dév :** [`feature-dev`](.agents/skills/feature-dev/SKILL.md), [`domain-scaffolder`](.agents/skills/domain-scaffolder/SKILL.md), [`planner-dev`](.agents/skills/planner-dev/SKILL.md), [`bug-fixer`](.agents/skills/bug-fixer/SKILL.md).
 - **Pédagogie APC :** [`workshop-builder`](.agents/skills/workshop-builder/SKILL.md), [`tutorial-writer`](.agents/skills/tutorial-writer/SKILL.md).
 - **Gouvernance & Contexte :** [`context-generator`](.agents/skills/context-generator/SKILL.md), [`project-setup`](.agents/skills/project-setup/SKILL.md), [`plugin-dev`](.agents/skills/plugin-dev/SKILL.md).
 

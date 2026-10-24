@@ -26,4 +26,15 @@ class AffectationProjetService extends BaseAffectationProjetService
     protected array $index_with_relations = [
         'evaluateurs'
     ];
+
+    public function createInstance(array $data = [])
+    {
+        $instance = parent::createInstance($data);
+
+        if (!isset($data['seuil_blocage_minutes']) && is_null($instance->seuil_blocage_minutes)) {
+            $instance->seuil_blocage_minutes = \Modules\PkgRealisationProjets\Models\AffectationProjet::getMoyenneSeuilBlocage();
+        }
+
+        return $instance;
+    }
 }

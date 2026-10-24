@@ -14,3 +14,5 @@
 - Ne jamais toucher aux classes dans `Base/`.
 - Respecter les verrous `ESSARRAJ Fouad` (supprimer dans classes enfants PHP pour étendre, ne jamais toucher dans Blade et utiliser `custom/`).
 - Ne jamais exécuter de commandes destructives ou `php artisan migrate` en aveugle.
+- Ne jamais lire ni modifier dans le dossier `db_schemas/` (réservé exclusivement au générateur Gapp).
+

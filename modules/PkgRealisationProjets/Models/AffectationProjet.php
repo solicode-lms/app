@@ -34,4 +34,16 @@ class AffectationProjet extends BaseAffectationProjet
 
         return $this->projet->reference . '.' . $refGroup;
     }
+
+    /**
+     * Calcule la moyenne arrondie du seuil de blocage existant dans le système.
+     * Repli sur 30 minutes si aucune donnée n'est présente.
+     *
+     * @return int
+     */
+    public static function getMoyenneSeuilBlocage(): int
+    {
+        $avg = static::whereNotNull('seuil_blocage_minutes')->avg('seuil_blocage_minutes');
+        return $avg ? (int) round($avg) : 30;
+    }
 }
