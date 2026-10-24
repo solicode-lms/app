@@ -1,4 +1,4 @@
-﻿---
+---
 name: feature-dev
 description: Developpe, modifie ou etend une fonctionnalite traversante dans Solicode LMS (Service, Trait, Controller, Blade custom, TableUI, FilterUI) en respectant les locks Gapp.
 version: 1.0.0

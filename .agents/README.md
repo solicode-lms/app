@@ -5,24 +5,30 @@ Cet environnement normalisé dote votre assistant de **9 compétences modulaires
 
 ---
 
-## 🧭 Guide Complet & Documentation
-Pour le guide pas-à-pas complet, consultez :
-👉 [**Guide Officiel d'Utilisation des Skills**](references/usage/guide-utilisation-skills.md)
+## 🧭 Guides & Documentation Développeur
+Chaque compétence dispose de son propre guide d'utilisation dédié (`README.md`) expliquant son rôle, ses scénarios types, ses prompts recommandés et ses garde-fous :
+- [`project-setup`](skills/project-setup/README.md) : Guide d'initialisation, bootstrapping et profils
+- [`plugin-dev`](skills/plugin-dev/README.md) : Guide de gouvernance et validation des skills
+- [`feature-dev`](skills/feature-dev/README.md) : Guide de développement 3-tiers et Blade/TableUI
+- [`domain-scaffolder`](skills/domain-scaffolder/README.md) : Guide de modélisation et migrations
+- [`bug-fixer`](skills/bug-fixer/README.md) : Guide de diagnostic sur logs et fiches d'incidents
+- [`context-generator`](skills/context-generator/README.md) : Guide de cartographie contextuelle des packages
+- [`planner-dev`](skills/planner-dev/README.md) : Guide d'analyse d'impact et cadrage /plan
 
 ---
 
-## ⚡ Top 10 des Prompts d'Invocation Rapide
+## ⚡ Prompts d'Invocation Rapide
 
-| N° | Votre Intention | Prompt Recommandé | Skill Mobilisé |
-| :--- | :--- | :--- | :--- |
-| **1** | **Audit & Setup initial** | *« Initialise l'agent pour ce projet »* | [`project-setup`](skills/project-setup/SKILL.md) |
-| **2** | **Contexte d'un package** | *« Génère le contexte IA pour modules/PkgFormation »* | [`context-generator`](skills/context-generator/SKILL.md) |
-| **3** | **Étude d'impact préalable** | *« Analyse l'impact de l'ajout d'une table d'émargement /plan »* | [`planner-dev`](skills/planner-dev/SKILL.md) |
-| **4** | **Nouvelle entité BDD** | *« Crée l'entité SessionFormation dans PkgFormation »* | [`domain-scaffolder`](skills/domain-scaffolder/SKILL.md) |
-| **5** | **Développement Service** | *« Implémente le hook afterCreateRules pour notifier les formateurs »* | [`feature-dev`](skills/feature-dev/SKILL.md) |
-| **6** | **Personnalisation UI** | *« Crée une vue custom pour afficher un badge de statut dans TableUI »* | [`feature-dev`](skills/feature-dev/SKILL.md) |
-| **7** | **Correction de bug log** | *« Analyse la dernière erreur dans laravel.log et applique le fix »* | [`bug-fixer`](skills/bug-fixer/SKILL.md) |
-| **8** | **Évolution d'une règle** | *« Ajoute une règle interdisant les requêtes directes allQuery »* | [`plugin-dev`](skills/plugin-dev/SKILL.md) |
+| N° | Votre Intention | Prompt Recommandé | Guide Humain | Instructions IA |
+| :--- | :--- | :--- | :--- | :--- |
+| **1** | **Audit & Setup initial** | *« Initialise l'agent pour ce projet »* | [`README.md`](skills/project-setup/README.md) | [`SKILL.md`](skills/project-setup/SKILL.md) |
+| **2** | **Contexte d'un package** | *« Génère le contexte IA pour modules/PkgFormation »* | [`README.md`](skills/context-generator/README.md) | [`SKILL.md`](skills/context-generator/SKILL.md) |
+| **3** | **Étude d'impact préalable** | *« Analyse l'impact de l'ajout d'une table d'émargement /plan »* | [`README.md`](skills/planner-dev/README.md) | [`SKILL.md`](skills/planner-dev/SKILL.md) |
+| **4** | **Nouvelle entité BDD** | *« Crée l'entité SessionFormation dans PkgFormation »* | [`README.md`](skills/domain-scaffolder/README.md) | [`SKILL.md`](skills/domain-scaffolder/SKILL.md) |
+| **5** | **Développement Service** | *« Implémente le hook afterCreateRules pour notifier les formateurs »* | [`README.md`](skills/feature-dev/README.md) | [`SKILL.md`](skills/feature-dev/SKILL.md) |
+| **6** | **Personnalisation UI** | *« Crée une vue custom pour afficher un badge de statut dans TableUI »* | [`README.md`](skills/feature-dev/README.md) | [`SKILL.md`](skills/feature-dev/SKILL.md) |
+| **7** | **Correction de bug log** | *« Analyse la dernière erreur dans laravel.log et applique le fix »* | [`README.md`](skills/bug-fixer/README.md) | [`SKILL.md`](skills/bug-fixer/SKILL.md) |
+| **8** | **Évolution d'une règle** | *« Ajoute une règle interdisant les requêtes directes allQuery »* | [`README.md`](skills/plugin-dev/README.md) | [`SKILL.md`](skills/plugin-dev/SKILL.md) |
 
 *(Note : les compétences pédagogiques `tutorial-writer` et `workshop-builder` du Hub sont exclues de ce projet via `.agents/skills.json`).*
 
@@ -34,15 +40,13 @@ Toutes les ressources de l'agent sont intégrées sous `.agents/` avec installat
 
 ```
 .agents/
-├── skills.json   ➔ Manifeste déclaratif des compétences actives
-├── skills/       ➔ 7 compétences installées (feature-dev, bug-fixer, planner-dev...)
-├── references/   ➔ Fiches de référence (3-tiers, Gapp, TableUI, Widgets, Usage)
+├── skills.json   ➔ Manifeste déclaratif des compétences (locales vs liens Hub)
+├── skills/       ➔ 7 compétences (avec leurs README, scripts et templates dédiés)
+├── references/   ➔ Fiches de référence partagées (Gapp, TableUI, Widgets, 3-tiers)
 ├── standards/    ➔ critical-rules.md (règles absolues), principes généraux
-├── templates/    ➔ Gabarits normés de compétences et contextes
-├── scripts/      ➔ manage-skills.cjs, validate-skills.cjs, check-references.cjs
-├── tests/        ➔ Évaluations et fiches d'incidents (feedbacks/INC-xxx.yaml)
-├── local/        ➔ Conventions métier locales Solicode LMS
-└── rules/        ➔ Directives comportementales (affichage-skills.md)
+├── rules/        ➔ Directives comportementales Antigravity (affichage-skills.md)
+├── scripts/      ➔ deploy-update.cjs (script applicatif d'importation CSV)
+└── tests/        ➔ Traçabilité et retours d'expérience (feedbacks/INC-xxx.yaml)
 ```
 
 ---

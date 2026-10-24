@@ -13,6 +13,9 @@ Ces règles sont **INVIOLABLES**. Elles garantissent la stabilité, la sécurit�
 - **Migrations (LIGNE ROUGE ABSOLUE) :**
   - Toute nouvelle table principale DOIT comporter une colonne `$table->string('reference')->unique();`.
   - **L'AGENT A L'INTERDICTION FORMELLE D'EXÉCUTER `php artisan migrate` OU `migrate:rollback`.** L'agent doit uniquement générer le code du fichier de migration, puis demander au développeur humain de lancer la commande lui-même.
+- **Gestion Git (LIGNE ROUGE ABSOLUE) :**
+  - **L'AGENT A L'INTERDICTION FORMELLE D'EXÉCUTER `git commit`, `git push` OU DE VALIDER DES VERSIONS.**
+  - L'agent prépare et valide le code, mais la validation Git (`git commit`) appartient exclusivement au développeur et concepteur humain.
 
 ## 2. Le Générateur Gapp (Intégrité & Découpage)
 - **Fichiers Protégés (`Base/`) :**

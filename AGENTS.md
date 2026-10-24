@@ -16,3 +16,8 @@
 - Ne jamais exécuter de commandes destructives ou `php artisan migrate` en aveugle.
 - Ne jamais lire ni modifier dans le dossier `db_schemas/` (réservé exclusivement au générateur Gapp).
 
+## 3. Gestion Git & Responsabilité des Commits (LIGNE ROUGE)
+- **L'AGENT A L'INTERDICTION FORMELLE D'EXÉCUTER `git commit`, `git push` OU TOUTE COMMANDE DE VALIDATION DE VERSION.**
+- L'agent prépare le code, applique les modifications demandées et valide statiquement (tests, lint, syntaxe).
+- La revue des diffs, le staging (`git add`) et la création des commits (`git commit`) relèvent exclusivement du développeur et du concepteur humain.
+

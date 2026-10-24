@@ -22,7 +22,7 @@ Ce skill explore en profondeur un package modulaire applicatif dans `modules/Pkg
   - Simple analyse temporaire sans production de documentation pérenne ➔ Utiliser `architecture-planner`.
 
 # 3. Entrées & Ressources à Charger
-- **Priorité 1 :** `.agents/templates/module-ai-context.md` (Modèle officiel de fiche).
+- **Priorité 1 :** `templates/module-ai-context.md` (Modèle officiel de fiche colocalisé dans ce skill).
 - **Priorité 2 :** Code source réel du package dans `modules/Pkg[Nom]/` :
   - `Models/` (Modèles enfants et sous-dossier `Base/`).
   - `Services/` (Services enfants, sous-dossier `Base/` et sous-dossier `Traits/`).

@@ -2,20 +2,21 @@
 /**
  * manage-skills.cjs — Gestionnaire Granulaire des Compétences & Dépendances IA
  *
+ * Colocalisé dans le skill méta-gouvernance : project-setup/scripts/manage-skills.cjs
+ *
  * Architecture :
  * - Local par défaut (Dossier physique dans .agents/skills/)
  * - Global par lien symbolique (Jonction NTFS vers skills-workspace)
  * - Promotion dépendancielle en cascade (promote)
  * - Incubation / détachement local (localize)
+ * - Amorce de projet vierge (bootstrap)
  *
  * Usage :
- *   node .agents/scripts/manage-skills.cjs list
- *   node .agents/scripts/manage-skills.cjs install
- *   node .agents/scripts/manage-skills.cjs promote <skill-name>
- *   node .agents/scripts/manage-skills.cjs localize <skill-name>
- *   node .agents/scripts/manage-skills.cjs add <skill-name> [--local|--global]
- *   node .agents/scripts/manage-skills.cjs remove <skill-name>
- *   node .agents/scripts/manage-skills.cjs bootstrap [hub-path]
+ *   node .agents/skills/project-setup/scripts/manage-skills.cjs list
+ *   node .agents/skills/project-setup/scripts/manage-skills.cjs install
+ *   node .agents/skills/project-setup/scripts/manage-skills.cjs promote <skill-name>
+ *   node .agents/skills/project-setup/scripts/manage-skills.cjs localize <skill-name>
+ *   node .agents/skills/project-setup/scripts/manage-skills.cjs bootstrap [hub-path]
  */
 
 const fs = require('fs');
@@ -25,20 +26,36 @@ const { execSync } = require('child_process');
 const args = process.argv.slice(2);
 const command = args[0] || 'list';
 
-const rootDir = path.resolve(__dirname, '..', '..');
-const agentsDir = path.join(rootDir, '.agents');
-const skillsDir = path.join(agentsDir, 'skills');
-const referencesDir = path.join(agentsDir, 'references');
-const configFile = path.join(agentsDir, 'skills.json');
+// Détection ascendante dynamique du dossier racine du projet contenant .agents
+function findProjectRoot(startDir) {
+    let current = path.resolve(startDir);
+    while (current !== path.dirname(current)) {
+        if (fs.existsSync(path.join(current, '.agents'))) {
+            return current;
+        }
+        current = path.dirname(current);
+    }
+    return process.cwd();
+}
+
+// Détection ascendante dynamique du Hub skills-workspace
+function findHubRoot(startDir) {
+    let current = path.resolve(startDir);
+    while (current !== path.dirname(current)) {
+        if (fs.existsSync(path.join(current, 'catalog.yaml')) && fs.existsSync(path.join(current, 'skills'))) {
+            return current;
+        }
+        current = path.dirname(current);
+    }
+    return 'D:/solicode-lms/skills-workspace';
+}
 
 // 0. Commande d'amorce d'un nouveau projet vierge (Bootstrap)
 if (command === 'bootstrap' || command === 'init') {
     const targetCwd = process.cwd();
     const explicitHub = args[1];
-    const hubRoot = explicitHub ? path.resolve(explicitHub) : path.resolve(__dirname, '..');
-    const hubSkills = fs.existsSync(path.join(hubRoot, 'skills'))
-        ? path.join(hubRoot, 'skills')
-        : path.join(hubRoot, '.agents', 'skills');
+    const hubRoot = explicitHub ? path.resolve(explicitHub) : findHubRoot(__dirname);
+    const hubSkills = path.join(hubRoot, 'skills');
 
     console.log(`\n🚀 [BOOTSTRAP NOUVEAU PROJET] Initialisation dans : ${targetCwd}`);
     console.log(`📦 [SOURCE HUB GLOBAL]      : ${hubRoot}\n`);
@@ -46,11 +63,10 @@ if (command === 'bootstrap' || command === 'init') {
     const targetAgents = path.join(targetCwd, '.agents');
     const targetSkills = path.join(targetAgents, 'skills');
     const targetReferences = path.join(targetAgents, 'references');
-    const targetScripts = path.join(targetAgents, 'scripts');
     const targetRules = path.join(targetAgents, 'rules');
     const targetConfigFile = path.join(targetAgents, 'skills.json');
 
-    [targetSkills, targetReferences, targetScripts, targetRules].forEach(dir => {
+    [targetSkills, targetReferences, targetRules].forEach(dir => {
         if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     });
 
@@ -70,17 +86,10 @@ if (command === 'bootstrap' || command === 'init') {
         }
     }
 
-    // Copier manage-skills.cjs
-    const localScript = path.join(targetScripts, 'manage-skills.cjs');
-    if (!fs.existsSync(localScript)) {
-        fs.copyFileSync(__filename, localScript);
-        console.log('📄 Script copié : .agents/scripts/manage-skills.cjs');
-    }
-
     // Initialiser skills.json
     if (!fs.existsSync(targetConfigFile)) {
         const initialConfig = {
-            hubPath: hubRoot,
+            hubPath: hubRoot.replace(/\\/g, '/'),
             skills: {
                 local: [],
                 global: ['project-setup']
@@ -96,6 +105,12 @@ if (command === 'bootstrap' || command === 'init') {
     process.exit(0);
 }
 
+const rootDir = findProjectRoot(process.cwd());
+const agentsDir = path.join(rootDir, '.agents');
+const skillsDir = path.join(agentsDir, 'skills');
+const referencesDir = path.join(agentsDir, 'references');
+const configFile = path.join(agentsDir, 'skills.json');
+
 // 1. Fonctions utilitaires de configuration
 function loadConfig() {
     if (!fs.existsSync(configFile)) {
@@ -104,7 +119,6 @@ function loadConfig() {
     }
     try {
         const raw = JSON.parse(fs.readFileSync(configFile, 'utf8'));
-        // Normalisation : si c'est un tableau simple, convertir en { local: [...], global: [...] }
         if (Array.isArray(raw.skills)) {
             const normalized = { local: [], global: [] };
             raw.skills.forEach(skill => {
@@ -143,14 +157,12 @@ function getSkillStatus(skillName) {
     }
 }
 
-// 2. Analyse des dépendances de références dans un SKILL.md
 function extractDependenciesFromSkill(skillDir) {
     const skillFile = path.join(skillDir, 'SKILL.md');
     if (!fs.existsSync(skillFile)) return [];
     const content = fs.readFileSync(skillFile, 'utf8');
     const matchedRefs = [];
     
-    // Regex pour détecter les chemins du type .agents/references/... ou references/...
     const regex = /(?:\.agents[/\\])?references[/\\]([a-zA-Z0-9_\-/\\]+\.md)/g;
     let match;
     while ((match = regex.exec(content)) !== null) {
@@ -163,10 +175,8 @@ function extractDependenciesFromSkill(skillDir) {
 }
 
 const config = loadConfig();
-const hubRoot = config.hubPath;
-const hubSkillsDir = fs.existsSync(path.join(hubRoot, 'skills'))
-    ? path.join(hubRoot, 'skills')
-    : path.join(hubRoot, '.agents', 'skills');
+const hubRoot = config.hubPath || findHubRoot(__dirname);
+const hubSkillsDir = path.join(hubRoot, 'skills');
 const hubReferencesDir = path.join(hubRoot, 'references');
 
 switch (command) {
@@ -244,7 +254,6 @@ switch (command) {
                     const hubRefDir = path.dirname(hubRef);
                     if (!fs.existsSync(hubRefDir)) fs.mkdirSync(hubRefDir, { recursive: true });
 
-                    // Si la ressource n'est pas encore dans le Hub, la copier
                     if (!fs.existsSync(hubRef)) {
                         fs.copyFileSync(localRef, hubRef);
                         console.log(`  🔗 [CASCADE] Référence partagée promue vers le Hub : references/${dep}`);
@@ -311,18 +320,15 @@ switch (command) {
         console.log(`\n📁 [LOCALISATION / DÉTACHEMENT DU HUB] : ${skillName}`);
         const hubSkillPath = path.join(hubSkillsDir, skillName);
         
-        // Supprimer la jonction NTFS (sans toucher au Hub)
         if (process.platform === 'win32') {
             execSync(`cmd /c rmdir "${targetSkillPath}"`, { stdio: 'pipe' });
         } else {
             fs.unlinkSync(targetSkillPath);
         }
 
-        // Recréer le dossier physique en copiant depuis le Hub
         fs.cpSync(hubSkillPath, targetSkillPath, { recursive: true });
         console.log(`📋 Copie physique créée dans le projet : .agents/skills/${skillName}`);
 
-        // Mettre à jour skills.json
         config.skills.global = (config.skills.global || []).filter(s => s !== skillName);
         if (!config.skills.local) config.skills.local = [];
         if (!config.skills.local.includes(skillName)) {
@@ -339,7 +345,6 @@ switch (command) {
 
         if (!fs.existsSync(skillsDir)) fs.mkdirSync(skillsDir, { recursive: true });
 
-        // Synchroniser les compétences globales
         (config.skills.global || []).forEach(skill => {
             const dest = path.join(skillsDir, skill);
             const src = path.join(hubSkillsDir, skill);
@@ -364,7 +369,6 @@ switch (command) {
             }
         });
 
-        // Vérifier la présence des compétences locales
         (config.skills.local || []).forEach(skill => {
             const dest = path.join(skillsDir, skill);
             if (fs.existsSync(dest)) {
