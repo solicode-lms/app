@@ -39,7 +39,7 @@ Ce skill est l'**orchestrateur universel d'onboarding, d'audit architectural et 
   - [onboarding-workflow.md](resources/onboarding-workflow.md) : Procédure pas-à-pas de bootstrapping et d'initialisation.
 - **Ressources du projet :**
   - Cahiers des charges (`cahiers-charges/`, `README.md`, spécifications fonctionnelles).
-  - Manifeste local `.agents/skills.json` et dossier de contexte `.agents/local/`.
+  - Manifeste `.agents/skills.json` et dossier de conventions `.agents/references/conventions/`.
   - Catalogue global du Hub : `D:/solicode-lms/skills-workspace/catalog.yaml`.
 
 ---
@@ -47,7 +47,7 @@ Ce skill est l'**orchestrateur universel d'onboarding, d'audit architectural et 
 # 4. Contraintes & Règles Inviolables
 - **Non-Destructif sur le Code :** `project-setup` ne modifie jamais le code applicatif du projet ni la structure des bases de données.
 - **Bootstrapping Propre :** Pour un projet vierge sans dossier `.agents/`, utiliser la commande d'amorce `node <hubPath>/skills/project-setup/scripts/manage-skills.cjs bootstrap`.
-- **Installation Sélective Granulaire (Skill-by-Skill) :** Le dossier local `.agents/skills/` est physique. Interdiction formelle de créer une jonction NTFS globale sur tout le dossier `skills` ; chaque compétence retenue est une jonction NTFS unitaire.
+- **Installation Sélective Granulaire (Skill-by-Skill) :** Le dossier `.agents/skills/` est physique. Tout élément dans `.agents/` est local par défaut. Seules les compétences partagées sont montées via des jonctions NTFS unitaires pointant vers le Hub.
 - **Archivage Défensif Obligatoire :** Tout ancien dossier `old_agent` audité doit être déplacé dans `archive/old_agent` pour éviter toute collision cognitive d'agent.
 
 ---
@@ -59,12 +59,12 @@ Ce skill est l'**orchestrateur universel d'onboarding, d'audit architectural et 
    - Examiner les fichiers d'entrée et consulter [project-typology-and-profiles.md](resources/project-typology-and-profiles.md) pour identifier le profil (Profil 1: Dev Logiciel, Profil 2: Tutoriels/Autoformation, Profil 3: Ingénierie APC, Profil 4: Hybride).
    - En cas d'ambiguïté ou de projet sans doc : engager le dialogue interactif avec l'utilisateur.
 3. **Étape 3 : Audit & Recyclage Legacy (Si `old_agent` présent) :**
-   - Appliquer le [legacy-migration-playbook.md](resources/legacy-migration-playbook.md), transférer les règles dans `.agents/local/project-conventions.md` et déplacer l'ancien dossier dans `archive/old_agent/`.
+   - Appliquer le [legacy-migration-playbook.md](resources/legacy-migration-playbook.md), transférer les règles et documentations dans `.agents/references/conventions/` (ou sous-dossiers thématiques de `references/`) et déplacer l'ancien dossier dans `archive/old_agent/`.
 4. **Étape 4 : Déploiement Granulaire des Compétences :**
    - Rédiger `.agents/skills.json` avec la liste exacte des compétences nécessaires au profil.
    - Synchroniser via `node .agents/skills/project-setup/scripts/manage-skills.cjs install`.
-5. **Étape 5 : Formalisation du Cadre Local & Bilan :**
-   - Rédiger `.agents/local/project-conventions.md` et émettre le rapport d'onboarding structuré.
+5. **Étape 5 : Formalisation des Conventions & Bilan :**
+   - Rédiger les conventions propres au projet dans `.agents/references/conventions/project-conventions.md` et émettre le rapport d'onboarding structuré.
 
 ---
 
@@ -81,7 +81,7 @@ L'agent fournit systématiquement un rapport d'onboarding structuré comprenant 
 - **Compétences Installées :** Tableau des jonctions NTFS unitaires actives.
 - **Compétences Exclues :** Liste des skills non pertinents filtrés.
 - **Recyclage Legacy :** Synthèse du tri effectué et statut de l'archivage `archive/old_agent/`.
-- **Contexte Local :** Emplacement et contenu de `.agents/local/project-conventions.md`.
+- **Conventions du Projet :** Emplacement et contenu des fiches sous `.agents/references/conventions/`.
 - **Prochaine Action Recommandée :** Prompt d'action prêt à l'emploi.
 
 ---
@@ -92,7 +92,7 @@ L'agent fournit systématiquement un rapport d'onboarding structuré comprenant 
 - [ ] Le dossier physique `.agents/skills/` ne contient-il QUE les jonctions des compétences retenues ?
 - [ ] Les compétences hors profil (ex: scaffolding sur projet de tutoriels) sont-elles bien exclues ?
 - [ ] L'éventuel dossier `old_agent` a-t-il été recyclé et archivé dans `archive/old_agent/` ?
-- [ ] Le script `node .agents/scripts/manage-skills.cjs list` confirme-t-il l'état attendu ?
+- [ ] Le script `node .agents/skills/project-setup/scripts/manage-skills.cjs list` confirme-t-il l'état attendu ?
 
 ---
 
@@ -109,11 +109,11 @@ L'agent fournit systématiquement un rapport d'onboarding structuré comprenant 
 
 ### Exemple 1 : Projet Vierge de Rédaction de Tutoriels d'Autoformation Web
 - **Prompt :** *« Initialise l'agent pour ce projet, nous allons créer des tutoriels d'autoformation web. »*
-- **Comportement de l'agent :** Exécute le bootstrap, identifie le **Profil 2 (Tutoriels & Autoformation)**, configure `.agents/skills.json` avec `["project-setup", "planner-dev", "tutorial-writer", "plugin-dev"]`, exclut `bug-fixer` et `domain-scaffolder`, installe les jonctions unitaires et génère le cadre dans `.agents/local/project-conventions.md`.
+- **Comportement de l'agent :** Exécute le bootstrap, identifie le **Profil 2 (Tutoriels & Autoformation)**, configure `.agents/skills.json` avec `["project-setup", "planner-dev", "tutorial-writer", "plugin-dev"]`, exclut `bug-fixer` et `domain-scaffolder`, installe les jonctions unitaires et consigne les conventions dans `.agents/references/conventions/project-conventions.md`.
 
 ### Exemple 2 : Modernisation d'un Projet avec Dossier `old_agent`
 - **Prompt :** *« Configure l'agent sur notre application Solicode LMS et nettoie l'ancien dossier old_agent. »*
-- **Comportement de l'agent :** Scanne `old_agent`, isole les règles TableUI et Gapp dans `.agents/local/`, configure le **Profil 1 (Dev Logiciel 3-Tiers)**, déplace `old_agent` dans `archive/old_agent/`, installe les 7 skills applicatifs et confirme la propreté du dépôt.
+- **Comportement de l'agent :** Scanne `old_agent`, classe les documentations de référence dans `.agents/references/` (`conventions/`, `frontend/`, `gapp/`), configure le **Profil 1 (Dev Logiciel 3-Tiers)**, déplace `old_agent` dans `archive/old_agent/`, installe les 7 skills applicatifs et confirme la propreté du dépôt.
 
 ### Exemple 3 : Projet Sans Cahier des Charges (Dialogue Interactif)
 - **Prompt :** *« Initialise l'agent pour ce projet. »*

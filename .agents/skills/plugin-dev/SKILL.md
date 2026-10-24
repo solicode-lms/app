@@ -76,7 +76,7 @@ Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : 
 - **Arbitrage Skill vs Règle :**
   - Si l'instruction est une contrainte permanente ou un garde-fou transversal (ex: affichage des compétences, style de réponse, interdiction de migration) ➔ Créer une **Règle** (`.agents/rules/` ou `AGENTS.md`).
   - Si l'instruction décrit une séquence outillée avec déclenchement à la demande, entrées, logique pas-à-pas et livrables ➔ Créer un **Skill** (`SKILL.md`).
-- Si la règle demandée est exclusive à Solicode LMS : ne pas modifier le standard du Hub global, mais l'inscrire dans `AGENTS.md` et `.agents/local/project-conventions.md`.
+- Si la règle demandée est exclusive à Solicode LMS : ne pas modifier le standard du Hub global, mais l'inscrire dans `AGENTS.md` et `.agents/references/conventions/project-conventions.md`.
 
 # 7. Format de Sortie & Livrables
 - Le fichier `SKILL.md` complet ou le fichier de règle (`.agents/rules/*.md`, `AGENTS.md`, `critical-rules.md`).

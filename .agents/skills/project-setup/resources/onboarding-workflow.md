@@ -71,7 +71,7 @@ sequenceDiagram
     Agent->>Local: Génération du manifeste .agents/skills.json
     Agent->>Local: Exécution de node .agents/skills/project-setup/scripts/manage-skills.cjs install
     Local->>Hub: Création des jonctions NTFS unitaires pour les skills choisis
-    Agent->>Local: Génération de .agents/local/project-conventions.md
+    Agent->>Local: Génération de .agents/references/conventions/project-conventions.md
     Agent->>Dev: Présentation du Rapport d'Onboarding & Checklist
 ```
 
@@ -90,7 +90,7 @@ Si aucun indice probant n'apparaît, l'agent pose la question de qualification a
 ### Étape 3 : Audit & Recyclage Legacy (Si `old_agent` présent)
 Si un dossier `old_agent` ou `.agent/` non normé préexiste :
 - Appliquer le [legacy-migration-playbook.md](legacy-migration-playbook.md).
-- Transférer les règles locales vers `.agents/local/project-conventions.md`.
+- Transférer les règles et fiches techniques vers `.agents/references/conventions/` ou sous-dossiers thématiques de `references/`.
 - Déplacer l'ancien dossier dans `archive/old_agent/`.
 
 ### Étape 4 : Déploiement Granulaire des Compétences
@@ -102,5 +102,5 @@ Si un dossier `old_agent` ou `.agent/` non normé préexiste :
 - Vérifier que chaque skill sélectionné est bien lié sous forme de jonction unitaire sans pollution des compétences hors profil.
 
 ### Étape 5 : Formalisation du Cadre Local & Bilan
-- Rédiger `.agents/local/project-conventions.md` récapitulant les directives propres au projet.
+- Rédiger `.agents/references/conventions/project-conventions.md` récapitulant les directives propres au projet.
 - Présenter le rapport d'onboarding récapitulant les compétences actives, exclues, et la marche à suivre.

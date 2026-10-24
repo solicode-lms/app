@@ -12,7 +12,7 @@ version: 1.0.0
 - **Cas d'exclusion :** [Situations où le skill ne doit pas être utilisé]
 
 # 3. Entrées & Ressources à Charger
-- **Priorité 1 :** `.agents/local/...` (Contexte du projet)
+- **Priorité 1 :** `.agents/references/conventions/...` (Contexte du projet)
 - **Priorité 2 :** `references/...` (Standards et conventions)
 - **Priorité 3 :** `modules/Pkg.../AI_CONTEXT.md` (Spécificités du module)
 

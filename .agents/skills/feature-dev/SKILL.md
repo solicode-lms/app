@@ -24,10 +24,10 @@ Ce skill pilote la réalisation de fonctionnalités complètes ou de modificatio
 
 # 3. Entrées & Ressources à Charger
 Avant d'écrire ou modifier la moindre ligne de code, charger :
-1. **Priorité 1 (Contexte Local) :**
-   - `.agents/local/crud-backend-mechanic.md` (Règles des filtres, Services et Traits).
-   - `.agents/local/crud-frontend-ui.md` (Structure TableUI, FilterUI et sous-dossier custom/).
-   - `.agents/local/project-conventions.md` (Rôles Spatie, ViewState).
+1. **Priorité 1 (Conventions du Projet) :**
+   - `.agents/references/conventions/crud-backend-mechanic.md` (Règles des filtres, Services et Traits).
+   - `.agents/references/conventions/crud-frontend-ui.md` (Structure TableUI, FilterUI et sous-dossier custom/).
+   - `.agents/references/conventions/project-conventions.md` (Rôles Spatie, ViewState).
 2. **Priorité 2 (Références Partagées) :**
    - `.agents/references/architecture/layers-3tiers.md`
    - `.agents/references/frontend/tableui-framework.md`

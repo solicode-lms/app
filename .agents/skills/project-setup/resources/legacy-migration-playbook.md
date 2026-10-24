@@ -21,7 +21,7 @@ L'objectif de ce playbook est de guider `project-setup` pour **auditer**, **trie
 ```mermaid
 flowchart TD
     Scan["1. Scanner & Recenser<br>(Inventaire exhaustif d'old_agent)"] --> Tri["2. Matrice de Tri Binaire<br>(Connaissances Passives vs Actions Réelles)"]
-    Tri --> Recyclage["3. Recyclage Ciblé<br>(Transférer vers .agents/local ou references/)"]
+    Tri --> Recyclage["3. Recyclage Ciblé<br>(Transférer vers .agents/references/)"]
     Recyclage --> Archivage["4. Archivage Défensif<br>(Déplacer vers archive/old_agent/)"]
 ```
 
@@ -41,9 +41,9 @@ Appliquer rigoureusement la règle d'or de l'ingénierie des compétences :
 
 | Type de Fichier Legacy | Analyse & Diagnostic | Destination de Recyclage |
 | :--- | :--- | :--- |
-| **Description d'une couche architecturale** (ex: `app-controller`, `app-service`, `eloquent-model`) | **Connaissance passive.** Ne constitue pas une intention d'action. L'agent doit le consulter comme documentation de référence. | Transférer vers `.agents/local/crud-backend-mechanic.md` ou vers une fiche sous `references/architecture/`. |
-| **Règles d'interface & composants** (ex: `blade-custom`, `tableui-guidelines`, `modals`) | **Connaissance passive.** Règles d'affichage et conventions de syntaxe. | Transférer vers `.agents/local/crud-frontend-ui.md` ou `references/frontend/`. |
-| **Spécificités d'environnement & rôles** (ex: `roles-spatie`, `database-credentials`, `urls`) | **Connaissance passive locale.** Données privées propres à cette instance du projet. | Transférer vers `.agents/local/project-conventions.md`. |
+| **Description d'une couche architecturale** (ex: `app-controller`, `app-service`, `eloquent-model`) | **Connaissance passive.** Ne constitue pas une intention d'action. L'agent doit le consulter comme documentation de référence. | Transférer vers une fiche sous `.agents/references/architecture/`. |
+| **Règles d'interface & composants** (ex: `blade-custom`, `tableui-guidelines`, `modals`) | **Connaissance passive.** Règles d'affichage et conventions de syntaxe. | Transférer vers `.agents/references/frontend/`. |
+| **Spécificités d'environnement & rôles** (ex: `roles-spatie`, `database-credentials`, `urls`) | **Connaissance passive propre au projet.** Données privées propres à cette instance du projet. | Transférer vers `.agents/references/conventions/project-conventions.md`. |
 | **Action d'implémentation** (ex: `creer-crud`, `ajouter-colonne`, `generer-trait`) | **Intention d'action réelle.** Déjà couverte par le skill universel [feature-dev](../../feature-dev/SKILL.md). | Conserver la logique métier spécifique comme exemple et supprimer le micro-skill legacy au profit de `feature-dev`. |
 | **Action de correction de bug** (ex: `corriger-erreur-500`, `verifier-log`) | **Intention d'action réelle.** Déjà couverte par [bug-fixer](../../bug-fixer/SKILL.md). | Recycler les motifs de logs connus dans `tests/feedbacks/` et adopter `bug-fixer`. |
 | **Action d'analyse avant dev** (ex: `analyser-demande`, `planifier-sprint`) | **Intention d'action réelle.** Déjà couverte par [planner-dev](../../planner-dev/SKILL.md). | Adopter le skill canonique `planner-dev`. |
@@ -51,9 +51,9 @@ Appliquer rigoureusement la règle d'or de l'ingénierie des compétences :
 ---
 
 ### Étape 3 : Injection dans le Socle Normé
-1. **Création des fiches locales propres au projet :**
-   - `.agents/local/project-conventions.md` (Règles métiers, rôles, particularités du dépôt).
-   - `.agents/local/local-references.md` (Spécificités techniques non généralisables au Hub).
+1. **Création des fiches propres au projet :**
+   - `.agents/references/conventions/project-conventions.md` (Règles métiers, rôles, particularités du dépôt).
+   - `.agents/references/conventions/technical-notes.md` (Spécificités techniques non généralisables).
 2. **Adoption des compétences universelles du Hub :**
    - Configurer `.agents/skills.json` avec les compétences universelles correspondant aux besoins identifiés.
    - Exécuter `manage-skills.cjs install` pour poser les jonctions unitaires.

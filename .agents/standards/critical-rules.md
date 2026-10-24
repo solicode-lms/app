@@ -36,7 +36,7 @@ Ces règles sont **INVIOLABLES**. Elles garantissent la stabilité, la sécurit�
 - Ne jamais réécrire du code HTML brut ou des écouteurs jQuery ad-hoc pour les tableaux et filtres. Toujours s'appuyer sur l'infrastructure `TableUI.js`, `FilterUI.js`, `data-target-dynamic-dropdown` et `ModalUI.js`.
 
 ## 5. Priorité Absolue au Contexte Local
-- En cas de divergence entre une règle générale du Hub et une convention spécifique déclarée dans `.agents/local/`, la convention locale prévaut toujours.
+- En cas de divergence entre une règle générale du Hub et une convention spécifique déclarée dans `.agents/references/conventions/`, la convention du projet prévaut toujours.
 
 ## 6. Affichage Systématique des Skills Utilisés (Règle d'Or de Communication)
 - À la fin de chaque réponse ou tour de discussion, l'agent DOIT TOUJOURS afficher la liste des skills mobilisés de façon compacte (sur une ligne) :

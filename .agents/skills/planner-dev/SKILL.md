@@ -24,7 +24,7 @@ Ce skill a pour objectif d'analyser le code existant, d'évaluer la faisabilité
 
 # 3. Entrées & Ressources à Charger
 Lors de l'analyse, charger les informations selon cette hiérarchie stricte :
-1. **Priorité 1 (Contexte Local) :** `.agents/local/project-conventions.md`, `crud-backend-mechanic.md`, `crud-frontend-ui.md`.
+1. **Priorité 1 (Conventions du Projet) :** `.agents/references/conventions/` (`project-conventions.md`, `crud-backend-mechanic.md`, `crud-frontend-ui.md`).
 2. **Priorité 2 (Références Partagées) :** `.agents/references/architecture/layers-3tiers.md`, `.agents/references/gapp/01-conventions-et-garde-fous.md`.
 3. **Priorité 3 (Contexte Module) :** Fichier `AI_CONTEXT.md` du module cible s'il existe dans `modules/Pkg[Nom]/`.
 
