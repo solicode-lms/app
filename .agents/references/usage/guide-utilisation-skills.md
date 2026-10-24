@@ -1,6 +1,46 @@
-# Guide Officiel : Utilisation des Skills de l'Agent Solicode LMS
+# Guide Officiel : Utilisation & Déploiement des Skills de l'Agent Solicode LMS
 
-Ce guide fournit aux développeurs, formateurs et contributeurs de Solicode LMS la méthode complète pour interagir avec l'Agent IA et mobiliser ses 9 compétences modulaires.
+Ce guide fournit aux développeurs, formateurs et chefs de projet la méthode complète pour amorcer un nouveau projet vierge, interagir avec l'Agent IA et mobiliser ses 9 compétences modulaires selon la typologie de chaque projet.
+
+---
+
+## 🚀 0. Amorcer un Nouveau Projet Vierge (Sans `.agents` ni aucun skill)
+
+Lorsqu'un nouveau projet est créé (qu'il s'agisse d'une application web, d'un dépôt de tutoriels Markdown ou d'un projet de formation), il ne contient initialement aucun dossier `.agents` ni aucun skill local.
+
+### Méthode 1 : Commande d'Amorce en 1 Ligne (Recommandée)
+Placez-vous dans le répertoire racine de votre nouveau projet dans le terminal et exécutez la commande d'amorce fournie par le Hub :
+
+```powershell
+node D:\solicode-lms\skills-workspace\scripts\manage-skills.cjs bootstrap
+```
+
+**Actions automatiques exécutées :**
+1. **Création du socle local :** Arborescence `.agents/skills/`, `.agents/local/` et `.agents/scripts/`.
+2. **Liaison des références :** Jonction NTFS `.agents/references` vers `D:\solicode-lms\skills-workspace\references`.
+3. **Liaison du skill d'amorce :** Jonction NTFS unitaire vers [`project-setup`](../../skills/project-setup/SKILL.md).
+4. **Gestionnaire de skills :** Copie de `.agents/scripts/manage-skills.cjs`.
+5. **Manifeste initial :** Création de `.agents/skills.json` préconfiguré avec `["project-setup"]`.
+
+---
+
+### Méthode 2 : Alternative Manuelle PowerShell (Sans Node.js initial)
+```powershell
+New-Item -ItemType Directory -Force -Path ".agents\skills", ".agents\local", ".agents\scripts"
+cmd /c mklink /J ".agents\references" "D:\solicode-lms\skills-workspace\references"
+cmd /c mklink /J ".agents\skills\project-setup" "D:\solicode-lms\skills-workspace\.agents\skills\project-setup"
+Copy-Item "D:\solicode-lms\skills-workspace\scripts\manage-skills.cjs" ".agents\scripts\"
+```
+
+---
+
+### Étape Suivante : Invoquer l'Agent IA
+Ouvrez ensuite le projet dans votre IDE (Antigravity IDE, Claude Code, Cursor, VS Code) et dites simplement à l'agent :
+
+> 💬 **Prompt d'amorce :**  
+> *« Initialise l'agent pour ce projet »* ou *« Analyse le projet et configure les compétences adaptées »*
+
+L'agent exécute alors [`project-setup`](../../skills/project-setup/SKILL.md) v2.0.0, analyse le cahier des charges (ou vous questionne interactivement si le projet est vierge), audite un éventuel dossier `old_agent` et installe les compétences ciblées.
 
 ---
 
@@ -14,7 +54,7 @@ Vous décrivez votre objectif technique ou fonctionnel en langage naturel. L'age
 
 ### B. Invocation Directe et Ciblée
 Vous nommez explicitement la compétence ou la combinez avec une commande slash :
-> **Exemple :** *« Utilise `architecture-planner` pour analyser l'impact de l'ajout d'une table d'émargement dans PkgApprenants /plan »*
+> **Exemple :** *« Utilise `planner-dev` pour analyser l'impact de l'ajout d'une table d'émargement dans PkgApprenants /plan »*
 
 ### C. Le Garde-Fou : Le Mode Consultation (`?`)
 Si votre message se termine uniquement par un point d'interrogation **`?`**, l'agent entre en **mode consultation pure** :
@@ -27,9 +67,9 @@ Si votre message se termine uniquement par un point d'interrogation **`?`**, l'a
 
 | Votre Besoin / Objectif | Compétence Mobilisée | Exemples de Prompts Déclencheurs |
 | :--- | :--- | :--- |
-| **Initialiser** l'environnement IA sur un projet, auditer la stack et les cahiers des charges | [`project-setup`](../../skills/project-setup/SKILL.md) | *« Initialise l'agent pour ce projet »*<br>*« Analyse le cahier des charges dans cahiers-charges/ »* |
+| **Initialiser** un projet (Dev, Tutos, APC), analyser le cahier des charges, qualifier le profil ou recycler `old_agent` | [`project-setup`](../../skills/project-setup/SKILL.md) | *« Initialise l'agent pour ce projet »*<br>*« Configure l'agent pour un projet de tutoriels d'autoformation »*<br>*« Audite et recycle notre ancien dossier old_agent »* |
 | **Cartographier** un package `modules/Pkg*` et produire sa fiche `AI_CONTEXT.md` | [`context-generator`](../../skills/context-generator/SKILL.md) | *« Explore modules/PkgFormation et génère son AI_CONTEXT.md »* |
-| **Explorer** et auditer l'impact architectural d'une demande avant de coder (lecture seule) | [`architecture-planner`](../../skills/architecture-planner/SKILL.md) | *« Analyse l'impact de l'ajout d'un système de badges /plan »* |
+| **Explorer** et auditer l'impact architectural d'une demande avant de coder (lecture seule) | [`planner-dev`](../../skills/planner-dev/SKILL.md) | *« Analyse l'impact de l'ajout d'un système de badges /plan »* |
 | **Créer** une nouvelle entité métier, migrations avec clé `reference` et modèles 3-tiers | [`domain-scaffolder`](../../skills/domain-scaffolder/SKILL.md) | *« Crée l'entité SessionFormation dans PkgFormation avec clé reference »* |
 | **Développer** une fonctionnalité 3-tiers (Contrôleur, Service, Blade custom, TableUI) | [`feature-dev`](../../skills/feature-dev/SKILL.md) | *« Implémente le calcul automatique de progression dans ProjetService »* |
 | **Diagnostiquer** et réparer un crash `laravel.log`, une `BlException` ou une panne TableUI | [`bug-fixer`](../../skills/bug-fixer/SKILL.md) | *« Analyse la dernière erreur dans laravel.log et applique le fix chirurgical »* |
@@ -48,7 +88,7 @@ graph LR
         CG["context-generator"]
     end
     subgraph C2["Conception & Dév 3-Tiers"]
-        AP["architecture-planner"]
+        AP["planner-dev"]
         DS["domain-scaffolder"]
         FD["feature-dev"]
         BF["bug-fixer"]
@@ -67,105 +107,76 @@ graph LR
     PD -.-> PS & AP & DS & FD & BF & TW & WB
 ```
 
-### 1. [`project-setup`](../../skills/project-setup/SKILL.md) (Onboarding & Audit)
-- **Quand l'appeler :** Au tout premier lancement sur un projet, ou pour auditer la couverture documentaire d'un module.
-- **Ce qu'il fait :** Vérifie ou crée les jonctions NTFS locales (`.agents/skills`, `.agents/references`, etc.), analyse le codebase et les cahiers des charges, recommande les skills nécessaires.
-- **Ce qu'il ne fait pas :** Il ne modifie pas le code applicatif.
-- **Prompt Type :** *« Initialise l'agent pour le projet et vérifie que toutes les dépendances locales sont montées. »*
+### 1. [`project-setup`](../../skills/project-setup/SKILL.md) (Onboarding Universel, Profils & Recyclage Legacy)
+- **Quand l'appeler :** Au tout début d'un projet, pour qualifier le profil, auditer un cahier des charges ou moderniser un agent existant.
+- **Ce qu'il fait :**
+  - **Qualification de Profil :** Détecte si le projet est une Application Dev (Profil 1), un Dépôt de Tutoriels/Autoformation (Profil 2), ou un Référentiel APC (Profil 3). En l'absence de doc, engage un dialogue interactif.
+  - **Recyclage Legacy :** Scanne `old_agent` ou `.agent/`, extrait les connaissances passives vers `.agents/local/` et archive le legacy dans `archive/old_agent/`.
+  - **Installation Sélective :** Écrit `.agents/skills.json` et exécute `manage-skills.cjs install` pour monter les jonctions NTFS unitaires strictement requises.
+- **Ce qu'il ne fait pas :** Il ne modifie pas le code métier applicatif.
+- **Prompt Type :** *« Initialise l'agent pour un projet de tutoriels d'autoformation web »*
 
 ### 2. [`context-generator`](../../skills/context-generator/SKILL.md) (Contextualisation Modulaire)
-- **Quand l'appeler :** Dès qu'un package `modules/Pkg*` vient d'être créé ou modifié et qu'on souhaite outiller l'IA pour travailler dedans avec précision.
-- **Ce qu'il fait :** Scanne les modèles, services, traits, contrôleurs et règles Gapp du package, et génère `modules/Pkg.../AI_CONTEXT.md`.
-- **Ce qu'il ne fait pas :** Il ne touche pas au code PHP ou Blade du package.
+- **Quand l'appeler :** Dès qu'un package `modules/Pkg*` vient d'être créé ou modifié.
+- **Ce qu'il fait :** Scanne modèles, services, traits, contrôleurs et règles Gapp, et génère `modules/Pkg.../AI_CONTEXT.md`.
 - **Prompt Type :** *« Analyse le package modules/PkgApprenants et produis son AI_CONTEXT.md. »*
 
-### 3. [`architecture-planner`](../../skills/architecture-planner/SKILL.md) (Audit d'Impact en Lecture Seule)
-- **Quand l'appeler :** Avant toute refactorisation, nouvel algorithme métier ou workflow impliquant plusieurs tables ou services.
-- **Ce qu'il fait :** Cartographie les couches impactées (Presentation, Business, Data), identifie les risques de régression, propose un plan étape par étape sans toucher au code.
-- **Ce qu'il ne fait pas :** Il n'écrit aucun code métier.
+### 3. [`planner-dev`](../../skills/planner-dev/SKILL.md) (Audit d'Impact en Lecture Seule)
+- **Quand l'appeler :** Avant toute refactorisation, nouvel algorithme métier ou workflow multi-tables.
+- **Ce qu'il fait :** Cartographie les couches impactées, identifie les risques, propose un plan étape par étape sans toucher au code.
 - **Prompt Type :** *« Analyse l'impact d'une refactorisation du calcul des notes dans PkgRealisationProjets /plan »*
 
 ### 4. [`domain-scaffolder`](../../skills/domain-scaffolder/SKILL.md) (Scaffolding Multi-Tiers)
-- **Quand l'appeler :** Pour introduire une nouvelle entité métier dans un module existant ou nouveau.
-- **Ce qu'il fait :** Génère la migration avec colonne `$table->string('reference')->unique()`, inscrit la table dans `db_schemas/modules.json`, crée les modèles Eloquent 3-tiers (`BaseModel` / `Model`), et prépare l'entité pour `gapp meta:sync`.
+- **Quand l'appeler :** Pour introduire une nouvelle entité métier dans un module.
+- **Ce qu'il fait :** Génère la migration avec clé `reference` unique, inscrit la table dans les métadonnées et prépare les modèles Eloquent 3-tiers.
 - **Règle absolue :** Ne lance jamais `php artisan migrate` de lui-même.
 - **Prompt Type :** *« Génère la migration et les modèles pour l'entité Emargement dans PkgApprenants. »*
 
 ### 5. [`feature-dev`](../../skills/feature-dev/SKILL.md) (Développement 3-Tiers Sécurisé)
-- **Quand l'appeler :** Pour implémenter une logique métier, un contrôleur, une vue Blade personnalisée ou un composant TableUI.
-- **Ce qu'il fait :** Respecte les verrous Gapp (`Base/` intacts, vues `custom/`), surcharge les méthodes de préparation de données (`dataForEditView`), utilise les hooks de service (`beforeCreateRules`, `afterCreateRules`), découpe en traits si > 500 lignes.
+- **Quand l'appeler :** Pour implémenter une logique métier, un contrôleur, une vue Blade personnalisée ou TableUI.
+- **Ce qu'il fait :** Respecte les verrous Gapp (`Base/` intacts, vues `custom/`), surcharge les méthodes `dataForEditView`, utilise les hooks CRUD.
 - **Prompt Type :** *« Ajoute un bouton d'action dans TableUI pour exporter la liste des apprenants en PDF. »*
 
 ### 6. [`bug-fixer`](../../skills/bug-fixer/SKILL.md) (Diagnostic & Résolution Chirurgicale)
-- **Quand l'appeler :** Dès qu'une erreur apparaît à l'écran, dans la console ou dans les logs.
-- **Ce qu'il fait :** Lit la trace réelle dans `storage/logs/laravel.log`, remonte la chaîne d'appel, applique un fix chirurgical non-régressif dans la classe enfant PHP ou Blade `custom/`, et consigne le retour dans `.agents/tests/feedbacks/INC-xxx.yaml`.
-- **Prompt Type :** *« Corrige l'erreur SQL column not found qui se produit lors du filtrage par formateur dans TableUI. »*
+- **Quand l'appeler :** Dès qu'une anomalie apparaît à l'écran ou dans `laravel.log`.
+- **Ce qu'il fait :** Lit la trace réelle, applique un fix chirurgical non-régressif et consigne dans `.agents/tests/feedbacks/INC-xxx.yaml`.
+- **Prompt Type :** *« Corrige l'erreur SQL column not found lors du filtrage par formateur dans TableUI. »*
 
-### 7. [`tutorial-writer`](../../skills/tutorial-writer/SKILL.md) (Pédagogie Technique)
-- **Quand l'appeler :** Pour produire des ressources d'autoformation, de documentation développeur ou de guides pas-à-pas pour les apprenants.
-- **Ce qu'il fait :** Rédige des tutoriels clairs, progressifs, vérifiables avec prérequis, étapes numérotées, extraits de code commentés et critères d'auto-évaluation.
-- **Prompt Type :** *« Rédige un tutoriel guidé pour apprendre à surcharger une vue Gapp via le dossier custom/. »*
+### 7. [`tutorial-writer`](../../skills/tutorial-writer/SKILL.md) (Pédagogie Technique & Autoformation)
+- **Quand l'appeler :** Pour produire des cours, guides pas-à-pas, ou modules d'autoformation web.
+- **Ce qu'il fait :** Rédige des tutoriels progressifs, vérifiables avec prérequis, étapes et critères d'auto-évaluation.
+- **Prompt Type :** *« Rédige un guide pas-à-pas sur la création d'un composant modal avec FormUI. »*
 
 ### 8. [`workshop-builder`](../../skills/workshop-builder/SKILL.md) (Ateliers & Évaluations APC)
-- **Quand l'appeler :** Pour concevoir des Travaux Pratiques (TP), projets de synthèse ou grilles d'évaluation critériées selon l'Approche Par Compétences de Solicode.
-- **Ce qu'il fait :** Cadre la mise en situation professionnelle, formule les livrables attendus, associe les critères de performance et construit la grille critériée.
-- **Prompt Type :** *« Conçois un TP de 4 heures sur l'implémentation d'un Service avec Traits et hooks CRUD. »*
+- **Quand l'appeler :** Pour concevoir des Travaux Pratiques (TP), briefs de projet et grilles critériées APC.
+- **Ce qu'il fait :** Cadre la mise en situation professionnelle et construit la grille d'évaluation critériée Solicode.
+- **Prompt Type :** *« Conçois un TP guidé de 4h sur l'implémentation d'un Service avec Traits et hooks. »*
 
 ### 9. [`plugin-dev`](../../skills/plugin-dev/SKILL.md) (Ingénierie & Gouvernance IA)
-- **Quand l'appeler :** Pour créer un nouveau skill, affiner une règle comportementale (`AGENTS.md`), synchroniser avec le catalogue `catalog.yaml` ou enrichir les standards.
-- **Ce qu'il fait :** Respecte le gabarit normé en 10 rubriques, garantit la non-contradiction des règles, trace l'inspiration Anthropic et valide via `validate-skills.js`.
-- **Prompt Type :** *« Crée un nouveau skill pour la génération automatisée de seeders de test. »*
+- **Quand l'appeler :** Pour créer ou faire évoluer des skills, standards ou règles (`AGENTS.md`).
+- **Ce qu'il fait :** Applique le gabarit normé en 10 rubriques, garantit la non-contradiction et valide via `validate-skills.cjs`.
+- **Prompt Type :** *« Crée un nouveau skill pour l'automatisation des tests de régression. »*
 
 ---
 
-## 🔄 4. Les 4 Grands Scénarios de Développement (Workflows Combinés)
+## 🔄 4. Scénarios Typiques par Nature de Projet
 
-### 🚀 Scénario A : Nouvelle Fonctionnalité de Bout en Bout
-1. **Étape 1 (Cadrage & Impact) :**
-   *Prompt :* *« Utilise `architecture-planner` pour analyser l'ajout de livrables multiples par tâche /plan »*
-2. **Étape 2 (Données & Entités) :**
-   *Prompt :* *« Utilise `domain-scaffolder` pour créer la migration et le modèle LivrableTache »*
-   *(Le développeur exécute : `php artisan migrate`, `gapp meta:sync`, `gapp make:crud LivrableTache`)*
-3. **Étape 3 (Développement Métier & UI) :**
-   *Prompt :* *« Utilise `feature-dev` pour implémenter les hooks afterCreateRules et la vue custom de dépôt »*
-4. **Étape 4 (Contextualisation IA) :**
-   *Prompt :* *« Mets à jour le AI_CONTEXT.md de modules/PkgCreationTache »*
+### 💻 Scénario Projets Applicatifs (Laravel / 3-Tiers)
+`planner-dev` (Impact) ➔ `domain-scaffolder` (Modélisation) ➔ `feature-dev` (Code & UI) ➔ `bug-fixer` (Si incident).
 
----
+### 📚 Scénario Projets de Rédaction de Tutoriels / Autoformations
+`project-setup` (Amorce Profil 2) ➔ `planner-dev` (Plan de formation) ➔ `tutorial-writer` (Rédaction des fiches pas-à-pas).
 
-### 🩺 Scénario B : Dépannage & Résolution d'Incidents
-1. **Étape 1 (Détection de panne) :**
-   Une action échoue ou une page affiche une erreur.
-2. **Étape 2 (Diagnostic chirurgical) :**
-   *Prompt :* *« Utilise `bug-fixer` pour diagnostiquer et corriger le crash survenu lors du clic sur Supprimer »*
-3. **Étape 3 (Vérification & Capitalisation) :**
-   L'agent vérifie `laravel.log`, applique le correctif dans `[Model]Service.php` ou `resources/views/.../custom/`, et consigne l'incident dans `.agents/tests/feedbacks/INC-xxx.yaml`.
-
----
-
-### 🎓 Scénario C : Conception d'Ateliers & Transfert Pédagogique
-1. **Étape 1 (Brief TP) :**
-   *Prompt :* *« Utilise `workshop-builder` pour concevoir le brief du TP sur la gestion des filtres TableUI »*
-2. **Étape 2 (Tutoriel Pas-à-Pas) :**
-   *Prompt :* *« Utilise `tutorial-writer` pour rédiger le guide technique d'accompagnement pour les apprenants »*
-
----
-
-### ⚙️ Scénario D : Maintenance & Évolution des Compétences IA
-1. **Étape 1 (Besoin d'adaptation) :**
-   Un nouveau pattern architectural émerge dans l'équipe.
-2. **Étape 2 (Gouvernance) :**
-   *Prompt :* *« Utilise `plugin-dev` pour ajouter la règle d'encapsulation query dans les standards et valider »*
-3. **Étape 3 (Contrôle déterministe) :**
-   L'agent exécute `node .agents/scripts/validate-skills.js` et vérifie la conformité à 100%.
+### 🎓 Scénario Ingénierie Pédagogique APC
+`project-setup` (Amorce Profil 3) ➔ `workshop-builder` (Brief de projet & Grille APC) ➔ `tutorial-writer` (Supports de TP).
 
 ---
 
 ## 🛡️ 5. Garde-Fous et Bonnes Pratiques
 
 > [!IMPORTANT]
-> **Règles d'or à toujours garder en tête :**
-> 1. **Protection Gapp :** Ne demandez jamais à l'agent de modifier directement une classe dans `Base/` ou une vue contenant `// Ce fichier est maintenu par ESSARRAJ Fouad`. L'agent doit toujours surcharger dans la classe enfant ou créer un fichier dans `custom/`.
-> 2. **Migrations :** L'agent prépare le code de migration mais **ne lance jamais** `php artisan migrate` de lui-même pour prévenir toute altération accidentelle de vos données locales.
-> 3. **Points d'interrogation (`?`) :** Terminez votre phrase par `?` dès que vous souhaitez simplement un avis, une analyse ou un plan d'action sans modification de code.
-> 4. **Affichage systématique des skills :** L'agent affiche toujours à la fin de sa réponse la ligne des compétences mobilisées pour garantir une parfaite transparence de son exécution.
+> **Règles d'or absolues :**
+> 1. **Protection Gapp :** Ne jamais modifier directement une classe dans `Base/` ou une vue contenant `// Ce fichier est maintenu par ESSARRAJ Fouad`. Surcharger dans la classe enfant ou créer dans `custom/`.
+> 2. **Migrations :** L'agent prépare le code de migration mais **ne lance jamais** `php artisan migrate` de lui-même.
+> 3. **Points d'interrogation (`?`) :** Terminez par `?` pour une analyse ou un plan sans modification de code.
+> 4. **Affichage systématique des skills :** L'agent affiche toujours en fin de réponse la liste compacte des skills mobilisés.

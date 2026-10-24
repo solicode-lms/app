@@ -1,5 +1,5 @@
 ﻿# Référence : Motifs de Conception des Plugins & Skills Anthropic
-
+ 
 Ce document consigne les bonnes pratiques et patterns issus du dépôt officiel d'Anthropic (`claude-plugins-official`) et des standards ouverts `agentskills.io`. Il sert de guide pour concevoir et faire évoluer les skills du Hub.
 
 ---
