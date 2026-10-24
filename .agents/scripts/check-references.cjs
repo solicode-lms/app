@@ -1,7 +1,7 @@
 /**
  * check-references.js — Détecteur de liens cassés dans les références Markdown
  */
-
+ 
 const fs = require('fs');
 const path = require('path');
 
