@@ -64,9 +64,14 @@
     "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)",
     "folder-color.pathColors": [
         {
-            "folderPath": "solicode-lms\\.agent\\",
+            "folderPath": "solicode-lms\\old_agent",
             "isFolderOnly": true,
             "color": "foldercolorizer.color_d787af"
+        },
+        {
+            "folderPath": "solicode-lms\\issues\\",
+            "isFolderOnly": true,
+            "color": "foldercolorizer.color_ff8700"
         }
     ],
     "hide-files.files": []

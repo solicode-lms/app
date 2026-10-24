@@ -122,6 +122,7 @@ class AffectationProjetController extends BaseAffectationProjetController
 
         // 3. Réinjecter les groupes filtrés
         $viewData['groupes'] = $groupes;
+        $viewData['seuil_blocage_moyen'] = \Modules\PkgRealisationProjets\Models\AffectationProjet::getMoyenneSeuilBlocage();
 
         return $viewData;
     }
