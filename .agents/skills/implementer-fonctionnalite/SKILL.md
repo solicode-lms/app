@@ -2,6 +2,10 @@
 name: implementer-fonctionnalite
 description: Developpe, modifie ou etend une fonctionnalite traversante dans Solicode LMS (Service, Trait, Controller, Blade custom, TableUI, FilterUI) en respectant les locks Gapp.
 version: 1.0.0
+inspiration:
+  source: "anthropic/claude-plugins-official"
+  plugin: "feature-dev"
+  pattern: "5-phase implementation workflow & progressive disclosure"
 ---
 
 # 1. Mission
@@ -104,3 +108,4 @@ public function initFieldsFilterable()
     }
 }
 ```
+

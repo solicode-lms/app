@@ -2,6 +2,10 @@
 name: rediger-tutoriel
 description: Redige des tutoriels techniques pas-a-pas progressifs, verifiables et ancres dans le code reel de Solicode LMS pour les apprenants developpeurs.
 version: 1.0.0
+inspiration:
+  source: "solicode-pedagogy"
+  plugin: "pedagogy-referential"
+  pattern: "competency-based active pedagogy & step-by-step guidance"
 ---
 
 # 1. Mission
@@ -71,3 +75,4 @@ Un document Markdown structuré comprenant obligatoirement :
 > Ouvrez le fichier enfant `modules/PkgFormation/Services/FiliereService.php`.  
 > *Attention : Ne modifiez pas `BaseFiliereService.php` qui est écrasé par Gapp !*  
 > Ajoutez la méthode `initFieldsFilterable()` pour injecter votre filtre...
+

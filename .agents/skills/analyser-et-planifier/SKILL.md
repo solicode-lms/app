@@ -2,6 +2,10 @@
 name: analyser-et-planifier
 description: Explore un projet ou un module, analyse limpact architectural dune demande et produit un plan daction etape par etape sans modifier le code applicatif.
 version: 1.0.0
+inspiration:
+  source: "anthropic/claude-plugins-official"
+  plugin: "claude-code-setup"
+  pattern: "read-only audit & impact mapping"
 ---
 
 # 1. Mission
@@ -66,3 +70,4 @@ Le livrable doit être un rapport d'analyse structuré comprenant :
 # 10. Exemples Concrets (Few-Shot)
 **Exemple de demande :** *"Comment ajouter un filtre par groupe sur le tableau des projets ?"*
 **Comportement attendu :** L'agent lit `modules/PkgCreationProjet/Services/ProjetService.php`, constate la présence de `BaseProjetService`, vérifie si `initFieldsFilterable()` est surchargé, vérifie le lien avec `resources/js/crud/components/FilterUI.js`, et produit un plan d'action en 3 points sans modifier le moindre fichier.
+
