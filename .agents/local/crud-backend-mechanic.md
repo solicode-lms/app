@@ -64,3 +64,22 @@ if ($data['note'] < 0 || $data['note'] > 20) {
     throw new BlException("La note saisie doit être comprise entre 0 et 20.");
 }
 ```
+
+## 4. Ordre Obligatoire du ViewState & Filtres Sauvegardés
+Le `ViewStateService` organise son état par `contextKey`. Les filtres persistés en base de données sont également indexés par `contextKey`.
+
+### ⚠️ Ordre d'Appel OBLIGATOIRE
+**AVANT tout appel à `loadLastFilterIfEmpty()`, il est OBLIGATOIRE d'appeler `setContextKeyIfEmpty()` sur le `ViewState`.**
+
+Sans cela, le système opère sous la clé `"default_context"` et ne retrouve **pas** les filtres sauvegardés :
+```php
+// 1. Définir le contexte
+$this->viewState->setContextKeyIfEmpty('monModel.index');
+
+// 2. Charger les filtres depuis la base
+$this->monService->loadLastFilterIfEmpty();
+
+// 3. Lire les variables de filtre
+$filterVariables = $this->viewState->getFilterVariables('monModel');
+```
+Cette règle s'applique partout où les filtres sont nécessaires hors du flux standard `index()` (exports CSV/Excel, rapports).
