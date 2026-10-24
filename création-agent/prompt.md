@@ -23,3 +23,6 @@ Ne réalise pas tout d'un seul coup. Nous allons avancer **pas à pas**. Pour ch
 ### Commençons immédiatement par l'Étape 1 :
 
 Présente-moi ton analyse comparative de l'**Étape 1 (Analyse des flux de travail et Recensement des tâches)** selon mes idées et le plan unifié, propose-moi la meilleure façon de procéder pour mon projet Active LMS, et attends ma réponse.
+
+
+Mon ancen agent est donner dans old_agent pour trouver les information et connaissance, mais mon objectif et de créer un agent compatible avec les standard, et plus efficae pour le développement, la maintenance de l'agent et des skills. 
