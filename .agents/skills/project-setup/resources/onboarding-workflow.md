@@ -15,15 +15,13 @@ Pour permettre à l'agent IA de démarrer, deux méthodes simples d'amorce (boot
 Ouvrez le terminal dans la racine de votre nouveau projet et lancez la commande d'amorce fournie par le Hub :
 
 ```powershell
-node D:\solicode-lms\skills-workspace\scripts\manage-skills.cjs bootstrap
+node D:\solicode-lms\skills-workspace\skills\project-setup\scripts\manage-skills.cjs bootstrap
 ```
 
 **Actions automatiques réalisées par la commande :**
-1. Création de l'arborescence `.agents/skills/`, `.agents/local/` et `.agents/scripts/`.
-2. Création de la jonction NTFS `.agents/references` pointant vers `D:\solicode-lms\skills-workspace\references`.
-3. Création de la jonction NTFS unitaire `.agents/skills/project-setup` pointant vers le skill d'initialisation du Hub.
-4. Copie locale du script de gestion `.agents/scripts/manage-skills.cjs`.
-5. Création du manifeste initial `.agents/skills.json` pré-rempli avec `["project-setup"]`.
+1. Création de l'arborescence `.agents/skills/`.
+2. Création de la jonction NTFS unitaire `.agents/skills/project-setup` pointant vers `D:\solicode-lms\skills-workspace\skills\project-setup`.
+3. Création du manifeste initial `.agents/skills.json` configuré avec `["project-setup"]`.
 
 ---
 
@@ -31,15 +29,11 @@ node D:\solicode-lms\skills-workspace\scripts\manage-skills.cjs bootstrap
 Si Node.js n'est pas invoqué directement :
 
 ```powershell
-# 1. Créer les dossiers d'accueil
-New-Item -ItemType Directory -Force -Path ".agents\skills", ".agents\local", ".agents\scripts"
+# 1. Créer le dossier d'accueil
+New-Item -ItemType Directory -Force -Path ".agents\skills"
 
-# 2. Poser les jonctions NTFS fondamentales
-cmd /c mklink /J ".agents\references" "D:\solicode-lms\skills-workspace\references"
-cmd /c mklink /J ".agents\skills\project-setup" "D:\solicode-lms\skills-workspace\.agents\skills\project-setup"
-
-# 3. Copier le gestionnaire de skills
-Copy-Item "D:\solicode-lms\skills-workspace\scripts\manage-skills.cjs" ".agents\scripts\"
+# 2. Poser la jonction NTFS du skill d'amorce
+cmd /c mklink /J ".agents\skills\project-setup" "D:\solicode-lms\skills-workspace\skills\project-setup"
 ```
 
 ---
@@ -75,7 +69,7 @@ sequenceDiagram
         Agent->>Local: Audit, tri passif/actif et déplacement vers archive/old_agent
     end
     Agent->>Local: Génération du manifeste .agents/skills.json
-    Agent->>Local: Exécution de node .agents/scripts/manage-skills.cjs install
+    Agent->>Local: Exécution de node .agents/skills/project-setup/scripts/manage-skills.cjs install
     Local->>Hub: Création des jonctions NTFS unitaires pour les skills choisis
     Agent->>Local: Génération de .agents/local/project-conventions.md
     Agent->>Dev: Présentation du Rapport d'Onboarding & Checklist
@@ -103,7 +97,7 @@ Si un dossier `old_agent` ou `.agent/` non normé préexiste :
 - Rédiger le fichier `.agents/skills.json` avec la liste exacte des skills retenus pour le profil.
 - Exécuter la commande de synchronisation :
   ```bash
-  node .agents/scripts/manage-skills.cjs install
+  node .agents/skills/project-setup/scripts/manage-skills.cjs install
   ```
 - Vérifier que chaque skill sélectionné est bien lié sous forme de jonction unitaire sans pollution des compétences hors profil.
 

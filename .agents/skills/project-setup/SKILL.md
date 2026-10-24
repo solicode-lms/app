@@ -46,7 +46,7 @@ Ce skill est l'**orchestrateur universel d'onboarding, d'audit architectural et 
 
 # 4. Contraintes & Règles Inviolables
 - **Non-Destructif sur le Code :** `project-setup` ne modifie jamais le code applicatif du projet ni la structure des bases de données.
-- **Bootstrapping Propre :** Pour un projet vierge sans dossier `.agents/`, utiliser la commande d'amorce `node <hubPath>/scripts/manage-skills.cjs bootstrap`.
+- **Bootstrapping Propre :** Pour un projet vierge sans dossier `.agents/`, utiliser la commande d'amorce `node <hubPath>/skills/project-setup/scripts/manage-skills.cjs bootstrap`.
 - **Installation Sélective Granulaire (Skill-by-Skill) :** Le dossier local `.agents/skills/` est physique. Interdiction formelle de créer une jonction NTFS globale sur tout le dossier `skills` ; chaque compétence retenue est une jonction NTFS unitaire.
 - **Archivage Défensif Obligatoire :** Tout ancien dossier `old_agent` audité doit être déplacé dans `archive/old_agent` pour éviter toute collision cognitive d'agent.
 
@@ -54,7 +54,7 @@ Ce skill est l'**orchestrateur universel d'onboarding, d'audit architectural et 
 
 # 5. Procédure Pas-à-Pas
 1. **Étape 1 : Diagnostic & Bootstrapping :**
-   - Vérifier si `.agents/skills/` et `.agents/skills.json` existent. Si le projet est vierge, exécuter l'amorce `node D:\solicode-lms\skills-workspace\scripts\manage-skills.cjs bootstrap`.
+   - Vérifier si `.agents/skills/` et `.agents/skills.json` existent. Si le projet est vierge, exécuter l'amorce `node D:\solicode-lms\skills-workspace\skills\project-setup\scripts\manage-skills.cjs bootstrap`.
 2. **Étape 2 : Analyse du Cahier des Charges & Profilage :**
    - Examiner les fichiers d'entrée et consulter [project-typology-and-profiles.md](resources/project-typology-and-profiles.md) pour identifier le profil (Profil 1: Dev Logiciel, Profil 2: Tutoriels/Autoformation, Profil 3: Ingénierie APC, Profil 4: Hybride).
    - En cas d'ambiguïté ou de projet sans doc : engager le dialogue interactif avec l'utilisateur.
@@ -62,7 +62,7 @@ Ce skill est l'**orchestrateur universel d'onboarding, d'audit architectural et 
    - Appliquer le [legacy-migration-playbook.md](resources/legacy-migration-playbook.md), transférer les règles dans `.agents/local/project-conventions.md` et déplacer l'ancien dossier dans `archive/old_agent/`.
 4. **Étape 4 : Déploiement Granulaire des Compétences :**
    - Rédiger `.agents/skills.json` avec la liste exacte des compétences nécessaires au profil.
-   - Synchroniser via `node .agents/scripts/manage-skills.cjs install`.
+   - Synchroniser via `node .agents/skills/project-setup/scripts/manage-skills.cjs install`.
 5. **Étape 5 : Formalisation du Cadre Local & Bilan :**
    - Rédiger `.agents/local/project-conventions.md` et émettre le rapport d'onboarding structuré.
 
