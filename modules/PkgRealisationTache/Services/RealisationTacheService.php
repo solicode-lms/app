@@ -5,6 +5,9 @@ namespace Modules\PkgRealisationTache\Services;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\PkgRealisationTache\Services\Base\BaseRealisationTacheService;
 use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheCrudTrait;
+use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheAbsenceTrait;
+use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheRemediationTrait;
+use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheChapitreUaTrait;
 use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheActionsTrait;
 use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheGetterTrait;
 use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheJobTrait;
@@ -13,8 +16,11 @@ use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTach
 /**
  * Classe RealisationTacheService pour gérer la persistance de l'entité RealisationTache.
  *
- * Architecture modulaire via Traits :
- * @uses RealisationTacheCrudTrait Gestion du cycle de vie CRUD, Hooks (before/after) et Règles Métier.
+ * Architecture modulaire via Traits (< 500 lignes par fichier) :
+ * @uses RealisationTacheCrudTrait Gestion du cycle de vie CRUD et Hooks (before/after).
+ * @uses RealisationTacheAbsenceTrait Gestion de l'absence, reprises et propagations.
+ * @uses RealisationTacheRemediationTrait Synchronisation de la table remediations.
+ * @uses RealisationTacheChapitreUaTrait Liaisons chapitres et validations UA.
  * @uses RealisationTacheActionsTrait Actions métier spécifiques.
  * @uses RealisationTacheGetterTrait Méthodes de lecture, filtres et scopes.
  * @uses RealisationTacheJobTrait Gestion des Jobs asynchrones.
@@ -23,10 +29,12 @@ use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTach
 class RealisationTacheService extends BaseRealisationTacheService
 {
     use RealisationTacheCrudTrait,
+        RealisationTacheAbsenceTrait,
+        RealisationTacheRemediationTrait,
+        RealisationTacheChapitreUaTrait,
         RealisationTacheJobTrait,
         RealisationTacheActionsTrait,
         RealisationTacheGetterTrait,
-      
         RealisationTacheMassCrudTrait;
 
 

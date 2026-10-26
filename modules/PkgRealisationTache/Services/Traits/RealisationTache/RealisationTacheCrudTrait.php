@@ -346,72 +346,12 @@ trait RealisationTacheCrudTrait
         }
 
 
-        // 🔄 Règle métier : Transition depuis l'état ABSENT et gestion des états restreints
-        $etatActuel = $realisationTache->etatRealisationTache;
-        $etatActuelCode = optional($etatActuel?->workflowTache)->code;
-        $isTransitionDepuisAbsent = ($etatActuelCode === 'ABSENT');
-        $isAutoRedirectionVersRemediation = false;
+        // 🔄 Règle métier : Transition depuis l'état ABSENT et gestion des remédiations (délégué au trait)
+        $isAutoRedirectionVersRemediation = $this->gererReglesAbsenceAvantUpdate($realisationTache, $data, $isFormateur);
 
         if (!$isFormateur && !empty($data["etat_realisation_tache_id"])) {
-            $etatDemande = \Modules\PkgRealisationTache\Models\EtatRealisationTache::find($data["etat_realisation_tache_id"]);
-            $codeEtatDemande = optional($etatDemande?->workflowTache)->code;
-
-            // 1. Si l'apprenant reprend sa tâche depuis ABSENT vers IN_PROGRESS ("En cours")
-            if ($isTransitionDepuisAbsent && $codeEtatDemande === 'IN_PROGRESS') {
-                $etaitEnRemediation = false;
-
-                // A. Vérifier dans la table remediations s'il existe une remédiation active non résolue
-                if (\Illuminate\Support\Facades\Schema::hasTable('remediations')) {
-                    $etaitEnRemediation = \Illuminate\Support\Facades\DB::table('remediations')
-                        ->where('realisation_tache_id', $realisationTache->id)
-                        ->where('est_resolu', 0)
-                        ->exists();
-                }
-
-                // B. Vérifier de secours dans l'historique des changements d'état le dernier état avant l'absence
-                if (!$etaitEnRemediation) {
-                    $dernierChangement = \Modules\PkgRealisationTache\Models\HistoriqueRealisationTache::where('realisation_tache_id', $realisationTache->id)
-                        ->where('changement', 'like', '%État%')
-                        ->where('changement', 'not like', '%Absent%')
-                        ->latest('id')
-                        ->first();
-
-                    if ($dernierChangement) {
-                        $chg = mb_strtolower($dernierChangement->changement);
-                        $etaitEnRemediation = (str_contains($chg, 'remédiation') || str_contains($chg, 'remediation'));
-                    }
-                }
-
-                // Si la tâche était en remédiation avant l'absence, rediriger automatiquement vers EN_REMEDIATION
-                if ($etaitEnRemediation) {
-                    $formateurId = $realisationTache->realisationProjet?->affectationProjet?->projet?->formateur_id;
-                    $etatRemediation = \Modules\PkgRealisationTache\Models\EtatRealisationTache::whereHas('workflowTache', fn($q) =>
-                        $q->where('code', 'EN_REMEDIATION')
-                    )->where(function ($q) use ($formateurId) {
-                        if ($formateurId) {
-                            $q->where('formateur_id', $formateurId)->orWhereNull('formateur_id');
-                        } else {
-                            $q->whereNull('formateur_id');
-                        }
-                    })->orderByRaw('formateur_id IS NULL ASC')->first();
-
-                    if ($etatRemediation) {
-                        $data["etat_realisation_tache_id"] = $etatRemediation->id;
-                        $isAutoRedirectionVersRemediation = true;
-                    }
-                }
-            }
-
-            // 2. Vérifications et interdictions strictes côté apprenant
             $etatFinalCible = \Modules\PkgRealisationTache\Models\EtatRealisationTache::find($data["etat_realisation_tache_id"]);
             $codeFinalCible = optional($etatFinalCible?->workflowTache)->code;
-
-            // Interdiction : Un apprenant ne peut jamais marquer une tâche comme ABSENT
-            if ($codeFinalCible === 'ABSENT') {
-                throw \Illuminate\Validation\ValidationException::withMessages([
-                    'etat_realisation_tache_id' => "Seul un formateur peut marquer une tâche comme absente."
-                ]);
-            }
 
             // Interdiction : Un apprenant ne peut pas affecter manuellement l'état EN_REMEDIATION
             if ($codeFinalCible === 'EN_REMEDIATION' && !$isAutoRedirectionVersRemediation) {
@@ -436,6 +376,8 @@ trait RealisationTacheCrudTrait
 
             // Vérification si l'état actuel existe et est modifiable uniquement par un formateur
             if ($realisationTache->etatRealisationTache) {
+                $etatActuelCode = optional($realisationTache->etatRealisationTache->workflowTache)->code;
+                $isTransitionDepuisAbsent = ($etatActuelCode === 'ABSENT');
                 $isSortieAutoriseeDepuisAbsent = $isTransitionDepuisAbsent && ($isAutoRedirectionVersRemediation || $codeFinalCible === 'IN_PROGRESS');
                 if (
                     $realisationTache->etatRealisationTache->is_editable_only_by_formateur
@@ -523,42 +465,8 @@ trait RealisationTacheCrudTrait
 
         }
 
-        // 🔄 Résolution ou activation automatique de la remédiation dans la table remediations
-        if (\Illuminate\Support\Facades\Schema::hasTable('remediations')) {
-            $nouvelEtat = \Modules\PkgRealisationTache\Models\EtatRealisationTache::with('workflowTache')->find($realisationTache->etat_realisation_tache_id);
-            $wfCode = optional($nouvelEtat?->workflowTache)->code;
-            if (in_array($wfCode, ['VALIDEE', 'APPROVED'])) {
-                \Illuminate\Support\Facades\DB::table('remediations')
-                    ->where('realisation_tache_id', $realisationTache->id)
-                    ->where('est_resolu', 0)
-                    ->update([
-                        'est_resolu' => 1,
-                        'updated_at' => now(),
-                    ]);
-            } elseif ($wfCode === 'EN_REMEDIATION') {
-                $existsRem = \Illuminate\Support\Facades\DB::table('remediations')
-                    ->where('realisation_tache_id', $realisationTache->id)
-                    ->exists();
-                if (!$existsRem) {
-                    $formateurId = $realisationTache->realisationProjet?->affectationProjet?->projet?->formateur_id ?? 1;
-                    \Illuminate\Support\Facades\DB::table('remediations')->insert([
-                        'realisation_tache_id' => $realisationTache->id,
-                        'formateur_id' => $formateurId,
-                        'type_remediation' => 'INDIVIDUELLE',
-                        'diagnostic' => "Consolidation didactique requise",
-                        'est_resolu' => 0,
-                        'reference' => 'REM_' . $realisationTache->id . '_' . date('Ymd') . '_' . uniqid(),
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ]);
-                } else {
-                    \Illuminate\Support\Facades\DB::table('remediations')
-                        ->where('realisation_tache_id', $realisationTache->id)
-                        ->where('est_resolu', 1)
-                        ->update(['est_resolu' => 0, 'updated_at' => now()]);
-                }
-            }
-        }
+        // 🔄 Synchronisation automatique de la remédiation dans la table remediations (délégué au trait)
+        $this->synchroniserRemediationApresUpdate($realisationTache);
 
         // 🔄 Synchronisation automatique des remédiations post-Live Coding si l'état ou le Live Coding a changé
         if ($realisationTache->wasChanged('etat_realisation_tache_id') || $realisationTache->wasChanged('is_live_coding')) {
@@ -573,7 +481,7 @@ trait RealisationTacheCrudTrait
         }
 
         // 🔄 Propagation automatique de l'absence : lorsqu'un apprenant met la tâche suivante en cours (IN_PROGRESS),
-        // les apprenants absents sur les tâches précédentes sont automatiquement marqués ABSENT sur cette tâche.
+        // les apprenants absents sur les tâches précédentes sont automatiquement marqués ABSENT sur cette tâche (délégué au trait).
         if ($realisationTache->wasChanged('etat_realisation_tache_id')) {
             $nouvelEtat = \Modules\PkgRealisationTache\Models\EtatRealisationTache::with('workflowTache')->find($realisationTache->etat_realisation_tache_id);
             $wfCode = optional($nouvelEtat?->workflowTache)->code;
@@ -582,216 +490,4 @@ trait RealisationTacheCrudTrait
             }
         }
     }
-
-    /**
-     * Propage l'état ABSENT sur la tâche actuelle pour les apprenants absents de la même affectation
-     * lorsqu'un pair commence la tâche suivante (état IN_PROGRESS).
-     *
-     * @param RealisationTache $realisationTache
-     * @return void
-     */
-    protected function propagerEtatAbsentPourTacheSuivante(RealisationTache $realisationTache): void
-    {
-        $tacheActuelle = $realisationTache->tache;
-        $affectation = $realisationTache->realisationProjet?->affectationProjet;
-
-        if (!$tacheActuelle || !$affectation) {
-            return;
-        }
-
-        // 1. Déterminer la séquence ordonnée des tâches du projet
-        $tachesDuProjet = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $tacheActuelle->projet_id)
-            ->orderBy('priorite')
-            ->orderBy('ordre')
-            ->orderBy('id')
-            ->pluck('id')
-            ->toArray();
-
-        $currentIndex = array_search($tacheActuelle->id, $tachesDuProjet);
-        if ($currentIndex === false || $currentIndex === 0) {
-            // Aucune tâche précédente dans ce projet
-            return;
-        }
-
-        $tachesPrecedentesIds = array_slice($tachesDuProjet, 0, $currentIndex);
-
-        // 2. Trouver l'état ABSENT pour le formateur du projet (ou état système)
-        $formateurId = $affectation->projet?->formateur_id;
-        $etatAbsent = \Modules\PkgRealisationTache\Models\EtatRealisationTache::whereHas('workflowTache', fn($q) =>
-            $q->where('code', 'ABSENT')
-        )->where(function ($q) use ($formateurId) {
-            if ($formateurId) {
-                $q->where('formateur_id', $formateurId)->orWhereNull('formateur_id');
-            } else {
-                $q->whereNull('formateur_id');
-            }
-        })->orderByRaw('formateur_id IS NULL ASC')->first();
-
-        if (!$etatAbsent) {
-            return;
-        }
-
-        // 3. Identifier les autres apprenants de la même affectation
-        $autresRealisationsProjet = \Modules\PkgRealisationProjets\Models\RealisationProjet::where('affectation_projet_id', $affectation->id)
-            ->where('id', '!=', $realisationTache->realisation_projet_id)
-            ->get();
-
-        foreach ($autresRealisationsProjet as $rp) {
-            // Récupérer les réalisations précédentes de cet apprenant ordonnées
-            $rtsPrecedentes = RealisationTache::where('realisation_projet_id', $rp->id)
-                ->whereIn('tache_id', $tachesPrecedentesIds)
-                ->get()
-                ->keyBy('tache_id');
-
-            // Vérifier en partant de la tâche la plus proche vers la plus ancienne
-            $estAbsentSurPrecedente = false;
-            for ($i = count($tachesPrecedentesIds) - 1; $i >= 0; $i--) {
-                $tId = $tachesPrecedentesIds[$i];
-                $rtPrec = $rtsPrecedentes->get($tId);
-                if ($rtPrec) {
-                    $wfCodePrec = optional($rtPrec->etatRealisationTache?->workflowTache)->code;
-                    if ($wfCodePrec === 'ABSENT') {
-                        $estAbsentSurPrecedente = true;
-                        break;
-                    } elseif (in_array($wfCodePrec, ['APPROVED', 'VALIDEE', 'VALIDE_INTERMEDIAIRE', 'IN_PROGRESS', 'TO_APPROVE'])) {
-                        // L'apprenant est actif ou a validé une tâche plus récente
-                        break;
-                    }
-                }
-            }
-
-            if ($estAbsentSurPrecedente) {
-                $rtActuelle = RealisationTache::where('realisation_projet_id', $rp->id)
-                    ->where('tache_id', $tacheActuelle->id)
-                    ->first();
-
-                if ($rtActuelle) {
-                    $codeActuel = optional($rtActuelle->etatRealisationTache?->workflowTache)->code;
-                    // Ne modifier que si la tâche n'est pas déjà ABSENT et n'est pas finalisée
-                    if ($codeActuel !== 'ABSENT' && !in_array($codeActuel, ['APPROVED', 'VALIDEE', 'VALIDE_INTERMEDIAIRE', 'NOT_VALIDATED'])) {
-                        $rtActuelle->update([
-                            'etat_realisation_tache_id' => $etatAbsent->id,
-                        ]);
-
-                        \Modules\PkgRealisationTache\Models\HistoriqueRealisationTache::create([
-                            'realisation_tache_id' => $rtActuelle->id,
-                            'dateModification' => now(),
-                            'changement' => 'État : Absent (Propagation automatique absence apprenant)',
-                            'user_id' => \Illuminate\Support\Facades\Auth::id() ?? $affectation->projet?->formateur?->user_id,
-                            'isFeedback' => false,
-                        ]);
-                    }
-                }
-            }
-        }
-    }
-
-
-
-    /**
-     * Helper pour encapsuler la logique de récupération de l'état "DONE"
-     * si le chapitre associé est terminé.
-     */
-    /**
-     * Helper pour vérifier si le chapitre est déjà validé.
-     */
-    protected function shouldSkipCreationIfChapitreDone(array $data): bool
-    {
-        // Bypass si flag explicite (pour éviter boucle infinie lors de création automatique)
-        if (isset($data['__bypass_chapter_check']) && $data['__bypass_chapter_check'] === true) {
-            return false;
-        }
-
-        if (empty($data['tache_id']) || empty($data['realisation_projet_id'])) {
-            return false;
-        }
-
-        $tache = Tache::with('chapitre')->find($data['tache_id']);
-        if (!$tache || !$tache->chapitre) {
-            return false;
-        }
-
-        $realisationProjet = RealisationProjet::with('affectationProjet.projet')->find($data['realisation_projet_id']);
-        if (!$realisationProjet) {
-            return false;
-        }
-
-        // Vérification de l'état du chapitre pour cet apprenant
-        $realisationUaService = new RealisationUaService();
-        $realisationUA = $realisationUaService->getOrCreateApprenant(
-            $realisationProjet->apprenant_id,
-            $tache->chapitre->unite_apprentissage_id
-        );
-
-        $realisationChapitreService = app(\Modules\PkgApprentissage\Services\RealisationChapitreService::class);
-        return $realisationChapitreService->isChapitreAlreadyDone($tache->chapitre->id, $realisationUA->id);
-    }
-
-    /**
-     * Vérifie si l'UA est terminée et crée la tâche de validation du dernier chapitre si nécessaire.
-     */
-    protected function checkAndPerformUaValidationLogic(int $tacheId, int $realisationProjetId): void
-    {
-        $tache = \Modules\PkgCreationTache\Models\Tache::with('chapitre.uniteApprentissage.chapitres')->find($tacheId);
-        $realisationProjet = \Modules\PkgRealisationProjets\Models\RealisationProjet::with('apprenant')->find($realisationProjetId);
-
-        if (!$tache || !$tache->chapitre || !$realisationProjet) {
-            return;
-        }
-
-        $ua = $tache->chapitre->uniteApprentissage;
-        if ($ua) {
-            $totalChapitres = $ua->chapitres->count();
-
-            $realisationUaService = new \Modules\PkgApprentissage\Services\RealisationUaService();
-            $realisationUA = $realisationUaService->getOrCreateApprenant(
-                $realisationProjet->apprenant_id,
-                $tache->chapitre->unite_apprentissage_id
-            );
-
-            // On compte les chapitres validés pour cette UA et cet apprenant
-            $chapitresValides = \Modules\PkgApprentissage\Models\RealisationChapitre::where('realisation_ua_id', $realisationUA->id)
-                ->whereHas('etatRealisationChapitre', function ($q) {
-                    $q->where('code', 'DONE');
-                })
-                ->count();
-
-            if ($chapitresValides >= $totalChapitres) {
-                $etatApprovedId = \Modules\PkgRealisationTache\Models\EtatRealisationTache::whereHas('workflowTache', function ($q) {
-                    $q->where('code', 'APPROVED');
-                })->value('id');
-
-                if ($etatApprovedId) {
-                    // Trouver la tâche du dernier chapitre
-                    $dernierChapitre = $ua->chapitres()->orderBy('ordre', 'desc')->first();
-
-                    if ($dernierChapitre) {
-
-                        // TODO : Problème : il récupére même les tâche qui ne fait pas partie de projet courant
-                        $tacheDernierChapitre = \Modules\PkgCreationTache\Models\Tache::where('chapitre_id', $dernierChapitre->id)->first();
-
-                        if ($tacheDernierChapitre) {
-                            $exists = RealisationTache::where('tache_id', $tacheDernierChapitre->id)
-                                ->where('realisation_projet_id', $realisationProjet->id)
-                                ->exists();
-
-                            if (!$exists) {
-                                $realisationTacheService = new \Modules\PkgRealisationTache\Services\RealisationTacheService();
-                                $realisationTacheService->create([
-                                    'tache_id' => $tacheDernierChapitre->id,
-                                    'realisation_projet_id' => $realisationProjet->id,
-                                    'etat_realisation_tache_id' => $etatApprovedId,
-                                    'date_debut' => now(),
-                                    'date_fin' => now(),
-                                    'description' => "Validation automatique via UA Completed",
-                                    '__bypass_chapter_check' => true
-                                ]);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
 }
