@@ -19,4 +19,11 @@ return [
     'note' => 'note',
     'is_live_coding' => 'Live coding validé',
     'travail_a_faire'=> 'Travail à faire',
+    'situation_pedagogique' => 'Situation pédagogique',
+    'situation_travail' => 'En Travail',
+    'situation_blocage' => 'En Blocage',
+    'situation_attente' => 'En Attente de Validation',
+    'situation_terminee' => 'Terminées',
+    'situation_custom' => 'Personnalisée...',
+    'etats_personnalises' => 'États personnalisés',
 ];

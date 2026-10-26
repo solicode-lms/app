@@ -24,6 +24,37 @@ use Illuminate\Support\Collection;
 
 trait RealisationTacheGetterTrait
 {
+    public const SITUATION_TRAVAIL = 'SITUATION_TRAVAIL';
+    public const SITUATION_BLOCAGE = 'SITUATION_BLOCAGE';
+    public const SITUATION_ATTENTE = 'SITUATION_ATTENTE';
+    public const SITUATION_TERMINEE = 'SITUATION_TERMINEE';
+    public const SITUATION_CUSTOM = 'SITUATION_CUSTOM';
+
+    public const SITUATION_WORKFLOW_MAP = [
+        self::SITUATION_TRAVAIL => [
+            'IN_PROGRESS', 
+            'REVISION_NECESSAIRE', 
+            'EN_REMEDIATION', 
+            'IN_LIVE_CODING', 
+            'PAUSED'
+        ],
+        self::SITUATION_BLOCAGE => [
+            'EN_REMEDIATION', 
+            'REVISION_NECESSAIRE', 
+            'NOT_VALIDATED', 
+            'LATE', 
+            'PAUSED'
+        ],
+        self::SITUATION_ATTENTE => [
+            'TO_APPROVE', 
+            'READY_FOR_LIVE_CODING', 
+            'A_VALIDER_LIVE_CODING'
+        ],
+        self::SITUATION_TERMINEE => [
+            'APPROVED'
+        ],
+    ];
+
     public function prepareDataForIndexView(array $params = []): array
     {
         // On récupère les données du parent
@@ -58,11 +89,16 @@ trait RealisationTacheGetterTrait
 
         $baseData['previousTasksGrouped'] = $previousTasksGrouped;
 
+        // WorkflowTaches disponibles pour la vue
+        $workflowService = new WorkflowTacheService();
+        $workflowTachesList = $workflowService->all();
+        $baseData['workflowTachesList'] = $workflowTachesList;
 
         // Dispo dans Blade via compact_value
         if (isset($baseData['realisationTache_compact_value']) && is_array($baseData['realisationTache_compact_value'])) {
             $baseData['realisationTache_compact_value']['revisionsBeforePriorityGrouped'] = $revisionsGrouped;
             $baseData['realisationTache_compact_value']['previousTasksGrouped'] = $previousTasksGrouped;
+            $baseData['realisationTache_compact_value']['workflowTachesList'] = $workflowTachesList;
         }
 
         return $baseData;
@@ -211,6 +247,20 @@ trait RealisationTacheGetterTrait
             // Aucun état formateur -> liste vide pour masquer le filtre
             $etats = collect();
         }
+
+        // --- FILTRE SITUATION PEDAGOGIQUE (Macro-situations & Personnalisée) ---
+        $this->fieldsFilterable[] = [
+            'label' => __('PkgRealisationTache::realisationTache.situation_pedagogique'),
+            'field' => 'situation_pedagogique',
+            'type' => 'ManyToOne',
+            'options' => [
+                ['id' => self::SITUATION_TRAVAIL, 'label' => '🔨 ' . __('PkgRealisationTache::realisationTache.situation_travail')],
+                ['id' => self::SITUATION_BLOCAGE, 'label' => '⚠️ ' . __('PkgRealisationTache::realisationTache.situation_blocage')],
+                ['id' => self::SITUATION_ATTENTE, 'label' => '⏳ ' . __('PkgRealisationTache::realisationTache.situation_attente')],
+                ['id' => self::SITUATION_TERMINEE, 'label' => '✅ ' . __('PkgRealisationTache::realisationTache.situation_terminee')],
+                ['id' => self::SITUATION_CUSTOM, 'label' => '🎯 ' . __('PkgRealisationTache::realisationTache.situation_custom')],
+            ],
+        ];
 
         // Génération du filtre ManyToOne pour l'état de réalisation de tâche
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(
@@ -420,6 +470,43 @@ trait RealisationTacheGetterTrait
                 });
             } else {
                 $builder->whereRaw('1 = 0');
+            }
+        }
+
+        // --- FILTRE SITUATION PEDAGOGIQUE ET ETATS PERSONNALISES ---
+        $situation = $filterVariables['situation_pedagogique'] 
+            ?? $this->viewState->get('filter.realisationTache.situation_pedagogique')
+            ?? request('situation_pedagogique');
+
+        $customEtats = $filterVariables['custom_etats'] 
+            ?? $this->viewState->get('filter.realisationTache.custom_etats')
+            ?? request('custom_etats');
+
+        unset($filterVariables['situation_pedagogique'], $filterVariables['custom_etats']);
+
+        if (!empty($situation) && isset(self::SITUATION_WORKFLOW_MAP[$situation])) {
+            $codes = self::SITUATION_WORKFLOW_MAP[$situation];
+            $builder->whereHas('etatRealisationTache.workflowTache', function (Builder $q) use ($codes) {
+                $q->whereIn('code', $codes);
+            });
+            // Pour ne pas entrer en conflit avec une ancienne sélection d'état unitaire
+            unset($filterVariables['etat_realisation_tache_id']);
+            unset($filterVariables['etatRealisationTache.WorkflowTache.Code']);
+        } elseif ($situation === self::SITUATION_CUSTOM && !empty($customEtats)) {
+            $customEtatsArray = is_array($customEtats) ? $customEtats : explode(',', (string) $customEtats);
+            $customEtatsArray = array_values(array_filter(array_map('trim', $customEtatsArray)));
+
+            if (!empty($customEtatsArray)) {
+                $isNumeric = is_numeric($customEtatsArray[0]);
+                if ($isNumeric) {
+                    $builder->whereIn('realisation_taches.etat_realisation_tache_id', $customEtatsArray);
+                } else {
+                    $builder->whereHas('etatRealisationTache.workflowTache', function (Builder $q) use ($customEtatsArray) {
+                        $q->whereIn('code', $customEtatsArray);
+                    });
+                }
+                unset($filterVariables['etat_realisation_tache_id']);
+                unset($filterVariables['etatRealisationTache.WorkflowTache.Code']);
             }
         }
 
