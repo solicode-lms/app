@@ -53,14 +53,15 @@ Le package **PkgRealisationTache** gère l'exécution opérationnelle, le suivi 
 ### `RealisationTacheGetterTrait` (Macro-Situations & Inactivité)
 - **Constantes de situations pédagogiques :**
   - `SITUATION_TRAVAIL` : Tâches en cours d'exécution active.
-  - `SITUATION_BLOCAGE` : Tâches bloquées, en remédiation ou apprenants absents (`ABSENT`).
+  - `SITUATION_BLOCAGE` : Tâches bloquées ou en difficulté didactique nécessitant une remédiation ou révision (`EN_REMEDIATION`, `REVISION_NECESSAIRE`, `LATE`).
   - `SITUATION_ATTENTE` : Tâches soumises en attente de validation.
   - `SITUATION_TERMINEE` : Tâches validées (`APPROVED`), invalidées (`NOT_VALIDATED`) ou ayant franchi une étape finale intermédiaire (`VALIDE_INTERMEDIAIRE`).
+  - `SITUATION_PAUSE_ABSENCE` : Tâches suspendues ou apprenants absents (`PAUSED`, `ABSENT`).
   - `SITUATION_INACTIF_SEANCE` : Apprenants sans aucun événement pendant la séance en cours.
   - `SITUATION_INACTIF_JOUR` : Apprenants sans aucun événement pendant toute la journée.
   - `SITUATION_CUSTOM` : Filtrage libre multi-états personnalisés.
 - **Matrice `SITUATION_WORKFLOW_MAP` :** Mappe chaque macro-situation aux codes `WorkflowTache` correspondants.
-  - Comprend 14 états institutionnels, notamment `VALIDE_INTERMEDIAIRE` (état final intermédiaire, couleur `teal`, réservé aux formateurs) et `ABSENT` (état de blocage par absence, couleur `secondary`, réservé aux formateurs).
+  - Comprend 14 états institutionnels, notamment `VALIDE_INTERMEDIAIRE` (état final intermédiaire, couleur `teal`, réservé aux formateurs) et `ABSENT` (état d'absence, couleur `secondary`, réservé aux formateurs).
 - **Méthode `getInactiviteData(string $mode, array $activeFilters)` :**
   - Analyse les transitions dans `HistoriqueRealisationTache` sur la plage horaire définie par `SeanceService`.
   - Applique rigoureusement les filtres de scoping parents (`Affectation_projet_id`, `Groupe_id`, `Filiere_id`, `EquipeProjet_id`).
@@ -72,7 +73,7 @@ Le package **PkgRealisationTache** gère l'exécution opérationnelle, le suivi 
 ## 4. Particularités UI & Filtres
 
 ### Barre de Macro-Situations (`custom/_index.blade.php`)
-- **Pills de Situation :** Boutons d'accès rapide pour basculer en un clic entre Travail en cours, Blocages, En attente, Terminées, Inactifs (Séance / Jour) et Personnalisé.
+- **Pills de Situation :** Boutons d'accès rapide pour basculer en un clic entre Travail en cours, Blocages, En attente, Terminées, En Pause / Absent, Inactifs (Séance / Jour) et Personnalisé.
 - **Panneau Déroulant Personnalisé (`#custom-etats-panel`) :** Affiché uniquement lorsque la macro-situation sélectionnée est `SITUATION_CUSTOM` pour permettre la multi-sélection précise d'états.
 - **Compteur Contextuel :** Affiche le nombre d'apprenants inactifs détectés sans redondance avec le titre.
 

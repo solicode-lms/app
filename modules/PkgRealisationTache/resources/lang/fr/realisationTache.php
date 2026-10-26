@@ -24,6 +24,7 @@ return [
     'situation_blocage' => 'En Blocage',
     'situation_attente' => 'En Attente de Validation',
     'situation_terminee' => 'Terminées',
+    'situation_pause_absence' => 'En Pause / Absent',
     'situation_custom' => 'Personnalisée...',
     'situation_inactif_seance' => 'Inactifs séance en cours',
     'situation_inactif_jour' => 'Inactifs journée',

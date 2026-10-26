@@ -30,6 +30,9 @@
                 <button type="button" class="btn btn-xs btn-outline-success situation-pill" data-situation="SITUATION_TERMINEE">
                     <i class="fas fa-check-circle"></i> {{ __('Terminées') }}
                 </button>
+                <button type="button" class="btn btn-xs btn-outline-secondary situation-pill" data-situation="SITUATION_PAUSE_ABSENCE">
+                    <i class="fas fa-pause-circle"></i> {{ __('En Pause / Absent') }}
+                </button>
                 <button type="button" class="btn btn-xs btn-outline-danger situation-pill" data-situation="SITUATION_INACTIF_SEANCE">
                     <i class="fas fa-user-clock"></i> {{ __('Inactifs Séance') }}
                 </button>

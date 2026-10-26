@@ -30,6 +30,7 @@ trait RealisationTacheGetterTrait
     public const SITUATION_BLOCAGE = 'SITUATION_BLOCAGE';
     public const SITUATION_ATTENTE = 'SITUATION_ATTENTE';
     public const SITUATION_TERMINEE = 'SITUATION_TERMINEE';
+    public const SITUATION_PAUSE_ABSENCE = 'SITUATION_PAUSE_ABSENCE';
     public const SITUATION_INACTIF_SEANCE = 'SITUATION_INACTIF_SEANCE';
     public const SITUATION_INACTIF_JOUR   = 'SITUATION_INACTIF_JOUR';
     public const SITUATION_CUSTOM = 'SITUATION_CUSTOM';
@@ -45,8 +46,6 @@ trait RealisationTacheGetterTrait
             'EN_REMEDIATION', 
             'REVISION_NECESSAIRE', 
             'LATE', 
-            'PAUSED',
-            'ABSENT',
         ],
         self::SITUATION_ATTENTE => [
             'TO_APPROVE', 
@@ -57,6 +56,10 @@ trait RealisationTacheGetterTrait
             'APPROVED',
             'NOT_VALIDATED', 
             'VALIDE_INTERMEDIAIRE',
+        ],
+        self::SITUATION_PAUSE_ABSENCE => [
+            'PAUSED',
+            'ABSENT',
         ],
     ];
 
@@ -292,6 +295,7 @@ trait RealisationTacheGetterTrait
                 ['id' => self::SITUATION_BLOCAGE, 'label' => '⚠️ ' . __('PkgRealisationTache::realisationTache.situation_blocage')],
                 ['id' => self::SITUATION_ATTENTE, 'label' => '⏳ ' . __('PkgRealisationTache::realisationTache.situation_attente')],
                 ['id' => self::SITUATION_TERMINEE, 'label' => '✅ ' . __('PkgRealisationTache::realisationTache.situation_terminee')],
+                ['id' => self::SITUATION_PAUSE_ABSENCE, 'label' => '⏸️ ' . __('PkgRealisationTache::realisationTache.situation_pause_absence')],
                 ['id' => self::SITUATION_INACTIF_SEANCE, 'label' => '🚨 ' . __('PkgRealisationTache::realisationTache.situation_inactif_seance')],
                 ['id' => self::SITUATION_INACTIF_JOUR, 'label' => '📅 ' . __('PkgRealisationTache::realisationTache.situation_inactif_jour')],
                 ['id' => self::SITUATION_CUSTOM, 'label' => '🎯 ' . __('PkgRealisationTache::realisationTache.situation_custom')],
