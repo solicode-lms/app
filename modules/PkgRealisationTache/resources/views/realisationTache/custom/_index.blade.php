@@ -5,7 +5,9 @@
 <div class="card-header pb-1">
     {{-- Bandeau des situations pédagogiques & multi-états personnalisés (masqué par défaut si aucun filtre actif) --}}
     @php
-        $currentSituation = request('situation_pedagogique', '');
+        $currentSituation = request('filter.realisationTache.situation_pedagogique')
+            ?? request('situation_pedagogique')
+            ?? (app(\Modules\Core\Services\ViewStateService::class)->get('filter.realisationTache.situation_pedagogique') ?? '');
     @endphp
     <div id="situation-pedagogique-container" class="situation-pedagogique-container mb-2 {{ empty($currentSituation) ? 'd-none' : '' }}">
         <div class="d-flex flex-wrap align-items-center justify-content-between">
@@ -58,17 +60,6 @@
             </div>
         </div>
 
-        @if(!empty($inactiviteResume))
-            <div class="inactivite-alert-banner alert alert-danger py-1 px-3 mt-2 mb-0 d-flex align-items-center justify-content-between" style="font-size: 0.85rem; border-left: 4px solid #dc3545; border-radius: 4px;">
-                <span>
-                    <i class="fas fa-exclamation-triangle mr-2 text-danger"></i>
-                    <strong>{{ $inactiviteResume }}</strong>
-                </span>
-                <span class="badge badge-light border">
-                    <i class="fas fa-clock mr-1 text-muted"></i> {{ $inactiviteSeanceNom ?? '' }}
-                </span>
-            </div>
-        @endif
     </div>
 
     <form id="realisationTache-crud-filter-form" method="GET" class="row">
@@ -256,8 +247,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Initialisation au chargement
-  const initialSituation = (situationEl ? $(situationEl).val() : '') || '';
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialSituation = (situationEl ? $(situationEl).val() : '') 
+    || urlParams.get('filter.realisationTache.situation_pedagogique')
+    || urlParams.get('situation_pedagogique')
+    || '';
+
   if (initialSituation) {
+    if (situationEl && $(situationEl).val() !== initialSituation) {
+      $(situationEl).val(initialSituation);
+    }
     if (situationContainer) situationContainer.classList.remove('d-none');
     updateActivePill(initialSituation);
     if (initialSituation === 'SITUATION_CUSTOM') {
@@ -283,6 +282,15 @@ document.addEventListener('DOMContentLoaded', () => {
   $(document).on('click', '.situation-pill', function(e) {
     e.preventDefault();
     const situation = $(this).attr('data-situation') || '';
+
+    // Nettoyer les paramètres URL résiduels non préfixés (ex: situation_pedagogique=...)
+    try {
+      const currentUrl = new URL(window.location.href);
+      if (currentUrl.searchParams.has('situation_pedagogique')) {
+        currentUrl.searchParams.delete('situation_pedagogique');
+        window.history.replaceState({}, '', currentUrl.toString());
+      }
+    } catch (err) {}
 
     if (!situation) {
       // Clic sur "Toutes / Masquer" : nettoyer le select et masquer la barre

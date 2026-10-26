@@ -59,6 +59,12 @@ trait RealisationTacheGetterTrait
         ],
     ];
 
+    /**
+     * Cache des calculs d'inactivité par requête pour éviter les doubles exécutions.
+     * @var array<string, array>
+     */
+    protected array $cachedInactiviteData = [];
+
     public function prepareDataForIndexView(array $params = []): array
     {
         // On récupère les données du parent
@@ -99,10 +105,14 @@ trait RealisationTacheGetterTrait
         $baseData['workflowTachesList'] = $workflowTachesList;
 
         // Données d'inactivité si situation d'inactivité active
-        $situation = $this->viewState->get('filter.realisationTache.situation_pedagogique') ?? request('situation_pedagogique');
+        $situation = $this->viewState->get('filter.realisationTache.situation_pedagogique') 
+            ?? request('filter.realisationTache.situation_pedagogique')
+            ?? request('situation_pedagogique');
+
         if ($situation === self::SITUATION_INACTIF_SEANCE || $situation === self::SITUATION_INACTIF_JOUR) {
             $mode = ($situation === self::SITUATION_INACTIF_JOUR) ? 'jour' : 'seance';
-            $inactiviteData = $this->getInactiviteData($mode);
+            $filterVariables = $this->viewState->getFilterVariables('realisationTache');
+            $inactiviteData = $this->getInactiviteData($mode, $filterVariables);
             $baseData['inactiviteMetadata'] = $inactiviteData['metadata'];
             $baseData['inactiviteResume']   = $inactiviteData['resume'];
             $baseData['inactiviteSeanceNom'] = $inactiviteData['seance_nom'];
@@ -499,6 +509,7 @@ trait RealisationTacheGetterTrait
         // --- FILTRE SITUATION PEDAGOGIQUE ET ETATS PERSONNALISES ---
         $situation = $filterVariables['situation_pedagogique'] 
             ?? $this->viewState->get('filter.realisationTache.situation_pedagogique')
+            ?? request('filter.realisationTache.situation_pedagogique')
             ?? request('situation_pedagogique');
 
         $customEtats = $filterVariables['custom_etats'] 
@@ -517,7 +528,7 @@ trait RealisationTacheGetterTrait
             unset($filterVariables['etatRealisationTache.WorkflowTache.Code']);
         } elseif ($situation === self::SITUATION_INACTIF_SEANCE || $situation === self::SITUATION_INACTIF_JOUR) {
             $mode = ($situation === self::SITUATION_INACTIF_JOUR) ? 'jour' : 'seance';
-            $inactiviteData = $this->getInactiviteData($mode);
+            $inactiviteData = $this->getInactiviteData($mode, $filterVariables);
             $targetIds = $inactiviteData['target_tache_ids'];
 
             if (!empty($targetIds)) {
@@ -554,12 +565,14 @@ trait RealisationTacheGetterTrait
 
     /**
      * Analyse et détecte les apprenants inactifs durant la séance en cours ou la journée,
-     * et identifie pour chacun leur tâche de travail prioritaire avec métadonnées d'inactivité.
+     * et identifie pour chacun leur tâche de travail prioritaire avec métadonnées d'inactivité
+     * en respectant rigoureusement le périmètre des filtres actifs (ex: AffectationProjet, Groupe, etc.).
      *
      * @param string $mode 'seance' ou 'jour'
+     * @param array $activeFilters Filtres actifs transmis par le ViewState ou la requête
      * @return array{target_tache_ids: int[], metadata: array, resume: string, seance_nom: string, nb_inactifs: int}
      */
-    public function getInactiviteData(string $mode = 'seance'): array
+    public function getInactiviteData(string $mode = 'seance', array $activeFilters = []): array
     {
         $seanceService = new SeanceService();
 
@@ -572,6 +585,50 @@ trait RealisationTacheGetterTrait
             $seanceNom = $seance['nom'];
         }
 
+        // Récupération des filtres actifs contextuels
+        $affectationProjetId = $activeFilters['RealisationProjet.Affectation_projet_id']
+            ?? $activeFilters['RealisationProjet_Affectation_projet_id']
+            ?? $activeFilters['affectation_projet_id']
+            ?? $this->viewState->get('filter.realisationTache.RealisationProjet.Affectation_projet_id')
+            ?? request('filter.realisationTache.RealisationProjet.Affectation_projet_id')
+            ?? request('RealisationProjet.Affectation_projet_id')
+            ?? request('RealisationProjet_Affectation_projet_id');
+
+        $groupeId = $activeFilters['RealisationProjet.AffectationProjet.Groupe_id']
+            ?? $activeFilters['RealisationProjet_AffectationProjet_Groupe_id']
+            ?? $activeFilters['groupe_id']
+            ?? $this->viewState->get('filter.realisationTache.RealisationProjet.AffectationProjet.Groupe_id')
+            ?? request('RealisationProjet.AffectationProjet.Groupe_id')
+            ?? request('RealisationProjet_AffectationProjet_Groupe_id');
+
+        $filiereId = $activeFilters['RealisationProjet.AffectationProjet.Groupe.Filiere_id']
+            ?? $activeFilters['RealisationProjet_AffectationProjet_Groupe_Filiere_id']
+            ?? $activeFilters['filiere_id']
+            ?? $this->viewState->get('filter.realisationTache.RealisationProjet.AffectationProjet.Groupe.Filiere_id')
+            ?? request('RealisationProjet.AffectationProjet.Groupe.Filiere_id');
+
+        $equipeProjetId = $activeFilters['tache.equipe_projet_id']
+            ?? $activeFilters['equipe_projet_id']
+            ?? $this->viewState->get('filter.realisationTache.tache.equipe_projet_id')
+            ?? $this->viewState->get('filter.realisationTache.equipe_projet_id')
+            ?? request('tache.equipe_projet_id')
+            ?? request('equipe_projet_id');
+
+        $targetApprenantId = $activeFilters['RealisationProjet.Apprenant_id']
+            ?? $activeFilters['RealisationProjet_Apprenant_id']
+            ?? $activeFilters['apprenant_id']
+            ?? $this->viewState->get('filter.realisationTache.RealisationProjet.Apprenant_id')
+            ?? request('RealisationProjet.Apprenant_id');
+
+        // Clé de cache pour éviter de recalculer inutilement durant la même requête
+        $cacheKey = $mode . '_' . md5(json_encode([
+            $affectationProjetId, $groupeId, $filiereId, $equipeProjetId, $targetApprenantId
+        ]));
+
+        if (isset($this->cachedInactiviteData[$cacheKey])) {
+            return $this->cachedInactiviteData[$cacheKey];
+        }
+
         // 1. Apprenants ayant enregistré au moins un changement d'état sur la période
         $activeApprenantIds = \Modules\PkgRealisationTache\Models\HistoriqueRealisationTache::query()
             ->whereBetween('dateModification', [$start, $end])
@@ -581,7 +638,7 @@ trait RealisationTacheGetterTrait
             ->unique()
             ->toArray();
 
-        // 2. Périmètre des apprenants supervisés selon le rôle et les filtres actifs
+        // 2. Périmètre des apprenants supervisés selon le rôle
         $apprenants = match (true) {
             Auth::user()->hasRole(Role::FORMATEUR_ROLE) => (new FormateurService())->getApprenants($this->sessionState->get("formateur_id")),
             Auth::user()->hasRole(Role::APPRENANT_ROLE) => (new ApprenantService())->getApprenantsDeGroupe($this->sessionState->get("apprenant_id")),
@@ -596,7 +653,47 @@ trait RealisationTacheGetterTrait
                 ->toArray();
         }
 
-        // 3. Déduction des apprenants inactifs
+        // 3. Application des filtres contextuels sur le périmètre des apprenants
+        if (!empty($targetApprenantId)) {
+            $supervisedApprenantIds = array_values(array_intersect($supervisedApprenantIds, [(int) $targetApprenantId]));
+        }
+
+        if (!empty($affectationProjetId)) {
+            $affectationApprenants = \Modules\PkgRealisationProjets\Models\RealisationProjet::query()
+                ->where('affectation_projet_id', $affectationProjetId)
+                ->pluck('apprenant_id')
+                ->unique()
+                ->toArray();
+
+            if (empty($affectationApprenants)) {
+                $affectation = \Modules\PkgRealisationProjets\Models\AffectationProjet::find($affectationProjetId);
+                if ($affectation?->sousGroupe) {
+                    $affectationApprenants = $affectation->sousGroupe->apprenants->pluck('id')->toArray();
+                } elseif ($affectation?->groupe) {
+                    $affectationApprenants = $affectation->groupe->apprenants->pluck('id')->toArray();
+                }
+            }
+
+            $supervisedApprenantIds = array_values(array_intersect($supervisedApprenantIds, $affectationApprenants));
+        }
+
+        if (!empty($groupeId) && empty($affectationProjetId)) {
+            $groupeApprenants = Apprenant::where('groupe_id', $groupeId)->pluck('id')->toArray();
+            $supervisedApprenantIds = array_values(array_intersect($supervisedApprenantIds, $groupeApprenants));
+        }
+
+        if (!empty($filiereId) && empty($groupeId) && empty($affectationProjetId)) {
+            $filiereApprenants = Apprenant::whereHas('groupe', fn($q) => $q->where('filiere_id', $filiereId))->pluck('id')->toArray();
+            $supervisedApprenantIds = array_values(array_intersect($supervisedApprenantIds, $filiereApprenants));
+        }
+
+        if (!empty($equipeProjetId)) {
+            $equipe = EquipeProjet::with('apprenants')->find($equipeProjetId);
+            $equipeApprenants = $equipe ? $equipe->apprenants->pluck('id')->toArray() : [];
+            $supervisedApprenantIds = array_values(array_intersect($supervisedApprenantIds, $equipeApprenants));
+        }
+
+        // 4. Déduction des apprenants inactifs dans le périmètre filtré
         $inactiveApprenantIds = array_values(array_diff($supervisedApprenantIds, $activeApprenantIds));
 
         $targetTaches = [];
@@ -604,11 +701,28 @@ trait RealisationTacheGetterTrait
         $now = Carbon::now();
 
         foreach ($inactiveApprenantIds as $apprenantId) {
+            // Helper pour cibler les tâches de cet apprenant dans le contexte de filtrage
+            $baseTaskQuery = function() use ($apprenantId, $affectationProjetId, $equipeProjetId) {
+                $q = RealisationTache::query()
+                    ->whereHas('realisationProjet', function ($rq) use ($apprenantId, $affectationProjetId) {
+                        $rq->where('apprenant_id', $apprenantId);
+                        if (!empty($affectationProjetId)) {
+                            $rq->where('affectation_projet_id', $affectationProjetId);
+                        }
+                    });
+
+                if (!empty($equipeProjetId)) {
+                    $q->whereHas('tache', function ($tq) use ($equipeProjetId) {
+                        $tq->where('equipe_projet_id', $equipeProjetId)
+                           ->orWhereNull('equipe_projet_id');
+                    });
+                }
+
+                return $q;
+            };
+
             // Priorité 1 : Tâche en cours de travail
-            $tache = RealisationTache::query()
-                ->whereHas('realisationProjet', function ($q) use ($apprenantId) {
-                    $q->where('apprenant_id', $apprenantId);
-                })
+            $tache = $baseTaskQuery()
                 ->whereHas('etatRealisationTache.workflowTache', function ($q) {
                     $q->whereIn('code', ['IN_PROGRESS', 'REVISION_NECESSAIRE', 'EN_REMEDIATION', 'PAUSED']);
                 })
@@ -616,10 +730,7 @@ trait RealisationTacheGetterTrait
 
             // Priorité 2 : Première tâche TODO à faire
             if (!$tache) {
-                $tache = RealisationTache::query()
-                    ->whereHas('realisationProjet', function ($q) use ($apprenantId) {
-                        $q->where('apprenant_id', $apprenantId);
-                    })
+                $tache = $baseTaskQuery()
                     ->whereHas('etatRealisationTache.workflowTache', function ($q) {
                         $q->where('code', 'TODO');
                     })
@@ -631,11 +742,8 @@ trait RealisationTacheGetterTrait
 
             // Priorité 3 : Dernière tâche modifiée
             if (!$tache) {
-                $tache = RealisationTache::query()
-                    ->whereHas('realisationProjet', function ($q) use ($apprenantId) {
-                        $q->where('apprenant_id', $apprenantId);
-                    })
-                    ->latest('updated_at')
+                $tache = $baseTaskQuery()
+                    ->latest('realisation_taches.updated_at')
                     ->first();
             }
 
@@ -685,12 +793,15 @@ trait RealisationTacheGetterTrait
             ['count' => $nbInactifs, 'seance' => $seanceNom]
         );
 
-        return [
+        $result = [
             'target_tache_ids' => $sortedTacheIds,
             'metadata' => $metadataByTacheId,
             'resume' => $resume,
             'seance_nom' => $seanceNom,
             'nb_inactifs' => $nbInactifs,
         ];
+
+        $this->cachedInactiviteData[$cacheKey] = $result;
+        return $result;
     }
 }
