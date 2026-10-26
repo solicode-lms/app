@@ -35,13 +35,16 @@ Le package **PkgRealisationTache** gère l'exécution opérationnelle, le suivi 
 ## 3. Services & Logique Métier
 
 ### `RealisationTacheService` (`Modules\PkgRealisationTache\Services\RealisationTacheService`)
-- **Architecture modulaire via Traits (< 500 lignes par fichier) :**
-  - `RealisationTacheCrudTrait` : Cycle de vie CRUD et hooks fondamentaux (`beforeCreateRules`, `afterCreateRules`, `beforeUpdateRules`, `afterUpdateRules`, `afterEditRules`).
+- **Architecture Ultra-Modulaire via Traits (< 300 lignes par fichier) :**
+  - `RealisationTacheCrudTrait` : Cycle de vie de mise à jour (`beforeUpdateRules`, `afterEditRules`, `afterUpdateRules`).
+  - `RealisationTacheCreationHookTrait` : Cycle de vie de création (`beforeCreateRules`, `afterCreateRules`).
   - `RealisationTacheAbsenceTrait` : Sécurisation des transitions d'absence, interdiction formelle pour l'apprenant de se marquer absent, reprise de travail, et propagation automatique de l'absence à la tâche suivante (`propagerEtatAbsentPourTacheSuivante`).
   - `RealisationTacheRemediationTrait` : Synchronisation automatique de la table `remediations` (`est_resolu = 0 / 1`), vérification des remédiations pendantes avant reprise d'absence.
   - `RealisationTacheChapitreUaTrait` : Liaisons dynamiques avec les Chapitres et les Unités d'Apprentissage (UA), validation automatique du dernier chapitre (`checkAndPerformUaValidationLogic`).
   - `RealisationTacheGetterTrait` : Listing TableUI, scoping parent contextuel, filtres relationnels et préparation des données groupées de la vue index.
-  - `RealisationTacheActionsTrait` : Compétences et répartition des notes N2/N3.
+  - `RealisationTacheFilterTrait` : Configuration dynamique des champs filtrables de TableUI (`initFieldsFilterable`).
+  - `RealisationTacheActionsTrait` : Actions métier manuelles, initialisation de tâche et gestion des remarques formateur.
+  - `RealisationTacheNoteTrait` : Répartition mathématique proportionnelle et arrondi des notes N2/N3 (`repartirNoteDansRealisationUaPrototypes`, `repartirNoteDansRealisationUaProjets`).
   - `RealisationTacheJobTrait` & `RealisationTacheMassCrudTrait` : Opérations asynchrones et de masse.
 - **Gestion des Transitions :** Validation des prérequis avant passage à l'état suivant (ex: vérification des livrables déposés).
 - **Audit Automatique :** Enregistrement systématique dans `HistoriqueRealisationTache` à chaque transition d'état.
@@ -58,7 +61,7 @@ Le package **PkgRealisationTache** gère l'exécution opérationnelle, le suivi 
 - **Déclenchement du Live Coding (Seuil 50%) :** Dès que 50% des apprenants actifs/présents ont réalisé la tâche (`TO_APPROVE`, `APPROVED`, `VALIDE_INTERMEDIAIRE`, etc.), `lancerLiveCodingSiEligible()` sélectionne automatiquement l'apprenant démonstrateur selon l'historique annuel.
 
 ### `SituationPedagogiqueService` (`Modules\PkgRealisationTache\Services\SituationPedagogiqueService`)
-- **Rôle :** Service métier dédié (sans table BDD) encapsulant la modélisation des macro-situations pédagogiques, le mapping d'états de workflow, le moteur analytique d'inactivité et les options de filtrage.
+- **Rôle :** Service métier dédié (sans table BDD) encapsulant la modélisation des macro-situations pédagogiques, le mapping d'états de workflow et les options de filtrage.
 - **Constantes de situations pédagogiques :**
   - `SITUATION_TRAVAIL` : Tâches en cours d'exécution active (`IN_PROGRESS`, `REVISION_NECESSAIRE`, `EN_REMEDIATION`, `IN_LIVE_CODING`).
   - `SITUATION_BLOCAGE` : Tâches bloquées ou en difficulté didactique nécessitant une remédiation ou révision (`EN_REMEDIATION`, `REVISION_NECESSAIRE`, `LATE`).
@@ -69,6 +72,10 @@ Le package **PkgRealisationTache** gère l'exécution opérationnelle, le suivi 
   - `SITUATION_INACTIF_JOUR` : Apprenants sans aucun événement personnel pendant toute la journée.
   - `SITUATION_CUSTOM` : Filtrage libre multi-états personnalisés.
 - **Matrice `SITUATION_WORKFLOW_MAP` :** Mappe chaque macro-situation aux codes `WorkflowTache` correspondants.
+- **Délégation :** Les méthodes `getInactiviteData` et `findPrioritaryTaskForInactiveApprenant` sont déléguées à `InactivitePedagogiqueService`.
+
+### `InactivitePedagogiqueService` (`Modules\PkgRealisationTache\Services\InactivitePedagogiqueService`)
+- **Rôle :** Moteur analytique dédié (sans table BDD) détectant les apprenants inactifs durant une séance ou une journée.
 - **Méthode `getInactiviteData(string $mode, array $activeFilters)` :**
   - Analyse les transitions dans `HistoriqueRealisationTache` sur la plage horaire définie par `SeanceService`.
   - **Filtre strict sur l'auteur :** Seules les actions enregistrées par l'apprenant lui-même (`user_id = apprenants.user_id`) qualifient l'apprenant comme actif ; les interventions formateur ne masquent jamais l'inactivité réelle de l'apprenant.
