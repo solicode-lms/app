@@ -32,7 +32,7 @@ Avant d'écrire ou modifier la moindre ligne de code, charger :
    - `.agents/references/architecture/layers-3tiers.md`
    - `.agents/references/frontend/tableui-framework.md`
    - `.agents/references/gapp/01-conventions-et-garde-fous.md`
-3. **Priorité 3 (Contexte Package) :** Fiche `AI_CONTEXT.md` du module concerné dans `modules/Pkg.../`.
+3. **Priorité 3 (Contexte Package) :** Fiche `[NomPkg]_IA_CONTEXT.md` du module concerné dans `modules/Pkg.../`.
 4. **Priorité 4 (Spécification Issue) :** Fiche d'issue dans `issues/<SousDossier>/` si existante (régie par [.agents/rules/gestion-issues.md](file:///c:/AppServer/solicode-lms/.agents/rules/gestion-issues.md)).
 5. **Priorité 5 (Ressources Spécifiques Encapsulées) :** Guides internes disponibles à la demande dans `resources/` :
    - `resources/crud-jobs-and-polling.md` (Opérations asynchrones, Observer et Polling).
@@ -54,12 +54,12 @@ Avant d'écrire ou modifier la moindre ligne de code, charger :
    - Toujours lever `throw new BlException("Message...");` pour interrompre une opération non conforme. Pas de redirection HTTP ad-hoc.
 5. **Migrations BDD :**
    - L'agent a l'interdiction d'exécuter `php artisan migrate` de manière autonome.
-6. **Chargement Préalable Obligatoire de `AI_CONTEXT.md` :**
-   - Dès qu'un package cible est identifié, l'agent DOIT impérativement charger son fichier `modules/Pkg[Nom]/AI_CONTEXT.md` AVANT d'ouvrir, d'analyser ou de modifier les fichiers de code du package.
+6. **Chargement Préalable Obligatoire de `[NomPkg]_IA_CONTEXT.md` :**
+   - Dès qu'un package cible est identifié, l'agent DOIT impérativement charger son fichier `modules/Pkg[Nom]/Pkg[Nom]_IA_CONTEXT.md` AVANT d'ouvrir, d'analyser ou de modifier les fichiers de code du package.
 
 # 5. Procédure Pas-à-Pas (Workflow en 5 Phases)
 1. **Phase 1 : Chargement du Contexte & Exploration des Locks :**
-   - Consulter obligatoirement `modules/Pkg[Nom]/AI_CONTEXT.md` pour appréhender les entités, services et règles métier du package.
+   - Consulter obligatoirement `modules/Pkg[Nom]/Pkg[Nom]_IA_CONTEXT.md` pour appréhender les entités, services et règles métier du package.
    - Localiser les classes enfants modifiables (`[Model]Service.php`, `[Model]Controller.php`).
    - Vérifier la présence éventuelle de la vue dans `custom/`.
 2. **Phase 2 : Clarification :** Si des données critiques manquent, poser au maximum 3 questions ciblées.

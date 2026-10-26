@@ -26,18 +26,18 @@ Ce skill a pour objectif d'analyser le code existant, d'évaluer la faisabilité
 Lors de l'analyse, charger les informations selon cette hiérarchie stricte :
 1. **Priorité 1 (Conventions du Projet) :** `.agents/references/conventions/` (`project-conventions.md`, `crud-backend-mechanic.md`, `crud-frontend-ui.md`).
 2. **Priorité 2 (Références Partagées) :** `.agents/references/architecture/layers-3tiers.md`, `.agents/references/gapp/01-conventions-et-garde-fous.md`.
-3. **Priorité 3 (Contexte Module) :** Fichier `AI_CONTEXT.md` du module cible s'il existe dans `modules/Pkg[Nom]/`.
+3. **Priorité 3 (Contexte Module) :** Fichier `Pkg[Nom]_IA_CONTEXT.md` du module cible s'il existe dans `modules/Pkg[Nom]/`.
 4. **Priorité 4 (Spécification Issue) :** Si la demande découle d'une issue, inspecter sa fiche dans `issues/<SousDossier>/` régie par [.agents/rules/gestion-issues.md](file:///c:/AppServer/solicode-lms/.agents/rules/gestion-issues.md).
 
 # 4. Contraintes & Règles Inviolables
-- **Chargement Préalable Obligatoire de `AI_CONTEXT.md` :** Dès que le package cible est identifié, l'agent DOIT impérativement charger son fichier `modules/Pkg[Nom]/AI_CONTEXT.md` AVANT d'ouvrir ou d'analyser le moindre fichier de code du package.
+- **Chargement Préalable Obligatoire de `[NomPkg]_IA_CONTEXT.md` :** Dès que le package cible est identifié, l'agent DOIT impérativement charger son fichier `modules/Pkg[Nom]/Pkg[Nom]_IA_CONTEXT.md` AVANT d'ouvrir ou d'analyser le moindre fichier de code du package.
 - **Mode Read-Only Absolu :** Ne créer ni modifier aucun fichier source (PHP, Blade, JS, JSON).
 - **Interdiction de commandes destructives :** Ne lancer aucun `migrate`, `db:seed` ou suppression.
 - **Vérification systématique des locks Gapp :** Repérer d'avance les fichiers marqués `ESSARRAJ Fouad` pour orienter le futur plan vers les classes filles ou le sous-dossier `custom/`.
 
 # 5. Procédure Pas-à-Pas (Workflow d'Analyse)
 1. **Étape 1 : Cadrage du besoin & Identification du Package :** Reformuler l'objectif et identifier le ou les modules propriétaires dans `modules/`.
-2. **Étape 2 : Chargement Obligatoire du Contexte Métier :** Consulter impérativement `modules/Pkg[Nom]/AI_CONTEXT.md` pour appréhender les entités, services, filtres et spécificités du module avant d'explorer le code.
+2. **Étape 2 : Chargement Obligatoire du Contexte Métier :** Consulter impérativement `modules/Pkg[Nom]/Pkg[Nom]_IA_CONTEXT.md` pour appréhender les entités, services, filtres et spécificités du module avant d'explorer le code.
 3. **Étape 3 : Exploration du code réel :**
    - Repérer le modèle Eloquent, les relations et la table MySQL associée.
    - Inspecter le Service (`[Model]Service.php`), ses Traits et ses filtres `initFieldsFilterable()`.

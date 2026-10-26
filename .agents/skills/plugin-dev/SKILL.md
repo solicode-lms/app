@@ -1,7 +1,7 @@
 ---
 name: plugin-dev
 description: Gouverne, conçoit, crée et raffine les skills, les règles (.agents/rules/) et les standards normatifs selon les patterns officiels d'Anthropic, et maintient la conformité SemVer.
-version: 1.2.0
+version: 1.3.0
 inspiration:
   source: "anthropic/claude-plugins-official"
   plugin: "plugin-dev"
@@ -9,7 +9,7 @@ inspiration:
 ---
 
 # 1. Mission
-Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : la conception, la création et le raffinement continu des **Skills** partagés (`.agents/skills/`) et des **Règles d'or et directives permanentes** (`.agents/rules/`).
+Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : la conception, la création et le raffinement continu des **Skills** partagés (`.agents/skills/`), des **Règles d'or et directives permanentes** (`.agents/rules/`), ainsi que la **capitalisation continue des connaissances de package** (`[NomPkg]_IA_CONTEXT.md`).
 
 **Principes Fondateurs Inviolables :**
 - **Single Source of Truth (SSOT) :** Toute règle, spécification ou directive doit résider dans un unique emplacement faisant autorité. La duplication d'instructions à travers plusieurs fichiers est formellement interdite.
@@ -18,6 +18,7 @@ Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : 
 
 # 2. Déclenchement & Limites
 - **Quand l'activer :**
+  - **Fin de conversation / Rétrospective de session :** Invoqué par `/plugin-dev` pour proposer un plan d'enrichissement du fichier `[NomPkg]_IA_CONTEXT.md` du package traité et des compétences mobilisées, en y consignant les découvertes, pièges et mécaniques apprises durant la session.
   - Demande de création d'un nouveau skill ("Crée un skill pour gérer les tests automatisés", "Ajoute un skill concevoir-architecture").
   - Raffinement ou correction d'un skill existant suite à un retour d'expérience ("Modifie le skill feature-dev pour interdire X").
   - Création, mise à jour ou audit d'une **Règle** comportementale ("Ajoute une règle pour afficher les skills utilisés", "Modifie la règle critique sur les migrations dans critical-rules.md").
@@ -41,6 +42,8 @@ Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : 
 - **Principes Cardinaux SSOT (Single Source of Truth) & DRY :**
   - Toute convention, directive ou spécification doit exister en un seul et unique endroit.
   - Les règles comportementales résident dans `.agents/rules/[nom].md`. Les compétences ne doivent jamais dupliquer le texte de ces règles mais les référencer directement.
+- **Format Normé des Fichiers de Contexte Package :**
+  - Tout fichier de contexte de package doit obligatoirement être nommé `modules/[NomPkg]/[NomPkg]_IA_CONTEXT.md` (ex: `PkgRealisationTache_IA_CONTEXT.md`).
 - **Minimalisme Strict de `.agents/references/` (Encapsulation Mono-Compétence) :**
   - Le répertoire transversal `.agents/references/` doit contenir le **strict minimum** de fichiers, réservé exclusivement aux conventions et standards partagés par au moins 2 compétences.
   - Tout fichier méthodologique, guide, catalogue ou template utilisé par une seule compétence DOIT OBLIGATOIREMENT être déplacé et encapsulé dans `<skill>/resources/` (principe de divulgation progressive d'Anthropic).
@@ -85,6 +88,24 @@ Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : 
    - Respecter le principe SSOT : si la règle existe déjà, ne jamais la dupliquer.
 3. **Étape 3 : Synchronisation & Notification :**
    - Répercuter la modification dans le Hub ou le projet local et consigner l'évolution dans `CHANGELOG.md`.
+
+### Parcours D : Capitalisation Continue en Fin de Conversation (`/plugin-dev`)
+1. **Étape 1 : Rétrospective & Identification des Découvertes :**
+   - Identifier le ou les packages traités au cours de la session récente.
+   - Extraire les mécaniques spécifiques que l'agent a dû investiguer ou déduire :
+     - Tables et modèles impliqués, relations et hooks métier.
+     - Particularités du `ViewStateService` ou des filtres de la table.
+     - Services temporels, jobs ou observers nouvellement introduits.
+     - Pièges ou edge cases résolus (ex: calculs faussés par omission de filtres parents).
+2. **Étape 2 : Évaluation des Écarts Documentaires :**
+   - Comparer ces découvertes avec le contenu existant de `modules/[NomPkg]/[NomPkg]_IA_CONTEXT.md`.
+   - Vérifier si des compétences (`feature-dev`, `bug-fixer`) ou règles bénéficieraient d'une directive additionnelle.
+3. **Étape 3 : Proposition de Plan d'Enrichissement :**
+   - Soumettre au concepteur un plan clair et structuré détaillant les ajouts proposés :
+     - Pour `[NomPkg]_IA_CONTEXT.md` (nouveaux services, filtres clés, section Pièges & Recommandations).
+     - Pour les compétences si applicable.
+4. **Étape 4 : Exécution après Validation :**
+   - Dès validation, enrichir le fichier `[NomPkg]_IA_CONTEXT.md` afin que toute future session de maintenance dispose immédiatement de ce savoir capitalisé.
 
 # 6. Gestion des Ambiguïtés & Décisions
 - **Arbitrage Emplacement des Ressources (Skill vs Agent) :**

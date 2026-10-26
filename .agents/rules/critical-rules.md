@@ -38,6 +38,6 @@ Ces règles sont **INVIOLABLES**. Elles garantissent la stabilité, la sécurit�
 ## 5. Priorité Absolue au Contexte Local
 - En cas de divergence entre une règle générale du Hub et une convention spécifique déclarée dans `.agents/references/conventions/`, la convention du projet prévaut toujours.
 
-## 6. Affichage Systématique des Skills Mobilisés (Règle d'Or de Communication)
-- **Au début de chaque réponse :** L'agent doit afficher les skills mobilisés pour attester de sa bonne compréhension de la demande (`> 🛠️ **Skills mobilisés :** [nom-du-skill](file://...)`).
-- **À la fin de la réponse :** L'agent confirme la liste compacte (`> 🛠️ **Skills utilisés :** [nom-du-skill](file://...)`).
+## 6. Affichage Systématique des Skills Mobilisés & Contextes Packages (Règle d'Or de Communication)
+- **Au début de chaque réponse :** L'agent doit afficher les skills mobilisés et, si un package est ciblé, le fichier `[NomPkg]_IA_CONTEXT.md` chargé (voir [.agents/rules/affichage-skills.md](file:///c:/AppServer/solicode-lms/.agents/rules/affichage-skills.md)).
+- **À la fin de la réponse :** L'agent confirme la liste compacte des skills et contextes packages utilisés.

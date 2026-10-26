@@ -1,7 +1,7 @@
 ---
 name: context-generator
-description: Explore un package modulaire dans modules/Pkg, cartographie ses entites, services, filtres et regles Gapp, et produit son fichier AI_CONTEXT.md.
-version: 1.0.0
+description: Explore un package modulaire dans modules/Pkg, cartographie ses entites, services, filtres et regles Gapp, et produit son fichier [NomPkg]_IA_CONTEXT.md.
+version: 1.1.0
 inspiration:
   source: "anthropic/claude-plugins-official"
   plugin: "context-generator"
@@ -9,11 +9,11 @@ inspiration:
 ---
 
 # 1. Mission
-Ce skill explore en profondeur un package modulaire applicatif dans `modules/Pkg[Nom]/` de Solicode LMS. Il inspecte ses modèles Eloquent, ses relations, sa couche Service, ses filtres dynamiques, ses composants d'interface et ses spécificités Gapp pour générer ou actualiser automatiquement un fichier standardisé `AI_CONTEXT.md` à la racine du package.
+Ce skill explore en profondeur un package modulaire applicatif dans `modules/Pkg[Nom]/` de Solicode LMS. Il inspecte ses modèles Eloquent, ses relations, sa couche Service, ses filtres dynamiques, ses composants d'interface et ses spécificités Gapp pour générer ou actualiser automatiquement un fichier standardisé `Pkg[Nom]_IA_CONTEXT.md` à la racine du package.
 
 # 2. Déclenchement & Limites
 - **Quand l'activer :**
-  - Demande de génération ou mise à jour de la documentation IA d'un module ("Génère le AI_CONTEXT.md pour PkgFormation", "Documente le module PkgCreationTache").
+  - Demande de génération ou mise à jour de la documentation IA d'un module ("Génère le PkgFormation_IA_CONTEXT.md", "Documente le module PkgCreationTache").
   - Arrivée d'un nouveau package métier nécessitant sa fiche de contexte IA.
   - Mise à jour après ajout de nouvelles tables ou relations dans un module.
 - **Quand NE PAS l'activer :**
@@ -32,9 +32,9 @@ Ce skill explore en profondeur un package modulaire applicatif dans `modules/Pkg
 - **Priorité 3 :** `.agents/references/gapp/01-conventions-et-garde-fous.md`.
 
 # 4. Contraintes & Règles Inviolables
-- **Respect du Modèle Normé :** Le fichier produit `AI_CONTEXT.md` doit respecter strictement la structure de `templates/module-ai-context.md`.
+- **Respect du Modèle Normé :** Le fichier produit `Pkg[Nom]_IA_CONTEXT.md` doit respecter strictement la structure de `templates/module-ai-context.md`.
 - **Factualité Absolue :** Ne consigner QUE ce qui existe réellement dans le code du package (pas d'inventions de relations Eloquent ou de méthodes).
-- **Préservation des Fichiers Métier :** Le skill ne doit créer ou modifier QUE le fichier `AI_CONTEXT.md` dans le module ciblé. Interdiction de toucher au code PHP, Blade ou aux migrations.
+- **Préservation des Fichiers Métier :** Le skill ne doit créer ou modifier QUE le fichier `Pkg[Nom]_IA_CONTEXT.md` dans le module ciblé. Interdiction de toucher au code PHP, Blade ou aux migrations.
 
 # 5. Procédure Pas-à-Pas (Workflow de Documentation de Package)
 1. **Étape 1 : Cartographie des Modèles & Relations :**
@@ -50,18 +50,18 @@ Ce skill explore en profondeur un package modulaire applicatif dans `modules/Pkg
 4. **Étape 4 : Cartographie des Droits d'Accès :**
    - Vérifier les rôles Spatie et les seeders dans `Database/Seeders/`.
 5. **Étape 5 : Rédaction et Sauvegarde :**
-   - Compiler l'ensemble dans `modules/Pkg[Nom]/AI_CONTEXT.md`.
+   - Compiler l'ensemble dans `modules/Pkg[Nom]/Pkg[Nom]_IA_CONTEXT.md`.
 
 # 6. Gestion des Ambiguïtés & Décisions
 - Si le dossier du module n'existe pas : signaler l'erreur au développeur et arrêter l'exécution.
 - Si le module ne comporte pas de logique métier dans les services : documenter explicitement qu'il s'agit d'un CRUD standard généré par Gapp.
 
 # 7. Format de Sortie & Livrables
-- Le fichier `modules/Pkg[Nom]/AI_CONTEXT.md` créé ou mis à jour.
+- Le fichier `modules/Pkg[Nom]/Pkg[Nom]_IA_CONTEXT.md` créé ou mis à jour.
 - Une synthèse affichée à l'écran résumant le nombre de modèles, de services et de filtres recensés.
 
 # 8. Contrôle Qualité (Checklist Binaire)
-- [ ] Le fichier AI_CONTEXT.md est-il déposé directement à la racine du package concerné ?
+- [ ] Le fichier Pkg[Nom]_IA_CONTEXT.md est-il déposé directement à la racine du package concerné ?
 - [ ] Toutes les relations Eloquent listées correspondent-elles au code source réel ?
 - [ ] Les méthodes surchargées et traits du service sont-ils clairement identifiés ?
 - [ ] Aucun fichier de code applicatif n'a été altéré durant l'opération ?
