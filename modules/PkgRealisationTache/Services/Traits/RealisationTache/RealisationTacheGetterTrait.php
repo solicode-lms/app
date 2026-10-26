@@ -769,10 +769,25 @@ trait RealisationTacheGetterTrait
                     $dureeMinutes = max(0, (int) $derniereDate->diffInMinutes($now));
                     $dernierChangementStr = $derniereDate->isToday() 
                         ? $derniereDate->format('H:i') 
-                        : $derniereDate->format('d/m H:i');
+                        : $derniereDate->format('d/m/Y H:i');
+                    $dateExacteStr = $derniereDate->format('d/m/Y H:i:s');
                 } else {
-                    $dureeMinutes = max(0, (int) $start->diffInMinutes($now));
-                    $dernierChangementStr = __('Aucun événement');
+                    // Fallback sur la dernière mise à jour de tâche de l'apprenant s'il n'y a pas d'historique
+                    $derniereTacheUpdated = \Modules\PkgRealisationTache\Models\RealisationTache::whereHas('realisationProjet', fn($q) => $q->where('apprenant_id', $apprenantId))
+                        ->latest('updated_at')
+                        ->first();
+                    if ($derniereTacheUpdated && $derniereTacheUpdated->updated_at) {
+                        $derniereDate = Carbon::parse($derniereTacheUpdated->updated_at);
+                        $dureeMinutes = max(0, (int) $derniereDate->diffInMinutes($now));
+                        $dernierChangementStr = $derniereDate->isToday() 
+                            ? $derniereDate->format('H:i') 
+                            : $derniereDate->format('d/m/Y H:i');
+                        $dateExacteStr = $derniereDate->format('d/m/Y H:i:s');
+                    } else {
+                        $dureeMinutes = max(0, (int) $start->diffInMinutes($now));
+                        $dernierChangementStr = __('Aucun événement');
+                        $dateExacteStr = __('Aucun événement enregistré');
+                    }
                 }
 
                 $gravite = ($dureeMinutes >= 75) ? 'danger' : (($dureeMinutes >= 30) ? 'warning' : 'info');
@@ -782,6 +797,7 @@ trait RealisationTacheGetterTrait
                     'duree_minutes' => $dureeMinutes,
                     'duree_formatee' => $seanceService->formatDuree($dureeMinutes),
                     'dernier_changement' => $dernierChangementStr,
+                    'date_exacte' => $dateExacteStr,
                     'seance_nom' => $seanceNom,
                     'gravite' => $gravite,
                     'apprenant_id' => $apprenantId,
