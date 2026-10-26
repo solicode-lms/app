@@ -5,40 +5,47 @@ namespace Modules\PkgRealisationTache\Services;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\PkgRealisationTache\Services\Base\BaseRealisationTacheService;
 use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheCrudTrait;
+use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheCreationHookTrait;
 use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheAbsenceTrait;
 use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheRemediationTrait;
 use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheChapitreUaTrait;
 use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheActionsTrait;
+use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheNoteTrait;
 use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheGetterTrait;
+use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheFilterTrait;
 use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheJobTrait;
 use Modules\PkgRealisationTache\Services\Traits\RealisationTache\RealisationTacheMassCrudTrait;
 
 /**
  * Classe RealisationTacheService pour gérer la persistance de l'entité RealisationTache.
  *
- * Architecture modulaire via Traits (< 500 lignes par fichier) :
- * @uses RealisationTacheCrudTrait Gestion du cycle de vie CRUD et Hooks (before/after).
+ * Architecture ultra-modulaire via Traits (< 300 lignes par fichier) :
+ * @uses RealisationTacheCrudTrait Hooks de mise à jour (beforeUpdateRules, afterEditRules, afterUpdateRules).
+ * @uses RealisationTacheCreationHookTrait Hooks de création (beforeCreateRules, afterCreateRules).
  * @uses RealisationTacheAbsenceTrait Gestion de l'absence, reprises et propagations.
  * @uses RealisationTacheRemediationTrait Synchronisation de la table remediations.
  * @uses RealisationTacheChapitreUaTrait Liaisons chapitres et validations UA.
- * @uses RealisationTacheActionsTrait Actions métier spécifiques.
- * @uses RealisationTacheGetterTrait Méthodes de lecture, filtres et scopes.
+ * @uses RealisationTacheActionsTrait Actions métier spécifiques et gestion des remarques formateur.
+ * @uses RealisationTacheNoteTrait Répartition et calculs mathématiques des notes (N2/N3).
+ * @uses RealisationTacheGetterTrait Méthodes de lecture, tris et scopes.
+ * @uses RealisationTacheFilterTrait Configuration de la barre de filtres TableUI.
  * @uses RealisationTacheJobTrait Gestion des Jobs asynchrones.
  * @uses RealisationTacheMassCrudTrait Opérations de masse.
  */
 class RealisationTacheService extends BaseRealisationTacheService
 {
     use RealisationTacheCrudTrait,
+        RealisationTacheCreationHookTrait,
         RealisationTacheAbsenceTrait,
         RealisationTacheRemediationTrait,
         RealisationTacheChapitreUaTrait,
         RealisationTacheJobTrait,
         RealisationTacheActionsTrait,
+        RealisationTacheNoteTrait,
         RealisationTacheGetterTrait,
+        RealisationTacheFilterTrait,
         RealisationTacheMassCrudTrait;
 
-
-    
     protected $paginationLimit = 25;
     protected array $index_with_relations = [
         'tache',
