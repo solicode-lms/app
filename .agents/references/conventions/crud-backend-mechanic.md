@@ -86,11 +86,14 @@ Cette règle s'applique partout où les filtres sont nécessaires hors du flux s
 
 ## 5. Taille Maximale des Fichiers (Plafond 500 Lignes) & Services Métier Dédiés
 
-### Plafond Strict de 500 Lignes par Fichier
+### Plafond Strict de 500 Lignes & Règle de Dégagement (< 300 Lignes)
 - **Règle absolue :** Aucun fichier de Service ni aucun Trait ne doit dépasser 500 lignes de code.
 - Si la complexité d'un Service augmente :
   1. Découper le service en Traits thématiques hautement cohésifs placés dans `modules/Pkg.../Services/Traits/[NomModel]/` (ex: `[Model]AbsenceTrait`, `[Model]RemediationTrait`, `[Model]JobTrait`).
   2. Chaque trait doit rester concentré sur une responsabilité précise et compter **moins de 500 lignes**.
+- **Objectif post-refactor (< 300 lignes) :**
+  - Dès qu'un fichier subit une refactorisation suite à un dépassement ou une proximité du seuil de 500 lignes, son volume final doit impérativement être ramené sous les **300 lignes** (< 300 lignes).
+  - Cela procure une zone tampon de sécurité indispensable permettant les développements futurs sans récidive immédiate du problème.
 
 ### Émergence de Services Métier Dédiés (Même sans Table BDD)
 - Lorsqu'un concept fonctionnel émerge (ex: `Seance`, `SituationPedagogique`, `LiveCodingEngine`), il ne doit **pas** être entassé dans le CRUD d'une entité Eloquent.
