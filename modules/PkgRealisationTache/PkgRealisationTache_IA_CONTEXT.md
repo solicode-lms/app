@@ -50,6 +50,11 @@ Le package **PkgRealisationTache** gère l'exécution opérationnelle, le suivi 
   - `getTodayTimeRange()` : Fournit l'intervalle de début de la première séance jusqu'à l'heure actuelle.
   - `formatDuree($minutes)` : Formate une durée d'inactivité en texte lisible (ex: `1h 45min` ou `35min`).
 
+### `TacheAffectationService` (`Modules\PkgRealisationTache\Services\TacheAffectationService`)
+- **Progression de Classe & Live Coding :** Calcule le taux d'avancement collectif de la classe (`pourcentage_realisation_cache`).
+- **Règle d'Exclusion du Dénominateur :** Les tâches en état `PAUSED`, `NOT_VALIDATED` et `ABSENT` sont rigoureusement exclues du total des tâches actives, pour que les absences physiques ou tâches en pause ne pénalisent pas le calcul de progression.
+- **Déclenchement du Live Coding (Seuil 50%) :** Dès que 50% des apprenants actifs/présents ont réalisé la tâche (`TO_APPROVE`, `APPROVED`, `VALIDE_INTERMEDIAIRE`, etc.), `lancerLiveCodingSiEligible()` sélectionne automatiquement l'apprenant démonstrateur selon l'historique annuel.
+
 ### `RealisationTacheGetterTrait` (Macro-Situations & Inactivité)
 - **Constantes de situations pédagogiques :**
   - `SITUATION_TRAVAIL` : Tâches en cours d'exécution active.
