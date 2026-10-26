@@ -75,8 +75,8 @@
         },
         {
             "folderPath": "solicode-lms\\.agents\\",
-            "color": "foldercolorizer.color_ff8700",
-            "isFolderOnly": true
+            "isFolderOnly": true,
+            "color": "foldercolorizer.color_ff8700"
         }
     ],
     "hide-files.files": []

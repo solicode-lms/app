@@ -27,6 +27,7 @@ Lors de l'analyse, charger les informations selon cette hiérarchie stricte :
 1. **Priorité 1 (Conventions du Projet) :** `.agents/references/conventions/` (`project-conventions.md`, `crud-backend-mechanic.md`, `crud-frontend-ui.md`).
 2. **Priorité 2 (Références Partagées) :** `.agents/references/architecture/layers-3tiers.md`, `.agents/references/gapp/01-conventions-et-garde-fous.md`.
 3. **Priorité 3 (Contexte Module) :** Fichier `AI_CONTEXT.md` du module cible s'il existe dans `modules/Pkg[Nom]/`.
+4. **Priorité 4 (Spécification Issue) :** Si la demande découle d'une issue, inspecter sa fiche dans `issues/<SousDossier>/` régie par [.agents/rules/gestion-issues.md](file:///c:/AppServer/solicode-lms/.agents/rules/gestion-issues.md).
 
 # 4. Contraintes & Règles Inviolables
 - **Mode Read-Only Absolu :** Ne créer ni modifier aucun fichier source (PHP, Blade, JS, JSON).

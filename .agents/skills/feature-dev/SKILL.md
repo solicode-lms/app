@@ -33,6 +33,13 @@ Avant d'écrire ou modifier la moindre ligne de code, charger :
    - `.agents/references/frontend/tableui-framework.md`
    - `.agents/references/gapp/01-conventions-et-garde-fous.md`
 3. **Priorité 3 (Contexte Package) :** Fiche `AI_CONTEXT.md` du module concerné dans `modules/Pkg.../`.
+4. **Priorité 4 (Spécification Issue) :** Fiche d'issue dans `issues/<SousDossier>/` si existante (régie par [.agents/rules/gestion-issues.md](file:///c:/AppServer/solicode-lms/.agents/rules/gestion-issues.md)).
+5. **Priorité 5 (Ressources Spécifiques Encapsulées) :** Guides internes disponibles à la demande dans `resources/` :
+   - `resources/crud-jobs-and-polling.md` (Opérations asynchrones, Observer et Polling).
+   - `resources/typage-enum.md` (Workflow de conversion d'un attribut en Enum PHP 8.1+).
+   - `resources/widgets-system.md` (Configuration des widgets dynamiques JSON).
+   - `resources/catalogue-metadonnees.md` (Métadonnées Gapp : dynamicDropdown, linkAction).
+   - `resources/specifications-avancees.md` (Champs calculés data-calcule).
 
 # 4. Contraintes & Règles Inviolables
 1. **Intégrité de Gapp (Classes Base/) :**
@@ -62,7 +69,7 @@ Avant d'écrire ou modifier la moindre ligne de code, charger :
 5. **Phase 5 : Contrôle & Preuve de Fonctionnement :**
    - Exécuter la checklist de contrôle qualité.
    - Présenter au développeur les diffs précis et lui indiquer comment tester le résultat.
-   - Si la fonctionnalité a été demandée via un fichier dans `issues/<SousDossier>/`, déplacer le fichier vers `issues/issues-closed/<SousDossier>/` une fois validé.
+   - Si la fonctionnalité découle d'une issue dans `issues/`, appliquer la procédure de clôture selon la règle [.agents/rules/gestion-issues.md](file:///c:/AppServer/solicode-lms/.agents/rules/gestion-issues.md).
 
 # 6. Gestion des Ambiguïtés & Décisions
 - Si le type de filtre n'est pas spécifié : appliquer par défaut `generateManyToOneFilter` si c'est une clé étrangère standard.

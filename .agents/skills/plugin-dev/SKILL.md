@@ -9,15 +9,20 @@ inspiration:
 ---
 
 # 1. Mission
-Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : la conception, la création et le raffinement continu des **Skills** partagés (`.agents/skills/`), des **Règles d'or et directives permanentes** (`.agents/rules/`). Il applique systématiquement les motifs de référence d'Anthropic (`feature-dev`, `claude-code-setup`, `pr-review-toolkit`), veille à la non-contradiction des règles, documente les nouveaux flux de travail et consigne les rétro-actions sous forme de fiches d'incidents YAML.
+Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : la conception, la création et le raffinement continu des **Skills** partagés (`.agents/skills/`) et des **Règles d'or et directives permanentes** (`.agents/rules/`).
+
+**Principes Fondateurs Inviolables :**
+- **Single Source of Truth (SSOT) :** Toute règle, spécification ou directive doit résider dans un unique emplacement faisant autorité. La duplication d'instructions à travers plusieurs fichiers est formellement interdite.
+- **DRY (Don't Repeat Yourself) :** Ne jamais réécrire ou dupliquer une consigne existante. Tout skill ou document doit exploiter la règle existante par simple référence ou lien.
+- Il applique systématiquement les motifs de référence d'Anthropic (`feature-dev`, `claude-code-setup`, `pr-review-toolkit`), veille à la non-contradiction des règles, documente les nouveaux flux de travail et consigne les rétro-actions sous forme de fiches d'incidents YAML.
 
 # 2. Déclenchement & Limites
 - **Quand l'activer :**
   - Demande de création d'un nouveau skill ("Crée un skill pour gérer les tests automatisés", "Ajoute un skill concevoir-architecture").
   - Raffinement ou correction d'un skill existant suite à un retour d'expérience ("Modifie le skill feature-dev pour interdire X").
-  - Création, mise à jour ou audit d'une **Règle** comportementale ("Ajoute une règle pour afficher les skills utilisés", "Modifie la règle critique sur les migrations dans critical-rules.md", "Mets à jour AGENTS.md").
-  - Documentation d'un nouveau flux de travail dans `references/workflows/`.
-  - Audit de conformité des compétences, cohérence des directives et contrôle SemVer.
+  - Création, mise à jour ou audit d'une **Règle** comportementale ("Ajoute une règle pour afficher les skills utilisés", "Modifie la règle critique sur les migrations dans critical-rules.md").
+  - Documentation d'un nouveau flux de travail.
+  - Audit de conformité des compétences, cohérence des directives, élimination des duplications (DRY/SSOT) et contrôle SemVer.
 - **Quand NE PAS l'activer :**
   - Rédaction ou simplification de tutoriels ➔ Utiliser `tutorial-writer`.
   - Développement de composants ou de styles Jekyll ➔ Utiliser `dev-jekyll`.
@@ -25,7 +30,7 @@ Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : 
   - Initialisation d'agent ou diagnostic projet ➔ Utiliser `project-setup`.
 
 # 3. Entrées & Ressources à Charger
-- **Priorité 1 :** `.agents/references/anthropic/anthropic-skill-patterns.md` (Motifs officiels Anthropic).
+- **Priorité 1 :** `.agents/skills/plugin-dev/resources/anthropic-skill-patterns.md` (Motifs officiels Anthropic encapsulés).
 - **Priorité 2 :** Fichiers de règles :
   - `.agents/rules/critical-rules.md` (Règles critiques invariables).
   - `.agents/rules/*.md` (Directives d'exécution et de style).
@@ -33,9 +38,14 @@ Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : 
 - **Priorité 4 :** Registre `catalog.yaml` et `CHANGELOG.md` du Hub Global.
 
 # 4. Contraintes & Règles Inviolables
+- **Principes Cardinaux SSOT (Single Source of Truth) & DRY :**
+  - Toute convention, directive ou spécification doit exister en un seul et unique endroit.
+  - Les règles comportementales résident dans `.agents/rules/[nom].md`. Les compétences ne doivent jamais dupliquer le texte de ces règles mais les référencer directement.
+- **Minimalisme Strict de `.agents/references/` (Encapsulation Mono-Compétence) :**
+  - Le répertoire transversal `.agents/references/` doit contenir le **strict minimum** de fichiers, réservé exclusivement aux conventions et standards partagés par au moins 2 compétences.
+  - Tout fichier méthodologique, guide, catalogue ou template utilisé par une seule compétence DOIT OBLIGATOIREMENT être déplacé et encapsulé dans `<skill>/resources/` (principe de divulgation progressive d'Anthropic).
 - **Bloc `inspiration` Obligatoire :** Tout skill créé ou modifié DOIT impérativement comporter la métadonnée `inspiration:` dans son frontmatter YAML avec sa source, son plugin de référence et son pattern.
 - **Respect Strict des 10 Rubriques :** Aucun skill ne peut être publié s'il omet l'une des 10 rubriques normées.
-- **Encapsulation Stricte des Ressources (Niveau Skill vs Niveau Agent) :** Tout fichier méthodologique, guide ou gabarit utilisé exclusivement par une seule compétence DOIT impérativement être encapsulé dans son sous-dossier `resources/` (principe de divulgation progressive). Il est formellement interdit de déposer des ressources mono-compétence au niveau Agent (`.agents/references/`). Le niveau Agent est strictement réservé aux conventions et standards transversaux partagés par plusieurs compétences ou régissant le projet dans sa globalité.
 - **Hiérarchie et Non-Contradiction des Règles :**
   - Une règle locale (`.agents/rules/`) prime sur une recommandation générale, mais ne doit jamais violer une règle critique de sécurité (`critical-rules.md`) sans arbitrage explicite.
   - Chaque règle doit être concise, univoque et comporter un déclencheur explicite (`trigger: always_on` ou conditionnel).
@@ -46,7 +56,7 @@ Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : 
 
 ### Parcours A : Création d'un Nouveau Skill
 1. **Étape 1 : Analyse du Besoin & Motif Anthropic :**
-   - Consulter `references/anthropic/anthropic-skill-patterns.md` pour sélectionner le motif le plus proche (`feature-dev`, `setup`, `review`, etc.).
+   - Consulter `resources/anthropic-skill-patterns.md` pour sélectionner le motif le plus proche (`feature-dev`, `setup`, `review`, etc.).
 2. **Étape 2 : Rédaction du `SKILL.md` :**
    - Remplir le gabarit en 10 rubriques.
    - Formuler la description à la 3ème personne en précisant clairement les cas d'activation et d'exclusion.
@@ -72,13 +82,14 @@ Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : 
 2. **Étape 2 : Rédaction Concise & Inviolable :**
    - Formuler des impératifs clairs ("L'agent doit...", "Interdiction formelle de...").
    - Donner un exemple direct de format attendu.
+   - Respecter le principe SSOT : si la règle existe déjà, ne jamais la dupliquer.
 3. **Étape 3 : Synchronisation & Notification :**
    - Répercuter la modification dans le Hub ou le projet local et consigner l'évolution dans `CHANGELOG.md`.
 
 # 6. Gestion des Ambiguïtés & Décisions
 - **Arbitrage Emplacement des Ressources (Skill vs Agent) :**
-  - Si la ressource est exploitée exclusivement par un skill particulier (ex: gabarits éditoriaux d'un rédacteur) ➔ Emplacement obligatoire : `<skill>/resources/[fichier].md` (chargée à la demande dans la section 3 du skill).
-  - Si la ressource définit un standard d'ingénierie transverse, des conventions d'architecture partagées ou des directives du dépôt ➔ Emplacement : `.agents/references/conventions/`.
+  - Si la ressource est exploitée exclusivement par un skill particulier (ex: gabarits éditoriaux d'un rédacteur, catalogue technique propre) ➔ Emplacement obligatoire : `<skill>/resources/[fichier].md` (chargée à la demande dans la section 3 du skill).
+  - Si la ressource définit un standard d'ingénierie transverse partagé par 2 compétences ou plus ➔ Emplacement : `.agents/references/conventions/` ou `.agents/references/architecture/`.
 - **Arbitrage Skill vs Règle :**
   - Si l'instruction est une contrainte permanente ou un garde-fou transversal (ex: affichage des compétences, style de réponse, interdiction de migration) ➔ Créer une **Règle** (`.agents/rules/`).
   - Si l'instruction décrit une séquence outillée avec déclenchement à la demande, entrées, logique pas-à-pas et livrables ➔ Créer un **Skill** (`SKILL.md`).
@@ -93,7 +104,9 @@ Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : 
 - [ ] Le frontmatter YAML du skill contient-il le bloc inspiration complet (source, plugin, pattern) ?
 - [ ] La description est-elle à la 3ème personne et précise-t-elle quand activer et quand ne pas activer ?
 - [ ] Les 10 rubriques normées sont-elles toutes présentes et renseignées ?
-- [ ] Les ressources mono-compétence sont-elles bien encapsulées dans `<skill>/resources/` sans polluer le niveau Agent ?
+- [ ] Le principe SSOT (Single Source of Truth) et la règle DRY sont-ils respectés (aucune consigne dupliquée entre fichiers) ?
+- [ ] Le répertoire `.agents/references/` est-il minimal et exempt de toute ressource mono-compétence ?
+- [ ] Les ressources mono-compétence sont-elles rigoureusement encapsulées dans `<skill>/resources/` ?
 - [ ] S'il s'agit d'une règle, est-elle concise, non contradictoire avec critical-rules et munie d'un exemple clair ?
 - [ ] Le script node scripts/validate-skills.js passe-t-il avec succès ?
 

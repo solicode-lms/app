@@ -42,7 +42,3 @@ Ces règles sont **INVIOLABLES**. Elles garantissent la stabilité, la sécurit�
 - À la fin de chaque réponse ou tour de discussion, l'agent DOIT TOUJOURS afficher la liste des skills mobilisés de façon compacte (sur une ligne) :
   - Format : `> 🛠️ **Skills utilisés :** [nom-du-skill](file://...) · [autre-skill](file://...)`
   - Si aucun skill n'est requis : `> 🛠️ **Skills utilisés :** Aucun`
-
-## 7. Gestion du Répertoire des Issues (`issues/`)
-- Les issues doivent être enregistrées dans `issues/` et organisées obligatoirement par sous-dossiers thématiques ou de packages (ex: `issues/PkgCore/`).
-- Toute issue terminée ou résolue doit être déplacée dans le dossier `issues/issues-closed/` en conservant son arborescence de sous-dossier (`issues/issues-closed/<SousDossier>/`).

@@ -27,6 +27,7 @@ Ce skill intervient lors de tout dysfonctionnement, régression ou incident surv
 - **Priorité 2 :** `.agents/rules/critical-rules.md` (Garde-fous architecturaux, verrous Gapp).
 - **Priorité 3 :** Code source incriminé dans `modules/Pkg[Nom]/` (Service enfant, Contrôleur, FormRequest ou vue).
 - **Priorité 4 :** `.agents/references/frontend/tableui-framework.md` (si l'erreur concerne l'interface ou les requêtes AJAX).
+- **Priorité 5 :** Fiche d'issue dans `issues/<SousDossier>/` si signalée (régie par [.agents/rules/gestion-issues.md](file:///c:/AppServer/solicode-lms/.agents/rules/gestion-issues.md)).
 
 # 4. Contraintes & Règles Inviolables
 - **Diagnostic sur Preuve :** Ne jamais deviner la cause d'une panne sans avoir préalablement lu la trace réelle dans `storage/logs/laravel.log` ou le code source exact.
@@ -48,7 +49,7 @@ Ce skill intervient lors de tout dysfonctionnement, régression ou incident surv
    - Ne jamais introduire de dépendances non maîtrisées.
 5. **Étape 5 : Traçabilité de l'Incident & Clôture d'Issue :**
    - Créer ou actualiser la fiche YAML d'incident pour enrichir la mémoire collective de l'agent.
-   - Si l'anomalie découle d'un fichier dans `issues/<SousDossier>/`, déplacer le fichier vers `issues/issues-closed/<SousDossier>/`.
+   - Si l'anomalie est associée à une issue, appliquer la procédure de clôture selon la règle [.agents/rules/gestion-issues.md](file:///c:/AppServer/solicode-lms/.agents/rules/gestion-issues.md).
 
 # 6. Gestion des Ambiguïtés & Décisions
 - Si le fichier `laravel.log` ne contient pas d'erreur récente : demander au développeur de reproduire l'action et réexaminer le log.
