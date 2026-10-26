@@ -45,7 +45,8 @@ trait RealisationTacheGetterTrait
             'EN_REMEDIATION', 
             'REVISION_NECESSAIRE', 
             'LATE', 
-            'PAUSED'
+            'PAUSED',
+            'ABSENT',
         ],
         self::SITUATION_ATTENTE => [
             'TO_APPROVE', 
@@ -55,6 +56,7 @@ trait RealisationTacheGetterTrait
         self::SITUATION_TERMINEE => [
             'APPROVED',
             'NOT_VALIDATED', 
+            'VALIDE_INTERMEDIAIRE',
         ],
     ];
 
@@ -102,6 +104,7 @@ trait RealisationTacheGetterTrait
         $workflowService = new WorkflowTacheService();
         $workflowTachesList = $workflowService->all();
         $baseData['workflowTachesList'] = $workflowTachesList;
+        $baseData['situationWorkflowMap'] = self::SITUATION_WORKFLOW_MAP;
 
         // Données d'inactivité si situation d'inactivité active
         $situation = $this->viewState->get('filter.realisationTache.situation_pedagogique') 
@@ -126,6 +129,7 @@ trait RealisationTacheGetterTrait
             $baseData['realisationTache_compact_value']['revisionsBeforePriorityGrouped'] = $revisionsGrouped;
             $baseData['realisationTache_compact_value']['previousTasksGrouped'] = $previousTasksGrouped;
             $baseData['realisationTache_compact_value']['workflowTachesList'] = $workflowTachesList;
+            $baseData['realisationTache_compact_value']['situationWorkflowMap'] = self::SITUATION_WORKFLOW_MAP;
             $baseData['realisationTache_compact_value']['inactiviteMetadata'] = $baseData['inactiviteMetadata'];
             $baseData['realisationTache_compact_value']['inactiviteResume']   = $baseData['inactiviteResume'];
             $baseData['realisationTache_compact_value']['inactiviteSeanceNom'] = $baseData['inactiviteSeanceNom'];
@@ -720,10 +724,10 @@ trait RealisationTacheGetterTrait
                 return $q;
             };
 
-            // Priorité 1 : Tâche en cours de travail
+            // Priorité 1 : Tâche en cours de travail ou absence
             $tache = $baseTaskQuery()
                 ->whereHas('etatRealisationTache.workflowTache', function ($q) {
-                    $q->whereIn('code', ['IN_PROGRESS', 'REVISION_NECESSAIRE', 'EN_REMEDIATION', 'PAUSED']);
+                    $q->whereIn('code', ['IN_PROGRESS', 'REVISION_NECESSAIRE', 'EN_REMEDIATION', 'PAUSED', 'ABSENT']);
                 })
                 ->first();
 

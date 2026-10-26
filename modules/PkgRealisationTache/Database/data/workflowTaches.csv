@@ -11,3 +11,5 @@
 "10","APPROVED","Validée","La tâche a été approuvée après validation pédagogique","1","APPROVED","success"
 "11","EN_REMEDIATION","En remédiation","La tâche prototype nécessite une consolidation didactique avant une nouvelle session Live Coding.","1","EN_REMEDIATION","warning"
 "12","A_VALIDER_LIVE_CODING","À valider Live coding","La démonstration collective de Live Coding est terminée, en attente de validation finale par le formateur.","0","A_VALIDER_LIVE_CODING","warning"
+"13","VALIDE_INTERMEDIAIRE","Validé intermédiaire","La tâche a franchi une étape de validation intermédiaire avant sa validation finale.","1","VALIDE_INTERMEDIAIRE","teal"
+"14","ABSENT","Absent","L'apprenant était absent lors de la séance consacrée à cette tâche.","1","ABSENT","secondary"

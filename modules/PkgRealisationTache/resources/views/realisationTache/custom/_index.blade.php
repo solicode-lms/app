@@ -91,13 +91,8 @@
 @endsection
 
 <script>
-// Mapping des situations pédagogiques prédéfinies vers les codes WorkflowTache
-const SITUATION_WORKFLOW_MAP = {
-  'SITUATION_TRAVAIL': ['IN_PROGRESS', 'REVISION_NECESSAIRE', 'EN_REMEDIATION', 'IN_LIVE_CODING', 'PAUSED'],
-  'SITUATION_BLOCAGE': ['EN_REMEDIATION', 'REVISION_NECESSAIRE', 'NOT_VALIDATED', 'LATE', 'PAUSED'],
-  'SITUATION_ATTENTE': ['TO_APPROVE', 'READY_FOR_LIVE_CODING', 'A_VALIDER_LIVE_CODING'],
-  'SITUATION_TERMINEE': ['APPROVED']
-};
+// Mapping des situations pédagogiques prédéfinies vers les codes WorkflowTache (Source Unique DRY : RealisationTacheService::SITUATION_WORKFLOW_MAP)
+const SITUATION_WORKFLOW_MAP = @json($situationWorkflowMap ?? \Modules\PkgRealisationTache\Services\RealisationTacheService::SITUATION_WORKFLOW_MAP);
 
 // IDs des selects et filtres
 const ETAT_ID          = 'filter_etat_realisation_tache_id';

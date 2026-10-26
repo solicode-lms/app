@@ -53,13 +53,14 @@ Le package **PkgRealisationTache** gère l'exécution opérationnelle, le suivi 
 ### `RealisationTacheGetterTrait` (Macro-Situations & Inactivité)
 - **Constantes de situations pédagogiques :**
   - `SITUATION_TRAVAIL` : Tâches en cours d'exécution active.
-  - `SITUATION_BLOCAGE` : Tâches bloquées ou en difficulté nécessitant une intervention.
+  - `SITUATION_BLOCAGE` : Tâches bloquées, en remédiation ou apprenants absents (`ABSENT`).
   - `SITUATION_ATTENTE` : Tâches soumises en attente de validation.
-  - `SITUATION_TERMINEE` : Tâches validées et terminées.
+  - `SITUATION_TERMINEE` : Tâches validées (`APPROVED`), invalidées (`NOT_VALIDATED`) ou ayant franchi une étape finale intermédiaire (`VALIDE_INTERMEDIAIRE`).
   - `SITUATION_INACTIF_SEANCE` : Apprenants sans aucun événement pendant la séance en cours.
   - `SITUATION_INACTIF_JOUR` : Apprenants sans aucun événement pendant toute la journée.
   - `SITUATION_CUSTOM` : Filtrage libre multi-états personnalisés.
 - **Matrice `SITUATION_WORKFLOW_MAP` :** Mappe chaque macro-situation aux codes `WorkflowTache` correspondants.
+  - Comprend 14 états institutionnels, notamment `VALIDE_INTERMEDIAIRE` (état final intermédiaire, couleur `teal`, réservé aux formateurs) et `ABSENT` (état de blocage par absence, couleur `secondary`, réservé aux formateurs).
 - **Méthode `getInactiviteData(string $mode, array $activeFilters)` :**
   - Analyse les transitions dans `HistoriqueRealisationTache` sur la plage horaire définie par `SeanceService`.
   - Applique rigoureusement les filtres de scoping parents (`Affectation_projet_id`, `Groupe_id`, `Filiere_id`, `EquipeProjet_id`).
@@ -92,3 +93,6 @@ Le package **PkgRealisationTache** gère l'exécution opérationnelle, le suivi 
    - Lors de la commutation interactive d'une situation en JavaScript, purger les paramètres URL résiduels non-préfixés (`situation_pedagogique`, `Affectation_projet_id`) via `window.history.replaceState` pour prévenir tout conflit lors des rechargements ou paginations TableUI.
 4. ⚠️ **Intégrité Gapp & Dossiers `custom/` :**
    - Ne jamais modifier les templates Blade générés par Gapp à la racine du module. Toute extension d'affichage ou logique d'injection JS/CSS doit résider dans `resources/views/realisationTache/custom/`.
+5. ⚠️ **Single Source of Truth (SSOT & DRY) Frontend/Backend :**
+   - Le mapping des macro-situations pédagogiques vers les codes de workflow est centralisé dans `RealisationTacheGetterTrait::SITUATION_WORKFLOW_MAP`.
+   - Ne jamais redéfinir ce dictionnaire en dur côté JavaScript dans les vues Blade. Toujours consommer la source de vérité via `@json($situationWorkflowMap ?? \Modules\PkgRealisationTache\Services\RealisationTacheService::SITUATION_WORKFLOW_MAP)`.

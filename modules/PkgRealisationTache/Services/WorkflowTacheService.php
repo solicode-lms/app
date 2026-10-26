@@ -28,51 +28,46 @@ class WorkflowTacheService extends BaseWorkflowTacheService
     }
 
     /**
-     * Synchronise tous les EtatRealisationTache pour tous les workflows et formateurs.
+     * Synchronise et corrige tous les EtatRealisationTache pour tous les workflows et formateurs.
      */
-public function resyncEtatsFormateurs(): int
-{
-    $formateurs = Formateur::all();
-    $workflows = WorkflowTache::all();
-    $totalSynced = 0;
+    public function resyncEtatsFormateurs(): int
+    {
+        $formateurs = Formateur::all();
+        $workflows = WorkflowTache::all();
+        $totalSynced = 0;
 
-    foreach ($workflows as $workflow) {
-        foreach ($formateurs as $formateur) {
-            $etat = EtatRealisationTache::where('formateur_id', $formateur->id)
-                ->where('nom', $workflow->titre)
-                ->first();
+        foreach ($workflows as $workflow) {
+            foreach ($formateurs as $formateur) {
+                $etat = EtatRealisationTache::where('formateur_id', $formateur->id)
+                    ->where('workflow_tache_id', $workflow->id)
+                    ->first();
 
-            if ($etat) {
-                if ($this->etatPeutEtreResynchronise($etat, $workflow)) {
-                    $etat->update([
-                        'workflow_tache_id' => $workflow->id,
-                        'description' => $workflow->description,
-                        'sys_color_id' => $workflow->sys_color_id,
-                        'is_editable_only_by_formateur' => $workflow->is_editable_only_by_formateur ?? false,
-                        'ordre' => $workflow->ordre,
-                    ]);
+                if (!$etat) {
+                    $etat = EtatRealisationTache::where('formateur_id', $formateur->id)
+                        ->where('nom', $workflow->titre)
+                        ->first();
+                }
+
+                if ($etat) {
+                    $this->syncEtatExistante($etat, $workflow);
+                    $totalSynced++;
+                } else {
+                    $this->createEtatFromWorkflow($formateur->id, $workflow);
                     $totalSynced++;
                 }
-            } else {
-                $this->createEtatFromWorkflow($formateur->id, $workflow);
-                $totalSynced++;
             }
         }
+
+        return $totalSynced;
     }
 
-    return $totalSynced;
-}
-
-protected function etatPeutEtreResynchronise(EtatRealisationTache $etat, WorkflowTache $workflow): bool
-{
-    return (
-        $etat->sys_color_id === $workflow->sys_color_id &&
-        $etat->is_editable_only_by_formateur === ($workflow->is_editable_only_by_formateur ?? false) 
-    );
-}
+    protected function etatPeutEtreResynchronise(EtatRealisationTache $etat, WorkflowTache $workflow): bool
+    {
+        return true;
+    }
 
     /**
-     * Gère la création ou la liaison des états lors de la création d’un WorkflowTache.
+     * Gère la création ou la synchronisation/correction des états lors de la création d’un WorkflowTache.
      */
     public function resyncEtatsPourWorkflow(WorkflowTache $workflow): void
     {
@@ -80,8 +75,14 @@ protected function etatPeutEtreResynchronise(EtatRealisationTache $etat, Workflo
 
         foreach ($formateurs as $formateur) {
             $etat = EtatRealisationTache::where('formateur_id', $formateur->id)
-                ->where('nom', $workflow->titre)
+                ->where('workflow_tache_id', $workflow->id)
                 ->first();
+
+            if (!$etat) {
+                $etat = EtatRealisationTache::where('formateur_id', $formateur->id)
+                    ->where('nom', $workflow->titre)
+                    ->first();
+            }
 
             if ($etat) {
                 $this->syncEtatExistante($etat, $workflow);
@@ -92,26 +93,20 @@ protected function etatPeutEtreResynchronise(EtatRealisationTache $etat, Workflo
     }
 
     /**
-     * Met à jour les états liés si aucune modification manuelle n’a été faite.
+     * Met à jour et synchronise les états liés avec le WorkflowTache système.
      */
     public function updateEtatsPourWorkflow(WorkflowTache $workflow): void
     {
         $etats = EtatRealisationTache::where('workflow_tache_id', $workflow->id)->get();
 
         foreach ($etats as $etat) {
-            if (
-                $etat->nom === $workflow->getOriginal('titre') &&
-                $etat->sys_color_id === $workflow->getOriginal('sys_color_id') &&
-                $etat->is_editable_only_by_formateur === $workflow->getOriginal('is_editable_only_by_formateur')
-            ) {
-                $etat->update([
-                    'nom' => $workflow->titre,
-                    'description' => $workflow->description,
-                    'sys_color_id' => $workflow->sys_color_id,
-                    'is_editable_only_by_formateur' => $workflow->is_editable_only_by_formateur ?? false,
-                    'ordre' => $workflow->ordre,
-                ]);
-            }
+            $etat->update([
+                'nom' => $workflow->titre,
+                'description' => $workflow->description,
+                'sys_color_id' => $workflow->sys_color_id,
+                'is_editable_only_by_formateur' => $workflow->is_editable_only_by_formateur ?? false,
+                'ordre' => $workflow->ordre,
+            ]);
         }
     }
 
@@ -130,26 +125,20 @@ protected function etatPeutEtreResynchronise(EtatRealisationTache $etat, Workflo
     }
 
     /**
-     * Synchronise un état existant (créé manuellement ou précédemment lié).
+     * Synchronise et corrige un état existant avec l'état système WorkflowTache.
      */
     protected function syncEtatExistante(EtatRealisationTache $etat, WorkflowTache $workflow): int
     {
-        if ($etat->workflow_tache_id === $workflow->id) {
-            return 0; // déjà à jour
-        }
+        $etat->update([
+            'nom' => $workflow->titre,
+            'workflow_tache_id' => $workflow->id,
+            'description' => $workflow->description,
+            'sys_color_id' => $workflow->sys_color_id,
+            'is_editable_only_by_formateur' => $workflow->is_editable_only_by_formateur ?? false,
+            'ordre' => $workflow->ordre,
+        ]);
 
-        if (is_null($etat->workflow_tache_id)) {
-            $etat->update([
-                'workflow_tache_id' => $workflow->id,
-                'description' => $workflow->description,
-                'sys_color_id' => $workflow->sys_color_id,
-                'is_editable_only_by_formateur' => $workflow->is_editable_only_by_formateur ?? false,
-                'ordre' => $workflow->ordre,
-            ]);
-            return 1;
-        }
-
-        return 0; // état lié à un autre workflow → pas de modification
+        return 1;
     }
 
     /**

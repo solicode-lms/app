@@ -102,7 +102,7 @@ trait RealisationTacheActionsTrait
             return;
         }
 
-        $etatsFinaux = ['APPROVED', 'TO_APPROVE', 'READY_FOR_LIVE_CODING', 'NOT_VALIDATED'];
+        $etatsFinaux = ['APPROVED', 'TO_APPROVE', 'READY_FOR_LIVE_CODING', 'NOT_VALIDATED', 'VALIDE_INTERMEDIAIRE'];
 
         $tachesBloquantes = RealisationTache::where('realisation_projet_id', $projetId)
             ->whereHas('tache', function ($query) use ($prioriteActuelle) {
@@ -185,7 +185,7 @@ trait RealisationTacheActionsTrait
         }
 
         // Ne pas modifier si la tâche est déjà dans un état final
-        if (in_array($record->etatRealisationTache?->workflowTache->code, ['APPROVED', 'NOT_VALIDATED'])) {
+        if (in_array($record->etatRealisationTache?->workflowTache->code, ['APPROVED', 'NOT_VALIDATED', 'VALIDE_INTERMEDIAIRE'])) {
             return;
         }
 
