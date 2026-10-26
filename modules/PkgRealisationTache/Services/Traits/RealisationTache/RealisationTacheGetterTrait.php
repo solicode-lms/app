@@ -637,10 +637,13 @@ trait RealisationTacheGetterTrait
         }
 
         // 1. Apprenants ayant enregistré au moins un changement d'état sur la période
+        // Seules les actions effectuées par l'apprenant lui-même (user_id) sont prises en compte
         $activeApprenantIds = \Modules\PkgRealisationTache\Models\HistoriqueRealisationTache::query()
-            ->whereBetween('dateModification', [$start, $end])
+            ->whereBetween('historique_realisation_taches.dateModification', [$start, $end])
             ->join('realisation_taches', 'historique_realisation_taches.realisation_tache_id', '=', 'realisation_taches.id')
             ->join('realisation_projets', 'realisation_taches.realisation_projet_id', '=', 'realisation_projets.id')
+            ->join('apprenants', 'realisation_projets.apprenant_id', '=', 'apprenants.id')
+            ->whereColumn('historique_realisation_taches.user_id', '=', 'apprenants.user_id')
             ->pluck('realisation_projets.apprenant_id')
             ->unique()
             ->toArray();
@@ -755,11 +758,20 @@ trait RealisationTacheGetterTrait
             }
 
             if ($tache) {
-                // Recherche de la toute dernière entrée d'historique de l'apprenant
-                $dernierHistorique = \Modules\PkgRealisationTache\Models\HistoriqueRealisationTache::query()
+                // Recherche de la toute dernière entrée d'historique enregistrée par l'apprenant lui-même
+                $apprenantUser = \Modules\PkgApprenants\Models\Apprenant::find($apprenantId);
+                $apprenantUserId = $apprenantUser?->user_id;
+
+                $dernierHistoriqueQuery = \Modules\PkgRealisationTache\Models\HistoriqueRealisationTache::query()
                     ->join('realisation_taches', 'historique_realisation_taches.realisation_tache_id', '=', 'realisation_taches.id')
                     ->join('realisation_projets', 'realisation_taches.realisation_projet_id', '=', 'realisation_projets.id')
-                    ->where('realisation_projets.apprenant_id', $apprenantId)
+                    ->where('realisation_projets.apprenant_id', $apprenantId);
+
+                if ($apprenantUserId) {
+                    $dernierHistoriqueQuery->where('historique_realisation_taches.user_id', $apprenantUserId);
+                }
+
+                $dernierHistorique = $dernierHistoriqueQuery
                     ->latest('historique_realisation_taches.dateModification')
                     ->select('historique_realisation_taches.*')
                     ->first();
@@ -772,22 +784,9 @@ trait RealisationTacheGetterTrait
                         : $derniereDate->format('d/m/Y H:i');
                     $dateExacteStr = $derniereDate->format('d/m/Y H:i:s');
                 } else {
-                    // Fallback sur la dernière mise à jour de tâche de l'apprenant s'il n'y a pas d'historique
-                    $derniereTacheUpdated = \Modules\PkgRealisationTache\Models\RealisationTache::whereHas('realisationProjet', fn($q) => $q->where('apprenant_id', $apprenantId))
-                        ->latest('updated_at')
-                        ->first();
-                    if ($derniereTacheUpdated && $derniereTacheUpdated->updated_at) {
-                        $derniereDate = Carbon::parse($derniereTacheUpdated->updated_at);
-                        $dureeMinutes = max(0, (int) $derniereDate->diffInMinutes($now));
-                        $dernierChangementStr = $derniereDate->isToday() 
-                            ? $derniereDate->format('H:i') 
-                            : $derniereDate->format('d/m/Y H:i');
-                        $dateExacteStr = $derniereDate->format('d/m/Y H:i:s');
-                    } else {
-                        $dureeMinutes = max(0, (int) $start->diffInMinutes($now));
-                        $dernierChangementStr = __('Aucun événement');
-                        $dateExacteStr = __('Aucun événement enregistré');
-                    }
+                    $dureeMinutes = max(0, (int) $start->diffInMinutes($now));
+                    $dernierChangementStr = __('Aucun événement');
+                    $dateExacteStr = __('Aucun événement enregistré par l\'apprenant');
                 }
 
                 $gravite = ($dureeMinutes >= 75) ? 'danger' : (($dureeMinutes >= 30) ? 'warning' : 'info');
