@@ -85,6 +85,10 @@ Le package **PkgRealisationTache** gère l'exécution opérationnelle, le suivi 
   - **Traçabilité dans `remediations` (`afterUpdateRules`) :**
     - Tout passage à `EN_REMEDIATION` insère ou réactive une entrée dans la table `remediations` (`est_resolu = 0`).
     - Tout passage à `APPROVED` / `VALIDEE` résout la remédiation (`est_resolu = 1`).
+  - **Propagation Automatique de l'Absence sur la Tâche Suivante (`afterUpdateRules`) :**
+    - Dès qu'un apprenant démarre une tâche suivante (`IN_PROGRESS`), le système inspecte les pairs de la même affectation.
+    - Tout apprenant ayant été marqué `ABSENT` sur les tâches précédentes et dont la réalisation actuelle n'est pas encore finalisée bascule **automatiquement à l'état `ABSENT`** sur cette nouvelle tâche.
+    - Cela garantit que l'absence de l'apprenant suit la progression de la classe sans nécessiter d'intervention manuelle répétitive du formateur.
 
 ---
 

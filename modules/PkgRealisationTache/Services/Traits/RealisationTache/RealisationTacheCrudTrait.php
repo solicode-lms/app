@@ -571,6 +571,119 @@ trait RealisationTacheCrudTrait
                 }
             }
         }
+
+        // 🔄 Propagation automatique de l'absence : lorsqu'un apprenant met la tâche suivante en cours (IN_PROGRESS),
+        // les apprenants absents sur les tâches précédentes sont automatiquement marqués ABSENT sur cette tâche.
+        if ($realisationTache->wasChanged('etat_realisation_tache_id')) {
+            $nouvelEtat = \Modules\PkgRealisationTache\Models\EtatRealisationTache::with('workflowTache')->find($realisationTache->etat_realisation_tache_id);
+            $wfCode = optional($nouvelEtat?->workflowTache)->code;
+            if ($wfCode === 'IN_PROGRESS') {
+                $this->propagerEtatAbsentPourTacheSuivante($realisationTache);
+            }
+        }
+    }
+
+    /**
+     * Propage l'état ABSENT sur la tâche actuelle pour les apprenants absents de la même affectation
+     * lorsqu'un pair commence la tâche suivante (état IN_PROGRESS).
+     *
+     * @param RealisationTache $realisationTache
+     * @return void
+     */
+    protected function propagerEtatAbsentPourTacheSuivante(RealisationTache $realisationTache): void
+    {
+        $tacheActuelle = $realisationTache->tache;
+        $affectation = $realisationTache->realisationProjet?->affectationProjet;
+
+        if (!$tacheActuelle || !$affectation) {
+            return;
+        }
+
+        // 1. Déterminer la séquence ordonnée des tâches du projet
+        $tachesDuProjet = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $tacheActuelle->projet_id)
+            ->orderBy('priorite')
+            ->orderBy('ordre')
+            ->orderBy('id')
+            ->pluck('id')
+            ->toArray();
+
+        $currentIndex = array_search($tacheActuelle->id, $tachesDuProjet);
+        if ($currentIndex === false || $currentIndex === 0) {
+            // Aucune tâche précédente dans ce projet
+            return;
+        }
+
+        $tachesPrecedentesIds = array_slice($tachesDuProjet, 0, $currentIndex);
+
+        // 2. Trouver l'état ABSENT pour le formateur du projet (ou état système)
+        $formateurId = $affectation->projet?->formateur_id;
+        $etatAbsent = \Modules\PkgRealisationTache\Models\EtatRealisationTache::whereHas('workflowTache', fn($q) =>
+            $q->where('code', 'ABSENT')
+        )->where(function ($q) use ($formateurId) {
+            if ($formateurId) {
+                $q->where('formateur_id', $formateurId)->orWhereNull('formateur_id');
+            } else {
+                $q->whereNull('formateur_id');
+            }
+        })->orderByRaw('formateur_id IS NULL ASC')->first();
+
+        if (!$etatAbsent) {
+            return;
+        }
+
+        // 3. Identifier les autres apprenants de la même affectation
+        $autresRealisationsProjet = \Modules\PkgRealisationProjets\Models\RealisationProjet::where('affectation_projet_id', $affectation->id)
+            ->where('id', '!=', $realisationTache->realisation_projet_id)
+            ->get();
+
+        foreach ($autresRealisationsProjet as $rp) {
+            // Récupérer les réalisations précédentes de cet apprenant ordonnées
+            $rtsPrecedentes = RealisationTache::where('realisation_projet_id', $rp->id)
+                ->whereIn('tache_id', $tachesPrecedentesIds)
+                ->get()
+                ->keyBy('tache_id');
+
+            // Vérifier en partant de la tâche la plus proche vers la plus ancienne
+            $estAbsentSurPrecedente = false;
+            for ($i = count($tachesPrecedentesIds) - 1; $i >= 0; $i--) {
+                $tId = $tachesPrecedentesIds[$i];
+                $rtPrec = $rtsPrecedentes->get($tId);
+                if ($rtPrec) {
+                    $wfCodePrec = optional($rtPrec->etatRealisationTache?->workflowTache)->code;
+                    if ($wfCodePrec === 'ABSENT') {
+                        $estAbsentSurPrecedente = true;
+                        break;
+                    } elseif (in_array($wfCodePrec, ['APPROVED', 'VALIDEE', 'VALIDE_INTERMEDIAIRE', 'IN_PROGRESS', 'TO_APPROVE'])) {
+                        // L'apprenant est actif ou a validé une tâche plus récente
+                        break;
+                    }
+                }
+            }
+
+            if ($estAbsentSurPrecedente) {
+                $rtActuelle = RealisationTache::where('realisation_projet_id', $rp->id)
+                    ->where('tache_id', $tacheActuelle->id)
+                    ->first();
+
+                if ($rtActuelle) {
+                    $codeActuel = optional($rtActuelle->etatRealisationTache?->workflowTache)->code;
+                    // Ne modifier que si la tâche n'est pas déjà ABSENT et n'est pas finalisée
+                    if ($codeActuel !== 'ABSENT' && !in_array($codeActuel, ['APPROVED', 'VALIDEE', 'VALIDE_INTERMEDIAIRE', 'NOT_VALIDATED'])) {
+                        $rtActuelle->update([
+                            'etat_realisation_tache_id' => $etatAbsent->id,
+                        ]);
+
+                        \Modules\PkgRealisationTache\Models\HistoriqueRealisationTache::create([
+                            'realisation_tache_id' => $rtActuelle->id,
+                            'dateModification' => now(),
+                            'changement' => 'État : Absent (Propagation automatique absence apprenant)',
+                            'user_id' => \Illuminate\Support\Facades\Auth::id() ?? $affectation->projet?->formateur?->user_id,
+                            'isFeedback' => false,
+                        ]);
+                    }
+                }
+            }
+        }
     }
 
 
