@@ -28,14 +28,15 @@ Ce skill pilote la conception et l'échafaudage (*scaffolding*) architectural de
 - **Priorité 4 :** `modules/Pkg[Nom]/AI_CONTEXT.md` du package cible pour inspecter les relations déjà existantes.
 
 # 4. Contraintes & Règles Inviolables
+- **Chargement Préalable Obligatoire de `AI_CONTEXT.md` :** Dès que le package cible est identifié, l'agent DOIT impérativement charger son fichier `modules/Pkg[Nom]/AI_CONTEXT.md` pour appréhender les entités existantes et leurs relations avant de modéliser.
 - **Colonne `reference` Obligatoire :** Toute nouvelle table principale DOIT impérativement comporter `$table->string('reference')->unique();`.
 - **Interdiction Formelle d'Exécuter `php artisan migrate` :** L'agent produit le code source du fichier de migration, mais la commande `php artisan migrate` doit TOUJOURS être laissée à l'initiative du développeur humain.
 - **Préservation des Classes `Base/` :** Les fichiers dans `Base/` sont la propriété exclusive du générateur Gapp. L'agent prépare les métadonnées et le schéma sans jamais éditer manuellement les fichiers du sous-dossier `Base/`.
 - **Verrous `ESSARRAJ Fouad` :** Lors de la création des classes enfants PHP (`[Model].php`, `[Model]Service.php`), si le générateur Gapp appose l'en-tête de lock, l'agent doit le supprimer dans la classe enfant pour y insérer la logique métier personnalisée.
 
 # 5. Procédure Pas-à-Pas (Workflow de Conception d'Entité)
-1. **Étape 1 : Analyse des Attributs & Relations :**
-   - Identifier le package d'accueil (`modules/Pkg[Nom]/`).
+1. **Étape 1 : Analyse du Contexte & Attributs :**
+   - Identifier le package d'accueil (`modules/Pkg[Nom]/`) et charger obligatoirement son fichier `AI_CONTEXT.md`.
    - Lister les attributs (nom, type, contraintes, nullable, valeurs par défaut).
    - Définir les relations Eloquent (`belongsTo`, `hasMany`, `belongsToMany`).
 2. **Étape 2 : Écriture de la Migration Normée :**

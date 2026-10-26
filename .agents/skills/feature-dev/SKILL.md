@@ -54,9 +54,12 @@ Avant d'écrire ou modifier la moindre ligne de code, charger :
    - Toujours lever `throw new BlException("Message...");` pour interrompre une opération non conforme. Pas de redirection HTTP ad-hoc.
 5. **Migrations BDD :**
    - L'agent a l'interdiction d'exécuter `php artisan migrate` de manière autonome.
+6. **Chargement Préalable Obligatoire de `AI_CONTEXT.md` :**
+   - Dès qu'un package cible est identifié, l'agent DOIT impérativement charger son fichier `modules/Pkg[Nom]/AI_CONTEXT.md` AVANT d'ouvrir, d'analyser ou de modifier les fichiers de code du package.
 
 # 5. Procédure Pas-à-Pas (Workflow en 5 Phases)
-1. **Phase 1 : Exploration & Vérification des Locks :**
+1. **Phase 1 : Chargement du Contexte & Exploration des Locks :**
+   - Consulter obligatoirement `modules/Pkg[Nom]/AI_CONTEXT.md` pour appréhender les entités, services et règles métier du package.
    - Localiser les classes enfants modifiables (`[Model]Service.php`, `[Model]Controller.php`).
    - Vérifier la présence éventuelle de la vue dans `custom/`.
 2. **Phase 2 : Clarification :** Si des données critiques manquent, poser au maximum 3 questions ciblées.

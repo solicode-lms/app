@@ -3,10 +3,11 @@ trigger: always_on
 priority: 1
 ---
 
-# Affichage Systématique des Skills Utilisés
+# Affichage Systématique des Skills Mobilisés
 
-À la fin de chaque message ou échange, l'agent doit **toujours** inclure la liste des skills mobilisés, sous le format le plus compact possible (une seule ligne) :
+1. **Au début de chaque réponse ou intervention :** L'agent doit afficher immédiatement les skills mobilisés pour confirmer sa bonne compréhension de la tâche avant d'exécuter quoi que ce soit :
+   - Format : `> 🛠️ **Skills mobilisés :** [nom-du-skill](file:///c:/AppServer/solicode-lms/.agents/skills/[nom-du-skill]/SKILL.md)`
+   - Si aucun skill n'est requis : `> 🛠️ **Skills mobilisés :** Aucun`
 
-- Avec skills : `> 🛠️ **Skills utilisés :** [nom-du-skill](file:///c:/AppServer/solicode-lms/.agents/skills/[nom-du-skill]/SKILL.md)`
-- Sans skill : `> 🛠️ **Skills utilisés :** Aucun`
-- Multiples : `> 🛠️ **Skills utilisés :** [skill-1](...) · [skill-2](...)`
+2. **À la fin de l'intervention :** L'agent confirme la liste compacte des skills utilisés :
+   - Format : `> 🛠️ **Skills utilisés :** [nom-du-skill](file:///c:/AppServer/solicode-lms/.agents/skills/[nom-du-skill]/SKILL.md)`

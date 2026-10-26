@@ -30,6 +30,7 @@ Ce skill intervient lors de tout dysfonctionnement, régression ou incident surv
 - **Priorité 5 :** Fiche d'issue dans `issues/<SousDossier>/` si signalée (régie par [.agents/rules/gestion-issues.md](file:///c:/AppServer/solicode-lms/.agents/rules/gestion-issues.md)).
 
 # 4. Contraintes & Règles Inviolables
+- **Chargement Préalable de `AI_CONTEXT.md` :** Dès que le module concerné par l'erreur est identifié, l'agent DOIT impérativement charger son fichier `modules/Pkg[Nom]/AI_CONTEXT.md` pour appréhender les relations et services avant d'analyser le code en détail.
 - **Diagnostic sur Preuve :** Ne jamais deviner la cause d'une panne sans avoir préalablement lu la trace réelle dans `storage/logs/laravel.log` ou le code source exact.
 - **Préservation des Fichiers `Base/` :** Interdiction d'éditer une classe dans `Base/` pour corriger un bug. Si un bug est localisé dans une méthode `Base`, surcharger la méthode dans la classe enfant PHP correspondante.
 - **Préservation des Vues Blade Protégées :** Si une vue contient le verrou `{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}`, appliquer le correctif dans le sous-dossier `custom/` de la vue.
