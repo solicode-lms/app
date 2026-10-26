@@ -31,6 +31,11 @@ Ces règles sont **INVIOLABLES**. Elles garantissent la stabilité, la sécurit�
 - **Toute modification de données passe par le Service :** Interdiction d'appeler `$model->save()`, `$model->update()`, ou `$model->delete()` directement dans les contrôleurs. Toujours appeler la méthode correspondante du Service (`$service->create()`, `$service->update()`).
 - **Relations ManyToMany :** Interdiction d'appeler `$model->relation()->sync()`. Passer le tableau d'IDs dans les données envoyées au Service.
 - **Exceptions Métier BLL :** Pour interrompre un traitement suite à une règle non respectée, lancer `throw new BlException("Message...");`. Ne pas faire de redirections HTTP manuelles.
+- **Limite Stricte de 500 Lignes par Fichier (LIGNE ROUGE) :**
+  - **Interdiction formelle de laisser un fichier de Service ou un Trait dépasser 500 lignes de code.**
+  - Dès qu'un fichier approche ou dépasse cette limite, l'agent doit immédiatement le découper en plusieurs Traits spécialisés hautement cohésifs (ex: `[Model]AbsenceTrait`, `[Model]RemediationTrait`).
+- **Émergence de Nouveaux Services Métier (Même sans Table BDD) :**
+  - Dès qu'un concept fonctionnel ou transversal émerge (ex: `Seance`, `SituationPedagogique`), il est OBLIGATOIRE de créer un Service dédié (ex: `SeanceService`, `SituationPedagogiqueService`), même si aucune table physique correspondante n'existe en base de données. Ne jamais surcharger un Service d'entité avec la logique d'un autre concept métier.
 
 ## 4. Framework Frontend (TableUI & FilterUI)
 - Ne jamais réécrire du code HTML brut ou des écouteurs jQuery ad-hoc pour les tableaux et filtres. Toujours s'appuyer sur l'infrastructure `TableUI.js`, `FilterUI.js`, `data-target-dynamic-dropdown` et `ModalUI.js`.

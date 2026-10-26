@@ -56,6 +56,11 @@ Avant d'écrire ou modifier la moindre ligne de code, charger :
    - L'agent a l'interdiction d'exécuter `php artisan migrate` de manière autonome.
 6. **Chargement Préalable Obligatoire de `[NomPkg]_IA_CONTEXT.md` :**
    - Dès qu'un package cible est identifié, l'agent DOIT impérativement charger son fichier `modules/Pkg[Nom]/Pkg[Nom]_IA_CONTEXT.md` AVANT d'ouvrir, d'analyser ou de modifier les fichiers de code du package.
+7. **Plafond Strict de 500 Lignes par Fichier (Service / Trait) :**
+   - Aucun fichier de Service ou Trait ne doit dépasser 500 lignes.
+   - Si un fichier s'approche ou dépasse 500 lignes, le découper immédiatement en Traits spécialisés hautement cohésifs (ex: `[Model]AbsenceTrait`, `[Model]RemediationTrait`).
+8. **Émergence d'Objets & Services Métier (Même sans Table BDD) :**
+   - Dès qu'un concept fonctionnel transverse émerge (ex: `Seance`, `SituationPedagogique`), créer impérativement un Service dédié (ex: `SeanceService`, `SituationPedagogiqueService`), même sans table en BDD. Ne jamais encombrer un Service d'entité avec la logique d'un concept métier distinct.
 
 # 5. Procédure Pas-à-Pas (Workflow en 5 Phases)
 1. **Phase 1 : Chargement du Contexte & Exploration des Locks :**
@@ -90,6 +95,8 @@ L'agent fournit :
 - [ ] La logique métier est-elle isolée dans le Service ou un Trait (et non dans le Contrôleur) ?
 - [ ] Les erreurs de validation métier utilisent-elles `BlException` ?
 - [ ] Le code frontend s'appuie-t-il sur `TableUI.js` / `FilterUI.js` sans jQuery sauvage ?
+- [ ] Aucun fichier Service ou Trait ne dépasse-t-il 500 lignes de code ?
+- [ ] Les concepts fonctionnels transverses (ex: Seance, SituationPedagogique) disposent-ils de leur propre Service dédié ?
 
 # 9. Gestion des Erreurs Fréquentes
 | Erreur Typique | Cause | Solution Immédiate |

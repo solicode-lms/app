@@ -83,3 +83,17 @@ $this->monService->loadLastFilterIfEmpty();
 $filterVariables = $this->viewState->getFilterVariables('monModel');
 ```
 Cette règle s'applique partout où les filtres sont nécessaires hors du flux standard `index()` (exports CSV/Excel, rapports).
+
+## 5. Taille Maximale des Fichiers (Plafond 500 Lignes) & Services Métier Dédiés
+
+### Plafond Strict de 500 Lignes par Fichier
+- **Règle absolue :** Aucun fichier de Service ni aucun Trait ne doit dépasser 500 lignes de code.
+- Si la complexité d'un Service augmente :
+  1. Découper le service en Traits thématiques hautement cohésifs placés dans `modules/Pkg.../Services/Traits/[NomModel]/` (ex: `[Model]AbsenceTrait`, `[Model]RemediationTrait`, `[Model]JobTrait`).
+  2. Chaque trait doit rester concentré sur une responsabilité précise et compter **moins de 500 lignes**.
+
+### Émergence de Services Métier Dédiés (Même sans Table BDD)
+- Lorsqu'un concept fonctionnel émerge (ex: `Seance`, `SituationPedagogique`, `LiveCodingEngine`), il ne doit **pas** être entassé dans le CRUD d'une entité Eloquent.
+- Créer un Service dédié dans `modules/Pkg.../Services/` (ex: `SeanceService.php`, `SituationPedagogiqueService.php`).
+- Le Service dédié encapsule les calculs, configurations, règles et états du concept.
+- Les autres services consomment ce Service par injection ou instanciation (`app(SituationPedagogiqueService::class)`), garantissant le principe de responsabilité unique (SRP).
