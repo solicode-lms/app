@@ -346,20 +346,89 @@ trait RealisationTacheCrudTrait
         }
 
 
-        // Empêcher un apprenant d'affecter un état réservé aux formateurs
-        if (!$isFormateur && !empty($data["etat_realisation_tache_id"])) {
-            $etat_realisation_tache_id = $data["etat_realisation_tache_id"];
-            $nouvelEtat = \Modules\PkgRealisationTache\Models\EtatRealisationTache::find($etat_realisation_tache_id);
+        // 🔄 Règle métier : Transition depuis l'état ABSENT et gestion des états restreints
+        $etatActuel = $realisationTache->etatRealisationTache;
+        $etatActuelCode = optional($etatActuel?->workflowTache)->code;
+        $isTransitionDepuisAbsent = ($etatActuelCode === 'ABSENT');
+        $isAutoRedirectionVersRemediation = false;
 
-            // Vérifier si le nouvel état existe
-            if ($nouvelEtat) {
-                if ($nouvelEtat->is_editable_only_by_formateur && !$isFormateur) {
+        if (!$isFormateur && !empty($data["etat_realisation_tache_id"])) {
+            $etatDemande = \Modules\PkgRealisationTache\Models\EtatRealisationTache::find($data["etat_realisation_tache_id"]);
+            $codeEtatDemande = optional($etatDemande?->workflowTache)->code;
+
+            // 1. Si l'apprenant reprend sa tâche depuis ABSENT vers IN_PROGRESS ("En cours")
+            if ($isTransitionDepuisAbsent && $codeEtatDemande === 'IN_PROGRESS') {
+                $etaitEnRemediation = false;
+
+                // A. Vérifier dans la table remediations s'il existe une remédiation active non résolue
+                if (\Illuminate\Support\Facades\Schema::hasTable('remediations')) {
+                    $etaitEnRemediation = \Illuminate\Support\Facades\DB::table('remediations')
+                        ->where('realisation_tache_id', $realisationTache->id)
+                        ->where('est_resolu', 0)
+                        ->exists();
+                }
+
+                // B. Vérifier de secours dans l'historique des changements d'état le dernier état avant l'absence
+                if (!$etaitEnRemediation) {
+                    $dernierChangement = \Modules\PkgRealisationTache\Models\HistoriqueRealisationTache::where('realisation_tache_id', $realisationTache->id)
+                        ->where('changement', 'like', '%État%')
+                        ->where('changement', 'not like', '%Absent%')
+                        ->latest('id')
+                        ->first();
+
+                    if ($dernierChangement) {
+                        $chg = mb_strtolower($dernierChangement->changement);
+                        $etaitEnRemediation = (str_contains($chg, 'remédiation') || str_contains($chg, 'remediation'));
+                    }
+                }
+
+                // Si la tâche était en remédiation avant l'absence, rediriger automatiquement vers EN_REMEDIATION
+                if ($etaitEnRemediation) {
+                    $formateurId = $realisationTache->realisationProjet?->affectationProjet?->projet?->formateur_id;
+                    $etatRemediation = \Modules\PkgRealisationTache\Models\EtatRealisationTache::whereHas('workflowTache', fn($q) =>
+                        $q->where('code', 'EN_REMEDIATION')
+                    )->where(function ($q) use ($formateurId) {
+                        if ($formateurId) {
+                            $q->where('formateur_id', $formateurId)->orWhereNull('formateur_id');
+                        } else {
+                            $q->whereNull('formateur_id');
+                        }
+                    })->orderByRaw('formateur_id IS NULL ASC')->first();
+
+                    if ($etatRemediation) {
+                        $data["etat_realisation_tache_id"] = $etatRemediation->id;
+                        $isAutoRedirectionVersRemediation = true;
+                    }
+                }
+            }
+
+            // 2. Vérifications et interdictions strictes côté apprenant
+            $etatFinalCible = \Modules\PkgRealisationTache\Models\EtatRealisationTache::find($data["etat_realisation_tache_id"]);
+            $codeFinalCible = optional($etatFinalCible?->workflowTache)->code;
+
+            // Interdiction : Un apprenant ne peut jamais marquer une tâche comme ABSENT
+            if ($codeFinalCible === 'ABSENT') {
+                throw \Illuminate\Validation\ValidationException::withMessages([
+                    'etat_realisation_tache_id' => "Seul un formateur peut marquer une tâche comme absente."
+                ]);
+            }
+
+            // Interdiction : Un apprenant ne peut pas affecter manuellement l'état EN_REMEDIATION
+            if ($codeFinalCible === 'EN_REMEDIATION' && !$isAutoRedirectionVersRemediation) {
+                throw \Illuminate\Validation\ValidationException::withMessages([
+                    'etat_realisation_tache_id' => "Seul un formateur peut affecter cet état de tâche."
+                ]);
+            }
+
+            // Vérifier les permissions formateur de l'état cible (pour les états avec is_editable_only_by_formateur = true)
+            if ($etatFinalCible) {
+                if ($etatFinalCible->is_editable_only_by_formateur && !$isFormateur && !$isAutoRedirectionVersRemediation) {
                     throw \Illuminate\Validation\ValidationException::withMessages([
                         'etat_realisation_tache_id' => "Seul un formateur peut affecter cet état de tâche."
                     ]);
                 }
                 // ✅ Vérifie le respect de la priorité selon le workflow
-                $workflowCode = optional($nouvelEtat->workflowTache)->code;
+                $workflowCode = optional($etatFinalCible->workflowTache)->code;
                 if ($this->workflowExigeRespectDesPriorites($workflowCode)) {
                     $this->verifierTachesMoinsPrioritairesTerminees($realisationTache, $workflowCode);
                 }
@@ -367,10 +436,12 @@ trait RealisationTacheCrudTrait
 
             // Vérification si l'état actuel existe et est modifiable uniquement par un formateur
             if ($realisationTache->etatRealisationTache) {
+                $isSortieAutoriseeDepuisAbsent = $isTransitionDepuisAbsent && ($isAutoRedirectionVersRemediation || $codeFinalCible === 'IN_PROGRESS');
                 if (
                     $realisationTache->etatRealisationTache->is_editable_only_by_formateur
-                    && $realisationTache->etatRealisationTache->id != $etat_realisation_tache_id
+                    && $realisationTache->etatRealisationTache->id != $data["etat_realisation_tache_id"]
                     && !$isFormateur
+                    && !$isSortieAutoriseeDepuisAbsent
                 ) {
                     throw \Illuminate\Validation\ValidationException::withMessages([
                         'etat_realisation_tache_id' => "Cet état de projet doit être modifié par le formateur."
@@ -452,7 +523,7 @@ trait RealisationTacheCrudTrait
 
         }
 
-        // 🔄 Résolution automatique de la remédiation dans la table remediations lors du passage à VALIDEE / APPROVED
+        // 🔄 Résolution ou activation automatique de la remédiation dans la table remediations
         if (\Illuminate\Support\Facades\Schema::hasTable('remediations')) {
             $nouvelEtat = \Modules\PkgRealisationTache\Models\EtatRealisationTache::with('workflowTache')->find($realisationTache->etat_realisation_tache_id);
             $wfCode = optional($nouvelEtat?->workflowTache)->code;
@@ -464,6 +535,28 @@ trait RealisationTacheCrudTrait
                         'est_resolu' => 1,
                         'updated_at' => now(),
                     ]);
+            } elseif ($wfCode === 'EN_REMEDIATION') {
+                $existsRem = \Illuminate\Support\Facades\DB::table('remediations')
+                    ->where('realisation_tache_id', $realisationTache->id)
+                    ->exists();
+                if (!$existsRem) {
+                    $formateurId = $realisationTache->realisationProjet?->affectationProjet?->projet?->formateur_id ?? 1;
+                    \Illuminate\Support\Facades\DB::table('remediations')->insert([
+                        'realisation_tache_id' => $realisationTache->id,
+                        'formateur_id' => $formateurId,
+                        'type_remediation' => 'INDIVIDUELLE',
+                        'diagnostic' => "Consolidation didactique requise",
+                        'est_resolu' => 0,
+                        'reference' => 'REM_' . $realisationTache->id . '_' . date('Ymd') . '_' . uniqid(),
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                } else {
+                    \Illuminate\Support\Facades\DB::table('remediations')
+                        ->where('realisation_tache_id', $realisationTache->id)
+                        ->where('est_resolu', 1)
+                        ->update(['est_resolu' => 0, 'updated_at' => now()]);
+                }
             }
         }
 

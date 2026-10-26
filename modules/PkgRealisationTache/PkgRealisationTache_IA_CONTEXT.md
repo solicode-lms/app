@@ -66,12 +66,25 @@ Le package **PkgRealisationTache** gère l'exécution opérationnelle, le suivi 
   - `SITUATION_INACTIF_JOUR` : Apprenants sans aucun événement pendant toute la journée.
   - `SITUATION_CUSTOM` : Filtrage libre multi-états personnalisés.
 - **Matrice `SITUATION_WORKFLOW_MAP` :** Mappe chaque macro-situation aux codes `WorkflowTache` correspondants.
-  - Comprend 14 états institutionnels, notamment `VALIDE_INTERMEDIAIRE` (état final intermédiaire, couleur `teal`, réservé aux formateurs) et `ABSENT` (état d'absence, couleur `secondary`, réservé aux formateurs).
+  - Comprend 14 états institutionnels, notamment `VALIDE_INTERMEDIAIRE` (état final intermédiaire, couleur `teal`, réservé aux formateurs) et `ABSENT` (état d'absence, couleur `secondary`, modifiable par les formateurs pour l'attribution et déverrouillé pour la reprise apprenant).
 - **Méthode `getInactiviteData(string $mode, array $activeFilters)` :**
   - Analyse les transitions dans `HistoriqueRealisationTache` sur la plage horaire définie par `SeanceService`.
   - Applique rigoureusement les filtres de scoping parents (`Affectation_projet_id`, `Groupe_id`, `Filiere_id`, `EquipeProjet_id`).
   - Isole les apprenants supervisés sans activité et sélectionne 1 tâche représentative par apprenant (priorité : En cours > 1ère TODO > Dernière modifiée).
   - Met en cache les calculs dans la propriété `$cachedInactiviteData` pour éviter toute redondance SQL entre le filtrage de la pagination et la vue Blade (`prepareDataForIndexView`).
+
+### `RealisationTacheCrudTrait` (Règles Métier de Cycle de Vie & Transitions)
+- **Cycle Absent & Remédiation (Discipline Didactique) :**
+  - Les états `ABSENT` et `EN_REMEDIATION` ont `is_editable_only_by_formateur = false` par défaut pour permettre à l'apprenant de sortir de ces états (reprendre son travail depuis `ABSENT`, ou soumettre son travail vers `TO_APPROVE` depuis `EN_REMEDIATION`).
+  - **Interdictions strictes pour l'apprenant :** L'apprenant ne peut JAMAIS assigner manuellement `ABSENT` ni `EN_REMEDIATION`.
+  - **Gestion de l'absence en remédiation :**
+    - Un formateur peut marquer un apprenant en remédiation comme `ABSENT`. L'apprenant n'apparaît alors plus dans les remédiations actives du tableau de bord.
+    - Lors de la reprise, lorsque l'apprenant sélectionne `IN_PROGRESS` ("En cours"), `beforeUpdateRules` vérifie s'il existe une remédiation pendante (`remediations` avec `est_resolu = 0` ou mention historique).
+    - Si oui, la tâche est **automatiquement réaffectée à `EN_REMEDIATION`**.
+    - Si non, la tâche passe normalement à `IN_PROGRESS`.
+  - **Traçabilité dans `remediations` (`afterUpdateRules`) :**
+    - Tout passage à `EN_REMEDIATION` insère ou réactive une entrée dans la table `remediations` (`est_resolu = 0`).
+    - Tout passage à `APPROVED` / `VALIDEE` résout la remédiation (`est_resolu = 1`).
 
 ---
 
