@@ -24,7 +24,7 @@ Ce skill intervient lors de tout dysfonctionnement, régression ou incident surv
 
 # 3. Entrées & Ressources à Charger
 - **Priorité 1 :** `storage/logs/laravel.log` (Trace d'exécution et exceptions récentes).
-- **Priorité 2 :** `.agents/standards/critical-rules.md` (Garde-fous architecturaux, verrous Gapp).
+- **Priorité 2 :** `.agents/rules/critical-rules.md` (Garde-fous architecturaux, verrous Gapp).
 - **Priorité 3 :** Code source incriminé dans `modules/Pkg[Nom]/` (Service enfant, Contrôleur, FormRequest ou vue).
 - **Priorité 4 :** `.agents/references/frontend/tableui-framework.md` (si l'erreur concerne l'interface ou les requêtes AJAX).
 
@@ -46,8 +46,9 @@ Ce skill intervient lors de tout dysfonctionnement, régression ou incident surv
 4. **Étape 4 : Application du Correctif Chirurgical :**
    - Modifier uniquement les lignes strictement nécessaires dans la classe enfant ou le composant Blade `custom/`.
    - Ne jamais introduire de dépendances non maîtrisées.
-5. **Étape 5 : Traçabilité de l'Incident :**
+5. **Étape 5 : Traçabilité de l'Incident & Clôture d'Issue :**
    - Créer ou actualiser la fiche YAML d'incident pour enrichir la mémoire collective de l'agent.
+   - Si l'anomalie découle d'un fichier dans `issues/<SousDossier>/`, déplacer le fichier vers `issues/issues-closed/<SousDossier>/`.
 
 # 6. Gestion des Ambiguïtés & Décisions
 - Si le fichier `laravel.log` ne contient pas d'erreur récente : demander au développeur de reproduire l'action et réexaminer le log.

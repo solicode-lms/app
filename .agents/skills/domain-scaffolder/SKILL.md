@@ -22,7 +22,7 @@ Ce skill pilote la conception et l'échafaudage (*scaffolding*) architectural de
   - Résolution d'anomalies ou de bugs sur une entité existante ➔ Utiliser `bug-fixer`.
 
 # 3. Entrées & Ressources à Charger
-- **Priorité 1 :** `.agents/standards/critical-rules.md` (Golden Rules, colonne `reference`, interdiction de migration aveugle).
+- **Priorité 1 :** `.agents/rules/critical-rules.md` (Golden Rules, colonne `reference`, interdiction de migration aveugle).
 - **Priorité 2 :** `.agents/references/architecture/layers-3tiers.md` et `.agents/references/database/migrations-and-schema.md`.
 - **Priorité 3 :** `.agents/references/gapp/01-conventions-et-garde-fous.md`.
 - **Priorité 4 :** `modules/Pkg[Nom]/AI_CONTEXT.md` du package cible pour inspecter les relations déjà existantes.

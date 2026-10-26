@@ -28,3 +28,7 @@ Les 3 rôles centraux sont :
 Les contrôleurs et services utilisent le composant `ViewState` pour conserver l'état des filtres en session :
 - Ne jamais réinitialiser un filtre sans vérifier `setContextKeyIfEmpty()`.
 - Respecter les variables de portée (`scopeVariables`) passées à la vue.
+
+## 4. Gestion des Issues (`issues/`)
+- Les issues de travail sont centralisées dans le dossier `issues/` et obligatoirement organisées par sous-dossiers (par exemple par module : `issues/Pkg[Nom]/`).
+- Dès qu'une issue est achevée, elle est déplacée vers `issues/issues-closed/<SousDossier>/`.

@@ -43,8 +43,7 @@ Toutes les ressources de l'agent sont intégrées sous `.agents/` avec installat
 ├── skills.json   ➔ Manifeste déclaratif des compétences (locales vs liens Hub)
 ├── skills/       ➔ 7 compétences (avec leurs README, scripts et templates dédiés)
 ├── references/   ➔ Fiches de référence partagées (Gapp, TableUI, Widgets, 3-tiers)
-├── standards/    ➔ critical-rules.md (règles absolues), principes généraux
-├── rules/        ➔ Directives comportementales Antigravity (affichage-skills.md)
+├── rules/        ➔ Règles Antigravity (critical-rules.md, affichage-skills.md, gestion-issues.md, etc.)
 ├── scripts/      ➔ deploy-update.cjs (script applicatif d'importation CSV)
 └── tests/        ➔ Traçabilité et retours d'expérience (feedbacks/INC-xxx.yaml)
 ```

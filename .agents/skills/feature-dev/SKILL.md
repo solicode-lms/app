@@ -62,6 +62,7 @@ Avant d'écrire ou modifier la moindre ligne de code, charger :
 5. **Phase 5 : Contrôle & Preuve de Fonctionnement :**
    - Exécuter la checklist de contrôle qualité.
    - Présenter au développeur les diffs précis et lui indiquer comment tester le résultat.
+   - Si la fonctionnalité a été demandée via un fichier dans `issues/<SousDossier>/`, déplacer le fichier vers `issues/issues-closed/<SousDossier>/` une fois validé.
 
 # 6. Gestion des Ambiguïtés & Décisions
 - Si le type de filtre n'est pas spécifié : appliquer par défaut `generateManyToOneFilter` si c'est une clé étrangère standard.
