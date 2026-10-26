@@ -28,6 +28,12 @@
                 <button type="button" class="btn btn-xs btn-outline-success situation-pill" data-situation="SITUATION_TERMINEE">
                     <i class="fas fa-check-circle"></i> {{ __('Terminées') }}
                 </button>
+                <button type="button" class="btn btn-xs btn-outline-danger situation-pill" data-situation="SITUATION_INACTIF_SEANCE">
+                    <i class="fas fa-user-clock"></i> {{ __('Inactifs Séance') }}
+                </button>
+                <button type="button" class="btn btn-xs btn-outline-secondary situation-pill" data-situation="SITUATION_INACTIF_JOUR">
+                    <i class="fas fa-calendar-day"></i> {{ __('Inactifs Journée') }}
+                </button>
                 <button type="button" class="btn btn-xs btn-outline-dark situation-pill" data-situation="SITUATION_CUSTOM">
                     <i class="fas fa-sliders-h"></i> {{ __('Personnalisée...') }}
                 </button>
@@ -51,6 +57,18 @@
                 </div>
             </div>
         </div>
+
+        @if(!empty($inactiviteResume))
+            <div class="inactivite-alert-banner alert alert-danger py-1 px-3 mt-2 mb-0 d-flex align-items-center justify-content-between" style="font-size: 0.85rem; border-left: 4px solid #dc3545; border-radius: 4px;">
+                <span>
+                    <i class="fas fa-exclamation-triangle mr-2 text-danger"></i>
+                    <strong>{{ $inactiviteResume }}</strong>
+                </span>
+                <span class="badge badge-light border">
+                    <i class="fas fa-clock mr-1 text-muted"></i> {{ $inactiviteSeanceNom ?? '' }}
+                </span>
+            </div>
+        @endif
     </div>
 
     <form id="realisationTache-crud-filter-form" method="GET" class="row">

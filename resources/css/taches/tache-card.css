@@ -203,3 +203,9 @@ small.text-muted.d-block:has(+ .tache-card) {
 .tache-card.has-equipe {
     border-left: 6px solid var(--equipe-color);
 }
+
+
+.alert-danger .text-muted, 
+.alert-warning .text-muted {
+    color: #ffffff !important;
+}

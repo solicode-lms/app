@@ -25,5 +25,10 @@ return [
     'situation_attente' => 'En Attente de Validation',
     'situation_terminee' => 'Terminées',
     'situation_custom' => 'Personnalisée...',
+    'situation_inactif_seance' => 'Inactifs séance en cours',
+    'situation_inactif_jour' => 'Inactifs journée',
+    'inactif_depuis' => 'Inactif depuis',
+    'aucune_activite_seance' => 'Aucune activité sur la séance',
+    'seance_en_cours' => 'Séance en cours',
     'etats_personnalises' => 'États personnalisés',
 ];

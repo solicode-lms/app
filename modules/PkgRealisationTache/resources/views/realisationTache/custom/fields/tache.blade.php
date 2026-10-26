@@ -40,6 +40,22 @@
         " 
     @endif
 >
+    @if(isset($inactiviteMetadata[$entity->id]))
+        @php
+            $inact = $inactiviteMetadata[$entity->id];
+        @endphp
+        <div class="alert alert-{{ $inact['gravite'] }} py-1 px-2 mb-2 d-flex align-items-center justify-content-between" style="font-size: 0.82rem; border-radius: 4px;">
+            <span>
+                <i class="fas fa-user-clock mr-1 text-{{ $inact['gravite'] }}"></i>
+                <strong>{{ __('Inactif :') }}</strong> {{ $inact['duree_formatee'] }}
+                <small class="text-muted ml-1">({{ $inact['seance_nom'] }})</small>
+            </span>
+            <span class="badge badge-{{ $inact['gravite'] }}">
+                <i class="fas fa-history mr-1"></i> {{ $inact['dernier_changement'] }}
+            </span>
+        </div>
+    @endif
+
     <header class="tache-header">
 
         <h2 class="tache-titre d-flex align-items-center gap-1">

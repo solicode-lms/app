@@ -21,6 +21,8 @@ use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\PkgCreationProjet\Models\EquipeProjet;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Carbon\Carbon;
+use Modules\PkgRealisationTache\Services\SeanceService;
 
 trait RealisationTacheGetterTrait
 {
@@ -28,6 +30,8 @@ trait RealisationTacheGetterTrait
     public const SITUATION_BLOCAGE = 'SITUATION_BLOCAGE';
     public const SITUATION_ATTENTE = 'SITUATION_ATTENTE';
     public const SITUATION_TERMINEE = 'SITUATION_TERMINEE';
+    public const SITUATION_INACTIF_SEANCE = 'SITUATION_INACTIF_SEANCE';
+    public const SITUATION_INACTIF_JOUR   = 'SITUATION_INACTIF_JOUR';
     public const SITUATION_CUSTOM = 'SITUATION_CUSTOM';
 
     public const SITUATION_WORKFLOW_MAP = [
@@ -41,7 +45,6 @@ trait RealisationTacheGetterTrait
         self::SITUATION_BLOCAGE => [
             'EN_REMEDIATION', 
             'REVISION_NECESSAIRE', 
-            'NOT_VALIDATED', 
             'LATE', 
             'PAUSED'
         ],
@@ -51,7 +54,8 @@ trait RealisationTacheGetterTrait
             'A_VALIDER_LIVE_CODING'
         ],
         self::SITUATION_TERMINEE => [
-            'APPROVED'
+            'APPROVED',
+            'NOT_VALIDATED', 
         ],
     ];
 
@@ -94,11 +98,28 @@ trait RealisationTacheGetterTrait
         $workflowTachesList = $workflowService->all();
         $baseData['workflowTachesList'] = $workflowTachesList;
 
+        // Données d'inactivité si situation d'inactivité active
+        $situation = $this->viewState->get('filter.realisationTache.situation_pedagogique') ?? request('situation_pedagogique');
+        if ($situation === self::SITUATION_INACTIF_SEANCE || $situation === self::SITUATION_INACTIF_JOUR) {
+            $mode = ($situation === self::SITUATION_INACTIF_JOUR) ? 'jour' : 'seance';
+            $inactiviteData = $this->getInactiviteData($mode);
+            $baseData['inactiviteMetadata'] = $inactiviteData['metadata'];
+            $baseData['inactiviteResume']   = $inactiviteData['resume'];
+            $baseData['inactiviteSeanceNom'] = $inactiviteData['seance_nom'];
+        } else {
+            $baseData['inactiviteMetadata'] = [];
+            $baseData['inactiviteResume']   = null;
+            $baseData['inactiviteSeanceNom'] = null;
+        }
+
         // Dispo dans Blade via compact_value
         if (isset($baseData['realisationTache_compact_value']) && is_array($baseData['realisationTache_compact_value'])) {
             $baseData['realisationTache_compact_value']['revisionsBeforePriorityGrouped'] = $revisionsGrouped;
             $baseData['realisationTache_compact_value']['previousTasksGrouped'] = $previousTasksGrouped;
             $baseData['realisationTache_compact_value']['workflowTachesList'] = $workflowTachesList;
+            $baseData['realisationTache_compact_value']['inactiviteMetadata'] = $baseData['inactiviteMetadata'];
+            $baseData['realisationTache_compact_value']['inactiviteResume']   = $baseData['inactiviteResume'];
+            $baseData['realisationTache_compact_value']['inactiviteSeanceNom'] = $baseData['inactiviteSeanceNom'];
         }
 
         return $baseData;
@@ -258,6 +279,8 @@ trait RealisationTacheGetterTrait
                 ['id' => self::SITUATION_BLOCAGE, 'label' => '⚠️ ' . __('PkgRealisationTache::realisationTache.situation_blocage')],
                 ['id' => self::SITUATION_ATTENTE, 'label' => '⏳ ' . __('PkgRealisationTache::realisationTache.situation_attente')],
                 ['id' => self::SITUATION_TERMINEE, 'label' => '✅ ' . __('PkgRealisationTache::realisationTache.situation_terminee')],
+                ['id' => self::SITUATION_INACTIF_SEANCE, 'label' => '🚨 ' . __('PkgRealisationTache::realisationTache.situation_inactif_seance')],
+                ['id' => self::SITUATION_INACTIF_JOUR, 'label' => '📅 ' . __('PkgRealisationTache::realisationTache.situation_inactif_jour')],
                 ['id' => self::SITUATION_CUSTOM, 'label' => '🎯 ' . __('PkgRealisationTache::realisationTache.situation_custom')],
             ],
         ];
@@ -492,6 +515,22 @@ trait RealisationTacheGetterTrait
             // Pour ne pas entrer en conflit avec une ancienne sélection d'état unitaire
             unset($filterVariables['etat_realisation_tache_id']);
             unset($filterVariables['etatRealisationTache.WorkflowTache.Code']);
+        } elseif ($situation === self::SITUATION_INACTIF_SEANCE || $situation === self::SITUATION_INACTIF_JOUR) {
+            $mode = ($situation === self::SITUATION_INACTIF_JOUR) ? 'jour' : 'seance';
+            $inactiviteData = $this->getInactiviteData($mode);
+            $targetIds = $inactiviteData['target_tache_ids'];
+
+            if (!empty($targetIds)) {
+                $builder->whereIn('realisation_taches.id', $targetIds);
+                $idsOrdered = implode(',', $targetIds);
+                $builder->orderByRaw("FIELD(realisation_taches.id, {$idsOrdered})");
+            } else {
+                // Aucun apprenant inactif trouvé
+                $builder->whereRaw('1 = 0');
+            }
+
+            unset($filterVariables['etat_realisation_tache_id']);
+            unset($filterVariables['etatRealisationTache.WorkflowTache.Code']);
         } elseif ($situation === self::SITUATION_CUSTOM && !empty($customEtats)) {
             $customEtatsArray = is_array($customEtats) ? $customEtats : explode(',', (string) $customEtats);
             $customEtatsArray = array_values(array_filter(array_map('trim', $customEtatsArray)));
@@ -511,5 +550,147 @@ trait RealisationTacheGetterTrait
         }
 
         parent::filter($builder, $model, $filterVariables);
+    }
+
+    /**
+     * Analyse et détecte les apprenants inactifs durant la séance en cours ou la journée,
+     * et identifie pour chacun leur tâche de travail prioritaire avec métadonnées d'inactivité.
+     *
+     * @param string $mode 'seance' ou 'jour'
+     * @return array{target_tache_ids: int[], metadata: array, resume: string, seance_nom: string, nb_inactifs: int}
+     */
+    public function getInactiviteData(string $mode = 'seance'): array
+    {
+        $seanceService = new SeanceService();
+
+        if ($mode === 'jour') {
+            [$start, $end] = $seanceService->getTodayTimeRange();
+            $seanceNom = __('Journée en cours') . ' (' . __('depuis') . ' ' . $start->format('H:i') . ')';
+        } else {
+            $seance = $seanceService->getLastOrCurrentSeance();
+            [$start, $end] = $seanceService->getSeanceTimeRange($seance);
+            $seanceNom = $seance['nom'];
+        }
+
+        // 1. Apprenants ayant enregistré au moins un changement d'état sur la période
+        $activeApprenantIds = \Modules\PkgRealisationTache\Models\HistoriqueRealisationTache::query()
+            ->whereBetween('dateModification', [$start, $end])
+            ->join('realisation_taches', 'historique_realisation_taches.realisation_tache_id', '=', 'realisation_taches.id')
+            ->join('realisation_projets', 'realisation_taches.realisation_projet_id', '=', 'realisation_projets.id')
+            ->pluck('realisation_projets.apprenant_id')
+            ->unique()
+            ->toArray();
+
+        // 2. Périmètre des apprenants supervisés selon le rôle et les filtres actifs
+        $apprenants = match (true) {
+            Auth::user()->hasRole(Role::FORMATEUR_ROLE) => (new FormateurService())->getApprenants($this->sessionState->get("formateur_id")),
+            Auth::user()->hasRole(Role::APPRENANT_ROLE) => (new ApprenantService())->getApprenantsDeGroupe($this->sessionState->get("apprenant_id")),
+            default => Apprenant::all(),
+        };
+
+        $supervisedApprenantIds = $apprenants->pluck('id')->toArray();
+        if (empty($supervisedApprenantIds)) {
+            $supervisedApprenantIds = \Modules\PkgRealisationProjets\Models\RealisationProjet::query()
+                ->pluck('apprenant_id')
+                ->unique()
+                ->toArray();
+        }
+
+        // 3. Déduction des apprenants inactifs
+        $inactiveApprenantIds = array_values(array_diff($supervisedApprenantIds, $activeApprenantIds));
+
+        $targetTaches = [];
+        $metadataByTacheId = [];
+        $now = Carbon::now();
+
+        foreach ($inactiveApprenantIds as $apprenantId) {
+            // Priorité 1 : Tâche en cours de travail
+            $tache = RealisationTache::query()
+                ->whereHas('realisationProjet', function ($q) use ($apprenantId) {
+                    $q->where('apprenant_id', $apprenantId);
+                })
+                ->whereHas('etatRealisationTache.workflowTache', function ($q) {
+                    $q->whereIn('code', ['IN_PROGRESS', 'REVISION_NECESSAIRE', 'EN_REMEDIATION', 'PAUSED']);
+                })
+                ->first();
+
+            // Priorité 2 : Première tâche TODO à faire
+            if (!$tache) {
+                $tache = RealisationTache::query()
+                    ->whereHas('realisationProjet', function ($q) use ($apprenantId) {
+                        $q->where('apprenant_id', $apprenantId);
+                    })
+                    ->whereHas('etatRealisationTache.workflowTache', function ($q) {
+                        $q->where('code', 'TODO');
+                    })
+                    ->join('taches', 'realisation_taches.tache_id', '=', 'taches.id')
+                    ->orderBy('taches.ordre', 'asc')
+                    ->select('realisation_taches.*')
+                    ->first();
+            }
+
+            // Priorité 3 : Dernière tâche modifiée
+            if (!$tache) {
+                $tache = RealisationTache::query()
+                    ->whereHas('realisationProjet', function ($q) use ($apprenantId) {
+                        $q->where('apprenant_id', $apprenantId);
+                    })
+                    ->latest('updated_at')
+                    ->first();
+            }
+
+            if ($tache) {
+                // Recherche de la toute dernière entrée d'historique de l'apprenant
+                $dernierHistorique = \Modules\PkgRealisationTache\Models\HistoriqueRealisationTache::query()
+                    ->join('realisation_taches', 'historique_realisation_taches.realisation_tache_id', '=', 'realisation_taches.id')
+                    ->join('realisation_projets', 'realisation_taches.realisation_projet_id', '=', 'realisation_projets.id')
+                    ->where('realisation_projets.apprenant_id', $apprenantId)
+                    ->latest('historique_realisation_taches.dateModification')
+                    ->select('historique_realisation_taches.*')
+                    ->first();
+
+                if ($dernierHistorique && $dernierHistorique->dateModification) {
+                    $derniereDate = Carbon::parse($dernierHistorique->dateModification);
+                    $dureeMinutes = max(0, (int) $derniereDate->diffInMinutes($now));
+                    $dernierChangementStr = $derniereDate->isToday() 
+                        ? $derniereDate->format('H:i') 
+                        : $derniereDate->format('d/m H:i');
+                } else {
+                    $dureeMinutes = max(0, (int) $start->diffInMinutes($now));
+                    $dernierChangementStr = __('Aucun événement');
+                }
+
+                $gravite = ($dureeMinutes >= 75) ? 'danger' : (($dureeMinutes >= 30) ? 'warning' : 'info');
+
+                $targetTaches[$tache->id] = $dureeMinutes;
+                $metadataByTacheId[$tache->id] = [
+                    'duree_minutes' => $dureeMinutes,
+                    'duree_formatee' => $seanceService->formatDuree($dureeMinutes),
+                    'dernier_changement' => $dernierChangementStr,
+                    'seance_nom' => $seanceNom,
+                    'gravite' => $gravite,
+                    'apprenant_id' => $apprenantId,
+                ];
+            }
+        }
+
+        // Tri décroissant par durée d'inactivité
+        arsort($targetTaches);
+        $sortedTacheIds = array_keys($targetTaches);
+        $nbInactifs = count($sortedTacheIds);
+
+        $resume = trans_choice(
+            '{0} Aucun apprenant inactif|{1} :count apprenant inactif détecté (:seance)|[2,*] :count apprenants inactifs détectés (:seance)',
+            $nbInactifs,
+            ['count' => $nbInactifs, 'seance' => $seanceNom]
+        );
+
+        return [
+            'target_tache_ids' => $sortedTacheIds,
+            'metadata' => $metadataByTacheId,
+            'resume' => $resume,
+            'seance_nom' => $seanceNom,
+            'nb_inactifs' => $nbInactifs,
+        ];
     }
 }
