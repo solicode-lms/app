@@ -46,7 +46,7 @@
         @endphp
         <div class="alert alert-{{ $inact['gravite'] }} py-1 px-2 mb-2 d-flex align-items-center justify-content-between" style="font-size: 0.82rem; border-radius: 4px;">
             <span>
-                <i class="fas fa-user-clock mr-1 text-{{ $inact['gravite'] }}"></i>
+                <i class="fas fa-user-clock mr-1 text-{{ $inact['gravite'] }}" style="color: white !important;"></i>
                 <strong>{{ __('Inactif :') }}</strong> {{ $inact['duree_formatee'] }}
                 <small class="text-muted ml-1">({{ $inact['seance_nom'] }})</small>
             </span>
