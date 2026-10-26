@@ -1,40 +1,68 @@
 # Mécanique Frontend UI : Solicode LMS
 
 > **PRIORITÉ 1 (Contexte Local)**  
-> Règles opérationnelles pour les composants TableUI, FormUI, FilterUI et vues Blade de Solicode LMS.
+> Guides d'implémentation pour les composants TableUI, FormUI, FilterUI et les vues Blade.
+> Les contraintes invariables de protection des templates générés sont régies par [.agents/rules/critical-rules.md](file:///c:/AppServer/solicode-lms/.agents/rules/critical-rules.md).
 
-## 1. Structure des Vues Blade
-Chaque entité dans `modules/Pkg.../resources/views/[model]/` possède :
-- Vues de base générées par Gapp (lockées avec `{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}`) :
-  - `_table.blade.php` : Corps du tableau.
-  - `_fields.blade.php` : Champs du formulaire.
-  - `_index.blade.php` : Structure générale de l'index avec barre de filtres et stats.
-  - `_show.blade.php` : Affichage détaillé.
-- **Sous-dossier `custom/` (Zone d'extension) :**
-  - Contient les vues modifiables par le développeur/l'agent qui étendent les vues de base :
-  - Ex: `custom/_table.blade.php` :
-    ```blade
-    @extends('PkgFormation::filiere._table')
-    @section('filiere-table-tbody')
-        <!-- Personnalisation des lignes sans toucher au fichier de base -->
-    @endsection
-    ```
+## 1. Extension des Vues Blade (Sous-dossier `custom/`)
+Toute personnalisation d'affichage s'opère dans `modules/Pkg.../resources/views/[model]/custom/` en étendant le template de base correspondant :
+
+### Personnalisation du Tableau (`custom/_table.blade.php`)
+```blade
+@extends('PkgFormation::filiere._table')
+
+@section('filiere-table-tbody')
+    <!-- Personnalisation des lignes ou injection de colonnes spécifiques -->
+@endsection
+```
+
+### Personnalisation des Champs de Formulaire (`custom/_fields.blade.php`)
+```blade
+@extends('PkgFormation::filiere._fields')
+
+@section('filiere-fields-extra')
+    <!-- Champs calculés ou sélecteurs personnalisés -->
+@endsection
+```
+
+### Personnalisation du Listing et Filtres (`custom/_index.blade.php`)
+```blade
+@extends('PkgFormation::filiere._index')
+
+@section('filiere-index-extra-actions')
+    <!-- Boutons d'actions groupées ou filtres additionnels -->
+@endsection
+```
 
 ## 2. Framework JavaScript (`resources/js/crud/`)
-- **`TableUI.js` :** Orchestrateur principal.
-  - Classes réservées : `showIndex`, `showEntity`, `editEntity`, `deleteEntity`.
-  - Attributs data : `data-id`, `data-field`, `data-context-key`.
-- **`FilterUI.js` :** Gestion des filtres.
-  - Déclencheur automatique de rechargement asynchrone après 500ms de pause dans la saisie.
-  - Détection automatique de `data-target-dynamic-dropdown` pour les sélecteurs en cascade.
-- **`FormUI.js` & `DataCalculTreatment.js` :**
-  - Attribut `data-calcule` sur les champs déclencheurs :
-    ```blade
-    <input type="number" name="prix_unitaire" data-calcule="total" class="form-control">
-    <input type="number" name="quantite" data-calcule="total" class="form-control">
-    <input type="text" name="total" readonly class="form-control">
-    ```
 
-## 3. Modales Imbriquées
-- Gérées via `iziModal` et la configuration globale `window.crudModalManagersConfig`.
-- Permet d'ouvrir une modale d'édition depuis un tableau déjà affiché dans une modale sans perdre le contexte parent.
+### `TableUI.js` (Orchestration du Tableau)
+- Classes CSS conventionnelles pour les déclencheurs :
+  - `showIndex` : Rafraîchissement ou affichage de l'index.
+  - `showEntity` : Consultation modale d'un enregistrement.
+  - `editEntity` : Ouverture du formulaire d'édition.
+  - `deleteEntity` : Suppression avec confirmation.
+- Attributs HTML d'identification :
+  - `data-id` : Identifiant de l'enregistrement.
+  - `data-field` : Nom du champ ciblé pour modification inline.
+  - `data-context-key` : Clé de contexte pour synchronisation avec le ViewState.
+
+### `FilterUI.js` (Filtrage Réactif & Dynamique)
+- Rechargement asynchrone automatique temporisé (debounce de 500ms sur la saisie textuelle).
+- **Listes Déroulantes en Cascade :**
+  Utiliser l'attribut `data-target-dynamic-dropdown` pour lier un sélecteur maître à un sélecteur esclave :
+  ```html
+  <select name="filiere_id" data-target-dynamic-dropdown="[name='groupe_id']">
+  ```
+
+### `FormUI.js` & `DataCalculTreatment.js` (Calculs Côté Vue)
+- Déclenchement automatique de recalcul via l'attribut `data-calcule` :
+  ```blade
+  <input type="number" name="prix_unitaire" data-calcule="total" class="form-control">
+  <input type="number" name="quantite" data-calcule="total" class="form-control">
+  <input type="text" name="total" readonly class="form-control">
+  ```
+
+## 3. Gestion des Modales Imbriquées
+- S'appuie sur `iziModal` et la configuration globale `window.crudModalManagersConfig`.
+- Permet d'ouvrir une modale d'édition ou de création depuis un tableau déjà contenu dans une modale parent sans perdre le contexte d'origine.

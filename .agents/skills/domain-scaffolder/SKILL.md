@@ -17,9 +17,7 @@ Ce skill pilote la conception et l'échafaudage (*scaffolding*) architectural de
   - Modélisation de nouvelles tables de base de données ou de tables pivots ManyToMany.
   - Préparation d'un schéma d'entité pour génération par Gapp (`make:crud`).
 - **Quand NE PAS l'activer :**
-  - Modification de code ou ajout de méthodes dans une entité existante ➔ Utiliser `feature-dev`.
-  - Simple analyse d'impact sans intention de modéliser de nouvelles tables ➔ Utiliser `architecture-planner`.
-  - Résolution d'anomalies ou de bugs sur une entité existante ➔ Utiliser `bug-fixer`.
+  - Modification, résolution d'anomalies ou de bogues sur une entité existante ➔ Utiliser `feature-dev`.
 
 # 3. Entrées & Ressources à Charger
 - **Priorité 1 :** `.agents/rules/critical-rules.md` (Golden Rules, colonne `reference`, interdiction de migration aveugle).

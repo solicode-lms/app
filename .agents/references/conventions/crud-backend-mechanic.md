@@ -1,11 +1,12 @@
 # Mécanique Backend CRUD : Solicode LMS
 
 > **PRIORITÉ 1 (Contexte Local)**  
-> Règles opérationnelles pour la couche Service et Contrôleur de Solicode LMS.
+> Guides d'implémentation opérationnelle pour la couche Service, les Traits et le Contrôleur.
+> Les contraintes invariables sont régies par [.agents/rules/critical-rules.md](file:///c:/AppServer/solicode-lms/.agents/rules/critical-rules.md).
 
 ## 1. Personnalisation des Filtres (`initFieldsFilterable`)
 Pour ajouter ou modifier des filtres sur un listing :
-- Surcharger la méthode `initFieldsFilterable()` dans la classe enfant `[Model]Service.php` (ou son trait `[Model]GetterTrait.php`).
+- Surcharger la méthode `initFieldsFilterable()` dans la classe enfant `[Model]Service.php` (ou son trait `[Model]FilterTrait.php`).
 - Utiliser les helpers de filtrage :
 ```php
 // Filtre ManyToOne (ex: par Filière)
@@ -50,11 +51,11 @@ public function dataCalcul($data)
 
 ## 3. Hooks de Cycle de Vie CRUD
 Pour injecter une règle métier ou valider des contraintes avant persistance :
-- Utiliser les hooks dans le service ou son trait `CrudTrait` :
+- Utiliser les hooks dans le service ou ses traits spécialisés (`CrudTrait`, `CreationHookTrait`) :
   - `beforeCreateRules(&$data)`
-  - `afterCreateRules($item, $data)`
+  - `afterCreateRules($item)`
   - `beforeUpdateRules(&$data, $id)`
-  - `afterUpdateRules($item, $data)`
+  - `afterUpdateRules($item)`
   - `beforeDeleteRules($id)`
 - En cas de validation non franchie, lever une `BlException` :
 ```php
@@ -84,19 +85,29 @@ $filterVariables = $this->viewState->getFilterVariables('monModel');
 ```
 Cette règle s'applique partout où les filtres sont nécessaires hors du flux standard `index()` (exports CSV/Excel, rapports).
 
-## 5. Taille Maximale des Fichiers (Plafond 500 Lignes) & Services Métier Dédiés
+## 5. Organisation des Traits & Services Métier
 
-### Plafond Strict de 500 Lignes & Règle de Dégagement (< 300 Lignes)
-- **Règle absolue :** Aucun fichier de Service ni aucun Trait ne doit dépasser 500 lignes de code.
-- Si la complexité d'un Service augmente :
-  1. Découper le service en Traits thématiques hautement cohésifs placés dans `modules/Pkg.../Services/Traits/[NomModel]/` (ex: `[Model]AbsenceTrait`, `[Model]RemediationTrait`, `[Model]JobTrait`).
-  2. Chaque trait doit rester concentré sur une responsabilité précise et compter **moins de 500 lignes**.
-- **Objectif post-refactor (< 300 lignes) :**
-  - Dès qu'un fichier subit une refactorisation suite à un dépassement ou une proximité du seuil de 500 lignes, son volume final doit impérativement être ramené sous les **300 lignes** (< 300 lignes).
-  - Cela procure une zone tampon de sécurité indispensable permettant les développements futurs sans récidive immédiate du problème.
+### Structuration des Traits de Service
+Conformément à la règle de taille des fichiers (< 300 lignes après refactoring, voir [critical-rules.md](file:///c:/AppServer/solicode-lms/.agents/rules/critical-rules.md)) :
+- Regrouper les méthodes par domaine de responsabilité dans `modules/Pkg.../Services/Traits/[NomModel]/` :
+  - `[Model]CrudTrait.php` : Hooks de mise à jour (`beforeUpdateRules`, `afterUpdateRules`).
+  - `[Model]CreationHookTrait.php` : Hooks de création (`beforeCreateRules`, `afterCreateRules`).
+  - `[Model]GetterTrait.php` : Requêtes, scopes, tris et préparation des données de vue.
+  - `[Model]FilterTrait.php` : Configuration de la barre de filtres (`initFieldsFilterable`).
+  - `[Model]ActionsTrait.php` : Actions métier spécifiques et boutons d'action.
+- Importer les traits dans `[Model]Service.php` via des clauses `use`.
 
-### Émergence de Services Métier Dédiés (Même sans Table BDD)
-- Lorsqu'un concept fonctionnel émerge (ex: `Seance`, `SituationPedagogique`, `LiveCodingEngine`), il ne doit **pas** être entassé dans le CRUD d'une entité Eloquent.
-- Créer un Service dédié dans `modules/Pkg.../Services/` (ex: `SeanceService.php`, `SituationPedagogiqueService.php`).
-- Le Service dédié encapsule les calculs, configurations, règles et états du concept.
-- Les autres services consomment ce Service par injection ou instanciation (`app(SituationPedagogiqueService::class)`), garantissant le principe de responsabilité unique (SRP).
+### Pattern d'Émergence de Services Métier Dédiés
+- Lorsqu'un concept fonctionnel transversal émerge (ex: `Seance`, `SituationPedagogique`, `InactivitePedagogique`), créer un Service autonome dans `modules/Pkg.../Services/` :
+```php
+namespace Modules\PkgRealisationTache\Services;
+
+class SituationPedagogiqueService
+{
+    // Constantes, règles de calcul et mapping d'états
+}
+```
+- Consommer ce service via injection de dépendances ou instanciation de conteneur :
+```php
+$service = app(SituationPedagogiqueService::class);
+```

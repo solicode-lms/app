@@ -1,40 +1,38 @@
 ---
 name: feature-dev
-description: Developpe, modifie ou etend une fonctionnalite traversante dans Solicode LMS (Service, Trait, Controller, Blade custom, TableUI, FilterUI) en respectant les locks Gapp.
-version: 1.0.0
+description: Développe, modifie, étend ou dépanne toute fonctionnalité dans Solicode LMS (Service, Trait, Controller, Blade custom, TableUI, FilterUI) et diagnostique les erreurs de logs laravel.log, exceptions BlException et régressions.
+version: 2.0.0
 inspiration:
   source: "anthropic/claude-plugins-official"
   plugin: "feature-dev"
-  pattern: "5-phase implementation workflow & progressive disclosure"
+  pattern: "5-phase implementation & root-cause defect resolution workflow"
 ---
 
 # 1. Mission
-Ce skill pilote la réalisation de fonctionnalités complètes ou de modifications transversales au sein de l'application Solicode LMS. Il assure la modification des contrôleurs fins, l'encapsulation de la logique métier dans la couche Service (et ses Traits), l'intégration aux composants frontend `TableUI`/`FilterUI`, et la préservation absolue des fichiers protégés par le générateur Gapp.
+Ce skill pilote l'ensemble du cycle d'ingénierie logicielle (nouvelles fonctionnalités, ajustements métier, refactorisations et résolutions de bogues) au sein de Solicode LMS. Il assure la modification des contrôleurs fins, l'encapsulation de la logique métier dans la couche Service (et ses Traits découpés < 300 lignes), le diagnostic sur trace d'erreurs (`storage/logs/laravel.log`), l'intégration aux composants frontend `TableUI`/`FilterUI`, et la préservation absolue des verrous Gapp.
 
 # 2. Déclenchement & Limites
 - **Quand l'activer :**
-  - Ajout ou modification d'un filtre d'indexation (`initFieldsFilterable`).
-  - Ajout ou ajustement d'un formulaire, d'un champ calculé (`data-calcule`) ou de listes déroulantes dynamiques (`DynamicDropdownTreatment`).
-  - Implémentation d'une règle métier ou d'un hook de cycle de vie CRUD (`beforeCreateRules`, `beforeUpdateRules`) avec levée de `BlException`.
-  - Personnalisation d'une vue Blade via le sous-dossier `custom/`.
+  - **Évolutions :** Ajout ou modification d'un filtre d'indexation (`initFieldsFilterable`), formulaire, champ calculé (`data-calcule`), listes déroulantes dynamiques (`DynamicDropdownTreatment`), ou vues Blade personnalisées (`custom/`).
+  - **Règles Métier :** Implémentation ou ajustement de règles métier et hooks CRUD (`beforeCreateRules`, `beforeUpdateRules`, `afterUpdateRules`) avec levée de `BlException`.
+  - **Dépannage & Bogues :** Signalement d'une anomalie, erreur HTTP 500/422, exception `BlException` inattendue, défaillance d'un tableau `TableUI.js`, d'une modale `ModalUI.js` ou d'un sélecteur en cascade.
+  - **Refactorisations :** Découpage de services ou traits approchant 500 lignes pour les ramener sous la barre de dégagement des 300 lignes.
 - **Quand NE PAS l'activer :**
-  - Simple analyse ou cartographie sans demande de modification -> Déclencher `architecture-planner`.
-  - Création complète d'une nouvelle table en BDD -> Déclencher `concevoir-architecture`.
-  - Rédaction d'un tutoriel ou guide de cours -> Déclencher `tutorial-writer`.
+  - Simple analyse d'impact ou cartographie sans modification de code ➔ Utiliser `planner-dev`.
+  - Conception et génération d'une nouvelle table en BDD ➔ Utiliser `domain-scaffolder`.
+  - Gouvernance des compétences et règles d'agent ➔ Utiliser `plugin-dev`.
+  - Initialisation d'agent ou diagnostic projet ➔ Utiliser `project-setup`.
 
 # 3. Entrées & Ressources à Charger
 Avant d'écrire ou modifier la moindre ligne de code, charger :
-1. **Priorité 1 (Conventions du Projet) :**
-   - `.agents/references/conventions/crud-backend-mechanic.md` (Règles des filtres, Services et Traits).
-   - `.agents/references/conventions/crud-frontend-ui.md` (Structure TableUI, FilterUI et sous-dossier custom/).
+1. **Priorité 1 (Contexte Package Cible) :** Fiche `modules/Pkg[Nom]/[NomPkg]_IA_CONTEXT.md` du module concerné (obligatoire avant toute analyse).
+2. **Priorité 2 (Journaux d'Erreurs si Bogue) :** `storage/logs/laravel.log` pour extraire la trace réelle de la pile d'appels.
+3. **Priorité 3 (Conventions du Projet) :**
+   - `.agents/references/conventions/crud-backend-mechanic.md` (Filtres, Services, Traits et cycle de vie).
+   - `.agents/references/conventions/crud-frontend-ui.md` (TableUI, FilterUI et sous-dossier custom/).
    - `.agents/references/conventions/project-conventions.md` (Rôles Spatie, ViewState).
-2. **Priorité 2 (Références Partagées) :**
-   - `.agents/references/architecture/layers-3tiers.md`
-   - `.agents/references/frontend/tableui-framework.md`
-   - `.agents/references/gapp/01-conventions-et-garde-fous.md`
-3. **Priorité 3 (Contexte Package) :** Fiche `[NomPkg]_IA_CONTEXT.md` du module concerné dans `modules/Pkg.../`.
 4. **Priorité 4 (Spécification Issue) :** Fiche d'issue dans `issues/<SousDossier>/` si existante (régie par [.agents/rules/gestion-issues.md](file:///c:/AppServer/solicode-lms/.agents/rules/gestion-issues.md)).
-5. **Priorité 5 (Ressources Spécifiques Encapsulées) :** Guides internes disponibles à la demande dans `resources/` :
+5. **Priorité 5 (Ressources Spécifiques Encapsulées) :** Guides internes disponibles dans `resources/` :
    - `resources/crud-jobs-and-polling.md` (Opérations asynchrones, Observer et Polling).
    - `resources/typage-enum.md` (Workflow de conversion d'un attribut en Enum PHP 8.1+).
    - `resources/widgets-system.md` (Configuration des widgets dynamiques JSON).
@@ -42,72 +40,66 @@ Avant d'écrire ou modifier la moindre ligne de code, charger :
    - `resources/specifications-avancees.md` (Champs calculés data-calcule).
 
 # 4. Contraintes & Règles Inviolables
-1. **Intégrité de Gapp (Classes Base/) :**
-   - Ne **JAMAIS** modifier un fichier situé dans un sous-dossier `Base/` ou commençant par `Base` (ex: `BaseProjetService.php`).
-   - Surcharger uniquement dans les classes filles (`ProjetService.php`) ou leurs Traits associés (`modules/Pkg.../Services/Traits/`).
-2. **Intégrité de Gapp (Vues Blade) :**
-   - Si un fichier `.blade.php` contient `{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}`, ne **JAMAIS** le modifier directement. Utiliser le dossier `custom/` (ex: `custom/_table.blade.php`).
-3. **Persistance des Données :**
-   - Interdiction formelle d'appeler `$model->save()`, `$model->update()`, `$model->delete()` directement dans les contrôleurs. Toute persistance doit passer par le Service (`$service->create()`, `$service->update()`).
-   - Interdiction d'appeler `$model->relation()->sync()`. Passer le tableau d'IDs dans les données envoyées au Service.
-4. **Exceptions Métier BLL :**
-   - Toujours lever `throw new BlException("Message...");` pour interrompre une opération non conforme. Pas de redirection HTTP ad-hoc.
-5. **Migrations BDD :**
-   - L'agent a l'interdiction d'exécuter `php artisan migrate` de manière autonome.
-6. **Chargement Préalable Obligatoire de `[NomPkg]_IA_CONTEXT.md` :**
-   - Dès qu'un package cible est identifié, l'agent DOIT impérativement charger son fichier `modules/Pkg[Nom]/Pkg[Nom]_IA_CONTEXT.md` AVANT d'ouvrir, d'analyser ou de modifier les fichiers de code du package.
-7. **Plafond Strict de 500 Lignes par Fichier & Objectif de Dégagement (< 300 Lignes) :**
+1. **Règles Critiques Inviolables :**
+   - Respecter scrupuleusement [.agents/rules/critical-rules.md](file:///c:/AppServer/solicode-lms/.agents/rules/critical-rules.md) (verrous Gapp `Base/`, Blade `custom/`, persistance via Service, interdiction de `git commit` et `php artisan migrate`).
+2. **Diagnostic sur Preuve (Cas de Bogue) :**
+   - Ne jamais deviner une panne sans avoir lu le message d'erreur et la pile d'appels dans `storage/logs/laravel.log` ou le code source exact.
+3. **Plafond Strict de 500 Lignes & Règle de Dégagement (< 300 Lignes) :**
    - Aucun fichier de Service ou Trait ne doit dépasser 500 lignes.
-   - Si un fichier s'approche ou dépasse 500 lignes, le découper immédiatement en Traits spécialisés hautement cohésifs (ex: `[Model]AbsenceTrait`, `[Model]RemediationTrait`).
-   - **Objectif post-refactor (< 300 lignes) :** À l'issue d'une refactorisation pour cause de 500 lignes, le volume de chaque fichier impacté doit obligatoirement être abaissé sous la barre des **300 lignes** (< 300 lignes) pour garantir un dégagement suffisant aux évolutions futures.
-8. **Émergence d'Objets & Services Métier (Même sans Table BDD) :**
-   - Dès qu'un concept fonctionnel transverse émerge (ex: `Seance`, `SituationPedagogique`), créer impérativement un Service dédié (ex: `SeanceService`, `SituationPedagogiqueService`), même sans table en BDD. Ne jamais encombrer un Service d'entité avec la logique d'un concept métier distinct.
+   - En cas de refactorisation suite à un dépassement, ramener obligatoirement le fichier sous **300 lignes** (< 300 lignes).
+4. **Émergence de Services Métier Dédiés :**
+   - Dès qu'un concept fonctionnel transversal émerge (ex: `Seance`, `SituationPedagogique`), créer un Service dédié même sans table BDD.
+5. **Chargement Préalable de `[NomPkg]_IA_CONTEXT.md` :**
+   - Obligatoire dès qu'un package est ciblé.
 
 # 5. Procédure Pas-à-Pas (Workflow en 5 Phases)
-1. **Phase 1 : Chargement du Contexte & Exploration des Locks :**
-   - Consulter obligatoirement `modules/Pkg[Nom]/Pkg[Nom]_IA_CONTEXT.md` pour appréhender les entités, services et règles métier du package.
-   - Localiser les classes enfants modifiables (`[Model]Service.php`, `[Model]Controller.php`).
-   - Vérifier la présence éventuelle de la vue dans `custom/`.
-2. **Phase 2 : Clarification :** Si des données critiques manquent, poser au maximum 3 questions ciblées.
-3. **Phase 3 : Conception du Contrat :**
-   - Identifier le Trait ou la méthode à surcharger (`initFieldsFilterable`, `dataCalcul`, `beforeUpdateRules`).
-   - Déterminer les variables de vue et les attributs HTML (`data-calcule`, `data-target-dynamic-dropdown`).
+1. **Phase 1 : Diagnostic (si bogue) ou Analyse du Besoin (si évolution) :**
+   - **Si bogue :** Consulter la fin de `storage/logs/laravel.log`, isoler l'exception, le fichier et la ligne exacte. Reconstituer la pile d'appels à travers les couches (Route ➔ Contrôleur ➔ Service & Traits ➔ Modèle / TableUI).
+   - **Si évolution :** Analyser le besoin métier, identifier les classes enfants et templates Blade cibles.
+   - Charger le fichier `[NomPkg]_IA_CONTEXT.md` du module.
+2. **Phase 2 : Clarification :** Si des données critiques manquent (comportement attendu, cas limites), poser au maximum 3 questions ciblées.
+3. **Phase 3 : Conception & Contrat :**
+   - Identifier le Service ou Trait à modifier/créer (`initFieldsFilterable`, `dataCalcul`, `beforeUpdateRules`).
+   - Veiller à ce qu'aucun fichier ne franchisse le seuil de 300/500 lignes (créer un nouveau Trait spécialisé si besoin).
 4. **Phase 4 : Implémentation Chirurgicale :**
-   - Injecter le code métier minimaliste et propre.
+   - Injecter le code métier minimaliste et propre dans les classes enfants ou le sous-dossier `custom/`.
    - Si une classe enfant PHP contient `// Ce fichier est maintenu par ESSARRAJ Fouad`, supprimer cette ligne pour y intégrer le code.
-5. **Phase 5 : Contrôle & Preuve de Fonctionnement :**
-   - Exécuter la checklist de contrôle qualité.
-   - Présenter au développeur les diffs précis et lui indiquer comment tester le résultat.
-   - Si la fonctionnalité découle d'une issue dans `issues/`, appliquer la procédure de clôture selon la règle [.agents/rules/gestion-issues.md](file:///c:/AppServer/solicode-lms/.agents/rules/gestion-issues.md).
+5. **Phase 5 : Contrôle, Preuve & Traçabilité :**
+   - Valider la solution (script scratch de test ou contrôle visuel TableUI).
+   - En cas d'incident structurel résolu, consigner optionnellement un retour d'expérience dans `.agents/tests/feedbacks/INC-[NUM].yaml`.
+   - Si l'intervention découle d'une issue, la clôturer vers `issues/issues-closed/` selon [.agents/rules/gestion-issues.md](file:///c:/AppServer/solicode-lms/.agents/rules/gestion-issues.md).
 
 # 6. Gestion des Ambiguïtés & Décisions
+- Si le fichier `laravel.log` ne contient pas d'erreur récente lors d'un bug : demander au développeur de reproduire l'action et réexaminer le journal.
 - Si le type de filtre n'est pas spécifié : appliquer par défaut `generateManyToOneFilter` si c'est une clé étrangère standard.
-- Si une permission dynamique bloque une nouvelle route de contrôleur : ajouter l'annotation PHPDoc `/** @DynamicPermissionIgnore */` et appeler `$this->authorizeAction(...)`.
+- Si une permission dynamique bloque une nouvelle route : ajouter l'annotation PHPDoc `/** @DynamicPermissionIgnore */` et appeler `$this->authorizeAction(...)`.
 
 # 7. Format de Sortie & Livrables
 L'agent fournit :
-- Les modifications de fichiers sous forme de blocs de code ou diffs clairs.
-- L'explication de la mécanique retenue (Service, Trait, Blade custom, ou attribut JS).
-- La commande ou l'action de vérification à réaliser dans l'interface (ex: rafraîchir la page du CRUD).
+- L'analyse synthétique : Cause racine identifiée (si bogue) ou logique d'extension (si évolution).
+- Les diffs de code clairs appliqués exclusivement aux fichiers enfants ou `custom/`.
+- La commande ou méthode de vérification (script scratch ou rafraîchissement d'interface).
 
 # 8. Contrôle Qualité (Checklist Binaire)
-- [ ] Aucun fichier dans `Base/` n'a été modifié ?
-- [ ] Aucun template Blade locké n'a été altéré directement (utilisation de `custom/`) ?
-- [ ] La logique métier est-elle isolée dans le Service ou un Trait (et non dans le Contrôleur) ?
-- [ ] Les erreurs de validation métier utilisent-elles `BlException` ?
+- [ ] Le fichier `[NomPkg]_IA_CONTEXT.md` a-t-il été chargé au préalable ?
+- [ ] Aucun fichier dans `Base/` n'a été altéré ?
+- [ ] Les templates Blade modifiés utilisent-ils le sous-dossier `custom/` ?
+- [ ] La logique métier réside-t-elle dans le Service ou un Trait (et non dans le Contrôleur) ?
+- [ ] Les erreurs de validation métier utilisent-elles `throw new BlException(...)` ?
+- [ ] Tous les fichiers modifiés respectent-ils le plafond des 500 lignes et la cible de dégagement < 300 lignes ?
 - [ ] Le code frontend s'appuie-t-il sur `TableUI.js` / `FilterUI.js` sans jQuery sauvage ?
-- [ ] Aucun fichier Service ou Trait ne dépasse-t-il 500 lignes de code ?
-- [ ] Les concepts fonctionnels transverses (ex: Seance, SituationPedagogique) disposent-ils de leur propre Service dédié ?
 
 # 9. Gestion des Erreurs Fréquentes
 | Erreur Typique | Cause | Solution Immédiate |
 | :--- | :--- | :--- |
-| Modifier `BaseProjetService.php` | Méconnaissance de la structure Gapp | Déplacer immédiatement la méthode dans `ProjetService.php` |
+| Modifier la classe `Base/` pour corriger un bug | Croyance que le bug vient du générateur | Surcharger la méthode dans la classe enfant PHP |
+| Écraser une vue Blade verrouillée | Non-respect du lock ESSARRAJ Fouad | Utiliser le sous-dossier `custom/` de la vue |
 | Écraser un filtre parent lors du filtrage | Oubli des `$scopeVariables` | Vérifier `if (!array_key_exists('champ_id', $scopeVariables))` avant d'ajouter le filtre |
+| Supprimer du code fonctionnel par confusion | Manque d'analyse de la trace | Isoler précisément la ligne d'exception sans toucher au reste |
 | Boucle infinie dans un Job asynchrone | Appel à `$this->update()` dans le Job | Utiliser `withoutEvents(function() { ... })` pour la sauvegarde en arrière-plan |
 
 # 10. Exemples Concrets (Few-Shot)
-**Exemple d'ajout d'un filtre ManyToOne :**
+**Exemple A (Évolution) : Ajout d'un filtre ManyToOne**
 ```php
 // Dans modules/PkgFormation/Services/FiliereService.php
 public function initFieldsFilterable()
@@ -128,3 +120,13 @@ public function initFieldsFilterable()
 }
 ```
 
+**Exemple B (Dépannage) : Résolution d'erreur 500 sur relation manquante**
+```php
+// Symptôme : Erreur 500 dans TableUI lors du listing des apprenants
+// Trace dans laravel.log : Call to a member function nom on null in FormateurService.php:84
+// Solution : Eager-loading de la relation dans le Service enfant :
+protected array $index_with_relations = [
+    'user',
+    'groupes.filiere',
+];
+```

@@ -5,7 +5,6 @@
                                   "project-setup"
                               ],
                    "local":  [
-                                 "bug-fixer",
                                  "context-generator",
                                  "domain-scaffolder",
                                  "feature-dev",

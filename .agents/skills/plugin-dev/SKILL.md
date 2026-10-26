@@ -99,7 +99,7 @@ Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : 
      - Pièges ou edge cases résolus (ex: calculs faussés par omission de filtres parents).
 2. **Étape 2 : Évaluation des Écarts Documentaires :**
    - Comparer ces découvertes avec le contenu existant de `modules/[NomPkg]/[NomPkg]_IA_CONTEXT.md`.
-   - Vérifier si des compétences (`feature-dev`, `bug-fixer`) ou règles bénéficieraient d'une directive additionnelle.
+   - Vérifier si des compétences (`feature-dev`) ou règles bénéficieraient d'une directive additionnelle.
 3. **Étape 3 : Proposition de Plan d'Enrichissement :**
    - Soumettre au concepteur un plan clair et structuré détaillant les ajouts proposés :
      - Pour `[NomPkg]_IA_CONTEXT.md` (nouveaux services, filtres clés, section Pièges & Recommandations).
@@ -140,8 +140,8 @@ Ce méta-skill assure la gouvernance technique complète de l'écosystème IA : 
 | Règle locale en conflit avec le standard Hub | Manque d'audit préalable | Auditer .agents/rules/critical-rules.md avant de formaliser la règle |
 
 # 10. Exemples Concrets (Few-Shot)
-**Exemple d'invocation A (Skill) :** *"Crée le skill bug-fixer inspiré de pr-review-toolkit."*
-**Comportement :** L'agent charge `anthropic-skill-patterns.md`, extrait le pattern de revue consolidée, rédige les 10 rubriques avec `inspiration: { plugin: "pr-review-toolkit" }`, isole les fiches de templates dans `bug-fixer/resources/`, exécute `validate-skills.js`, et enregistre la compétence dans `catalog.yaml`.
+**Exemple d'invocation A (Skill) :** *"Crée le skill tutorial-writer inspiré de content-authoring."*
+**Comportement :** L'agent charge `anthropic-skill-patterns.md`, extrait le pattern de rédaction structurée, rédige les 10 rubriques avec `inspiration: { plugin: "content-authoring" }`, isole les templates didactiques dans `tutorial-writer/resources/`, et enregistre la compétence dans `catalog.yaml`.
 
 **Exemple d'invocation B (Règle) :** *"Ajoute une règle imposant l'affichage des skills utilisés à chaque fin de message."*
 **Comportement :** L'agent applique le Parcours C de `plugin-dev`, rédige `.agents/rules/affichage-skills.md`, met à jour `.agents/rules/critical-rules.md`, et applique immédiatement le format requis.
