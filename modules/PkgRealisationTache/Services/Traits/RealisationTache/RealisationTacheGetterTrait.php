@@ -40,7 +40,6 @@ trait RealisationTacheGetterTrait
             'REVISION_NECESSAIRE', 
             'EN_REMEDIATION', 
             'IN_LIVE_CODING', 
-            'PAUSED'
         ],
         self::SITUATION_BLOCAGE => [
             'EN_REMEDIATION', 
