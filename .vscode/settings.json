@@ -31,7 +31,9 @@
         "tests": true,
         ".env.dusk.local": true,
         ".env.testing": true,
-        "postcss.config.js": true
+        "postcss.config.js": true,
+        ".editorconfig": true,
+        ".env": true
     },
     "files.eol": "\n",
     "todo-tree.filtering.excludeGlobs": [
@@ -95,7 +97,7 @@
             "color": "foldercolorizer.color_d787af"
         },
         {
-            "folderPath": "solicode-lms\\issues\\",
+            "folderPath": "solicode-lms\\develop\\issues",
             "isFolderOnly": true,
             "color": "foldercolorizer.color_ff8700"
         },
