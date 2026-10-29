@@ -5,7 +5,35 @@
         "**/.hg": true,
         "**/.jj": true,
         "**/.DS_Store": true,
-        "**/Thumbs.db": true
+        "**/Thumbs.db": true,
+        "vite.config.txt": true,
+        "vite.config.js": true,
+        "tailwind.config.js": true,
+        "solicode-lms.code-workspace": true,
+        "phpunit.xml": true,
+        "phpunit.dusk.xml": true,
+        "package.json": true,
+        "package-lock.json": true,
+        "develop.code-workspace": true,
+        "composer.lock": true,
+        "composer.json": true,
+        "artisan": true,
+        "active-lms-gapp.code-workspace": true,
+        ".gitignore": true,
+        ".gitattributes": true,
+        ".env.example": true,
+        "scratch": true,
+        "logs": true,
+        "db_schemas": true,
+        "node_modules": true,
+        "silimium_tests": true,
+        "stubs": true,
+        "tests": true,
+        ".env.dusk.local": true,
+        ".env.testing": true,
+        "postcss.config.js": true,
+        ".editorconfig": true,
+        ".env": true
     },
     "files.eol": "\n",
     "todo-tree.filtering.excludeGlobs": [
@@ -69,14 +97,14 @@
             "color": "foldercolorizer.color_d787af"
         },
         {
-            "folderPath": "solicode-lms\\issues\\",
+            "folderPath": "solicode-lms\\develop\\issues",
             "isFolderOnly": true,
             "color": "foldercolorizer.color_ff8700"
         },
         {
             "folderPath": "solicode-lms\\.agents\\",
-            "color": "foldercolorizer.color_ff8700",
-            "isFolderOnly": true
+            "isFolderOnly": true,
+            "color": "foldercolorizer.color_ff8700"
         }
     ],
     "hide-files.files": []

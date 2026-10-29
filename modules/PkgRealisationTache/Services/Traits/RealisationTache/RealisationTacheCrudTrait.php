@@ -3,231 +3,25 @@
 namespace Modules\PkgRealisationTache\Services\Traits\RealisationTache;
 
 use Modules\PkgRealisationTache\Models\RealisationTache;
-use Modules\PkgRealisationProjets\Models\RealisationProjet;
-use Modules\PkgApprentissage\Services\RealisationUaService;
-use Modules\PkgApprentissage\Services\RealisationChapitreService;
-use Modules\PkgApprentissage\Models\RealisationChapitre;
-use Modules\PkgCreationProjet\Models\MobilisationUa;
-use Modules\PkgCreationTache\Models\Tache;
 
+/**
+ * Trait dédié aux règles et hooks du cycle de vie de mise à jour (beforeUpdateRules, afterEditRules, afterUpdateRules)
+ * pour RealisationTache.
+ */
 trait RealisationTacheCrudTrait
 {
-
     /**
-     * Règle métier exécutée avant la création d'une RealisationTache.
-     * 1. Détermine automatiquement `tache_affectation_id` si manquant.
-     * 2. Ajuste `etat_realisation_tache_id` si le chapitre est déjà validé.
-     */
-    public function beforeCreateRules(array &$data): void
-    {
-        // Règle : Assigner la note du projet d'origine si la tâche a projet_origine_note_id
-        if (!empty($data['tache_id']) && !empty($data['realisation_projet_id'])) {
-            $tache = \Modules\PkgCreationTache\Models\Tache::find($data['tache_id']);
-            if ($tache && !empty($tache->projet_origine_note_id)) {
-                $realisationProjet = \Modules\PkgRealisationProjets\Models\RealisationProjet::find($data['realisation_projet_id']);
-                if ($realisationProjet) {
-                    $apprenantId = $realisationProjet->apprenant_id;
-                    $projetOrigineNoteId = $tache->projet_origine_note_id;
-
-                    $realisationProjetOrigine = \Modules\PkgRealisationProjets\Models\RealisationProjet::where('apprenant_id', $apprenantId)
-                        ->whereHas('affectationProjet', function ($q) use ($projetOrigineNoteId) {
-                            $q->where('projet_id', $projetOrigineNoteId);
-                        })->first();
-
-                    if ($realisationProjetOrigine) {
-                        $data['note'] = $realisationProjetOrigine->calculerNoteAvecEchelle();
-                    }
-                }
-            }
-        }
-
-        // 🛡️ Plafonnement de la note par rapport au barème de la tâche
-        if (isset($data['note']) && !empty($data['tache_id'])) {
-            $tache = \Modules\PkgCreationTache\Models\Tache::find($data['tache_id']);
-            if ($tache && $tache->note !== null && $data['note'] > $tache->note) {
-                $data['note'] = $tache->note;
-            }
-        }
-
-        // 1. Règle métier : Lien avec l'affectation de groupe (TacheAffectation)
-        // Si `tache_affectation_id` est manquant, on doit le déduire à partir du projet et de la tâche.
-        // Cela garantit que chaque réalisation individuelle est correctement rattachée à l'affectation globale du groupe.
-        if (empty($data['tache_affectation_id']) && !empty($data['tache_id']) && !empty($data['realisation_projet_id'])) {
-
-            $tache = \Modules\PkgCreationTache\Models\Tache::find($data['tache_id']);
-            $realisationProjet = \Modules\PkgRealisationProjets\Models\RealisationProjet::find($data['realisation_projet_id']);
-
-            if ($tache && $realisationProjet && $realisationProjet->affectation_projet_id) {
-                $affectationProjetId = $realisationProjet->affectation_projet_id;
-
-                $tacheAffectationService = new \Modules\PkgRealisationTache\Services\TacheAffectationService();
-                $tacheAffectation = $tacheAffectationService->getOrCreateTacheAffectation($tache, $realisationProjet->affectationProjet);
-                $data['tache_affectation_id'] = $tacheAffectation->id;
-            }
-        }
-
-        // 2. Règle métier : Si le chapitre lié est déjà validé (DONE) pour l'apprenant,
-        // on crée la tâche directement à l'état "APPROVED" (Validé) au lieu d'annuler.
-        // Cela permet de garder une trace et de mettre à jour la progression.
-        if ($this->shouldSkipCreationIfChapitreDone($data)) {
-            $etatApproved = \Modules\PkgRealisationTache\Models\EtatRealisationTache::whereHas('workflowTache', function ($q) {
-                $q->where('code', 'APPROVED');
-            })->first();
-
-            if ($etatApproved) {
-                $data['etat_realisation_tache_id'] = $etatApproved->id;
-                $data['date_fin'] = now();
-                $data['date_debut'] = $data['date_debut'] ?? now();
-                // On met une note par défaut si nécessaire (ex: note maximale ou note du chapitre) ??
-                // Pour l'instant on laisse la note vide ou gérée par ailleurs.
-            }
-            // On n'annule PLUS la création
-            // $data['__abort_creation'] = true; 
-        }
-    }
-
-
-
-    /**
-     * Règles à appliquer après la création d'une RealisationTache.
-     * Cette méthode gère automatiquement :
-     * 1. La liaison ou création de `RealisationChapitre` si la tâche est liée à un chapitre.
-     * 2. La création des `RealisationUaPrototype` pour les tâches de niveau N2.
-     * 3. La création des `RealisationUaProjet` pour les tâches de niveau N3.
+     * Méthode contenant les règles métier appliquées avant l'édition/mise à jour.
      *
-     * @param mixed $item L'instance de RealisationTache créée.
-     * @return void
-     */
-    public function afterCreateRules($item): void
-    {
-        if ($item instanceof RealisationTache) {
-            $realisationTache = $item;
-
-            // Chargement des relations nécessaires
-            $realisationTache->loadMissing([
-                'tache.chapitre',
-                'realisationProjet.affectationProjet.projet.mobilisationUas',
-                'realisationProjet.apprenant'
-            ]);
-
-            $tache = $realisationTache->tache;
-            $realisationProjet = $realisationTache->realisationProjet;
-
-            // On récupère les mobilisations depuis le projet associé
-            $mobilisationUas = $realisationProjet->affectationProjet->projet->mobilisationUas ?? collect();
-
-            $realisationUaService = new RealisationUaService();
-            $realisationChapitreService = app(RealisationChapitreService::class);
-
-            // 🔗 Si le chapitre existe, on lie ou crée sa RealisationChapitre
-            if ($tache->chapitre) {
-                $realisationUA = $realisationUaService->getOrCreateApprenant(
-                    $realisationProjet->apprenant_id,
-                    $tache->chapitre->unite_apprentissage_id
-                );
-
-                $chapitreExistant = RealisationChapitre::where('chapitre_id', $tache->chapitre->id)
-                    ->where('realisation_ua_id', $realisationUA->id)
-                    ->first();
-
-                if (isset($chapitreExistant) && $chapitreExistant) {
-                    // Si le chapitre existe et n’est pas DONE, on met à jour le lien
-                    if ($chapitreExistant->etatRealisationChapitre?->code !== 'DONE') {
-                        $chapitreExistant->update([
-                            'realisation_tache_id' => $realisationTache->id,
-                        ]);
-                    } else {
-                        // Cas où le chapitre est déjà validé (DONE) : on informe l'utilisateur
-                        $chapitreExistant->loadMissing('realisationTache.tache', 'realisationTache.realisationProjet.affectationProjet.projet');
-                        $tacheTitre = $chapitreExistant->realisationTache?->tache?->titre ?? 'N/A';
-                        $projetTitre = $chapitreExistant->realisationTache?->realisationProjet?->affectationProjet?->projet?->titre ?? 'N/A';
-
-                        $realisationTache->update([
-                            'remarques_formateur' => "Ce chapitre est déjà validé dans la tâche : [{$tacheTitre}] du projet : [{$projetTitre}]."
-                        ]);
-                    }
-                } else {
-                    // Sinon, on crée une nouvelle RealisationChapitre
-                    $realisationChapitreService->create([
-                        'realisation_tache_id' => $realisationTache->id,
-                        'chapitre_id' => $tache->chapitre->id,
-                        'realisation_ua_id' => $realisationUA->id,
-                    ]);
-                }
-            }
-
-            // 🧩 Gestion consolidée des Compétences (N2/N3) via ActionsTrait
-            $this->syncRealisationPrototypeEtProjetAvecMobilisations($realisationTache);
-
-            // 🎯 Mise à jour du pourcentage de réalisation dans TacheAffectation
-            if ($realisationTache->tache_affectation_id) {
-                $tacheAffectationService = new \Modules\PkgRealisationTache\Services\TacheAffectationService();
-                $tacheAffectation = $realisationTache->tacheAffectation ?? \Modules\PkgRealisationTache\Models\TacheAffectation::find($realisationTache->tache_affectation_id);
-                if ($tacheAffectation) {
-                    $tacheAffectationService->mettreAjourTacheProgression($tacheAffectation);
-                }
-            }
-
-            // Mettre à jour la réalisation de projet, les UAs et les chapitres si l'état ou la note est fourni(e) pendant la création
-            if ($realisationTache->note !== null || !empty($realisationTache->etat_realisation_tache_id)) {
-                if ($realisationProjet) {
-                    $realisationProjetService = app(\Modules\PkgRealisationProjets\Services\RealisationProjetService::class);
-                    $realisationProjetService->mettreAJourEtatDepuisRealisationTaches($realisationProjet);
-                    $realisationProjetService->mettreAJourProgressionDepuisEtatDesTaches($realisationProjet);
-                    if ($realisationTache->note !== null) {
-                        $realisationProjetService->calculerNoteEtBaremeDepuisTaches($realisationProjet);
-                    }
-                }
-
-                $realisationTache->loadMissing(['realisationUaPrototypes', 'realisationUaProjets', 'realisationChapitres']);
-
-                $uaIds = collect();
-                foreach ($realisationTache->realisationUaPrototypes as $proto) {
-                    if ($proto->realisation_ua_id) {
-                        $uaIds->push($proto->realisation_ua_id);
-                    }
-                }
-                foreach ($realisationTache->realisationUaProjets as $protoProjet) {
-                    if ($protoProjet->realisation_ua_id) {
-                        $uaIds->push($protoProjet->realisation_ua_id);
-                    }
-                }
-                $uaIds = $uaIds->unique()->filter();
-
-                if ($uaIds->isNotEmpty()) {
-                    $realisationUaService = new RealisationUaService();
-                    $uas = \Modules\PkgApprentissage\Models\RealisationUa::whereIn('id', $uaIds)->get();
-                    foreach ($uas as $ua) {
-                        $realisationUaService->calculerProgression($ua);
-                    }
-                }
-
-                if (!$realisationTache->realisationChapitres->isEmpty()) {
-                    $realisationChapitreService = new RealisationChapitreService();
-                    $realisationChapitreService->calculerProgression($realisationTache);
-                }
-
-                if ($realisationTache->tacheAffectation) {
-                    $tacheAffectationService = app(\Modules\PkgRealisationTache\Services\TacheAffectationService::class);
-                    $tacheAffectationService->mettreAjourTacheProgression($realisationTache->tacheAffectation);
-                    $tacheAffectationService->lancerLiveCodingSiEligible($realisationTache->tacheAffectation);
-                }
-            }
-        }
-    }
-
-    /**
-     * Méthode contient les règles métier qui sont appliquer avant l'édition
-     * il est utilisée avec tous les méthode qui font update
-     * @param mixed $realisationTache
      * @param array $data
+     * @param int|string $id
      * @return void
      */
     public function beforeUpdateRules(array &$data, $id)
     {
         $realisationTache = $this->find($id);
 
-        // 🔄 Bug 2 : Sélection manuelle du candidat pour le Live Coding
+        // 🔄 Sélection manuelle du candidat pour le Live Coding
         if (isset($data['is_live_coding']) && $data['is_live_coding'] == true && !$realisationTache->is_live_coding) {
             $tacheAffectation = $realisationTache->tacheAffectation;
             if ($tacheAffectation) {
@@ -279,7 +73,6 @@ trait RealisationTacheCrudTrait
             }
         }
 
-
         $currentUser = \Illuminate\Support\Facades\Auth::user();
         $isFormateur = $currentUser ? (
             $currentUser->hasRole(\Modules\PkgAutorisation\Models\Role::FORMATEUR_ROLE) ||
@@ -288,8 +81,7 @@ trait RealisationTacheCrudTrait
             $currentUser->hasRole('root')
         ) : true;
 
-        // ❌ Bloquer l'état si la tâche ou ses micro-compétences associées ont des livrables manquants
-        // on ne bloque que pour les livravle de la tache, on va pas utiliser les livrable des micro compétences
+        // ❌ Bloquer l'état si la tâche a des livrables manquants
         if (
             !$isFormateur &&
             isset($data["etat_realisation_tache_id"]) &&
@@ -297,17 +89,12 @@ trait RealisationTacheCrudTrait
         ) {
             $etatCode = $etat->workflowTache?->code;
             $etatsInterdits = ['IN_PROGRESS', 'TO_APPROVE', 'APPROVED'];
-
             $tache = $realisationTache->tache;
-
-            // 1️⃣ Livrables attendus côté tâche
             $livrablesTache = $tache->livrables ?? collect();
-
-            // Vérification des dépôts côté tâche
             $livrablesManquantsTache = collect();
+
             if ($livrablesTache->isNotEmpty()) {
                 $idsLivrables = $livrablesTache->pluck('id');
-
                 $idsLivrablesDeposes = $realisationTache->realisationProjet
                     ->livrablesRealisations()
                     ->whereIn('livrable_id', $idsLivrables)
@@ -318,21 +105,7 @@ trait RealisationTacheCrudTrait
                     ->map(fn($livrable) => "Tâche : " . ($livrable->titre ?? "Sans titre"));
             }
 
-            // 2️⃣ Livrables attendus côté micro-compétences
-            // $realisationMicro = $realisationTache->realisationChapitres
-            //     ->map(fn($rc) => $rc->realisationUa?->realisationMicroCompetence) // un seul UA par chapitre
-            //     ->filter(); // enlève les null
-
-            // $livrablesManquantsMicro = $realisationMicro
-            //     ->filter(fn($rmc) => empty($rmc->lien_livrable))
-            //     ->map(fn($rmc) => "Autoformation : " . ($rmc->microCompetence?->titre ?? "Sans titre"));
-
-
-            // 3️⃣ Si livrables manquants → bloquer
-            if (
-                ($livrablesManquantsTache->isNotEmpty()) &&
-                in_array($etatCode, $etatsInterdits)
-            ) {
+            if ($livrablesManquantsTache->isNotEmpty() && in_array($etatCode, $etatsInterdits)) {
                 $listeManquants = $livrablesManquantsTache
                     ->map(fn($titre) => "<li>" . e($titre) . "</li>")
                     ->join('');
@@ -345,21 +118,29 @@ trait RealisationTacheCrudTrait
             }
         }
 
+        // 🔄 Règle métier : Transition depuis l'état ABSENT et gestion des remédiations (délégué au trait)
+        $isAutoRedirectionVersRemediation = $this->gererReglesAbsenceAvantUpdate($realisationTache, $data, $isFormateur);
 
-        // Empêcher un apprenant d'affecter un état réservé aux formateurs
         if (!$isFormateur && !empty($data["etat_realisation_tache_id"])) {
-            $etat_realisation_tache_id = $data["etat_realisation_tache_id"];
-            $nouvelEtat = \Modules\PkgRealisationTache\Models\EtatRealisationTache::find($etat_realisation_tache_id);
+            $etatFinalCible = \Modules\PkgRealisationTache\Models\EtatRealisationTache::find($data["etat_realisation_tache_id"]);
+            $codeFinalCible = optional($etatFinalCible?->workflowTache)->code;
 
-            // Vérifier si le nouvel état existe
-            if ($nouvelEtat) {
-                if ($nouvelEtat->is_editable_only_by_formateur && !$isFormateur) {
+            // Interdiction : Un apprenant ne peut pas affecter manuellement l'état EN_REMEDIATION
+            if ($codeFinalCible === 'EN_REMEDIATION' && !$isAutoRedirectionVersRemediation) {
+                throw \Illuminate\Validation\ValidationException::withMessages([
+                    'etat_realisation_tache_id' => "Seul un formateur peut affecter cet état de tâche."
+                ]);
+            }
+
+            // Vérifier les permissions formateur de l'état cible
+            if ($etatFinalCible) {
+                if ($etatFinalCible->is_editable_only_by_formateur && !$isFormateur && !$isAutoRedirectionVersRemediation) {
                     throw \Illuminate\Validation\ValidationException::withMessages([
                         'etat_realisation_tache_id' => "Seul un formateur peut affecter cet état de tâche."
                     ]);
                 }
                 // ✅ Vérifie le respect de la priorité selon le workflow
-                $workflowCode = optional($nouvelEtat->workflowTache)->code;
+                $workflowCode = optional($etatFinalCible->workflowTache)->code;
                 if ($this->workflowExigeRespectDesPriorites($workflowCode)) {
                     $this->verifierTachesMoinsPrioritairesTerminees($realisationTache, $workflowCode);
                 }
@@ -367,10 +148,14 @@ trait RealisationTacheCrudTrait
 
             // Vérification si l'état actuel existe et est modifiable uniquement par un formateur
             if ($realisationTache->etatRealisationTache) {
+                $etatActuelCode = optional($realisationTache->etatRealisationTache->workflowTache)->code;
+                $isTransitionDepuisAbsent = ($etatActuelCode === 'ABSENT');
+                $isSortieAutoriseeDepuisAbsent = $isTransitionDepuisAbsent && ($isAutoRedirectionVersRemediation || $codeFinalCible === 'IN_PROGRESS');
                 if (
                     $realisationTache->etatRealisationTache->is_editable_only_by_formateur
-                    && $realisationTache->etatRealisationTache->id != $etat_realisation_tache_id
+                    && $realisationTache->etatRealisationTache->id != $data["etat_realisation_tache_id"]
                     && !$isFormateur
+                    && !$isSortieAutoriseeDepuisAbsent
                 ) {
                     throw \Illuminate\Validation\ValidationException::withMessages([
                         'etat_realisation_tache_id' => "Cet état de projet doit être modifié par le formateur."
@@ -380,33 +165,24 @@ trait RealisationTacheCrudTrait
         }
 
         if ($currentUser && $currentUser->hasRole(\Modules\PkgAutorisation\Models\Role::FORMATEUR_ROLE)) {
-            // Si des évaluateurs existent, s'assurer que l'utilisateur y figure
             $user = $currentUser;
-            $realisationTache = $this->find($id);
-            // Récupère les évaluateurs assignés au projet
             $evaluateurs = $realisationTache
                 ->realisationProjet
                 ->affectationProjet
                 ->evaluateurs
                 ->pluck('id');
 
-
-            if (
-                $evaluateurs->isNotEmpty()
-                && $evaluateurs->doesntContain($user->evaluateur->id)
-            ) {
+            if ($evaluateurs->isNotEmpty() && $evaluateurs->doesntContain($user->evaluateur?->id)) {
                 throw new \Exception("Le formateur n'est pas parmi les évaluateurs de ce projet.");
             }
         }
 
-
-
-        // Historique des modification
+        // Historique des modifications
         $historiqueRealisationTacheService = new \Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService();
         $historiqueRealisationTacheService->enregistrerChangement($realisationTache, $data);
         $this->mettreAJourEtatRevisionSiRemarqueModifiee($realisationTache, $data);
 
-        // Sprint 5 : Indicateur 05 (T_file) - Horodatage automatique entrée file & démarrage Live Coding (Tâches N2 Prototype uniquement)
+        // Sprint 5 : Horodatage automatique entrée file & démarrage Live Coding (Tâches N2 Prototype)
         $isPrototypeN2 = $realisationTache->isPrototype() || optional($realisationTache->tache?->phaseEvaluation)->code === 'N2';
         if ($isPrototypeN2 && isset($data['etat_realisation_tache_id']) && $data['etat_realisation_tache_id'] != $realisationTache->etat_realisation_tache_id) {
             $nouvelEtat = \Modules\PkgRealisationTache\Models\EtatRealisationTache::find($data['etat_realisation_tache_id']);
@@ -421,51 +197,39 @@ trait RealisationTacheCrudTrait
         }
     }
 
-
     /**
-     * affectation de dataDebut = now()
-     * @param int $id
+     * Affectation de dateDebut = now() lors de la première édition.
+     *
+     * @param mixed $realisationTache
+     * @param int|string $id
      */
     public function afterEditRules($realisationTache, $id)
     {
         if (is_null($realisationTache->dateDebut)) {
-            $realisationTache->dateDebut = now(); // avec heure et minute
-            $realisationTache->saveQuietly(); // il faut sauvegarder si tu veux que le changement soit persisté
+            $realisationTache->dateDebut = now();
+            $realisationTache->saveQuietly();
         }
-
-        // Déja appliquer par parrent
-        // $this->markNotificationsAsRead( $realisationTache->id);
     }
 
+    /**
+     * Règles appliquées après la mise à jour d'une RealisationTache.
+     *
+     * @param RealisationTache $realisationTache
+     * @return void
+     */
     public function afterUpdateRules(RealisationTache $realisationTache): void
     {
         if ($realisationTache->wasChanged('note')) {
-
             if ($realisationTache->tache?->phaseEvaluation?->code == "N2") {
-                // 3️⃣ Répartir la note sur les prototypes associés
                 $this->repartirNoteDansRealisationUaPrototypes($realisationTache);
             }
             if ($realisationTache->tache?->phaseEvaluation?->code == "N3") {
-                // 3️⃣ Répartir la note sur les prototypes associés
                 $this->repartirNoteDansRealisationUaProjets($realisationTache);
             }
-
         }
 
-        // 🔄 Résolution automatique de la remédiation dans la table remediations lors du passage à VALIDEE / APPROVED
-        if (\Illuminate\Support\Facades\Schema::hasTable('remediations')) {
-            $nouvelEtat = \Modules\PkgRealisationTache\Models\EtatRealisationTache::with('workflowTache')->find($realisationTache->etat_realisation_tache_id);
-            $wfCode = optional($nouvelEtat?->workflowTache)->code;
-            if (in_array($wfCode, ['VALIDEE', 'APPROVED'])) {
-                \Illuminate\Support\Facades\DB::table('remediations')
-                    ->where('realisation_tache_id', $realisationTache->id)
-                    ->where('est_resolu', 0)
-                    ->update([
-                        'est_resolu' => 1,
-                        'updated_at' => now(),
-                    ]);
-            }
-        }
+        // 🔄 Synchronisation automatique de la remédiation dans la table remediations (délégué au trait)
+        $this->synchroniserRemediationApresUpdate($realisationTache);
 
         // 🔄 Synchronisation automatique des remédiations post-Live Coding si l'état ou le Live Coding a changé
         if ($realisationTache->wasChanged('etat_realisation_tache_id') || $realisationTache->wasChanged('is_live_coding')) {
@@ -478,114 +242,14 @@ trait RealisationTacheCrudTrait
                 }
             }
         }
-    }
 
-
-
-    /**
-     * Helper pour encapsuler la logique de récupération de l'état "DONE"
-     * si le chapitre associé est terminé.
-     */
-    /**
-     * Helper pour vérifier si le chapitre est déjà validé.
-     */
-    protected function shouldSkipCreationIfChapitreDone(array $data): bool
-    {
-        // Bypass si flag explicite (pour éviter boucle infinie lors de création automatique)
-        if (isset($data['__bypass_chapter_check']) && $data['__bypass_chapter_check'] === true) {
-            return false;
-        }
-
-        if (empty($data['tache_id']) || empty($data['realisation_projet_id'])) {
-            return false;
-        }
-
-        $tache = Tache::with('chapitre')->find($data['tache_id']);
-        if (!$tache || !$tache->chapitre) {
-            return false;
-        }
-
-        $realisationProjet = RealisationProjet::with('affectationProjet.projet')->find($data['realisation_projet_id']);
-        if (!$realisationProjet) {
-            return false;
-        }
-
-        // Vérification de l'état du chapitre pour cet apprenant
-        $realisationUaService = new RealisationUaService();
-        $realisationUA = $realisationUaService->getOrCreateApprenant(
-            $realisationProjet->apprenant_id,
-            $tache->chapitre->unite_apprentissage_id
-        );
-
-        $realisationChapitreService = app(\Modules\PkgApprentissage\Services\RealisationChapitreService::class);
-        return $realisationChapitreService->isChapitreAlreadyDone($tache->chapitre->id, $realisationUA->id);
-    }
-
-    /**
-     * Vérifie si l'UA est terminée et crée la tâche de validation du dernier chapitre si nécessaire.
-     */
-    protected function checkAndPerformUaValidationLogic(int $tacheId, int $realisationProjetId): void
-    {
-        $tache = \Modules\PkgCreationTache\Models\Tache::with('chapitre.uniteApprentissage.chapitres')->find($tacheId);
-        $realisationProjet = \Modules\PkgRealisationProjets\Models\RealisationProjet::with('apprenant')->find($realisationProjetId);
-
-        if (!$tache || !$tache->chapitre || !$realisationProjet) {
-            return;
-        }
-
-        $ua = $tache->chapitre->uniteApprentissage;
-        if ($ua) {
-            $totalChapitres = $ua->chapitres->count();
-
-            $realisationUaService = new \Modules\PkgApprentissage\Services\RealisationUaService();
-            $realisationUA = $realisationUaService->getOrCreateApprenant(
-                $realisationProjet->apprenant_id,
-                $tache->chapitre->unite_apprentissage_id
-            );
-
-            // On compte les chapitres validés pour cette UA et cet apprenant
-            $chapitresValides = \Modules\PkgApprentissage\Models\RealisationChapitre::where('realisation_ua_id', $realisationUA->id)
-                ->whereHas('etatRealisationChapitre', function ($q) {
-                    $q->where('code', 'DONE');
-                })
-                ->count();
-
-            if ($chapitresValides >= $totalChapitres) {
-                $etatApprovedId = \Modules\PkgRealisationTache\Models\EtatRealisationTache::whereHas('workflowTache', function ($q) {
-                    $q->where('code', 'APPROVED');
-                })->value('id');
-
-                if ($etatApprovedId) {
-                    // Trouver la tâche du dernier chapitre
-                    $dernierChapitre = $ua->chapitres()->orderBy('ordre', 'desc')->first();
-
-                    if ($dernierChapitre) {
-
-                        // TODO : Problème : il récupére même les tâche qui ne fait pas partie de projet courant
-                        $tacheDernierChapitre = \Modules\PkgCreationTache\Models\Tache::where('chapitre_id', $dernierChapitre->id)->first();
-
-                        if ($tacheDernierChapitre) {
-                            $exists = RealisationTache::where('tache_id', $tacheDernierChapitre->id)
-                                ->where('realisation_projet_id', $realisationProjet->id)
-                                ->exists();
-
-                            if (!$exists) {
-                                $realisationTacheService = new \Modules\PkgRealisationTache\Services\RealisationTacheService();
-                                $realisationTacheService->create([
-                                    'tache_id' => $tacheDernierChapitre->id,
-                                    'realisation_projet_id' => $realisationProjet->id,
-                                    'etat_realisation_tache_id' => $etatApprovedId,
-                                    'date_debut' => now(),
-                                    'date_fin' => now(),
-                                    'description' => "Validation automatique via UA Completed",
-                                    '__bypass_chapter_check' => true
-                                ]);
-                            }
-                        }
-                    }
-                }
+        // 🔄 Propagation automatique de l'absence
+        if ($realisationTache->wasChanged('etat_realisation_tache_id')) {
+            $nouvelEtat = \Modules\PkgRealisationTache\Models\EtatRealisationTache::with('workflowTache')->find($realisationTache->etat_realisation_tache_id);
+            $wfCode = optional($nouvelEtat?->workflowTache)->code;
+            if ($wfCode === 'IN_PROGRESS') {
+                $this->propagerEtatAbsentPourTacheSuivante($realisationTache);
             }
         }
     }
-
 }

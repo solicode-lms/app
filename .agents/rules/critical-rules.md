@@ -31,6 +31,12 @@ Ces règles sont **INVIOLABLES**. Elles garantissent la stabilité, la sécurit�
 - **Toute modification de données passe par le Service :** Interdiction d'appeler `$model->save()`, `$model->update()`, ou `$model->delete()` directement dans les contrôleurs. Toujours appeler la méthode correspondante du Service (`$service->create()`, `$service->update()`).
 - **Relations ManyToMany :** Interdiction d'appeler `$model->relation()->sync()`. Passer le tableau d'IDs dans les données envoyées au Service.
 - **Exceptions Métier BLL :** Pour interrompre un traitement suite à une règle non respectée, lancer `throw new BlException("Message...");`. Ne pas faire de redirections HTTP manuelles.
+- **Limite Stricte de 500 Lignes par Fichier & Règle de Dégagement (< 300 Lignes) (LIGNE ROUGE) :**
+  - **Interdiction formelle de laisser un fichier de Service ou un Trait dépasser 500 lignes de code.**
+  - Dès qu'un fichier approche ou dépasse cette limite, l'agent doit immédiatement le découper en plusieurs Traits spécialisés hautement cohésifs (ex: `[Model]AbsenceTrait`, `[Model]RemediationTrait`).
+  - **Objectif post-refactor (< 300 lignes) :** Lorsqu'un fichier est refactorisé pour régler un problème de 500 lignes, son volume final DOIT impérativement être ramené en dessous de **300 lignes** (< 300 lignes) afin de laisser une marge confortable pour les développements futurs.
+- **Émergence de Nouveaux Services Métier (Même sans Table BDD) :**
+  - Dès qu'un concept fonctionnel ou transversal émerge (ex: `Seance`, `SituationPedagogique`), il est OBLIGATOIRE de créer un Service dédié (ex: `SeanceService`, `SituationPedagogiqueService`), même si aucune table physique correspondante n'existe en base de données. Ne jamais surcharger un Service d'entité avec la logique d'un autre concept métier.
 
 ## 4. Framework Frontend (TableUI & FilterUI)
 - Ne jamais réécrire du code HTML brut ou des écouteurs jQuery ad-hoc pour les tableaux et filtres. Toujours s'appuyer sur l'infrastructure `TableUI.js`, `FilterUI.js`, `data-target-dynamic-dropdown` et `ModalUI.js`.
@@ -38,7 +44,6 @@ Ces règles sont **INVIOLABLES**. Elles garantissent la stabilité, la sécurit�
 ## 5. Priorité Absolue au Contexte Local
 - En cas de divergence entre une règle générale du Hub et une convention spécifique déclarée dans `.agents/references/conventions/`, la convention du projet prévaut toujours.
 
-## 6. Affichage Systématique des Skills Utilisés (Règle d'Or de Communication)
-- À la fin de chaque réponse ou tour de discussion, l'agent DOIT TOUJOURS afficher la liste des skills mobilisés de façon compacte (sur une ligne) :
-  - Format : `> 🛠️ **Skills utilisés :** [nom-du-skill](file://...) · [autre-skill](file://...)`
-  - Si aucun skill n'est requis : `> 🛠️ **Skills utilisés :** Aucun`
+## 6. Affichage Systématique des Skills Mobilisés & Contextes Packages (Règle d'Or de Communication)
+- **Au début de chaque réponse :** L'agent doit afficher les skills mobilisés et, si un package est ciblé, le fichier `[NomPkg]_IA_CONTEXT.md` chargé (voir [.agents/rules/affichage-skills.md](file:///c:/AppServer/solicode-lms/.agents/rules/affichage-skills.md)).
+- **À la fin de la réponse :** L'agent confirme la liste compacte des skills et contextes packages utilisés.

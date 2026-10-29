@@ -7,7 +7,7 @@
 
 ## 1. Objectif de la Matrice
 
-Tous les projets n'ont pas la même finalité. Un projet de **rédaction de tutoriels d'autoformation** ne doit pas être encombré de compétences de scaffolding de base de données (`domain-scaffolder`) ou de diagnostic de logs SQL (`bug-fixer`). Inversement, un projet applicatif **Laravel 3-tiers** a besoin de respecter les verrous Gapp et TableUI sans charger d'outils de pédagogie APC.
+Tous les projets n'ont pas la même finalité. Un projet de **rédaction de tutoriels d'autoformation** ne doit pas être encombré de compétences de scaffolding de base de données (`domain-scaffolder`) ou de développement applicatif (`feature-dev`). Inversement, un projet applicatif **Laravel 3-tiers** a besoin de respecter les verrous Gapp et TableUI sans charger d'outils de pédagogie APC.
 
 Ce document définit la matrice d'adéquation entre la typologie détectée d'un projet et le sous-ensemble strict de compétences du Hub Global à activer dans `.agents/skills.json`.
 
@@ -26,9 +26,8 @@ Ce document définit la matrice d'adéquation entre la typologie détectée d'un
 - **Compétences IA recommandées :**
   - `project-setup` : Orchestration et diagnostic local.
   - `planner-dev` : Analyse d'impact architectural et plan d'action multi-couches sans modification directe de code.
-  - `feature-dev` : Développement traversant (Service, Trait, Controller, Blade, TableUI).
+  - `feature-dev` : Développement traversant et maintenance corrective (Service, Trait, Controller, Blade, TableUI, diagnostic de logs et exceptions).
   - `domain-scaffolder` : Création et modélisation d'entités métier multi-tiers et migrations.
-  - `bug-fixer` : Diagnostic sur logs (`laravel.log`), exceptions `BlException` et fiches d'incidents.
   - `context-generator` : Cartographie contextuelle `AI_CONTEXT.md` des packages et modules.
   - `plugin-dev` : Raffinement des règles, guidelines et gouvernance des skills.
 - **Compétences exclues par défaut :**
@@ -50,7 +49,7 @@ Ce document définit la matrice d'adéquation entre la typologie détectée d'un
   - `tutorial-writer` : Rédaction détaillée des étapes, insertion de snippets vérifiables, quiz et auto-évaluations.
   - `plugin-dev` : Création ou enrichissement de micro-guides spécifiques au domaine enseigné.
 - **Compétences exclues par défaut :**
-  - `domain-scaffolder`, `bug-fixer`, `context-generator`, `feature-dev` (sauf si le tutoriel inclut une application témoin à maintenir).
+  - `domain-scaffolder`, `context-generator`, `feature-dev` (sauf si le tutoriel inclut une application témoin à maintenir).
 
 ---
 
@@ -67,7 +66,7 @@ Ce document définit la matrice d'adéquation entre la typologie détectée d'un
   - `tutorial-writer` : Rédaction des supports méthodologiques associés.
   - `plugin-dev` : Normalisation des fiches d'évaluation.
 - **Compétences exclues par défaut :**
-  - `domain-scaffolder`, `bug-fixer`, `context-generator`, `feature-dev`.
+  - `domain-scaffolder`, `context-generator`, `feature-dev`.
 
 ---
 

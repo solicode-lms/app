@@ -17,25 +17,24 @@ Ce skill pilote la conception et l'échafaudage (*scaffolding*) architectural de
   - Modélisation de nouvelles tables de base de données ou de tables pivots ManyToMany.
   - Préparation d'un schéma d'entité pour génération par Gapp (`make:crud`).
 - **Quand NE PAS l'activer :**
-  - Modification de code ou ajout de méthodes dans une entité existante ➔ Utiliser `feature-dev`.
-  - Simple analyse d'impact sans intention de modéliser de nouvelles tables ➔ Utiliser `architecture-planner`.
-  - Résolution d'anomalies ou de bugs sur une entité existante ➔ Utiliser `bug-fixer`.
+  - Modification, résolution d'anomalies ou de bogues sur une entité existante ➔ Utiliser `feature-dev`.
 
 # 3. Entrées & Ressources à Charger
-- **Priorité 1 :** `.agents/standards/critical-rules.md` (Golden Rules, colonne `reference`, interdiction de migration aveugle).
-- **Priorité 2 :** `.agents/references/architecture/layers-3tiers.md` et `.agents/references/database/migrations-and-schema.md`.
-- **Priorité 3 :** `.agents/references/gapp/01-conventions-et-garde-fous.md`.
-- **Priorité 4 :** `modules/Pkg[Nom]/AI_CONTEXT.md` du package cible pour inspecter les relations déjà existantes.
+- **Priorité 1 :** `.agents/rules/critical-rules.md` (Golden Rules, colonne `reference`, interdiction de migration aveugle).
+- **Priorité 2 :** `.agents/references/architecture/layers-3tiers.md` et `.agents/skills/domain-scaffolder/resources/migrations-and-schema.md`.
+- **Priorité 3 :** `.agents/references/gapp/01-conventions-et-garde-fous.md` et `.agents/skills/domain-scaffolder/resources/workflow-regeneration.md`.
+- **Priorité 4 :** `modules/Pkg[Nom]/Pkg[Nom]_IA_CONTEXT.md` du package cible pour inspecter les relations déjà existantes.
 
 # 4. Contraintes & Règles Inviolables
+- **Chargement Préalable Obligatoire de `[NomPkg]_IA_CONTEXT.md` :** Dès que le package cible est identifié, l'agent DOIT impérativement charger son fichier `modules/Pkg[Nom]/Pkg[Nom]_IA_CONTEXT.md` pour appréhender les entités existantes et leurs relations avant de modéliser.
 - **Colonne `reference` Obligatoire :** Toute nouvelle table principale DOIT impérativement comporter `$table->string('reference')->unique();`.
 - **Interdiction Formelle d'Exécuter `php artisan migrate` :** L'agent produit le code source du fichier de migration, mais la commande `php artisan migrate` doit TOUJOURS être laissée à l'initiative du développeur humain.
 - **Préservation des Classes `Base/` :** Les fichiers dans `Base/` sont la propriété exclusive du générateur Gapp. L'agent prépare les métadonnées et le schéma sans jamais éditer manuellement les fichiers du sous-dossier `Base/`.
 - **Verrous `ESSARRAJ Fouad` :** Lors de la création des classes enfants PHP (`[Model].php`, `[Model]Service.php`), si le générateur Gapp appose l'en-tête de lock, l'agent doit le supprimer dans la classe enfant pour y insérer la logique métier personnalisée.
 
 # 5. Procédure Pas-à-Pas (Workflow de Conception d'Entité)
-1. **Étape 1 : Analyse des Attributs & Relations :**
-   - Identifier le package d'accueil (`modules/Pkg[Nom]/`).
+1. **Étape 1 : Analyse du Contexte & Attributs :**
+   - Identifier le package d'accueil (`modules/Pkg[Nom]/`) et charger obligatoirement son fichier `Pkg[Nom]_IA_CONTEXT.md`.
    - Lister les attributs (nom, type, contraintes, nullable, valeurs par défaut).
    - Définir les relations Eloquent (`belongsTo`, `hasMany`, `belongsToMany`).
 2. **Étape 2 : Écriture de la Migration Normée :**

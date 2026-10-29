@@ -12,7 +12,7 @@
 Le skill `plugin-dev` est l'**architecte et le gouverneur de vos compétences IA**. Il intervient pour :
 1. **Créer une nouvelle compétence :** Rédiger un fichier `SKILL.md` rigoureux respectant le standard normé en 10 rubriques et les patterns Anthropic officiels.
 2. **Promouvoir une compétence :** Convertir un skill local testé sur un projet vers le Hub Global via la commande de promotion en cascade (`manage-skills.cjs promote <skill>`).
-3. **Affiner les règles d'or :** Mettre à jour les consignes comportementales (`AGENTS.md`, `rules/affichage-skills.md`).
+3. **Affiner les règles d'or :** Mettre à jour les consignes comportementales (`rules/critical-rules.md`, `rules/affichage-skills.md`).
 4. **Valider la conformité :** Contrôler la syntaxe avec `validate-skills.cjs` pour garantir 0 erreur bloquante.
 
 ---
@@ -21,7 +21,7 @@ Le skill `plugin-dev` est l'**architecte et le gouverneur de vos compétences IA
 
 - *« Crée un nouveau skill local pour l'automatisation des seeders de test. »*
 - *« Utilise `plugin-dev` pour promouvoir le skill feature-dev vers le Hub Global avec toutes ses dépendances. »*
-- *« Ajoute une règle d'or interdisant les requêtes SQL brutes dans les contrôleurs dans standards/critical-rules.md. »*
+- *« Ajoute une règle d'or interdisant les requêtes SQL brutes dans les contrôleurs dans rules/critical-rules.md. »*
 - *« Vérifie la conformité de tous les skills du projet avec le script de validation. »*
 
 ---

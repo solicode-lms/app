@@ -122,7 +122,7 @@ L'agent fournit systématiquement un rapport d'onboarding structuré comprenant 
 
 ### Exemple 1 : Projet Vierge de Rédaction de Tutoriels d'Autoformation Web
 - **Prompt :** *« Initialise l'agent pour ce projet, nous allons créer des tutoriels d'autoformation web. »*
-- **Comportement de l'agent :** Exécute le bootstrap, identifie le **Profil 2 (Tutoriels & Autoformation)**, configure `.agents/skills.json` avec `["project-setup", "planner-dev", "tutorial-writer", "plugin-dev"]`, exclut `bug-fixer` et `domain-scaffolder`, installe les jonctions unitaires et consigne les conventions dans `.agents/references/conventions/project-conventions.md`.
+- **Comportement de l'agent :** Exécute le bootstrap, identifie le **Profil 2 (Tutoriels & Autoformation)**, configure `.agents/skills.json` avec `["project-setup", "planner-dev", "tutorial-writer", "plugin-dev"]`, exclut `feature-dev` et `domain-scaffolder`, installe les jonctions unitaires et consigne les conventions dans `.agents/references/conventions/project-conventions.md`.
 
 ### Exemple 2 : Modernisation d'un Projet avec Dossier `old_agent`
 - **Prompt :** *« Configure l'agent sur notre application Solicode LMS et nettoie l'ancien dossier old_agent. »*

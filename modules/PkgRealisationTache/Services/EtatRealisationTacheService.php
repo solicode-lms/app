@@ -221,7 +221,7 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
             return false;
         }
 
-        return in_array($etat->workflowTache->code, ['APPROVED', 'NOT_VALIDATED']);
+        return in_array($etat->workflowTache->code, ['APPROVED', 'NOT_VALIDATED', 'VALIDE_INTERMEDIAIRE']);
     }
 
 

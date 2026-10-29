@@ -6,7 +6,7 @@
 > **Fichier technique IA :** [`SKILL.md`](SKILL.md)
 
 ---
-
+aabb
 ## 🎯 1. À quoi sert ce Skill ?
 
 Le skill `project-setup` est l'**orchestrateur universel d'initialisation et de diagnostic d'agent IA**. Il permet :

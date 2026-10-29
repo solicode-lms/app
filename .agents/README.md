@@ -1,7 +1,7 @@
 # 🤖 Assistant IA & Skills Solicode LMS
 
 Bienvenue dans l'espace de configuration et de pilotage de l'Agent IA Solicode LMS.
-Cet environnement normalisé dote votre assistant de **9 compétences modulaires**, de **directives d'intégrité strictes** et de **fiches de référence techniques** connectées au Hub Global.
+Cet environnement normalisé dote votre assistant de **6 compétences modulaires**, de **directives d'intégrité strictes** et de **fiches de référence techniques** connectées au Hub Global.
 
 ---
 
@@ -9,9 +9,8 @@ Cet environnement normalisé dote votre assistant de **9 compétences modulaires
 Chaque compétence dispose de son propre guide d'utilisation dédié (`README.md`) expliquant son rôle, ses scénarios types, ses prompts recommandés et ses garde-fous :
 - [`project-setup`](skills/project-setup/README.md) : Guide d'initialisation, bootstrapping et profils
 - [`plugin-dev`](skills/plugin-dev/README.md) : Guide de gouvernance et validation des skills
-- [`feature-dev`](skills/feature-dev/README.md) : Guide de développement 3-tiers et Blade/TableUI
+- [`feature-dev`](skills/feature-dev/README.md) : Guide de développement 3-tiers, Blade/TableUI et résolution de bogues/logs
 - [`domain-scaffolder`](skills/domain-scaffolder/README.md) : Guide de modélisation et migrations
-- [`bug-fixer`](skills/bug-fixer/README.md) : Guide de diagnostic sur logs et fiches d'incidents
 - [`context-generator`](skills/context-generator/README.md) : Guide de cartographie contextuelle des packages
 - [`planner-dev`](skills/planner-dev/README.md) : Guide d'analyse d'impact et cadrage /plan
 
@@ -27,7 +26,7 @@ Chaque compétence dispose de son propre guide d'utilisation dédié (`README.md
 | **4** | **Nouvelle entité BDD** | *« Crée l'entité SessionFormation dans PkgFormation »* | [`README.md`](skills/domain-scaffolder/README.md) | [`SKILL.md`](skills/domain-scaffolder/SKILL.md) |
 | **5** | **Développement Service** | *« Implémente le hook afterCreateRules pour notifier les formateurs »* | [`README.md`](skills/feature-dev/README.md) | [`SKILL.md`](skills/feature-dev/SKILL.md) |
 | **6** | **Personnalisation UI** | *« Crée une vue custom pour afficher un badge de statut dans TableUI »* | [`README.md`](skills/feature-dev/README.md) | [`SKILL.md`](skills/feature-dev/SKILL.md) |
-| **7** | **Correction de bug log** | *« Analyse la dernière erreur dans laravel.log et applique le fix »* | [`README.md`](skills/bug-fixer/README.md) | [`SKILL.md`](skills/bug-fixer/SKILL.md) |
+| **7** | **Correction de bogue / log** | *« Analyse la dernière erreur dans laravel.log et applique le fix »* | [`README.md`](skills/feature-dev/README.md) | [`SKILL.md`](skills/feature-dev/SKILL.md) |
 | **8** | **Évolution d'une règle** | *« Ajoute une règle interdisant les requêtes directes allQuery »* | [`README.md`](skills/plugin-dev/README.md) | [`SKILL.md`](skills/plugin-dev/SKILL.md) |
 
 *(Note : les compétences pédagogiques `tutorial-writer` et `workshop-builder` du Hub sont exclues de ce projet via `.agents/skills.json`).*
@@ -42,9 +41,8 @@ Toutes les ressources de l'agent sont intégrées sous `.agents/` avec installat
 .agents/
 ├── skills.json   ➔ Manifeste déclaratif des compétences (locales vs liens Hub)
 ├── skills/       ➔ 7 compétences (avec leurs README, scripts et templates dédiés)
-├── references/   ➔ Fiches de référence partagées (Gapp, TableUI, Widgets, 3-tiers)
-├── standards/    ➔ critical-rules.md (règles absolues), principes généraux
-├── rules/        ➔ Directives comportementales Antigravity (affichage-skills.md)
+├── references/   ➔ Fiches de référence transversales partagées (Gapp, TableUI, 3-tiers, conventions)
+├── rules/        ➔ Règles Antigravity (critical-rules.md, affichage-skills.md, gestion-issues.md, etc.)
 ├── scripts/      ➔ deploy-update.cjs (script applicatif d'importation CSV)
 └── tests/        ➔ Traçabilité et retours d'expérience (feedbacks/INC-xxx.yaml)
 ```

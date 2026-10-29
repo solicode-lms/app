@@ -19,10 +19,10 @@ class TacheAffectationService extends BaseTacheAffectationService
      * en fonction des tâches réellement réalisées par les apprenants.
      *
      * 🎯 Règle métier :
-     * - États considérés comme "réalisés" : TO_APPROVE, APPROVED, READY_FOR_LIVE_CODING, IN_LIVE_CODING
-     * - Les tâches en état PAUSED ou NOT_VALIDATED sont exclues du total.
-     * - Si aucune tâche active (≠ PAUSED, NOT_VALIDATED) → 0%
-     * - Calcul : (nombre de tâches réalisées / total des tâches non en pause) × 100
+     * - États considérés comme "réalisés" : TO_APPROVE, APPROVED, READY_FOR_LIVE_CODING, IN_LIVE_CODING, VALIDE_INTERMEDIAIRE
+     * - Les tâches en état PAUSED, NOT_VALIDATED ou ABSENT sont exclues du total (dénominateur).
+     * - Si aucune tâche active (≠ PAUSED, NOT_VALIDATED, ABSENT) → 0%
+     * - Calcul : (nombre de tâches réalisées / total des tâches actives non en pause/absentes) × 100
      *
      * @param TacheAffectation $tacheAffectation L’entité à mettre à jour
      * @return void
@@ -36,10 +36,10 @@ class TacheAffectationService extends BaseTacheAffectationService
             return;
         }
 
-        $etatsExclus = ['PAUSED', 'NOT_VALIDATED'];
-        $etatCodesRealises = ['TO_APPROVE', 'APPROVED', 'READY_FOR_LIVE_CODING', 'IN_LIVE_CODING'];
+        $etatsExclus = ['PAUSED', 'NOT_VALIDATED', 'ABSENT'];
+        $etatCodesRealises = ['TO_APPROVE', 'APPROVED', 'READY_FOR_LIVE_CODING', 'IN_LIVE_CODING', 'VALIDE_INTERMEDIAIRE'];
 
-        // 🔍 Tâches actives (non exclues)
+        // 🔍 Tâches actives (non exclues : apprenants présents et tâches non suspendues)
         $tachesActives = $realisationTaches->filter(function ($tache) use ($etatsExclus) {
             return !in_array(optional($tache->etatRealisationTache?->workflowTache)->code, $etatsExclus);
         });
