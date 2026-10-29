@@ -12,10 +12,11 @@ Il faut détemriner leur Id et les supprimer un par un via un script
 ### En local (Windows)
 ```bash
 php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\CompetenceSeeder"
-
 php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\MicroCompetenceSeeder"
 php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\UniteApprentissageSeeder"
 php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\ChapitreSeeder"
+
+
 php artisan db:seed --class="Modules\PkgSessions\Database\Seeders\SessionFormationSeeder"
 php artisan db:seed --class="Modules\PkgSessions\Database\Seeders\AlignementUaSeeder"
 ```
