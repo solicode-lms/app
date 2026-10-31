@@ -112,6 +112,16 @@ echo "   - Unités d'apprentissage (UA) : " . count($csvUaRefs) . "\n";
 echo "   - Chapitres (Tutoriels) : " . count($csvChapitreRefs) . "\n";
 echo "   - Alignements UA : " . count($csvAlignementRefs) . "\n\n";
 
+if (empty($csvChapitreRefs) && empty($csvUaRefs) && empty($csvSessionRefs)) {
+    echo "\033[31m[ERREUR] Aucun fichier CSV valide trouvé dans : $importDir\033[0m\n";
+    echo "Veuillez d'abord déposer les fichiers CSV exportés dans ce dossier avant de lancer l'analyse :\n";
+    echo "  - chapitres.csv (ou chapitre.csv)\n";
+    echo "  - uniteApprentissages.csv (ou uniteApprentissage.csv)\n";
+    echo "  - sessionFormations.csv (ou sessionFormation.csv)\n";
+    echo "  - alignementUas.csv (ou alignementUa.csv)\n\n";
+    exit(1);
+}
+
 // 5. Recherche des données existantes en BDD pour cette filière
 $obsoleteItems = [];
 

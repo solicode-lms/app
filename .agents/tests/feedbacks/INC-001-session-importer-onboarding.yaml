@@ -1,0 +1,9 @@
+id: INC-001-SESSION-IMPORTER-ONBOARDING
+date: 2026-10-31
+skill: session-importer
+type: lacune
+contexte: "Lancement du workflow d'importation de sessions via /session-importer alors que les répertoires sous deploy/imports/sessions/ n'existent pas encore ou que le concepteur n'a pas déposé les fichiers CSV requis."
+comportement_observe: "L'agent risquait de lancer directement les scripts d'analyse différentielle ou d'échouer sans assister le concepteur dans la création des dossiers requis et le guidage précis sur l'emplacement et les noms des 6 fichiers CSV attendus."
+correction_apportee: "Enrichissement de la Phase 1 du SKILL.md avec une procédure proactive de bootstrap/onboarding : audit et création des répertoires deploy/imports/sessions/{web,mobile,reports}, identification de la filière et guide pas-à-pas pour le dépôt des 6 fichiers CSV avec point de validation HITL avant tout lancement de script."
+version_correctif: 1.1.0
+statut: resolu
