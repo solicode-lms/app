@@ -98,8 +98,14 @@ foreach ($mapping as $key => $config) {
     $lineCount = count(file($foundSource));
     $dataRowCount = max(0, $lineCount - 1); // Déduire l'en-tête
 
-    // Remplacement direct du fichier DataSeeder cible
-    if (copy($foundSource, $targetPath)) {
+    // Nettoyage des lignes vides finales pour sécuriser l'exécution de fgetcsv dans les Seeders
+    $content = file_get_contents($foundSource);
+    $trimmedContent = rtrim($content) . "\n";
+    if (file_put_contents($targetPath, $trimmedContent) !== false) {
+        // Nettoyer également le fichier source si des lignes vides y subsistent
+        if ($trimmedContent !== $content) {
+            file_put_contents($foundSource, $trimmedContent);
+        }
         echo "✅ \033[32m[COPIÉ]\033[0m " . basename($targetPath) . " ➔ $dataRowCount ligne(s) de données depuis " . basename($foundSource) . "\n";
         $successCount++;
     } else {
