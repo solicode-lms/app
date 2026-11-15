@@ -21,8 +21,7 @@ deploy/imports/sessions/
 │   ├── uniteApprentissages.csv
 │   ├── chapitres.csv
 │   ├── sessionFormations.csv
-│   ├── alignementUas.csv
-│   └── import-mobile.ps1          # Assistant guidé pas-à-pas pour le formateur Mobile
+│   └── alignementUas.csv
 ├── reports/                       # Rapports d'analyse et CSV des éléments orphelins détectés
 │   ├── DWB_N1_elements_a_supprimer.csv
 │   └── DMB_N3_elements_a_supprimer.csv
@@ -73,11 +72,11 @@ Déposer les 6 fichiers exportés dans le sous-dossier correspondant :
 Pour la filière Mobile, un assistant interactif pas-à-pas guide le formateur à travers les 5 étapes sans saisie manuelle de commandes :
 
 ```powershell
-# Depuis la racine du projet ou depuis le sous-dossier mobile :
-./deploy/imports/sessions/mobile/import-mobile.ps1
+# Depuis la racine du projet :
+./deploy/imports/import-mobile.ps1
 
 # Ou en forçant un niveau spécifique :
-./deploy/imports/sessions/mobile/import-mobile.ps1 -Niveau 3
+./deploy/imports/import-mobile.ps1 -Niveau 3
 ```
 
 Cet assistant réalise automatiquement :

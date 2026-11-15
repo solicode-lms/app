@@ -34,9 +34,20 @@ if (-not $ScriptDir) {
     $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 }
 
-# Determination dynamique de la racine du projet Solicode LMS
-$ProjectRoot = (Resolve-Path "$ScriptDir\..\..\..\..").Path
-if (-not (Test-Path "$ProjectRoot\artisan")) {
+# Determination dynamique et resiliente de la racine du projet Solicode LMS
+$current = $ScriptDir
+$ProjectRoot = $null
+while ($current -and (Test-Path $current)) {
+    if (Test-Path (Join-Path $current "artisan")) {
+        $ProjectRoot = (Get-Item $current).FullName
+        break
+    }
+    $parent = Split-Path -Parent $current
+    if ($parent -eq $current) { break }
+    $current = $parent
+}
+
+if (-not $ProjectRoot) {
     if (Test-Path ".\artisan") {
         $ProjectRoot = (Get-Item ".").FullName
     } else {
