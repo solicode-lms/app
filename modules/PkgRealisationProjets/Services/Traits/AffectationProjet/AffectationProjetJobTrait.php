@@ -5,6 +5,7 @@ namespace Modules\PkgRealisationProjets\Services\Traits\AffectationProjet;
 use Modules\Core\App\Manager\JobManager;
 use Modules\PkgRealisationTache\Services\TacheAffectationService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
+use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService;
 
 /**
@@ -79,10 +80,14 @@ trait AffectationProjetJobTrait
 
             // 7) Création des RéalisationProjet (idempotent)
             foreach ($apprenants as $apprenant) {
+                // Vérifier si l'affectation n'a pas été supprimée en cours de route par l'utilisateur
+                if (!RealisationProjet::where('affectation_projet_id', $affectation->id)->exists() && !\Modules\PkgRealisationProjets\Models\AffectationProjet::where('id', $affectation->id)->exists()) {
+                    $jobManager->setError("L'affectation #{$affectation->id} a été supprimée pendant l'exécution.");
+                    return 'error';
+                }
 
                 $jobManager->setLabel("Création de réalisation de projet pour : " . $apprenant);
-                $existingRp = $realisationProjetService->getModel()
-                    ->where('apprenant_id', $apprenant->id)
+                $existingRp = RealisationProjet::where('apprenant_id', $apprenant->id)
                     ->where('affectation_projet_id', $affectation->id)
                     ->first();
 
@@ -116,7 +121,9 @@ trait AffectationProjetJobTrait
 
             $jobManager->fail(function () use ($id) {
                 // Suppression de l'entité si afterCreate
-                $this->destroy($id);
+                if (\Modules\PkgRealisationProjets\Models\AffectationProjet::where('id', $id)->exists()) {
+                    $this->destroy($id);
+                }
             }, true, $e);
 
             return 'error';
