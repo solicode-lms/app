@@ -70,28 +70,32 @@ trait AffectationProjetJobTrait
             $evaluationService = app(\Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService::class);
 
             $jobManager->setLabel("Création des tâches affectation");
-            // 6) Création des TacheAffectations : Suivi de réalisation de tâche par groupe
+            // 6) Création des TacheAffectations : Suivi de réalisation de tâche par groupe (idempotent)
             foreach ($taches as $tache) {
-                $tacheAffectationService->create([
-                    'tache_id' => $tache->id,
-                    'affectation_projet_id' => $affectation->id,
-                ]);
+                $tacheAffectationService->getOrCreateTacheAffectation($tache, $affectation);
                 $jobManager->tick();
             }
 
 
-            // 7) Création des RéalisationProjet
+            // 7) Création des RéalisationProjet (idempotent)
             foreach ($apprenants as $apprenant) {
 
                 $jobManager->setLabel("Création de réalisation de projet pour : " . $apprenant);
-                $realisationProjetService->create([
-                    'apprenant_id' => $apprenant->id,
-                    'affectation_projet_id' => $affectation->id,
-                    'date_debut' => $affectation->date_debut,
-                    'date_fin' => $affectation->date_fin,
-                    'rapport' => null,
-                    'etats_realisation_projet_id' => null,
-                ]);
+                $existingRp = $realisationProjetService->getModel()
+                    ->where('apprenant_id', $apprenant->id)
+                    ->where('affectation_projet_id', $affectation->id)
+                    ->first();
+
+                if (!$existingRp) {
+                    $realisationProjetService->create([
+                        'apprenant_id' => $apprenant->id,
+                        'affectation_projet_id' => $affectation->id,
+                        'date_debut' => $affectation->date_debut,
+                        'date_fin' => $affectation->date_fin,
+                        'rapport' => null,
+                        'etats_realisation_projet_id' => null,
+                    ]);
+                }
                 $jobManager->tick();
             }
 

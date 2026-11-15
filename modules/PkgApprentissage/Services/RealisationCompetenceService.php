@@ -204,7 +204,7 @@ class RealisationCompetenceService extends BaseRealisationCompetenceService
 
         // 3️⃣ S'assurer que la réalisation du module existe
         $realisationModuleService = new RealisationModuleService();
-        $realisationModuleService->getOrCreateByApprenant($apprenantId, $moduleId);
+        $realisationModule = $realisationModuleService->getOrCreateByApprenant($apprenantId, $moduleId);
 
         // 4️⃣ Rechercher à nouveau (elle a pu être créée par afterCreateRules du module)
         $rc = $this->model
@@ -215,8 +215,9 @@ class RealisationCompetenceService extends BaseRealisationCompetenceService
         // 5️⃣ Si toujours rien, on crée explicitement la RealisationCompetence
         if (! $rc) {
             $rc = $this->create([
-                'competence_id' => $competenceId,
-                'apprenant_id'  => $apprenantId,
+                'competence_id'         => $competenceId,
+                'apprenant_id'          => $apprenantId,
+                'realisation_module_id' => $realisationModule->id,
                 // etat_realisation_competence_id géré dans create()
             ]);
         }
