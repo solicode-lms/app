@@ -177,25 +177,9 @@ $md .= "```\n";
 $targetFile = $updatesDir . "/update_{$updateNum}.md";
 file_put_contents($targetFile, $md);
 
-// 7. Optionnel : archiver une copie des CSV dans deploy/updates/update_{updateNum}/
-$archiveDir = $updatesDir . "/update_{$updateNum}";
-
-if (is_dir($sourceDir)) {
-    if (!is_dir($archiveDir)) {
-        mkdir($archiveDir, 0777, true);
-    }
-    $csvFiles = glob($sourceDir . '/*.csv');
-    foreach ($csvFiles as $f) {
-        copy($f, $archiveDir . '/' . basename($f));
-    }
-}
-
 echo "\n\033[32m✅ Fiche de déploiement générée avec succès :\033[0m\n";
 echo "   📄 Fichier : \033[33m$targetFile\033[0m\n";
 if ($niveauFilter) {
     echo "   🎯 Niveau : \033[1;32mN{$niveauFilter}\033[0m\n";
-}
-if (is_dir($archiveDir) && !empty(glob($archiveDir . '/*.csv'))) {
-    echo "   📁 CSV archivés dans : \033[33m$archiveDir/\033[0m\n";
 }
 echo "\n";

@@ -13,7 +13,7 @@ Ce skill standardise et automatise l'importation complète des données pédagog
 1. **Assistance Proactive au Bootstrapping & Cadrage :** Diagnostic de l'arborescence `deploy/imports/sessions/`, proposition et création des dossiers manquants (`web/`, `mobile/`, `reports/`), et guidage pas-à-pas du concepteur pour déposer les 6 fichiers CSV au bon endroit.
 2. **Détection différentielle des éléments orphelins :** Identification des tutoriels/chapitres et unités d'apprentissage supprimés dans l'autoformation et suppression sécurisée en cascade en BDD.
 3. **Alimentation ciblée des fichiers CSV DataSeeder :** Mise à jour propre de `modules/PkgCompetences/Database/data/` et `modules/PkgSessions/Database/data/`.
-4. **Génération automatique de la fiche de déploiement :** Production de `deploy/updates/update_X.md` (commandes locales Windows et production Linux).
+4. **Génération Obligatoire et Systématique de la fiche de déploiement :** Production systématique du fichier `deploy/updates/update_X.md` récapitulant les commandes de suppression et d'exécution des seeders (commandes locales Windows et production Linux).
 5. **Exécution séquentielle et contrôlée des 6 seeders :** Déroulement ordonné avec arrêt immédiat et formulation d'un prompt d'incident ciblé pour l'agent source (`autoformation-web` ou `autoformation-mobile`) en cas d'erreur.
 
 ---
@@ -59,6 +59,7 @@ Ce skill standardise et automatise l'importation complète des données pédagog
 5. **Arrêt Immédiat en Cas d'Erreur :** Si un seeder échoue, interrompre immédiatement le workflow, isoler la ligne incriminée et générer le prompt de correction pour l'agent de l'autoformation concerné.
 6. **Interdiction Absolue de `php artisan migrate` :** Ne jamais tenter d'altérer la structure de la BDD.
 7. **Préservation des Fichiers `Base/` :** Ne modifier aucun seeder dans `Base/`.
+8. **Obligation Systématique de Génération de la Fiche `deploy/updates/update_X.md` :** Pour TOUTE opération d'importation, d'ajout ou de mise à jour de sessions, l'agent a l'**obligation absolue** d'exécuter `generate_update_doc.php` afin de générer le fichier de commandes `deploy/updates/update_X.md`. L'intervention ne peut JAMAIS être considérée comme terminée sans la création et la validation formelle de cette fiche. (Note : seul le fichier `.md` contenant les commandes doit être produit, aucun sous-dossier d'archive n'est requis sous `deploy/updates/`).
 
 ---
 
@@ -118,12 +119,16 @@ Ce skill standardise et automatise l'importation complète des données pédagog
    ```
 2. Contrôler que les 6 fichiers ont bien été copiés dans `modules/PkgCompetences/Database/data/` et `modules/PkgSessions/Database/data/`.
 
-### Phase 5 : Génération de la Fiche `deploy/updates/update_X.md` & Validation #3
-1. Générer la fiche de mise à jour prête pour le déploiement (intégrant le niveau et la commande Linux sécurisée) :
+### Phase 5 : Génération Obligatoire de la Fiche `deploy/updates/update_X.md` & Archivage (Validation #3)
+1. **Exécution obligatoire du générateur :**
+   Exécuter systématiquement le script `generate_update_doc.php` en précisant la filière, le niveau et un titre explicite :
    ```bash
-   php deploy/imports/sessions/generate_update_doc.php --filiere=[DWB|DMB] [--niveau=3] --num=[N] --title="[Titre]"
+   php deploy/imports/sessions/generate_update_doc.php --filiere=[DWB|DMB] [--niveau=3] --title="[Titre explicite de la mise à jour]"
    ```
-2. **Point de Validation #3 :** Le concepteur vérifie la fiche `deploy/updates/update_[N].md` générée.
+2. **Vérification de la fiche et de l'archive :**
+   - Contrôler que le fichier `deploy/updates/update_[N].md` est créé et qu'il liste les suppressions éventuelles ainsi que les commandes pour Windows et Linux (avec `--niveau` si applicable).
+   - Contrôler que le sous-dossier `deploy/updates/update_[N]/` contient bien l'archive des CSVs importés.
+3. **Point de Validation #3 :** Présenter au concepteur le lien vers la fiche de déploiement générée `deploy/updates/update_[N].md` pour relecture et approbation avant l'exécution locale des seeders.
 
 ### Phase 6 : Exécution Séquentielle des 6 Seeders & Gestion des Incidents
 1. Exécuter un par un les seeders dans l'ordre strict :
