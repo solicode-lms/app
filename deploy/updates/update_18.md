@@ -1,4 +1,4 @@
-# Ajout des sessions Mobile N3 et synchronisation des compétences
+# Ajout sessions Mobile N3
 
 ## 1. Suppressions
 

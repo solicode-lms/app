@@ -119,15 +119,14 @@ Ce skill standardise et automatise l'importation complète des données pédagog
    ```
 2. Contrôler que les 6 fichiers ont bien été copiés dans `modules/PkgCompetences/Database/data/` et `modules/PkgSessions/Database/data/`.
 
-### Phase 5 : Génération Obligatoire de la Fiche `deploy/updates/update_X.md` & Archivage (Validation #3)
+### Phase 5 : Génération Obligatoire de la Fiche de Commandes `deploy/updates/update_X.md` (Validation #3)
 1. **Exécution obligatoire du générateur :**
    Exécuter systématiquement le script `generate_update_doc.php` en précisant la filière, le niveau et un titre explicite :
    ```bash
    php deploy/imports/sessions/generate_update_doc.php --filiere=[DWB|DMB] [--niveau=3] --title="[Titre explicite de la mise à jour]"
    ```
-2. **Vérification de la fiche et de l'archive :**
-   - Contrôler que le fichier `deploy/updates/update_[N].md` est créé et qu'il liste les suppressions éventuelles ainsi que les commandes pour Windows et Linux (avec `--niveau` si applicable).
-   - Contrôler que le sous-dossier `deploy/updates/update_[N]/` contient bien l'archive des CSVs importés.
+2. **Vérification du fichier de commandes :**
+   - Contrôler que le fichier `deploy/updates/update_[N].md` est créé et qu'il liste les suppressions éventuelles ainsi que les commandes pour Windows et Linux (avec `--niveau` si applicable). Seul le fichier `.md` est attendu sous `deploy/updates/`.
 3. **Point de Validation #3 :** Présenter au concepteur le lien vers la fiche de déploiement générée `deploy/updates/update_[N].md` pour relecture et approbation avant l'exécution locale des seeders.
 
 ### Phase 6 : Exécution Séquentielle des 6 Seeders & Gestion des Incidents
