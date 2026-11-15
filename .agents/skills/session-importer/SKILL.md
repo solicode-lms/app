@@ -92,32 +92,36 @@ Ce skill standardise et automatise l'importation complète des données pédagog
 5. **Point de Validation #1 :** Demander confirmation au concepteur de la filière et de la disponibilité effective des 6 fichiers CSV avant d'engager la Phase 2.
 
 ### Phase 2 : Détection des Données Orphelines & Validation #2
-1. Lancer l'analyse différentielle en lecture seule :
+1. Lancer l'analyse différentielle en lecture seule (le niveau est détecté automatiquement depuis les CSV ou forcé via `--niveau`) :
    ```bash
+   # Détection automatique du niveau (ex: N1 pour Web, N3 pour Mobile)
    php deploy/imports/sessions/detect_obsolete_data.php --filiere=[DWB|DMB]
+
+   # Ou en forçant explicitement le niveau ciblé
+   php deploy/imports/sessions/detect_obsolete_data.php --filiere=DMB --niveau=3
    ```
-2. Examiner le rapport généré `deploy/imports/sessions/reports/[filiere]_elements_a_supprimer.csv`.
+2. Examiner le rapport généré `deploy/imports/sessions/reports/[filiere]_N[niveau]_elements_a_supprimer.csv`.
 3. Présenter au concepteur le récapitulatif des tutoriels et UAs orphelins détectés.
 4. **Point de Validation #2 :** Le concepteur valide la purge de ces éléments en base.
 
 ### Phase 3 : Suppression Directe en Cascade en BDD
-1. Dès validation du concepteur, exécuter la suppression en BDD :
+1. Dès validation du concepteur, exécuter la suppression en BDD pour le niveau ciblé :
    ```bash
-   php deploy/imports/sessions/detect_obsolete_data.php --filiere=[DWB|DMB] --delete
+   php deploy/imports/sessions/detect_obsolete_data.php --filiere=[DWB|DMB] [--niveau=3] --delete
    ```
 2. Vérifier que la suppression en cascade s'est déroulée sans erreur de contrainte.
 
 ### Phase 4 : Alimentation des DataSeeders
-1. Remplacer les données des CSV officiels du LMS par celles de la filière traitée :
+1. Remplacer les données des CSV officiels du LMS par celles de la filière et du niveau traités :
    ```bash
-   php deploy/imports/sessions/copy_to_dataseeders.php --filiere=[DWB|DMB]
+   php deploy/imports/sessions/copy_to_dataseeders.php --filiere=[DWB|DMB] [--niveau=3]
    ```
 2. Contrôler que les 6 fichiers ont bien été copiés dans `modules/PkgCompetences/Database/data/` et `modules/PkgSessions/Database/data/`.
 
 ### Phase 5 : Génération de la Fiche `deploy/updates/update_X.md` & Validation #3
-1. Générer la fiche de mise à jour prête pour le déploiement :
+1. Générer la fiche de mise à jour prête pour le déploiement (intégrant le niveau et la commande Linux sécurisée) :
    ```bash
-   php deploy/imports/sessions/generate_update_doc.php --filiere=[DWB|DMB] --num=[N] --title="[Titre]"
+   php deploy/imports/sessions/generate_update_doc.php --filiere=[DWB|DMB] [--niveau=3] --num=[N] --title="[Titre]"
    ```
 2. **Point de Validation #3 :** Le concepteur vérifie la fiche `deploy/updates/update_[N].md` générée.
 

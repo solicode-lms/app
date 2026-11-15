@@ -8,17 +8,18 @@
  * 
  * Usage:
  *   php deploy/imports/sessions/generate_update_doc.php --filiere=DWB --num=17 --title="Mise à jour sessions Web S3 à S7"
- *   php deploy/imports/sessions/generate_update_doc.php --filiere=DM
+ *   php deploy/imports/sessions/generate_update_doc.php --filiere=DMB [--niveau=3]
  */
 
-$options = getopt("", ["filiere:", "num:", "title:"]);
+$options = getopt("", ["filiere:", "num:", "title:", "niveau:"]);
 $filiereInput = $options['filiere'] ?? null;
 $numInput = $options['num'] ?? null;
 $titleInput = $options['title'] ?? null;
+$niveauInput = $options['niveau'] ?? null;
 
 if (!$filiereInput) {
     echo "\n\033[31m[ERREUR] L'argument --filiere est obligatoire.\033[0m\n";
-    echo "Exemple : php deploy/imports/sessions/generate_update_doc.php --filiere=DWB [--num=17] [--title=\"...\"]\n\n";
+    echo "Exemple : php deploy/imports/sessions/generate_update_doc.php --filiere=DMB [--niveau=3] [--num=18] [--title=\"...\"]\n\n";
     exit(1);
 }
 
@@ -30,7 +31,49 @@ if (!is_dir($updatesDir)) {
     mkdir($updatesDir, 0777, true);
 }
 
-// 1. Détermination du numéro d'update si non spécifié
+// 1. Détermination du répertoire source des CSV et du niveau
+$subDir = (strpos($filiereCode, 'MOB') !== false || in_array($filiereCode, ['DM', 'DMB'])) ? 'mobile' : 'web';
+$sourceDir = __DIR__ . '/' . $subDir;
+
+$niveauFilter = null;
+if ($niveauInput !== null) {
+    $cleaned = preg_replace('/[^0-9]/', '', $niveauInput);
+    if ($cleaned !== '') {
+        $niveauFilter = $cleaned;
+    }
+} else {
+    // Détection automatique du niveau depuis les CSV
+    $files = ['chapitres.csv', 'chapitre.csv', 'uniteApprentissages.csv', 'uniteApprentissage.csv', 'microCompetences.csv', 'competences.csv'];
+    $levelsFound = [];
+    foreach ($files as $name) {
+        $p = $sourceDir . '/' . $name;
+        if (!file_exists($p)) continue;
+        if (($handle = fopen($p, 'r')) !== false) {
+            $headers = fgetcsv($handle);
+            if ($headers) {
+                $codeIdx = array_search('code', $headers);
+                if ($codeIdx !== false) {
+                    while (($row = fgetcsv($handle)) !== false) {
+                        if (isset($row[$codeIdx])) {
+                            $code = trim($row[$codeIdx]);
+                            if (preg_match('/^(?:TUTO-)?(?:[A-Z]+)\.([0-9])/i', $code, $matches)) {
+                                $digit = $matches[1];
+                                $levelsFound[$digit] = ($levelsFound[$digit] ?? 0) + 1;
+                            }
+                        }
+                    }
+                }
+            }
+            fclose($handle);
+        }
+    }
+    if (!empty($levelsFound)) {
+        arsort($levelsFound);
+        $niveauFilter = (string)array_key_first($levelsFound);
+    }
+}
+
+// 2. Détermination du numéro d'update si non spécifié
 if (!$numInput) {
     $existingUpdates = glob($updatesDir . '/update_*.md');
     $maxNum = 0;
@@ -47,15 +90,29 @@ if (!$numInput) {
     $updateNum = (int)$numInput;
 }
 
-// 2. Détermination du titre
+// 3. Détermination du titre
 $filiereLabel = (strpos($filiereCode, 'MOB') !== false || in_array($filiereCode, ['DM', 'DMB'])) ? 'Développement Mobile' : 'Développement Web';
-$defaultTitle = "Mise à jour des sessions et compétences ($filiereLabel)";
+$niveauSuffix = $niveauFilter ? " - Niveau N{$niveauFilter}" : "";
+$defaultTitle = "Mise à jour des sessions et compétences ({$filiereLabel}{$niveauSuffix})";
 $title = $titleInput ?: $defaultTitle;
 
-// 3. Lecture du rapport d'orphelins s'il existe
-$reportFile = __DIR__ . '/reports/' . $filiereCode . '_elements_a_supprimer.csv';
+// 4. Lecture du rapport d'orphelins s'il existe
+$reportFileCandidates = [];
+if ($niveauFilter) {
+    $reportFileCandidates[] = __DIR__ . '/reports/' . $filiereCode . '_N' . $niveauFilter . '_elements_a_supprimer.csv';
+}
+$reportFileCandidates[] = __DIR__ . '/reports/' . $filiereCode . '_elements_a_supprimer.csv';
+
+$reportFile = null;
+foreach ($reportFileCandidates as $candidate) {
+    if (file_exists($candidate)) {
+        $reportFile = $candidate;
+        break;
+    }
+}
+
 $deletedItems = [];
-if (file_exists($reportFile) && ($handle = fopen($reportFile, 'r')) !== false) {
+if ($reportFile && ($handle = fopen($reportFile, 'r')) !== false) {
     $headers = fgetcsv($handle);
     while (($row = fgetcsv($handle)) !== false) {
         if (count($row) >= 5) {
@@ -71,12 +128,12 @@ if (file_exists($reportFile) && ($handle = fopen($reportFile, 'r')) !== false) {
     fclose($handle);
 }
 
-// 4. Construction du contenu Markdown
+// 5. Construction du contenu Markdown
 $md = "# $title\n\n";
 
 if (!empty($deletedItems)) {
     $md .= "## 1. Données orphelines à supprimer en BDD\n\n";
-    $md .= "Les éléments ci-dessous existent en base de données pour la filière **$filiereLabel** mais n'apparaissent plus dans les fichiers d'importation CSV.\n";
+    $md .= "Les éléments ci-dessous existent en base de données pour la filière **$filiereLabel**" . ($niveauFilter ? " (Niveau **N{$niveauFilter}**)" : "") . " mais n'apparaissent plus dans les fichiers d'importation CSV.\n";
     $md .= "La suppression en cascade de ces enregistrements doit être effectuée via le script dédié ou les commandes ci-après.\n\n";
     
     $md .= "### Liste des éléments orphelins détectés (" . count($deletedItems) . ") :\n";
@@ -85,13 +142,14 @@ if (!empty($deletedItems)) {
     }
     $md .= "\n";
 
+    $cmdNiveau = $niveauFilter ? " --niveau={$niveauFilter}" : "";
     $md .= "### Script de suppression en production (Linux) :\n";
     $md .= "```bash\n";
-    $md .= "php deploy/imports/sessions/detect_obsolete_data.php --filiere=$filiereCode --delete\n";
+    $md .= "php deploy/imports/sessions/detect_obsolete_data.php --filiere={$filiereCode}{$cmdNiveau} --delete\n";
     $md .= "```\n\n";
 } else {
     $md .= "## 1. Suppressions\n\n";
-    $md .= "Aucun élément orphelin à supprimer pour cette mise à jour.\n\n";
+    $md .= "Aucun élément orphelin à supprimer pour cette mise à jour" . ($niveauFilter ? " (Niveau N{$niveauFilter})" : "") . ".\n\n";
 }
 
 $md .= "## 2. Exécution des Seeders\n\n";
@@ -115,13 +173,11 @@ $md .= "sudo php artisan db:seed --class=\"Modules\\PkgSessions\\Database\\Seede
 $md .= "sudo php artisan db:seed --class=\"Modules\\PkgSessions\\Database\\Seeders\\AlignementUaSeeder\"\n";
 $md .= "```\n";
 
-// 5. Écriture du fichier update_X.md
+// 6. Écriture du fichier update_X.md
 $targetFile = $updatesDir . "/update_{$updateNum}.md";
 file_put_contents($targetFile, $md);
 
-// 6. Optionnel : archiver une copie des CSV dans deploy/updates/update_{updateNum}/
-$subDir = (strpos($filiereCode, 'MOB') !== false || in_array($filiereCode, ['DM', 'DMB'])) ? 'mobile' : 'web';
-$sourceDir = __DIR__ . '/' . $subDir;
+// 7. Optionnel : archiver une copie des CSV dans deploy/updates/update_{updateNum}/
 $archiveDir = $updatesDir . "/update_{$updateNum}";
 
 if (is_dir($sourceDir)) {
@@ -136,6 +192,9 @@ if (is_dir($sourceDir)) {
 
 echo "\n\033[32m✅ Fiche de déploiement générée avec succès :\033[0m\n";
 echo "   📄 Fichier : \033[33m$targetFile\033[0m\n";
+if ($niveauFilter) {
+    echo "   🎯 Niveau : \033[1;32mN{$niveauFilter}\033[0m\n";
+}
 if (is_dir($archiveDir) && !empty(glob($archiveDir . '/*.csv'))) {
     echo "   📁 CSV archivés dans : \033[33m$archiveDir/\033[0m\n";
 }

@@ -3,12 +3,13 @@
  * detect_obsolete_data.php
  * 
  * Analyse différentielle entre les fichiers CSV d'importation et la base de données Solicode LMS.
- * Détecte les tutoriels (chapitres) et unités d'apprentissage existants en BDD pour la filière ciblée
- * mais qui n'apparaissent plus dans les nouveaux CSV d'autoformation.
+ * Détecte les tutoriels (chapitres), unités d'apprentissage et alignements existants en BDD
+ * pour la filière et le niveau ciblés mais qui n'apparaissent plus dans les nouveaux CSV d'autoformation.
  * 
  * Usage:
  *   php deploy/imports/sessions/detect_obsolete_data.php --filiere=DWB
- *   php deploy/imports/sessions/detect_obsolete_data.php --filiere=DWB --delete
+ *   php deploy/imports/sessions/detect_obsolete_data.php --filiere=DMB [--niveau=3]
+ *   php deploy/imports/sessions/detect_obsolete_data.php --filiere=DMB --delete
  */
 
 // 1. Initialisation de l'environnement Laravel
@@ -24,15 +25,16 @@ use Modules\PkgSessions\Models\SessionFormation;
 use Modules\PkgSessions\Models\AlignementUa;
 
 // 2. Analyse des arguments en ligne de commande
-$options = getopt("", ["filiere:", "delete", "dir:"]);
+$options = getopt("", ["filiere:", "delete", "dir:", "niveau:"]);
 
 $filiereInput = $options['filiere'] ?? null;
 $shouldDelete = isset($options['delete']);
 $customDir = $options['dir'] ?? null;
+$niveauInput = $options['niveau'] ?? null;
 
 if (!$filiereInput) {
     echo "\n\033[31m[ERREUR] L'argument --filiere est obligatoire.\033[0m\n";
-    echo "Exemple : php deploy/imports/sessions/detect_obsolete_data.php --filiere=DWB [--delete]\n\n";
+    echo "Exemple : php deploy/imports/sessions/detect_obsolete_data.php --filiere=DMB [--niveau=3] [--delete]\n\n";
     exit(1);
 }
 
@@ -47,10 +49,6 @@ if (!$filiere) {
     exit(1);
 }
 
-echo "\n\033[36m===================================================================\033[0m\n";
-echo "\033[1;36m  🔍 ANALYSE DIFFÉRENTIELLE DES DONNÉES - FILIÈRE {$filiere->code} ({$filiere->nom})\033[0m\n";
-echo "\033[36m===================================================================\033[0m\n";
-
 // 3. Détermination du dossier source des CSV
 if ($customDir) {
     $importDir = $customDir;
@@ -64,7 +62,96 @@ if (!is_dir($importDir)) {
     exit(1);
 }
 
+// Fonction utilitaire pour détecter automatiquement le niveau depuis les CSV
+function detectNiveauFromCsvs(string $importDir): array {
+    $files = [
+        ['chapitres.csv', 'chapitre.csv'],
+        ['uniteApprentissages.csv', 'uniteApprentissage.csv', 'uas.csv'],
+        ['microCompetences.csv', 'microCompetence.csv'],
+        ['competences.csv', 'competence.csv'],
+    ];
+
+    $levelsFound = [];
+
+    foreach ($files as $candidates) {
+        $found = null;
+        foreach ($candidates as $name) {
+            $p = $importDir . '/' . $name;
+            if (file_exists($p)) {
+                $found = $p;
+                break;
+            }
+        }
+        if (!$found) {
+            continue;
+        }
+
+        if (($handle = fopen($found, 'r')) !== false) {
+            $headers = fgetcsv($handle);
+            if ($headers) {
+                $codeIdx = array_search('code', $headers);
+                if ($codeIdx !== false) {
+                    while (($row = fgetcsv($handle)) !== false) {
+                        if (isset($row[$codeIdx])) {
+                            $code = trim($row[$codeIdx]);
+                            // Patterns: C.311, D.311.1, UA.351.21, T.311.211, TUTO-UA.111.12
+                            if (preg_match('/^(?:TUTO-)?(?:[A-Z]+)\.([0-9])/i', $code, $matches)) {
+                                $digit = $matches[1];
+                                $levelsFound[$digit] = ($levelsFound[$digit] ?? 0) + 1;
+                            }
+                        }
+                    }
+                }
+            }
+            fclose($handle);
+        }
+    }
+
+    return $levelsFound;
+}
+
+// Résolution du niveau (argument explicite ou détection automatique)
+$niveauFilter = null;
+$niveauDetectionMode = 'auto';
+
+if ($niveauInput !== null) {
+    if (strtolower(trim($niveauInput)) === 'all') {
+        $niveauFilter = null;
+        $niveauDetectionMode = 'all';
+    } else {
+        $cleaned = preg_replace('/[^0-9]/', '', $niveauInput);
+        if ($cleaned !== '') {
+            $niveauFilter = $cleaned;
+            $niveauDetectionMode = 'param';
+        }
+    }
+} else {
+    // Détection automatique depuis les CSV
+    $detectedLevels = detectNiveauFromCsvs($importDir);
+    if (!empty($detectedLevels)) {
+        arsort($detectedLevels);
+        $topLevel = array_key_first($detectedLevels);
+        $niveauFilter = (string)$topLevel;
+        $niveauDetectionMode = 'auto';
+    }
+}
+
+echo "\n\033[36m===================================================================\033[0m\n";
+$niveauBanner = $niveauFilter ? " [NIVEAU N{$niveauFilter}]" : " [TOUS NIVEAUX]";
+echo "\033[1;36m  🔍 ANALYSE DIFFÉRENTIELLE DES DONNÉES - FILIÈRE {$filiere->code} ({$filiere->nom}){$niveauBanner}\033[0m\n";
+echo "\033[36m===================================================================\033[0m\n";
 echo "📂 Répertoire source analysé : \033[33m$importDir\033[0m\n";
+
+if ($niveauFilter) {
+    if ($niveauDetectionMode === 'auto') {
+        echo "🎯 Niveau détecté automatiquement : \033[1;32mN{$niveauFilter}\033[0m (depuis les codes des CSV sources)\n";
+    } else {
+        echo "🎯 Niveau forcé par argument : \033[1;32mN{$niveauFilter}\033[0m (--niveau={$niveauFilter})\n";
+    }
+} else {
+    echo "ℹ️  Aucun filtre de niveau appliqué (audit global sur toute la filière)\n";
+}
+echo "\n";
 
 // Fonction utilitaire pour lire les références depuis un CSV (en gérant singulier/pluriel)
 function getCsvReferences(string $importDir, array $possibleFileNames): array {
@@ -122,13 +209,24 @@ if (empty($csvChapitreRefs) && empty($csvUaRefs) && empty($csvSessionRefs)) {
     exit(1);
 }
 
-// 5. Recherche des données existantes en BDD pour cette filière
+// 5. Recherche des données existantes en BDD pour cette filière (et ce niveau)
 $obsoleteItems = [];
 
 // 5.1 Chapitres (Tutoriels) orphelins
-$dbChapitres = Chapitre::whereHas('uniteApprentissage.microCompetence.competence.module', function($q) use ($filiere) {
+$dbChapitresQuery = Chapitre::whereHas('uniteApprentissage.microCompetence.competence.module', function($q) use ($filiere) {
     $q->where('filiere_id', $filiere->id);
-})->get();
+});
+
+if ($niveauFilter !== null) {
+    $dbChapitresQuery->where(function ($q) use ($niveauFilter) {
+        $q->where('code', 'LIKE', "T.{$niveauFilter}%")
+          ->orWhereHas('uniteApprentissage', function ($uaQuery) use ($niveauFilter) {
+              $uaQuery->where('code', 'LIKE', "UA.{$niveauFilter}%");
+          });
+    });
+}
+
+$dbChapitres = $dbChapitresQuery->get();
 
 foreach ($dbChapitres as $chapitre) {
     if (!empty($chapitre->reference) && !isset($csvChapitreRefs[$chapitre->reference])) {
@@ -144,9 +242,15 @@ foreach ($dbChapitres as $chapitre) {
 }
 
 // 5.2 Unités d'apprentissage orphelines
-$dbUas = UniteApprentissage::whereHas('microCompetence.competence.module', function($q) use ($filiere) {
+$dbUasQuery = UniteApprentissage::whereHas('microCompetence.competence.module', function($q) use ($filiere) {
     $q->where('filiere_id', $filiere->id);
-})->get();
+});
+
+if ($niveauFilter !== null) {
+    $dbUasQuery->where('code', 'LIKE', "UA.{$niveauFilter}%");
+}
+
+$dbUas = $dbUasQuery->get();
 
 foreach ($dbUas as $ua) {
     if (!empty($ua->reference) && !isset($csvUaRefs[$ua->reference])) {
@@ -162,9 +266,17 @@ foreach ($dbUas as $ua) {
 }
 
 // 5.3 Alignements UA orphelins
-$dbAlignements = AlignementUa::whereHas('sessionFormation', function($q) use ($filiere) {
+$dbAlignementsQuery = AlignementUa::whereHas('sessionFormation', function($q) use ($filiere) {
     $q->where('filiere_id', $filiere->id);
-})->get();
+});
+
+if ($niveauFilter !== null) {
+    $dbAlignementsQuery->whereHas('uniteApprentissage', function ($q) use ($niveauFilter) {
+        $q->where('code', 'LIKE', "UA.{$niveauFilter}%");
+    });
+}
+
+$dbAlignements = $dbAlignementsQuery->get();
 
 foreach ($dbAlignements as $alignement) {
     if (!empty($alignement->reference) && !isset($csvAlignementRefs[$alignement->reference])) {
@@ -185,7 +297,8 @@ if (!is_dir($reportsDir)) {
     mkdir($reportsDir, 0777, true);
 }
 
-$reportFile = $reportsDir . '/' . $filiereCode . '_elements_a_supprimer.csv';
+$reportFileName = $filiereCode . ($niveauFilter ? '_N' . $niveauFilter : '') . '_elements_a_supprimer.csv';
+$reportFile = $reportsDir . '/' . $reportFileName;
 $csvOut = fopen($reportFile, 'w');
 fputcsv($csvOut, ['type', 'id', 'reference', 'code', 'nom']);
 
@@ -207,7 +320,7 @@ $tutoCount = count(array_filter($obsoleteItems, fn($i) => $i['type'] === 'Chapit
 $uaCount = count(array_filter($obsoleteItems, fn($i) => $i['type'] === 'UniteApprentissage'));
 $alignCount = count(array_filter($obsoleteItems, fn($i) => $i['type'] === 'AlignementUa'));
 
-echo "Résultat de la détection :\n";
+echo "Résultat de la détection (Filière {$filiereCode}" . ($niveauFilter ? " - Niveau N{$niveauFilter}" : "") . ") :\n";
 echo "  - Chapitres / Tutos orphelins en BDD : \033[1;33m$tutoCount\033[0m\n";
 echo "  - Unités d'apprentissage orphelines : \033[1;33m$uaCount\033[0m\n";
 echo "  - Alignements UA orphelins : \033[1;33m$alignCount\033[0m\n";
@@ -228,7 +341,7 @@ if (count($obsoleteItems) > 0) {
 // 8. Suppression effective si demandé via --delete
 if ($shouldDelete) {
     if (count($obsoleteItems) === 0) {
-        echo "\n\033[32m✅ Aucun élément orphelin à supprimer.\033[0m\n\n";
+        echo "\n\033[32m✅ Aucun élément orphelin à supprimer pour ce périmètre.\033[0m\n\n";
     } else {
         echo "\n\033[31m⚠️ Exécution de la suppression en cascade en cours...\033[0m\n";
         
@@ -274,5 +387,6 @@ if ($shouldDelete) {
     }
 } else {
     echo "\n\033[33mℹ️ Mode audit (lecture seule). Pour exécuter la suppression en BDD, relancez avec l'option --delete :\033[0m\n";
-    echo "   php deploy/imports/sessions/detect_obsolete_data.php --filiere={$filiereCode} --delete\n\n";
+    $cmdNiveau = $niveauFilter ? " --niveau={$niveauFilter}" : "";
+    echo "   php deploy/imports/sessions/detect_obsolete_data.php --filiere={$filiereCode}{$cmdNiveau} --delete\n\n";
 }
