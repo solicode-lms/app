@@ -73,21 +73,41 @@ if ($niveauInput !== null) {
     }
 }
 
-// 2. Détermination du numéro d'update si non spécifié
-if (!$numInput) {
-    $existingUpdates = glob($updatesDir . '/update_*.md');
-    $maxNum = 0;
-    foreach ($existingUpdates as $file) {
-        if (preg_match('/update_(\d+)\.md$/', $file, $m)) {
-            $n = (int)$m[1];
-            if ($n > $maxNum) {
-                $maxNum = $n;
+$today = date('Y-m-d');
+
+// 2. Détermination du fichier d'update (par numéro et par date)
+$existingUpdates = glob($updatesDir . '/update_*.md');
+$existingTodayFile = null;
+
+// Vérifier si un fichier d'update pour aujourd'hui existe déjà (ex: update_*_2026-11-15.md)
+foreach ($existingUpdates as $file) {
+    if (preg_match('/update_(\d+)_' . preg_quote($today, '/') . '\.md$/', basename($file), $m)) {
+        $existingTodayFile = $file;
+        $updateNum = (int)$m[1];
+        break;
+    }
+}
+
+if ($existingTodayFile && !$numInput) {
+    $targetFile = $existingTodayFile;
+    echo "\nℹ️  Fiche de déploiement existante détectée pour la date du jour ({$today}) : \033[33m" . basename($targetFile) . "\033[0m\n";
+    echo "   Mise à jour du contenu existant (pas de création d'un nouveau numéro inutile).\n";
+} else {
+    if (!$numInput) {
+        $maxNum = 0;
+        foreach ($existingUpdates as $file) {
+            if (preg_match('/update_(\d+)(?:_.*)?\.md$/', basename($file), $m)) {
+                $n = (int)$m[1];
+                if ($n > $maxNum) {
+                    $maxNum = $n;
+                }
             }
         }
+        $updateNum = $maxNum + 1;
+    } else {
+        $updateNum = (int)$numInput;
     }
-    $updateNum = $maxNum + 1;
-} else {
-    $updateNum = (int)$numInput;
+    $targetFile = $updatesDir . "/update_{$updateNum}_{$today}.md";
 }
 
 // 3. Détermination du titre
@@ -174,7 +194,6 @@ $md .= "sudo php artisan db:seed --class=\"Modules\\PkgSessions\\Database\\Seede
 $md .= "```\n";
 
 // 6. Écriture du fichier update_X.md
-$targetFile = $updatesDir . "/update_{$updateNum}.md";
 file_put_contents($targetFile, $md);
 
 echo "\n\033[32m✅ Fiche de déploiement générée avec succès :\033[0m\n";

@@ -256,73 +256,109 @@ if (Ask-Confirm "Confirmez-vous la copie vers les DataSeeders ?") {
     Write-Host "Copie annulée. Les DataSeeders n'ont pas été modifiés." -ForegroundColor DarkYellow
 }
 
-if (-not (Ask-Confirm "`nPasser à l'Étape 4 (Génération de la fiche de déploiement)")) {
-    Write-Host "Importation interrompue par l'utilisateur." -ForegroundColor DarkYellow
-    exit 0
-}
-
 # -----------------------------------------------------------------------------
-# ÉTAPE 4 : Génération de la Fiche de Déploiement update_X.md
+# ÉTAPE 4 : Fiche de Déploiement deploy/updates/update_X_YYYY-MM-DD.md
 # -----------------------------------------------------------------------------
-Show-StepHeader 4 "Génération de la Fiche de Déploiement deploy/updates/update_X.md"
+Show-StepHeader 4 "Fiche de Déploiement deploy/updates/update_X_YYYY-MM-DD.md"
 
-$defaultTitle = "Ajout des sessions Mobile N$targetNiveau et synchronisation des compétences"
-$chosenTitle = $defaultTitle
+if (Ask-Confirm "Voulez-vous générer / actualiser la fiche de déploiement deploy/updates/update_X_YYYY-MM-DD.md ?") {
+    $defaultTitle = "Ajout des sessions Mobile N$targetNiveau et synchronisation des compétences"
+    $chosenTitle = $defaultTitle
 
-if (-not $Auto) {
-    Write-Host "Titre de la mise à jour (Entrée pour valider par défaut) :" -ForegroundColor Yellow
-    Write-Host "  Défaut : " -NoNewline; Write-Host "'$defaultTitle'" -ForegroundColor Cyan
-    Write-Host "Titre personnalisé : " -NoNewline
-    $inputTitle = Read-Host
-    if (-not [string]::IsNullOrWhiteSpace($inputTitle)) {
-        $chosenTitle = $inputTitle.Trim()
+    if (-not $Auto) {
+        Write-Host "Titre de la mise à jour (Entrée pour valider par défaut) :" -ForegroundColor Yellow
+        Write-Host "  Défaut : " -NoNewline; Write-Host "'$defaultTitle'" -ForegroundColor Cyan
+        Write-Host "Titre personnalisé : " -NoNewline
+        $inputTitle = Read-Host
+        if (-not [string]::IsNullOrWhiteSpace($inputTitle)) {
+            $chosenTitle = $inputTitle.Trim()
+        }
     }
-}
 
-$genDocCmd = "php deploy/imports/sessions/generate_update_doc.php --filiere=DMB --niveau=$targetNiveau --title=`"$chosenTitle`""
-Write-Host "Exécution : $genDocCmd`n" -ForegroundColor DarkGray
-Invoke-Expression $genDocCmd
-
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "`n❌ Échec de la génération de la fiche de déploiement." -ForegroundColor Red
-    exit 1
-}
-
-if (-not (Ask-Confirm "`nPasser à l'Étape 5 (Exécution des 6 seeders en local)")) {
-    Write-Host "Workflow suspendu avant l'exécution des seeders." -ForegroundColor DarkYellow
-    exit 0
-}
-
-# -----------------------------------------------------------------------------
-# ÉTAPE 5 : Exécution Séquentielle des 6 Seeders en Local
-# -----------------------------------------------------------------------------
-Show-StepHeader 5 "Exécution Séquentielle des 6 Seeders Laravel"
-
-$seeders = @(
-    "Modules\PkgCompetences\Database\Seeders\CompetenceSeeder",
-    "Modules\PkgCompetences\Database\Seeders\MicroCompetenceSeeder",
-    "Modules\PkgCompetences\Database\Seeders\UniteApprentissageSeeder",
-    "Modules\PkgCompetences\Database\Seeders\ChapitreSeeder",
-    "Modules\PkgSessions\Database\Seeders\SessionFormationSeeder",
-    "Modules\PkgSessions\Database\Seeders\AlignementUaSeeder"
-)
-
-$seederIndex = 1
-foreach ($seederClass in $seeders) {
-    $shortName = $seederClass.Substring($seederClass.LastIndexOf('\') + 1)
-    Write-Host "`n[$seederIndex/6] Exécution de $shortName..." -ForegroundColor Cyan
-    
-    $seedCmd = "php artisan db:seed --class=`"$seederClass`""
-    Invoke-Expression $seedCmd
+    $genDocCmd = "php deploy/imports/sessions/generate_update_doc.php --filiere=DMB --niveau=$targetNiveau --title=`"$chosenTitle`""
+    Write-Host "Exécution : $genDocCmd`n" -ForegroundColor DarkGray
+    Invoke-Expression $genDocCmd
 
     if ($LASTEXITCODE -ne 0) {
-        Write-Host "`n❌ ERREUR BLOQUANTE lors de l'exécution de $shortName !" -ForegroundColor Red
-        Write-Host "La séquence est immédiatement interrompue pour protéger la cohérence de la base de données." -ForegroundColor Yellow
-        Write-Host "Consultez le message d'erreur ci-dessus pour isoler la ligne incriminée dans le CSV." -ForegroundColor DarkYellow
-        exit 1
+        Write-Host "`n⚠️ Problème lors de la génération de la fiche de déploiement." -ForegroundColor Yellow
     }
-    Write-Host "  ✅ $shortName exécuté avec succès." -ForegroundColor Green
-    $seederIndex++
+} else {
+    Write-Host "ℹ️ Étape 4 ignorée par le concepteur. Poursuite directe vers l'exécution des seeders." -ForegroundColor Yellow
+}
+
+# -----------------------------------------------------------------------------
+# ÉTAPE 5 : Exécution des Seeders Laravel en Local (un par un)
+# -----------------------------------------------------------------------------
+Show-StepHeader 5 "Exécution des Seeders Laravel en Local"
+
+$seeders = @(
+    @{ Name = "CompetenceSeeder";         Class = "Modules\PkgCompetences\Database\Seeders\CompetenceSeeder";         Desc = "Compétences" },
+    @{ Name = "MicroCompetenceSeeder";    Class = "Modules\PkgCompetences\Database\Seeders\MicroCompetenceSeeder";    Desc = "Micro-Compétences" },
+    @{ Name = "UniteApprentissageSeeder"; Class = "Modules\PkgCompetences\Database\Seeders\UniteApprentissageSeeder"; Desc = "Unités d'Apprentissage (UA)" },
+    @{ Name = "ChapitreSeeder";           Class = "Modules\PkgCompetences\Database\Seeders\ChapitreSeeder";           Desc = "Chapitres / Tutoriels" },
+    @{ Name = "SessionFormationSeeder";   Class = "Modules\PkgSessions\Database\Seeders\SessionFormationSeeder";   Desc = "Sessions de Formation" },
+    @{ Name = "AlignementUaSeeder";       Class = "Modules\PkgSessions\Database\Seeders\AlignementUaSeeder";       Desc = "Alignements Sessions - UAs" }
+)
+
+Write-Host "Mode d'exécution des seeders :" -ForegroundColor Cyan
+Write-Host "  [1] Un par un avec confirmation à chaque étape [Défaut - Recommandé]" -ForegroundColor Yellow
+Write-Host "  [2] Tous d'un coup (séquence complète automatique)" -ForegroundColor DarkYellow
+Write-Host "  [3] Ignorer cette étape" -ForegroundColor DarkGray
+Write-Host "Votre choix [1/2/3] (Défaut: 1) : " -NoNewline -ForegroundColor Yellow
+
+$seederMode = "1"
+if (-not $Auto) {
+    $inputMode = Read-Host
+    if (-not [string]::IsNullOrWhiteSpace($inputMode)) {
+        $seederMode = $inputMode.Trim()
+    }
+} else {
+    Write-Host "2 [Auto]" -ForegroundColor DarkGreen
+    $seederMode = "2"
+}
+
+if ($seederMode -eq "3") {
+    Write-Host "Exécution des seeders ignorée par l'utilisateur." -ForegroundColor DarkYellow
+} else {
+    $isOneByOne = ($seederMode -ne "2")
+    $seederIndex = 1
+    $executedCount = 0
+
+    foreach ($s in $seeders) {
+        $shortName = $s.Name
+        $seederClass = $s.Class
+        $seederDesc = $s.Desc
+
+        $runThis = $true
+        if ($isOneByOne) {
+            $runThis = Ask-Confirm "`n[$seederIndex/6] Exécuter $shortName ($seederDesc) ?" $true
+        } else {
+            Write-Host "`n[$seederIndex/6] Exécution de $shortName ($seederDesc)..." -ForegroundColor Cyan
+        }
+
+        if ($runThis) {
+            $seedCmd = "php artisan db:seed --class=`"$seederClass`""
+            Invoke-Expression $seedCmd
+
+            if ($LASTEXITCODE -ne 0) {
+                Write-Host "`n❌ ERREUR BLOQUANTE lors de l'exécution de $shortName !" -ForegroundColor Red
+                Write-Host "Consultez le message d'erreur SQL/Laravel ci-dessus pour identifier l'anomalie." -ForegroundColor Yellow
+                if (-not (Ask-Confirm "Voulez-vous tout de même continuer vers le seeder suivant ?" $false)) {
+                    Write-Host "Arrêt de la séquence de seeders par l'utilisateur." -ForegroundColor DarkYellow
+                    break
+                }
+            } else {
+                Write-Host "  ✅ $shortName ($seederDesc) exécuté avec succès." -ForegroundColor Green
+                $executedCount++
+            }
+        } else {
+            Write-Host "  ⏭️ $shortName ignoré." -ForegroundColor DarkGray
+        }
+
+        $seederIndex++
+    }
+
+    Write-Host "`nBilan seeders : $executedCount / 6 exécuté(s) avec succès." -ForegroundColor Green
 }
 
 # -----------------------------------------------------------------------------

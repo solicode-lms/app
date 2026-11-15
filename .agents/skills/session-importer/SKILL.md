@@ -60,7 +60,7 @@ Ce skill standardise et automatise l'importation complète des données pédagog
 5. **Arrêt Immédiat en Cas d'Erreur :** Si un seeder échoue, interrompre immédiatement le workflow, isoler la ligne incriminée et générer le prompt de correction pour l'agent de l'autoformation concerné.
 6. **Interdiction Absolue de `php artisan migrate` :** Ne jamais tenter d'altérer la structure de la BDD.
 7. **Préservation des Fichiers `Base/` :** Ne modifier aucun seeder dans `Base/`.
-8. **Obligation Systématique de Génération de la Fiche `deploy/updates/update_X.md` :** Pour TOUTE opération d'importation, d'ajout ou de mise à jour de sessions, l'agent a l'**obligation absolue** d'exécuter `generate_update_doc.php` afin de générer le fichier de commandes `deploy/updates/update_X.md`. L'intervention ne peut JAMAIS être considérée comme terminée sans la création et la validation formelle de cette fiche. (Note : seul le fichier `.md` contenant les commandes doit être produit, aucun sous-dossier d'archive n'est requis sous `deploy/updates/`).
+8. **Obligation Systématique de Génération de la Fiche `deploy/updates/update_{num}_{date}.md` :** Pour TOUTE opération d'importation, d'ajout ou de mise à jour de sessions, l'agent a l'**obligation absolue** d'exécuter `generate_update_doc.php` afin de générer le fichier de commandes `deploy/updates/update_{num}_{date}.md`. Si une fiche existe déjà pour la date du jour, le script la met à jour sans incrémenter inutilement le numéro. L'intervention ne peut JAMAIS être considérée comme terminée sans la création et la validation formelle de cette fiche. (Note : seul le fichier `.md` contenant les commandes doit être produit, aucun sous-dossier d'archive n'est requis sous `deploy/updates/`).
 
 ---
 
@@ -120,18 +120,19 @@ Ce skill standardise et automatise l'importation complète des données pédagog
    ```
 2. Contrôler que les 6 fichiers ont bien été copiés dans `modules/PkgCompetences/Database/data/` et `modules/PkgSessions/Database/data/`.
 
-### Phase 5 : Génération Obligatoire de la Fiche de Commandes `deploy/updates/update_X.md` (Validation #3)
-1. **Exécution obligatoire du générateur :**
-   Exécuter systématiquement le script `generate_update_doc.php` en précisant la filière, le niveau et un titre explicite :
+### Phase 5 : Génération de la Fiche de Commandes `deploy/updates/update_{num}_{date}.md` (Validation #3)
+1. **Exécution du générateur :**
+   Exécuter le script `generate_update_doc.php` en précisant la filière, le niveau et un titre explicite :
    ```bash
    php deploy/imports/sessions/generate_update_doc.php --filiere=[DWB|DMB] [--niveau=3] --title="[Titre explicite de la mise à jour]"
    ```
+   *Note : Le fichier est nommé par numéro et date (`update_{num}_{date}.md`). Si une fiche existe déjà pour la date du jour, le script la met à jour sans incrémenter inutilement le compteur.*
 2. **Vérification du fichier de commandes :**
-   - Contrôler que le fichier `deploy/updates/update_[N].md` est créé et qu'il liste les suppressions éventuelles ainsi que les commandes pour Windows et Linux (avec `--niveau` si applicable). Seul le fichier `.md` est attendu sous `deploy/updates/`.
-3. **Point de Validation #3 :** Présenter au concepteur le lien vers la fiche de déploiement générée `deploy/updates/update_[N].md` pour relecture et approbation avant l'exécution locale des seeders.
+   - Contrôler que le fichier `deploy/updates/update_[N]_[date].md` est créé et qu'il liste les suppressions éventuelles ainsi que les commandes pour Windows et Linux (avec `--niveau` si applicable). Seul le fichier `.md` est attendu sous `deploy/updates/`.
+3. **Point de Validation #3 :** Présenter au concepteur le lien vers la fiche de déploiement générée `deploy/updates/update_[N]_[date].md` pour relecture et approbation. Si le concepteur choisit d'ignorer la génération de la fiche, l'assistant poursuit directement vers la Phase 6 (exécution des seeders un par un).
 
-### Phase 6 : Exécution Séquentielle des 6 Seeders & Gestion des Incidents
-1. Exécuter un par un les seeders dans l'ordre strict :
+### Phase 6 : Exécution des 6 Seeders en Local (Un par Un ou en Bloc)
+1. Exécuter les seeders (un par un avec validation interactive ou en séquence complète) dans l'ordre strict :
    ```bash
    php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\CompetenceSeeder"
    php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\MicroCompetenceSeeder"

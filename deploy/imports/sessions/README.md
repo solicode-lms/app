@@ -133,16 +133,18 @@ Les fichiers cibles mis à jour sont :
 
 ---
 
-### 4. Génération de la Fiche de Déploiement `deploy/updates/update_X.md`
+### 4. Génération de la Fiche de Déploiement `deploy/updates/update_{num}_{date}.md`
 
-Génère la fiche de déploiement prête pour le serveur avec la commande Linux sécurisée (incluant le flag `--niveau`) :
+Génère la fiche de déploiement prête pour le serveur avec la commande Linux sécurisée (incluant le flag `--niveau`).
+Le fichier est automatiquement nommé par numéro et date du jour (ex: `update_18_2026-11-15.md`). Si une fiche existe déjà pour la date du jour, le script la met à jour sans incrémenter inutilement le numéro :
 
 ```bash
 # Exemple pour le Web (N1)
-php deploy/imports/sessions/generate_update_doc.php --filiere=DWB --num=17 --title="Mise à jour sessions Web S3 à S7"
+php deploy/imports/sessions/generate_update_doc.php --filiere=DWB --title="Mise à jour sessions Web S3 à S7"
 
 # Exemple pour le Mobile (N3)
 php deploy/imports/sessions/generate_update_doc.php --filiere=DMB --niveau=3 --title="Ajout sessions Mobile N3"
+```
 ```
 
 ---
