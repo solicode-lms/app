@@ -35,6 +35,7 @@ Ce skill standardise et automatise l'importation complète des données pédagog
 # 3. Entrées & Ressources à Charger
 - **Ressource interne :** `.agents/skills/session-importer/resources/prompt-template-autoformation.md` (Template de prompt de rétroaction d'incident).
 - **Scripts du dossier projet :**
+  - `deploy/imports/sessions/mobile/import-mobile.ps1` (Assistant guidé pas-à-pas pour le formateur Mobile).
   - `deploy/imports/sessions/detect_obsolete_data.php` (Analyse différentielle et purge en cascade).
   - `deploy/imports/sessions/copy_to_dataseeders.php` (Copie ciblée vers les DataSeeders).
   - `deploy/imports/sessions/generate_update_doc.php` (Générateur de fiche de déploiement).

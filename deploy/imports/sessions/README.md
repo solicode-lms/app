@@ -21,7 +21,8 @@ deploy/imports/sessions/
 │   ├── uniteApprentissages.csv
 │   ├── chapitres.csv
 │   ├── sessionFormations.csv
-│   └── alignementUas.csv
+│   ├── alignementUas.csv
+│   └── import-mobile.ps1          # Assistant guidé pas-à-pas pour le formateur Mobile
 ├── reports/                       # Rapports d'analyse et CSV des éléments orphelins détectés
 │   ├── DWB_N1_elements_a_supprimer.csv
 │   └── DMB_N3_elements_a_supprimer.csv
@@ -64,6 +65,27 @@ Déposer les 6 fichiers exportés dans le sous-dossier correspondant :
 - Filière Mobile (N2 ou N3) : `deploy/imports/sessions/mobile/`
 
 > **Note :** Les noms de fichiers peuvent être au singulier (`sessionFormation.csv`, `alignementUa.csv`) ou au pluriel (`sessionFormations.csv`, `alignementUas.csv`), les scripts les normalisent automatiquement.
+
+---
+
+### 💡 Option Recommandée : Assistant Interactif PowerShell (Filière Mobile)
+
+Pour la filière Mobile, un assistant interactif pas-à-pas guide le formateur à travers les 5 étapes sans saisie manuelle de commandes :
+
+```powershell
+# Depuis la racine du projet ou depuis le sous-dossier mobile :
+./deploy/imports/sessions/mobile/import-mobile.ps1
+
+# Ou en forçant un niveau spécifique :
+./deploy/imports/sessions/mobile/import-mobile.ps1 -Niveau 3
+```
+
+Cet assistant réalise automatiquement :
+1. Le diagnostic des 6 CSV et la détection du palier (`N3` / `N2`).
+2. L'analyse différentielle avec confirmation `[O/N]` avant purge en BDD.
+3. La copie vers les DataSeeders officiels.
+4. La génération de la fiche de déploiement `deploy/updates/update_X.md`.
+5. L'exécution ordonnée des 6 seeders Laravel en local avec arrêt immédiat si incident.
 
 ---
 
