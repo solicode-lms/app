@@ -50,6 +50,7 @@ Exécuter le script pour comparer la BDD actuelle avec le nouveau fichier d'impo
 ```bash
 # Analyse en lecture seule (génère le rapport dans reports/DWB_elements_a_supprimer.csv)
 php deploy/imports/sessions/detect_obsolete_data.php --filiere=DWB
+php deploy/imports/sessions/detect_obsolete_data.php --filiere=DMB
 
 # Après validation du concepteur : suppression effective en cascade en BDD
 php deploy/imports/sessions/detect_obsolete_data.php --filiere=DWB --delete
