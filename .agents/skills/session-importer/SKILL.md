@@ -13,7 +13,7 @@ Ce skill standardise et automatise l'importation complète des données pédagog
 1. **Assistance Proactive au Bootstrapping & Cadrage :** Diagnostic de l'arborescence `deploy/imports/sessions/`, proposition et création des dossiers manquants (`web/`, `mobile/`, `reports/`), et guidage pas-à-pas du concepteur pour déposer les 6 fichiers CSV au bon endroit.
 2. **Détection différentielle des éléments orphelins :** Identification des tutoriels/chapitres et unités d'apprentissage supprimés dans l'autoformation et suppression sécurisée en cascade en BDD.
 3. **Alimentation ciblée des fichiers CSV DataSeeder :** Mise à jour propre de `modules/PkgCompetences/Database/data/` et `modules/PkgSessions/Database/data/`.
-4. **Génération automatique de la fiche de déploiement :** Production de `deploy/updates/update_X.md` (commandes locales Windows et production Linux).
+4. **Génération Obligatoire et Systématique de la fiche de déploiement :** Production systématique du fichier `deploy/updates/update_X.md` récapitulant les commandes de suppression et d'exécution des seeders (commandes locales Windows et production Linux).
 5. **Exécution séquentielle et contrôlée des 6 seeders :** Déroulement ordonné avec arrêt immédiat et formulation d'un prompt d'incident ciblé pour l'agent source (`autoformation-web` ou `autoformation-mobile`) en cas d'erreur.
 
 ---
@@ -35,6 +35,7 @@ Ce skill standardise et automatise l'importation complète des données pédagog
 # 3. Entrées & Ressources à Charger
 - **Ressource interne :** `.agents/skills/session-importer/resources/prompt-template-autoformation.md` (Template de prompt de rétroaction d'incident).
 - **Scripts du dossier projet :**
+  - `deploy/imports/sessions/mobile/import-mobile.ps1` (Assistant guidé pas-à-pas pour le formateur Mobile).
   - `deploy/imports/sessions/detect_obsolete_data.php` (Analyse différentielle et purge en cascade).
   - `deploy/imports/sessions/copy_to_dataseeders.php` (Copie ciblée vers les DataSeeders).
   - `deploy/imports/sessions/generate_update_doc.php` (Générateur de fiche de déploiement).
@@ -59,6 +60,7 @@ Ce skill standardise et automatise l'importation complète des données pédagog
 5. **Arrêt Immédiat en Cas d'Erreur :** Si un seeder échoue, interrompre immédiatement le workflow, isoler la ligne incriminée et générer le prompt de correction pour l'agent de l'autoformation concerné.
 6. **Interdiction Absolue de `php artisan migrate` :** Ne jamais tenter d'altérer la structure de la BDD.
 7. **Préservation des Fichiers `Base/` :** Ne modifier aucun seeder dans `Base/`.
+8. **Obligation Systématique de Génération de la Fiche `deploy/updates/update_{num}_{date}.md` :** Pour TOUTE opération d'importation, d'ajout ou de mise à jour de sessions, l'agent a l'**obligation absolue** d'exécuter `generate_update_doc.php` afin de générer le fichier de commandes `deploy/updates/update_{num}_{date}.md`. Si une fiche existe déjà pour la date du jour, le script la met à jour sans incrémenter inutilement le numéro. L'intervention ne peut JAMAIS être considérée comme terminée sans la création et la validation formelle de cette fiche. (Note : seul le fichier `.md` contenant les commandes doit être produit, aucun sous-dossier d'archive n'est requis sous `deploy/updates/`).
 
 ---
 
@@ -92,37 +94,45 @@ Ce skill standardise et automatise l'importation complète des données pédagog
 5. **Point de Validation #1 :** Demander confirmation au concepteur de la filière et de la disponibilité effective des 6 fichiers CSV avant d'engager la Phase 2.
 
 ### Phase 2 : Détection des Données Orphelines & Validation #2
-1. Lancer l'analyse différentielle en lecture seule :
+1. Lancer l'analyse différentielle en lecture seule (le niveau est détecté automatiquement depuis les CSV ou forcé via `--niveau`) :
    ```bash
+   # Détection automatique du niveau (ex: N1 pour Web, N3 pour Mobile)
    php deploy/imports/sessions/detect_obsolete_data.php --filiere=[DWB|DMB]
+
+   # Ou en forçant explicitement le niveau ciblé
+   php deploy/imports/sessions/detect_obsolete_data.php --filiere=DMB --niveau=3
    ```
-2. Examiner le rapport généré `deploy/imports/sessions/reports/[filiere]_elements_a_supprimer.csv`.
+2. Examiner le rapport généré `deploy/imports/sessions/reports/[filiere]_N[niveau]_elements_a_supprimer.csv`.
 3. Présenter au concepteur le récapitulatif des tutoriels et UAs orphelins détectés.
 4. **Point de Validation #2 :** Le concepteur valide la purge de ces éléments en base.
 
 ### Phase 3 : Suppression Directe en Cascade en BDD
-1. Dès validation du concepteur, exécuter la suppression en BDD :
+1. Dès validation du concepteur, exécuter la suppression en BDD pour le niveau ciblé :
    ```bash
-   php deploy/imports/sessions/detect_obsolete_data.php --filiere=[DWB|DMB] --delete
+   php deploy/imports/sessions/detect_obsolete_data.php --filiere=[DWB|DMB] [--niveau=3] --delete
    ```
 2. Vérifier que la suppression en cascade s'est déroulée sans erreur de contrainte.
 
 ### Phase 4 : Alimentation des DataSeeders
-1. Remplacer les données des CSV officiels du LMS par celles de la filière traitée :
+1. Remplacer les données des CSV officiels du LMS par celles de la filière et du niveau traités :
    ```bash
-   php deploy/imports/sessions/copy_to_dataseeders.php --filiere=[DWB|DMB]
+   php deploy/imports/sessions/copy_to_dataseeders.php --filiere=[DWB|DMB] [--niveau=3]
    ```
 2. Contrôler que les 6 fichiers ont bien été copiés dans `modules/PkgCompetences/Database/data/` et `modules/PkgSessions/Database/data/`.
 
-### Phase 5 : Génération de la Fiche `deploy/updates/update_X.md` & Validation #3
-1. Générer la fiche de mise à jour prête pour le déploiement :
+### Phase 5 : Génération de la Fiche de Commandes `deploy/updates/update_{num}_{date}.md` (Validation #3)
+1. **Exécution du générateur :**
+   Exécuter le script `generate_update_doc.php` en précisant la filière, le niveau et un titre explicite :
    ```bash
-   php deploy/imports/sessions/generate_update_doc.php --filiere=[DWB|DMB] --num=[N] --title="[Titre]"
+   php deploy/imports/sessions/generate_update_doc.php --filiere=[DWB|DMB] [--niveau=3] --title="[Titre explicite de la mise à jour]"
    ```
-2. **Point de Validation #3 :** Le concepteur vérifie la fiche `deploy/updates/update_[N].md` générée.
+   *Note : Le fichier est nommé par numéro et date (`update_{num}_{date}.md`). Si une fiche existe déjà pour la date du jour, le script la met à jour sans incrémenter inutilement le compteur.*
+2. **Vérification du fichier de commandes :**
+   - Contrôler que le fichier `deploy/updates/update_[N]_[date].md` est créé et qu'il liste les suppressions éventuelles ainsi que les commandes pour Windows et Linux (avec `--niveau` si applicable). Seul le fichier `.md` est attendu sous `deploy/updates/`.
+3. **Point de Validation #3 :** Présenter au concepteur le lien vers la fiche de déploiement générée `deploy/updates/update_[N]_[date].md` pour relecture et approbation. Si le concepteur choisit d'ignorer la génération de la fiche, l'assistant poursuit directement vers la Phase 6 (exécution des seeders un par un).
 
-### Phase 6 : Exécution Séquentielle des 6 Seeders & Gestion des Incidents
-1. Exécuter un par un les seeders dans l'ordre strict :
+### Phase 6 : Exécution des 6 Seeders en Local (Un par Un ou en Bloc)
+1. Exécuter les seeders (un par un avec validation interactive ou en séquence complète) dans l'ordre strict :
    ```bash
    php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\CompetenceSeeder"
    php artisan db:seed --class="Modules\PkgCompetences\Database\Seeders\MicroCompetenceSeeder"

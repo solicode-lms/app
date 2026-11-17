@@ -19,9 +19,10 @@ $kernel->bootstrap();
 use Modules\PkgCompetences\Models\Chapitre;
 use Illuminate\Support\Facades\DB;
 
-$options = getopt("", ["dry-run", "apply", "filiere:"]);
+$options = getopt("", ["dry-run", "apply", "filiere:", "niveau:"]);
 $isApply = isset($options['apply']);
 $filiereFilter = isset($options['filiere']) ? strtoupper(trim($options['filiere'])) : null;
+$niveauFilter = isset($options['niveau']) ? preg_replace('/[^0-9]/', '', $options['niveau']) : null;
 
 echo "\n\033[36m===================================================================\033[0m\n";
 echo "\033[1;36m  🔧 NORMALISATION DES CODES ET RÉFÉRENCES DE TUTORIELS (CHAPITRES)\033[0m\n";
@@ -37,6 +38,9 @@ if ($isApply) {
 $query = Chapitre::query();
 if ($filiereFilter) {
     $query->where('reference', 'LIKE', $filiereFilter . '-%');
+}
+if ($niveauFilter) {
+    $query->where('code', 'LIKE', "T.{$niveauFilter}%");
 }
 
 $chapitres = $query->get();
@@ -54,7 +58,7 @@ foreach ($chapitres as $c) {
         $normalizedCode = "$prefix.$mid.$suffix"; // ex: T.152.211
 
         $refParts = explode('-', $c->reference);
-        $refPrefix = $refParts[0] ?? 'DWB';
+        $refPrefix = !empty($refParts[0]) ? $refParts[0] : ($filiereFilter ?: 'DWB');
         $normalizedRef = "$refPrefix-$normalizedCode"; // ex: DWB-T.152.211
 
         $malformed[] = [

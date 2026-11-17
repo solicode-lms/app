@@ -4,20 +4,21 @@
  * 
  * Remplace le contenu des fichiers CSV de DataSeeder de Solicode LMS
  * (modules/PkgCompetences/Database/data/ et modules/PkgSessions/Database/data/)
- * par les seules données à importer pour la filière cible en traitement.
+ * par les seules données à importer pour la filière et le niveau cibles en traitement.
  * 
  * Usage:
  *   php deploy/imports/sessions/copy_to_dataseeders.php --filiere=DWB
- *   php deploy/imports/sessions/copy_to_dataseeders.php --filiere=DM
+ *   php deploy/imports/sessions/copy_to_dataseeders.php --filiere=DMB [--niveau=3]
  */
 
-$options = getopt("", ["filiere:", "dir:"]);
+$options = getopt("", ["filiere:", "dir:", "niveau:"]);
 $filiereInput = $options['filiere'] ?? null;
 $customDir = $options['dir'] ?? null;
+$niveauInput = $options['niveau'] ?? null;
 
 if (!$filiereInput) {
     echo "\n\033[31m[ERREUR] L'argument --filiere est obligatoire.\033[0m\n";
-    echo "Exemple : php deploy/imports/sessions/copy_to_dataseeders.php --filiere=DWB\n\n";
+    echo "Exemple : php deploy/imports/sessions/copy_to_dataseeders.php --filiere=DMB [--niveau=3]\n\n";
     exit(1);
 }
 
@@ -36,10 +37,66 @@ if (!is_dir($sourceDir)) {
     exit(1);
 }
 
+// Fonction utilitaire pour détecter automatiquement le niveau depuis les CSV
+function detectNiveauFromCsvs(string $importDir): ?string {
+    $files = ['chapitres.csv', 'chapitre.csv', 'uniteApprentissages.csv', 'uniteApprentissage.csv', 'microCompetences.csv', 'competences.csv'];
+    $levelsFound = [];
+
+    foreach ($files as $name) {
+        $p = $importDir . '/' . $name;
+        if (!file_exists($p)) continue;
+        if (($handle = fopen($p, 'r')) !== false) {
+            $headers = fgetcsv($handle);
+            if ($headers) {
+                $codeIdx = array_search('code', $headers);
+                if ($codeIdx !== false) {
+                    while (($row = fgetcsv($handle)) !== false) {
+                        if (isset($row[$codeIdx])) {
+                            $code = trim($row[$codeIdx]);
+                            if (preg_match('/^(?:TUTO-)?(?:[A-Z]+)\.([0-9])/i', $code, $matches)) {
+                                $digit = $matches[1];
+                                $levelsFound[$digit] = ($levelsFound[$digit] ?? 0) + 1;
+                            }
+                        }
+                    }
+                }
+            }
+            fclose($handle);
+        }
+    }
+
+    if (!empty($levelsFound)) {
+        arsort($levelsFound);
+        return (string)array_key_first($levelsFound);
+    }
+    return null;
+}
+
+// Résolution du niveau
+$niveauFilter = null;
+if ($niveauInput !== null) {
+    $cleaned = preg_replace('/[^0-9]/', '', $niveauInput);
+    if ($cleaned !== '') {
+        $niveauFilter = $cleaned;
+    }
+} else {
+    $niveauFilter = detectNiveauFromCsvs($sourceDir);
+}
+
+// Support des sous-dossiers spécifiques de niveau (ex: mobile/N3/) si existants
+if ($niveauFilter && is_dir($sourceDir . '/N' . $niveauFilter)) {
+    $sourceDir = $sourceDir . '/N' . $niveauFilter;
+}
+
 echo "\n\033[36m===================================================================\033[0m\n";
-echo "\033[1;36m  📦 MISE À JOUR DES DATASEEDERS CSV - FILIÈRE $filiereCode\033[0m\n";
+$niveauBanner = $niveauFilter ? " [NIVEAU N{$niveauFilter}]" : "";
+echo "\033[1;36m  📦 MISE À JOUR DES DATASEEDERS CSV - FILIÈRE $filiereCode{$niveauBanner}\033[0m\n";
 echo "\033[36m===================================================================\033[0m\n";
-echo "📂 Dossier source : \033[33m$sourceDir\033[0m\n\n";
+echo "📂 Dossier source : \033[33m$sourceDir\033[0m\n";
+if ($niveauFilter) {
+    echo "🎯 Niveau associé : \033[1;32mN{$niveauFilter}\033[0m\n";
+}
+echo "\n";
 
 // Table de correspondance [Fichier Source Possibles] => Fichier Cible Officiel
 $mapping = [
