@@ -32,7 +32,7 @@ sudo php deploy/imports/sessions/fix_tuto_codes.php --apply
 
 ### 1.2 Suppression des éléments orphelins en production (Linux) :
 ```bash
-php deploy/imports/sessions/detect_obsolete_data.php --filiere=DWB --delete
+sudo php deploy/imports/sessions/detect_obsolete_data.php --filiere=DWB --delete
 ```
 
 ## 2. Exécution des Seeders
