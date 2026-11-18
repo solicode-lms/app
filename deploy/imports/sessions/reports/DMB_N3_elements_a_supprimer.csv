@@ -1,1 +1,6 @@
 type,id,reference,code,nom
+"Chapitre (Tutoriel)",268,DMB-T.351.121,T.351.121,"Théorie : Product Backlog & User Stories INVEST"
+"Chapitre (Tutoriel)",273,DMB-T.351.122,T.351.122,"Pratique : Découpage User Stories & MoSCoW"
+"Chapitre (Tutoriel)",286,DMB-T.351.123,T.351.123,"Création du prompt-product-backlog"
+UniteApprentissage,125,DMB-UA.351.12,UA.351.12,"Product Backlog et User Stories"
+AlignementUa,120,DMB-N3-S1-DMB-UA.351.12,,"Alignement DMB-N3-S1-DMB-UA.351.12"
