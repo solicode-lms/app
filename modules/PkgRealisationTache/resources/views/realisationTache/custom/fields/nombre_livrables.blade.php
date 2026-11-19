@@ -28,6 +28,22 @@
                     'code-chapitre' => 'fas fa-file-code',
                 ][strtolower($type)] ?? 'fas fa-file';
             }
+
+            if (!function_exists('getGithubDevUrl')) {
+                function getGithubDevUrl(?string $url): ?string {
+                    if (empty($url)) {
+                        return null;
+                    }
+                    $url = trim($url);
+                    if (!preg_match('#^(https?://)?(www\.)?github\.com(/.*)?$#i', $url)) {
+                        return null;
+                    }
+                    if (!preg_match('#^https?://#i', $url)) {
+                        $url = 'https://' . $url;
+                    }
+                    return preg_replace('#^https?://(www\.)?github\.com#i', 'https://github.dev', $url);
+                }
+            }
         @endphp
     @endonce
 
@@ -91,14 +107,29 @@
                 $titre1 = normalize($realisation->livrable?->titre ?? '');
                 $titre2 = normalize($realisation->titre ?? '');
                 $icon = iconLivrable($realisation->livrable?->natureLivrable?->nom ?? '');
+                $lien = $realisation->lien ?? null;
+                $devUrl = method_exists($realisation, 'getGithubDevUrl')
+                    ? $realisation->getGithubDevUrl()
+                    : getGithubDevUrl($lien);
             @endphp
             @if (!$realisation->livrable?->is_affichable_seulement_par_formateur || $isFormateur)
                 <li class="livrable-card livrable-realise">
                     <i class="{{ $icon }}"></i>
                     <div class="livrable-content">
-                        <a href="{{ $realisation->lien }}" target="_blank" class="livrable-titre">
-                            {{ $realisation->livrable?->titre ?? '—' }}
-                        </a>
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-1">
+                            <a href="{{ $lien }}" target="_blank" class="livrable-titre">
+                                {{ $realisation->livrable?->titre ?? '—' }}
+                            </a>
+                            @if ($devUrl)
+                                <a href="{{ $devUrl }}" 
+                                   target="_blank" 
+                                   class="btn-livrable-dev ml-auto" 
+                                   data-toggle="tooltip" 
+                                   title="Ouvrir le code dans l'éditeur web VS Code (.dev)">
+                                    <x-icon-vscode /> .dev
+                                </a>
+                            @endif
+                        </div>
                         @if ($titre1 !== $titre2)
                             <div class="livrable-sous-titre">— {{ $realisation->titre }}</div>
                         @endif

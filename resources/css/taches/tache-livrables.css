@@ -81,3 +81,35 @@
     font-size: 0.78rem;
     color: #6b7280;
 }
+
+/* Bouton éditeur Web github.dev (VS Code) */
+.btn-livrable-dev {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 7px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.2;
+    border-radius: 4px;
+    background-color: #007acc; /* Bleu officiel VS Code */
+    color: #ffffff !important;
+    text-decoration: none !important;
+    transition: background-color 0.15s ease-in-out, transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    white-space: nowrap;
+    margin-left: 6px;
+    box-shadow: 0 1px 2px rgba(0, 122, 204, 0.2);
+}
+
+.btn-livrable-dev:hover {
+    background-color: #0062a3;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 122, 204, 0.35);
+}
+
+.btn-livrable-dev svg {
+    display: inline-block;
+    vertical-align: -1px;
+}
