@@ -82,10 +82,11 @@ trait TacheCrudTrait
                 $projetOrigineNoteId = $data['projet_origine_note_id'];
                 $projetOrigineNoteChanged = true;
             }
+        }
 
-            if (!isset($data['seuil_live_coding']) || $data['seuil_live_coding'] === '') {
-                $data['seuil_live_coding'] = 50;
-            }
+        // Si le seuil live coding est transmis vide, le stocker à null (héritage affectation)
+        if (array_key_exists('seuil_live_coding', $data) && ($data['seuil_live_coding'] === '' || $data['seuil_live_coding'] === null)) {
+            $data['seuil_live_coding'] = null;
         }
 
         // Si la relation projetOrigineNote est modifiée ou définie à la création

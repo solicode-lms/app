@@ -203,6 +203,16 @@ trait AffectationProjetCrudTrait
         );
 
         (new EvaluationRealisationProjetService())->SyncEvaluationRealisationProjet($affectationProjet);
+
+        // Réévaluation et synchronisation en base du seuil Live coding pour chaque tâche de l'affectation
+        $tacheAffectationService = app(\Modules\PkgRealisationTache\Services\TacheAffectationService::class);
+        foreach ($affectationProjet->tacheAffectations as $tacheAffectation) {
+            // Si la tâche n'a pas de seuil spécifique propre, synchroniser le seuil de l'affectation en base de données
+            if (is_null($tacheAffectation->tache?->seuil_live_coding)) {
+                $tacheAffectation->update(['seuil_live_coding' => $affectationProjet->seuil_live_coding]);
+            }
+            $tacheAffectationService->lancerLiveCodingSiEligible($tacheAffectation);
+        }
     }
 
     /**

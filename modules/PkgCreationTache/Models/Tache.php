@@ -31,11 +31,12 @@ class Tache extends BaseTache
 
     /**
      * Retourne le seuil de réalisation pour le déclenchement du Live Coding.
+     * Retourne null si aucun seuil spécifique n'est défini (héritage affectation).
      *
-     * @return int
+     * @return int|null
      */
-    public function getSeuilLiveCoding(): int
+    public function getSeuilLiveCoding(): ?int
     {
-        return (int) ($this->seuil_live_coding ?? 50);
+        return !is_null($this->seuil_live_coding) ? (int) $this->seuil_live_coding : null;
     }
 }

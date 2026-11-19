@@ -21,14 +21,14 @@
             min="1"
             max="100"
             id="seuil_live_coding"
-            placeholder="{{ __('PkgCreationTache::tache.seuil_live_coding') }}"
-            value="{{ $entity && !is_null($entity->seuil_live_coding) ? $entity->seuil_live_coding : old('seuil_live_coding', 50) }}">
+            placeholder="Hérité de l'affectation (défaut : 50%)"
+            value="{{ $entity && !is_null($entity->seuil_live_coding) ? $entity->seuil_live_coding : old('seuil_live_coding') }}">
         <div class="input-group-append">
             <span class="input-group-text">%</span>
         </div>
     </div>
     <small class="form-text text-muted">
-        Pourcentage d'apprenants requis pour lancer automatiquement le Live coding (défaut : 50%).
+        Laissez vide pour hériter du seuil défini sur l'affectation du groupe (ou 50% par défaut).
     </small>
     @error('seuil_live_coding')
         <div class="text-danger">{{ $message }}</div>
