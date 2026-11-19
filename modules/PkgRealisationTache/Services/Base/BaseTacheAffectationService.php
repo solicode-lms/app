@@ -28,6 +28,7 @@ class BaseTacheAffectationService extends BaseService
         'tache_id',
         'affectation_projet_id',
         'pourcentage_realisation_cache',
+        'seuil_live_coding',
         'apprenant_live_coding_cache',
         'reference'
     ];

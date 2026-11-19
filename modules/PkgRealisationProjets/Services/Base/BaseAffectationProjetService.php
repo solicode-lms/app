@@ -34,6 +34,7 @@ class BaseAffectationProjetService extends BaseService
         'date_fin_live_coding_collectif',
         'date_fin',
         'seuil_blocage_minutes',
+        'seuil_live_coding',
         'is_formateur_evaluateur',
         'reference',
         'echelle_note_cible',

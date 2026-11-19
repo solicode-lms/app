@@ -39,6 +39,7 @@ class BaseTacheService extends BaseService
         'is_live_coding_task',
         'phase_evaluation_id',
         'chapitre_id',
+        'seuil_live_coding',
         'mobilisation_ua_id',
         'projet_origine_note_id'
     ];

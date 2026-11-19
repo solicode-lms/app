@@ -42,6 +42,17 @@
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::tacheAffectation.seuil_live_coding')) }}</small>
+                  <span>
+                    @if(! is_null($itemTacheAffectation->seuil_live_coding))
+                      {{ $itemTacheAffectation->seuil_live_coding }}
+                    @else
+                      —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::tacheAffectation.apprenant_live_coding_cache')) }}</small>
                   @if(! is_null($itemTacheAffectation->apprenant_live_coding_cache))
                     <pre class="border rounded p-2 bg-light" style="overflow:auto;">

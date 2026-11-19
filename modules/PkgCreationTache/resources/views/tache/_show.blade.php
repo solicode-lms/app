@@ -113,6 +113,17 @@
             </div>
             </div>
             <div class="row no-gutters mb-4">
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.seuil_live_coding')) }}</small>
+                  <span>
+                    @if(! is_null($itemTache->seuil_live_coding))
+                      {{ $itemTache->seuil_live_coding }}
+                    @else
+                      —
+                    @endif
+                  </span>                </div>
+            </div>
             @if(
                   (auth()->user()?->can('show-tacheAffectation') && $itemTache->tacheAffectations->isNotEmpty())  
                   || auth()->user()?->can('create-tacheAffectation')

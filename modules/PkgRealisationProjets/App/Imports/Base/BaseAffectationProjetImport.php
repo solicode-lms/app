@@ -66,11 +66,12 @@ class BaseAffectationProjetImport implements ToModel, WithHeadingRow
              'date_fin_live_coding_collectif' => $values[6] ?? null,
              'date_fin' => $values[7] ?? null,
              'seuil_blocage_minutes' => $values[8] ?? null,
-             'is_formateur_evaluateur' => $values[9] ?? null,
+             'seuil_live_coding' => $values[9] ?? null,
+             'is_formateur_evaluateur' => $values[10] ?? null,
              'reference' => $reference,
-             'echelle_note_cible' => $values[11] ?? null,
-             'evaluateurs' => $values[12] ?? null,
-             'description' => $values[13] ?? null,
+             'echelle_note_cible' => $values[12] ?? null,
+             'evaluateurs' => $values[13] ?? null,
+             'description' => $values[14] ?? null,
         ]);
 
 

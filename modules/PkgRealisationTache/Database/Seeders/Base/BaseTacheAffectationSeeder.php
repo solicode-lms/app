@@ -91,6 +91,7 @@ class BaseTacheAffectationSeeder extends Seeder
                         "tache_id" => $tache_id,
                         "affectation_projet_id" => $affectation_projet_id,
                         "pourcentage_realisation_cache" => isset($row["pourcentage_realisation_cache"]) && $row["pourcentage_realisation_cache"] !== "" ? $row["pourcentage_realisation_cache"] : null,
+                        "seuil_live_coding" => isset($row["seuil_live_coding"]) && $row["seuil_live_coding"] !== "" ? $row["seuil_live_coding"] : null,
                         "apprenant_live_coding_cache" => isset($row["apprenant_live_coding_cache"]) && $row["apprenant_live_coding_cache"] !== "" ? $row["apprenant_live_coding_cache"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];

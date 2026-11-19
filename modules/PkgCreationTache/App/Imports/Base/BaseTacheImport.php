@@ -71,10 +71,11 @@ class BaseTacheImport implements ToModel, WithHeadingRow
              'is_live_coding_task' => $values[11] ?? null,
              'phase_evaluation_id' => $values[12] ?? null,
              'chapitre_id' => $values[13] ?? null,
-             'livrables' => $values[14] ?? null,
-             'mobilisation_ua_id' => $values[15] ?? null,
-             'projet_origine_note_id' => $values[16] ?? null,
-             'labelProjets' => $values[17] ?? null,
+             'seuil_live_coding' => $values[14] ?? null,
+             'livrables' => $values[15] ?? null,
+             'mobilisation_ua_id' => $values[16] ?? null,
+             'projet_origine_note_id' => $values[17] ?? null,
+             'labelProjets' => $values[18] ?? null,
         ]);
 
 

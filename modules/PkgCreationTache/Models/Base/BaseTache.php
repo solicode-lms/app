@@ -58,7 +58,7 @@ class BaseTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'priorite', 'titre', 'projet_id', 'description', 'dateDebut', 'dateFin', 'reference', 'note', 'equipe_projet_id', 'phase_projet_id', 'is_live_coding_task', 'phase_evaluation_id', 'chapitre_id', 'mobilisation_ua_id', 'projet_origine_note_id'
+        'ordre', 'priorite', 'titre', 'projet_id', 'description', 'dateDebut', 'dateFin', 'reference', 'note', 'equipe_projet_id', 'phase_projet_id', 'is_live_coding_task', 'phase_evaluation_id', 'chapitre_id', 'seuil_live_coding', 'mobilisation_ua_id', 'projet_origine_note_id'
     ];
     public $manyToMany = [
         'Livrable' => ['relation' => 'livrables' , "foreign_key" => "livrable_id" ],

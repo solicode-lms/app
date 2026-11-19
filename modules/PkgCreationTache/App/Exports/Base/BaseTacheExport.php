@@ -46,6 +46,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'is_live_coding_task' => 'is_live_coding_task',
                 'phase_evaluation_reference' => 'phase_evaluation_reference',
                 'chapitre_reference' => 'chapitre_reference',
+                'seuil_live_coding' => 'seuil_live_coding',
                 'livrables' => 'livrables',
                 'mobilisation_ua_reference' => 'mobilisation_ua_reference',
                 'projet_origine_note_reference' => 'projet_reference',
@@ -67,6 +68,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'is_live_coding_task' => __('PkgCreationTache::tache.is_live_coding_task'),
                 'phase_evaluation_reference' => __('PkgCompetences::phaseEvaluation.singular'),
                 'chapitre_reference' => __('PkgCompetences::chapitre.singular'),
+                'seuil_live_coding' => __('PkgCreationTache::tache.seuil_live_coding'),
                     'livrables' => __('PkgCreationProjet::livrable.plural'),
                 'mobilisation_ua_reference' => __('PkgCreationProjet::mobilisationUa.singular'),
                 'projet_origine_note_reference' => __('PkgCreationProjet::projet.singular'),
@@ -96,6 +98,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'is_live_coding_task' => $tache->is_live_coding_task ? '1' : '0',
                 'phase_evaluation_reference' => $tache->phaseEvaluation?->reference,
                 'chapitre_reference' => $tache->chapitre?->reference,
+                'seuil_live_coding' => (string) $tache->seuil_live_coding,
                 'livrables' => $tache->livrables
                     ->pluck('reference')
                     ->implode('|'),

@@ -35,6 +35,7 @@ class BaseTacheAffectationExport implements FromCollection, WithHeadings, Should
                 'tache_reference' => 'tache_reference',
                 'affectation_projet_reference' => 'affectation_projet_reference',
                 'pourcentage_realisation_cache' => 'pourcentage_realisation_cache',
+                'seuil_live_coding' => 'seuil_live_coding',
                 'apprenant_live_coding_cache' => 'apprenant_live_coding_cache',
                 'reference' => 'reference',
             ];
@@ -43,6 +44,7 @@ class BaseTacheAffectationExport implements FromCollection, WithHeadings, Should
                 'tache_reference' => __('PkgCreationTache::tache.singular'),
                 'affectation_projet_reference' => __('PkgRealisationProjets::affectationProjet.singular'),
                 'pourcentage_realisation_cache' => __('PkgRealisationTache::tacheAffectation.pourcentage_realisation_cache'),
+                'seuil_live_coding' => __('PkgRealisationTache::tacheAffectation.seuil_live_coding'),
                 'apprenant_live_coding_cache' => __('PkgRealisationTache::tacheAffectation.apprenant_live_coding_cache'),
                 'reference' => __('Core::msg.reference'),
             ];
@@ -59,6 +61,7 @@ class BaseTacheAffectationExport implements FromCollection, WithHeadings, Should
                 'tache_reference' => $tacheAffectation->tache?->reference,
                 'affectation_projet_reference' => $tacheAffectation->affectationProjet?->reference,
                 'pourcentage_realisation_cache' => $tacheAffectation->pourcentage_realisation_cache,
+                'seuil_live_coding' => (string) $tacheAffectation->seuil_live_coding,
                 'apprenant_live_coding_cache' => $tacheAffectation->apprenant_live_coding_cache,
                 'reference' => $tacheAffectation->reference,
             ];

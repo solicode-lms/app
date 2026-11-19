@@ -126,6 +126,7 @@ class BaseTacheSeeder extends Seeder
                         "is_live_coding_task" => isset($row["is_live_coding_task"]) && $row["is_live_coding_task"] !== "" ? $row["is_live_coding_task"] : null,
                         "phase_evaluation_id" => $phase_evaluation_id,
                         "chapitre_id" => $chapitre_id,
+                        "seuil_live_coding" => isset($row["seuil_live_coding"]) && $row["seuil_live_coding"] !== "" ? $row["seuil_live_coding"] : null,
                         "mobilisation_ua_id" => $mobilisation_ua_id,
                         "projet_origine_note_id" => $projet_origine_note_id,
                     "reference" => $row["reference"] ?? null ,

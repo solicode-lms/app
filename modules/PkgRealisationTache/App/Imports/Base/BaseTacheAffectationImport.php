@@ -60,7 +60,8 @@ class BaseTacheAffectationImport implements ToModel, WithHeadingRow
              'tache_id' => $values[0] ?? null,
              'affectation_projet_id' => $values[1] ?? null,
              'pourcentage_realisation_cache' => $values[2] ?? null,
-             'apprenant_live_coding_cache' => $values[3] ?? null,
+             'seuil_live_coding' => $values[3] ?? null,
+             'apprenant_live_coding_cache' => $values[4] ?? null,
              'reference' => $reference,
         ]);
 

@@ -108,6 +108,7 @@ class BaseAffectationProjetSeeder extends Seeder
                         "date_fin_live_coding_collectif" => isset($row["date_fin_live_coding_collectif"]) && $row["date_fin_live_coding_collectif"] !== "" ? $row["date_fin_live_coding_collectif"] : null,
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
                         "seuil_blocage_minutes" => isset($row["seuil_blocage_minutes"]) && $row["seuil_blocage_minutes"] !== "" ? $row["seuil_blocage_minutes"] : null,
+                        "seuil_live_coding" => isset($row["seuil_live_coding"]) && $row["seuil_live_coding"] !== "" ? $row["seuil_live_coding"] : null,
                         "is_formateur_evaluateur" => isset($row["is_formateur_evaluateur"]) && $row["is_formateur_evaluateur"] !== "" ? $row["is_formateur_evaluateur"] : null,
                         "echelle_note_cible" => isset($row["echelle_note_cible"]) && $row["echelle_note_cible"] !== "" ? $row["echelle_note_cible"] : null,
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,

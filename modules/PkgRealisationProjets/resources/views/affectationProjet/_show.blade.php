@@ -109,6 +109,17 @@
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.seuil_live_coding')) }}</small>
+                  <span>
+                    @if(! is_null($itemAffectationProjet->seuil_live_coding))
+                      {{ $itemAffectationProjet->seuil_live_coding }}
+                    @else
+                      —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.echelle_note_cible')) }}</small>
                   <span>
                     @if(! is_null($itemAffectationProjet->echelle_note_cible))

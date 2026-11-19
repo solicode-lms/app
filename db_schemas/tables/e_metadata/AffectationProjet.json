@@ -999,5 +999,47 @@
         "value_boolean": 1,
         "e_data_field_reference": "AffectationProjet_seuil_blocage_minutes",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "AffectationProjet_seuil_live_coding_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "AffectationProjet_seuil_live_coding",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "AffectationProjet_seuil_live_coding_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "AffectationProjet_seuil_live_coding",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "AffectationProjet_seuil_live_coding_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "AffectationProjet_seuil_live_coding",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "AffectationProjet_seuil_live_coding_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AffectationProjet_seuil_live_coding",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AffectationProjet_seuil_live_coding_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AffectationProjet_seuil_live_coding",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AffectationProjet_seuil_live_coding_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AffectationProjet_seuil_live_coding",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "AffectationProjet_seuil_live_coding_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AffectationProjet_seuil_live_coding",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
