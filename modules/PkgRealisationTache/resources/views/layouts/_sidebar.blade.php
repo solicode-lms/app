@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-etatRealisationTache', 'index-liveCoding', 'index-realisationTache', 'index-revisionTache', 'index-workflowTache'])
+@accessiblePermissions(['index-etatRealisationTache', 'index-realisationTache', 'index-workflowTache', 'index-liveCoding', 'index-revisionTache'])
 @if($accessiblePermissions->isNotEmpty())
     @if($accessiblePermissions->count() === 1)
         {{-- Cas d’un seul élément accessible --}}
@@ -14,15 +14,6 @@
                 </a>
             </li>
             @endcan
-            @can('index-liveCoding')
-            <li class="nav-item" id="menu-liveCodings">
-                <a href="{{ route('liveCodings.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgRealisationTache/liveCodings') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-table"></i>
-                    <p>{{__('PkgRealisationTache::liveCoding.plural')}}</p>
-                </a>
-            </li>
-            @endcan
             @can('index-realisationTache')
             <li class="nav-item" id="menu-realisationTaches">
                 <a href="{{ route('realisationTaches.index') }}" 
@@ -32,21 +23,30 @@
                 </a>
             </li>
             @endcan
-            @can('index-revisionTache')
-            <li class="nav-item" id="menu-revisionTaches">
-                <a href="{{ route('revisionTaches.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgRealisationTache/revisionTaches') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-table"></i>
-                    <p>{{__('PkgRealisationTache::revisionTache.plural')}}</p>
-                </a>
-            </li>
-            @endcan
             @can('index-workflowTache')
             <li class="nav-item" id="menu-workflowTaches">
                 <a href="{{ route('workflowTaches.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgRealisationTache/workflowTaches') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-check-square"></i>
                     <p>{{__('PkgRealisationTache::workflowTache.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-liveCoding')
+            <li class="nav-item" id="menu-liveCodings">
+                <a href="{{ route('liveCodings.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgRealisationTache/liveCodings') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>{{__('PkgRealisationTache::liveCoding.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-revisionTache')
+            <li class="nav-item" id="menu-revisionTaches">
+                <a href="{{ route('revisionTaches.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgRealisationTache/revisionTaches') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>{{__('PkgRealisationTache::revisionTache.plural')}}</p>
                 </a>
             </li>
             @endcan
@@ -69,14 +69,6 @@
                 </a>
             </li>
             @endcan
-            @can('index-liveCoding') 
-            <li class="nav-item" id="menu-liveCodings">
-                <a href="{{ route('liveCodings.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationTache/liveCodings') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-table"></i>
-                    <p>{{__('PkgRealisationTache::liveCoding.plural')}}</p>
-                </a>
-            </li>
-            @endcan
             @can('index-realisationTache') 
             <li class="nav-item" id="menu-realisationTaches">
                 <a href="{{ route('realisationTaches.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationTache/realisationTaches') ? 'active' : '' }}">
@@ -85,19 +77,27 @@
                 </a>
             </li>
             @endcan
-            @can('index-revisionTache') 
-            <li class="nav-item" id="menu-revisionTaches">
-                <a href="{{ route('revisionTaches.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationTache/revisionTaches') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-table"></i>
-                    <p>{{__('PkgRealisationTache::revisionTache.plural')}}</p>
-                </a>
-            </li>
-            @endcan
             @can('index-workflowTache') 
             <li class="nav-item" id="menu-workflowTaches">
                 <a href="{{ route('workflowTaches.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationTache/workflowTaches') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-check-square"></i>
                     <p>{{__('PkgRealisationTache::workflowTache.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-liveCoding') 
+            <li class="nav-item" id="menu-liveCodings">
+                <a href="{{ route('liveCodings.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationTache/liveCodings') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>{{__('PkgRealisationTache::liveCoding.plural')}}</p>
+                </a>
+            </li>
+            @endcan
+            @can('index-revisionTache') 
+            <li class="nav-item" id="menu-revisionTaches">
+                <a href="{{ route('revisionTaches.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationTache/revisionTaches') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>{{__('PkgRealisationTache::revisionTache.plural')}}</p>
                 </a>
             </li>
             @endcan

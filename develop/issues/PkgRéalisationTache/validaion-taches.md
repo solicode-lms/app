@@ -12,3 +12,7 @@ Le paramétre, doit prend la valuer stockque dans local Storage, et dit affiche 
 ----
 
 aussi pender un système de paramétrage, car on aurea plusieurs paramétre dans le futre proche 
+
+----
+
+Le formateur peut ouvrire les livravle des réalisation selectioner, le foramteur peut choisir le livravl à ouvree our tous les réalisation de projet, dans l'objecti de correction et donner le feedback
