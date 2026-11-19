@@ -35,6 +35,10 @@ class AffectationProjetService extends BaseAffectationProjetService
             $instance->seuil_blocage_minutes = \Modules\PkgRealisationProjets\Models\AffectationProjet::getMoyenneSeuilBlocage();
         }
 
+        if (!isset($data['seuil_live_coding']) && is_null($instance->seuil_live_coding)) {
+            $instance->seuil_live_coding = 50;
+        }
+
         return $instance;
     }
 }

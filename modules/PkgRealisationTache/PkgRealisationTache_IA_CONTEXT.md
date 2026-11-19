@@ -58,7 +58,7 @@ Le package **PkgRealisationTache** gère l'exécution opérationnelle, le suivi 
 ### `TacheAffectationService` (`Modules\PkgRealisationTache\Services\TacheAffectationService`)
 - **Progression de Classe & Live Coding :** Calcule le taux d'avancement collectif de la classe (`pourcentage_realisation_cache`).
 - **Règle d'Exclusion du Dénominateur :** Les tâches en état `PAUSED`, `NOT_VALIDATED` et `ABSENT` sont rigoureusement exclues du total des tâches actives, pour que les absences physiques ou tâches en pause ne pénalisent pas le calcul de progression.
-- **Déclenchement du Live Coding (Seuil 50%) :** Dès que 50% des apprenants actifs/présents ont réalisé la tâche (`TO_APPROVE`, `APPROVED`, `VALIDE_INTERMEDIAIRE`, etc.), `lancerLiveCodingSiEligible()` sélectionne automatiquement l'apprenant démonstrateur selon l'historique annuel.
+- **Déclenchement du Live Coding (Seuil paramétrable) :** Dès que le pourcentage de réalisation collective atteint le seuil requis (`seuil_live_coding` déterminé avec cascade de priorité : Tâche > AffectationProjet > TacheAffectation > 50% par défaut) parmi les apprenants actifs/présents (`TO_APPROVE`, `APPROVED`, `VALIDE_INTERMEDIAIRE`, etc.), `lancerLiveCodingSiEligible()` sélectionne automatiquement l'apprenant démonstrateur selon l'historique annuel.
 
 ### `SituationPedagogiqueService` (`Modules\PkgRealisationTache\Services\SituationPedagogiqueService`)
 - **Rôle :** Service métier dédié (sans table BDD) encapsulant la modélisation des macro-situations pédagogiques, le mapping d'états de workflow et les options de filtrage.

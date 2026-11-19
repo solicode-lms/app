@@ -46,4 +46,14 @@ class AffectationProjet extends BaseAffectationProjet
         $avg = static::whereNotNull('seuil_blocage_minutes')->avg('seuil_blocage_minutes');
         return $avg ? (int) round($avg) : 30;
     }
+
+    /**
+     * Retourne le seuil de réalisation Live Coding configuré pour l'affectation.
+     *
+     * @return int
+     */
+    public function getSeuilLiveCoding(): int
+    {
+        return (int) ($this->seuil_live_coding ?? 50);
+    }
 }

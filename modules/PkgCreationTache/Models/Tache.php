@@ -28,4 +28,14 @@ class Tache extends BaseTache
     {
         return optional($this->phaseEvaluation)->code === 'N2';
     }
+
+    /**
+     * Retourne le seuil de réalisation pour le déclenchement du Live Coding.
+     *
+     * @return int
+     */
+    public function getSeuilLiveCoding(): int
+    {
+        return (int) ($this->seuil_live_coding ?? 50);
+    }
 }

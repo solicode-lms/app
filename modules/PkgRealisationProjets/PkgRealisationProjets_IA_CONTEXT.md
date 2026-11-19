@@ -13,7 +13,7 @@ Le package **PkgRealisationProjets** gère le déploiement opérationnel des pro
 
 ### `AffectationProjet` (Table : `affectation_projets`)
 - **Hérite de :** `BaseAffectationProjet`
-- **Champs clés :** `projet_id`, `groupe_id`, `sous_groupe_id`, `annee_formation_id`, `date_debut`, `date_fin`, `echelle_note_cible`, `reference`.
+- **Champs clés :** `projet_id`, `groupe_id`, `sous_groupe_id`, `annee_formation_id`, `date_debut`, `date_fin`, `seuil_blocage_minutes`, `seuil_live_coding`, `echelle_note_cible`, `reference`.
 - **Relations directes :**
   - `projet` : `belongsTo(Projet::class, 'projet_id')` *(PkgCreationProjet)*.
   - `groupe` : `belongsTo(Groupe::class, 'groupe_id')` *(PkgApprenants)*.

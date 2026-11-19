@@ -81,6 +81,11 @@ trait AffectationProjetCrudTrait
             $instance->echelle_note_cible = 40;
         }
 
+        // Seuil de Live Coding par défaut
+        if (!isset($instance->seuil_live_coding)) {
+            $instance->seuil_live_coding = 50;
+        }
+
         return $instance;
     }
 

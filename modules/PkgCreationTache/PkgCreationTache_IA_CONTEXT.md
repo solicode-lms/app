@@ -12,7 +12,7 @@ Le package **PkgCreationTache** orchestre la modélisation et la planification d
 
 ### `Tache` (Table : `taches`)
 - **Hérite de :** `BaseTache`
-- **Champs clés :** `titre`, `description`, `date_debut`, `date_fin`, `projet_id`, `priorite_tache_id`, `phase_projet_id`, `ordre`, `reference`.
+- **Champs clés :** `titre`, `description`, `date_debut`, `date_fin`, `projet_id`, `priorite_tache_id`, `phase_projet_id`, `is_live_coding_task`, `seuil_live_coding`, `ordre`, `reference`.
 - **Relations :**
   - `projet` : `belongsTo(Projet::class, 'projet_id')` *(PkgCreationProjet)*.
   - `prioriteTache` : `belongsTo(PrioriteTache::class, 'priorite_tache_id')`.
@@ -22,6 +22,7 @@ Le package **PkgCreationTache** orchestre la modélisation et la planification d
 - **Méthodes Métier Clés :**
   - `generateReference()` : format `{projet->reference}-{titre}`.
   - `isPrototype()` : vérifie si la tâche est rattachée à la phase d'évaluation `N2`.
+  - `getSeuilLiveCoding()` : retourne le seuil de réalisation pour le live coding (défaut : 50%).
 
 ### `PhaseProjet` (Table : `phase_projets`) & `PrioriteTache` (Table : `priorite_taches`)
 - Nomenclature et catégorisation des phases et niveaux de priorité (Basse, Moyenne, Haute, Urgente).

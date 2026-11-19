@@ -76,7 +76,9 @@ class TacheAffectationService extends BaseTacheAffectationService
 
 
 
-        if (($tacheAffectation->pourcentage_realisation_cache ?? 0) < 50)
+        $seuilRequis = $tacheAffectation->getSeuilLiveCoding();
+
+        if (($tacheAffectation->pourcentage_realisation_cache ?? 0) < $seuilRequis)
             return;
 
         $codesValides = ['TO_APPROVE', 'APPROVED'];
@@ -160,9 +162,11 @@ class TacheAffectationService extends BaseTacheAffectationService
             ->first();
 
         if (!$tacheAffectation) {
+            $seuil = $tache->seuil_live_coding ?? $affectationProjet->seuil_live_coding ?? 50;
             $tacheAffectation = $this->create([
                 'tache_id' => $tache->id,
                 'affectation_projet_id' => $affectationProjet->id,
+                'seuil_live_coding' => $seuil,
                 'date_debut' => $tache->dateDebut ?? now(),
                 'date_fin' => $tache->dateFin ?? now()->addWeek(),
             ]);
