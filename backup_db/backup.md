@@ -1,5 +1,24 @@
 # Procédure de Sauvegarde & Restauration de Base de Données
 
+
+## 2. Commandes Manuelles (Windows / PowerShell)
+
+### Étape 1 : Supprimer toutes les tables (Initialisation)
+```powershell
+php artisan db:wipe
+```
+
+### Étape 2 : Importer le dump SQL en UTF-8
+```powershell
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+Get-Content .\solicode-2026_29_10_26.sql -Raw -Encoding UTF8 | mysql -u root -p solicode_2026
+```
+
+---
+
+
+
 ## 1. Méthode Recommandée : Assistant Automatique PowerShell
 
 Un script interactif permet d'initialiser la base et d'importer automatiquement la dernière sauvegarde `.sql` présente dans le dossier `backup_db/` (triée selon sa date la plus récente) :
@@ -28,21 +47,6 @@ Un script interactif permet d'initialiser la base et d'importer automatiquement 
 
 ---
 
-## 2. Commandes Manuelles (Windows / PowerShell)
-
-### Étape 1 : Supprimer toutes les tables (Initialisation)
-```powershell
-php artisan db:wipe
-```
-
-### Étape 2 : Importer le dump SQL en UTF-8
-```powershell
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-$OutputEncoding = [System.Text.Encoding]::UTF8
-Get-Content .\solicode-2026_29_10_26.sql -Raw -Encoding UTF8 | mysql -u root -p solicode_2026
-```
-
----
 
 ## 3. Commandes Manuelles (Ubuntu / Linux)
 
