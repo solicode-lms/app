@@ -71,8 +71,8 @@
                 {{ $entity->tache }}
             @endif
 
-
-            <span>(Ordre: {{ $chapitre?->ordre ?? 'null' }}, Étape: {{ $chapitre?->etape ?? 'null' }})</span>
+<!-- 
+            <span>(Ordre: {{ $chapitre?->ordre ?? 'null' }}, Étape: {{ $chapitre?->etape ?? 'null' }})</span> -->
 
             
             {{-- Icône séparée pour consulter le chapitre --}}
