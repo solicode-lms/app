@@ -8,12 +8,17 @@
 php artisan db:wipe
 ```
 
-### Étape 2 : Importer le dump SQL en UTF-8
+### Étape 2 : Importer le dump SQL en UTF-8 (sans BOM)
 ```powershell
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-$OutputEncoding = [System.Text.Encoding]::UTF8
-Get-Content .\solicode-2026_29_10_26.sql -Raw -Encoding UTF8 | mysql -u root -p solicode_2026
+[Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
+$OutputEncoding = New-Object System.Text.UTF8Encoding($false)
+Get-Content .\solicode-2026_20_11_26.sql -Raw -Encoding UTF8 | mysql -u root -p solicode_2026
 ```
+
+> **Alternative recommandée (plus rapide et sans surcharge mémoire) :**
+> ```powershell
+> cmd /c "mysql -u root -p solicode_2026 < .\solicode-2026_20_11_26.sql"
+> ```
 
 ---
 

@@ -215,9 +215,9 @@ Show-StepHeader 3 "Importation SQL vers MySQL"
 Write-Host "Commande executee (selon backup_db/backup.md) :" -ForegroundColor DarkGray
 Write-Host "  Get-Content .\$($targetSqlFile.Name) -Raw -Encoding UTF8 | mysql -u root -p $Database`n" -ForegroundColor Cyan
 
-# Configuration de l'encodage UTF-8 selon backup.md
-try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch {}
-$OutputEncoding = [System.Text.Encoding]::UTF8
+# Configuration de l'encodage UTF-8 sans BOM (évite l'injection de 0xEF 0xBB 0xBF qui provoque l'erreur MySQL 1064)
+try { [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false) } catch {}
+$OutputEncoding = New-Object System.Text.UTF8Encoding($false)
 
 Write-Host "Veuillez saisir votre mot de passe MySQL si demande :" -ForegroundColor Yellow
 $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
