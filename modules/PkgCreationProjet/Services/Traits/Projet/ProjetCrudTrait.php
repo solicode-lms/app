@@ -106,7 +106,12 @@ trait ProjetCrudTrait
     {
         $taches = \Modules\PkgCreationTache\Models\Tache::where('projet_id', $projetId)
             ->join('phase_projets', 'taches.phase_projet_id', '=', 'phase_projets.id')
+            ->leftJoin('chapitres', 'taches.chapitre_id', '=', 'chapitres.id')
             ->orderBy('phase_projets.ordre', 'asc')
+            ->orderByRaw('CASE WHEN chapitres.etape IS NOT NULL THEN 0 ELSE 1 END ASC')
+            ->orderBy('chapitres.etape', 'asc')
+            ->orderBy('chapitres.ordre', 'asc')
+            ->orderBy('taches.ordre', 'asc')
             ->orderBy('taches.id', 'asc')
             ->select('taches.*')
             ->get();

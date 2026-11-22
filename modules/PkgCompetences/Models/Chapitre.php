@@ -26,6 +26,20 @@ class Chapitre extends BaseChapitre
         return ($this->code ?? "") . "-" . ($this->nom ?? "");
     }
 
+    /**
+     * Scope pour ordonner les chapitres selon etape puis ordre (avec fallback sur ordre si etape est null).
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOrderedByEtapeEtOrdre($query)
+    {
+        return $query->orderByRaw('CASE WHEN etape IS NOT NULL THEN 0 ELSE 1 END ASC')
+                     ->orderBy('etape', 'asc')
+                     ->orderBy('ordre', 'asc')
+                     ->orderBy('id', 'asc');
+    }
+
 
 }
 

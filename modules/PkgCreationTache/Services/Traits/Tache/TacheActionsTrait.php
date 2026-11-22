@@ -57,7 +57,14 @@ trait TacheActionsTrait
             $ordre = $maxOrdrePrecedent ? $maxOrdrePrecedent + 1 : 1;
         }
 
-        foreach ($ua->chapitres as $chapitre) {
+        $chapitres = $ua->chapitres()
+            ->orderByRaw('CASE WHEN etape IS NOT NULL THEN 0 ELSE 1 END ASC')
+            ->orderBy('etape', 'asc')
+            ->orderBy('ordre', 'asc')
+            ->orderBy('id', 'asc')
+            ->get();
+
+        foreach ($chapitres as $chapitre) {
             if ($chapitre->is_imitation_ua) {
                 continue;
             }
