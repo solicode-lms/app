@@ -15,8 +15,8 @@ class ChapitreService extends BaseChapitreService
     public function __construct()
     {
         parent::__construct();
-        // cette information doit être inject avant de creéation d'un chapitre pour que l'ordre soit calculé correctement
-        $this->ordreGroupColumn = 'micro_competence_id'; // Permet de calculer l'ordre par micro_compétence
+        // L'ordre d'un chapitre est calculé et groupé par Unité d'Apprentissage (unite_apprentissage_id)
+        $this->ordreGroupColumn = 'unite_apprentissage_id';
     }
 
     /**
@@ -24,16 +24,6 @@ class ChapitreService extends BaseChapitreService
      */
     public function create(array|object $data)
     {
-        // Injecter micro_competence_id via unite_apprentissage
-        // La clé DOIT toujours exister dans $data car CrudCreateTrait y accède directement
-        // via $data[$this->ordreGroupColumn] (ordreGroupColumn = 'micro_competence_id')
-        if (isset($data['unite_apprentissage_id'])) {
-            $ua = UniteApprentissage::find($data['unite_apprentissage_id']);
-            $data['micro_competence_id'] = $ua?->micro_competence_id;
-        } else {
-            $data['micro_competence_id'] = $data['micro_competence_id'] ?? null;
-        }
-
         $chapitre = parent::create($data);
 
         // Générer code si vide
@@ -71,11 +61,11 @@ class ChapitreService extends BaseChapitreService
     }
 
     /**
-     * Override de reorderOrdreColumn pour grouper par micro_competence_id.
+     * Override de reorderOrdreColumn pour grouper par unite_apprentissage_id.
      */
-    protected function reorderOrdreColumn(?int $ancienOrdre, int $nouvelOrdre, int $idEnCoursModification = null, $microCompetenceId = null): void
+    protected function reorderOrdreColumn(?int $ancienOrdre, int $nouvelOrdre, int $idEnCoursModification = null, $uniteApprentissageId = null): void
     {
-        $this->normalizeOrdreIfNeeded($microCompetenceId);
+        $this->normalizeOrdreIfNeeded($uniteApprentissageId);
 
         if ($ancienOrdre !== null && $nouvelOrdre === $ancienOrdre) {
             return;
@@ -83,11 +73,8 @@ class ChapitreService extends BaseChapitreService
 
         $query = $this->model->newQuery();
 
-        // Filtrer par micro_competence via relation UniteApprentissage
-        if ($microCompetenceId !== null) {
-            $query->whereHas('uniteApprentissage', function ($q) use ($microCompetenceId) {
-                $q->where('micro_competence_id', $microCompetenceId);
-            });
+        if ($uniteApprentissageId !== null) {
+            $query->where('unite_apprentissage_id', $uniteApprentissageId);
         }
 
         if ($idEnCoursModification !== null) {
@@ -124,17 +111,14 @@ class ChapitreService extends BaseChapitreService
     }
 
     /**
-     * Override de normalizeOrdreIfNeeded pour grouper par micro_competence_id.
+     * Override de normalizeOrdreIfNeeded pour grouper par unite_apprentissage_id.
      */
-    protected function normalizeOrdreIfNeeded($microCompetenceId = null): void
+    protected function normalizeOrdreIfNeeded($uniteApprentissageId = null): void
     {
         $query = $this->model->newQuery();
 
-        // Filtrer par micro_competence via relation UniteApprentissage
-        if ($microCompetenceId !== null) {
-            $query->whereHas('uniteApprentissage', function ($q) use ($microCompetenceId) {
-                $q->where('micro_competence_id', $microCompetenceId);
-            });
+        if ($uniteApprentissageId !== null) {
+            $query->where('unite_apprentissage_id', $uniteApprentissageId);
         }
 
         $elementsSansOrdre = $query->where(function ($q) {
@@ -147,12 +131,10 @@ class ChapitreService extends BaseChapitreService
             return;
         }
 
-        // Trouver l'ordre max dans ce groupe
+        // Trouver l'ordre max dans cette UA
         $maxOrdreQuery = $this->model->newQuery();
-        if ($microCompetenceId !== null) {
-            $maxOrdreQuery->whereHas('uniteApprentissage', function ($q) use ($microCompetenceId) {
-                $q->where('micro_competence_id', $microCompetenceId);
-            });
+        if ($uniteApprentissageId !== null) {
+            $maxOrdreQuery->where('unite_apprentissage_id', $uniteApprentissageId);
         }
         $maxOrdre = $maxOrdreQuery->max('ordre') ?? 0;
 

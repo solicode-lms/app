@@ -3,7 +3,8 @@
     $tacheRef = $entity->tache;
     $affectationId = $entity->realisationProjet?->affectation_projet_id;
     $apprenantId   = $entity->realisationProjet?->apprenant_id;
-    $chapitreUrl   = $realisationChapitre?->chapitre?->lien;
+    $chapitre      = $tacheRef?->chapitre ?? $realisationChapitre?->chapitre;
+    $chapitreUrl   = $chapitre?->lien;
 
     // Lien filtre Projet seul
     $projetFilterUrl = $affectationId
@@ -70,6 +71,10 @@
                 {{ $entity->tache }}
             @endif
 
+
+            <span>(Ordre: {{ $chapitre?->ordre ?? 'null' }}, Étape: {{ $chapitre?->etape ?? 'null' }})</span>
+
+            
             {{-- Icône séparée pour consulter le chapitre --}}
             @if($chapitreUrl)
                 <a href="{{ $chapitreUrl }}" target="_blank"
