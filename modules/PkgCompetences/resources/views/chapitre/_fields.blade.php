@@ -316,6 +316,41 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="etape" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input 
+              type="checkbox" 
+              class="check-input" 
+              name="fields_modifiables[]" 
+              value="etape" 
+              id="bulk_field_etape" 
+              title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="etape">
+            {{ ucfirst(__('PkgCompetences::chapitre.etape')) }}
+            
+          </label>
+                      <input
+                name="etape"
+                type="number"
+                class="form-control"
+                
+                
+                
+                id="etape"
+                placeholder="{{ __('PkgCompetences::chapitre.etape') }}"
+                value="{{ $itemChapitre ? $itemChapitre->etape : old('etape') }}">
+          @error('etape')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="is_imitation_ua" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">

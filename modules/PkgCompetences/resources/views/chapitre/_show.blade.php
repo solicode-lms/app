@@ -86,6 +86,17 @@
             </div>
             <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
                 <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::chapitre.etape')) }}</small>
+                  <span>
+                    @if(! is_null($itemChapitre->etape))
+                      {{ $itemChapitre->etape }}
+                    @else
+                      —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="show_group col-12 col-md-6 col-lg-6 mb-3 px-2 ">
+                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::chapitre.is_imitation_ua')) }}</small>
                   @if($itemChapitre->is_imitation_ua)
                   <span class="badge badge-success">{{ __('Oui') }}</span>

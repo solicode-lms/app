@@ -96,6 +96,7 @@ class BaseChapitreSeeder extends Seeder
                         "isOfficiel" => isset($row["isOfficiel"]) && $row["isOfficiel"] !== "" ? $row["isOfficiel"] : null,
                         "lien" => isset($row["lien"]) && $row["lien"] !== "" ? $row["lien"] : null,
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
+                        "etape" => isset($row["etape"]) && $row["etape"] !== "" ? $row["etape"] : null,
                         "formateur_id" => $formateur_id,
                         "is_imitation_ua" => isset($row["is_imitation_ua"]) && $row["is_imitation_ua"] !== "" ? $row["is_imitation_ua"] : null,
                     "reference" => $row["reference"] ?? null ,

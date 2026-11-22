@@ -37,6 +37,7 @@ class BaseChapitreRequest extends FormRequest
             'isOfficiel' => 'nullable|boolean',
             'lien' => 'required|string|max:255|url',
             'description' => 'nullable|string',
+            'etape' => 'nullable|integer',
             'formateur_id' => 'nullable',
             'is_imitation_ua' => 'nullable|boolean'
         ];
@@ -61,6 +62,7 @@ class BaseChapitreRequest extends FormRequest
             'lien.required' => __('validation.required', ['attribute' => __('PkgCompetences::Chapitre.lien')]),
             'lien.max' => __('validation.lienMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Chapitre.description')]),
+            'etape.required' => __('validation.required', ['attribute' => __('PkgCompetences::Chapitre.etape')]),
             'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Chapitre.formateur_id')]),
             'is_imitation_ua.required' => __('validation.required', ['attribute' => __('PkgCompetences::Chapitre.is_imitation_ua')])
         ];
