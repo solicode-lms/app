@@ -72,7 +72,7 @@ class Handler extends ExceptionHandler
             $message = "Ressource introuvable.";
             return $request->expectsJson()
                 ? response()->json(['success' => false, 'message' => $message], 404)
-                : response()->view('errors.404', ['message' => $message], 404);
+                : $this->renderErrorView(404, $message);
         });
 
         // 5) Route introuvable (404)
@@ -80,7 +80,7 @@ class Handler extends ExceptionHandler
             $message = "Page introuvable.";
             return $request->expectsJson()
                 ? response()->json(['success' => false, 'message' => $message], 404)
-                : response()->view('errors.404', ['message' => $message], 404);
+                : $this->renderErrorView(404, $message);
         });
 
         // 6) Méthode HTTP non autorisée (405)
@@ -88,7 +88,7 @@ class Handler extends ExceptionHandler
             $message = "Méthode HTTP non autorisée pour cette route.";
             return $request->expectsJson()
                 ? response()->json(['success' => false, 'message' => $message], 405)
-                : response()->view('errors.405', ['message' => $message], 405);
+                : $this->renderErrorView(405, $message);
         });
 
         // 7) CSRF expiré (419)
@@ -96,7 +96,7 @@ class Handler extends ExceptionHandler
             $message = "Session expirée. Veuillez réessayer.";
             return $request->expectsJson()
                 ? response()->json(['success' => false, 'message' => $message], 419)
-                : response()->view('errors.419', ['message' => $message], 419);
+                : $this->renderErrorView(419, $message);
         });
 
         // 8) Payload trop gros (413)
@@ -104,7 +104,7 @@ class Handler extends ExceptionHandler
             $message = "Le fichier ou la requête est trop volumineux.";
             return $request->expectsJson()
                 ? response()->json(['success' => false, 'message' => $message], 413)
-                : response()->view('errors.413', ['message' => $message], 413);
+                : $this->renderErrorView(413, $message);
         });
 
         // 9) Trop de requêtes (429)
@@ -113,7 +113,7 @@ class Handler extends ExceptionHandler
             $headers = method_exists($e, 'getHeaders') ? $e->getHeaders() : [];
             return $request->expectsJson()
                 ? response()->json(['success' => false, 'message' => $message], 429, $headers)
-                : response()->view('errors.429', ['message' => $message], 429, $headers);
+                : $this->renderErrorView(429, $message, $headers);
         });
 
         // 10) Mass assignment / Guarded (422)
@@ -140,7 +140,7 @@ class Handler extends ExceptionHandler
                 $msg = "Le service base de données est momentanément indisponible.";
                 return $request->expectsJson()
                     ? response()->json(['success' => false, 'message' => $msg], 503)
-                    : response()->view('errors.503', ['message' => $msg], 503);
+                    : $this->renderErrorView(503, $msg);
             }
 
             // Cartographie principale
@@ -188,7 +188,7 @@ class Handler extends ExceptionHandler
             return $request->expectsJson()
                 ? response()->json(['success' => false, 'message' => $message], $status)
                 : ($status === 404
-                    ? response()->view('errors.404', ['message' => $message], 404)
+                    ? $this->renderErrorView(404, $message)
                     : back()->with('error', $message));
         });
 
@@ -209,13 +209,10 @@ class Handler extends ExceptionHandler
                 return response()->json(['success' => false, 'message' => $message], $status);
             }
 
-            // Afficher des vues dédiées si disponibles, sinon flash + back
-            $view = in_array($status, [404, 405, 419, 429, 503], true) ? "errors.$status" : null;
-            return $view
-                ? response()->view($view, ['message' => $message], $status)
-                : ($status >= 400 && $status < 500
-                    ? back()->with('error', $message)
-                    : response()->view('errors.500', ['message' => $message], 500));
+            // Afficher des vues dédiées si disponibles, sinon flash + back pour erreurs client
+            return ($status >= 400 && $status < 500 && !view()->exists("errors.$status"))
+                ? back()->with('error', $message)
+                : $this->renderErrorView($status, $message);
         });
     }
 
@@ -246,7 +243,7 @@ class Handler extends ExceptionHandler
 
             return $request->expectsJson()
                 ? response()->json(['success' => false, 'message' => $message], 500)
-                : response()->view('errors.500', ['message' => $message, 'errorId' => $errorId], 500);
+                : $this->renderErrorView(500, $message, [], $errorId);
         }
 
         return $response;
@@ -255,5 +252,26 @@ class Handler extends ExceptionHandler
     private function isServerError($response): bool
     {
         return $response instanceof SymfonyResponse && $response->getStatusCode() >= 500;
+    }
+
+    /**
+     * Rendu sécurisé d'une vue d'erreur Blade avec vérification d'existence et fallback HTTP propre.
+     */
+    protected function renderErrorView(int $status, string $message, array $headers = [], ?string $errorId = null)
+    {
+        $viewData = ['message' => $message, 'status' => $status];
+        if ($errorId !== null) {
+            $viewData['errorId'] = $errorId;
+        }
+
+        if (view()->exists("errors.{$status}")) {
+            return response()->view("errors.{$status}", $viewData, $status, $headers);
+        }
+
+        if (view()->exists("errors::{$status}")) {
+            return response()->view("errors::{$status}", $viewData, $status, $headers);
+        }
+
+        return response($message, $status, $headers);
     }
 }
