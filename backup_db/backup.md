@@ -1,6 +1,34 @@
 # Procédure de Sauvegarde & Restauration de Base de Données
 
 
+
+Problème de l'encodate aprés l'imporation de la base de données 
+
+
+La soluton est : 
+
+
+[System.Text.Encoding]::Default
+$OutputEncoding = [System.Text.Encoding]::UTF8
+Get-Content .\solicode-2026_23_11_26.sql -Raw -Encoding UTF8 | mysql -u root -p solicode_2026
+
+
+Cette Solution est mofier par ce que dans le post de Bureau, on a trouver une reeur d'imporation la solton était : 
+
+
+```powershell
+[Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
+$OutputEncoding = New-Object System.Text.UTF8Encoding($false)
+Get-Content .\solicode-2026_20_11_26.sql -Raw -Encoding UTF8 | mysql -u root -p solicode_2026
+```
+
+
+Il il revient le problème 1 : l'encodate , 
+
+Je vias revenire en Solution inital, j'ausaue de traboue une solution permanente
+
+
+
 ## 2. Commandes Manuelles (Windows / PowerShell)
 
 ### Étape 1 : Supprimer toutes les tables (Initialisation)
