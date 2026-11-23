@@ -115,29 +115,42 @@ trait RealisationProjetActionsTrait
 
     public function syncApprenantsAvecRealisationProjets($affectationProjet, $nouveauxApprenants)
     {
-        $apprenantsExistants = $affectationProjet->realisationProjets->pluck('apprenant_id');
+        // Récupérer sans global scope pour inclure tous les apprenants (même inactifs)
+        $apprenantsExistants = $this->model->newQuery()
+            ->withoutGlobalScopes()
+            ->where('affectation_projet_id', $affectationProjet->id)
+            ->pluck('apprenant_id');
 
         $apprenantsAJouter = $nouveauxApprenants->whereNotIn('id', $apprenantsExistants);
         $apprenantsASupprimer = $apprenantsExistants->diff($nouveauxApprenants->pluck('id'));
 
         // Suppression des réalisations obsolètes
         if ($apprenantsASupprimer->isNotEmpty()) {
-            $this->model->query()
+            $this->model->newQuery()
+                ->withoutGlobalScopes()
                 ->where('affectation_projet_id', $affectationProjet->id)
                 ->whereIn('apprenant_id', $apprenantsASupprimer)
                 ->delete();
         }
 
-        // Ajout des nouvelles réalisations
+        // Ajout des nouvelles réalisations avec vérification préventive de la référence
         foreach ($apprenantsAJouter as $apprenant) {
-            $this->create([
-                'apprenant_id' => $apprenant->id,
-                'affectation_projet_id' => $affectationProjet->id,
-                'date_debut' => $affectationProjet->date_debut,
-                'date_fin' => $affectationProjet->date_fin,
-                'rapport' => null,
-                'etats_realisation_projet_id' => null,
-            ]);
+            $expectedRef = $affectationProjet->reference . '-' . $apprenant->reference;
+            $alreadyExists = $this->model->newQuery()
+                ->withoutGlobalScopes()
+                ->where('reference', $expectedRef)
+                ->exists();
+
+            if (!$alreadyExists) {
+                $this->create([
+                    'apprenant_id' => $apprenant->id,
+                    'affectation_projet_id' => $affectationProjet->id,
+                    'date_debut' => $affectationProjet->date_debut,
+                    'date_fin' => $affectationProjet->date_fin,
+                    'rapport' => null,
+                    'etats_realisation_projet_id' => null,
+                ]);
+            }
         }
     }
 

@@ -51,6 +51,9 @@ trait AffectationProjetJobTrait
                 $apprenants = $affectation->groupe->apprenants;
             }
 
+            // Déduplication préventive des apprenants
+            $apprenants = $apprenants->unique('id');
+
             if ($apprenants->isEmpty()) {
                 $jobManager->setError("Aucun apprenant trouvé pour l'affectation #{$affectation->id}.");
                 return 'error';
@@ -81,14 +84,23 @@ trait AffectationProjetJobTrait
             // 7) Création des RéalisationProjet (idempotent)
             foreach ($apprenants as $apprenant) {
                 // Vérifier si l'affectation n'a pas été supprimée en cours de route par l'utilisateur
-                if (!RealisationProjet::where('affectation_projet_id', $affectation->id)->exists() && !\Modules\PkgRealisationProjets\Models\AffectationProjet::where('id', $affectation->id)->exists()) {
+                if (!RealisationProjet::withoutGlobalScopes()->where('affectation_projet_id', $affectation->id)->exists() && !\Modules\PkgRealisationProjets\Models\AffectationProjet::where('id', $affectation->id)->exists()) {
                     $jobManager->setError("L'affectation #{$affectation->id} a été supprimée pendant l'exécution.");
                     return 'error';
                 }
 
                 $jobManager->setLabel("Création de réalisation de projet pour : " . $apprenant);
-                $existingRp = RealisationProjet::where('apprenant_id', $apprenant->id)
-                    ->where('affectation_projet_id', $affectation->id)
+
+                $expectedRef = $affectation->reference . '-' . $apprenant->reference;
+
+                // Recherche sans scope global pour détecter même les apprenants inactifs ou désactivés
+                $existingRp = RealisationProjet::withoutGlobalScopes()
+                    ->where(function ($query) use ($apprenant, $affectation, $expectedRef) {
+                        $query->where([
+                            'apprenant_id' => $apprenant->id,
+                            'affectation_projet_id' => $affectation->id,
+                        ])->orWhere('reference', $expectedRef);
+                    })
                     ->first();
 
                 if (!$existingRp) {

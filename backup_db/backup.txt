@@ -1,18 +1,11 @@
 
-```bash
-[System.Text.Encoding]::Default
-$OutputEncoding = [System.Text.Encoding]::UTF8
-Get-Content .\solicode-2026_24_11_26.sql -Raw -Encoding UTF8 | mysql -u root -p solicode_2026
+mysql> -- Voir combien de réalisations ont déjà été créées pour l'affectation 56
+mysql> SELECT COUNT(*) AS total_realisations FROM realisation_projets WHERE affectation_projet_id = 56;
++--------------------+
+| total_realisations |
++--------------------+
+|                 22 |
++--------------------+
+1 row in set (0,00 sec)
 
-```
-
-Pour supprimer tous les tables 
-
-````
-php artisan db:wipe
-````
-
-
-## Sur ubuntu 
-
-mysql -u root -p --default-character-set=utf8 solicode_lms < sauvegarde_30_06_25.sql
+mysql>

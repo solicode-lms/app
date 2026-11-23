@@ -114,6 +114,20 @@ trait AffectationProjetCrudTrait
             throw new BlException("Impossible de créer l'affectation : Le groupe sélectionné ne fait pas partie de la filière du projet.");
         }
 
+        // Vérification d'unicité de l'affectation pour éviter les doublons sur le même projet/groupe
+        $existingAffectationQuery = \Modules\PkgRealisationProjets\Models\AffectationProjet::where('projet_id', $data['projet_id'])
+            ->where('groupe_id', $data['groupe_id']);
+
+        if (!empty($data['sous_groupe_id'])) {
+            $existingAffectationQuery->where('sous_groupe_id', $data['sous_groupe_id']);
+        } else {
+            $existingAffectationQuery->whereNull('sous_groupe_id');
+        }
+
+        if ($existingAffectationQuery->exists()) {
+            throw new BlException("Impossible de créer l'affectation : ce projet est déjà affecté à ce groupe ou sous-groupe.");
+        }
+
         // Vérification de la cohérence des dates
         if (!empty($data['date_debut']) && !empty($data['date_fin']) && $data['date_debut'] > $data['date_fin']) {
             throw new \InvalidArgumentException("La date de début ne peut pas être après la date de fin.");
