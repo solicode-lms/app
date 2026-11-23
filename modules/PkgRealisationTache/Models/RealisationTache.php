@@ -338,4 +338,31 @@ class RealisationTache extends BaseRealisationTache
 
         return $sumProjet + $sumPrototype;
     }
+
+    /**
+     * Indique si la tâche est éligible au Live Coding.
+     */
+    public function isLiveCodingEligible(): bool
+    {
+        return (bool) ($this->tache?->is_live_coding_task ?? false);
+    }
+
+    /**
+     * Retourne le seuil effectif de Live Coding (%) pour cette tâche et cette affectation.
+     */
+    public function getSeuilLiveCoding(): int
+    {
+        return $this->tacheAffectation?->getSeuilLiveCoding()
+            ?? $this->tache?->seuil_live_coding
+            ?? $this->realisationProjet?->affectationProjet?->seuil_live_coding
+            ?? 50;
+    }
+
+    /**
+     * Retourne le pourcentage de réalisation collective actuel du groupe pour cette tâche.
+     */
+    public function getProgressionCollective(): ?float
+    {
+        return $this->tacheAffectation?->pourcentage_realisation_cache;
+    }
 }

@@ -103,9 +103,36 @@
     @endif
 
     <section class="tache-infos mt-2 mb-2">
+        {{-- Indicateur Live Coding de la Tâche / Tuto & Seuil de Déclenchement --}}
+        @php
+            $isLiveEligible = $entity->isLiveCodingEligible();
+            $seuilLive = $entity->getSeuilLiveCoding();
+            $progressionClasse = $entity->getProgressionCollective();
+            $seuilAtteint = !is_null($progressionClasse) && $progressionClasse >= $seuilLive;
+        @endphp
+
+        @if($isLiveEligible)
+            <span class="tache-badge-live" data-toggle="tooltip" 
+                  title="Live Coding prévu pour cette tâche. Seuil de sélection : {{ $seuilLive }}%{{ !is_null($progressionClasse) ? ' — Progression classe actuelle : ' . round($progressionClasse) . '%' : '' }}">
+                <i class="fas fa-laptop-code"></i> Live Coding : <strong>{{ $seuilLive }}%</strong>
+                @if(!is_null($progressionClasse))
+                    <span class="badge badge-pill {{ $seuilAtteint ? 'badge-success' : 'badge-secondary' }} ml-1" style="font-size: 0.65rem;">
+                        {{ round($progressionClasse) }}%
+                        @if($seuilAtteint)
+                            <i class="fas fa-check ml-1"></i>
+                        @endif
+                    </span>
+                @endif
+            </span>
+        @else
+            <span class="badge badge-light text-muted border" data-toggle="tooltip" title="Aucun Live Coding prévu pour cette tâche">
+                <i class="fas fa-video-slash text-secondary"></i> Sans Live Coding
+            </span>
+        @endif
+
         @if($entity->is_live_coding)
-            <span class="tache-live-coding" data-toggle="tooltip" title="Mode live coding : Oui">
-                <i class="fas fa-video text-success"></i> Live coding
+            <span class="badge badge-success text-white" data-toggle="tooltip" title="Cet apprenant a été sélectionné pour le Live Coding">
+                <i class="fas fa-video"></i> Démonstrateur
             </span>
         @endif
 
