@@ -75,7 +75,7 @@ trait TacheActionsTrait
                 $this->create([
                     'projet_id' => $projetId,
                     'titre' => 'Tutoriel : ' . $chapitre->nom,
-                    'description' => "Tutoriel lié au chapitre [" . $chapitre->nom . "]. Cette tâche est ajoutée pour les apprenants n'ayant pas encore terminé ce chapitre.",
+                    'description' => "",
                     'phase_evaluation_id' => $phaseN1Id,
                     'priorite' => $ordre,
                     'ordre' => $ordre,
