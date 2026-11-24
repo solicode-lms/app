@@ -38,6 +38,13 @@ trait RealisationTacheGetterTrait
         /** @var \Illuminate\Support\Collection $realisationTaches */
         $realisationTaches = $baseData['realisationTaches_data'];
 
+        // Eager load des équipes et relations associées pour éliminer le problème N+1
+        $realisationTaches->loadMissing([
+            'realisationProjet.apprenant.equipeProjets.sysColor',
+            'realisationProjet.affectationProjet',
+            'tache.equipeProjet.sysColor'
+        ]);
+
         // Charger toutes les révisions nécessaires en une seule requête
         $revisionsGrouped = RealisationTache::query()
             ->whereHas('etatRealisationTache.workflowTache', function ($q) {

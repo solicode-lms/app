@@ -29,9 +29,13 @@
           ])
         : null;
         
-    // Equipe
-    $equipe = $tacheRef?->equipeProjet;
-    $equipeColor = $equipe?->sysColor?->hex;
+    // Equipes de l'apprenant pour ce projet
+    $equipesApprenant = $entity->getEquipesApprenant();
+    $equipeApprenant = $equipesApprenant->first();
+
+    // Equipe spécifique de la tâche ou équipe de l'apprenant pour la couleur de bordure
+    $equipe = $tacheRef?->equipeProjet ?? $equipeApprenant;
+    $equipeColor = $tacheRef?->equipeProjet?->sysColor?->hex ?? $equipeApprenant?->sysColor?->hex;
 @endphp
 
 <article class="tache-card {{ $equipeColor ? 'has-equipe' : '' }}" 
@@ -187,27 +191,59 @@
             <div class="text-primary mt-1"><i class="fas fa-cubes mr-1"></i> <strong>Mobilisation UA :</strong> {{ $tacheRef->mobilisationUa }}</div>
         @endif
 
-        {{-- Equipe --}}
-        @if(isset($equipe))
+        {{-- Tâche réservée à une équipe spécifique --}}
+        @if($tacheRef && $tacheRef->equipeProjet)
             <div class="mt-1 text-muted">
-                <i class="fas fa-users mr-1"></i>
-                <strong>Équipe :</strong>
-                <span data-toggle="tooltip" title="{{ $equipe->description }}">
-                    {{ $equipe->nom }}
+                <i class="fas fa-user-tag mr-1"></i>
+                <strong>Tâche d'équipe :</strong>
+                <span data-toggle="tooltip" title="{{ $tacheRef->equipeProjet->description }}">
+                    {{ $tacheRef->equipeProjet->nom }}
                 </span>
             </div>
         @endif
 
-        {{-- Apprenant = lien filtre projet+apprenant --}}
-        <div class="mt-1">
-            <i class="fas fa-user mr-1"></i>
-            <strong>Apprenant :</strong>
-            @if($apprenantFilterUrl)
-                <a href="{{ $apprenantFilterUrl }}" class="context-state" data-toggle="tooltip" title="Filtrer par cet apprenant et ce projet">
+        {{-- Apprenant = lien filtre projet+apprenant + Badges Équipes --}}
+        <div class="mt-1 d-flex flex-wrap align-items-center" style="gap: 0.35rem;">
+            <span>
+                <i class="fas fa-user mr-1"></i>
+                <strong>Apprenant :</strong>
+                @if($apprenantFilterUrl)
+                    <a href="{{ $apprenantFilterUrl }}" class="context-state" data-toggle="tooltip" title="Filtrer par cet apprenant et ce projet">
+                        {{ $entity->nom_prenom_apprenant }}
+                    </a>
+                @else
                     {{ $entity->nom_prenom_apprenant }}
-                </a>
-            @else
-                {{ $entity->nom_prenom_apprenant }}
+                @endif
+            </span>
+
+            @if($equipesApprenant->isNotEmpty())
+                @foreach($equipesApprenant as $eqApprenant)
+                    @php
+                        $equipeFilterUrl = $affectationId
+                            ? route('realisationTaches.index', [
+                                'filter.realisationTache.RealisationProjet.Affectation_projet_id' => $affectationId,
+                                'filter.realisationTache.tache.equipe_projet_id'                  => $eqApprenant->id,
+                              ])
+                            : null;
+                        $eqColor = $eqApprenant->sysColor?->hex ?? '#6c757d';
+                    @endphp
+                    @if($equipeFilterUrl)
+                        <a href="{{ $equipeFilterUrl }}" 
+                           class="badge text-white context-state" 
+                           style="background-color: {{ $eqColor }}; font-size: 0.72rem; padding: 0.2rem 0.45rem; text-decoration: none;"
+                           data-toggle="tooltip" 
+                           title="Équipe du projet : {{ $eqApprenant->nom }} (cliquer pour filtrer)">
+                            <i class="fas fa-users mr-1"></i>{{ $eqApprenant->nom }}
+                        </a>
+                    @else
+                        <span class="badge text-white" 
+                              style="background-color: {{ $eqColor }}; font-size: 0.72rem; padding: 0.2rem 0.45rem;"
+                              data-toggle="tooltip" 
+                              title="Équipe du projet : {{ $eqApprenant->nom }}">
+                            <i class="fas fa-users mr-1"></i>{{ $eqApprenant->nom }}
+                        </span>
+                    @endif
+                @endforeach
             @endif
         </div>
 

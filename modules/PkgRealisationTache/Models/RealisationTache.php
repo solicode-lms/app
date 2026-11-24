@@ -365,4 +365,30 @@ class RealisationTache extends BaseRealisationTache
     {
         return $this->tacheAffectation?->pourcentage_realisation_cache;
     }
+
+    /**
+     * Retourne les équipes du projet courant auxquelles appartient l'apprenant pour cette réalisation de tâche.
+     *
+     * @return \Illuminate\Support\Collection<\Modules\PkgCreationProjet\Models\EquipeProjet>
+     */
+    public function getEquipesApprenant(): \Illuminate\Support\Collection
+    {
+        $apprenant = $this->realisationProjet?->apprenant;
+        if (!$apprenant) {
+            return collect();
+        }
+
+        $projetId = $this->realisationProjet?->affectationProjet?->projet_id 
+            ?? $this->tache?->projet_id;
+
+        if (!$apprenant->relationLoaded('equipeProjets')) {
+            $apprenant->load('equipeProjets.sysColor');
+        }
+
+        if (!$projetId) {
+            return $apprenant->equipeProjets;
+        }
+
+        return $apprenant->equipeProjets->where('projet_id', $projetId)->values();
+    }
 }
